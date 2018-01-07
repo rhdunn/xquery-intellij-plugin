@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmComplexType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
 val XsAnyType = XmlSchemaType(createQName("http://www.w3.org/2001/XMLSchema", "anyType"), null)
 
@@ -33,3 +31,11 @@ val XsUntyped = XdmComplexType(createQName("http://www.w3.org/2001/XMLSchema", "
 val XsAnySimpleType = XdmSimpleType(createQName("http://www.w3.org/2001/XMLSchema", "anySimpleType"), XsAnyType)
 
 val XsAnyAtomicType = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "anyAtomicType"), XsAnySimpleType)
+
+class TypeReference(typeName: QName, private val referredType: XmlSchemaType?):
+        XdmSimpleType(typeName, referredType?.baseType ?: XsAnySimpleType) {
+
+    override val itemType get(): XdmSequenceType = referredType ?: this
+    override val lowerBound: XdmSequenceType.Occurs = referredType?.lowerBound ?: XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = referredType?.upperBound ?: XdmSequenceType.Occurs.ONE
+}

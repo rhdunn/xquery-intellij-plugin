@@ -33,14 +33,6 @@ private class XdmLiteralValue(override val lexicalRepresentation: String,
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 }
 
-class TypeReference(typeName: QName, private val referredType: XmlSchemaType?):
-        XdmSimpleType(typeName, referredType?.baseType ?: XsAnySimpleType) {
-
-    override val itemType get(): XdmSequenceType = referredType ?: this
-    override val lowerBound: XdmSequenceType.Occurs = referredType?.lowerBound ?: XdmSequenceType.Occurs.ONE
-    override val upperBound: XdmSequenceType.Occurs = referredType?.upperBound ?: XdmSequenceType.Occurs.ONE
-}
-
 fun createString(value: String): XdmLexicalValue {
     return XdmLiteralValue(value, CacheableProperty { XsString `is` Cacheable })
 }
