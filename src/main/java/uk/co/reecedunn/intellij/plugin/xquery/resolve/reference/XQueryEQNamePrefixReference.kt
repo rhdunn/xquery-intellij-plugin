@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 class XQueryEQNamePrefixReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
-        return element.resolvePrefixNamespace().map { ns -> ns.prefix }.firstOrNull()
+        return element.resolvePrefixNamespace().map { ns -> ns.namespacePrefix as PsiElement }.firstOrNull()
     }
 
     override fun getVariants(): Array<Any> {

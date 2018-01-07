@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
 interface XdmExpression {
     val cacheable: CachingBehaviour
@@ -58,8 +56,4 @@ interface XdmVariableReference : XdmVariableName
 
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
-}
-
-fun XdmNamespaceDeclaration.toNamespace(): XQueryNamespace {
-    return XQueryNamespace((namespacePrefix as? PsiElement)?.parent, namespaceUri as? PsiElement, this as PsiElement)
 }

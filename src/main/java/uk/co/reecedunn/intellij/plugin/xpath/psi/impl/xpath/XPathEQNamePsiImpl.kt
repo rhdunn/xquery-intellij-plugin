@@ -22,14 +22,13 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.inScopeNamespaces
-import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference
@@ -122,19 +121,14 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         return element.siblings().firstOrNull { e -> e.node.elementType === XQueryElementType.NCNAME }
     }
 
-    override fun resolvePrefixNamespace(): Sequence<XQueryNamespace> {
+    override fun resolvePrefixNamespace(): Sequence<XdmNamespaceDeclaration> {
         val prefix = prefix
         return when (prefix) {
             null -> emptySequence()
             is XPathBracedURILiteral -> emptySequence()
             else -> {
                 val text = prefix.text
-                return inScopeNamespaces().map { ns ->
-                    if (ns.namespacePrefix?.lexicalRepresentation == text)
-                        ns.toNamespace()
-                    else
-                        null
-                }.filterNotNull()
+                return inScopeNamespaces().filter { ns -> ns.namespacePrefix?.lexicalRepresentation == text }
             }
         }
     }

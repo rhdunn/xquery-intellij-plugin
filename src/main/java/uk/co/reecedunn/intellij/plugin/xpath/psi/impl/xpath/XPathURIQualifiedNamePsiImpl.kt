@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
 class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
@@ -50,7 +50,7 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         return findChildByType(XQueryElementType.NCNAME)
     }
 
-    override fun resolvePrefixNamespace(): Sequence<XQueryNamespace> {
+    override fun resolvePrefixNamespace(): Sequence<XdmNamespaceDeclaration> {
         return emptySequence()
     }
 

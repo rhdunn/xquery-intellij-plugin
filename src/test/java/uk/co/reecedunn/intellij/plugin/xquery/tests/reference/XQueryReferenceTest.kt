@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.reference
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryReferenceTest : ParserTestCase() {
@@ -160,9 +160,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
         assertThat(resolved.text, `is`("test"))
-        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
+        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
 
         val refs = qname.references
         assertThat(refs.size, `is`(1))
@@ -171,9 +171,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
         assertThat(resolved.text, `is`("test"))
-        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
+        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
     }
 
     // endregion
@@ -217,9 +217,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
         assertThat(resolved.text, `is`("xs"))
-        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
 
         val refs = eqname.references
         assertThat(refs.size, `is`(1))
@@ -228,9 +228,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
         assertThat(resolved.text, `is`("xs"))
-        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
     }
 
     fun testEQName_URIQualifiedName() {

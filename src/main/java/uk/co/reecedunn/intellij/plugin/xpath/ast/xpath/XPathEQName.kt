@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 /**
@@ -65,11 +65,11 @@ interface XPathEQName : PsiElement {
 
     val localName: PsiElement?
 
-    fun resolvePrefixNamespace(): Sequence<XQueryNamespace>
+    fun resolvePrefixNamespace(): Sequence<XdmNamespaceDeclaration>
 
     fun resolveFunctionDecls(): Sequence<XQueryFunctionDecl> {
         val prologs = resolvePrefixNamespace().map { ns ->
-            (ns.declaration as? XQueryPrologResolver)?.prolog
+            (ns as? XQueryPrologResolver)?.prolog
         }.filterNotNull()
 
         return prologs.flatMap { prolog ->
