@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathXdmTest : ParserTestCase() {
@@ -1412,10 +1413,10 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region VarName (XdmVariableName)
+    // region VarName (XPathVariableName)
 
     fun testVarName_NCName() {
-        val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
+        val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -1433,7 +1434,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarName_QName() {
-        val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XdmVariableName
+        val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -1453,7 +1454,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarName_URIQualifiedName() {
-        val expr = parse<XPathVarName>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0] as XdmVariableName
+        val expr = parse<XPathVarName>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
 

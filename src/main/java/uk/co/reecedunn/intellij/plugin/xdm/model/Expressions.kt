@@ -40,12 +40,6 @@ interface XdmNamespaceDeclaration {
     val namespaceUri: XdmLexicalValue?
 }
 
-interface XdmVariableName {
-    val cacheable: CachingBehaviour
-
-    val variableName: QName?
-}
-
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
 }

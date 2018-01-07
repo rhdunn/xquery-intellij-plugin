@@ -23,10 +23,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
@@ -38,8 +38,8 @@ class XQueryDefaultCaseClausePsiImpl(node: ASTNode):
         XQueryVariableResolver,
         XPathVariableDeclaration {
 
-    private val varName get(): XdmVariableName? =
-        children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+    private val varName get(): XPathVariableName? =
+        children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
 
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 

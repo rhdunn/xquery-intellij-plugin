@@ -20,8 +20,8 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 
 class XPathVarRefPsiImpl(node: ASTNode):
@@ -29,8 +29,8 @@ class XPathVarRefPsiImpl(node: ASTNode):
         XPathVarRef,
         XPathVariableReference {
 
-    private val varName get(): XdmVariableName? =
-        children().filterIsInstance<XdmVariableName>().firstOrNull()
+    private val varName get(): XPathVariableName? =
+        children().filterIsInstance<XPathVariableName>().firstOrNull()
 
     override val variableName get(): QName? = varName?.variableName
 

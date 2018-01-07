@@ -19,14 +19,13 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 
 class XPathVarNamePsiImpl(node: ASTNode):
         XPathEQNamePsiImpl(node),
         XPathVarName,
-        XdmVariableName {
+        XPathVariableName {
 
     override val cacheable get(): CachingBehaviour = (firstChild as XdmConstantExpression).cacheable
 

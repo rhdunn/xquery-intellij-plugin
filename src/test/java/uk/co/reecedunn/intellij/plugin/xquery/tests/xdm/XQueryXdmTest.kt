@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -912,10 +913,10 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region GroupingVariable (XdmVariableName)
+    // region GroupingVariable (XPathVariableName)
 
     fun testGroupingVariable_NCName() {
-        val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XdmVariableName
+        val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -933,7 +934,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testGroupingVariable_QName() {
-        val expr = parse<XQueryGroupingVariable>("for \$a:x in \$a:y group by \$a:z return \$a:w")[0] as XdmVariableName
+        val expr = parse<XQueryGroupingVariable>("for \$a:x in \$a:y group by \$a:z return \$a:w")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -956,7 +957,7 @@ class XQueryXdmTest : ParserTestCase() {
         val expr = parse<XQueryGroupingVariable>(
                 "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                 "group by \$Q{http://www.example.com}z " +
-                "return \$Q{http://www.example.com}w")[0] as XdmVariableName
+                "return \$Q{http://www.example.com}w")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -976,7 +977,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testGroupingVariable_MissingVarName() {
-        val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XdmVariableName
+        val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XPathVariableName
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
 
