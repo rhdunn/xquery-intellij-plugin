@@ -132,10 +132,10 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region In-Scope Namespaces
+    // region Statically Known Namespaces
     // region DirElemConstructor -> DirAttributeList -> DirAttribute
 
-    fun testInScopeNamespaces_DirAttribute_Xmlns() {
+    fun testStaticallyKnownNamespaces_DirAttribute_Xmlns() {
         val element = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{b:test()}</a>")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -161,7 +161,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_DirAttribute_Xmlns_NoNamespaceUri() {
+    fun testStaticallyKnownNamespaces_DirAttribute_Xmlns_NoNamespaceUri() {
         val element = parse<XPathFunctionCall>("<a xmlns:b=>{b:test()}</a>")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -184,7 +184,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_DirAttribute() {
+    fun testStaticallyKnownNamespaces_DirAttribute() {
         val element = parse<XPathFunctionCall>("<a b='http://www.example.com'>{b:test()}</a>")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -210,7 +210,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     // endregion
     // region ModuleDecl
 
-    fun testInScopeNamespaces_ModuleDecl() {
+    fun testStaticallyKnownNamespaces_ModuleDecl() {
         val element = parse<XQueryFunctionDecl>("module namespace a='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -236,7 +236,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_ModuleDecl_NoNamespacePrefix() {
+    fun testStaticallyKnownNamespaces_ModuleDecl_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("module namespace ='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -259,7 +259,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_ModuleDecl_NoNamespaceUri() {
+    fun testStaticallyKnownNamespaces_ModuleDecl_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("module namespace a=; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -285,7 +285,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     // endregion
     // region ModuleImport
 
-    fun testInScopeNamespaces_ModuleImport_Prolog() {
+    fun testStaticallyKnownNamespaces_ModuleImport_Prolog() {
         val element = parse<XQueryFunctionDecl>("import module namespace a='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -311,7 +311,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_ModuleImport_MainModule() {
+    fun testStaticallyKnownNamespaces_ModuleImport_MainModule() {
         val element = parse<XPathFunctionCall>("import module namespace a='http://www.example.com'; a:test();")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -337,7 +337,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_ModuleImport_NoNamespacePrefix() {
+    fun testStaticallyKnownNamespaces_ModuleImport_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("import module namespace ='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -360,7 +360,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_ModuleImport_NoNamespaceUri() {
+    fun testStaticallyKnownNamespaces_ModuleImport_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("import module namespace a=; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -386,7 +386,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     // endregion
     // region NamespaceDecl
 
-    fun testInScopeNamespaces_NamespaceDecl_Prolog() {
+    fun testStaticallyKnownNamespaces_NamespaceDecl_Prolog() {
         val element = parse<XQueryFunctionDecl>("declare namespace a='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -412,7 +412,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_NamespaceDecl_MainModule() {
+    fun testStaticallyKnownNamespaces_NamespaceDecl_MainModule() {
         val element = parse<XPathFunctionCall>("declare namespace a='http://www.example.com'; a:test();")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -438,7 +438,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_NamespaceDecl_NoNamespacePrefix() {
+    fun testStaticallyKnownNamespaces_NamespaceDecl_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("declare namespace ='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -461,7 +461,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_NamespaceDecl_NoNamespaceUri() {
+    fun testStaticallyKnownNamespaces_NamespaceDecl_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -487,7 +487,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     // endregion
     // region SchemaImport
 
-    fun testInScopeNamespaces_SchemaImport_Prolog() {
+    fun testStaticallyKnownNamespaces_SchemaImport_Prolog() {
         val element = parse<XQueryFunctionDecl>("import schema namespace a='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -513,7 +513,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_SchemaImport_MainModule() {
+    fun testStaticallyKnownNamespaces_SchemaImport_MainModule() {
         val element = parse<XPathFunctionCall>("import schema namespace a='http://www.example.com'; a:test();")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
@@ -539,7 +539,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_SchemaImport_NoNamespacePrefix() {
+    fun testStaticallyKnownNamespaces_SchemaImport_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("import schema namespace ='http://www.example.com'; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -562,7 +562,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_SchemaImport_NoNamespaceUri() {
+    fun testStaticallyKnownNamespaces_SchemaImport_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("import schema namespace a=; declare function a:test() {};")[0]
         val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
@@ -587,9 +587,9 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region In-Scope Namespaces :: Predefined Namespaces
+    // region Statically Known Namespaces :: Predefined Namespaces
 
-    fun testInScopeNamespaces_PredefinedNamespaces_XQuery10() {
+    fun testStaticallyKnownNamespaces_PredefinedNamespaces_XQuery10() {
         settings.implementationVersion = "w3c/1ed"
         settings.XQueryVersion = "1.0"
 
@@ -613,7 +613,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
-    fun testInScopeNamespaces_PredefinedNamespaces_MarkLogic60() {
+    fun testStaticallyKnownNamespaces_PredefinedNamespaces_MarkLogic60() {
         settings.implementationVersion = "marklogic/v6"
         settings.XQueryVersion = "1.0-ml"
 
