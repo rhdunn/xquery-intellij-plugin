@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathXdmTest : ParserTestCase() {
@@ -411,10 +412,10 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Sequence Types
-    // region AtomicOrUnionType (XdmTypeDeclaration)
+    // region AtomicOrUnionType (XPathTypeDeclaration)
 
     fun testAtomicOrUnionType_NCName() {
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of test")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of test")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
@@ -439,7 +440,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testAtomicOrUnionType_QName() {
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of a:type")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of a:type")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathQName
@@ -466,7 +467,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testAtomicOrUnionType_URIQualifiedName() {
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.example.com}test")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.example.com}test")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -493,7 +494,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testAtomicOrUnionType_BuiltinAtomicType() {
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -520,7 +521,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testAtomicOrUnionType_BuiltinUnionType() {
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -550,7 +551,7 @@ class XPathXdmTest : ParserTestCase() {
         // NOTE: XQuery processors (e.g. BaseX and MarkLogic) allow these in cast expressions,
         // due to them being referenced in XMLSchema, but report errors elsewhere.
 
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -579,7 +580,7 @@ class XPathXdmTest : ParserTestCase() {
     fun testAtomicOrUnionType_BuiltinAbstractType() {
         // NOTE: Errors when using these types are detected and reported elsewhere.
 
-        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XdmTypeDeclaration
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -606,10 +607,10 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region TypeName (XdmTypeDeclaration)
+    // region TypeName (XPathTypeDeclaration)
 
     fun testTypeName_NCName() {
-        val expr = parse<XPathTypeName>("\$x instance of element(*, test)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, test)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
@@ -634,7 +635,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testTypeName_QName() {
-        val expr = parse<XPathTypeName>("\$x instance of element(*, a:type)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, a:type)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathQName
@@ -661,7 +662,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testTypeName_URIQualifiedName() {
-        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.example.com}test)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.example.com}test)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -688,7 +689,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testTypeName_BuiltinAtomicType() {
-        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}boolean)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}boolean)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -715,7 +716,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testTypeName_BuiltinUnionType() {
-        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}numeric)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}numeric)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -745,7 +746,7 @@ class XPathXdmTest : ParserTestCase() {
         // NOTE: XQuery processors (e.g. BaseX and MarkLogic) allow these in cast expressions,
         // due to them being referenced in XMLSchema, but report errors elsewhere.
 
-        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}NMTOKENS)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}NMTOKENS)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -772,7 +773,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testTypeName_BuiltinAbstractType() {
-        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}anyType)")[0] as XdmTypeDeclaration
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}anyType)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -801,10 +802,10 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Single Types
-    // region SimpleTypeName (XdmTypeDeclaration)
+    // region SimpleTypeName (XPathTypeDeclaration)
 
     fun testSimpleTypeName_NCName() {
-        val expr = parse<XPathSimpleTypeName>("\$x cast as test")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as test")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
@@ -829,7 +830,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSimpleTypeName_QName() {
-        val expr = parse<XPathSimpleTypeName>("\$x cast as a:type")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as a:type")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathQName
@@ -856,7 +857,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSimpleTypeName_URIQualifiedName() {
-        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.example.com}test")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.example.com}test")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -883,7 +884,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSimpleTypeName_BuiltinAtomicType() {
-        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -910,7 +911,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSimpleTypeName_BuiltinUnionType() {
-        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -940,7 +941,7 @@ class XPathXdmTest : ParserTestCase() {
         // NOTE: XQuery processors (e.g. BaseX and MarkLogic) allow these in cast expressions,
         // due to them being referenced in XMLSchema, but report errors elsewhere.
 
-        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -967,7 +968,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSimpleTypeName_BuiltinAbstractType() {
-        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSimpleTypeName>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
@@ -994,10 +995,10 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region SingleType (XdmTypeDeclaration)
+    // region SingleType (XPathTypeDeclaration)
 
     fun testSingleType_NCName() {
-        val expr = parse<XPathSingleType>("\$x cast as test")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as test")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathNCName
@@ -1022,7 +1023,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSingleType_QName() {
-        val expr = parse<XPathSingleType>("\$x cast as a:type")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as a:type")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathQName
@@ -1049,7 +1050,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSingleType_URIQualifiedName() {
-        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.example.com}test")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.example.com}test")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
@@ -1076,7 +1077,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSingleType_BuiltinAtomicType() {
-        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
@@ -1103,7 +1104,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSingleType_BuiltinUnionType() {
-        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
@@ -1133,7 +1134,7 @@ class XPathXdmTest : ParserTestCase() {
         // NOTE: XQuery processors (e.g. BaseX and MarkLogic) allow these in cast expressions,
         // due to them being referenced in XMLSchema, but report errors elsewhere.
 
-        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
@@ -1160,7 +1161,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSingleType_BuiltinAbstractType() {
-        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
@@ -1187,7 +1188,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testSingleType_Optional() {
-        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}boolean?")[0] as XdmTypeDeclaration
+        val expr = parse<XPathSingleType>("\$x cast as Q{http://www.w3.org/2001/XMLSchema}boolean?")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName

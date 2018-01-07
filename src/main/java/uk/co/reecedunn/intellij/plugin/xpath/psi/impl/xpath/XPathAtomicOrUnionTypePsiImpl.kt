@@ -19,7 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.*
 import uk.co.reecedunn.intellij.plugin.xdm.TypeReference
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
@@ -27,12 +26,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.toXmlSchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathAtomicOrUnionType,
         XPathAtomicType,
-        XdmTypeDeclaration {
+        XPathTypeDeclaration {
 
     override fun subtreeChanged() {
         super.subtreeChanged()

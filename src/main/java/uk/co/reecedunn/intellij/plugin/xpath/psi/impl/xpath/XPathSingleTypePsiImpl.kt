@@ -21,19 +21,19 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmOptional
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSingleType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XPathSingleTypePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathSingleType,
-        XdmTypeDeclaration {
+        XPathTypeDeclaration {
 
-    override val cacheable get(): CachingBehaviour = (firstChild as XdmTypeDeclaration).cacheable
+    override val cacheable get(): CachingBehaviour = (firstChild as XPathTypeDeclaration).cacheable
 
     override val declaredType get(): XdmSequenceType {
-        val type = (firstChild as XdmTypeDeclaration).declaredType
+        val type = (firstChild as XPathTypeDeclaration).declaredType
         return if (contains(XQueryTokenType.OPTIONAL)) XdmOptional(type) else type
     }
 }
