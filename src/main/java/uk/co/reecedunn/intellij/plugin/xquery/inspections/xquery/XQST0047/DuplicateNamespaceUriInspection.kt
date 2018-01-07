@@ -48,7 +48,7 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
                 val ns = child as? XPathNamespaceDeclaration
-                val uri = ns?.namespaceUri?.lexicalRepresentation
+                val uri = ns?.namespaceUri?.staticValue
 
                 if (ns == null || uri == null)
                     return

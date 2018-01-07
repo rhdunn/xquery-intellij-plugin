@@ -128,7 +128,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             is XPathBracedURILiteral -> emptySequence()
             else -> {
                 val text = prefix.text
-                return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.lexicalRepresentation == text }
+                return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.staticValue == text }
             }
         }
     }

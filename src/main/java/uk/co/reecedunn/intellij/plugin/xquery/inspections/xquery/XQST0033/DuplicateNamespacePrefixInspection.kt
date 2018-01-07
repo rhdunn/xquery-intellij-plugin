@@ -47,7 +47,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
 
             val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
             if (moduleDecl != null) {
-                val prefix = moduleDecl.namespacePrefix?.lexicalRepresentation
+                val prefix = moduleDecl.namespacePrefix?.staticValue
                 val uri = moduleDecl.namespaceUri
                 if (prefix != null) {
                     prefices.put(prefix, uri as XQueryUriLiteral)
@@ -57,7 +57,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.forEach(fun (child) {
                 val ns = child as? XPathNamespaceDeclaration
-                val prefix = ns?.namespacePrefix?.lexicalRepresentation
+                val prefix = ns?.namespacePrefix?.staticValue
 
                 if (ns == null || prefix == null)
                     return

@@ -39,7 +39,7 @@ class QNameAnnotator : Annotator {
         val qname = (element as XdmStaticValue).staticValue as? QName
         val xmlns: Boolean
         if (qname?.prefix != null) {
-            if (qname.prefix.lexicalRepresentation == "xmlns") {
+            if (qname.prefix.staticValue == "xmlns") {
                 xmlns = true
             } else {
                 xmlns = false

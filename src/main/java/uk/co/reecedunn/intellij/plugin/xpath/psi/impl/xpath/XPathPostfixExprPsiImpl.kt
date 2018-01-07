@@ -50,7 +50,7 @@ class XPathPostfixExprPsiImpl(node: ASTNode):
             if (value !is XdmLexicalValue || children.hasNext())
                 null
             else // Literal without a Predicate, ArgumentList, or Lookup expression.
-                Pair(value.staticType, value.lexicalRepresentation)
+                Pair(value.staticType, value.staticValue)
         } `is` Cacheable
     }
 

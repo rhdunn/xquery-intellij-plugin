@@ -39,7 +39,7 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode):
     override val defaultValue get(): XdmLexicalValue? {
         return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
             val value = uri as XdmLexicalValue
-            if (value.lexicalRepresentation.isEmpty()) null else value
+            if (value.staticValue.isEmpty()) null else value
         }.filterNotNull().firstOrNull()
     }
 }

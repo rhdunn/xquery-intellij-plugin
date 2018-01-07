@@ -22,7 +22,7 @@ interface XdmLexicalValue {
 
     val staticType: XdmSequenceType
 
-    val lexicalRepresentation: String
+    val staticValue: String
 }
 
 interface XdmStaticValue {
@@ -34,5 +34,5 @@ interface XdmStaticValue {
 }
 
 fun XdmLexicalValue.toInt(): Int {
-    return lexicalRepresentation.toInt()
+    return staticValue.toInt()
 }

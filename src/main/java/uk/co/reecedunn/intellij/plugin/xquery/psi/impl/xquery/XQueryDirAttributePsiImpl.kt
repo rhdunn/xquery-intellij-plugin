@@ -47,7 +47,7 @@ class XQueryDirAttributePsiImpl(node: ASTNode):
         children().filterIsInstance<XPathEQName>().map { eqname ->
             val qname = (eqname as XdmStaticValue).staticValue as? QName
             qname?.let {
-                if (it.prefix?.lexicalRepresentation == "xmlns")
+                if (it.prefix?.staticValue == "xmlns")
                     it.localName
                 else
                     null

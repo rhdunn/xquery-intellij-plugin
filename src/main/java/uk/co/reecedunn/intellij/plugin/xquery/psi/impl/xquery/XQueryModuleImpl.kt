@@ -64,7 +64,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
             is XQueryVersionDecl -> {
                 isFirst = false
                 val version: XPathStringLiteral? = child.version
-                val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.lexicalRepresentation).firstOrNull()
+                val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.staticValue).firstOrNull()
                 XQueryVersionRef(version, xquery)
             }
             is XQueryLibraryModule, is XQueryMainModule -> {

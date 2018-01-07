@@ -28,7 +28,7 @@ class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence):
         XPathDecimalLiteral,
         XdmLexicalValue {
 
-    override val lexicalRepresentation get(): String = text
+    override val staticValue get(): String = text
 
     override val staticType: XdmSequenceType = XsDecimal
 
