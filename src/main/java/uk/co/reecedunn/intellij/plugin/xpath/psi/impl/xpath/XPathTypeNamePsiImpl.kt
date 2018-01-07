@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.*
 import uk.co.reecedunn.intellij.plugin.xdm.TypeReference
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.toXmlSchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
@@ -42,7 +42,7 @@ open class XPathTypeNamePsiImpl(node: ASTNode):
 
     override val declaredType get(): XdmSequenceType = cachedStaticType.get() ?: XsUntyped
     private val cachedStaticType = CacheableProperty {
-        val qname = (firstChild as XdmConstantExpression).constantValue as? QName
+        val qname = (firstChild as XdmStaticValue).constantValue as? QName
         // NOTE: QNames and NCNames are not cacheable, as they can refer to other parts of the tree.
         val cacheable = if (firstChild is XPathURIQualifiedName) Cacheable else NotCacheable
         qname?.let { TypeReference(it, it.toXmlSchemaType()) } `is` cacheable

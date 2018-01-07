@@ -21,9 +21,8 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -44,7 +43,7 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathEQName>().forEach { eqname ->
-            val qname = (eqname as? XdmConstantExpression)?.constantValue as? QName
+            val qname = (eqname as? XdmStaticValue)?.constantValue as? QName
             if (qname?.prefix != null && qname.prefix.lexicalRepresentation != "xmlns" && !eqname.resolvePrefixNamespace().iterator().hasNext()) {
                 val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 val context = qname.prefix as PsiElement

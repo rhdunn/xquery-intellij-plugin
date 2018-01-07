@@ -20,13 +20,12 @@ import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
@@ -37,7 +36,7 @@ class QNameAnnotator : Annotator {
         if (element.getParent() is XPathEQName) return
         if (element is XPathVarName) return // TODO: Remove this when VarName no longer implements XPathEQName.
 
-        val qname = (element as XdmConstantExpression).constantValue as? QName
+        val qname = (element as XdmStaticValue).constantValue as? QName
         val xmlns: Boolean
         if (qname?.prefix != null) {
             if (qname.prefix.lexicalRepresentation == "xmlns") {

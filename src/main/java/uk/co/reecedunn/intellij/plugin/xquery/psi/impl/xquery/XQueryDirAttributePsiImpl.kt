@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
@@ -45,7 +45,7 @@ class XQueryDirAttributePsiImpl(node: ASTNode):
     override val namespacePrefix get(): XdmLexicalValue? = cachedNamespacePrefix.get()
     private val cachedNamespacePrefix = CacheableProperty {
         children().filterIsInstance<XPathEQName>().map { eqname ->
-            val qname = (eqname as XdmConstantExpression).constantValue as? QName
+            val qname = (eqname as XdmStaticValue).constantValue as? QName
             qname?.let {
                 if (it.prefix?.lexicalRepresentation == "xmlns")
                     it.localName

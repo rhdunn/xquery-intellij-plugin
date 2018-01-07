@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 
@@ -27,7 +27,7 @@ class XPathVarNamePsiImpl(node: ASTNode):
         XPathVarName,
         XPathVariableName {
 
-    override val cacheable get(): CachingBehaviour = (firstChild as XdmConstantExpression).cacheable
+    override val cacheable get(): CachingBehaviour = (firstChild as XdmStaticValue).cacheable
 
-    override val variableName get(): QName? = (firstChild as XdmConstantExpression).constantValue as? QName
+    override val variableName get(): QName? = (firstChild as XdmStaticValue).constantValue as? QName
 }

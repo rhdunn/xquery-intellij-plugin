@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 
 interface XPathVariableName {
@@ -29,7 +29,7 @@ interface XPathVariableName {
 interface XPathVariableDeclaration : XPathVariableName {
     val variableType: XdmSequenceType?
 
-    val variableValue: XdmConstantExpression?
+    val variableValue: XdmStaticValue?
 }
 
 interface XPathVariableReference : XPathVariableName

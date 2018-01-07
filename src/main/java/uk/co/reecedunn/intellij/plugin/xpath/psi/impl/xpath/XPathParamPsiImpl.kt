@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
@@ -34,8 +34,8 @@ class XPathParamPsiImpl(node: ASTNode):
         XQueryVariableResolver,
         XPathVariableDeclaration {
 
-    private val varName get(): XdmConstantExpression? =
-        children().filterIsInstance<XPathEQName>().firstOrNull() as? XdmConstantExpression
+    private val varName get(): XdmStaticValue? =
+        children().filterIsInstance<XPathEQName>().firstOrNull() as? XdmStaticValue
 
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
@@ -45,7 +45,7 @@ class XPathParamPsiImpl(node: ASTNode):
     override val variableType: XdmSequenceType? = null
 
     // The bound variable result is dependent on the caller, so cannot be determined statically.
-    override val variableValue: XdmConstantExpression? = null
+    override val variableValue: XdmStaticValue? = null
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val paramName = findChildByClass(XPathEQName::class.java)

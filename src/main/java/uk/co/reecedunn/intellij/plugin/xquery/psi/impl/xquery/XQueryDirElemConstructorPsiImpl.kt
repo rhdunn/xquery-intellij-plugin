@@ -18,18 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor {
     override val openTag get(): QName? =
-        (findChildByClass(XPathEQName::class.java) as? XdmConstantExpression)?.constantValue as? QName
+        (findChildByClass(XPathEQName::class.java) as? XdmStaticValue)?.constantValue as? QName
 
     override val closeTag get(): QName? {
         val tag = findChildrenByClass(XPathEQName::class.java)
-        return if (tag.size == 2) (tag[1] as XdmConstantExpression).constantValue as QName else null
+        return if (tag.size == 2) (tag[1] as XdmStaticValue).constantValue as QName else null
     }
 
     override val isSelfClosing get(): Boolean =

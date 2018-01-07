@@ -25,7 +25,7 @@ interface XdmLexicalValue {
     val lexicalRepresentation: String
 }
 
-interface XdmConstantExpression {
+interface XdmStaticValue {
     val cacheable: CachingBehaviour
 
     val staticType: XdmSequenceType

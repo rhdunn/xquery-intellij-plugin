@@ -21,7 +21,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -49,7 +49,7 @@ class UndefinedFunctionInspection : LocalInspectionTool() {
                        .filter { qname -> qname.type == XPathEQName.Type.Function }
                        .forEach { qname ->
             val declarations = qname.resolveFunctionDecls().toList()
-            val context = (qname as? XdmConstantExpression)?.constantValue as? QName
+            val context = (qname as? XdmStaticValue)?.constantValue as? QName
             if (context == null) {
                 // Missing local name -- do nothing.
             } else if (declarations.isEmpty()) {

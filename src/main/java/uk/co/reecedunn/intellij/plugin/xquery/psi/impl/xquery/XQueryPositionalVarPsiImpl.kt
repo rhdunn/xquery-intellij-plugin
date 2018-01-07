@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
@@ -46,7 +46,7 @@ class XQueryPositionalVarPsiImpl(node: ASTNode):
     override val variableType: XdmSequenceType? = XsInteger
 
     // PositionalVar is a conditional variable that is evaluated dynamically.
-    override val variableValue: XdmConstantExpression? = null
+    override val variableValue: XdmStaticValue? = null
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val eqname = findChildByClass(XPathEQName::class.java)

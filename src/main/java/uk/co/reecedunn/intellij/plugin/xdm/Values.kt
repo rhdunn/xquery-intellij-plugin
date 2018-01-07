@@ -46,11 +46,11 @@ fun createQName(namespace: String, localName: String): QName {
             false)
 }
 
-fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
+fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmStaticValue): QName {
     return QName(null, namespace, localName, WeakReference(declaration), false)
 }
 
-fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
+fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmStaticValue): QName {
     return QName(prefix, null, localName, WeakReference(declaration), true)
 }
 
@@ -58,6 +58,6 @@ fun XdmSequenceType.cast(expr: XdmLexicalValue): XdmTypeCastResult {
     return cast(expr.lexicalRepresentation, expr.staticType)
 }
 
-fun XdmSequenceType.cast(expr: XdmConstantExpression): XdmTypeCastResult {
+fun XdmSequenceType.cast(expr: XdmStaticValue): XdmTypeCastResult {
     return cast(expr.constantValue, expr.staticType)
 }
