@@ -23,7 +23,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
@@ -128,7 +128,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             is XPathBracedURILiteral -> emptySequence()
             else -> {
                 val text = prefix.text
-                return inScopeNamespaces().filter { ns -> ns.namespacePrefix?.lexicalRepresentation == text }
+                return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.lexicalRepresentation == text }
             }
         }
     }

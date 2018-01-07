@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -137,7 +137,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_DirAttribute_Xmlns() {
         val element = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{b:test()}</a>")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("b"))
@@ -163,7 +163,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_DirAttribute_Xmlns_NoNamespaceUri() {
         val element = parse<XPathFunctionCall>("<a xmlns:b=>{b:test()}</a>")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -186,7 +186,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_DirAttribute() {
         val element = parse<XPathFunctionCall>("<a b='http://www.example.com'>{b:test()}</a>")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -212,7 +212,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleDecl() {
         val element = parse<XQueryFunctionDecl>("module namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -238,7 +238,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleDecl_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("module namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -261,7 +261,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleDecl_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("module namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -287,7 +287,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleImport_Prolog() {
         val element = parse<XQueryFunctionDecl>("import module namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -313,7 +313,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleImport_MainModule() {
         val element = parse<XPathFunctionCall>("import module namespace a='http://www.example.com'; a:test();")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -339,7 +339,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleImport_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("import module namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -362,7 +362,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_ModuleImport_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("import module namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -388,7 +388,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_NamespaceDecl_Prolog() {
         val element = parse<XQueryFunctionDecl>("declare namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -414,7 +414,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_NamespaceDecl_MainModule() {
         val element = parse<XPathFunctionCall>("declare namespace a='http://www.example.com'; a:test();")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -440,7 +440,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_NamespaceDecl_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("declare namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -463,7 +463,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_NamespaceDecl_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -489,7 +489,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_SchemaImport_Prolog() {
         val element = parse<XQueryFunctionDecl>("import schema namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -515,7 +515,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_SchemaImport_MainModule() {
         val element = parse<XPathFunctionCall>("import schema namespace a='http://www.example.com'; a:test();")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
@@ -541,7 +541,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_SchemaImport_NoNamespacePrefix() {
         val element = parse<XQueryFunctionDecl>("import schema namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -564,7 +564,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testInScopeNamespaces_SchemaImport_NoNamespaceUri() {
         val element = parse<XQueryFunctionDecl>("import schema namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         // predefined XQuery 1.0 namespaces:
@@ -594,7 +594,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         settings.XQueryVersion = "1.0"
 
         val element = parse<XPathFunctionCall>("fn:true()")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(5))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("local"))
@@ -618,7 +618,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         settings.XQueryVersion = "1.0-ml"
 
         val element = parse<XPathFunctionCall>("fn:true()")[0]
-        val namespaces = element.inScopeNamespaces().toList()
+        val namespaces = element.staticallyKnownNamespaces().toList()
         assertThat(namespaces.size, `is`(22))
 
         assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("xsi"))

@@ -28,7 +28,7 @@ interface XPathStaticContext {
     val defaultFunctionNamespace: Sequence<XdmLexicalValue>
 }
 
-fun PsiElement.inScopeNamespaces(): Sequence<XdmNamespaceDeclaration> {
+fun PsiElement.staticallyKnownNamespaces(): Sequence<XdmNamespaceDeclaration> {
     return walkTree().reversed().flatMap { node -> when (node) {
         is XdmNamespaceDeclaration ->
             sequenceOf(node as XdmNamespaceDeclaration)
