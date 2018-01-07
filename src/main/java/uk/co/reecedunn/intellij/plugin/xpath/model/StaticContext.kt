@@ -19,6 +19,8 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
@@ -46,21 +48,47 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
 }
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
-    var visited = false
-    return walkTree().reversed().map { node -> when (node) {
+    var visitedTypeswitch = false
+    var visitedForBinding = false
+    var visitedForClause = false
+    return walkTree().reversed().flatMap { node -> when (node) {
+        // region ForClause
+        is XQueryForClause -> {
+            if (visitedForClause)
+                emptySequence()
+            else
+                node.children().filterIsInstance<XQueryForBinding>().map { binding -> binding as XPathVariableDeclaration }
+        }
+        is XQueryForBinding -> {
+            visitedForClause = true
+            if (visitedForBinding) {
+                visitedForBinding = false
+                emptySequence()
+            } else
+                sequenceOf(node as XPathVariableDeclaration)
+        }
+        is XPathExprSingle -> {
+            if (node.parent is XQueryForBinding) {
+                visitedForBinding = true
+            }
+            emptySequence()
+        }
+        // endregion
+        // region TypeswitchExpr
         is XQueryCaseClause, is XQueryDefaultCaseClause -> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
-            if (!visited) {
-                visited = true
-                node as XPathVariableDeclaration
+            if (!visitedTypeswitch) {
+                visitedTypeswitch = true
+                sequenceOf(node as XPathVariableDeclaration)
             } else
-                null
+                emptySequence()
         }
         is XQueryTypeswitchExpr -> {
-            visited = false // Reset the visited logic now the `typeswitch` has been resolved.
-            null
+            visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
+            emptySequence()
         }
-        else -> null
+        // endregion
+        else -> emptySequence()
     }}.filterNotNull().filter {
         variable -> variable.variableName != null
     }
