@@ -16,13 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033
 
 import com.intellij.codeInspection.*
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -57,11 +56,8 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
 
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.forEach(fun (child) {
-                val ns = when (child) {
-                    is XdmNamespaceDeclaration -> child.toNamespace()
-                    else -> return
-                }
-                val prefix = ns?.prefix?.text
+                val ns = child as? XdmNamespaceDeclaration
+                val prefix = ns?.namespacePrefix?.lexicalRepresentation
 
                 if (ns == null || prefix == null)
                     return
@@ -69,10 +65,10 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
                 val duplicate: XQueryUriLiteral? = prefices.get(prefix)
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
-                    descriptors.add(manager.createProblemDescriptor(ns.prefix, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                    descriptors.add(manager.createProblemDescriptor(ns.namespacePrefix as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
-                prefices.put(prefix, ns.uri as? XQueryUriLiteral)
+                prefices.put(prefix, ns.namespaceUri as? XQueryUriLiteral)
             })
         }
         return descriptors.toTypedArray()
