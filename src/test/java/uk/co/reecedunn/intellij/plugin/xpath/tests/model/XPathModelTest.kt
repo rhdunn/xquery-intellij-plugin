@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.xdm
+package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class XPathXdmTest : ParserTestCase() {
+class XPathModelTest : ParserTestCase() {
     private inline fun <reified T> parse(xquery: String): List<T> {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
     }
