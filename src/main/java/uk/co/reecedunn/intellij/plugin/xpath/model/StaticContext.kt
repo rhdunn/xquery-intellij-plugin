@@ -44,3 +44,24 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
         node -> node.namespacePrefix != null && node.namespaceUri != null
     }
 }
+
+fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
+    var visited = false
+    return walkTree().reversed().map { node -> when (node) {
+        is XQueryCaseClause, is XQueryDefaultCaseClause -> {
+            // Only the `case`/`default` clause variable of the return expression is in scope.
+            if (!visited) {
+                visited = true
+                node as XPathVariableDeclaration
+            } else
+                null
+        }
+        is XQueryTypeswitchExpr -> {
+            visited = false // Reset the visited logic now the `typeswitch` has been resolved.
+            null
+        }
+        else -> null
+    }}.filterNotNull().filter {
+        variable -> variable.variableName != null
+    }
+}

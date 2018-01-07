@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -688,5 +689,53 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces[21].namespaceUri?.staticValue as String, `is`("http://marklogic.com/cts"))
     }
 
+    // endregion
+    // In-Scope Variables
+    // region TypeswitchExpr -> CaseClause
+
+    fun testInScopeVariables_CaseClause() {
+        val element = parse<XPathFunctionCall>(
+            "typeswitch (2) case \$x as xs:string return test() case \$y as xs:int return 2 default \$z return 3")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+        assertThat(variables[0].variableType, `is`(nullValue()))
+        assertThat(variables[0].variableValue, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_CaseClause_NotFirst() {
+        val element = parse<XPathFunctionCall>(
+                "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return test() default \$z return 3")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        // Only variable `y` is in scope.
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+        assertThat(variables[0].variableType, `is`(nullValue()))
+        assertThat(variables[0].variableValue, `is`(nullValue()))
+    }
+
+    // endregion
+    // region TypeswitchExpr -> DefaultCaseClause
+
+    fun testInScopeVariables_DefaultCaseClause() {
+        val element = parse<XPathFunctionCall>(
+                "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return 2 default \$z return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+        assertThat(variables[0].variableType, `is`(nullValue()))
+        assertThat(variables[0].variableValue, `is`(nullValue()))
+    }
+
+    // endregion
     // endregion
 }
