@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.QNameContext
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
@@ -34,7 +33,9 @@ class XQueryMainModulePsiImpl(node: ASTNode):
     override val prolog get(): XQueryProlog? =
         children().filterIsInstance<XQueryProlog>().firstOrNull()
 
-    override fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue> {
-        return (prolog as? XdmStaticContext)?.defaultNamespace(context) ?: emptySequence()
-    }
+    override val defaultElementOrTypeNamespace get(): Sequence<XdmLexicalValue> =
+        (prolog as? XdmStaticContext)?.defaultElementOrTypeNamespace ?: emptySequence()
+
+    override val defaultFunctionNamespace get(): Sequence<XdmLexicalValue> =
+        (prolog as? XdmStaticContext)?.defaultFunctionNamespace ?: emptySequence()
 }

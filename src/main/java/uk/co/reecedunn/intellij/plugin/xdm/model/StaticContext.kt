@@ -15,21 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
-
-enum class QNameContext {
-    Element,
-    Function,
-    Type
-}
 
 interface XdmStaticContext {
-    fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue>
+    val defaultElementOrTypeNamespace: Sequence<XdmLexicalValue>
+
+    val defaultFunctionNamespace: Sequence<XdmLexicalValue>
 }
 
 fun PsiElement.inScopeNamespaces(): Sequence<XdmNamespaceDeclaration> {

@@ -37,8 +37,8 @@ class XQueryPrologPsiImpl(node: ASTNode):
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        defaultElementOrTypeNamespaceDecl.invalidate()
-        defaultFunctionNamespaceDecl.invalidate()
+        cachedDefaultElementOrTypeNamespace.invalidate()
+        cachedDefaultFunctionNamespace.invalidate()
     }
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
@@ -47,27 +47,23 @@ class XQueryPrologPsiImpl(node: ASTNode):
         }.filterNotNull().firstOrNull()
     }
 
-    override fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue> {
-        return when (context) {
-            QNameContext.Element,
-            QNameContext.Type ->
-                defaultElementOrTypeNamespaceDecl.get()!!.map { decl -> decl.defaultValue!! }
-            QNameContext.Function ->
-                defaultFunctionNamespaceDecl.get()!!.map { decl -> decl.defaultValue!! }
-        }
+    override val defaultElementOrTypeNamespace get(): Sequence<XdmLexicalValue> =
+        cachedDefaultElementOrTypeNamespace.get() ?: emptySequence()
+
+    private val cachedDefaultElementOrTypeNamespace = CacheableProperty {
+        children().reversed()
+            .filterIsInstance<XQueryDefaultNamespaceDecl>()
+            .map { decl -> if (decl.type == XQueryDefaultNamespaceType.ElementOrType) decl.defaultValue else null }
+            .filterNotNull() `is` Cacheable
     }
 
-    private val defaultElementOrTypeNamespaceDecl = CacheableProperty {
-        children().reversed()
-                .filterIsInstance<XQueryDefaultNamespaceDecl>()
-                .filter { decl -> decl.type == XQueryDefaultNamespaceType.ElementOrType && decl.defaultValue != null }
-                .filterNotNull() `is` Cacheable
-    }
+    override val defaultFunctionNamespace get(): Sequence<XdmLexicalValue> =
+        cachedDefaultFunctionNamespace.get() ?: emptySequence()
 
-    private val defaultFunctionNamespaceDecl = CacheableProperty {
+    private val cachedDefaultFunctionNamespace = CacheableProperty {
         children().reversed()
-                .filterIsInstance<XQueryDefaultNamespaceDecl>()
-                .filter { decl -> decl.type == XQueryDefaultNamespaceType.Function && decl.defaultValue != null }
-                .filterNotNull() `is` Cacheable
+            .filterIsInstance<XQueryDefaultNamespaceDecl>()
+            .map { decl -> if (decl.type == XQueryDefaultNamespaceType.Function) decl.defaultValue else null }
+            .filterNotNull() `is` Cacheable
     }
 }
