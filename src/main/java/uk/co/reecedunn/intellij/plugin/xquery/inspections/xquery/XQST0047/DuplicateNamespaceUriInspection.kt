@@ -16,15 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0047
 
 import com.intellij.codeInspection.*
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -45,20 +43,20 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.children().forEach { module ->
-            val uris = HashMap<String, XQueryNamespace>()
+            val uris = HashMap<String, XdmNamespaceDeclaration>()
 
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
-                val ns = (child as? XdmNamespaceDeclaration)?.toNamespace()
-                val uri = (ns?.uri as? XdmLexicalValue)?.lexicalRepresentation
+                val ns = child as? XdmNamespaceDeclaration
+                val uri = ns?.namespaceUri?.lexicalRepresentation
 
                 if (ns == null || uri == null)
                     return
 
-                val duplicate: XQueryNamespace? = uris.get(uri)
+                val duplicate: XdmNamespaceDeclaration? = uris.get(uri)
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
-                    descriptors.add(manager.createProblemDescriptor(ns.uri!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                    descriptors.add(manager.createProblemDescriptor(ns.namespaceUri as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
                 uris.put(uri, ns)
