@@ -23,10 +23,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -39,7 +39,7 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode):
         XQueryTumblingWindowClause,
         XQueryConformance,
         XQueryVariableResolver,
-        XdmVariableDeclaration {
+        XPathVariableDeclaration {
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
@@ -48,7 +48,7 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode):
         firstChild
 
     // endregion
-    // region XdmVariableDeclaration
+    // region XPathVariableDeclaration
 
     private val varName get(): XdmVariableName? =
         children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName

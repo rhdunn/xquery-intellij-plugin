@@ -15,6 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
+
+interface XPathVariableDeclaration : XdmVariableName {
+    val variableType: XdmSequenceType?
+
+    val variableValue: XdmConstantExpression?
+}
 
 interface XPathVariableReference : XdmVariableName

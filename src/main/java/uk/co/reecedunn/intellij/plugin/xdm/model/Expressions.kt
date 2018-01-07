@@ -46,12 +46,6 @@ interface XdmVariableName {
     val variableName: QName?
 }
 
-interface XdmVariableDeclaration : XdmVariableName {
-    val variableType: XdmSequenceType?
-
-    val variableValue: XdmConstantExpression?
-}
-
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
 }

@@ -19,14 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
@@ -36,7 +35,7 @@ class XQueryForBindingPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryForBinding,
         XQueryVariableResolver,
-        XdmVariableDeclaration {
+        XPathVariableDeclaration {
 
     private val varName get(): XdmVariableName? =
         children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName

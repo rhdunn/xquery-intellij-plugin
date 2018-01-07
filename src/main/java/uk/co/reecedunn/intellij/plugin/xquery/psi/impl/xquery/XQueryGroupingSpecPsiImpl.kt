@@ -22,10 +22,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingSpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
@@ -35,7 +34,7 @@ class XQueryGroupingSpecPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryGroupingSpec,
         XQueryVariableResolver,
-        XdmVariableDeclaration {
+        XPathVariableDeclaration {
 
     private val varName get(): XdmVariableName? =
         children().filterIsInstance<XQueryGroupingVariable>().firstOrNull() as? XdmVariableName

@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathXdmTest : ParserTestCase() {
@@ -1252,10 +1253,10 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
-    // region Param (XdmVariableDeclaration)
+    // region Param (XPathVariableDeclaration)
 
     fun testParam_NCName() {
-        val expr = parse<XPathParam>("function (\$x) {}")[0] as XdmVariableDeclaration
+        val expr = parse<XPathParam>("function (\$x) {}")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1275,7 +1276,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testParam_QName() {
-        val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XdmVariableDeclaration
+        val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1298,7 +1299,7 @@ class XPathXdmTest : ParserTestCase() {
 
     fun testParam_URIQualifiedName() {
         val expr = parse<XPathParam>(
-                "function (\$Q{http://www.example.com}x) {}")[0] as XdmVariableDeclaration
+                "function (\$Q{http://www.example.com}x) {}")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1320,7 +1321,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testParam_MissingVarName() {
-        val expr = parse<XPathParam>("function (\$) {}")[0] as XdmVariableDeclaration
+        val expr = parse<XPathParam>("function (\$) {}")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1330,10 +1331,10 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region QuantifiedExprBinding (XdmVariableDeclaration)
+    // region QuantifiedExprBinding (XPathVariableDeclaration)
 
     fun testQuantifiedExprBinding_NCName() {
-        val expr = parse<XPathQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XdmVariableDeclaration
+        val expr = parse<XPathQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1354,7 +1355,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testQuantifiedExprBinding_QName() {
-        val expr = parse<XPathQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XdmVariableDeclaration
+        val expr = parse<XPathQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1378,7 +1379,7 @@ class XPathXdmTest : ParserTestCase() {
 
     fun testQuantifiedExprBinding_URIQualifiedName() {
         val expr = parse<XPathQuantifiedExprBinding>(
-                "some \$Q{http://www.example.com}x in  \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z")[0] as XdmVariableDeclaration
+                "some \$Q{http://www.example.com}x in  \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1401,7 +1402,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testQuantifiedExprBinding_MissingVarName() {
-        val expr = parse<XPathQuantifiedExprBinding>("some \$")[0] as XdmVariableDeclaration
+        val expr = parse<XPathQuantifiedExprBinding>("some \$")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
         assertThat(expr.variableType, `is`(nullValue()))

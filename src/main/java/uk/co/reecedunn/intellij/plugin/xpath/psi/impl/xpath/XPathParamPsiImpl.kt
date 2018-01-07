@@ -22,11 +22,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
@@ -34,7 +32,7 @@ class XPathParamPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathParam,
         XQueryVariableResolver,
-        XdmVariableDeclaration {
+        XPathVariableDeclaration {
 
     private val varName get(): XdmConstantExpression? =
         children().filterIsInstance<XPathEQName>().firstOrNull() as? XdmConstantExpression
