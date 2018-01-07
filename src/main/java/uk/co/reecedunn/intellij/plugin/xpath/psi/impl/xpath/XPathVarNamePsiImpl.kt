@@ -29,5 +29,5 @@ class XPathVarNamePsiImpl(node: ASTNode):
 
     override val cacheable get(): CachingBehaviour = (firstChild as XdmStaticValue).cacheable
 
-    override val variableName get(): QName? = (firstChild as XdmStaticValue).constantValue as? QName
+    override val variableName get(): QName? = (firstChild as XdmStaticValue).staticValue as? QName
 }

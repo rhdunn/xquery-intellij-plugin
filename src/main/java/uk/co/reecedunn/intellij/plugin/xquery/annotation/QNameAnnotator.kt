@@ -36,7 +36,7 @@ class QNameAnnotator : Annotator {
         if (element.getParent() is XPathEQName) return
         if (element is XPathVarName) return // TODO: Remove this when VarName no longer implements XPathEQName.
 
-        val qname = (element as XdmStaticValue).constantValue as? QName
+        val qname = (element as XdmStaticValue).staticValue as? QName
         val xmlns: Boolean
         if (qname?.prefix != null) {
             if (qname.prefix.lexicalRepresentation == "xmlns") {

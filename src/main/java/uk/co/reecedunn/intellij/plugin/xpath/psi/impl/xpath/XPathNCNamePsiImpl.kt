@@ -33,7 +33,7 @@ open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNC
 
     override val staticType: XdmSequenceType = XsQName
 
-    override val constantValue get(): Any? = createLexicalQName(null, firstChild as XdmLexicalValue, this)
+    override val staticValue get(): Any? = createLexicalQName(null, firstChild as XdmLexicalValue, this)
 
     override fun getName(): String? = firstChild.text
 

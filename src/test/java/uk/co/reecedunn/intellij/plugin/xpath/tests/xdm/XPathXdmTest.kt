@@ -207,10 +207,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathNCName>("test")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
@@ -228,10 +228,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathNCName>("option")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
@@ -252,10 +252,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathQName>("fn:true")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -275,10 +275,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathQName>("option:test")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -298,10 +298,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathQName>("test:case")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -321,7 +321,7 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathQName>("xs:")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(nullValue()))
+        assertThat(expr.staticValue, `is`(nullValue()))
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -334,10 +334,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}test")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -357,10 +357,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{}test")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -380,10 +380,10 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}option")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
-        val qname = expr.constantValue as QName
+        val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -403,7 +403,7 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.constantValue, `is`(nullValue()))
+        assertThat(expr.staticValue, `is`(nullValue()))
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1224,9 +1224,9 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(notNullValue()))
-        assertThat(expr.constantValue, `is`(instanceOf(String::class.java)))
-        assertThat(expr.constantValue as String, `is`("1e3"))
+        assertThat(expr.staticValue, `is`(notNullValue()))
+        assertThat(expr.staticValue, `is`(instanceOf(String::class.java)))
+        assertThat(expr.staticValue as String, `is`("1e3"))
         assertThat(expr.staticType, `is`(XsDouble as XdmSequenceType))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1236,7 +1236,7 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathPostfixExpr>("1?1")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
+        assertThat(expr.staticValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1246,7 +1246,7 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathPostfixExpr>("test()")[0]
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
-        assertThat(expr.constantValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
+        assertThat(expr.staticValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))

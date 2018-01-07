@@ -59,5 +59,5 @@ fun XdmSequenceType.cast(expr: XdmLexicalValue): XdmTypeCastResult {
 }
 
 fun XdmSequenceType.cast(expr: XdmStaticValue): XdmTypeCastResult {
-    return cast(expr.constantValue, expr.staticType)
+    return cast(expr.staticValue, expr.staticType)
 }

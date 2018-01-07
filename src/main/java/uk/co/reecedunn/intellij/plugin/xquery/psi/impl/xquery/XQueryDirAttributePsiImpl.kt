@@ -45,7 +45,7 @@ class XQueryDirAttributePsiImpl(node: ASTNode):
     override val namespacePrefix get(): XdmLexicalValue? = cachedNamespacePrefix.get()
     private val cachedNamespacePrefix = CacheableProperty {
         children().filterIsInstance<XPathEQName>().map { eqname ->
-            val qname = (eqname as XdmStaticValue).constantValue as? QName
+            val qname = (eqname as XdmStaticValue).staticValue as? QName
             qname?.let {
                 if (it.prefix?.lexicalRepresentation == "xmlns")
                     it.localName

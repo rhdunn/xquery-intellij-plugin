@@ -39,7 +39,7 @@ class XPathParamPsiImpl(node: ASTNode):
 
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
-    override val variableName get(): QName? = varName?.constantValue as? QName
+    override val variableName get(): QName? = varName?.staticValue as? QName
 
     // TODO: Locate and use the TypeDeclaration if present.
     override val variableType: XdmSequenceType? = null

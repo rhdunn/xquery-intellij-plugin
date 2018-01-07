@@ -36,7 +36,7 @@ class XQueryPreviousItemPsiImpl(node: ASTNode):
 
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
-    override val variableName get(): QName? = varName?.constantValue as? QName
+    override val variableName get(): QName? = varName?.staticValue as? QName
 
     // The bound variable type is dependent on the tuple sequence, so cannot be determined statically.
     override val variableType: XdmSequenceType? = null

@@ -49,7 +49,7 @@ class UndefinedFunctionInspection : LocalInspectionTool() {
                        .filter { qname -> qname.type == XPathEQName.Type.Function }
                        .forEach { qname ->
             val declarations = qname.resolveFunctionDecls().toList()
-            val context = (qname as? XdmStaticValue)?.constantValue as? QName
+            val context = (qname as? XdmStaticValue)?.staticValue as? QName
             if (context == null) {
                 // Missing local name -- do nothing.
             } else if (declarations.isEmpty()) {

@@ -56,9 +56,9 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val staticType get(): XdmSequenceType = constantValue?.let { XsQName } ?: XsUntyped
+    override val staticType get(): XdmSequenceType = staticValue?.let { XsQName } ?: XsUntyped
 
-    override val constantValue get(): Any? = cachedConstantValue.get()
+    override val staticValue get(): Any? = cachedConstantValue.get()
 
     private val cachedConstantValue = CacheableProperty {
         val namespace: PsiElement? = findChildByType(XQueryElementType.BRACED_URI_LITERAL)

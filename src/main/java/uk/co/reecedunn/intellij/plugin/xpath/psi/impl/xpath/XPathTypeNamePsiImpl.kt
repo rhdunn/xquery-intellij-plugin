@@ -42,7 +42,7 @@ open class XPathTypeNamePsiImpl(node: ASTNode):
 
     override val declaredType get(): XdmSequenceType = cachedStaticType.get() ?: XsUntyped
     private val cachedStaticType = CacheableProperty {
-        val qname = (firstChild as XdmStaticValue).constantValue as? QName
+        val qname = (firstChild as XdmStaticValue).staticValue as? QName
         // NOTE: QNames and NCNames are not cacheable, as they can refer to other parts of the tree.
         val cacheable = if (firstChild is XPathURIQualifiedName) Cacheable else NotCacheable
         qname?.let { TypeReference(it, it.toXmlSchemaType()) } `is` cacheable

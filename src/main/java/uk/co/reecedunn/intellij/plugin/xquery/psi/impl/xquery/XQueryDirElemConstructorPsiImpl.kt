@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor {
     override val openTag get(): QName? =
-        (findChildByClass(XPathEQName::class.java) as? XdmStaticValue)?.constantValue as? QName
+        (findChildByClass(XPathEQName::class.java) as? XdmStaticValue)?.staticValue as? QName
 
     override val closeTag get(): QName? {
         val tag = findChildrenByClass(XPathEQName::class.java)
-        return if (tag.size == 2) (tag[1] as XdmStaticValue).constantValue as QName else null
+        return if (tag.size == 2) (tag[1] as XdmStaticValue).staticValue as QName else null
     }
 
     override val isSelfClosing get(): Boolean =

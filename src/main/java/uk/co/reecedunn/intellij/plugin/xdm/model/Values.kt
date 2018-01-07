@@ -30,7 +30,7 @@ interface XdmStaticValue {
 
     val staticType: XdmSequenceType
 
-    val constantValue: Any?
+    val staticValue: Any?
 }
 
 fun XdmLexicalValue.toInt(): Int {

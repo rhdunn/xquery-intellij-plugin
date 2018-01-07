@@ -43,7 +43,7 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathEQName>().forEach { eqname ->
-            val qname = (eqname as? XdmStaticValue)?.constantValue as? QName
+            val qname = (eqname as? XdmStaticValue)?.staticValue as? QName
             if (qname?.prefix != null && qname.prefix.lexicalRepresentation != "xmlns" && !eqname.resolvePrefixNamespace().iterator().hasNext()) {
                 val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 val context = qname.prefix as PsiElement

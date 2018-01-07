@@ -58,5 +58,5 @@ class XPathPostfixExprPsiImpl(node: ASTNode):
 
     override val staticType get(): XdmSequenceType = staticEval.get()?.first ?: XsUntyped
 
-    override val constantValue get(): Any? = staticEval.get()?.second
+    override val staticValue get(): Any? = staticEval.get()?.second
 }
