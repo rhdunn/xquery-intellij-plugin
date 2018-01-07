@@ -49,26 +49,29 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
     var visitedTypeswitch = false
-    var visitedForBinding = false
-    var visitedForClause = false
+    var visitedForLetBinding = false
+    var visitedForLetClause = false
     return walkTree().reversed().flatMap { node -> when (node) {
-        // region ForClause
-        is XQueryForClause -> {
-            if (visitedForClause)
+        // region ForClause/LetClause
+        is XQueryForClause, is XQueryLetClause -> {
+            if (visitedForLetClause)
                 emptySequence()
             else
-                node.children().filterIsInstance<XQueryForBinding>().flatMap { binding ->
-                    val pos = binding.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
-                    if (pos != null)
-                        sequenceOf(binding as XPathVariableDeclaration, pos)
-                    else
-                        sequenceOf(binding as XPathVariableDeclaration)
-                }
+                node.children().flatMap { binding -> when (binding) {
+                    is XQueryForBinding, is XQueryLetBinding -> {
+                        val pos = binding.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
+                        if (pos != null)
+                            sequenceOf(binding as XPathVariableDeclaration, pos)
+                        else
+                            sequenceOf(binding as XPathVariableDeclaration)
+                    }
+                    else -> emptySequence()
+                }}
         }
-        is XQueryForBinding -> {
-            visitedForClause = true
-            if (visitedForBinding) {
-                visitedForBinding = false
+        is XQueryForBinding, is XQueryLetBinding -> {
+            visitedForLetClause = true
+            if (visitedForLetBinding) {
+                visitedForLetBinding = false
                 emptySequence()
             } else {
                 val pos = node.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
@@ -79,8 +82,8 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             }
         }
         is XPathExprSingle -> {
-            if (node.parent is XQueryForBinding) {
-                visitedForBinding = true
+            if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
+                visitedForLetBinding = true
             }
             emptySequence()
         }
