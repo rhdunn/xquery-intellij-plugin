@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
+package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
-interface XdmStaticContext {
+interface XPathStaticContext {
     val defaultElementOrTypeNamespace: Sequence<XdmLexicalValue>
 
     val defaultFunctionNamespace: Sequence<XdmLexicalValue>

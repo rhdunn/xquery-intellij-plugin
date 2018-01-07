@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -33,7 +34,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryProlog,
         XQueryVariableResolver,
-        XdmStaticContext {
+        XPathStaticContext {
 
     override fun subtreeChanged() {
         super.subtreeChanged()

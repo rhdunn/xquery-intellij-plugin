@@ -23,7 +23,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.model.inScopeNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType

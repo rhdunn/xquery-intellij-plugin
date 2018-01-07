@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.xdm
+package uk.co.reecedunn.intellij.plugin.xquery.tests.model
 
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -33,21 +35,21 @@ class XQueryStaticContextTest : ParserTestCase() {
     // region MainModule :: DefaultNamespaceDecl
 
     fun testMainModule_NoProlog() {
-        val ctx = parse<XQueryMainModule>("<br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryMainModule>("<br/>")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
 
     fun testMainModule_NoDefaultNamespaceDecl() {
-        val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
 
     fun testMainModule_DefaultNamespaceDecl_Element() {
-        val ctx = parse<XQueryMainModule>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryMainModule>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XPathStaticContext
 
         val element = ctx.defaultElementOrTypeNamespace.toList()
         assertThat(element.size, `is`(1))
@@ -58,14 +60,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     fun testMainModule_DefaultNamespaceDecl_Element_EmptyNamespace() {
-        val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
 
     fun testMainModule_DefaultNamespaceDecl_Function() {
-        val ctx = parse<XQueryMainModule>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XdmStaticContext
+        val ctx = parse<XQueryMainModule>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
 
@@ -76,7 +78,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     fun testMainModule_DefaultNamespaceDecl_Function_EmptyNamespace() {
-        val ctx = parse<XQueryMainModule>("declare default function namespace ''; pi()")[0] as XdmStaticContext
+        val ctx = parse<XQueryMainModule>("declare default function namespace ''; pi()")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
@@ -86,14 +88,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     // region Prolog :: DefaultNamespaceDecl
 
     fun testProlog_NoDefaultNamespaceDecl() {
-        val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
 
     fun testProlog_DefaultNamespaceDecl_Element() {
-        val ctx = parse<XQueryProlog>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryProlog>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XPathStaticContext
 
         val element = ctx.defaultElementOrTypeNamespace.toList()
         assertThat(element.size, `is`(1))
@@ -104,14 +106,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     fun testProlog_DefaultNamespaceDecl_Element_EmptyNamespace() {
-        val ctx = parse<XQueryProlog>("declare default element namespace ''; <br/>")[0] as XdmStaticContext
+        val ctx = parse<XQueryProlog>("declare default element namespace ''; <br/>")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
 
     fun testProlog_DefaultNamespaceDecl_Function() {
-        val ctx = parse<XQueryProlog>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XdmStaticContext
+        val ctx = parse<XQueryProlog>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
 
@@ -122,7 +124,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     fun testProlog_DefaultNamespaceDecl_Function_EmptyNamespace() {
-        val ctx = parse<XQueryProlog>("declare default function namespace ''; pi()")[0] as XdmStaticContext
+        val ctx = parse<XQueryProlog>("declare default function namespace ''; pi()")[0] as XPathStaticContext
 
         assertThat(ctx.defaultElementOrTypeNamespace.count(), `is`(0))
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))

@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -28,14 +28,14 @@ class XQueryMainModulePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryMainModule,
         XQueryPrologResolver,
-        XdmStaticContext {
+        XPathStaticContext {
 
     override val prolog get(): XQueryProlog? =
         children().filterIsInstance<XQueryProlog>().firstOrNull()
 
     override val defaultElementOrTypeNamespace get(): Sequence<XdmLexicalValue> =
-        (prolog as? XdmStaticContext)?.defaultElementOrTypeNamespace ?: emptySequence()
+        (prolog as? XPathStaticContext)?.defaultElementOrTypeNamespace ?: emptySequence()
 
     override val defaultFunctionNamespace get(): Sequence<XdmLexicalValue> =
-        (prolog as? XdmStaticContext)?.defaultFunctionNamespace ?: emptySequence()
+        (prolog as? XPathStaticContext)?.defaultFunctionNamespace ?: emptySequence()
 }
