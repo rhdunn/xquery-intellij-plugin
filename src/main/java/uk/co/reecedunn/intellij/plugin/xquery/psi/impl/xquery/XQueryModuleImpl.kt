@@ -20,7 +20,7 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
@@ -64,7 +64,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
             is XQueryVersionDecl -> {
                 isFirst = false
                 val version: XPathStringLiteral? = child.version
-                val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.staticValue as? String).firstOrNull()
+                val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmStaticValue)?.staticValue as? String).firstOrNull()
                 XQueryVersionRef(version, xquery)
             }
             is XQueryLibraryModule, is XQueryMainModule -> {

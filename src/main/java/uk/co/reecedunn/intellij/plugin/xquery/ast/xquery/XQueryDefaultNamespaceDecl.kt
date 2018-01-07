@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 
 enum class XQueryDefaultNamespaceType {
     ElementOrType,
@@ -29,5 +29,5 @@ enum class XQueryDefaultNamespaceType {
 interface XQueryDefaultNamespaceDecl : PsiElement {
     val type: XQueryDefaultNamespaceType
 
-    val defaultValue: XdmLexicalValue?
+    val defaultValue: XdmStaticValue?
 }

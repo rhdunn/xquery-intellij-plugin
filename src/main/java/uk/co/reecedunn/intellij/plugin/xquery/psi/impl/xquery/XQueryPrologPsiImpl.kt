@@ -48,7 +48,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
         }.filterNotNull().firstOrNull()
     }
 
-    override val defaultElementOrTypeNamespace get(): Sequence<XdmLexicalValue> =
+    override val defaultElementOrTypeNamespace get(): Sequence<XdmStaticValue> =
         cachedDefaultElementOrTypeNamespace.get() ?: emptySequence()
 
     private val cachedDefaultElementOrTypeNamespace = CacheableProperty {
@@ -58,7 +58,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
             .filterNotNull() `is` Cacheable
     }
 
-    override val defaultFunctionNamespace get(): Sequence<XdmLexicalValue> =
+    override val defaultFunctionNamespace get(): Sequence<XdmStaticValue> =
         cachedDefaultFunctionNamespace.get() ?: emptySequence()
 
     private val cachedDefaultFunctionNamespace = CacheableProperty {

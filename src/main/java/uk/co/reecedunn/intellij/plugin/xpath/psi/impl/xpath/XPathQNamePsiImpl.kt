@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -46,8 +45,8 @@ class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, X
         val names: List<PsiElement> = findChildrenByType(XQueryElementType.NCNAME)
         when (names.size) {
             2 -> createLexicalQName(
-                    names[0].firstChild as XdmLexicalValue,
-                    names[1].firstChild as XdmLexicalValue,
+                    names[0].firstChild as XdmStaticValue,
+                    names[1].firstChild as XdmStaticValue,
                     this)
             else -> null
         } `is` NotCacheable

@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.filterNotToken
 import uk.co.reecedunn.intellij.plugin.core.sequences.withNext
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -47,7 +46,7 @@ class XPathPostfixExprPsiImpl(node: ASTNode):
     private val staticEval: CacheableProperty<Pair<XdmSequenceType, Any?>?> = CacheableProperty {
         val children = children().filterNotToken(XQueryElementType.WHITESPACE_OR_COMMENT).iterator()
         children.withNext { value ->
-            if (value !is XdmLexicalValue || children.hasNext())
+            if (value !is XdmStaticValue || children.hasNext())
                 null
             else // Literal without a Predicate, ArgumentList, or Lookup expression.
                 Pair(value.staticType, value.staticValue)

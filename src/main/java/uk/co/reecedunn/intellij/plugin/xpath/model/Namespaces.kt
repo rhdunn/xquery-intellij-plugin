@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 
 interface XPathNamespaceDeclaration {
-    val namespacePrefix: XdmLexicalValue?
+    val namespacePrefix: XdmStaticValue?
 
-    val namespaceUri: XdmLexicalValue?
+    val namespaceUri: XdmStaticValue?
 }

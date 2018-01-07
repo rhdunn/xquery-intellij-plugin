@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import java.lang.ref.WeakReference
 
 private class XdmLiteralValue(override val staticValue: Any?,
-                              private val cachedStaticType: CacheableProperty<XdmSequenceType>) : XdmLexicalValue {
+                              private val cachedStaticType: CacheableProperty<XdmSequenceType>) : XdmStaticValue {
 
     // NOTE: The staticType may not be initialized yet (i.e. for QNames), so use
     // CacheableProperty to lazy-load the parameter.
@@ -33,7 +33,7 @@ private class XdmLiteralValue(override val staticValue: Any?,
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 }
 
-fun createString(value: String): XdmLexicalValue {
+fun createString(value: String): XdmStaticValue {
     return XdmLiteralValue(value, CacheableProperty { XsString `is` Cacheable })
 }
 
@@ -46,16 +46,12 @@ fun createQName(namespace: String, localName: String): QName {
             false)
 }
 
-fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmStaticValue): QName {
+fun createQName(namespace: XdmStaticValue, localName: XdmStaticValue, declaration: XdmStaticValue): QName {
     return QName(null, namespace, localName, WeakReference(declaration), false)
 }
 
-fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmStaticValue): QName {
+fun createLexicalQName(prefix: XdmStaticValue?, localName: XdmStaticValue, declaration: XdmStaticValue): QName {
     return QName(prefix, null, localName, WeakReference(declaration), true)
-}
-
-fun XdmSequenceType.cast(expr: XdmLexicalValue): XdmTypeCastResult {
-    return cast(expr.staticValue, expr.staticType)
 }
 
 fun XdmSequenceType.cast(expr: XdmStaticValue): XdmTypeCastResult {

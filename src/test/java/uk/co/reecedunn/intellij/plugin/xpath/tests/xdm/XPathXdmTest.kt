@@ -36,10 +36,10 @@ class XPathXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
     }
 
-    private inline fun <reified T> parseLiteral(xquery: String): XdmLexicalValue {
+    private inline fun <reified T> parseLiteral(xquery: String): XdmStaticValue {
         return parseText(xquery)!!
                 .walkTree().filterIsInstance<T>()
-                .first() as XdmLexicalValue
+                .first() as XdmStaticValue
     }
 
     private inline fun <reified T> parseSimpleExpression(xquery: String): List<XdmStaticValue> {
@@ -50,7 +50,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // region Lexical Values
-    // region BracedUriLiteral (XdmLexicalValue)
+    // region BracedUriLiteral (XdmStaticValue)
 
     fun testBracedUriLiteral() {
         val literal = parseLiteral<XPathBracedURILiteral>("Q{http://www.example.com\uFFFF}")
@@ -73,7 +73,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region DecimalLiteral (XdmLexicalValue)
+    // region DecimalLiteral (XdmStaticValue)
 
     fun testDecimalLiteral() {
         val literal = parseLiteral<XPathDecimalLiteral>("12.34")
@@ -86,7 +86,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region DoubleLiteral (XdmLexicalValue)
+    // region DoubleLiteral (XdmStaticValue)
 
     fun testDoubleLiteral() {
         val literal = parseLiteral<XPathDoubleLiteral>("1e3")
@@ -99,7 +99,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region IntegerLiteral (XdmLexicalValue)
+    // region IntegerLiteral (XdmStaticValue)
 
     fun testIntegerLiteral() {
         val literal = parseLiteral<XPathIntegerLiteral>("123")
@@ -113,7 +113,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region Literal (XdmLexicalValue)
+    // region Literal (XdmStaticValue)
 
     fun testLiteral_DoubleLiteral() {
         val literal = parseLiteral<XPathLiteral>("1e3")
@@ -156,7 +156,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringLiteral (XdmLexicalValue)
+    // region StringLiteral (XdmStaticValue)
 
     fun testStringLiteral() {
         val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")

@@ -16,12 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import java.lang.ref.WeakReference
 
-data class QName(val prefix: XdmLexicalValue?,
-                 val namespace: XdmLexicalValue?,
-                 val localName: XdmLexicalValue,
+data class QName(val prefix: XdmStaticValue?,
+                 val namespace: XdmStaticValue?,
+                 val localName: XdmStaticValue,
                  val declaration: WeakReference<XdmStaticValue>?,
                  val isLexicalQName: Boolean) {
 

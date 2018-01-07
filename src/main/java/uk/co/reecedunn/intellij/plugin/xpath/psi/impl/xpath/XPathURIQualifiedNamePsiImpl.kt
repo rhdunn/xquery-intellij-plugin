@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
@@ -64,7 +63,7 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         val namespace: PsiElement? = findChildByType(XQueryElementType.BRACED_URI_LITERAL)
         val localName: PsiElement? = findChildByType(XQueryElementType.NCNAME)
         localName?.let {
-            createQName(namespace as XdmLexicalValue, localName.firstChild as XdmLexicalValue, this)
+            createQName(namespace as XdmStaticValue, localName.firstChild as XdmStaticValue, this)
         } `is` Cacheable
     }
 }

@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 class XPathBracedURILiteralPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathBracedURILiteral,
-        XdmLexicalValue,
+        XdmStaticValue,
         XQueryConformance {
 
     override fun subtreeChanged() {

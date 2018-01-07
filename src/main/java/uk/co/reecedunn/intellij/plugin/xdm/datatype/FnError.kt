@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 
 /**
  * Unspecified error.
@@ -34,10 +34,10 @@ val FORG0001 = createQName("http://www.w3.org/2005/xqt-errors", "FORG0001")
 val XPTY0004 = createQName("http://www.w3.org/2005/xqt-errors", "XPTY0004")
 
 data class FnErrorObject(val code: QName,
-                         val description: XdmLexicalValue?,
-                         val errorObject: List<XdmLexicalValue>) {
+                         val description: XdmStaticValue?,
+                         val errorObject: List<XdmStaticValue>) {
 
     constructor(): this(FOER0000, null, listOf())
     constructor(code: QName): this(code, null, listOf())
-    constructor(code: QName, description: XdmLexicalValue): this(code, description, listOf())
+    constructor(code: QName, description: XdmStaticValue): this(code, description, listOf())
 }

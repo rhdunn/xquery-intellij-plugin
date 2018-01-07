@@ -36,14 +36,14 @@ class XQueryXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
     }
 
-    private inline fun <reified T> parseLiteral(xquery: String): XdmLexicalValue {
+    private inline fun <reified T> parseLiteral(xquery: String): XdmStaticValue {
         return parseText(xquery)!!
                 .walkTree().filterIsInstance<T>()
-                .first() as XdmLexicalValue
+                .first() as XdmStaticValue
     }
 
     // region Lexical Values
-    // region BracedUriLiteral (XdmLexicalValue)
+    // region BracedUriLiteral (XdmStaticValue)
 
     fun testBracedUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
@@ -67,7 +67,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringLiteral (XdmLexicalValue)
+    // region StringLiteral (XdmStaticValue)
 
     fun testStringLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
@@ -91,7 +91,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region UriLiteral (XdmLexicalValue)
+    // region UriLiteral (XdmStaticValue)
 
     fun testUriLiteral() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
@@ -155,10 +155,10 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region DirAttributeValue (XdmLexicalValue)
+    // region DirAttributeValue (XdmStaticValue)
 
     fun testDirAttributeValue() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
@@ -168,7 +168,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttributeValue_Unclosed() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
@@ -178,7 +178,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttributeValue_EscapeApos() {
-        val literal = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'/>")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'/>")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
@@ -188,7 +188,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttributeValue_EscapeQuot() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"/>")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"/>")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
@@ -199,7 +199,7 @@ class XQueryXdmTest : ParserTestCase() {
 
     fun testDirAttributeValue_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"/>")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"/>")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
@@ -209,7 +209,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttributeValue_CharRef() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"/>")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"/>")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
@@ -219,7 +219,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttributeValue_EnclosedExpr() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"x{\$y}z\"/>")[0] as XdmLexicalValue
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"x{\$y}z\"/>")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsUntyped as XdmSequenceType))

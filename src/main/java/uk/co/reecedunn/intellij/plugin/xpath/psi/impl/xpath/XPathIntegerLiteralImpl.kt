@@ -19,14 +19,14 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 
 class XPathIntegerLiteralImpl(type: IElementType, text: CharSequence):
         LeafPsiElement(type, text),
         XPathIntegerLiteral,
-        XdmLexicalValue {
+        XdmStaticValue {
 
     override val staticValue get(): Any? = text
 

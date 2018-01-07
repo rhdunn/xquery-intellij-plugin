@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
-    val defaultElementOrTypeNamespace: Sequence<XdmLexicalValue>
+    val defaultElementOrTypeNamespace: Sequence<XdmStaticValue>
 
-    val defaultFunctionNamespace: Sequence<XdmLexicalValue>
+    val defaultFunctionNamespace: Sequence<XdmStaticValue>
 }
 
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {

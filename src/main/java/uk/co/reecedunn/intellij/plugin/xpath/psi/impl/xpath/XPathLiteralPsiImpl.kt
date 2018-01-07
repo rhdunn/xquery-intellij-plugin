@@ -18,18 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLiteral
 
 class XPathLiteralPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathLiteral,
-        XdmLexicalValue {
+        XdmStaticValue {
 
-    override val staticValue get(): Any? = (firstChild as XdmLexicalValue).staticValue
+    override val staticValue get(): Any? = (firstChild as XdmStaticValue).staticValue
 
-    override val staticType get(): XdmSequenceType = (firstChild as XdmLexicalValue).staticType
+    override val staticType get(): XdmSequenceType = (firstChild as XdmStaticValue).staticType
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 }

@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 
@@ -33,7 +32,7 @@ open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNC
 
     override val staticType: XdmSequenceType = XsQName
 
-    override val staticValue get(): Any? = createLexicalQName(null, firstChild as XdmLexicalValue, this)
+    override val staticValue get(): Any? = createLexicalQName(null, firstChild as XdmStaticValue, this)
 
     override fun getName(): String? = firstChild.text
 

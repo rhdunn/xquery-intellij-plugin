@@ -17,14 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 
-interface XdmLexicalValue {
-    val cacheable: CachingBehaviour
-
-    val staticType: XdmSequenceType
-
-    val staticValue: Any?
-}
-
 interface XdmStaticValue {
     val cacheable: CachingBehaviour
 
@@ -33,6 +25,6 @@ interface XdmStaticValue {
     val staticValue: Any?
 }
 
-fun XdmLexicalValue.toInt(): Int {
+fun XdmStaticValue.toInt(): Int {
     return (staticValue as String).toInt()
 }

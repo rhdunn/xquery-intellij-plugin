@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
@@ -31,13 +31,13 @@ class XQuerySchemaImportPsiImpl(node: ASTNode):
         XPathNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
-    override val namespacePrefix get(): XdmLexicalValue? {
+    override val namespacePrefix get(): XdmStaticValue? {
         val schema = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull() ?: return null
-        return schema.children().filterIsInstance<XPathNCName>().firstOrNull()?.localName as? XdmLexicalValue
+        return schema.children().filterIsInstance<XPathNCName>().firstOrNull()?.localName as? XdmStaticValue
     }
 
-    override val namespaceUri get(): XdmLexicalValue? =
-        children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmLexicalValue
+    override val namespaceUri get(): XdmStaticValue? =
+        children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmStaticValue
 
     // endregion
 }
