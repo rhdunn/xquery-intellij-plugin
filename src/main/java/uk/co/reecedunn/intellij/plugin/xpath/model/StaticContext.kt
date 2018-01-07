@@ -57,15 +57,26 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             if (visitedForClause)
                 emptySequence()
             else
-                node.children().filterIsInstance<XQueryForBinding>().map { binding -> binding as XPathVariableDeclaration }
+                node.children().filterIsInstance<XQueryForBinding>().flatMap { binding ->
+                    val pos = binding.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
+                    if (pos != null)
+                        sequenceOf(binding as XPathVariableDeclaration, pos)
+                    else
+                        sequenceOf(binding as XPathVariableDeclaration)
+                }
         }
         is XQueryForBinding -> {
             visitedForClause = true
             if (visitedForBinding) {
                 visitedForBinding = false
                 emptySequence()
-            } else
-                sequenceOf(node as XPathVariableDeclaration)
+            } else {
+                val pos = node.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
+                if (pos != null)
+                    sequenceOf(node as XPathVariableDeclaration, pos)
+                else
+                    sequenceOf(node as XPathVariableDeclaration)
+            }
         }
         is XPathExprSingle -> {
             if (node.parent is XQueryForBinding) {
