@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmOptional
@@ -33,8 +32,8 @@ class XPathSingleTypePsiImpl(node: ASTNode):
 
     override val cacheable get(): CachingBehaviour = (firstChild as XdmTypeDeclaration).cacheable
 
-    override val staticType get(): XdmSequenceType {
-        val type = (firstChild as XdmTypeDeclaration).staticType
+    override val declaredType get(): XdmSequenceType {
+        val type = (firstChild as XdmTypeDeclaration).declaredType
         return if (contains(XQueryTokenType.OPTIONAL)) XdmOptional(type) else type
     }
 }

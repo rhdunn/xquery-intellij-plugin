@@ -41,7 +41,7 @@ class XPathAtomicOrUnionTypePsiImpl(node: ASTNode):
 
     override val cacheable get(): CachingBehaviour = cachedStaticType.cachingBehaviour
 
-    override val staticType get(): XdmSequenceType = cachedStaticType.get() ?: XsUntyped
+    override val declaredType get(): XdmSequenceType = cachedStaticType.get() ?: XsUntyped
     private val cachedStaticType = CacheableProperty {
         val qname = (firstChild as XdmConstantExpression).constantValue as? QName
         // NOTE: QNames and NCNames are not cacheable, as they can refer to other parts of the tree.

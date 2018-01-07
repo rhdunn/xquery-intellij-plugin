@@ -418,9 +418,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -443,9 +443,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathQName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -470,9 +470,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -497,10 +497,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -524,10 +524,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -554,10 +554,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -583,10 +583,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -613,9 +613,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -638,9 +638,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathQName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -665,9 +665,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -692,10 +692,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -719,10 +719,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -749,10 +749,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -776,10 +776,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -808,9 +808,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -833,9 +833,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathQName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -860,9 +860,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -887,10 +887,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -914,10 +914,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -944,10 +944,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -971,10 +971,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -1001,9 +1001,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathNCName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -1026,9 +1026,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathQName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -1053,9 +1053,9 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.itemType, `is`(type as XdmSequenceType))
@@ -1080,10 +1080,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -1107,10 +1107,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -1137,10 +1137,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -1164,10 +1164,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmSimpleType::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmSimpleType
+        val type = expr.declaredType as XdmSimpleType
         assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
         assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -1191,10 +1191,10 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild.firstChild as XPathURIQualifiedName
-        assertThat(expr.staticType, `is`(instanceOf(XdmOptional::class.java)))
+        assertThat(expr.declaredType, `is`(instanceOf(XdmOptional::class.java)))
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
-        val type = expr.staticType as XdmOptional
+        val type = expr.declaredType as XdmOptional
         assertThat(type.itemType, `is`(instanceOf(XdmSimpleType::class.java)))
         assertThat(type.itemType.itemType, `is`(XsBoolean as XdmSequenceType))
         assertThat((type.itemType as XdmSimpleType).baseType, `is`(XsAnyAtomicType as XdmSequenceType))

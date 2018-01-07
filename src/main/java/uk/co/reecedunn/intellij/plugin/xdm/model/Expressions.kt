@@ -35,7 +35,7 @@ interface XdmConstantExpression : XdmExpression {
 interface XdmTypeDeclaration {
     val cacheable: CachingBehaviour
 
-    val staticType: XdmSequenceType
+    val declaredType: XdmSequenceType
 }
 
 fun XdmLexicalValue.toInt(): Int {
