@@ -32,7 +32,11 @@ interface XdmConstantExpression : XdmExpression {
     val constantValue: Any?
 }
 
-interface XdmTypeDeclaration : XdmExpression
+interface XdmTypeDeclaration {
+    val cacheable: CachingBehaviour
+
+    val staticType: XdmSequenceType
+}
 
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
