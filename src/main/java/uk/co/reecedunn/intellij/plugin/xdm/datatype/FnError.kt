@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 
 /**
@@ -36,7 +35,7 @@ val XPTY0004 = createQName("http://www.w3.org/2005/xqt-errors", "XPTY0004")
 
 data class FnErrorObject(val code: QName,
                          val description: XdmLexicalValue?,
-                         val errorObject: List<XdmExpression>) {
+                         val errorObject: List<XdmLexicalValue>) {
 
     constructor(): this(FOER0000, null, listOf())
     constructor(code: QName): this(code, null, listOf())

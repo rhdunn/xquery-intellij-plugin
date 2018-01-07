@@ -17,17 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 
-interface XdmExpression {
+interface XdmLexicalValue {
     val cacheable: CachingBehaviour
 
     val staticType: XdmSequenceType
-}
 
-interface XdmLexicalValue : XdmExpression {
     val lexicalRepresentation: String
 }
 
-interface XdmConstantExpression : XdmExpression {
+interface XdmConstantExpression {
+    val cacheable: CachingBehaviour
+
+    val staticType: XdmSequenceType
+
     val constantValue: Any?
 }
 
