@@ -27,9 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XPathURIQualifiedNamePsiImpl(node: ASTNode):
@@ -50,7 +50,7 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         return findChildByType(XQueryElementType.NCNAME)
     }
 
-    override fun resolvePrefixNamespace(): Sequence<XdmNamespaceDeclaration> {
+    override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         return emptySequence()
     }
 

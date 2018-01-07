@@ -19,16 +19,16 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 
 class XQueryNamespaceDeclPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryNamespaceDecl,
-        XdmNamespaceDeclaration {
-    // region XdmNamespaceDeclaration
+        XPathNamespaceDeclaration {
+    // region XPathNamespaceDeclaration
 
     override val namespacePrefix get(): XdmLexicalValue? =
         children().filterIsInstance<XPathNCName>().firstOrNull()?.localName as? XdmLexicalValue

@@ -19,7 +19,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
@@ -28,18 +27,18 @@ interface XPathStaticContext {
     val defaultFunctionNamespace: Sequence<XdmLexicalValue>
 }
 
-fun PsiElement.staticallyKnownNamespaces(): Sequence<XdmNamespaceDeclaration> {
+fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
     return walkTree().reversed().flatMap { node -> when (node) {
-        is XdmNamespaceDeclaration ->
-            sequenceOf(node as XdmNamespaceDeclaration)
+        is XPathNamespaceDeclaration ->
+            sequenceOf(node as XPathNamespaceDeclaration)
         is XQueryDirElemConstructor ->
             node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                ?.children()?.filterIsInstance<XQueryDirAttribute>()?.map { attr -> attr as XdmNamespaceDeclaration }
+                ?.children()?.filterIsInstance<XQueryDirAttribute>()?.map { attr -> attr as XPathNamespaceDeclaration }
                 ?: emptySequence()
         is XQueryProlog ->
-            node.children().reversed().filterIsInstance<XdmNamespaceDeclaration>()
+            node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()
         is XQueryModule ->
-            node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XdmNamespaceDeclaration>() ?: emptySequence()
+            node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>() ?: emptySequence()
         else -> emptySequence()
     }}.filterNotNull().distinct().filter {
         node -> node.namespacePrefix != null && node.namespaceUri != null

@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -65,7 +65,7 @@ interface XPathEQName : PsiElement {
 
     val localName: PsiElement?
 
-    fun resolvePrefixNamespace(): Sequence<XdmNamespaceDeclaration>
+    fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration>
 
     fun resolveFunctionDecls(): Sequence<XQueryFunctionDecl> {
         val prologs = resolvePrefixNamespace().map { ns ->

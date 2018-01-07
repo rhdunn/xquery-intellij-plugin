@@ -22,10 +22,10 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -121,7 +121,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         return element.siblings().firstOrNull { e -> e.node.elementType === XQueryElementType.NCNAME }
     }
 
-    override fun resolvePrefixNamespace(): Sequence<XdmNamespaceDeclaration> {
+    override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         val prefix = prefix
         return when (prefix) {
             null -> emptySequence()

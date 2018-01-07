@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -43,17 +43,17 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.children().forEach { module ->
-            val uris = HashMap<String, XdmNamespaceDeclaration>()
+            val uris = HashMap<String, XPathNamespaceDeclaration>()
 
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
-                val ns = child as? XdmNamespaceDeclaration
+                val ns = child as? XPathNamespaceDeclaration
                 val uri = ns?.namespaceUri?.lexicalRepresentation
 
                 if (ns == null || uri == null)
                     return
 
-                val duplicate: XdmNamespaceDeclaration? = uris.get(uri)
+                val duplicate: XPathNamespaceDeclaration? = uris.get(uri)
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
                     descriptors.add(manager.createProblemDescriptor(ns.namespaceUri as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))

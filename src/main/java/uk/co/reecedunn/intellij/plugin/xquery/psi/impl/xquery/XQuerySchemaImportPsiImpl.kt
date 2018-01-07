@@ -19,8 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 class XQuerySchemaImportPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQuerySchemaImport,
-        XdmNamespaceDeclaration {
-    // region XdmNamespaceDeclaration
+        XPathNamespaceDeclaration {
+    // region XPathNamespaceDeclaration
 
     override val namespacePrefix get(): XdmLexicalValue? {
         val schema = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull() ?: return null

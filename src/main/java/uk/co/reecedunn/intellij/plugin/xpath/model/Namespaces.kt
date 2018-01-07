@@ -13,27 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
+package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 
-interface XdmExpression {
-    val cacheable: CachingBehaviour
+interface XPathNamespaceDeclaration {
+    val namespacePrefix: XdmLexicalValue?
 
-    val staticType: XdmSequenceType
-}
-
-interface XdmLexicalValue : XdmExpression {
-    val lexicalRepresentation: String
-}
-
-interface XdmConstantExpression : XdmExpression {
-    val constantValue: Any?
-}
-
-interface XdmTypeDeclaration : XdmExpression
-
-fun XdmLexicalValue.toInt(): Int {
-    return lexicalRepresentation.toInt()
+    val namespaceUri: XdmLexicalValue?
 }

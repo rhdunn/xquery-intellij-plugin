@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -45,7 +45,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
         file.children().forEach { module ->
             val prefices = HashMap<String, XQueryUriLiteral?>()
 
-            val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XdmNamespaceDeclaration
+            val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
             if (moduleDecl != null) {
                 val prefix = moduleDecl.namespacePrefix?.lexicalRepresentation
                 val uri = moduleDecl.namespaceUri
@@ -56,7 +56,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
 
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.forEach(fun (child) {
-                val ns = child as? XdmNamespaceDeclaration
+                val ns = child as? XPathNamespaceDeclaration
                 val prefix = ns?.namespacePrefix?.lexicalRepresentation
 
                 if (ns == null || prefix == null)

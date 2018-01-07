@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -230,10 +231,10 @@ class XQueryXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Namespaces
-    // region DirAttribute (XdmNamespaceDeclaration)
+    // region DirAttribute (XPathNamespaceDeclaration)
 
     fun testDirAttribute_Xmlns() {
-        val expr = parse<XQueryDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -247,7 +248,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttribute_Xmlns_NoNamespaceUri() {
-        val expr = parse<XQueryDirAttribute>("<a xmlns:b=>")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryDirAttribute>("<a xmlns:b=>")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -258,7 +259,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testDirAttribute() {
-        val expr = parse<XQueryDirAttribute>("<a b='http://www.example.com'/>")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryDirAttribute>("<a b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(nullValue()))
 
@@ -269,10 +270,10 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region ModuleDecl (XdmNamespaceDeclaration)
+    // region ModuleDecl (XPathNamespaceDeclaration)
 
     fun testModuleDecl() {
-        val expr = parse<XQueryModuleDecl>("module namespace test = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryModuleDecl>("module namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -286,7 +287,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testModuleDecl_NoNamespacePrefix() {
-        val expr = parse<XQueryModuleDecl>("module namespace = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryModuleDecl>("module namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(nullValue()))
 
@@ -297,7 +298,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testModuleDecl_NoNamespaceUri() {
-        val expr = parse<XQueryModuleDecl>("module namespace test = ;")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryModuleDecl>("module namespace test = ;")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -308,10 +309,10 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region ModuleImport (XdmNamespaceDeclaration)
+    // region ModuleImport (XPathNamespaceDeclaration)
 
     fun testModuleImport() {
-        val expr = parse<XQueryModuleImport>("import module namespace test = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryModuleImport>("import module namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -325,7 +326,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testModuleImport_NoNamespacePrefix() {
-        val expr = parse<XQueryModuleImport>("import module namespace = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryModuleImport>("import module namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(nullValue()))
 
@@ -336,7 +337,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testModuleImport_NoNamespaceUri() {
-        val expr = parse<XQueryModuleImport>("import module namespace test = ;")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryModuleImport>("import module namespace test = ;")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -347,10 +348,10 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region NamespaceDecl (XdmNamespaceDeclaration)
+    // region NamespaceDecl (XPathNamespaceDeclaration)
 
     fun testNamespaceDecl() {
-        val expr = parse<XQueryNamespaceDecl>("declare namespace test = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryNamespaceDecl>("declare namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -364,7 +365,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testNamespaceDecl_NoNamespacePrefix() {
-        val expr = parse<XQueryNamespaceDecl>("declare namespace = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryNamespaceDecl>("declare namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(nullValue()))
 
@@ -375,7 +376,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testNamespaceDecl_NoNamespaceUri() {
-        val expr = parse<XQueryNamespaceDecl>("declare namespace test = ;")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQueryNamespaceDecl>("declare namespace test = ;")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -386,10 +387,10 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region SchemaImport (XdmNamespaceDeclaration)
+    // region SchemaImport (XPathNamespaceDeclaration)
 
     fun testSchemaImport() {
-        val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -403,7 +404,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testSchemaImport_NoNamespacePrefix() {
-        val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(nullValue()))
 
@@ -414,7 +415,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testSchemaImport_NoNamespaceUri() {
-        val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XdmNamespaceDeclaration
+        val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
