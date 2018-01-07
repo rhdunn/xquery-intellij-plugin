@@ -223,7 +223,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(literal.staticValue as String, `is`(""))
+        assertThat(literal.staticValue, `is`(nullValue()))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }

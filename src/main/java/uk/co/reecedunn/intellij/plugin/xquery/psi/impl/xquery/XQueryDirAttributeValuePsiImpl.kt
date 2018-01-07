@@ -54,7 +54,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode):
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val staticValue get(): Any? = cachedAttributeValue.get() ?: ""
+    override val staticValue get(): Any? = cachedAttributeValue.get()
 
     private val cachedAttributeValue = CacheableProperty {
         if (contains(XQueryElementType.ENCLOSED_EXPR))
