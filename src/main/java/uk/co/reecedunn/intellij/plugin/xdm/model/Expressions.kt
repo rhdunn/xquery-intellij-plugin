@@ -52,8 +52,6 @@ interface XdmVariableDeclaration : XdmVariableName {
     val variableValue: XdmConstantExpression?
 }
 
-interface XdmVariableReference : XdmVariableName
-
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
 }

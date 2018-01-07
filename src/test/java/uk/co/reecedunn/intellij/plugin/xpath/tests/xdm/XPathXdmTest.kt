@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathXdmTest : ParserTestCase() {
@@ -1471,10 +1472,10 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region VarRef (XdmVariableReference)
+    // region VarRef (XPathVariableReference)
 
     fun testVarRef_NCName() {
-        val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
+        val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XPathVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -1493,7 +1494,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarRef_QName() {
-        val expr = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XdmVariableReference
+        val expr = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XPathVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -1514,7 +1515,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarRef_URIQualifiedName() {
-        val expr = parse<XPathVarRef>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0] as XdmVariableReference
+        val expr = parse<XPathVarRef>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0] as XPathVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
@@ -1535,7 +1536,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarRef_MissingVarName() {
-        val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XdmVariableReference
+        val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XPathVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
 
