@@ -81,10 +81,16 @@ private fun PsiElement.forLetClauseVariables(context: InScopeVariableContext): S
         }}
 }
 
+private fun PsiElement.intermediateClause(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    return children().flatMap { node -> when (node) {
+        is XPathVariableDeclaration -> sequenceOf(node as XPathVariableDeclaration)
+        else -> emptySequence()
+    }}
+}
+
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
-        // region ForClause/LetClause
         is XQueryForClause, is XQueryLetClause -> node.forLetClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding -> node.forLetBindingVariables(node, context)
         is XPathExprSingle -> {
@@ -93,12 +99,7 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             }
             emptySequence()
         }
-        // endregion
-        // region IntermediateClause (CountClause)
-        is XQueryIntermediateClause ->
-            node.children().filterIsInstance<XPathVariableDeclaration>()
-        // endregion
-        // region TypeswitchExpr
+        is XQueryIntermediateClause -> node.intermediateClause(context)
         is XQueryCaseClause, is XQueryDefaultCaseClause -> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
             if (!context.visitedTypeswitch) {
@@ -111,7 +112,6 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
             emptySequence()
         }
-        // endregion
         else -> emptySequence()
     }}.filterNotNull().filter {
         variable -> variable.variableName != null
