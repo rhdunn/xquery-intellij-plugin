@@ -55,7 +55,15 @@ private class InScopeVariableContext {
     var visitedForLetClause = false
 }
 
-private fun PsiElement.forLetBindingVariables(): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.forLetBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    if (node is XQueryForBinding || node is XQueryLetBinding) {
+        context.visitedForLetClause = true
+        if (context.visitedForLetBinding) {
+            context.visitedForLetBinding = false
+            return emptySequence()
+        }
+    }
+
     val pos = children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
     return if (pos != null)
         sequenceOf(this as XPathVariableDeclaration, pos)
@@ -64,7 +72,7 @@ private fun PsiElement.forLetBindingVariables(): Sequence<XPathVariableDeclarati
 }
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
-    var context = InScopeVariableContext()
+    val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
         // region ForClause/LetClause
         is XQueryForClause, is XQueryLetClause -> {
@@ -72,18 +80,11 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
                 emptySequence()
             else
                 node.children().flatMap { binding -> when (binding) {
-                    is XQueryForBinding, is XQueryLetBinding -> binding.forLetBindingVariables()
+                    is XQueryForBinding, is XQueryLetBinding -> binding.forLetBindingVariables(node, context)
                     else -> emptySequence()
                 }}
         }
-        is XQueryForBinding, is XQueryLetBinding -> {
-            context.visitedForLetClause = true
-            if (context.visitedForLetBinding) {
-                context.visitedForLetBinding = false
-                emptySequence()
-            } else
-                node.forLetBindingVariables()
-        }
+        is XQueryForBinding, is XQueryLetBinding -> node.forLetBindingVariables(node, context)
         is XPathExprSingle -> {
             if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
                 context.visitedForLetBinding = true
