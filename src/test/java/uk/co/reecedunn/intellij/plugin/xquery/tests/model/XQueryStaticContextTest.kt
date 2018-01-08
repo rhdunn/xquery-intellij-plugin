@@ -885,6 +885,110 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // region IntermediateClause -> ForClause -> ForBinding
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for \$y in test() return 1")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_InExpr_PreviousBindingInScope() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 2 for \$y in 3, \$z in test() return 1")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_NestedFLWORExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for \$y in for \$z in test() return 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for \$y in 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_NestedFLWORExpr_InnerReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for \$y in for \$z in 2 return test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_NestedFLWORExpr_OuterReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for \$y in for \$z in 2 return 1 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_ForBinding_Multiple_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for \$y in 2, \$z in 3 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
     // region LetClause -> LetBinding
 
     fun testInScopeVariables_LetBinding_ValueExpr() {

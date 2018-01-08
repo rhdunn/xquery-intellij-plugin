@@ -53,6 +53,7 @@ private class InScopeVariableContext {
     var visitedTypeswitch = false
     var visitedForLetBinding = false
     var visitedForLetClause = false
+    var visitedForLetClauseAsIntermediateClause = false
 }
 
 private fun PsiElement.forLetBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
@@ -72,17 +73,25 @@ private fun PsiElement.forLetBindingVariables(node: PsiElement, context: InScope
 }
 
 private fun PsiElement.forLetClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
-    return if (context.visitedForLetClause)
-        emptySequence()
-    else
-        children().flatMap { binding -> when (binding) {
+    if (context.visitedForLetClause) {
+        context.visitedForLetClause = false
+        return emptySequence()
+    } else {
+        return children().flatMap { binding -> when (binding) {
             is XQueryForBinding, is XQueryLetBinding -> binding.forLetBindingVariables(this, context)
             else -> emptySequence()
         }}
+    }
 }
 
 private fun PsiElement.intermediateClause(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     return children().flatMap { node -> when (node) {
+        is XQueryForClause, is XQueryLetClause ->
+            if (context.visitedForLetClauseAsIntermediateClause) {
+                context.visitedForLetClauseAsIntermediateClause = false
+                emptySequence()
+            } else
+                node.forLetClauseVariables(context)
         is XPathVariableDeclaration -> sequenceOf(node as XPathVariableDeclaration)
         else -> emptySequence()
     }}
@@ -96,6 +105,9 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
         is XPathExprSingle -> {
             if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
                 context.visitedForLetBinding = true
+                if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
+                    context.visitedForLetClauseAsIntermediateClause = true
+                }
             }
             emptySequence()
         }
