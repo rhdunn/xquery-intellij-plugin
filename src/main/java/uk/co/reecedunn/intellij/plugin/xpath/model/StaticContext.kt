@@ -49,6 +49,12 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
 
 // region In-scope variables
 
+private class InScopeVariableContext {
+    var visitedTypeswitch = false
+    var visitedForLetBinding = false
+    var visitedForLetClause = false
+}
+
 private fun PsiElement.forLetBindingVariables(): Sequence<XPathVariableDeclaration> {
     val pos = children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
     return if (pos != null)
@@ -58,13 +64,11 @@ private fun PsiElement.forLetBindingVariables(): Sequence<XPathVariableDeclarati
 }
 
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
-    var visitedTypeswitch = false
-    var visitedForLetBinding = false
-    var visitedForLetClause = false
+    var context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
         // region ForClause/LetClause
         is XQueryForClause, is XQueryLetClause -> {
-            if (visitedForLetClause)
+            if (context.visitedForLetClause)
                 emptySequence()
             else
                 node.children().flatMap { binding -> when (binding) {
@@ -73,16 +77,16 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
                 }}
         }
         is XQueryForBinding, is XQueryLetBinding -> {
-            visitedForLetClause = true
-            if (visitedForLetBinding) {
-                visitedForLetBinding = false
+            context.visitedForLetClause = true
+            if (context.visitedForLetBinding) {
+                context.visitedForLetBinding = false
                 emptySequence()
             } else
                 node.forLetBindingVariables()
         }
         is XPathExprSingle -> {
             if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
-                visitedForLetBinding = true
+                context.visitedForLetBinding = true
             }
             emptySequence()
         }
@@ -94,14 +98,14 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
         // region TypeswitchExpr
         is XQueryCaseClause, is XQueryDefaultCaseClause -> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
-            if (!visitedTypeswitch) {
-                visitedTypeswitch = true
+            if (!context.visitedTypeswitch) {
+                context.visitedTypeswitch = true
                 sequenceOf(node as XPathVariableDeclaration)
             } else
                 emptySequence()
         }
         is XQueryTypeswitchExpr -> {
-            visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
+            context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
             emptySequence()
         }
         // endregion
