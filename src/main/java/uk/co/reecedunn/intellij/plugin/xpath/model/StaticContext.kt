@@ -71,19 +71,21 @@ private fun PsiElement.forLetBindingVariables(node: PsiElement, context: InScope
         sequenceOf(this as XPathVariableDeclaration)
 }
 
+private fun PsiElement.forLetClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    return if (context.visitedForLetClause)
+        emptySequence()
+    else
+        children().flatMap { binding -> when (binding) {
+            is XQueryForBinding, is XQueryLetBinding -> binding.forLetBindingVariables(this, context)
+            else -> emptySequence()
+        }}
+}
+
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
         // region ForClause/LetClause
-        is XQueryForClause, is XQueryLetClause -> {
-            if (context.visitedForLetClause)
-                emptySequence()
-            else
-                node.children().flatMap { binding -> when (binding) {
-                    is XQueryForBinding, is XQueryLetBinding -> binding.forLetBindingVariables(node, context)
-                    else -> emptySequence()
-                }}
-        }
+        is XQueryForClause, is XQueryLetClause -> node.forLetClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding -> node.forLetBindingVariables(node, context)
         is XPathExprSingle -> {
             if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
