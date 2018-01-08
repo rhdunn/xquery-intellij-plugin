@@ -867,6 +867,24 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // region IntermediateClause -> CountClause
+
+    fun testInScopeVariables_CountClause() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 count \$y return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
     // region LetClause -> LetBinding
 
     fun testInScopeVariables_LetBinding_ValueExpr() {

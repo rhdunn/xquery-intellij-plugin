@@ -88,6 +88,10 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             emptySequence()
         }
         // endregion
+        // region IntermediateClause (CountClause)
+        is XQueryIntermediateClause ->
+            node.children().filterIsInstance<XPathVariableDeclaration>()
+        // endregion
         // region TypeswitchExpr
         is XQueryCaseClause, is XQueryDefaultCaseClause -> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
