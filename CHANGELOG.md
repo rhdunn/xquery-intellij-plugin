@@ -14,6 +14,8 @@ Bug Fixes:
     QName and before the comma.
 1.  Fix parsing `TypedFunctionTest` constructs with whitespace or comments after the
     item type with an occurrence indicator and before the comma.
+1.  Improve error recovery when parsing incomplete QNames in direct element constructor
+    start and end tags, e.g. `<a:></a:>`.
 
 Inspections:
 

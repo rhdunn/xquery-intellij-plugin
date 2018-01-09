@@ -7204,9 +7204,7 @@ class XQueryParser {
                 // endregion
                 // region QNameOrWildcardLocalName := (NCName | "*")
 
-                if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
-                    error(XQueryBundle.message("parser.error.qname.missing-local-name"));
-                } else if (getTokenType() instanceof INCNameType) {
+                if (getTokenType() instanceof INCNameType) {
                     final PsiBuilder.Marker ncnameMarker = mark();
                     advanceLexer();
                     ncnameMarker.done(XQueryElementType.NCNAME);
@@ -7225,10 +7223,15 @@ class XQueryParser {
                         errorMarker.error(XQueryBundle.message("parser.error.qname.wildcard-local-name"));
                     }
                     isWildcard = true;
-                } else {
+                } else if (getTokenType() == XQueryTokenType.INTEGER_LITERAL) {
+                    // The user has started the local name with a number, so treat it as part of the QName.
                     final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
                     errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                } else {
+                    // Don't consume the next token with an error, as it may be a valid part of the next construct
+                    // (e.g. the start of a string literal, or the '>' of a direct element constructor).
+                    error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 }
 
                 // endregion
