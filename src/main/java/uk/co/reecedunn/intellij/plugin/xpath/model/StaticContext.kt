@@ -19,7 +19,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
@@ -51,16 +50,17 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
 
 private class InScopeVariableContext {
     var visitedTypeswitch = false
-    var visitedForLetBinding = false
-    var visitedForLetClause = false
-    var visitedForLetClauseAsIntermediateClause = false
+    var visitedFlworBinding = false
+    var visitedFlworClause = false
+    var visitedFlworClauseAsIntermediateClause = false
 }
 
-private fun PsiElement.forLetBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+// ForBinding, LetBinding
+private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     if (node is XQueryForBinding || node is XQueryLetBinding) {
-        context.visitedForLetClause = true
-        if (context.visitedForLetBinding) {
-            context.visitedForLetBinding = false
+        context.visitedFlworClause = true
+        if (context.visitedFlworBinding) {
+            context.visitedFlworBinding = false
             return emptySequence()
         }
     }
@@ -72,13 +72,14 @@ private fun PsiElement.forLetBindingVariables(node: PsiElement, context: InScope
         sequenceOf(this as XPathVariableDeclaration)
 }
 
-private fun PsiElement.forLetClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
-    if (context.visitedForLetClause) {
-        context.visitedForLetClause = false
+// ForClause, LetClause
+private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    if (context.visitedFlworClause) {
+        context.visitedFlworClause = false
         return emptySequence()
     } else {
         return children().flatMap { binding -> when (binding) {
-            is XQueryForBinding, is XQueryLetBinding -> binding.forLetBindingVariables(this, context)
+            is XQueryForBinding, is XQueryLetBinding -> binding.flworBindingVariables(this, context)
             else -> emptySequence()
         }}
     }
@@ -87,11 +88,11 @@ private fun PsiElement.forLetClauseVariables(context: InScopeVariableContext): S
 private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     return children().flatMap { node -> when (node) {
         is XQueryForClause, is XQueryLetClause ->
-            if (context.visitedForLetClauseAsIntermediateClause) {
-                context.visitedForLetClauseAsIntermediateClause = false
+            if (context.visitedFlworClauseAsIntermediateClause) {
+                context.visitedFlworClauseAsIntermediateClause = false
                 emptySequence()
             } else
-                node.forLetClauseVariables(context)
+                node.flworClauseVariables(context)
         is XPathVariableDeclaration -> sequenceOf(node as XPathVariableDeclaration)
         else -> emptySequence()
     }}
@@ -100,13 +101,13 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
-        is XQueryForClause, is XQueryLetClause -> node.forLetClauseVariables(context)
-        is XQueryForBinding, is XQueryLetBinding -> node.forLetBindingVariables(node, context)
+        is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
+        is XQueryForBinding, is XQueryLetBinding -> node.flworBindingVariables(node, context)
         is XPathExprSingle -> {
             if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
-                context.visitedForLetBinding = true
+                context.visitedFlworBinding = true
                 if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
-                    context.visitedForLetClauseAsIntermediateClause = true
+                    context.visitedFlworClauseAsIntermediateClause = true
                 }
             }
             emptySequence()
