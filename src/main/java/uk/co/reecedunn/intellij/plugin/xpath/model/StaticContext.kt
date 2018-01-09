@@ -55,9 +55,9 @@ private class InScopeVariableContext {
     var visitedFlworClauseAsIntermediateClause = false
 }
 
-// ForBinding, LetBinding
+// ForBinding, LetBinding, GroupingSpec
 private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
-    if (node is XQueryForBinding || node is XQueryLetBinding) {
+    if (node is XQueryForBinding || node is XQueryLetBinding || node is XQueryGroupingSpec) {
         context.visitedFlworClause = true
         if (context.visitedFlworBinding) {
             context.visitedFlworBinding = false
@@ -72,17 +72,22 @@ private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeV
         sequenceOf(this as XPathVariableDeclaration)
 }
 
-// ForClause, LetClause
+// ForClause, LetClause, GroupingSpecList
 private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     if (context.visitedFlworClause) {
         context.visitedFlworClause = false
         return emptySequence()
     } else {
         return children().flatMap { binding -> when (binding) {
-            is XQueryForBinding, is XQueryLetBinding -> binding.flworBindingVariables(this, context)
+            is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> binding.flworBindingVariables(this, context)
             else -> emptySequence()
         }}
     }
+}
+
+private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    return children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
+        ?: emptySequence()
 }
 
 private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
@@ -93,6 +98,12 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
                 emptySequence()
             } else
                 node.flworClauseVariables(context)
+        is XQueryGroupByClause ->
+            if (context.visitedFlworClauseAsIntermediateClause) {
+                context.visitedFlworClauseAsIntermediateClause = false
+                emptySequence()
+            } else
+                node.groupByClauseVariables(context)
         is XPathVariableDeclaration -> sequenceOf(node as XPathVariableDeclaration)
         else -> emptySequence()
     }}
@@ -101,10 +112,11 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
+        // NOTE: GroupingSpecList is handled by the IntermediateClause logic.
         is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
-        is XQueryForBinding, is XQueryLetBinding -> node.flworBindingVariables(node, context)
+        is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XPathExprSingle -> {
-            if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding) {
+            if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding || node.parent is XQueryGroupingSpec) {
                 context.visitedFlworBinding = true
                 if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
                     context.visitedFlworClauseAsIntermediateClause = true
