@@ -29,7 +29,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
 
     override val closeTag get(): QName? {
         val tag = findChildrenByClass(XPathEQName::class.java)
-        return if (tag.size == 2) (tag[1] as XdmStaticValue).staticValue as QName else null
+        return if (tag.size == 2) (tag[1] as XdmStaticValue).staticValue as? QName else null
     }
 
     override val isSelfClosing get(): Boolean =
