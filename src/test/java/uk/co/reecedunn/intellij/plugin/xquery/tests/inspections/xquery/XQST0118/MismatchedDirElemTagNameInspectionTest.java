@@ -98,6 +98,22 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
         assertThat(problems.length, is(0));
     }
 
+    public void testQName_InvalidOpeningTag() {
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTagQName.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testQName_InvalidClosingTag() {
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
     public void testQName_MismatchedPrefix() {
         final XQueryModule file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedPrefix.xq");
 

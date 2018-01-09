@@ -42,7 +42,7 @@ class MismatchedDirElemTagNameInspection : LocalInspectionTool() {
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryDirElemConstructor>().forEach { elem ->
             val closeTag = elem.closeTag ?: return@forEach
-            val openTag = elem.openTag!!
+            val openTag = elem.openTag ?: return@forEach
             if (openTag.prefix?.staticValue != closeTag.prefix?.staticValue ||
                     openTag.localName.staticValue != closeTag.localName.staticValue) {
                 val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", closeTag, openTag)
