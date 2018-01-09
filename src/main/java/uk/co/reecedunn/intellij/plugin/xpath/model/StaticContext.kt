@@ -84,7 +84,7 @@ private fun PsiElement.forLetClauseVariables(context: InScopeVariableContext): S
     }
 }
 
-private fun PsiElement.intermediateClause(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     return children().flatMap { node -> when (node) {
         is XQueryForClause, is XQueryLetClause ->
             if (context.visitedForLetClauseAsIntermediateClause) {
@@ -111,7 +111,7 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             }
             emptySequence()
         }
-        is XQueryIntermediateClause -> node.intermediateClause(context)
+        is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
         is XQueryCaseClause, is XQueryDefaultCaseClause -> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
             if (!context.visitedTypeswitch) {
