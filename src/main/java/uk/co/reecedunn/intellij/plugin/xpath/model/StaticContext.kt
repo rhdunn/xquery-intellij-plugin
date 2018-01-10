@@ -85,6 +85,20 @@ private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Se
     }
 }
 
+// WindowClause + SlidingWindowClause
+private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    if (context.visitedFlworBinding) {
+        return emptySequence()
+    }
+
+    val node = children().map { e -> when (e) {
+        is XQuerySlidingWindowClause -> e as PsiElement
+        else -> null
+    }}.filterNotNull().firstOrNull() ?: return emptySequence()
+
+    return sequenceOf(node as XPathVariableDeclaration)
+}
+
 private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     return children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
         ?: emptySequence()
@@ -104,6 +118,7 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
                 emptySequence()
             } else
                 node.groupByClauseVariables(context)
+        is XQueryWindowClause -> node.windowClauseVariables(context)
         is XPathVariableDeclaration -> sequenceOf(node as XPathVariableDeclaration)
         else -> emptySequence()
     }}
@@ -115,12 +130,18 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
         // NOTE: GroupingSpecList is handled by the IntermediateClause logic.
         is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
+        is XQueryWindowClause -> node.windowClauseVariables(context)
         is XPathExprSingle -> {
-            if (node.parent is XQueryForBinding || node.parent is XQueryLetBinding || node.parent is XQueryGroupingSpec) {
-                context.visitedFlworBinding = true
-                if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
-                    context.visitedFlworClauseAsIntermediateClause = true
+            when (node.parent) {
+                is XQueryForBinding, is XQueryLetBinding,
+                is XQueryGroupingSpec,
+                is XQuerySlidingWindowClause -> {
+                    context.visitedFlworBinding = true
+                    if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
+                        context.visitedFlworClauseAsIntermediateClause = true
+                    }
                 }
+                else -> {}
             }
             emptySequence()
         }
