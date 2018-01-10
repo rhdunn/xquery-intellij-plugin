@@ -767,7 +767,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> InitialClause -> ForClause -> ForBinding + PositionalVar
+    // region FLWORExpr -> InitialClause -> ForClause -> ForBinding (PositionalVar)
 
     fun testInScopeVariables_ForBindingPositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -964,7 +964,8 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> InitialClause -> SlidingWindowClause -> WindowStartCondition -> CurrentItem
+    // region FLWORExpr -> InitialClause -> SlidingWindowClause (CurrentItem)
+    // region WindowStartCondition
 
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1000,7 +1001,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> InitialClause -> SlidingWindowClause -> WindowEndCondition -> CurrentItem
+    // region WindowEndCondition
 
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1036,6 +1037,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // endregion
     // region FLWORExpr -> InitialClause -> TumblingWindowClause
 
     fun testInScopeVariables_TumblingWindowClause_InExpr() {
@@ -1057,7 +1059,8 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> InitialClause -> TumblingWindowClause -> WindowStartCondition -> CurrentItem
+    // region FLWORExpr -> InitialClause -> TumblingWindowClause (CurrentItem)
+    // region WindowStartCondition
 
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1093,7 +1096,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> InitialClause -> TumblingWindowClause -> WindowEndCondition -> CurrentItem
+    // region WindowEndCondition
 
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1128,6 +1131,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
     }
 
+    // endregion
     // endregion
     // region FLWORExpr -> IntermediateClause -> CountClause
 
@@ -1447,7 +1451,8 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> IntermediateClause -> SlidingWindowClause -> WindowStartCondition -> CurrentItem
+    // region FLWORExpr -> IntermediateClause -> SlidingWindowClause (CurrentItem)
+    // region WindowStartCondition
 
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1495,7 +1500,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> IntermediateClause -> SlidingWindowClause -> WindowEndCondition -> CurrentItem
+    // region WindowEndCondition
 
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1543,6 +1548,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // endregion
     // region FLWORExpr -> IntermediateClause -> TumblingWindowClause
 
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_InExpr() {
@@ -1572,7 +1578,8 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> IntermediateClause -> TumblingWindowClause -> WindowStartCondition -> CurrentItem
+    // region FLWORExpr -> IntermediateClause -> TumblingWindowClause (CurrentItem)
+    // region WindowStartCondition
 
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1620,7 +1627,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region FLWORExpr -> IntermediateClause -> TumblingWindowClause -> WindowEndCondition -> CurrentItem
+    // region WindowEndCondition
 
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
@@ -1667,6 +1674,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
     }
 
+    // endregion
     // endregion
     // region TypeswitchExpr -> CaseClause + DefaultCaseClause
 
