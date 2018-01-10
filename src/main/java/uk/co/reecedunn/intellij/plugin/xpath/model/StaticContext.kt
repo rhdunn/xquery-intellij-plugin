@@ -101,10 +101,10 @@ private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): S
         else -> null
     }}.filterNotNull().firstOrNull() ?: return emptySequence()
 
-    val start = node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e -> e.windowConditionVariables(context) }
     return sequenceOf(
         if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XPathVariableDeclaration),
-        start
+        node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e -> e.windowConditionVariables(context) },
+        node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap   { e -> e.windowConditionVariables(context) }
     ).filterNotNull().flatten()
 }
 
@@ -140,7 +140,7 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
         is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XQueryWindowClause -> node.windowClauseVariables(context)
-        is XQueryWindowStartCondition -> node.windowConditionVariables(context)
+        is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
         is XPathExprSingle -> {
             when (node.parent) {
                 is XQueryForBinding, is XQueryLetBinding,
