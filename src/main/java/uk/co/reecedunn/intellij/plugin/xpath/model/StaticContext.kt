@@ -85,14 +85,14 @@ private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Se
     }
 }
 
-// WindowClause + SlidingWindowClause
+// WindowClause + (SlidingWindowClause | TumblingWindowClause)
 private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
     if (context.visitedFlworBinding) {
         return emptySequence()
     }
 
     val node = children().map { e -> when (e) {
-        is XQuerySlidingWindowClause -> e as PsiElement
+        is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e as PsiElement
         else -> null
     }}.filterNotNull().firstOrNull() ?: return emptySequence()
 
@@ -134,8 +134,8 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
         is XPathExprSingle -> {
             when (node.parent) {
                 is XQueryForBinding, is XQueryLetBinding,
-                is XQueryGroupingSpec,
-                is XQuerySlidingWindowClause -> {
+                is XQuerySlidingWindowClause, is XQueryTumblingWindowClause,
+                is XQueryGroupingSpec -> {
                     context.visitedFlworBinding = true
                     if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
                         context.visitedFlworClauseAsIntermediateClause = true
