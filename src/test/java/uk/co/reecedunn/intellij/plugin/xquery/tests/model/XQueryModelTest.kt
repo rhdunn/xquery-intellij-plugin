@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -1455,10 +1456,10 @@ class XQueryModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region VarDecl (XPathVariableBinding)
+    // region VarDecl (XPathVariableDeclaration)
 
     fun testVarDecl_NCName() {
-        val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0] as XPathVariableBinding
+        val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1479,7 +1480,7 @@ class XQueryModelTest : ParserTestCase() {
     }
 
     fun testVarDecl_QName() {
-        val expr = parse<XQueryVarDecl>("declare variable \$a:x := \$a:y;")[0] as XPathVariableBinding
+        val expr = parse<XQueryVarDecl>("declare variable \$a:x := \$a:y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1503,7 +1504,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testVarDecl_URIQualifiedName() {
         val expr = parse<XQueryVarDecl>(
-                "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;")[0] as XPathVariableBinding
+                "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1526,7 +1527,7 @@ class XQueryModelTest : ParserTestCase() {
     }
 
     fun testVarDecl_MissingVarName() {
-        val expr = parse<XQueryVarDecl>("declare variable \$ := \$y;")[0] as XPathVariableBinding
+        val expr = parse<XQueryVarDecl>("declare variable \$ := \$y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
         assertThat(expr.variableType, `is`(nullValue()))

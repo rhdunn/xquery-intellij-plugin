@@ -26,6 +26,12 @@ interface XPathVariableName {
     val variableName: QName?
 }
 
+interface XPathVariableDeclaration : XPathVariableName {
+    val variableType: XdmSequenceType?
+
+    val variableValue: XdmStaticValue?
+}
+
 interface XPathVariableBinding : XPathVariableName {
     val variableType: XdmSequenceType?
 
