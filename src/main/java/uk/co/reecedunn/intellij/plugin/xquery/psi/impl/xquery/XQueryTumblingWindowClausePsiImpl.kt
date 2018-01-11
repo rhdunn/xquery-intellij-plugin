@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -39,7 +39,7 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode):
         XQueryTumblingWindowClause,
         XQueryConformance,
         XQueryVariableResolver,
-        XPathVariableDeclaration {
+        XPathVariableBinding {
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
@@ -48,7 +48,7 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode):
         firstChild
 
     // endregion
-    // region XPathVariableDeclaration
+    // region XPathVariableBinding
 
     private val varName get(): XPathVariableName? =
         children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName

@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
@@ -32,7 +32,7 @@ class XPathParamPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathParam,
         XQueryVariableResolver,
-        XPathVariableDeclaration {
+        XPathVariableBinding {
 
     private val varName get(): XdmStaticValue? =
         children().filterIsInstance<XPathEQName>().firstOrNull() as? XdmStaticValue

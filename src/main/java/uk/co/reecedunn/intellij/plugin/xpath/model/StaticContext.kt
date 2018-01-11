@@ -57,7 +57,7 @@ private class InScopeVariableContext {
 }
 
 // ForBinding, LetBinding, GroupingSpec
-private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     if (node is XQueryForBinding || node is XQueryLetBinding || node is XQueryGroupingSpec) {
         context.visitedFlworClause = true
         if (context.visitedFlworBinding) {
@@ -66,15 +66,15 @@ private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeV
         }
     }
 
-    val pos = children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
+    val pos = children().filterIsInstance<XPathVariableBinding>().firstOrNull()
     return if (pos != null)
-        sequenceOf(this as XPathVariableDeclaration, pos)
+        sequenceOf(this as XPathVariableBinding, pos)
     else
-        sequenceOf(this as XPathVariableDeclaration)
+        sequenceOf(this as XPathVariableBinding)
 }
 
 // ForClause, LetClause, GroupingSpecList
-private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     if (context.visitedFlworClause) {
         context.visitedFlworClause = false
         return emptySequence()
@@ -86,34 +86,34 @@ private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Se
     }
 }
 
-private fun PsiElement.windowConditionVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.windowConditionVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     if (context.visitedFlworWindowConditions) {
         return emptySequence()
     }
     return children().filterIsInstance<XQueryWindowVars>().firstOrNull()
-         ?.children()?.filterIsInstance<XPathVariableDeclaration>() ?: emptySequence()
+         ?.children()?.filterIsInstance<XPathVariableBinding>() ?: emptySequence()
 }
 
 // WindowClause + (SlidingWindowClause | TumblingWindowClause)
-private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     val node = children().map { e -> when (e) {
         is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e as PsiElement
         else -> null
     }}.filterNotNull().firstOrNull() ?: return emptySequence()
 
     return sequenceOf(
-        if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XPathVariableDeclaration),
+        if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XPathVariableBinding),
         node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e -> e.windowConditionVariables(context) },
         node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap   { e -> e.windowConditionVariables(context) }
     ).filterNotNull().flatten()
 }
 
-private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     return children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
         ?: emptySequence()
 }
 
-private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     return children().flatMap { node -> when (node) {
         is XQueryForClause, is XQueryLetClause ->
             if (context.visitedFlworClauseAsIntermediateClause) {
@@ -128,14 +128,14 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
             } else
                 node.groupByClauseVariables(context)
         is XQueryWindowClause -> node.windowClauseVariables(context)
-        is XPathVariableDeclaration -> sequenceOf(node as XPathVariableDeclaration)
+        is XPathVariableBinding -> sequenceOf(node as XPathVariableBinding)
         else -> emptySequence()
     }}
 }
 
 // endregion
 
-fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
+fun PsiElement.inScopeVariables(): Sequence<XPathVariableBinding> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
         // NOTE: GroupingSpecList is handled by the IntermediateClause logic.
@@ -168,7 +168,7 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
             if (!context.visitedTypeswitch) {
                 context.visitedTypeswitch = true
-                sequenceOf(node as XPathVariableDeclaration)
+                sequenceOf(node as XPathVariableBinding)
             } else
                 emptySequence()
         }

@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -36,7 +36,7 @@ class XQueryDefaultCaseClausePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryDefaultCaseClause,
         XQueryVariableResolver,
-        XPathVariableDeclaration {
+        XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
         children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
