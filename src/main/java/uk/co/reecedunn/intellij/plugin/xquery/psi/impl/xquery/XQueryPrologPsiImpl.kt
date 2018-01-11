@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -40,6 +42,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
         super.subtreeChanged()
         cachedDefaultElementOrTypeNamespace.invalidate()
         cachedDefaultFunctionNamespace.invalidate()
+        cachedVariables.invalidate()
     }
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
@@ -66,5 +69,14 @@ class XQueryPrologPsiImpl(node: ASTNode):
             .filterIsInstance<XQueryDefaultNamespaceDecl>()
             .map { decl -> if (decl.type == XQueryDefaultNamespaceType.Function) decl.defaultValue else null }
             .filterNotNull() `is` Cacheable
+    }
+
+    override val variables get(): Sequence<XPathVariableDeclaration> =
+        cachedVariables.get() ?: emptySequence()
+
+    private val cachedVariables = CacheableProperty {
+        children().filterIsInstance<XQueryAnnotatedDecl>().map { decl ->
+            decl.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
+        }.filterNotNull().filter { variable -> variable.variableName != null } `is` Cacheable
     }
 }

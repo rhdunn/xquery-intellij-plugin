@@ -690,6 +690,146 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // region Variable Declarations
+    // region MainModule :: VarDecl
+
+    fun testMainModule_Variables_NoProlog() {
+        val ctx = parse<XQueryMainModule>("1")[0] as XPathStaticContext
+
+        assertThat(ctx.variables.count(), `is`(0))
+    }
+
+    fun testMainModule_Variables_NoVarDecl() {
+        val ctx = parse<XQueryMainModule>("declare function f() {}; 1")[0] as XPathStaticContext
+
+        assertThat(ctx.variables.count(), `is`(0))
+    }
+
+    fun testMainModule_Variables_VarDeclWithMissingVarName() {
+        val ctx = parse<XQueryMainModule>("declare variable \$; 1")[0] as XPathStaticContext
+
+        assertThat(ctx.variables.count(), `is`(0))
+    }
+
+    fun testMainModule_Variables_SingleVarDecl() {
+        val ctx = parse<XQueryMainModule>("declare variable \$x; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testMainModule_Variables_MultipleVarDecls() {
+        val ctx = parse<XQueryMainModule>("declare variable \$x; declare variable \$y; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testMainModule_Variables_PublicVarDecl() {
+        val ctx = parse<XQueryMainModule>("declare %public variable \$x; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testMainModule_Variables_PrivateVarDecl() {
+        val ctx = parse<XQueryMainModule>("declare %private variable \$x; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(1))
+
+        // NOTE: This variable is listed in the variable declarations for the file so that errors
+        // at the point of use can differentiate from missing and private variables, allowing
+        // things like making the variable public via refactoring.
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // region Prolog :: VarDecl
+
+    fun testProlog_Variables_NoVarDecl() {
+        val ctx = parse<XQueryProlog>("declare function f() {}; 1")[0] as XPathStaticContext
+
+        assertThat(ctx.variables.count(), `is`(0))
+    }
+
+    fun testProlog_Variables_VarDeclWithMissingVarName() {
+        val ctx = parse<XQueryProlog>("declare variable \$; 1")[0] as XPathStaticContext
+
+        assertThat(ctx.variables.count(), `is`(0))
+    }
+
+    fun testProlog_Variables_SingleVarDecl() {
+        val ctx = parse<XQueryProlog>("declare variable \$x; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testProlog_Variables_MultipleVarDecls() {
+        val ctx = parse<XQueryProlog>("declare variable \$x; declare variable \$y; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testProlog_Variables_PublicVarDecl() {
+        val ctx = parse<XQueryProlog>("declare %public variable \$x; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testProlog_Variables_PrivateVarDecl() {
+        val ctx = parse<XQueryProlog>("declare %private variable \$x; 1")[0] as XPathStaticContext
+
+        val variables = ctx.variables.toList()
+        assertThat(variables.size, `is`(1))
+
+        // NOTE: This variable is listed in the variable declarations for the file so that errors
+        // at the point of use can differentiate from missing and private variables, allowing
+        // things like making the variable public via refactoring.
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // endregion
     // region In-Scope Variables
     // region FLWORExpr -> InitialClause -> ForClause -> ForBinding
 

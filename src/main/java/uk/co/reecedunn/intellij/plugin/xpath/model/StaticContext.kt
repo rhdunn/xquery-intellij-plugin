@@ -26,6 +26,8 @@ interface XPathStaticContext {
     val defaultElementOrTypeNamespace: Sequence<XdmStaticValue>
 
     val defaultFunctionNamespace: Sequence<XdmStaticValue>
+
+    val variables: Sequence<XPathVariableDeclaration>
 }
 
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
