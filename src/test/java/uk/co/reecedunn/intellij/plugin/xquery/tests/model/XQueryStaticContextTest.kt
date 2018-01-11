@@ -1038,6 +1038,96 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     // endregion
     // endregion
+    // region FLWORExpr -> InitialClause -> SlidingWindowClause (PositionalVar)
+    // region WindowStartCondition
+
+    fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for sliding window \$x in test() start \$y at \$z when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for sliding window \$x in 1 start \$y at \$z when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for sliding window \$x in 1 start \$y at \$z when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // region WindowEndCondition
+
+    fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for sliding window \$x in test() end \$y at \$z when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for sliding window \$x in 1 end \$y at \$z when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for sliding window \$x in 1 end \$y at \$z when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // endregion
     // region FLWORExpr -> InitialClause -> TumblingWindowClause
 
     fun testInScopeVariables_TumblingWindowClause_InExpr() {
@@ -1129,6 +1219,96 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
         assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // endregion
+    // region FLWORExpr -> InitialClause -> TumblingWindowClause (PositionalVar)
+    // region WindowStartCondition
+
+    fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for tumbling window \$x in test() start \$y at \$z when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for tumbling window \$x in 1 start \$y at \$z when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for tumbling window \$x in 1 start \$y at \$z when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // region WindowEndCondition
+
+    fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for tumbling window \$x in test() end \$y at \$z when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for tumbling window \$x in 1 end \$y at \$z when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for tumbling window \$x in 1 end \$y at \$z when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
     }
 
     // endregion
@@ -1549,6 +1729,120 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     // endregion
     // endregion
+    // region FLWORExpr -> IntermediateClause -> SlidingWindowClause (PositionalVar)
+    // region WindowStartCondition
+
+    fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for sliding window \$y in test() start \$z at \$w when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(4))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[3].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // region WindowEndCondition
+
+    fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for sliding window \$y in test() end \$z at \$w when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(4))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[3].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // endregion
     // region FLWORExpr -> IntermediateClause -> TumblingWindowClause
 
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_InExpr() {
@@ -1672,6 +1966,120 @@ class XQueryStaticContextTest : ParserTestCase() {
         assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("x"))
         assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // endregion
+    // region FLWORExpr -> IntermediateClause -> TumblingWindowClause (PositionalVar)
+    // region WindowStartCondition
+
+    fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for tumbling window \$y in test() start \$z at \$w when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for tumbling window \$y in 1 start \$z at \$w when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for tumbling window \$y in 1 start \$z at \$w when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(4))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[3].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
+    // region WindowEndCondition
+
+    fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for tumbling window \$y in test() end \$z at \$w when 1 return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for tumbling window \$y in 1 end \$z at \$w when test() return 2")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(3))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
+        val element = parse<XPathFunctionCall>(
+                "for \$x in 1 for tumbling window \$y in 1 end \$z at \$w when 2 return test()")[0]
+        val variables = element.inScopeVariables().toList()
+        assertThat(variables.size, `is`(4))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("z"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[2].variableName?.localName?.staticValue as String, `is`("w"))
+        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[3].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
     }
 
     // endregion

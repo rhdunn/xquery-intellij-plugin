@@ -46,7 +46,7 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
     }
 }
 
-// region In-scope variables
+// region In-scope variables implementation details
 
 private class InScopeVariableContext {
     var visitedTypeswitch = false
@@ -133,6 +133,8 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
     }}
 }
 
+// endregion
+
 fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
@@ -179,5 +181,3 @@ fun PsiElement.inScopeVariables(): Sequence<XPathVariableDeclaration> {
         variable -> variable.variableName != null
     }
 }
-
-// endregion
