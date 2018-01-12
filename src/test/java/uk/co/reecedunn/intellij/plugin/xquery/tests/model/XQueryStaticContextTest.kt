@@ -728,11 +728,11 @@ class XQueryStaticContextTest : ParserTestCase() {
         val variables = ctx.variables.toList()
         assertThat(variables.size, `is`(2))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
 
-        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
         assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
     }
@@ -794,11 +794,11 @@ class XQueryStaticContextTest : ParserTestCase() {
         val variables = ctx.variables.toList()
         assertThat(variables.size, `is`(2))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
 
-        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
         assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
     }

@@ -75,7 +75,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
         cachedVariables.get() ?: emptySequence()
 
     private val cachedVariables = CacheableProperty {
-        children().filterIsInstance<XQueryAnnotatedDecl>().map { decl ->
+        children().reversed().filterIsInstance<XQueryAnnotatedDecl>().map { decl ->
             decl.children().filterIsInstance<XPathVariableDeclaration>().firstOrNull()
         }.filterNotNull().filter { variable -> variable.variableName != null } `is` Cacheable
     }
