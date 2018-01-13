@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018z Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -28,15 +28,22 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class ScriptingBlockVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockVarDecl, XQueryConformance, XQueryVariableResolver {
+class ScriptingBlockVarDeclEntryPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        ScriptingBlockVarDeclEntry,
+        XQueryConformance,
+        XQueryVariableResolver {
+
     override val requiresConformance get(): List<Version> = listOf(Scripting.NOTE_1_0_20140918)
 
     override val conformanceElement get(): PsiElement =
         firstChild
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return children().filterIsInstance<XQueryVariableResolver>().map { resolver ->
-            resolver.resolveVariable(name)
-        }.firstOrNull()
+        val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
+        if (varName != null && varName == name) {
+            return XQueryVariable(varName, this)
+        }
+        return null
     }
 }

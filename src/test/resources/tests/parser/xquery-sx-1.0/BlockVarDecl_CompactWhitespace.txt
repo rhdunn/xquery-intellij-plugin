@@ -19,10 +19,11 @@ XQueryModuleImpl[FILE(0:46)]
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(32:42)]
                      ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(32:41)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(32:39)]('declare')
-                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(39:40)]('$')
-                        XPathVarNameImpl[XQUERY_VAR_NAME(40:41)]
-                           XPathNCNameImpl[XQUERY_NCNAME(40:41)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(40:41)]('x')
+                        ScriptingBlockVarDeclEntryImpl[XQUERY_BLOCK_VAR_DECL_ENTRY(39:41)]
+                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(39:40)]('$')
+                           XPathVarNameImpl[XQUERY_VAR_NAME(40:41)]
+                              XPathNCNameImpl[XQUERY_NCNAME(40:41)]
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(40:41)]('x')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(42:44)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(42:44)]

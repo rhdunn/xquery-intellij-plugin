@@ -7,8 +7,10 @@ to the grammar from what is provided in the various specifications.
 -----
 
 - [Quantified Expressions](#quantified-expressions)
+- [Typeswitch Expressions](#typeswitch-expressions)
 - [Cast Expressions](#cast-expressions)
 - [Direct Element Construction](#direct-element-construction)
+- [Block Expressions](#block-expressions)
 
 ## Quantified Expressions
 
@@ -21,8 +23,8 @@ This is split out in the plugin to mirror the change made to the `ForClause`
 and `LetClause` productions with the addition of the `ForBinding` and
 `LetBinding` productions.
 
-This change was made to make it easier to implement the variable declaration
-logic, as each `QuantifiedExprBinding` is a single variable declaration.
+This change was made to make it easier to implement the variable binding
+logic, as each `QuantifiedExprBinding` is a single variable binding.
 
 ## Typeswitch Expressions
 
@@ -32,7 +34,7 @@ logic, as each `QuantifiedExprBinding` is a single variable declaration.
 The default case expression is factored out here into a separate grammar
 production, similar to the `CaseClause` expression.
 
-This change was made to make it easier to implement the variable declaration
+This change was made to make it easier to implement the variable binding
 logic, as each `CaseClause` can expose a variable bound to the typeswitch
 expression that is valid for the scope of the case's return expression.
 
@@ -63,7 +65,21 @@ in the AST.
 This follows the grammar production pattern used in other constructs like
 `ParamList`.
 
-This change was made to make it easier to implement the namespae declaration
+This change was made to make it easier to implement the namespace declaration
 logic, as each `xmlns`-based `DirAttribute` can expose a namespace to the
 direct element constructor expression that is valid for the scope of the
 element.
+
+## Block Expressions
+
+    BlockVarDecl      ::= "declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*
+    BlockVarDeclEntry ::= "$" VarName TypeDeclaration? (":=" ExprSingle)?
+
+The `BlockVarDeclEntry` production is not used in the XQuery Scripting
+Extension grammar. Instead, the production is inlined in the `BlockVarDecl`
+production. This is split out in the plugin to mirror the change made to the
+`ForClause` and `LetClause` productions with the addition of the `ForBinding`
+and `LetBinding` productions.
+
+This change was made to make it easier to implement the variable declaration
+logic, as each `BlockVarDeclEntry` is a single variable declaration.

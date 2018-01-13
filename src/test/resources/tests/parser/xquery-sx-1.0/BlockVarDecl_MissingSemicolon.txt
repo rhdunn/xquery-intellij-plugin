@@ -24,38 +24,39 @@ XQueryModuleImpl[FILE(0:55)]
                      ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(36:52)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
                         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                        XPathVarNameImpl[XQUERY_VAR_NAME(46:48)]
-                           XPathNCNameImpl[XQUERY_NCNAME(46:47)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:47)]('x')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Missing ':=' variable assignment, 'at', ',' or ';'.')
-                        XPathOrExprImpl[XQUERY_OR_EXPR(48:52)]
-                           XPathAndExprImpl[XQUERY_AND_EXPR(48:52)]
-                              XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(48:52)]
-                                 FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(48:52)]
-                                    XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(48:52)]
-                                       XPathRangeExprImpl[XQUERY_RANGE_EXPR(48:52)]
-                                          XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(48:52)]
-                                             XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(48:52)]
-                                                XPathUnionExprImpl[XQUERY_UNION_EXPR(48:52)]
-                                                   XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(48:52)]
-                                                      XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(48:52)]
-                                                         XPathTreatExprImpl[XQUERY_TREAT_EXPR(48:52)]
-                                                            XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(48:52)]
-                                                               XPathCastExprImpl[XQUERY_CAST_EXPR(48:52)]
-                                                                  XPathArrowExprImpl[XQUERY_ARROW_EXPR(48:52)]
-                                                                     XPathUnaryExprImpl[XQUERY_UNARY_EXPR(48:52)]
-                                                                        XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(48:52)]
-                                                                           XPathPathExprImpl[XQUERY_PATH_EXPR(48:52)]
-                                                                              XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(48:52)]
-                                                                                 XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(48:52)]
-                                                                                    XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(48:51)]
-                                                                                       LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(48:49)]('(')
-                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-                                                                                       LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(50:51)](')')
-                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
+                        ScriptingBlockVarDeclEntryImpl[XQUERY_BLOCK_VAR_DECL_ENTRY(44:52)]
+                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                           XPathVarNameImpl[XQUERY_VAR_NAME(46:48)]
+                              XPathNCNameImpl[XQUERY_NCNAME(46:47)]
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:47)]('x')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
+                           PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Missing ':=' variable assignment, 'at', ',' or ';'.')
+                           XPathOrExprImpl[XQUERY_OR_EXPR(48:52)]
+                              XPathAndExprImpl[XQUERY_AND_EXPR(48:52)]
+                                 XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(48:52)]
+                                    FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(48:52)]
+                                       XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(48:52)]
+                                          XPathRangeExprImpl[XQUERY_RANGE_EXPR(48:52)]
+                                             XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(48:52)]
+                                                XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(48:52)]
+                                                   XPathUnionExprImpl[XQUERY_UNION_EXPR(48:52)]
+                                                      XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(48:52)]
+                                                         XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(48:52)]
+                                                            XPathTreatExprImpl[XQUERY_TREAT_EXPR(48:52)]
+                                                               XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(48:52)]
+                                                                  XPathCastExprImpl[XQUERY_CAST_EXPR(48:52)]
+                                                                     XPathArrowExprImpl[XQUERY_ARROW_EXPR(48:52)]
+                                                                        XPathUnaryExprImpl[XQUERY_UNARY_EXPR(48:52)]
+                                                                           XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(48:52)]
+                                                                              XPathPathExprImpl[XQUERY_PATH_EXPR(48:52)]
+                                                                                 XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(48:52)]
+                                                                                    XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(48:52)]
+                                                                                       XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(48:51)]
+                                                                                          LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(48:49)]('(')
+                                                                                          PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
+                                                                                          LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(50:51)](')')
+                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(52:53)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(54:55)](';')

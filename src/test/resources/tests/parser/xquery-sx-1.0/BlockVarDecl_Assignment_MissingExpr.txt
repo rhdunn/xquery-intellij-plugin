@@ -24,15 +24,16 @@ XQueryModuleImpl[FILE(0:60)]
                      ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(36:51)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
                         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                        XPathVarNameImpl[XQUERY_VAR_NAME(46:48)]
-                           XPathNCNameImpl[XQUERY_NCNAME(46:47)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:47)]('x')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                        LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(48:50)](':=')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(51:51)]('XPST0003: Missing expression.')
+                        ScriptingBlockVarDeclEntryImpl[XQUERY_BLOCK_VAR_DECL_ENTRY(44:51)]
+                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                           XPathVarNameImpl[XQUERY_VAR_NAME(46:48)]
+                              XPathNCNameImpl[XQUERY_NCNAME(46:47)]
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:47)]('x')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
+                           LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(48:50)](':=')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
+                           PsiErrorElementImpl[ERROR_ELEMENT(51:51)]('XPST0003: Missing expression.')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(51:52)](';')
                      PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(53:57)]

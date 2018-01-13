@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -370,6 +370,7 @@ public interface XQueryElementType {
 
     IElementType BLOCK_DECLS = new ICompositeElementType("XQUERY_BLOCK_DECLS", ScriptingBlockDeclsPsiImpl.class, XQuery.INSTANCE);
     IElementType BLOCK_VAR_DECL = new ICompositeElementType("XQUERY_BLOCK_VAR_DECL", ScriptingBlockVarDeclPsiImpl.class, XQuery.INSTANCE);
+    IElementType BLOCK_VAR_DECL_ENTRY = new ICompositeElementType("XQUERY_BLOCK_VAR_DECL_ENTRY", ScriptingBlockVarDeclEntryPsiImpl.class, XQuery.INSTANCE);
 
     IElementType BLOCK_EXPR = new ICompositeElementType("XQUERY_BLOCK_EXPR", ScriptingBlockExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ASSIGNMENT_EXPR = new ICompositeElementType("XQUERY_ASSIGNMENT_EXPR", ScriptingAssignmentExprPsiImpl.class, XQuery.INSTANCE);

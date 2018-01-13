@@ -1410,46 +1410,61 @@ class XQueryParser {
                 return ParseStatus.NOT_MATCHED;
             }
 
-            boolean haveErrors = false;
+            ParseStatus status;
             do {
                 parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
-                    error(XQueryBundle.message("parser.error.expected", "$"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-eqname"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                final String errorMessage = parseTypeDeclaration()
-                                          ? "parser.error.expected-variable-assign-scripting"
-                                          : "parser.error.expected-variable-assign-scripting-no-type-decl";
-
-                parseWhiteSpaceAndCommentTokens();
-                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
-                   (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message(errorMessage)))) {
-                    parseWhiteSpaceAndCommentTokens();
-                    if (!parseExprSingle() && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected-expression"));
-                    }
-                    parseWhiteSpaceAndCommentTokens();
-                } else if (getTokenType() != XQueryTokenType.COMMA &&
-                           getTokenType() != XQueryTokenType.SEPARATOR) {
-                    error(XQueryBundle.message(errorMessage));
-                    parseExprSingle();
-                    parseWhiteSpaceAndCommentTokens();
-                    haveErrors = true;
+                status = parseBlockVarDeclEntry();
+                if (status == ParseStatus.NOT_MATCHED) {
+                    status = ParseStatus.MATCHED_WITH_ERRORS;
                 }
             } while (matchTokenType(XQueryTokenType.COMMA));
 
             blockVarDeclMarker.done(XQueryElementType.BLOCK_VAR_DECL);
-            return haveErrors ? ParseStatus.MATCHED_WITH_ERRORS : ParseStatus.MATCHED;
+            return status;
         }
         return ParseStatus.NOT_MATCHED;
+    }
+
+    private ParseStatus parseBlockVarDeclEntry() {
+        final PsiBuilder.Marker blockVarDeclEntryMarker = mark();
+        boolean haveErrors = false;
+        if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+            error(XQueryBundle.message("parser.error.expected", "$"));
+            if (getTokenType() == XQueryTokenType.SEPARATOR) {
+                blockVarDeclEntryMarker.drop();
+                return ParseStatus.NOT_MATCHED;
+            }
+            haveErrors = true;
+        }
+
+        parseWhiteSpaceAndCommentTokens();
+        if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+            error(XQueryBundle.message("parser.error.expected-eqname"));
+            haveErrors = true;
+        }
+
+        parseWhiteSpaceAndCommentTokens();
+        final String errorMessage = parseTypeDeclaration()
+                ? "parser.error.expected-variable-assign-scripting"
+                : "parser.error.expected-variable-assign-scripting-no-type-decl";
+
+        parseWhiteSpaceAndCommentTokens();
+        if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
+                (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message(errorMessage)))) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+            parseWhiteSpaceAndCommentTokens();
+        } else if (getTokenType() != XQueryTokenType.COMMA &&
+                   getTokenType() != XQueryTokenType.SEPARATOR) {
+            error(XQueryBundle.message(errorMessage));
+            parseExprSingle();
+            parseWhiteSpaceAndCommentTokens();
+            haveErrors = true;
+        }
+        blockVarDeclEntryMarker.done(XQueryElementType.BLOCK_VAR_DECL_ENTRY);
+        return haveErrors ? ParseStatus.MATCHED_WITH_ERRORS : ParseStatus.MATCHED;
     }
 
     // endregion

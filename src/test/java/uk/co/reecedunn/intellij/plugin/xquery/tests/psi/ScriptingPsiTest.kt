@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -320,7 +320,8 @@ class ScriptingPsiTest : ParserTestCase() {
         val blockPsi = functionDeclPsi.children().filterIsInstance<ScriptingBlock>().first()
         val blockDeclsPsi = blockPsi.children().filterIsInstance<ScriptingBlockDecls>().first()
         val blockVarDeclPsi = blockDeclsPsi.children().filterIsInstance<ScriptingBlockVarDecl>().first()
-        val varNamePsi = blockVarDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val blockVarDeclEntryPsi = blockVarDeclPsi.children().filterIsInstance<ScriptingBlockVarDeclEntry>().first()
+        val varNamePsi = blockVarDeclEntryPsi.children().filterIsInstance<XPathEQName>().first()
 
         val provider = blockVarDeclPsi as XQueryVariableResolver
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
@@ -330,8 +331,8 @@ class ScriptingPsiTest : ParserTestCase() {
         assertThat(variable.variable, `is`(instanceOf(XPathEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
-        assertThat(variable.declaration, `is`(instanceOf(ScriptingBlockVarDecl::class.java)))
-        assertThat(variable.declaration, `is`(blockVarDeclPsi))
+        assertThat(variable.declaration, `is`(instanceOf(ScriptingBlockVarDeclEntry::class.java)))
+        assertThat(variable.declaration, `is`(blockVarDeclEntryPsi as PsiElement))
     }
 
     // endregion
