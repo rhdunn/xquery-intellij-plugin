@@ -3035,6 +3035,45 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     // endregion
     // endregion
+    // region FunctionDecl -> ParamList -> Param
+
+    fun testFunctionDecl_FunctionBody_NoParameters() {
+        val element = parse<XPathFunctionCall>("declare function f() { test() }; 1")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testFunctionDecl_FunctionBody_SingleParameter() {
+        val element = parse<XPathFunctionCall>("declare function f(\$x) { test() }; 1")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testFunctionDecl_FunctionBody_MultipleParameters() {
+        val element = parse<XPathFunctionCall>("declare function f(\$x, \$y) { test() }; 1")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testFunctionDecl_OutsideFunctionBody() {
+        val element = parse<XPathFunctionCall>("declare function f(\$x) {}; test()")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    // endregion
     // region TypeswitchExpr -> CaseClause + DefaultCaseClause
 
     fun testInScopeVariables_CaseClause() {
