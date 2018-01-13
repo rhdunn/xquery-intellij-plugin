@@ -13,14 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingWhileBody;
-
-public class ScriptingWhileBodyPsiImpl extends ScriptingBlockPsiImpl implements ScriptingWhileBody {
-    public ScriptingWhileBodyPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery Scripting Extension 1.0 `WhileBody` node in the XQuery AST.
+ */
+interface ScriptingWhileBody : ScriptingBlock
