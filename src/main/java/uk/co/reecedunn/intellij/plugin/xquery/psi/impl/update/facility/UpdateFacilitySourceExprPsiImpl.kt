@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilitySourceExpr;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilitySourceExpr
 
-public class UpdateFacilitySourceExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilitySourceExpr {
-    public UpdateFacilitySourceExprPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class UpdateFacilitySourceExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilitySourceExpr
