@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility
 
-import com.intellij.psi.PsiElement;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityNewNameExpr
 
-/**
- * An XQuery Update Facility 1.0 <code>NewNameExpr</code> node in the XQuery AST.
- */
-public interface UpdateFacilityNewNameExpr extends PsiElement {
-}
+class UpdateFacilityNewNameExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityNewNameExpr
