@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.lang.LanguageASTFactory
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
@@ -23,12 +24,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
-    protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
-
     @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, language, XQueryASTFactory())
+    }
+
+    protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
+
+    protected inline fun <reified T> parse(xquery: String): List<T> {
+        return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
     }
 }

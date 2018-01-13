@@ -32,10 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathModelTest : ParserTestCase() {
-    private inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
-    }
-
     private inline fun <reified T> parseLiteral(xquery: String): XdmStaticValue {
         return parseText(xquery)!!
                 .walkTree().filterIsInstance<T>()

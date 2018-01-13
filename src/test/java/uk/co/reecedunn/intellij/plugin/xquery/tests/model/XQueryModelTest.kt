@@ -33,10 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryModelTest : ParserTestCase() {
-    private inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
-    }
-
     private inline fun <reified T> parseLiteral(xquery: String): XdmStaticValue {
         return parseText(xquery)!!
                 .walkTree().filterIsInstance<T>()

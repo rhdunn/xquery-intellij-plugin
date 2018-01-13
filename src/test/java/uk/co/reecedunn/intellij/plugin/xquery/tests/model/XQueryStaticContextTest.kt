@@ -28,10 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryStaticContextTest : ParserTestCase() {
-    private inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
-    }
-
     // region Default Namespace
     // region MainModule :: DefaultNamespaceDecl
 
