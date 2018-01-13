@@ -32,24 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathModelTest : ParserTestCase() {
-    private inline fun <reified T> parseLiteral(xquery: String): XdmStaticValue {
-        return parseText(xquery)!!
-                .walkTree().filterIsInstance<T>()
-                .first() as XdmStaticValue
-    }
-
-    private inline fun <reified T> parseSimpleExpression(xquery: String): List<XdmStaticValue> {
-        return parseText(xquery)!!
-                .walkTree().filterIsInstance<T>()
-                .map { type -> type as XdmStaticValue }
-                .toList()
-    }
-
     // region Lexical Values
     // region BracedUriLiteral (XdmStaticValue)
 
     fun testBracedUriLiteral() {
-        val literal = parseLiteral<XPathBracedURILiteral>("Q{http://www.example.com\uFFFF}")
+        val literal = parse<XPathBracedURILiteral>("Q{http://www.example.com\uFFFF}")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("http://www.example.com\uFFFF"))
@@ -59,7 +46,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testBracedUriLiteral_Unclosed() {
-        val literal = parseLiteral<XPathBracedURILiteral>("Q{http://www.example.com")
+        val literal = parse<XPathBracedURILiteral>("Q{http://www.example.com")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("http://www.example.com"))
@@ -72,7 +59,7 @@ class XPathModelTest : ParserTestCase() {
     // region DecimalLiteral (XdmStaticValue)
 
     fun testDecimalLiteral() {
-        val literal = parseLiteral<XPathDecimalLiteral>("12.34")
+        val literal = parse<XPathDecimalLiteral>("12.34")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("12.34"))
@@ -85,7 +72,7 @@ class XPathModelTest : ParserTestCase() {
     // region DoubleLiteral (XdmStaticValue)
 
     fun testDoubleLiteral() {
-        val literal = parseLiteral<XPathDoubleLiteral>("1e3")
+        val literal = parse<XPathDoubleLiteral>("1e3")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("1e3"))
@@ -98,7 +85,7 @@ class XPathModelTest : ParserTestCase() {
     // region IntegerLiteral (XdmStaticValue)
 
     fun testIntegerLiteral() {
-        val literal = parseLiteral<XPathIntegerLiteral>("123")
+        val literal = parse<XPathIntegerLiteral>("123")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("123"))
@@ -112,7 +99,7 @@ class XPathModelTest : ParserTestCase() {
     // region Literal (XdmStaticValue)
 
     fun testLiteral_DoubleLiteral() {
-        val literal = parseLiteral<XPathLiteral>("1e3")
+        val literal = parse<XPathLiteral>("1e3")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("1e3"))
@@ -122,7 +109,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testLiteral_DecimalLiteral() {
-        val literal = parseLiteral<XPathLiteral>("12.34")
+        val literal = parse<XPathLiteral>("12.34")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("12.34"))
@@ -132,7 +119,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testLiteral_IntegerLiteral() {
-        val literal = parseLiteral<XPathLiteral>("123")
+        val literal = parse<XPathLiteral>("123")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("123"))
@@ -142,7 +129,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testLiteral_StringLiteral() {
-        val literal = parseLiteral<XPathLiteral>("\"Lorem ipsum.\"")
+        val literal = parse<XPathLiteral>("\"Lorem ipsum.\"")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("Lorem ipsum."))
@@ -155,7 +142,7 @@ class XPathModelTest : ParserTestCase() {
     // region StringLiteral (XdmStaticValue)
 
     fun testStringLiteral() {
-        val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")
+        val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
@@ -165,7 +152,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testStringLiteral_Unclosed() {
-        val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.")
+        val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("Lorem ipsum."))
@@ -175,7 +162,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testStringLiteral_EscapeApos() {
-        val literal = parseLiteral<XPathStringLiteral>("'''\"\"'")
+        val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("'\"\""))
@@ -185,7 +172,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testStringLiteral_EscapeQuot() {
-        val literal = parseLiteral<XPathStringLiteral>("\"''\"\"\"")
+        val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("''\""))
@@ -200,7 +187,7 @@ class XPathModelTest : ParserTestCase() {
     // region NCName (XdmStaticValue)
 
     fun testNCName() {
-        val expr = parseSimpleExpression<XPathNCName>("test")[0]
+        val expr = parse<XPathNCName>("test")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -221,7 +208,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testNCName_Keyword() {
-        val expr = parseSimpleExpression<XPathNCName>("option")[0]
+        val expr = parse<XPathNCName>("option")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -245,7 +232,7 @@ class XPathModelTest : ParserTestCase() {
     // region QName (XdmStaticValue)
 
     fun testQName() {
-        val expr = parseSimpleExpression<XPathQName>("fn:true")[0]
+        val expr = parse<XPathQName>("fn:true")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -268,7 +255,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testQName_KeywordPrefix() {
-        val expr = parseSimpleExpression<XPathQName>("option:test")[0]
+        val expr = parse<XPathQName>("option:test")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -291,7 +278,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testQName_KeywordLocalName() {
-        val expr = parseSimpleExpression<XPathQName>("test:case")[0]
+        val expr = parse<XPathQName>("test:case")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -314,7 +301,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testQName_NoLocalName() {
-        val expr = parseSimpleExpression<XPathQName>("xs:")[0]
+        val expr = parse<XPathQName>("xs:")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(nullValue()))
@@ -327,7 +314,7 @@ class XPathModelTest : ParserTestCase() {
     // region URIQualifiedName (XdmStaticValue)
 
     fun testURIQualifiedName() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}test")[0]
+        val expr = parse<XPathURIQualifiedName>("Q{http://www.example.com}test")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -350,7 +337,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testURIQualifiedName_EmptyNamespace() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{}test")[0]
+        val expr = parse<XPathURIQualifiedName>("Q{}test")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -373,7 +360,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testURIQualifiedName_KeywordLocalName() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}option")[0]
+        val expr = parse<XPathURIQualifiedName>("Q{http://www.example.com}option")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
@@ -396,7 +383,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testURIQualifiedName_NoLocalName() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}")[0]
+        val expr = parse<XPathURIQualifiedName>("Q{http://www.example.com}")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(nullValue()))
@@ -1217,7 +1204,7 @@ class XPathModelTest : ParserTestCase() {
     // region PostfixExpr (XdmStaticValue)
 
     fun testPostfixExpr_LiteralValue() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")[0]
+        val expr = parse<XPathPostfixExpr>("1e3")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(notNullValue()))
@@ -1229,7 +1216,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testPostfixExpr_LiteralValue_ComplexExpression() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("1?1")[0]
+        val expr = parse<XPathPostfixExpr>("1?1")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
@@ -1239,7 +1226,7 @@ class XPathModelTest : ParserTestCase() {
     }
 
     fun testPostfixExpr_NonLiteralValue() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("test()")[0]
+        val expr = parse<XPathPostfixExpr>("test()")[0] as XdmStaticValue
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
