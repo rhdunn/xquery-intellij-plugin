@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr;
+import com.intellij.psi.PsiElement
 
-public class ScriptingConcatExprPsiImpl extends ASTWrapperPsiElement implements ScriptingConcatExpr {
-    public ScriptingConcatExprPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery Scripting Extension 1.0 `ConcatExpr` node in the XQuery AST.
+ */
+interface ScriptingConcatExpr : PsiElement
