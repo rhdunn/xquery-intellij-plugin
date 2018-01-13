@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 
-import com.intellij.psi.PsiElement;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 
-/**
- * An XQuery Scripting Extension 1.0 <code>BlockDecls</code> node in the XQuery AST.
- */
-public interface ScriptingBlockDecls extends PsiElement {
-}
+class ScriptingBlockDeclsPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockDecls
