@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
@@ -52,11 +53,12 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
 // region In-scope variables implementation details
 
 private class InScopeVariableContext {
-    var visitedTypeswitch = false
     var visitedFlworBinding = false
     var visitedFlworClause = false
     var visitedFlworClauseAsIntermediateClause = false
     var visitedFlworWindowConditions = false
+    var visitedQuantifiedBinding = false
+    var visitedTypeswitch = false
 }
 
 // ForBinding, LetBinding, GroupingSpec
@@ -146,6 +148,13 @@ fun PsiElement.inScopeVariableBindings(): Sequence<XPathVariableBinding> {
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XQueryWindowClause -> node.windowClauseVariables(context)
         is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
+        is XPathQuantifiedExprBinding -> {
+            if (context.visitedQuantifiedBinding) {
+                context.visitedQuantifiedBinding = false
+                emptySequence()
+            } else
+                sequenceOf(node as XPathVariableBinding)
+        }
         is XPathExprSingle -> {
             when (node.parent) {
                 is XQueryForBinding, is XQueryLetBinding,
@@ -161,6 +170,9 @@ fun PsiElement.inScopeVariableBindings(): Sequence<XPathVariableBinding> {
                     if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
                         context.visitedFlworClauseAsIntermediateClause = true
                     }
+                }
+                is XPathQuantifiedExprBinding -> {
+                    context.visitedQuantifiedBinding = true
                 }
                 else -> {}
             }

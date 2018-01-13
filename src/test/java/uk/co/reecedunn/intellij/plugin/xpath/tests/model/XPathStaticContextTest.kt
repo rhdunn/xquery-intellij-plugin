@@ -62,5 +62,54 @@ class XPathStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // region QuantifiedExpr
+
+    fun testQuantifiedExpr_SingleBinding_InExpr() {
+        val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
+        val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
+        val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
+        val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
+        val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
+        val variables = element.inScopeVariableBindings().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
     // endregion
 }
