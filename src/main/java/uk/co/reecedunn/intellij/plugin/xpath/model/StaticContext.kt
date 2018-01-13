@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
@@ -178,8 +179,7 @@ fun PsiElement.inScopeVariableBindings(): Sequence<XPathVariableName> {
             context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
             emptySequence()
         }
+        is XPathParamList -> node.children().filterIsInstance<XPathVariableBinding>()
         else -> emptySequence()
-    }}.filterNotNull().filter {
-        variable -> variable.variableName != null
-    }
+    }}.filterNotNull().filter { variable -> variable.variableName != null }
 }
