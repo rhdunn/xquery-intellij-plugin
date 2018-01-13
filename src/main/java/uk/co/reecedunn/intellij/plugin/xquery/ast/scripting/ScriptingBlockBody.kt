@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockBody;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 
-public class ScriptingBlockBodyPsiImpl extends XPathExprPsiImpl implements ScriptingBlockBody {
-    public ScriptingBlockBodyPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery Scripting Extension 1.0 `BlockBody` node in the XQuery AST.
+ */
+interface ScriptingBlockBody : XPathExpr
