@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExprTargetChoice;
+import com.intellij.psi.PsiElement
 
-public class UpdateFacilityInsertExprTargetChoicePsiImpl extends ASTWrapperPsiElement implements UpdateFacilityInsertExprTargetChoice {
-    public UpdateFacilityInsertExprTargetChoicePsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery Update Facility 1.0 `InsertExprTargetChoice` node in the XQuery AST.
+ */
+interface UpdateFacilityInsertExprTargetChoice : PsiElement
