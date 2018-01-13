@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery Update Facility 1.0 <code>TargetExpr</code> node in the XQuery AST.
+ * An XQuery Update Facility 1.0 `TargetExpr` node in the XQuery AST.
  */
-public interface UpdateFacilityTargetExpr extends PsiElement {
-}
+interface UpdateFacilityTargetExpr : PsiElement
