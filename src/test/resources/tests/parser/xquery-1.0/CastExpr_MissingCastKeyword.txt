@@ -31,8 +31,6 @@ XQueryModuleImpl[FILE(0:15)]
                                                 XPathSingleTypeImpl[XQUERY_SINGLE_TYPE(6:15)]
                                                    XPathSimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(6:15)]
                                                       XPathQNameImpl[XQUERY_QNAME(6:15)]
-                                                         XPathNCNameImpl[XQUERY_NCNAME(6:8)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:8)]('xs')
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:8)]('xs')
                                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
-                                                         XPathNCNameImpl[XQUERY_NCNAME(9:15)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:15)]('double')
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:15)]('double')

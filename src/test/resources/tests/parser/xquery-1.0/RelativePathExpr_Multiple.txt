@@ -26,9 +26,9 @@ XQueryModuleImpl[FILE(0:26)]
                                                                            LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                            XPathVarNameImpl[XQUERY_VAR_NAME(2:7)]
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(2:6)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(2:7)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:6)]('test')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(7:8)]('/')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(9:14)]
@@ -37,20 +37,18 @@ XQueryModuleImpl[FILE(0:26)]
                                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(9:13)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(9:13)]
                                                                                     XPathQNameImpl[XQUERY_QNAME(9:13)]
-                                                                                       XPathNCNameImpl[XQUERY_NCNAME(9:11)]
-                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:11)]('xh')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:11)]('xh')
                                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(11:12)](':')
-                                                                                       XPathNCNameImpl[XQUERY_NCNAME(12:13)]
-                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('p')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('p')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                         XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(14:15)]('/')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(16:26)]
                                                                         XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(16:26)]
-                                                                           XPathNCNameImpl[XQUERY_NCNAME(16:22)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(16:23)]
                                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:22)]('string')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                                                                            XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(23:26)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(23:24)]('(')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')

@@ -26,9 +26,9 @@ XQueryModuleImpl[FILE(0:37)]
                                                                            XQueryCompPIConstructorImpl[XQUERY_COMP_PI_CONSTRUCTOR(0:37)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(23:27)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(23:28)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:27)]('test')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                                                               XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(28:37)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(28:29)]('{')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')

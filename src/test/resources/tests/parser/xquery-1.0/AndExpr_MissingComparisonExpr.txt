@@ -26,9 +26,9 @@ XQueryModuleImpl[FILE(0:5)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
                                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                                    XPathNCNameImpl[XQUERY_NCNAME(0:1)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(0:2)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AND(2:5)]('and')
                   PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ComparisonExpr'.')

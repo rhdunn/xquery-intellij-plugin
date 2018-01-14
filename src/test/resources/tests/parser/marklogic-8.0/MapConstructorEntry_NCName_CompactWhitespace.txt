@@ -52,11 +52,9 @@ XQueryModuleImpl[FILE(0:18)]
                                                                                                                                                    XPathNodeTestImpl[XQUERY_NODE_TEST(12:17)]
                                                                                                                                                       XPathNameTestImpl[XQUERY_NAME_TEST(12:17)]
                                                                                                                                                          XPathQNameImpl[XQUERY_QNAME(12:17)]
-                                                                                                                                                            XPathNCNameImpl[XQUERY_NCNAME(12:13)]
-                                                                                                                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('a')
+                                                                                                                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('a')
                                                                                                                                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
-                                                                                                                                                            XPathNCNameImpl[XQUERY_NCNAME(14:17)]
-                                                                                                                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:17)]('one')
+                                                                                                                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:17)]('one')
                                                                                                                                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
                                                                               PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
                                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(17:18)]('}')

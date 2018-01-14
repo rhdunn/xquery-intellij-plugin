@@ -10,9 +10,9 @@ XQueryModuleImpl[FILE(0:59)]
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(19:58)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-               XPathNCNameImpl[XQUERY_NCNAME(28:29)]
+               XPathNCNameImpl[XQUERY_NCNAME(28:30)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(28:29)]('f')
-               PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
@@ -45,15 +45,13 @@ XQueryModuleImpl[FILE(0:59)]
                                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(36:56)]
                                                                                     XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(36:55)]
                                                                                        XPathQNameImpl[XQUERY_QNAME(36:51)]
-                                                                                          XPathNCNameImpl[XQUERY_NCNAME(36:43)]
-                                                                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
+                                                                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
                                                                                           PsiErrorElementImpl[ERROR_ELEMENT(43:44)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                                                                                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(44:45)](':')
                                                                                           PsiErrorElementImpl[ERROR_ELEMENT(45:46)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                                                                                          XPathNCNameImpl[XQUERY_NCNAME(46:51)]
-                                                                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(46:51)]('value')
+                                                                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(46:51)]('value')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                                                                                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(52:55)]
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(52:53)]('(')

@@ -25,23 +25,20 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryFindUsagesProvider
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryFindUsagesProviderTest : ParserTestCase() {
     fun testNCName() {
         val provider = XQueryFindUsagesProvider()
 
-        val file = parseResource("tests/parser/xquery-1.0/VarRef.xq")!!
-        val varRef = file.descendants().filterIsInstance<XPathVarRef>().first()
-        val varName = varRef.children().filterIsInstance<XPathVarName>().first()
-        val qname = varName.children().filterIsInstance<XPathQName>().first()
-        val ncName = qname.children().filterIsInstance<XPathNCName>().first()
+        val name = parse<XPathNCName>("\$x")[0]
 
-        assertThat(provider.canFindUsagesFor(ncName), `is`(true))
-        assertThat(provider.getHelpId(ncName), `is`(HelpID.FIND_OTHER_USAGES))
-        assertThat(provider.getType(ncName), `is`("Identifier"))
-        assertThat(provider.getDescriptiveName(ncName), `is`("one"))
-        assertThat(provider.getNodeText(ncName, true), `is`("one"))
-        assertThat(provider.getNodeText(ncName, false), `is`("one"))
+        assertThat(provider.canFindUsagesFor(name), `is`(true))
+        assertThat(provider.getHelpId(name), `is`(HelpID.FIND_OTHER_USAGES))
+        assertThat(provider.getType(name), `is`("Identifier"))
+        assertThat(provider.getDescriptiveName(name), `is`("x"))
+        assertThat(provider.getNodeText(name, true), `is`("x"))
+        assertThat(provider.getNodeText(name, false), `is`("x"))
     }
 }

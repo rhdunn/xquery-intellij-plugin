@@ -9,9 +9,9 @@ XQueryModuleImpl[FILE(0:59)]
             XQuerySchemaPrefixImpl[XQUERY_SCHEMA_PREFIX(14:29)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XPathNCNameImpl[XQUERY_NCNAME(24:28)]
+               XPathNCNameImpl[XQUERY_NCNAME(24:29)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(24:28)]('test')
-               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected '='.')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(29:58)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('"')

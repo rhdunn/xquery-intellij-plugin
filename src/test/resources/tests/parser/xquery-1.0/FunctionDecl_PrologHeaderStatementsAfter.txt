@@ -8,11 +8,9 @@ XQueryModuleImpl[FILE(0:530)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
-                  XPathNCNameImpl[XQUERY_NCNAME(17:19)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:19)]('fn')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:19)]('fn')
                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-                  XPathNCNameImpl[XQUERY_NCNAME(20:24)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:24)]('true')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:24)]('true')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
@@ -121,9 +119,9 @@ XQueryModuleImpl[FILE(0:530)]
             PsiErrorElementImpl[ERROR_ELEMENT(363:372)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(363:372)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(372:373)](' ')
-            XPathNCNameImpl[XQUERY_NCNAME(373:377)]
+            XPathNCNameImpl[XQUERY_NCNAME(373:378)]
                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(373:377)]('test')
-            PsiWhiteSpaceImpl[WHITE_SPACE(377:378)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(377:378)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(378:379)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(379:380)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(380:409)]

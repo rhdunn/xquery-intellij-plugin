@@ -7,11 +7,9 @@ XQueryModuleImpl[FILE(0:33)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathQNameImpl[XQUERY_QNAME(15:25)]
-               XPathNCNameImpl[XQUERY_NCNAME(15:19)]
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:19)]('sort')
+               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:19)]('sort')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-               XPathNCNameImpl[XQUERY_NCNAME(20:25)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEAST(20:25)]('least')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEAST(20:25)]('least')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(26:32)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('"')

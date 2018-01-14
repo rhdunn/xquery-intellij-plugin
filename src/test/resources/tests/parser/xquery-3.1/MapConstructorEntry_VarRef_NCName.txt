@@ -53,9 +53,9 @@ XQueryModuleImpl[FILE(0:17)]
                                                                                                                                                 LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(6:7)]('$')
                                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                                                                                                 XPathVarNameImpl[XQUERY_VAR_NAME(8:10)]
-                                                                                                                                                   XPathNCNameImpl[XQUERY_NCNAME(8:9)]
+                                                                                                                                                   XPathNCNameImpl[XQUERY_NCNAME(8:10)]
                                                                                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:9)]('a')
-                                                                                                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                                                                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                               XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(12:16)]
@@ -83,8 +83,8 @@ XQueryModuleImpl[FILE(0:17)]
                                                                                                                                                 XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(12:16)]
                                                                                                                                                    XPathNodeTestImpl[XQUERY_NODE_TEST(12:16)]
                                                                                                                                                       XPathNameTestImpl[XQUERY_NAME_TEST(12:16)]
-                                                                                                                                                         XPathNCNameImpl[XQUERY_NCNAME(12:15)]
+                                                                                                                                                         XPathNCNameImpl[XQUERY_NCNAME(12:16)]
                                                                                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:15)]('one')
-                                                                                                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                                                                                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
                                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(16:17)]('}')

@@ -7142,9 +7142,7 @@ class XQueryParser {
                 }
                 advanceLexer();
             } else {
-                final PsiBuilder.Marker ncnameMarker = mark();
                 advanceLexer();
-                ncnameMarker.done(XQueryElementType.NCNAME);
             }
 
             // endregion
@@ -7158,10 +7156,10 @@ class XQueryParser {
                         if (isWildcard) {
                             qnameMarker.done(XQueryElementType.WILDCARD);
                         } else {
-                            qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                            qnameMarker.done(XQueryElementType.NCNAME);
                         }
                     } else {
-                        qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                        qnameMarker.done(XQueryElementType.NCNAME);
                     }
                     return true;
                 } else if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
@@ -7202,10 +7200,10 @@ class XQueryParser {
                             if (isWildcard) {
                                 qnameMarker.done(XQueryElementType.WILDCARD);
                             } else {
-                                qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                                qnameMarker.done(XQueryElementType.NCNAME);
                             }
                         } else {
-                            qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                            qnameMarker.done(XQueryElementType.NCNAME);
                         }
                         return true;
                     } else {
@@ -7220,9 +7218,7 @@ class XQueryParser {
                 // region QNameOrWildcardLocalName := (NCName | "*")
 
                 if (getTokenType() instanceof INCNameType) {
-                    final PsiBuilder.Marker ncnameMarker = mark();
                     advanceLexer();
-                    ncnameMarker.done(XQueryElementType.NCNAME);
                 } else if (getTokenType() == XQueryTokenType.STAR) {
                     if (type == XQueryElementType.WILDCARD) {
                         if (isWildcard) {
@@ -7258,15 +7254,14 @@ class XQueryParser {
                 }
                 return true;
             } else {
-                IElementType ncname = (type == XQueryElementType.PREFIX) ? XQueryElementType.PREFIX : XQueryElementType.NCNAME;
                 if (type == XQueryElementType.WILDCARD) {
                     if (isWildcard) {
                         qnameMarker.done(XQueryElementType.WILDCARD);
                     } else {
-                        qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                        qnameMarker.done(XQueryElementType.NCNAME);
                     }
                 } else {
-                    qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                    qnameMarker.done(XQueryElementType.NCNAME);
                 }
             }
             return true;

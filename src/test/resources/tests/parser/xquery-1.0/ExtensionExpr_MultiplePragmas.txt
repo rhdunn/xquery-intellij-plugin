@@ -23,11 +23,9 @@ XQueryModuleImpl[FILE(0:70)]
                                                                   LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                                   XPathQNameImpl[XQUERY_QNAME(3:11)]
-                                                                     XPathNCNameImpl[XQUERY_NCNAME(3:6)]
-                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
+                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
-                                                                     XPathNCNameImpl[XQUERY_NCNAME(7:11)]
-                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
+                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                   LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(12:31)]('Lorem ipsum dolor. ')
                                                                   LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(31:33)]('#)')
@@ -36,11 +34,9 @@ XQueryModuleImpl[FILE(0:70)]
                                                                   LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(34:36)]('(#')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                                                                   XPathQNameImpl[XQUERY_QNAME(37:46)]
-                                                                     XPathNCNameImpl[XQUERY_NCNAME(37:40)]
-                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(37:40)]('ext')
+                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(37:40)]('ext')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(40:41)](':')
-                                                                     XPathNCNameImpl[XQUERY_NCNAME(41:46)]
-                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:46)]('test2')
+                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:46)]('test2')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                                                                   LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(47:62)]('One two three. ')
                                                                   LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(62:64)]('#)')

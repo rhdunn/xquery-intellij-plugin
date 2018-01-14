@@ -10,9 +10,9 @@ XQueryModuleImpl[FILE(0:27)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                      XPathVarNameImpl[XQUERY_VAR_NAME(6:8)]
-                        XPathNCNameImpl[XQUERY_NCNAME(6:7)]
+                        XPathNCNameImpl[XQUERY_NCNAME(6:8)]
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('x')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      XQueryPositionalVarImpl[XQUERY_POSITIONAL_VAR(8:13)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(8:10)]('at')
                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
@@ -43,9 +43,9 @@ XQueryModuleImpl[FILE(0:27)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(13:14)]('$')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                                                     XPathVarNameImpl[XQUERY_VAR_NAME(15:17)]
-                                                                                       XPathNCNameImpl[XQUERY_NCNAME(15:16)]
+                                                                                       XPathNCNameImpl[XQUERY_NCNAME(15:17)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:16)]('y')
-                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                                                                                          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(17:27)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(17:23)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')

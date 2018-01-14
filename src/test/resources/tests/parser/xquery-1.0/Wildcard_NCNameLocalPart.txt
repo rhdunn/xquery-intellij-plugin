@@ -27,8 +27,7 @@ XQueryModuleImpl[FILE(0:4)]
                                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(0:4)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(0:4)]
                                                                                     XPathWildcardImpl[XQUERY_WILDCARD(0:4)]
-                                                                                       XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('xh')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('xh')
                                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                                        LeafPsiElement[XQUERY_STAR_TOKEN(3:4)]('*')
                                                                         XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]

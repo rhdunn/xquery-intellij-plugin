@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,14 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.NotCacheable
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
 class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, XdmStaticValue {
     override fun subtreeChanged() {
@@ -42,12 +43,9 @@ class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, X
     override val staticValue get(): Any? = cachedConstantValue.get()
 
     private val cachedConstantValue = CacheableProperty {
-        val names: List<PsiElement> = findChildrenByType(XQueryElementType.NCNAME)
+        val names: List<PsiElement> = children().filterIsInstance<XmlNCNameImpl>().toList()
         when (names.size) {
-            2 -> createLexicalQName(
-                    names[0].firstChild as XdmStaticValue,
-                    names[1].firstChild as XdmStaticValue,
-                    this)
+            2 -> createLexicalQName(names[0] as XdmStaticValue, names[1] as XdmStaticValue, this)
             else -> null
         } `is` NotCacheable
     }

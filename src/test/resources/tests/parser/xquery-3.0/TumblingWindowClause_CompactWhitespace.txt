@@ -12,9 +12,9 @@ XQueryModuleImpl[FILE(0:52)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WINDOW(13:19)]('window')
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
                      XPathVarNameImpl[XQUERY_VAR_NAME(20:22)]
-                        XPathNCNameImpl[XQUERY_NCNAME(20:21)]
+                        XPathNCNameImpl[XQUERY_NCNAME(20:22)]
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:21)]('x')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(22:24)]('in')
                      XPathOrExprImpl[XQUERY_OR_EXPR(24:27)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(24:27)]
@@ -39,9 +39,9 @@ XQueryModuleImpl[FILE(0:52)]
                                                                                  XPathVarRefImpl[XQUERY_VAR_REF(24:27)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
                                                                                     XPathVarNameImpl[XQUERY_VAR_NAME(25:27)]
-                                                                                       XPathNCNameImpl[XQUERY_NCNAME(25:26)]
+                                                                                       XPathNCNameImpl[XQUERY_NCNAME(25:27)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:26)]('y')
-                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+                                                                                          PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                      XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(27:44)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_START(27:32)]('start')
                         PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')

@@ -24,11 +24,9 @@ XQueryModuleImpl[FILE(0:18)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:18)]
                                                                         XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:18)]
                                                                            XPathQNameImpl[XQUERY_QNAME(0:10)]
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('fn')
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('fn')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(3:10)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:10)]('boolean')
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:10)]('boolean')
                                                                            XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(10:18)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                                                                               XPathArgumentImpl[XQUERY_ARGUMENT(11:17)]
