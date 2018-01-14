@@ -41,6 +41,16 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(name.nameIdentifier?.text, `is`("test"))
     }
 
+    fun testPsiNameIdentifierOwner_URIQualifiedName() {
+        val name = parse<XPathURIQualifiedName>("(: :) Q{http://www.example.com}test")[0] as PsiNameIdentifierOwner
+
+        assertThat(name.name, `is`("test"))
+        assertThat(name.textOffset, `is`(31))
+
+        assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+        assertThat(name.nameIdentifier?.text, `is`("test"))
+    }
+
     // endregion
     // region Files
     // region URILiteral

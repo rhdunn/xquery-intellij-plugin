@@ -18,6 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNameIdentifierOwner
+import com.intellij.util.IncorrectOperationException
+import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
@@ -36,12 +39,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathURIQualifiedName,
-        XdmStaticValue {
-
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        cachedConstantValue.invalidate()
-    }
+        XdmStaticValue,
+        PsiNameIdentifierOwner {
+    // region XPathEQName
 
     override val prefix get(): PsiElement? {
         return findChildByType(XQueryElementType.BRACED_URI_LITERAL)
@@ -54,6 +54,9 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         return emptySequence()
     }
+
+    // endregion
+    // region XdmStaticValue
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
@@ -68,4 +71,31 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
             createQName(namespace as XdmStaticValue, localName as XdmStaticValue, this)
         } `is` Cacheable
     }
+
+    // endregion
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedConstantValue.invalidate()
+    }
+
+    override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
+
+    // endregion
+    // region PsiNameIdentifierOwner
+
+    override fun getNameIdentifier(): PsiElement? = children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
+
+    // endregion
+    // region PsiNamedElement
+
+    override fun getName(): String? = nameIdentifier?.text
+
+    @Throws(IncorrectOperationException::class)
+    override fun setName(@NonNls name: String): PsiElement {
+        return this
+    }
+
+    // endregion
 }
