@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,25 @@ package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val name = element
-        return name.walkTree().reversed().filterIsInstance<XQueryVariableResolver>().map { e ->
-            e.resolveVariable(name)?.variable
-        }.filterNotNull().firstOrNull()
+        val match = name.inScopeVariablesForFile().find { variable ->
+            val qname = variable.variableName!!
+            val matchPrefix = name.prefix?.text == (qname.prefix?.staticValue as? String)
+            val matchLocalName = name.localName?.text == (qname.localName?.staticValue as? String)
+            matchPrefix && matchLocalName
+        }?.variableName?.declaration?.get()
+
+        return (match as? PsiElement) ?: let {
+            val prolog = (name.containingFile as? XQueryPrologResolver)?.prolog
+            (prolog as? XQueryVariableResolver)?.resolveVariable(name)?.variable
+        }
     }
 
     override fun getVariants(): Array<Any> {
