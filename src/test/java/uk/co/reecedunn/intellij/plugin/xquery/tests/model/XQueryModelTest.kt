@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -419,6 +420,111 @@ class XQueryModelTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
+    // region BlockVarDeclEntry (XPathVariableDeclaration) [XQuery Scripting Extensions]
+
+    fun testBlockVarDeclEntry_NCName() {
+        val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathNCName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testBlockVarDeclEntry_QName() {
+        val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathQName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testBlockVarDeclEntry_URIQualifiedName() {
+        val expr = parse<ScriptingBlockVarDeclEntry>(
+                "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }")[0] as XPathVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathURIQualifiedName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testBlockVarDeclEntry_MissingVarName() {
+        val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(nullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testBlockVarDeclEntry_Multiple_NCName() {
+        val decls = parse<ScriptingBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
+        assertThat(decls.size, `is`(2))
+
+        val expr = decls[1] as XPathVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathNCName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    // endregion
     // region CaseClause (XPathVariableBinding)
 
     fun testCaseClause_NCName() {
