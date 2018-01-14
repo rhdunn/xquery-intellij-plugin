@@ -2230,7 +2230,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("xs"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2247,7 +2247,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("sort"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2263,10 +2263,7 @@ class XQueryPsiTest : ParserTestCase() {
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
-        assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
-        assertThat(eqnamePsi.prefix!!.text, `is`("xs"))
-
+        assertThat(eqnamePsi.prefix, `is`(nullValue()))
         assertThat(eqnamePsi.localName, `is`(nullValue()))
     }
 
@@ -2279,7 +2276,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_ORDER))
         assertThat(eqnamePsi.prefix!!.text, `is`("order"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2345,7 +2342,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("one"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2360,7 +2357,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("sort"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2374,10 +2371,7 @@ class XQueryPsiTest : ParserTestCase() {
         val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
-        assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
-        assertThat(eqnamePsi.prefix!!.text, `is`("one"))
-
+        assertThat(eqnamePsi.prefix, `is`(nullValue()))
         assertThat(eqnamePsi.localName, `is`(nullValue()))
     }
 
@@ -2388,7 +2382,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_ORDER))
         assertThat(eqnamePsi.prefix!!.text, `is`("order"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2403,7 +2397,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = dirElemConstructorPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_TAG_NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("a"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2420,7 +2414,7 @@ class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = dirAttributePsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("xml"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
@@ -2451,7 +2445,7 @@ class XQueryPsiTest : ParserTestCase() {
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
@@ -2500,7 +2494,7 @@ class XQueryPsiTest : ParserTestCase() {
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
@@ -2553,7 +2547,7 @@ class XQueryPsiTest : ParserTestCase() {
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
@@ -2610,7 +2604,7 @@ class XQueryPsiTest : ParserTestCase() {
         val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("local"))
 
         assertThat(name.localName, `is`(notNullValue()))
@@ -2714,7 +2708,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(2))
 
-        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("math"))
 
         assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
@@ -2728,7 +2722,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(0))
 
-        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("fn"))
 
         assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
@@ -2742,7 +2736,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(1))
 
-        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("math"))
 
         assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
@@ -2770,7 +2764,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi, `is`(notNullValue()))
         assertThat(functionDeclPsi.arity, `is`(0))
 
-        assertThat(functionDeclPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionDeclPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionDeclPsi.functionName?.prefix?.node?.text, `is`("fn"))
 
         assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))

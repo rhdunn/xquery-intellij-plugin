@@ -22,6 +22,8 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -83,24 +85,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         }
     }
 
-    override val prefix get(): PsiElement? {
-        var element: PsiElement? = firstChild
-        if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME ||
-            element?.node?.elementType === XQueryElementType.QNAME) {
-            return (element as XPathEQName).prefix
-        }
-
-        var match: PsiElement? = null
-        while (element != null) {
-            if (element.node.elementType === XQueryElementType.NCNAME) {
-                match = element
-            } else if (QNAME_SEPARATORS.contains(element.node.elementType)) {
-                return match
-            }
-            element = element.nextSibling
-        }
-        return null
-    }
+    override val prefix get(): PsiElement? = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
 
     override val localName get(): PsiElement? {
         var element = findChildByType<PsiElement>(QNAME_SEPARATORS)
