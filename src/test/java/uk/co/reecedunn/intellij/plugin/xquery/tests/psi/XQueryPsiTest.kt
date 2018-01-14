@@ -2589,12 +2589,13 @@ class XQueryPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val name = varDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
+        val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(nullValue()))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_VALUE))
         assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
@@ -2605,7 +2606,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val name = varDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
+        val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
         assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
@@ -2623,7 +2625,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val name = varDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
+        val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
         assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
@@ -2994,15 +2997,16 @@ class XQueryPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val varNamePsi = varDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val varNamePsi = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
+        val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
         val provider = annotatedDeclPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)!!
+        val variable = provider.resolveVariable(varQNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathEQName::class.java)))
-        assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
+        assertThat(variable.variable, `is`<PsiElement>(varQNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarDecl::class.java)))
         assertThat(variable.declaration, `is`<PsiElement>(varDeclPsi))
@@ -3028,7 +3032,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val varNamePsi = varDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
+        val varNamePsi = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         val prologPsi = file.descendants().filterIsInstance<XQueryProlog>().first()
         val provider = prologPsi as XQueryVariableResolver
@@ -3066,7 +3071,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val varNamePsi = varDeclPsi.children().filterIsInstance<XPathEQName>().first()
+        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
+        val varNamePsi = varDeclQName.children().filterIsInstance<XPathEQName>().first()
         val provider = varDeclPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))

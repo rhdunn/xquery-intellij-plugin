@@ -85,8 +85,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode):
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
-        if (varName != null && varName == name) {
-            return XQueryVariable(varName, this)
+        val varQName = varName?.children()?.filterIsInstance<XPathEQName>()?.firstOrNull()
+        if (varQName != null && varQName == name) {
+            return XQueryVariable(varQName, this)
         }
         return null
     }
