@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.reference
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.PsiReference
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -28,6 +29,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryReferenceTest : ParserTestCase() {
+    // region PsiNameIdentifierOwner
+
+    fun testPsiNameIdentifierOwner_NCName() {
+        val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
+
+        assertThat(name.name, `is`("test"))
+        assertThat(name.textOffset, `is`(6))
+
+        assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+        assertThat(name.nameIdentifier?.text, `is`("test"))
+    }
+
+    // endregion
     // region Files
     // region URILiteral
 

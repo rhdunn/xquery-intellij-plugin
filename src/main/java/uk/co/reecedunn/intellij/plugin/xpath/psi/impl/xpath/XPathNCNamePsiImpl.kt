@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiNamedElement
+import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
@@ -27,17 +27,29 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 
-open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, XdmStaticValue, PsiNamedElement {
+open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, XdmStaticValue, PsiNameIdentifierOwner {
+    // region XdmStaticValue
+
     override val cacheable: CachingBehaviour = CachingBehaviour.DoNotCache // Bound to the static context
 
     override val staticType: XdmSequenceType = XsQName
 
     override val staticValue get(): Any? = createLexicalQName(null, firstChild as XdmStaticValue, this)
 
-    override fun getName(): String? = firstChild.text
+    // endregion
+    // region PsiNameIdentifierOwner
+
+    override fun getNameIdentifier(): PsiElement? = firstChild
+
+    // endregion
+    // region PsiNamedElement
+
+    override fun getName(): String? = nameIdentifier?.text
 
     @Throws(IncorrectOperationException::class)
     override fun setName(@NonNls name: String): PsiElement {
         return this
     }
+
+    // endregion
 }
