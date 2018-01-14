@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariableBindings
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -831,14 +831,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBinding_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_ForBinding_InExpr_PreviousBindingInScope() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 2, \$y in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -849,14 +849,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBinding_NestedFLWORExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in for \$y in test() return 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_ForBinding_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -867,7 +867,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBinding_NestedFLWORExpr_InnerReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in for \$y in 2 return test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -878,7 +878,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBinding_NestedFLWORExpr_OuterReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in for \$y in 2 return 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -889,7 +889,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBinding_Multiple_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1, \$y in 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -907,14 +907,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBindingPositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_ForBindingPositionalVar_InExpr_PreviousBindingInScope() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in 2, \$y at \$ b in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -929,14 +929,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBindingPositionalVar_NestedFLWORExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in for \$y at \$b in test() return 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_ForBindingPositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -951,7 +951,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBindingPositionalVar_NestedFLWORExpr_InnerReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in for \$y at \$b in 2 return test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -966,7 +966,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBindingPositionalVar_NestedFLWORExpr_OuterReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in for \$y at \$b in 2 return 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -981,7 +981,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_ForBindingPositionalVar_Multiple_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x at \$a in 1, \$y at \$b in 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1007,14 +1007,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_LetBinding_ValueExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_LetBinding_InExpr_PreviousBindingInScope() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 2, \$y := test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1025,14 +1025,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_LetBinding_NestedFLWORExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := let \$y := test() return 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_LetBinding_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1043,7 +1043,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_LetBinding_NestedFLWORExpr_InnerReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := let \$y := 2 return test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1054,7 +1054,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_LetBinding_NestedFLWORExpr_OuterReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := let \$y := 2 return 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1065,7 +1065,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_LetBinding_Multiple_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1, \$y := 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1083,14 +1083,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1105,14 +1105,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() start \$y when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1123,7 +1123,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1141,14 +1141,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() end \$y when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1159,7 +1159,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1179,14 +1179,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() start \$y next \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y next \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1201,7 +1201,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y next \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1223,14 +1223,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() end \$y next \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y next \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1245,7 +1245,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y next \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1269,14 +1269,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() start \$y at \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y at \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1291,7 +1291,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y at \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1313,14 +1313,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() end \$y at \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y at \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1335,7 +1335,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y at \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1359,14 +1359,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() start \$y previous \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y previous \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1381,7 +1381,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowStartCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 start \$y previous \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1403,14 +1403,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in test() end \$y previous \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y previous \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1425,7 +1425,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_SlidingWindowClause_WindowEndCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for sliding window \$x in 1 end \$y previous \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1448,14 +1448,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1470,14 +1470,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() start \$y when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1488,7 +1488,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1506,14 +1506,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() end \$y when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1524,7 +1524,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1544,14 +1544,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() start \$y next \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y next \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1566,7 +1566,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y next \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1588,14 +1588,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() end \$y next \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y next \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1610,7 +1610,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y next \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1634,14 +1634,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() start \$y at \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y at \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1656,7 +1656,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y at \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1678,14 +1678,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() end \$y at \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y at \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1700,7 +1700,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y at \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1724,14 +1724,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() start \$y previous \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y previous \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1746,7 +1746,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowStartCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 start \$y previous \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1768,14 +1768,14 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in test() end \$y previous \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y previous \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1790,7 +1790,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_TumblingWindowClause_WindowEndCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for tumbling window \$x in 1 end \$y previous \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1813,7 +1813,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_CountClause() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 count \$y return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1831,7 +1831,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for \$y in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1842,7 +1842,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_InExpr_PreviousBindingInScope() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 2 for \$y in 3, \$z in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1857,7 +1857,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_NestedFLWORExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for \$y in for \$z in test() return 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1868,7 +1868,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for \$y in 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1883,7 +1883,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_NestedFLWORExpr_InnerReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for \$y in for \$z in 2 return test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -1898,7 +1898,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_NestedFLWORExpr_OuterReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for \$y in for \$z in 2 return 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1913,7 +1913,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_ForBinding_Multiple_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for \$y in 2, \$z in 3 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1935,7 +1935,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_GroupByClause() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 group by \$y return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1950,7 +1950,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_GroupByClause_Multiple() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 group by \$y, \$z return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1969,7 +1969,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_GroupByClause_ValueExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 group by \$y := test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -1980,7 +1980,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_GroupByClause_ValueExpr_PreviousSpecInScope() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 group by \$y := 2, \$z := test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -1998,7 +1998,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_ValueExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2009,7 +2009,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_ValueExpr_PreviousBindingInScope() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := 2, \$z := test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2024,7 +2024,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_NestedFLWORExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := let \$z := test() return 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2035,7 +2035,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2050,7 +2050,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_NestedFLWORExpr_InnerReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := let \$z := 2 return test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2065,7 +2065,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_NestedFLWORExpr_OuterReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := let \$z := 2 return 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2080,7 +2080,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_LetBinding_Multiple_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "let \$x := 1 let \$y := 2, \$z := 3 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2102,7 +2102,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2113,7 +2113,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2132,7 +2132,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() start \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2143,7 +2143,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2158,7 +2158,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2180,7 +2180,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() end \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2191,7 +2191,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2206,7 +2206,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2230,7 +2230,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() start \$z next \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2241,7 +2241,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z next \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2260,7 +2260,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z next \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2286,7 +2286,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() end \$z next \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2297,7 +2297,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z next \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2316,7 +2316,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z next \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2344,7 +2344,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() start \$z at \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2355,7 +2355,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2374,7 +2374,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2400,7 +2400,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() end \$z at \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2411,7 +2411,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2430,7 +2430,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2458,7 +2458,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() start \$z previous \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2469,7 +2469,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z previous \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2488,7 +2488,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowStartCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 start \$z previous \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2514,7 +2514,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in test() end \$z previous \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2525,7 +2525,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z previous \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2544,7 +2544,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_SlidingWindowClause_WindowEndCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for sliding window \$y in 1 end \$z previous \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2571,7 +2571,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() return 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2582,7 +2582,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2601,7 +2601,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() start \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2612,7 +2612,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2627,7 +2627,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2649,7 +2649,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_CurrentItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() end \$z when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2660,7 +2660,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_CurrentItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2675,7 +2675,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_CurrentItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2699,7 +2699,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() start \$z next \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2710,7 +2710,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z next \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2729,7 +2729,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z next \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2755,7 +2755,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_NextItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() end \$z next \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2766,7 +2766,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_NextItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z next \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2785,7 +2785,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_NextItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z next \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2813,7 +2813,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() start \$z at \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2824,7 +2824,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z at \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2843,7 +2843,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z at \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2869,7 +2869,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PositionalVar_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() end \$z at \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2880,7 +2880,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PositionalVar_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z at \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2899,7 +2899,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PositionalVar_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z at \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2927,7 +2927,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() start \$z previous \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2938,7 +2938,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z previous \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -2957,7 +2957,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowStartCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 start \$z previous \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -2983,7 +2983,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PreviousItem_InExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in test() end \$z previous \$w when 1 return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -2994,7 +2994,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PreviousItem_WhenExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z previous \$w when test() return 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(3))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))
@@ -3013,7 +3013,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_IntermediateClause_TumblingWindowClause_WindowEndCondition_PreviousItem_ReturnExpr() {
         val element = parse<XPathFunctionCall>(
                 "for \$x in 1 for tumbling window \$y in 1 end \$z previous \$w when 2 return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(4))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
@@ -3039,13 +3039,13 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testFunctionDecl_FunctionBody_NoParameters() {
         val element = parse<XPathFunctionCall>("declare function f() { test() }; 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testFunctionDecl_FunctionBody_SingleParameter() {
         val element = parse<XPathFunctionCall>("declare function f(\$x) { test() }; 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -3055,7 +3055,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testFunctionDecl_FunctionBody_MultipleParameters() {
         val element = parse<XPathFunctionCall>("declare function f(\$x, \$y) { test() }; 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -3069,7 +3069,7 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     fun testFunctionDecl_OutsideFunctionBody() {
         val element = parse<XPathFunctionCall>("declare function f(\$x) {}; test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
@@ -3079,7 +3079,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_CaseClause() {
         val element = parse<XPathFunctionCall>(
             "typeswitch (2) case \$x as xs:string return test() case \$y as xs:int return 2 default \$z return 3")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -3090,7 +3090,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_CaseClause_NotFirst() {
         val element = parse<XPathFunctionCall>(
                 "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return test() default \$z return 3")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         // Only variable `y` is in scope.
@@ -3102,7 +3102,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     fun testInScopeVariables_DefaultCaseClause() {
         val element = parse<XPathFunctionCall>(
                 "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return 2 default \$z return test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("z"))

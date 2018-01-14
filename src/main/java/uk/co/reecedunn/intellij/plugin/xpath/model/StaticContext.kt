@@ -140,7 +140,7 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
 
 // endregion
 
-fun PsiElement.inScopeVariableBindings(): Sequence<XPathVariableBinding> {
+fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
         // NOTE: GroupingSpecList is handled by the IntermediateClause logic.

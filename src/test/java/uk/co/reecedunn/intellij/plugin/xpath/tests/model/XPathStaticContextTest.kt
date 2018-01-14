@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariableBindings
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathStaticContextTest : ParserTestCase() {
@@ -27,13 +27,13 @@ class XPathStaticContextTest : ParserTestCase() {
 
     fun testInlineFunctionExpr_FunctionBody_NoParameters() {
         val element = parse<XPathFunctionCall>("function () { test() }")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
         val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -43,7 +43,7 @@ class XPathStaticContextTest : ParserTestCase() {
 
     fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
         val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -57,7 +57,7 @@ class XPathStaticContextTest : ParserTestCase() {
 
     fun testInlineFunctionExpr_OutsideFunctionBody() {
         val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
@@ -66,13 +66,13 @@ class XPathStaticContextTest : ParserTestCase() {
 
     fun testQuantifiedExpr_SingleBinding_InExpr() {
         val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
         val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -82,13 +82,13 @@ class XPathStaticContextTest : ParserTestCase() {
 
     fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
         val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(0))
     }
 
     fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
         val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
@@ -98,7 +98,7 @@ class XPathStaticContextTest : ParserTestCase() {
 
     fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
         val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
-        val variables = element.inScopeVariableBindings().toList()
+        val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
         assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
