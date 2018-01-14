@@ -23,17 +23,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCountClause
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryCountClausePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryCountClause,
-        XQueryVariableResolver,
         XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
@@ -47,11 +43,4 @@ class XQueryCountClausePsiImpl(node: ASTNode):
 
     // CountClause is a conditional variable that is evaluated dynamically.
     override val variableValue: XdmStaticValue? = null
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val eqname = findChildByClass(XPathEQName::class.java)
-        return if (eqname != null && eqname == name) {
-            XQueryVariable(eqname, this)
-        } else null
-    }
 }

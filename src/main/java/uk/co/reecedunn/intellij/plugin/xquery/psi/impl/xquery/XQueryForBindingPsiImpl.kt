@@ -22,19 +22,14 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryForBindingPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryForBinding,
-        XQueryVariableResolver,
         XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
@@ -49,16 +44,4 @@ class XQueryForBindingPsiImpl(node: ASTNode):
 
     // The bound variable result is dependent on the sequence, so cannot be determined statically.
     override val variableValue: XdmStaticValue? = null
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val varName = findChildByClass(XPathVarName::class.java)
-        if (varName != null && varName == name) {
-            return XQueryVariable(varName, this)
-        }
-
-        val positionalVar = findChildByClass(XQueryPositionalVar::class.java)
-        return if (positionalVar != null) {
-            (positionalVar as XQueryVariableResolver).resolveVariable(name)
-        } else null
-    }
 }

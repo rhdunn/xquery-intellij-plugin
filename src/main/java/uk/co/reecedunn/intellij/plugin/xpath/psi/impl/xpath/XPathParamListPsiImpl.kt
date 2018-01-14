@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XPathParamListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParamList, XQueryVariableResolver {
+class XPathParamListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParamList {
     override val arity get(): Int {
         return children().filterIsInstance<XPathParam>().count()
-    }
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return children().filterIsInstance<XQueryVariableResolver>().map { resolver ->
-            resolver.resolveVariable(name)
-        }.filterNotNull().firstOrNull()
     }
 }

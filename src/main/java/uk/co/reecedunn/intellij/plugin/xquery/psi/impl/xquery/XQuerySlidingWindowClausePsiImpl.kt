@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
@@ -31,14 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClau
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQuerySlidingWindowClausePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQuerySlidingWindowClause,
         XQueryConformance,
-        XQueryVariableResolver,
         XPathVariableBinding {
     // region XQueryConformance
 
@@ -62,17 +58,6 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode):
 
     // The bound variable result is dependent on the sequence, so cannot be determined statically.
     override val variableValue: XdmStaticValue? = null
-
-    // endregion
-    // region XQueryVariableResolver
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return children().map { e -> when (e) {
-            is XQueryVariableResolver -> e.resolveVariable(name)
-            is XPathEQName -> if (e == name) XQueryVariable(e, this) else null
-            else -> null
-        }}.filterNotNull().firstOrNull()
-    }
 
     // endregion
 }

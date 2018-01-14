@@ -17,16 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypeswitchExpr
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryTypeswitchExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTypeswitchExpr, XQueryVariableResolver {
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return (findChildByClass(XQueryDefaultCaseClause::class.java) as? XQueryVariableResolver)?.resolveVariable(name)
-    }
-}
+class XQueryTypeswitchExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTypeswitchExpr

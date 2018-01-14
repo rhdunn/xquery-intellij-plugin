@@ -25,13 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XPathParamPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathParam,
-        XQueryVariableResolver,
         XPathVariableBinding {
 
     private val varName get(): XdmStaticValue? =
@@ -46,11 +43,4 @@ class XPathParamPsiImpl(node: ASTNode):
 
     // The bound variable result is dependent on the caller, so cannot be determined statically.
     override val variableValue: XdmStaticValue? = null
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val paramName = findChildByClass(XPathEQName::class.java)
-        return if (paramName != null && paramName == name) {
-            XQueryVariable(paramName, this)
-        } else null
-    }
 }

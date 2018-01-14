@@ -22,18 +22,14 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingSpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryGroupingSpecPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryGroupingSpec,
-        XQueryVariableResolver,
         XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
@@ -48,9 +44,4 @@ class XQueryGroupingSpecPsiImpl(node: ASTNode):
 
     // TODO: Locate and use the evaluated expression if present.
     override val variableValue: XdmStaticValue? = null
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val `var` = findChildByClass(XQueryVariableResolver::class.java)
-        return `var`?.resolveVariable(name)
-    }
 }

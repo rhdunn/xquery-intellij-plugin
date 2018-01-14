@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryWindowEndCondition
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryWindowEndConditionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryWindowEndCondition, XQueryVariableResolver {
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val resolver = findChildByClass(XQueryVariableResolver::class.java)
-        return resolver?.resolveVariable(name)
-    }
-}
+class XQueryWindowEndConditionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryWindowEndCondition

@@ -15,13 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
@@ -31,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class ScriptingPsiTest : ParserTestCase() {
@@ -305,34 +302,6 @@ class ScriptingPsiTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_WHILE))
-    }
-
-    // endregion
-    // endregion
-    // region XQueryVariableResolver
-    // region BlockVarDecl
-
-    fun testBlockVarDecl_VariableResolver() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val blockPsi = functionDeclPsi.children().filterIsInstance<ScriptingBlock>().first()
-        val blockDeclsPsi = blockPsi.children().filterIsInstance<ScriptingBlockDecls>().first()
-        val blockVarDeclPsi = blockDeclsPsi.children().filterIsInstance<ScriptingBlockVarDecl>().first()
-        val blockVarDeclEntryPsi = blockVarDeclPsi.children().filterIsInstance<ScriptingBlockVarDeclEntry>().first()
-        val varNamePsi = blockVarDeclEntryPsi.children().filterIsInstance<XPathEQName>().first()
-
-        val provider = blockVarDeclPsi as XQueryVariableResolver
-        assertThat(provider.resolveVariable(null), `is`(nullValue()))
-
-        val variable = provider.resolveVariable(varNamePsi)!!
-
-        assertThat(variable.variable, `is`(instanceOf(XPathEQName::class.java)))
-        assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
-
-        assertThat(variable.declaration, `is`(instanceOf(ScriptingBlockVarDeclEntry::class.java)))
-        assertThat(variable.declaration, `is`(blockVarDeclEntryPsi as PsiElement))
     }
 
     // endregion

@@ -17,28 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class ScriptingBlockVarDeclEntryPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         ScriptingBlockVarDeclEntry,
-        XQueryVariableResolver,
         XPathVariableDeclaration {
 
     private val varName get(): XPathVariableName? =
@@ -53,12 +44,4 @@ class ScriptingBlockVarDeclEntryPsiImpl(node: ASTNode):
 
     // TODO: Locate and use the ExprSingle if present.
     override val variableValue: XdmStaticValue? = null
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
-        if (varName != null && varName == name) {
-            return XQueryVariable(varName, this)
-        }
-        return null
-    }
 }

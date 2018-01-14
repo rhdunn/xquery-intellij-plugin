@@ -17,25 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCaseClause
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryDefaultCaseClausePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryDefaultCaseClause,
-        XQueryVariableResolver,
         XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
@@ -50,11 +44,4 @@ class XQueryDefaultCaseClausePsiImpl(node: ASTNode):
 
     // TODO: Locate the result of the typeswitch expression.
     override val variableValue: XdmStaticValue? = null
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val element = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
-        return if (element != null && element == name) {
-            XQueryVariable(element, this)
-        } else null
-    }
 }

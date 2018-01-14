@@ -20,17 +20,12 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryGroupingVariablePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryGroupingVariable,
-        XQueryVariableResolver,
         XPathVariableName {
 
     private val varName get(): XPathVariableName? =
@@ -39,11 +34,4 @@ class XQueryGroupingVariablePsiImpl(node: ASTNode):
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
     override val variableName get(): QName? = varName?.variableName
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val varName = findChildByClass(XPathVarName::class.java)
-        return if (varName != null && varName == name) {
-            XQueryVariable(varName, this)
-        } else null
-    }
 }

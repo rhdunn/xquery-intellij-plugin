@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntermediateClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
 
-class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryIntermediateClause, XQueryConformance, XQueryVariableResolver {
+class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryIntermediateClause, XQueryConformance {
     override val requiresConformance get(): List<Version> {
         val current = firstChild.node.elementType
         if (current === XQueryElementType.COUNT_CLAUSE || current === XQueryElementType.GROUP_BY_CLAUSE) {
@@ -50,12 +47,4 @@ class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
 
     override val conformanceElement get(): PsiElement =
         firstChild.firstChild
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val element = firstChild
-        if (element is XQueryVariableResolver) {
-            return element.resolveVariable(name)
-        }
-        return null
-    }
 }

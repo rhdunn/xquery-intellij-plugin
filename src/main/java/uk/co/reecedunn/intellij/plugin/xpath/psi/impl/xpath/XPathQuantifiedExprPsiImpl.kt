@@ -17,17 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifiedExpr
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XPathQuantifiedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQuantifiedExpr, XQueryVariableResolver {
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        if (name == null) return null
-        return children().filterIsInstance<XQueryVariableResolver>().map { resolver ->
-            resolver.resolveVariable(name)
-        }.filterNotNull().firstOrNull()
-    }
-}
+class XPathQuantifiedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQuantifiedExpr
