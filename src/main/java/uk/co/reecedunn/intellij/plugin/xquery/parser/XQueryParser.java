@@ -7329,9 +7329,7 @@ class XQueryParser {
         final PsiBuilder.Marker qnameMarker = mark();
         if (parseBracedURILiteral()) {
             if (getTokenType() instanceof INCNameType) {
-                final PsiBuilder.Marker ncnameMarker = mark();
                 advanceLexer();
-                ncnameMarker.done(XQueryElementType.NCNAME);
             } else if (matchTokenType(XQueryTokenType.STAR)) {
                 if (type != XQueryElementType.WILDCARD) {
                     error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"));

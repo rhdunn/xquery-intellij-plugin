@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
@@ -30,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
 class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
@@ -46,7 +48,7 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
     }
 
     override val localName get(): PsiElement? {
-        return findChildByType(XQueryElementType.NCNAME)
+        return children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
     }
 
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
@@ -61,9 +63,9 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
 
     private val cachedConstantValue = CacheableProperty {
         val namespace: PsiElement? = findChildByType(XQueryElementType.BRACED_URI_LITERAL)
-        val localName: PsiElement? = findChildByType(XQueryElementType.NCNAME)
+        val localName: PsiElement? = children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
         localName?.let {
-            createQName(namespace as XdmStaticValue, localName.firstChild as XdmStaticValue, this)
+            createQName(namespace as XdmStaticValue, localName as XdmStaticValue, this)
         } `is` Cacheable
     }
 }

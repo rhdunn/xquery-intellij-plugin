@@ -2315,7 +2315,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("Q{http://www.w3.org/2001/XMLSchema}"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
@@ -2471,7 +2471,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xpath-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2520,7 +2520,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xpath-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2575,7 +2575,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xpath-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2633,7 +2633,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xquery-local-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_VALUE))
         assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
@@ -2984,7 +2984,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(qnamePsi.prefix!!.text, `is`("Q{one{two}"))
 
         assertThat(qnamePsi.localName, `is`(notNullValue()))
-        assertThat(qnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(qnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(qnamePsi.localName!!.text, `is`("three"))
     }
 

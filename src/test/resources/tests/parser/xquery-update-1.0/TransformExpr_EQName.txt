@@ -13,8 +13,7 @@ XQueryModuleImpl[FILE(0:71)]
                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(7:9)]('Q{')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(9:37)]('http://www.example.com/test#')
                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(37:38)]('}')
-                     XPathNCNameImpl[XQUERY_NCNAME(38:42)]
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:42)]('name')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:42)]('name')
                PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(43:45)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
