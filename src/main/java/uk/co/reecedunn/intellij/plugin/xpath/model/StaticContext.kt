@@ -22,6 +22,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
@@ -59,6 +62,9 @@ private class InScopeVariableContext {
     var visitedFlworWindowConditions = false
     var visitedQuantifiedBinding = false
     var visitedTypeswitch = false
+    var visitedBlockVarDeclEntry = false
+    var visitedBlockVarDecl = false
+    var visitedBlockDecls = false
 }
 
 // ForBinding, LetBinding, GroupingSpec
@@ -138,6 +144,36 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
     }}
 }
 
+private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    return if (context.visitedBlockVarDeclEntry) {
+        context.visitedBlockVarDeclEntry = false
+        emptySequence()
+    } else
+        sequenceOf(this as XPathVariableDeclaration)
+}
+
+private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    return if (context.visitedBlockVarDecl) {
+        context.visitedBlockVarDecl = false
+        emptySequence()
+    } else {
+        return children().filterIsInstance<ScriptingBlockVarDeclEntry>().flatMap { entry ->
+            entry.blockVarDeclEntry(context)
+        }
+    }
+}
+
+private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPathVariableDeclaration> {
+    return if (context.visitedBlockDecls) {
+        context.visitedBlockDecls = false
+        emptySequence()
+    } else {
+        return children().filterIsInstance<ScriptingBlockVarDecl>().flatMap { entry ->
+            entry.blockVarDecl(context)
+        }
+    }
+}
+
 // endregion
 
 fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
@@ -157,8 +193,7 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
         }
         is XPathExprSingle -> {
             when (node.parent) {
-                is XQueryForBinding, is XQueryLetBinding,
-                is XQueryGroupingSpec -> {
+                is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     context.visitedFlworBinding = true
                     if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
                         context.visitedFlworClauseAsIntermediateClause = true
@@ -173,6 +208,11 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
                 }
                 is XPathQuantifiedExprBinding -> {
                     context.visitedQuantifiedBinding = true
+                }
+                is ScriptingBlockVarDeclEntry -> {
+                    context.visitedBlockVarDeclEntry = true
+                    context.visitedBlockVarDecl = true
+                    context.visitedBlockDecls = true
                 }
                 else -> {}
             }
@@ -192,6 +232,9 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
             emptySequence()
         }
         is XPathParamList -> node.children().filterIsInstance<XPathVariableBinding>()
+        is ScriptingBlockVarDeclEntry -> node.blockVarDeclEntry(context)
+        is ScriptingBlockVarDecl -> node.blockVarDecl(context)
+        is ScriptingBlockDecls -> node.blockDecls(context)
         else -> emptySequence()
     }}.filterNotNull().filter { variable -> variable.variableName != null }
 }

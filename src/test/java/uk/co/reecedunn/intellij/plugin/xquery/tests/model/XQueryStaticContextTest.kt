@@ -685,7 +685,7 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
-    // region Variable Declarations
+    // region Prolog-defined Variable Declarations (externally visible)
     // region MainModule :: VarDecl
 
     fun testMainModule_Variables_NoProlog() {
@@ -825,7 +825,92 @@ class XQueryStaticContextTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region In-Scope Variable Bindings
+    // region In-Scope Variables (current file only)
+    // region BlockDecls -> BlockVarDecl -> BlockVarDeclEntry [XQuery Scripting Extension]
+
+    fun testBlockVarDeclEntry_NoDeclarations() {
+        val element = parse<XPathFunctionCall>("block { test() }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testBlockVarDeclEntry_SingleVarDecl_ValueExpr() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := test(); 1 }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testBlockVarDeclEntry_SingleVarDecl_BlockExpr() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := 1; test() }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testBlockVarDeclEntry_MultipleVarDeclEntries_ValueExpr_FirstDecl() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := test(), \$y := 1; 2 }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testBlockVarDeclEntry_MultipleVarDeclEntries_ValueExpr_LastDecl() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := 1, \$y := test(); 2 }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testBlockVarDeclEntry_MultipleVarDeclEntries_BlockExpr() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := 1, \$y := 2; test() }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testBlockVarDeclEntry_MultipleVarDecl_ValueExpr_FirstDecl() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := test(); declare \$y := 1; 2 }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testBlockVarDeclEntry_MultipleVarDecl_ValueExpr_LastDecl() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := 1; declare \$y := test(); 2 }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testBlockVarDeclEntry_MultipleVarDecl_BlockExpr() {
+        val element = parse<XPathFunctionCall>("block { declare \$x := 1; declare \$y := 2; test() }")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
     // region FLWORExpr -> InitialClause -> ForClause -> ForBinding
 
     fun testInScopeVariables_ForBinding_InExpr() {
