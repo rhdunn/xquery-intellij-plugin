@@ -87,24 +87,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
 
     override val prefix get(): PsiElement? = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
 
-    override val localName get(): PsiElement? {
-        var element = findChildByType<PsiElement>(QNAME_SEPARATORS)
-        if (element == null) { // NCName | URIQualifiedName
-            element = firstChild
-            if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME ||
-                element?.node?.elementType === XQueryElementType.QNAME) {
-                return (element as XPathEQName).localName
-            }
-
-            return children().firstOrNull { e ->
-                e.node.elementType is INCNameType ||
-                e.node.elementType === XQueryElementType.NCNAME
-            }
-        }
-
-        // QName
-        return element.siblings().firstOrNull { e -> e.node.elementType === XQueryElementType.NCNAME }
-    }
+    override val localName get(): PsiElement? = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
 
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         val prefix = prefix

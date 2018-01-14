@@ -2234,7 +2234,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("xs"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
@@ -2251,7 +2251,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("sort"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_LEAST))
         assertThat(eqnamePsi.localName!!.text, `is`("least"))
     }
 
@@ -2280,7 +2280,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("order"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("column"))
     }
 
@@ -2346,7 +2346,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("one"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("two"))
     }
 
@@ -2361,7 +2361,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("sort"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_LEAST))
         assertThat(eqnamePsi.localName!!.text, `is`("least"))
     }
 
@@ -2386,7 +2386,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("order"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("two"))
     }
 
@@ -2401,7 +2401,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("a"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_TAG_NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("b"))
     }
 
@@ -2418,7 +2418,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix!!.text, `is`("xml"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("id"))
     }
 
@@ -2449,7 +2449,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2498,7 +2498,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2551,7 +2551,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2608,7 +2608,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix!!.text, `is`("local"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_VALUE))
         assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
@@ -2711,7 +2711,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("math"))
 
-        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("pow"))
     }
 
@@ -2725,7 +2725,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("fn"))
 
-        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
@@ -2739,7 +2739,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("math"))
 
-        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("sin"))
     }
 
@@ -2767,7 +2767,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi.functionName?.prefix?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionDeclPsi.functionName?.prefix?.node?.text, `is`("fn"))
 
-        assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
