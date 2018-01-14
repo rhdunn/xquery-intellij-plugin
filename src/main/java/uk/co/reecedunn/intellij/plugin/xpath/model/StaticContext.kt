@@ -179,7 +179,7 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPa
 fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
-        // NOTE: GroupingSpecList is handled by the IntermediateClause logic.
+        is XQueryProlog -> (node as XPathStaticContext).variables
         is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XQueryWindowClause -> node.windowClauseVariables(context)

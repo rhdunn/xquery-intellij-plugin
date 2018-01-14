@@ -3159,6 +3159,69 @@ class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // endregion
+    // region Prolog -> VarDecl
+
+    fun testProlog_NoVarDecls_InProlog() {
+        val element = parse<XPathFunctionCall>("declare function f() { test() }; 1")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testProlog_NoVarDecls_QueryBodyExpr() {
+        val element = parse<XPathFunctionCall>("declare function f() {}; test()")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(0))
+    }
+
+    fun testProlog_SingleVarDecl_InProlog() {
+        val element = parse<XPathFunctionCall>("declare function f() { test() }; declare variable \$x := 1; 2")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testProlog_SingleVarDecl_QueryBodyExpr() {
+        val element = parse<XPathFunctionCall>("declare function f() {}; declare variable \$x := 1; test()")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(1))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testProlog_MultipleVarDecls_InProlog() {
+        val element = parse<XPathFunctionCall>("declare function f() { test() }; declare variable \$x := 1; declare variable \$y := 2; 3")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    fun testProlog_MultipleVarDecls_QueryBodyExpr() {
+        val element = parse<XPathFunctionCall>("declare function f() {}; declare variable \$x := 1; declare variable \$y := 2; test()")[0]
+        val variables = element.inScopeVariablesForFile().toList()
+        assertThat(variables.size, `is`(2))
+
+        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+    }
+
+    // endregion
     // region TypeswitchExpr -> CaseClause + DefaultCaseClause
 
     fun testInScopeVariables_CaseClause() {
