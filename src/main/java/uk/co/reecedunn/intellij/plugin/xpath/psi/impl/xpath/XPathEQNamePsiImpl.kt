@@ -60,7 +60,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
     }
 
     override fun getReferences(): Array<PsiReference> {
-        val eqnameStart = textOffset
+        val eqnameStart = node.startOffset
         val localName = localName
         val localNameRef: PsiReference? =
             if (localName != null) when (type) {

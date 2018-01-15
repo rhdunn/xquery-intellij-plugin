@@ -17,24 +17,26 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.core.data.NotCacheable
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import com.intellij.psi.PsiNameIdentifierOwner
+import com.intellij.util.IncorrectOperationException
+import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.core.data.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
-class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, XdmStaticValue {
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        cachedConstantValue.invalidate()
-    }
+class XPathQNamePsiImpl(node: ASTNode):
+        XPathEQNamePsiImpl(node),
+        XPathQName,
+        XdmStaticValue,
+        PsiNameIdentifierOwner {
+    // region XdmStaticValue
 
     override val cacheable get(): CachingBehaviour = cachedConstantValue.cachingBehaviour
 
@@ -49,4 +51,31 @@ class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, X
             else -> null
         } `is` NotCacheable
     }
+
+    // endregion
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedConstantValue.invalidate()
+    }
+
+    override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
+
+    // endregion
+    // region PsiNameIdentifierOwner
+
+    override fun getNameIdentifier(): PsiElement? = (staticValue as? QName)?.localName as? PsiElement
+
+    // endregion
+    // region PsiNamedElement
+
+    override fun getName(): String? = nameIdentifier?.text
+
+    @Throws(IncorrectOperationException::class)
+    override fun setName(@NonNls name: String): PsiElement {
+        return this
+    }
+
+    // endregion
 }
