@@ -66,6 +66,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val httpUriRef = uriLiterals.first().reference
         assertThat(httpUriRef!!.canonicalText, `is`("http://example.com/test"))
+        assertThat(httpUriRef.rangeInElement.startOffset, `is`(1))
+        assertThat(httpUriRef.rangeInElement.endOffset, `is`(24))
         assertThat(httpUriRef.variants.size, `is`(0))
 
         val resolved = httpUriRef.resolve()
@@ -83,6 +85,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = uriLiterals.last().reference
         assertThat(ref!!.canonicalText, `is`("test.xq"))
+        assertThat(ref.rangeInElement.startOffset, `is`(1))
+        assertThat(ref.rangeInElement.endOffset, `is`(8))
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
@@ -102,6 +106,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = uriLiterals.last().reference
         assertThat(ref!!.canonicalText, `is`("namespaces/ModuleDecl.xq"))
+        assertThat(ref.rangeInElement.startOffset, `is`(1))
+        assertThat(ref.rangeInElement.endOffset, `is`(25))
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
@@ -121,6 +127,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = uriLiterals.last().reference
         assertThat(ref!!.canonicalText, `is`("res://www.w3.org/2005/xpath-functions/array.xqy"))
+        assertThat(ref.rangeInElement.startOffset, `is`(1))
+        assertThat(ref.rangeInElement.endOffset, `is`(48))
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
@@ -140,6 +148,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = uriLiterals.last().reference
         assertThat(ref!!.canonicalText, `is`("res://this-resource-does-not-exist.xqy"))
+        assertThat(ref.rangeInElement.startOffset, `is`(1))
+        assertThat(ref.rangeInElement.endOffset, `is`(39))
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
@@ -157,6 +167,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = uriLiterals.last().reference
         assertThat(ref!!.canonicalText, `is`(""))
+        assertThat(ref.rangeInElement.startOffset, `is`(1))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
@@ -182,6 +194,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref: PsiReference = qname.reference!!
         assertThat(ref.canonicalText, `is`("test"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(4))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -193,6 +207,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("test"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(4))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -239,6 +255,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = eqname.reference!!
         assertThat(ref.canonicalText, `is`("xs"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(2))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -250,6 +268,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("xs"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(2))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -296,6 +316,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference
         assertThat(ref!!.canonicalText, `is`("x"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -306,6 +328,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("x"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -328,6 +352,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("z"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -338,6 +364,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("z"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -359,6 +387,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("x"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -369,6 +399,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("x"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -390,6 +422,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("x"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -400,6 +434,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("x"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -422,6 +458,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("i"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -432,6 +470,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("i"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -453,6 +493,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("x"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -463,6 +505,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("x"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -484,6 +528,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("x"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(1))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -494,6 +540,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("x"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(1))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
@@ -513,6 +561,8 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val ref = varRefNamePsi.reference!!
         assertThat(ref.canonicalText, `is`("value"))
+        assertThat(ref.rangeInElement.startOffset, `is`(0))
+        assertThat(ref.rangeInElement.endOffset, `is`(5))
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
@@ -523,6 +573,8 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(1))
 
         assertThat(refs[0].canonicalText, `is`("value"))
+        assertThat(refs[0].rangeInElement.startOffset, `is`(0))
+        assertThat(refs[0].rangeInElement.endOffset, `is`(5))
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
