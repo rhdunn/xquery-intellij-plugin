@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnnotatedDecl, XQueryVariableResolver {
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val varDecl = findChildByType<PsiElement>(XQueryElementType.VAR_DECL) as? XQueryVariableResolver
-        return if (varDecl == null) null else varDecl.resolveVariable(name)
-    }
-}
+class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnnotatedDecl

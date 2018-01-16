@@ -20,8 +20,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
@@ -31,12 +29,8 @@ class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiR
             val matchPrefix = name.prefix?.text == (qname.prefix?.staticValue as? String)
             val matchLocalName = name.localName?.text == (qname.localName?.staticValue as? String)
             matchPrefix && matchLocalName
-        }?.variableName?.declaration?.get()
-
-        return (match as? PsiElement) ?: let {
-            val prolog = (name.containingFile as? XQueryPrologResolver)?.prolog
-            (prolog as? XQueryVariableResolver)?.resolveVariable(name)?.variable
         }
+        return match?.variableName?.declaration?.get() as? PsiElement
     }
 
     override fun getVariants(): Array<Any> {

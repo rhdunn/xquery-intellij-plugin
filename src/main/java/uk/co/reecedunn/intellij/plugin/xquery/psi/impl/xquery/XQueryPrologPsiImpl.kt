@@ -22,20 +22,16 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryPrologPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryProlog,
-        XQueryVariableResolver,
         XPathStaticContext {
 
     override fun subtreeChanged() {
@@ -43,12 +39,6 @@ class XQueryPrologPsiImpl(node: ASTNode):
         cachedDefaultElementOrTypeNamespace.invalidate()
         cachedDefaultFunctionNamespace.invalidate()
         cachedVariables.invalidate()
-    }
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return children().reversed().filterIsInstance<XQueryVariableResolver>().map { resolver ->
-            resolver.resolveVariable(name)
-        }.filterNotNull().firstOrNull()
     }
 
     override val defaultElementOrTypeNamespace get(): Sequence<XdmStaticValue> =

@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
@@ -34,8 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -44,7 +41,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryVarDecl,
         XQueryConformance,
-        XQueryVariableResolver,
         XPathVariableDeclaration {
     // region XQueryConformance
 
@@ -79,18 +75,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode):
 
     // TODO: Locate and use the VarValue or VarDefaultValue if present.
     override val variableValue: XdmStaticValue? = null
-
-    // endregion
-    // region XQueryVariableResolver
-
-    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
-        val varQName = varName?.children()?.filterIsInstance<XPathEQName>()?.firstOrNull()
-        if (varQName != null && varQName == name) {
-            return XQueryVariable(varQName, this)
-        }
-        return null
-    }
 
     // endregion
 }
