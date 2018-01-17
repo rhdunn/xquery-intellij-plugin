@@ -23,6 +23,10 @@
       <li>Fix parsing Saxon 9.8 <code>tuple</code> types with whitespace or comments after the item type with an occurrence indicator and before the comma.</li>
       <li>Fix parsing Saxon 9.8 <code>union</code> types with whitespace or comments after the QName and before the comma.</li>
       <li>Fix parsing <code>TypedFunctionTest</code> constructs with whitespace or comments after the item type with an occurrence indicator and before the comma.</li>
+      <li>Improve error recovery when parsing incomplete QNames in direct element constructor start and end tags, e.g. <code>&lt;a:&gt;&lt;/a:&gt;</code>.</li>
+      <li>Only the variable for the active <code>typeswitch</code> <code>case</code>/<code>default</code> clause should be in scope.</li>
+      <li>Fix <code>for</code>/<code>let</code> bindings so previous binding variables are visible from the <code>in</code> expression.</li>
+      <li>Fix checking multiple declared variables in a Scripting Extensions <code>BlockVarDecl</code> node.</li>
     </ol>
     <p>Inspections:</p>
     <ol>

@@ -16,6 +16,9 @@ Bug Fixes:
     item type with an occurrence indicator and before the comma.
 1.  Improve error recovery when parsing incomplete QNames in direct element constructor
     start and end tags, e.g. `<a:></a:>`.
+1.  Only the variable for the active `typeswitch` `case`/`default` clause should be in scope.
+1.  Fix `for`/`let` bindings so previous binding variables are visible from the `in` expression.
+1.  Fix checking multiple declared variables in a Scripting Extensions `BlockVarDecl` node.
 
 Inspections:
 
