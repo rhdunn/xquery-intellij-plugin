@@ -30,7 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, XdmStaticValue, PsiNameIdentifierOwner {
     // region XdmStaticValue
 
-    override val cacheable: CachingBehaviour = CachingBehaviour.DoNotCache // Bound to the static context
+    // This QName is expanded independently of its declaration, so does not rely
+    // on the static context, and thus can be cached.
+    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
     override val staticType: XdmSequenceType = XsQName
 

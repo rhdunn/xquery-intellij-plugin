@@ -188,7 +188,7 @@ class XPathModelTest : ParserTestCase() {
 
     fun testNCName() {
         val expr = parse<XPathNCName>("test")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
@@ -204,12 +204,12 @@ class XPathModelTest : ParserTestCase() {
 
         assertThat(qname.toString(), `is`("test"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testNCName_Keyword() {
         val expr = parse<XPathNCName>("option")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
@@ -225,7 +225,7 @@ class XPathModelTest : ParserTestCase() {
 
         assertThat(qname.toString(), `is`("option"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion
@@ -1242,7 +1242,7 @@ class XPathModelTest : ParserTestCase() {
 
     fun testParam_NCName() {
         val expr = parse<XPathParam>("function (\$x) {}")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1257,7 +1257,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testParam_QName() {
@@ -1320,7 +1320,7 @@ class XPathModelTest : ParserTestCase() {
 
     fun testQuantifiedExprBinding_NCName() {
         val expr = parse<XPathQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1336,7 +1336,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testQuantifiedExprBinding_QName() {
@@ -1401,7 +1401,7 @@ class XPathModelTest : ParserTestCase() {
 
     fun testVarName_NCName() {
         val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XPathVariableName
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
         val name = (expr as PsiElement).firstChild as XPathNCName
@@ -1414,7 +1414,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testVarName_QName() {
@@ -1462,7 +1462,7 @@ class XPathModelTest : ParserTestCase() {
 
     fun testVarRef_NCName() {
         val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XPathVariableReference
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
@@ -1476,7 +1476,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testVarRef_QName() {

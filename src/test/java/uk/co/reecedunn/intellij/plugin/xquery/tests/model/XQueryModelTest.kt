@@ -424,7 +424,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testBlockVarDeclEntry_NCName() {
         val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -440,7 +440,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testBlockVarDeclEntry_QName() {
@@ -505,7 +505,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(decls.size, `is`(2))
 
         val expr = decls[1] as XPathVariableDeclaration
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -521,7 +521,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion
@@ -529,7 +529,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testCaseClause_NCName() {
         val expr = parse<XQueryCaseClause>("typeswitch (\$x) case \$y as xs:string return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -545,7 +545,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testCaseClause_QName() {
@@ -612,7 +612,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testCountClause_NCName() {
         val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(XsInteger as XdmSequenceType))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -628,7 +628,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("z"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testCountClause_QName() {
@@ -694,7 +694,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testCurrentItem_NCName() {
         val expr = parse<XQueryCurrentItem>("for sliding window \$x in \$y start \$w when true() return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -709,7 +709,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("w"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testCurrentItem_QName() {
@@ -764,7 +764,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testDefaultCaseClause_NCName() {
         val expr = parse<XQueryDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -780,7 +780,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDefaultCaseClause_QName() {
@@ -847,7 +847,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testForBinding_NCName() {
         val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -863,7 +863,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testForBinding_QName() {
@@ -929,7 +929,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testGroupingSpec_NCName() {
         val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -946,7 +946,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("z"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testGroupingSpec_QName() {
@@ -1015,7 +1015,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testGroupingVariable_NCName() {
         val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableName
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
 
         val name = (expr as PsiElement).firstChild.nextSibling.firstChild as XPathNCName
@@ -1028,7 +1028,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("z"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testGroupingVariable_QName() {
@@ -1087,7 +1087,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testLetBinding_NCName() {
         val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1103,7 +1103,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testLetBinding_QName() {
@@ -1168,7 +1168,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testNextItem_NCName() {
         val expr = parse<XQueryNextItem>("for sliding window \$x in \$y start \$v next \$w when true() return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1183,7 +1183,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("w"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testNextItem_QName() {
@@ -1239,7 +1239,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testPositionalVar_NCName() {
         val expr = parse<XQueryPositionalVar>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(XsInteger as XdmSequenceType))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1255,7 +1255,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testPositionalVar_QName() {
@@ -1321,7 +1321,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testPreviousItem_NCName() {
         val expr = parse<XQueryPreviousItem>("for sliding window \$x in \$y start \$v previous \$w when true() return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1336,7 +1336,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("w"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testPreviousItem_QName() {
@@ -1392,7 +1392,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testSlidingWindowClause_NCName() {
         val expr = parse<XQuerySlidingWindowClause>("for sliding window \$x in \$y return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1408,7 +1408,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testSlidingWindowClause_QName() {
@@ -1474,7 +1474,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testTumblingWindowClause_NCName() {
         val expr = parse<XQueryTumblingWindowClause>("for tumbling window \$x in \$y return \$z")[0] as XPathVariableBinding
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1490,7 +1490,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testTumblingWindowClause_QName() {
@@ -1556,7 +1556,7 @@ class XQueryModelTest : ParserTestCase() {
 
     fun testVarDecl_NCName() {
         val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0] as XPathVariableDeclaration
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
         assertThat(expr.variableValue, `is`(nullValue()))
@@ -1572,7 +1572,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testVarDecl_QName() {
