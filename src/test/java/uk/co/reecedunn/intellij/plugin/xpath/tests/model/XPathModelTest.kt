@@ -251,7 +251,7 @@ class XPathModelTest : ParserTestCase() {
 
         assertThat(qname.toString(), `is`("fn:true"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testQName_KeywordPrefix() {
@@ -274,7 +274,7 @@ class XPathModelTest : ParserTestCase() {
 
         assertThat(qname.toString(), `is`("option:test"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testQName_KeywordLocalName() {
@@ -297,7 +297,7 @@ class XPathModelTest : ParserTestCase() {
 
         assertThat(qname.toString(), `is`("test:case"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testQName_NoLocalName() {
@@ -307,7 +307,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(expr.staticValue, `is`(nullValue()))
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion
@@ -1279,7 +1279,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testParam_URIQualifiedName() {
@@ -1359,7 +1359,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testQuantifiedExprBinding_URIQualifiedName() {
@@ -1434,7 +1434,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testVarName_URIQualifiedName() {
@@ -1497,7 +1497,7 @@ class XPathModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testVarRef_URIQualifiedName() {

@@ -49,7 +49,7 @@ class XPathQNamePsiImpl(node: ASTNode):
         when (names.size) {
             2 -> createLexicalQName(names[0] as XdmStaticValue, names[1] as XdmStaticValue, this)
             else -> null
-        } `is` NotCacheable
+        } `is` Cacheable
     }
 
     // endregion

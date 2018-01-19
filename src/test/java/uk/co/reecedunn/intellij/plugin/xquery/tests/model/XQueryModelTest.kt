@@ -463,7 +463,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testBlockVarDeclEntry_URIQualifiedName() {
@@ -568,7 +568,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testCaseClause_URIQualifiedName() {
@@ -651,7 +651,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("z"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testCountClause_URIQualifiedName() {
@@ -731,7 +731,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("w"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testCurrentItem_URIQualifiedName() {
@@ -803,7 +803,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDefaultCaseClause_URIQualifiedName() {
@@ -886,7 +886,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testForBinding_URIQualifiedName() {
@@ -970,7 +970,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("z"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testGroupingSpec_URIQualifiedName() {
@@ -1048,7 +1048,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("z"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testGroupingVariable_URIQualifiedName() {
@@ -1126,7 +1126,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testLetBinding_URIQualifiedName() {
@@ -1206,7 +1206,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("w"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testNextItem_URIQualifiedName() {
@@ -1278,7 +1278,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testPositionalVar_URIQualifiedName() {
@@ -1359,7 +1359,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("w"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testPreviousItem_URIQualifiedName() {
@@ -1431,7 +1431,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testSlidingWindowClause_URIQualifiedName() {
@@ -1513,7 +1513,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testTumblingWindowClause_URIQualifiedName() {
@@ -1595,7 +1595,7 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
-        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testVarDecl_URIQualifiedName() {
