@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 
 import com.intellij.psi.PsiElement
@@ -25,12 +26,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
+@Suppress("UNCHECKED_CAST")
 class XPathModelTest : ParserTestCase() {
     // region Lexical Values
     // region BracedUriLiteral (XdmStaticValue)
@@ -1488,6 +1488,49 @@ class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XPathVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
+    // endregion
+    // region Functions
+    // region ParamList (XPathFunctionArguments)
+
+    fun testParamList_SingleArguments() {
+        val expr = parse<XPathParamList>("function (\$x) {}")[0] as XPathFunctionArguments<XPathVariableBinding>
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        assertThat(expr.arity, `is`(1))
+        assertThat(expr.arguments.size, `is`(1))
+
+        assertThat(expr.arguments[0].variableType, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableValue, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.namespace, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.prefix, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testParamList_MultipleArguments() {
+        val expr = parse<XPathParamList>("function (\$x, \$y) {}")[0] as XPathFunctionArguments<XPathVariableBinding>
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        assertThat(expr.arity, `is`(2))
+        assertThat(expr.arguments.size, `is`(2))
+
+        assertThat(expr.arguments[0].variableType, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableValue, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.namespace, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.prefix, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.arguments[1].variableType, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableValue, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableName!!.namespace, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableName!!.prefix, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableName!!.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }

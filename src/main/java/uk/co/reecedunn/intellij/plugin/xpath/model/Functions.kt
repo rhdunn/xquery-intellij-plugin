@@ -33,7 +33,7 @@ interface XPathFunctionArguments<T> {
 
     val arity: Int
 
-    val arguments: Sequence<T>
+    val arguments: List<T>
 }
 
 interface XPathFunctionDeclaration : XPathFunctionName, XPathFunctionArguments<XPathVariableBinding> {
