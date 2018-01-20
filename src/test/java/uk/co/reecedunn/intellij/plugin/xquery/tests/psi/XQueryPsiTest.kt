@@ -2952,19 +2952,6 @@ class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region XPathParamList
-
-    fun testParamList() {
-        val file = parseResource("tests/parser/xquery-1.0/ParamList.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val paramListPsi = functionDeclPsi.children().filterIsInstance<XPathParamList>().first()
-        assertThat(paramListPsi, `is`(notNullValue()))
-        assertThat(paramListPsi.arity, `is`(2))
-    }
-
-    // endregion
     // region XPathURIQualifiedName
 
     fun testURIQualifiedName() {

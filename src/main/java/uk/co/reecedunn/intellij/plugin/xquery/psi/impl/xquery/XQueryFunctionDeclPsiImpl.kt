@@ -20,12 +20,17 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionArguments
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl {
-    override val functionName: XPathEQName? =
-        findChildByClass(XPathEQName::class.java)
+    private val paramList get(): XPathFunctionArguments<XPathVariableBinding>? {
+        @Suppress("UNCHECKED_CAST")
+        return children().filterIsInstance<XPathParamList>().firstOrNull() as? XPathFunctionArguments<XPathVariableBinding>
+    }
 
-    override val arity get(): Int =
-        children().filterIsInstance<XPathParamList>().firstOrNull()?.arity ?: 0
+    override val functionName: XPathEQName? = findChildByClass(XPathEQName::class.java)
+
+    override val arity get(): Int = paramList?.arity ?: 0
 }
