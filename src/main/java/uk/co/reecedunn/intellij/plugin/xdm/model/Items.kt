@@ -21,38 +21,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
-
 interface XdmItemType : XdmSequenceType
 
-open class XdmItem : XdmItemType {
-    override val itemType get(): XdmSequenceType = XsUntyped
-    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+interface XdmFunctionType : XdmItemType
 
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
-    }
-}
+interface XdmMapType : XdmFunctionType
 
-open class XdmFunction : XdmItem()
+interface XdmArrayType : XdmFunctionType
 
-open class XdmMap : XdmFunction()
+interface XdmNodeType : XdmItemType
 
-open class XdmArray : XdmFunction()
+interface XdmAttributeType : XdmNodeType
 
-open class XdmNode : XdmItem()
+interface XdmDocumentType : XdmNodeType
 
-open class XdmAttribute : XdmNode()
-
-open class XdmComment : XdmNode()
-
-open class XdmDocument : XdmNode()
-
-open class XdmElement : XdmNode()
-
-open class XdmNamespace : XdmNode()
-
-open class XdmProcessingInstruction : XdmNode()
-
-open class XdmText : XdmNode()
+interface XdmElementType : XdmNodeType

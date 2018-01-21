@@ -17,81 +17,80 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests
 
 import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
 class ItemTypes : TestCase() {
     fun testXdmItem() {
-        assertThat(XdmItem().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmItem().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmItem().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmItem.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmItem.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmItem.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
-    fun testXdmFunction() {
-        assertThat(XdmFunction().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmFunction().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmFunction().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+    fun testXdmAnyFunction() {
+        assertThat(XdmAnyFunction.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmAnyFunction.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyFunction.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
-    fun testXdmMap() {
-        assertThat(XdmMap().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmMap().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmMap().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+    fun testXdmAnyMap() {
+        assertThat(XdmAnyMap.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmAnyMap.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyMap.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
-    fun testXdmArray() {
-        assertThat(XdmArray().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmArray().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmArray().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+    fun testXdmAnyArray() {
+        assertThat(XdmAnyArray.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmAnyArray.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyArray.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
     fun testXdmNode() {
-        assertThat(XdmNode().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmNode().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmNode().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmNode.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmNode.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmNode.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
-    fun testXdmAttribute() {
-        assertThat(XdmAttribute().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmAttribute().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmAttribute().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+    fun testXdmAnyAttribute() {
+        assertThat(XdmAnyAttribute.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmAnyAttribute.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyAttribute.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
     fun testXdmComment() {
-        assertThat(XdmComment().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmComment().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmComment().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmComment.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmComment.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmComment.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
-    fun testXdmDocument() {
-        assertThat(XdmDocument().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmDocument().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmDocument().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+    fun testXdmAnyDocument() {
+        assertThat(XdmAnyDocument.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmAnyDocument.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyDocument.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
-    fun testXdmElement() {
-        assertThat(XdmElement().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmElement().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmElement().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+    fun testXdmAnyElement() {
+        assertThat(XdmAnyElement.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmAnyElement.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyElement.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
     fun testXdmNamespace() {
-        assertThat(XdmNamespace().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmNamespace().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmNamespace().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmNamespace.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmNamespace.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmNamespace.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
     fun testXdmProcessingInstruction() {
-        assertThat(XdmProcessingInstruction().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmProcessingInstruction().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmProcessingInstruction().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmProcessingInstruction.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmProcessingInstruction.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmProcessingInstruction.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 
     fun testXdmText() {
-        assertThat(XdmText().itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmText().lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmText().upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmText.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(XdmText.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmText.upperBound, `is`(XdmSequenceType.Occurs.ONE))
     }
 }
