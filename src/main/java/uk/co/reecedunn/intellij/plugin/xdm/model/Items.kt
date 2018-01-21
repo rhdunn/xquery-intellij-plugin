@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 
 interface XdmItemType : XdmSequenceType
 
-open class XdmFunction : XdmItemType {
+open class XdmItem : XdmItemType {
     override val itemType get(): XdmSequenceType = XsUntyped
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
@@ -34,20 +34,14 @@ open class XdmFunction : XdmItemType {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
+
+open class XdmFunction : XdmItem()
 
 open class XdmMap : XdmFunction()
 
 open class XdmArray : XdmFunction()
 
-open class XdmNode : XdmItemType {
-    override val itemType get(): XdmSequenceType = XsUntyped
-    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
-    }
-}
+open class XdmNode : XdmItem()
 
 open class XdmAttribute : XdmNode()
 
