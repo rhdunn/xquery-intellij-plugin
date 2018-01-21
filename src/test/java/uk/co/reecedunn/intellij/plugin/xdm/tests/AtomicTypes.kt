@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
 import junit.framework.TestCase
+import org.apache.xerces.xs.datatypes.XSDecimal
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -25,8 +26,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 class AtomicTypes : TestCase() {
     fun testXsUntypedAtomic() {
-        assertThat(XsUntypedAtomic.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUntypedAtomic.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsUntypedAtomic.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUntypedAtomic.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsUntypedAtomic.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsUntypedAtomic.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -42,8 +45,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDateTime() {
-        assertThat(XsDateTime.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDateTime.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDateTime.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDateTime.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDateTime.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDateTime.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -59,8 +64,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDateTimeStamp() {
-        assertThat(XsDateTimeStamp.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDateTimeStamp.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDateTimeStamp.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDateTimeStamp.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDateTimeStamp.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDateTimeStamp.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -76,8 +83,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDate() {
-        assertThat(XsDate.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDate.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDate.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDate.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDate.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDate.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -93,8 +102,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsTime() {
-        assertThat(XsTime.typeName?.prefix, `is`(nullValue()))
         assertThat(XsTime.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsTime.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsTime.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsTime.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsTime.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -110,8 +121,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDuration() {
-        assertThat(XsDuration.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDuration.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDuration.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDuration.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDuration.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDuration.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -127,8 +140,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsYearMonthDuration() {
-        assertThat(XsYearMonthDuration.typeName?.prefix, `is`(nullValue()))
         assertThat(XsYearMonthDuration.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsYearMonthDuration.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsYearMonthDuration.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsYearMonthDuration.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsYearMonthDuration.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -144,8 +159,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDayTimeDuration() {
-        assertThat(XsDayTimeDuration.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDayTimeDuration.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDayTimeDuration.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDayTimeDuration.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDayTimeDuration.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDayTimeDuration.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -161,8 +178,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsFloat() {
-        assertThat(XsFloat.typeName?.prefix, `is`(nullValue()))
         assertThat(XsFloat.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsFloat.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsFloat.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsFloat.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsFloat.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -178,8 +197,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDouble() {
-        assertThat(XsDouble.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDouble.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDouble.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDouble.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDouble.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDouble.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -195,8 +216,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsDecimal() {
-        assertThat(XsDecimal.typeName?.prefix, `is`(nullValue()))
         assertThat(XsDecimal.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsDecimal.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsDecimal.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsDecimal.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsDecimal.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -212,8 +235,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsInteger() {
-        assertThat(XsInteger.typeName?.prefix, `is`(nullValue()))
         assertThat(XsInteger.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsInteger.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsInteger.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsInteger.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsInteger.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -229,8 +254,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNonPositiveInteger() {
-        assertThat(XsNonPositiveInteger.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNonPositiveInteger.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNonPositiveInteger.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNonPositiveInteger.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNonPositiveInteger.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNonPositiveInteger.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -246,8 +273,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNegativeInteger() {
-        assertThat(XsNegativeInteger.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNegativeInteger.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNegativeInteger.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNegativeInteger.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNegativeInteger.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNegativeInteger.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -263,8 +292,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsLong() {
-        assertThat(XsLong.typeName?.prefix, `is`(nullValue()))
         assertThat(XsLong.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsLong.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsLong.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsLong.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsLong.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -280,8 +311,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsInt() {
-        assertThat(XsInt.typeName?.prefix, `is`(nullValue()))
         assertThat(XsInt.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsInt.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsInt.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsInt.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsInt.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -297,8 +330,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsShort() {
-        assertThat(XsShort.typeName?.prefix, `is`(nullValue()))
         assertThat(XsShort.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsShort.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsShort.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsShort.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsShort.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -314,8 +349,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsByte() {
-        assertThat(XsByte.typeName?.prefix, `is`(nullValue()))
         assertThat(XsByte.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsByte.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsByte.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsByte.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsByte.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -331,8 +368,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNonNegativeInteger() {
-        assertThat(XsNonNegativeInteger.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNonNegativeInteger.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNonNegativeInteger.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNonNegativeInteger.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNonNegativeInteger.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNonNegativeInteger.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -348,8 +387,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsUnsignedLong() {
-        assertThat(XsUnsignedLong.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUnsignedLong.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsUnsignedLong.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUnsignedLong.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsUnsignedLong.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsUnsignedLong.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -365,8 +406,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsUnsignedInt() {
-        assertThat(XsUnsignedInt.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUnsignedInt.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsUnsignedInt.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUnsignedInt.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsUnsignedInt.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsUnsignedInt.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -382,8 +425,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsUnsignedShort() {
-        assertThat(XsUnsignedShort.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUnsignedShort.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsUnsignedShort.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUnsignedShort.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsUnsignedShort.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsUnsignedShort.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -399,8 +444,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsUnsignedByte() {
-        assertThat(XsUnsignedByte.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUnsignedByte.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsUnsignedByte.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUnsignedByte.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsUnsignedByte.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsUnsignedByte.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -416,8 +463,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsPositiveInteger() {
-        assertThat(XsPositiveInteger.typeName?.prefix, `is`(nullValue()))
         assertThat(XsPositiveInteger.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsPositiveInteger.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsPositiveInteger.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsPositiveInteger.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsPositiveInteger.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -433,8 +482,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsGYearMonth() {
-        assertThat(XsGYearMonth.typeName?.prefix, `is`(nullValue()))
         assertThat(XsGYearMonth.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsGYearMonth.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsGYearMonth.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsGYearMonth.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsGYearMonth.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -450,8 +501,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsGYear() {
-        assertThat(XsGYear.typeName?.prefix, `is`(nullValue()))
         assertThat(XsGYear.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsGYear.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsGYear.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsGYear.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsGYear.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -467,8 +520,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsGMonthDay() {
-        assertThat(XsGMonthDay.typeName?.prefix, `is`(nullValue()))
         assertThat(XsGMonthDay.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsGMonthDay.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsGMonthDay.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsGMonthDay.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsGMonthDay.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -484,8 +539,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsGDay() {
-        assertThat(XsGDay.typeName?.prefix, `is`(nullValue()))
         assertThat(XsGDay.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsGDay.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsGDay.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsGDay.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsGDay.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -501,8 +558,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsGMonth() {
-        assertThat(XsGMonth.typeName?.prefix, `is`(nullValue()))
         assertThat(XsGMonth.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsGMonth.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsGMonth.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsGMonth.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsGMonth.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -518,8 +577,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsString() {
-        assertThat(XsString.typeName?.prefix, `is`(nullValue()))
         assertThat(XsString.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsString.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsString.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsString.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsString.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -535,8 +596,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNormalizedString() {
-        assertThat(XsNormalizedString.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNormalizedString.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNormalizedString.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNormalizedString.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNormalizedString.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNormalizedString.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -552,8 +615,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsToken() {
-        assertThat(XsToken.typeName?.prefix, `is`(nullValue()))
         assertThat(XsToken.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsToken.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsToken.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsToken.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsToken.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -569,8 +634,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsLanguage() {
-        assertThat(XsLanguage.typeName?.prefix, `is`(nullValue()))
         assertThat(XsLanguage.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsLanguage.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsLanguage.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsLanguage.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsLanguage.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -586,8 +653,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNMTOKEN() {
-        assertThat(XsNMTOKEN.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNMTOKEN.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNMTOKEN.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNMTOKEN.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNMTOKEN.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNMTOKEN.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -603,8 +672,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsName() {
-        assertThat(XsName.typeName?.prefix, `is`(nullValue()))
         assertThat(XsName.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsName.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsName.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsName.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsName.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -620,8 +691,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNCName() {
-        assertThat(XsNCName.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNCName.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNCName.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNCName.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNCName.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNCName.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -637,8 +710,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsID() {
-        assertThat(XsID.typeName?.prefix, `is`(nullValue()))
         assertThat(XsID.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsID.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsID.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsID.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsID.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -654,8 +729,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsIDREF() {
-        assertThat(XsIDREF.typeName?.prefix, `is`(nullValue()))
         assertThat(XsIDREF.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsIDREF.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsIDREF.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsIDREF.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsIDREF.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -671,8 +748,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsENTITY() {
-        assertThat(XsENTITY.typeName?.prefix, `is`(nullValue()))
         assertThat(XsENTITY.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsENTITY.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsENTITY.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsENTITY.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsENTITY.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -688,8 +767,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsBoolean() {
-        assertThat(XsBoolean.typeName?.prefix, `is`(nullValue()))
         assertThat(XsBoolean.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsBoolean.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsBoolean.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsBoolean.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsBoolean.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -705,8 +786,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsBase64Binary() {
-        assertThat(XsBase64Binary.typeName?.prefix, `is`(nullValue()))
         assertThat(XsBase64Binary.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsBase64Binary.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsBase64Binary.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsBase64Binary.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsBase64Binary.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -722,8 +805,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsHexBinary() {
-        assertThat(XsHexBinary.typeName?.prefix, `is`(nullValue()))
         assertThat(XsHexBinary.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsHexBinary.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsHexBinary.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsHexBinary.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsHexBinary.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -739,8 +824,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsAnyURI() {
-        assertThat(XsAnyURI.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnyURI.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsAnyURI.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnyURI.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsAnyURI.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsAnyURI.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -756,8 +843,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsQName() {
-        assertThat(XsQName.typeName?.prefix, `is`(nullValue()))
         assertThat(XsQName.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsQName.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsQName.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsQName.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsQName.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -773,8 +862,10 @@ class AtomicTypes : TestCase() {
     }
 
     fun testXsNOTATION() {
-        assertThat(XsNOTATION.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNOTATION.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNOTATION.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNOTATION.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNOTATION.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNOTATION.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))

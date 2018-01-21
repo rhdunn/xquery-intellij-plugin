@@ -149,7 +149,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XsBoolean.cast("2", XsString)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -157,7 +157,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XsBoolean.cast("True", XsString)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -165,7 +165,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
     }
 
     fun testXsBoolean_FromXsUntypedAtomic() {
@@ -221,7 +221,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XsBoolean.cast("2", XsUntypedAtomic)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -229,7 +229,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XsBoolean.cast("True", XsUntypedAtomic)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -237,7 +237,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XsBoolean.cast(2, XsUntypedAtomic)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -245,7 +245,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
     }
 
     fun testXsBoolean_FromIncompatiblePrimitiveType() {
@@ -257,7 +257,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(XPTY0004))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("Incompatible types when casting 'Q{http://www.w3.org/2001/XMLSchema}date' to 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("Incompatible types when casting 'xs:date' to 'xs:boolean'."))
     }
 
     // endregion
@@ -307,7 +307,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XdmOptional(XsBoolean).cast("2", XsString)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -315,7 +315,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XdmOptional(XsBoolean).cast("True", XsString)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
@@ -323,7 +323,7 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+                `is`("The value does not match the lexical representation for 'xs:boolean'."))
     }
 
     // endregion

@@ -23,5 +23,4 @@ package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmUnionType
 
-val XsNumeric = XdmUnionType(createQName("http://www.w3.org/2001/XMLSchema", "numeric"),
-    unionOf = arrayOf(XsDouble, XsFloat, XsDecimal))
+val XsNumeric = XdmUnionType(xs("numeric"), unionOf = arrayOf(XsDouble, XsFloat, XsDecimal))

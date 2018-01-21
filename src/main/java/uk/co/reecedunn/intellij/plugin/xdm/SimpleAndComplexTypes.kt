@@ -24,13 +24,13 @@ package uk.co.reecedunn.intellij.plugin.xdm
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
-val XsAnyType = XmlSchemaType(createQName("http://www.w3.org/2001/XMLSchema", "anyType"), null)
+val XsAnyType = XmlSchemaType(xs("anyType"), null)
 
-val XsUntyped = XdmComplexType(createQName("http://www.w3.org/2001/XMLSchema", "untyped"))
+val XsUntyped = XdmComplexType(xs("untyped"))
 
-val XsAnySimpleType = XdmSimpleType(createQName("http://www.w3.org/2001/XMLSchema", "anySimpleType"), XsAnyType)
+val XsAnySimpleType = XdmSimpleType(xs("anySimpleType"), XsAnyType)
 
-val XsAnyAtomicType = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "anyAtomicType"), XsAnySimpleType)
+val XsAnyAtomicType = XdmAtomicType(xs("anyAtomicType"), XsAnySimpleType)
 
 class TypeReference(typeName: QName, private val referredType: XmlSchemaType?):
         XdmSimpleType(typeName, referredType?.baseType ?: XsAnySimpleType) {

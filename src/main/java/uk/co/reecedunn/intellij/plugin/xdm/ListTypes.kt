@@ -23,11 +23,8 @@ package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmListType
 
-val XsIDREFS = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "IDREFS"),
-    itemType = XsIDREF)
+val XsIDREFS = XdmListType(xs("IDREFS"), itemType = XsIDREF)
 
-val XsNMTOKENS = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "NMTOKENS"),
-    itemType = XsNMTOKEN)
+val XsNMTOKENS = XdmListType(xs("NMTOKENS"), itemType = XsNMTOKEN)
 
-val XsENTITIES = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "ENTITIES"),
-    itemType = XsENTITY)
+val XsENTITIES = XdmListType(xs("ENTITIES"), itemType = XsENTITY)

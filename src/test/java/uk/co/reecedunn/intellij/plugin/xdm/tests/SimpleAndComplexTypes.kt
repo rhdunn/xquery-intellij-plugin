@@ -26,8 +26,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 class SimpleAndComplexTypes : TestCase() {
     fun testXsAnyType() {
-        assertThat(XsAnyType.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnyType.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsAnyType.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnyType.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsAnyType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsAnyType.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -43,8 +45,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsUntyped() {
-        assertThat(XsUntyped.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUntyped.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsUntyped.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUntyped.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsUntyped.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsUntyped.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -60,8 +64,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsAnySimpleType() {
-        assertThat(XsAnySimpleType.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnySimpleType.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsAnySimpleType.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnySimpleType.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsAnySimpleType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsAnySimpleType.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -77,8 +83,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsAnyAtomicType() {
-        assertThat(XsAnyAtomicType.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnyAtomicType.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsAnyAtomicType.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnyAtomicType.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsAnyAtomicType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsAnyAtomicType.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -94,8 +102,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsNumeric() {
-        assertThat(XsNumeric.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNumeric.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNumeric.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNumeric.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNumeric.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNumeric.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -116,8 +126,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsIDREFS() {
-        assertThat(XsIDREFS.typeName?.prefix, `is`(nullValue()))
         assertThat(XsIDREFS.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsIDREFS.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsIDREFS.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsIDREFS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsIDREFS.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -135,8 +147,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsNMTOKENS() {
-        assertThat(XsNMTOKENS.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNMTOKENS.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsNMTOKENS.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNMTOKENS.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsNMTOKENS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsNMTOKENS.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
@@ -154,8 +168,10 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsENTITIES() {
-        assertThat(XsENTITIES.typeName?.prefix, `is`(nullValue()))
         assertThat(XsENTITIES.typeName?.declaration, `is`(nullValue()))
+
+        assertThat(XsENTITIES.typeName?.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsENTITIES.typeName?.prefix?.staticValue as String, `is`("xs"))
 
         assertThat(XsENTITIES.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
         assertThat(XsENTITIES.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))

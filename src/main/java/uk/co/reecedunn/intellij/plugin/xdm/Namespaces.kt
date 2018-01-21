@@ -21,3 +21,8 @@ const val ERR_PREFIX = "err"
 const val ERR_NAMESPACE = "http://www.w3.org/2005/xqt-errors"
 
 fun err(localName: String): QName = createQName(ERR_NAMESPACE, ERR_PREFIX, localName)
+
+const val XS_PREFIX = "xs"
+const val XS_NAMESPACE = "http://www.w3.org/2001/XMLSchema"
+
+fun xs(localName: String): QName = createQName(XS_NAMESPACE, XS_PREFIX, localName)
