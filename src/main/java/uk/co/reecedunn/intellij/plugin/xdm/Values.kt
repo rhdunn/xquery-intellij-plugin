@@ -46,6 +46,15 @@ fun createQName(namespace: String, localName: String): QName {
             false)
 }
 
+fun createQName(namespace: String, prefix: String, localName: String): QName {
+    return QName(
+            XdmLiteralValue(prefix, CacheableProperty { XsNCName `is` Cacheable }),
+            XdmLiteralValue(namespace, CacheableProperty { XsAnyURI `is` Cacheable }),
+            XdmLiteralValue(localName, CacheableProperty { XsNCName `is` Cacheable }),
+            null,
+            false)
+}
+
 fun createQName(namespace: XdmStaticValue, localName: XdmStaticValue, declaration: XdmStaticValue): QName {
     return QName(null, namespace, localName, WeakReference(declaration), false)
 }

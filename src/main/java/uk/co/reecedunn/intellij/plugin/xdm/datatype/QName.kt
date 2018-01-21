@@ -26,10 +26,11 @@ data class QName(val prefix: XdmStaticValue?,
 
     override fun toString(): String {
         return if (isLexicalQName) {
-            prefix?.let { "${it.staticValue}:${localName.staticValue}" } // QName
+            prefix?.let { "${it.staticValue}:${localName.staticValue}" } // unbound QName
                     ?: localName.staticValue as String // NCName
         } else {
-            "Q{${namespace!!.staticValue}}${localName.staticValue}" // URIQualifiedName
+            prefix?.let { "${it.staticValue}:${localName.staticValue}" } // bound QName
+                    ?: "Q{${namespace!!.staticValue}}${localName.staticValue}" // URIQualifiedName
         }
     }
 }

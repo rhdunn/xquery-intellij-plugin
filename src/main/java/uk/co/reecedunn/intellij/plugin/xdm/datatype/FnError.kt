@@ -15,23 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
-import uk.co.reecedunn.intellij.plugin.xdm.createQName
+import uk.co.reecedunn.intellij.plugin.xdm.err
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 
 /**
  * Unspecified error.
  */
-val FOER0000 = createQName("http://www.w3.org/2005/xqt-errors", "FOER0000")
+val FOER0000 = err("FOER0000")
 
 /**
  * Cannot cast to 'type'.
  */
-val FORG0001 = createQName("http://www.w3.org/2005/xqt-errors", "FORG0001")
+val FORG0001 = err("FORG0001")
 
 /**
  * Cannot use 'type' here.
  */
-val XPTY0004 = createQName("http://www.w3.org/2005/xqt-errors", "XPTY0004")
+val XPTY0004 = err("XPTY0004")
 
 data class FnErrorObject(val code: QName,
                          val description: XdmStaticValue?,
