@@ -1536,6 +1536,63 @@ class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
+    // region InlineFunctionExpr (XPathFunctionDeclaration)
+
+    fun testInlineFunctionExpr_NoArguments() {
+        val expr = parse<XPathInlineFunctionExpr>("function () {}")[0] as XPathFunctionDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        assertThat(expr.functionName, `is`(nullValue()))
+        assertThat(expr.returnType, `is`(nullValue()))
+        assertThat(expr.arity, `is`(0))
+        assertThat(expr.arguments.size, `is`(0))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testInlineFunctionExpr_SingleArguments() {
+        val expr = parse<XPathInlineFunctionExpr>("function (\$x) {}")[0] as XPathFunctionDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        assertThat(expr.functionName, `is`(nullValue()))
+        assertThat(expr.returnType, `is`(nullValue()))
+        assertThat(expr.arity, `is`(1))
+        assertThat(expr.arguments.size, `is`(1))
+
+        assertThat(expr.arguments[0].variableType, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableValue, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.namespace, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.prefix, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testInlineFunctionExpr_MultipleArguments() {
+        val expr = parse<XPathInlineFunctionExpr>("function (\$x, \$y) {}")[0] as XPathFunctionDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        assertThat(expr.functionName, `is`(nullValue()))
+        assertThat(expr.returnType, `is`(nullValue()))
+        assertThat(expr.arity, `is`(2))
+        assertThat(expr.arguments.size, `is`(2))
+
+        assertThat(expr.arguments[0].variableType, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableValue, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.namespace, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.prefix, `is`(nullValue()))
+        assertThat(expr.arguments[0].variableName!!.localName.staticValue as String, `is`("x"))
+
+        assertThat(expr.arguments[1].variableType, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableValue, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableName!!.namespace, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableName!!.prefix, `is`(nullValue()))
+        assertThat(expr.arguments[1].variableName!!.localName.staticValue as String, `is`("y"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // endregion
     // region Expressions
     // region PostfixExpr (XdmStaticValue)
