@@ -23,9 +23,9 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 
-interface XdmItem: XdmSequenceType
+interface XdmItemType : XdmSequenceType
 
-open class XdmFunction: XdmItem {
+open class XdmFunction : XdmItemType {
     override val itemType get(): XdmSequenceType = XsUntyped
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
@@ -35,11 +35,11 @@ open class XdmFunction: XdmItem {
     }
 }
 
-open class XdmMap: XdmFunction()
+open class XdmMap : XdmFunction()
 
-open class XdmArray: XdmFunction()
+open class XdmArray : XdmFunction()
 
-open class XdmNode: XdmItem {
+open class XdmNode : XdmItemType {
     override val itemType get(): XdmSequenceType = XsUntyped
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
@@ -49,16 +49,16 @@ open class XdmNode: XdmItem {
     }
 }
 
-open class XdmAttribute: XdmNode()
+open class XdmAttribute : XdmNode()
 
-open class XdmComment: XdmNode()
+open class XdmComment : XdmNode()
 
-open class XdmDocument: XdmNode()
+open class XdmDocument : XdmNode()
 
-open class XdmElement: XdmNode()
+open class XdmElement : XdmNode()
 
-open class XdmNamespace: XdmNode()
+open class XdmNamespace : XdmNode()
 
-open class XdmProcessingInstruction: XdmNode()
+open class XdmProcessingInstruction : XdmNode()
 
-open class XdmText: XdmNode()
+open class XdmText : XdmNode()

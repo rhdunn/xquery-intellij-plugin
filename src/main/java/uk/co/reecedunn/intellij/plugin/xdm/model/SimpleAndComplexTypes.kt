@@ -61,7 +61,7 @@ open class XdmSimpleType(typeName: QName?, baseType: XmlSchemaType): XmlSchemaTy
 
 open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType):
         XdmSimpleType(typeName, baseType),
-        XdmItem {
+        XdmItemType {
 
     override val itemType get(): XdmSequenceType = this
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
