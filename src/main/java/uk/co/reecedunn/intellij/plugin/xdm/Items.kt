@@ -31,6 +31,8 @@ object XdmItem : XdmItemType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "item()"
 }
 
 object XdmAnyFunction : XdmFunctionType {
@@ -41,6 +43,8 @@ object XdmAnyFunction : XdmFunctionType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "function(*)"
 }
 
 object XdmAnyMap : XdmMapType {
@@ -51,6 +55,8 @@ object XdmAnyMap : XdmMapType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "map(*)"
 }
 
 object XdmAnyArray : XdmArrayType {
@@ -61,6 +67,8 @@ object XdmAnyArray : XdmArrayType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "array(*)"
 }
 
 object XdmNode : XdmNodeType {
@@ -71,6 +79,8 @@ object XdmNode : XdmNodeType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "node()"
 }
 
 object XdmAnyAttribute : XdmAttributeType {
@@ -81,6 +91,8 @@ object XdmAnyAttribute : XdmAttributeType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "attribute()"
 }
 
 object XdmComment : XdmNodeType {
@@ -91,6 +103,8 @@ object XdmComment : XdmNodeType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "comment()"
 }
 
 object XdmAnyDocument : XdmDocumentType {
@@ -101,6 +115,8 @@ object XdmAnyDocument : XdmDocumentType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "document()"
 }
 
 object XdmAnyElement : XdmElementType {
@@ -111,6 +127,8 @@ object XdmAnyElement : XdmElementType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "element()"
 }
 
 object XdmNamespace : XdmNodeType {
@@ -121,6 +139,8 @@ object XdmNamespace : XdmNodeType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "namespace()"
 }
 
 object XdmProcessingInstruction : XdmNodeType {
@@ -131,6 +151,8 @@ object XdmProcessingInstruction : XdmNodeType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "processing-instruction()"
 }
 
 object XdmText : XdmNodeType {
@@ -141,4 +163,6 @@ object XdmText : XdmNodeType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "text()"
 }

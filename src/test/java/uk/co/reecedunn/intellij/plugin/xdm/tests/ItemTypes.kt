@@ -26,71 +26,83 @@ class ItemTypes : TestCase() {
         assertThat(XdmItem.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmItem.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmItem.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmItem.toString(), `is`("item()"))
     }
 
     fun testXdmAnyFunction() {
         assertThat(XdmAnyFunction.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyFunction.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyFunction.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyFunction.toString(), `is`("function(*)"))
     }
 
     fun testXdmAnyMap() {
         assertThat(XdmAnyMap.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyMap.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyMap.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyMap.toString(), `is`("map(*)"))
     }
 
     fun testXdmAnyArray() {
         assertThat(XdmAnyArray.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyArray.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyArray.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyArray.toString(), `is`("array(*)"))
     }
 
     fun testXdmNode() {
         assertThat(XdmNode.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmNode.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmNode.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmNode.toString(), `is`("node()"))
     }
 
     fun testXdmAnyAttribute() {
         assertThat(XdmAnyAttribute.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyAttribute.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyAttribute.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyAttribute.toString(), `is`("attribute()"))
     }
 
     fun testXdmComment() {
         assertThat(XdmComment.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmComment.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmComment.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmComment.toString(), `is`("comment()"))
     }
 
     fun testXdmAnyDocument() {
         assertThat(XdmAnyDocument.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyDocument.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyDocument.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyDocument.toString(), `is`("document()"))
     }
 
     fun testXdmAnyElement() {
         assertThat(XdmAnyElement.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyElement.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyElement.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmAnyElement.toString(), `is`("element()"))
     }
 
     fun testXdmNamespace() {
         assertThat(XdmNamespace.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmNamespace.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmNamespace.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmNamespace.toString(), `is`("namespace()"))
     }
 
     fun testXdmProcessingInstruction() {
         assertThat(XdmProcessingInstruction.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmProcessingInstruction.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmProcessingInstruction.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmProcessingInstruction.toString(), `is`("processing-instruction()"))
     }
 
     fun testXdmText() {
         assertThat(XdmText.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmText.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmText.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(XdmText.toString(), `is`("text()"))
     }
 }
