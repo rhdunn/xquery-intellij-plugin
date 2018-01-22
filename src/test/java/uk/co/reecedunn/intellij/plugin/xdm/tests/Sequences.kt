@@ -30,26 +30,33 @@ class Sequences : TestCase() {
     }
 
     fun testXdmOptional() {
-        val opt = XdmOptional(XsString)
-        assertThat(opt.itemType, `is`(XsString as XdmSequenceType))
-        assertThat(opt.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
-        assertThat(opt.upperBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(opt.toString(), `is`("xs:string?"))
+        val seq = XdmOptional(XsString)
+        assertThat(seq.itemType, `is`(XsString as XdmSequenceType))
+        assertThat(seq.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(seq.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(seq.toString(), `is`("xs:string?"))
     }
 
     fun testXdmOptionalSequence() {
-        val opt = XdmOptionalSequence(XsString)
-        assertThat(opt.itemType, `is`(XsString as XdmSequenceType))
-        assertThat(opt.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
-        assertThat(opt.upperBound, `is`(XdmSequenceType.Occurs.MANY))
-        assertThat(opt.toString(), `is`("xs:string*"))
+        val seq = XdmOptionalSequence(XsString)
+        assertThat(seq.itemType, `is`(XsString as XdmSequenceType))
+        assertThat(seq.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(seq.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+        assertThat(seq.toString(), `is`("xs:string*"))
     }
 
     fun testXdmSequence() {
-        val opt = XdmSequence(XsString)
-        assertThat(opt.itemType, `is`(XsString as XdmSequenceType))
-        assertThat(opt.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(opt.upperBound, `is`(XdmSequenceType.Occurs.MANY))
-        assertThat(opt.toString(), `is`("xs:string+"))
+        val seq = XdmSequence(XsString)
+        assertThat(seq.itemType, `is`(XsString as XdmSequenceType))
+        assertThat(seq.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(seq.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+        assertThat(seq.toString(), `is`("xs:string+"))
+    }
+
+    fun testXdmOptionalItem() {
+        assertThat(XdmItemSequence.itemType, `is`(XdmItem as XdmSequenceType))
+        assertThat(XdmItemSequence.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(XdmItemSequence.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+        assertThat(XdmItemSequence.toString(), `is`("item()*"))
     }
 }
