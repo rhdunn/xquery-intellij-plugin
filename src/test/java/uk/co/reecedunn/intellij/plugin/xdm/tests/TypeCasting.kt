@@ -22,8 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmEmptySequence
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmOptional
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
 import java.math.BigInteger

@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmOptional
+import uk.co.reecedunn.intellij.plugin.xdm.XdmOptional
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSingleType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration

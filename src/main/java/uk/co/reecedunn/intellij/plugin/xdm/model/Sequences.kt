@@ -15,10 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
-
-data class XdmTypeCastResult(val value: Any?, val type: XdmSequenceType)
-
 interface XdmSequenceType {
     enum class Occurs(val times: Int) {
         ZERO(0),
@@ -35,62 +31,4 @@ interface XdmSequenceType {
     fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult
 }
 
-/**
- * Represents the `empty-sequence()` type.
- */
-object XdmEmptySequence : XdmSequenceType {
-    override val itemType get(): XdmSequenceType = XsUntyped
-    override val lowerBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
-    override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
-
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
-    }
-
-    override fun toString(): String = "()"
-}
-
-/**
- * Represents the `itemType?` occurrence indicator.
- */
-class XdmOptional(override val itemType: XdmSequenceType) : XdmSequenceType {
-    override val lowerBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
-    override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        if (type === XdmEmptySequence || type === XsUntyped) {
-            return XdmTypeCastResult(value, type)
-        }
-        return itemType.cast(value, type)
-    }
-
-    override fun toString(): String = "$itemType?"
-}
-
-/**
- * Represents the `itemType*` occurrence indicator.
- */
-class XdmOptionalSequence(override val itemType: XdmSequenceType) : XdmSequenceType {
-    override val lowerBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
-    override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
-
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
-    }
-
-    override fun toString(): String = "$itemType*"
-}
-
-/**
- * Represents the `itemType+` occurrence indicator.
- */
-class XdmSequence(override val itemType: XdmSequenceType) : XdmSequenceType {
-    override val lowerBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-    override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
-
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
-    }
-
-    override fun toString(): String = "$itemType+"
-}
+data class XdmTypeCastResult(val value: Any?, val type: XdmSequenceType)
