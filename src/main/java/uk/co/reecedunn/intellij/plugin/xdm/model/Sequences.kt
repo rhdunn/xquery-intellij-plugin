@@ -36,7 +36,7 @@ interface XdmSequenceType {
 }
 
 /**
- * Represents the empty-sequence() type.
+ * Represents the `empty-sequence()` type.
  */
 object XdmEmptySequence : XdmSequenceType {
     override val itemType get(): XdmSequenceType = XsUntyped
@@ -46,6 +46,8 @@ object XdmEmptySequence : XdmSequenceType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "()"
 }
 
 /**
@@ -61,6 +63,8 @@ class XdmOptional(override val itemType: XdmSequenceType) : XdmSequenceType {
         }
         return itemType.cast(value, type)
     }
+
+    override fun toString(): String = "$itemType?"
 }
 
 /**
@@ -73,6 +77,8 @@ class XdmOptionalSequence(override val itemType: XdmSequenceType) : XdmSequenceT
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "$itemType*"
 }
 
 /**
@@ -85,4 +91,6 @@ class XdmSequence(override val itemType: XdmSequenceType) : XdmSequenceType {
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
+
+    override fun toString(): String = "$itemType+"
 }
