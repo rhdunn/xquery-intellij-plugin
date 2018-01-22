@@ -66,6 +66,8 @@ open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType):
     override val itemType get(): XdmSequenceType = this
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+
+    override fun toString(): String = typeName.toString()
 }
 
 open class XdmListType(typeName: QName?, override val itemType: XdmSequenceType):
