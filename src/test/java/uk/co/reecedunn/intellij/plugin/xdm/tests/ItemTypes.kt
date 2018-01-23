@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests
 
 import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
@@ -92,11 +93,26 @@ class ItemTypes : TestCase() {
         assertThat(XdmNamespace.toString(), `is`("namespace-node()"))
     }
 
+    fun testXdmAnyProcessingInstruction() {
+        val type = XdmProcessingInstruction(null)
+        assertThat(type.nodeName, `is`(nullValue()))
+        assertThat(type.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.toString(), `is`("processing-instruction()"))
+    }
+
     fun testXdmProcessingInstruction() {
-        assertThat(XdmProcessingInstruction.itemType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(XdmProcessingInstruction.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmProcessingInstruction.upperBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmProcessingInstruction.toString(), `is`("processing-instruction()"))
+        val type = XdmProcessingInstruction(createLexicalQName(null, "xml-stylesheet"))
+        assertThat(type.nodeName?.declaration, `is`(nullValue()))
+        assertThat(type.nodeName?.namespace, `is`(nullValue()))
+        assertThat(type.nodeName?.prefix, `is`(nullValue()))
+        assertThat(type.nodeName?.localName?.staticValue as String, `is`("xml-stylesheet"))
+
+        assertThat(type.itemType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.toString(), `is`("processing-instruction(xml-stylesheet)"))
     }
 
     fun testXdmText() {

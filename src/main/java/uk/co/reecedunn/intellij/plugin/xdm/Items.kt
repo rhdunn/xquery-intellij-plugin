@@ -143,18 +143,6 @@ object XdmNamespace : XdmNodeType {
     override fun toString(): String = "namespace-node()"
 }
 
-object XdmProcessingInstruction : XdmNodeType {
-    override val itemType get(): XdmSequenceType = XsUntyped
-    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
-
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
-    }
-
-    override fun toString(): String = "processing-instruction()"
-}
-
 object XdmText : XdmNodeType {
     override val itemType get(): XdmSequenceType = XsUntyped
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE

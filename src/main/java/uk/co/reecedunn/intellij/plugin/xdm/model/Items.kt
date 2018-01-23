@@ -21,6 +21,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+
 interface XdmItemType : XdmSequenceType
 
 interface XdmFunctionType : XdmItemType
@@ -36,3 +39,17 @@ interface XdmAttributeType : XdmNodeType
 interface XdmDocumentType : XdmNodeType
 
 interface XdmElementType : XdmNodeType
+
+open class XdmProcessingInstruction(val nodeName: QName?) : XdmNodeType {
+    override val itemType get(): XdmSequenceType = XsUntyped
+    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+
+    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
+    }
+
+    override fun toString(): String {
+        return nodeName?.let { "processing-instruction($it)" } ?: "processing-instruction()"
+    }
+}

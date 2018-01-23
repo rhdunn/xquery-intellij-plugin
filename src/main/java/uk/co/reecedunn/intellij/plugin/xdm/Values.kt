@@ -38,17 +38,12 @@ fun createString(value: String): XdmStaticValue {
 }
 
 fun createQName(namespace: String, localName: String): QName {
-    return QName(
-            null,
-            XdmLiteralValue(namespace, CacheableProperty { XsAnyURI `is` Cacheable }),
-            XdmLiteralValue(localName, CacheableProperty { XsNCName `is` Cacheable }),
-            null,
-            false)
+    return createQName(namespace, null, localName)
 }
 
-fun createQName(namespace: String, prefix: String, localName: String): QName {
+fun createQName(namespace: String, prefix: String?, localName: String): QName {
     return QName(
-            XdmLiteralValue(prefix, CacheableProperty { XsNCName `is` Cacheable }),
+            prefix?.let { XdmLiteralValue(prefix, CacheableProperty { XsNCName `is` Cacheable }) },
             XdmLiteralValue(namespace, CacheableProperty { XsAnyURI `is` Cacheable }),
             XdmLiteralValue(localName, CacheableProperty { XsNCName `is` Cacheable }),
             null,
@@ -57,6 +52,15 @@ fun createQName(namespace: String, prefix: String, localName: String): QName {
 
 fun createQName(namespace: XdmStaticValue, localName: XdmStaticValue, declaration: XdmStaticValue): QName {
     return QName(null, namespace, localName, WeakReference(declaration), false)
+}
+
+fun createLexicalQName(prefix: String?, localName: String): QName {
+    return QName(
+            prefix?.let { XdmLiteralValue(prefix, CacheableProperty { XsNCName `is` Cacheable }) },
+            null,
+            XdmLiteralValue(localName, CacheableProperty { XsNCName `is` Cacheable }),
+            null,
+            true)
 }
 
 fun createLexicalQName(prefix: XdmStaticValue?, localName: XdmStaticValue, declaration: XdmStaticValue): QName {
