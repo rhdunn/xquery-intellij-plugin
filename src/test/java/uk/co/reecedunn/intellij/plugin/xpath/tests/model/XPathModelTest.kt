@@ -783,6 +783,18 @@ class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
+    // region CommentTest (XPathTypeDeclaration)
+
+    fun testCommentTest() {
+        val expr = parse<XPathCommentTest>("\$x instance of comment()")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        assertThat(expr.declaredType, `is`(XdmComment as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region TextTest (XPathTypeDeclaration)
 
     fun testTextTest() {
