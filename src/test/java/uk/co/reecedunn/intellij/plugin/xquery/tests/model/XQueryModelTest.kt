@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -218,6 +219,54 @@ class XQueryModelTest : ParserTestCase() {
         assertThat(literal.staticValue, `is`(nullValue()))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
+    // endregion
+    // region Sequence Types
+    // region TextTest (XPathTypeDeclaration) [MarkLogic]
+
+    fun testTextTest_MarkLogicJson_Any() {
+        val expr = parse<XPathTextTest>("\$x instance of text(*)")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        // TODO: Expose the MarkLogic JSON syntax to the XDM data model.
+        assertThat(expr.declaredType, `is`(XdmText as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testTextTest_MarkLogicJson_KeyName() {
+        val expr = parse<XPathTextTest>("\$x instance of text(\"test\")")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        // TODO: Expose the MarkLogic JSON syntax to the XDM data model.
+        assertThat(expr.declaredType, `is`(XdmText as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
+    // region AnyKindTest (XPathTypeDeclaration) [MarkLogic]
+
+    fun testAnyKindTest_MarkLogicJson_Any() {
+        val expr = parse<XPathAnyKindTest>("\$x instance of node(*)")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        // TODO: Expose the MarkLogic JSON syntax to the XDM data model.
+        assertThat(expr.declaredType, `is`(XdmNode as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testAnyKindTest_MarkLogicJson_KeyName() {
+        val expr = parse<XPathAnyKindTest>("\$x instance of node(\"test\")")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        // TODO: Expose the MarkLogic JSON syntax to the XDM data model.
+        assertThat(expr.declaredType, `is`(XdmNode as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion
