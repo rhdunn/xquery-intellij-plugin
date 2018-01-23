@@ -783,6 +783,38 @@ class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
+    // region AnyKindTest (XPathTypeDeclaration)
+
+    fun testAnyKindTest() {
+        val expr = parse<XPathAnyKindTest>("\$x instance of node()")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        assertThat(expr.declaredType, `is`(XdmNode as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testAnyKindTest_MarkLogicJson_Any() {
+        val expr = parse<XPathAnyKindTest>("\$x instance of node(*)")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        // TODO: Expose the MarkLogic JSON syntax to the XDM data model.
+        assertThat(expr.declaredType, `is`(XdmNode as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testAnyKindTest_MarkLogicJson_KeyName() {
+        val expr = parse<XPathAnyKindTest>("\$x instance of node(\"test\")")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        // TODO: Expose the MarkLogic JSON syntax to the XDM data model.
+        assertThat(expr.declaredType, `is`(XdmNode as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // endregion
     // region Single Types
     // region SimpleTypeName (XPathTypeDeclaration)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,11 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.xdm.XdmNode
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -31,7 +35,13 @@ private val MARKLOGIC_TOKENS = TokenSet.create(XQueryElementType.STRING_LITERAL,
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XPathAnyKindTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyKindTest, XQueryConformance {
+class XPathAnyKindTestPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XPathAnyKindTest,
+        XQueryConformance,
+        XPathTypeDeclaration {
+    // region XQueryConformance
+
     override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
             return XQUERY10
@@ -41,4 +51,13 @@ class XPathAnyKindTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val conformanceElement get(): PsiElement =
         findChildByType(MARKLOGIC_TOKENS) ?: firstChild
+
+    // endregion
+    // region XPathTypeDeclaration
+
+    override val cacheable get(): CachingBehaviour = CachingBehaviour.Cache
+
+    override val declaredType get(): XdmSequenceType = XdmNode
+
+    // endregion
 }
