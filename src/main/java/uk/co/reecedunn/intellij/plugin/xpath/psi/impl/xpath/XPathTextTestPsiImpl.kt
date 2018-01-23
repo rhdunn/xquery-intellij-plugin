@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.xdm.XdmNamespace
+import uk.co.reecedunn.intellij.plugin.xdm.XdmText
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTextTest
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -27,7 +32,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XPathTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTextTest, XQueryConformance {
+class XPathTextTestPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XPathTextTest,
+        XQueryConformance,
+        XPathTypeDeclaration {
+    // region XQueryConformance
+
     override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
             return XQUERY10
@@ -37,4 +48,13 @@ class XPathTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTex
 
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryElementType.STRING_LITERAL) ?: firstChild
+
+    // endregion
+    // region XPathTypeDeclaration
+
+    override val cacheable get(): CachingBehaviour = CachingBehaviour.Cache
+
+    override val declaredType get(): XdmSequenceType = XdmText
+
+    // endregion
 }
