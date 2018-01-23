@@ -18,12 +18,10 @@ __NOTE:__ This implementation does not support any dynamic XMLSchema facets,
 nor does it support querying custom data in XMLSchema definition (`xsd`) files.
 That functionality can be built on top of this, if needed.
 
-This only provides the core data model and its associated API. The actual
-implementation mapping the XPath/XQuery constructs to the data model is done
-in the XQuery PSI tree implementation.
-
-__NOTE:__ The [model/Expressions.kt](model/Expressions.kt) file is an extension
-to the XDM to facilitate static analysis.
+This only provides the core data model and the associated API to build and
+manipulate that data model. The higher-level APIs for modelling XPath and
+XQuery constructs (such as variable bindings) is handled in the XPath/XQuery
+implementation.
 
 ## References
 ### Functions and Operators
