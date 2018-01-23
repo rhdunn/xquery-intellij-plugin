@@ -783,6 +783,18 @@ class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
+    // region NamespaceNodeTest (XPathTypeDeclaration)
+
+    fun testNamespaceNodeTest() {
+        val expr = parse<XPathNamespaceNodeTest>("\$x instance of namespace-node()")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        assertThat(expr.declaredType, `is`(XdmNamespace as XdmSequenceType))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region AnyKindTest (XPathTypeDeclaration)
 
     fun testAnyKindTest() {
