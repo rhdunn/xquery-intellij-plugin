@@ -116,7 +116,7 @@ object XdmAnyDocument : XdmDocumentType {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 
-    override fun toString(): String = "document()"
+    override fun toString(): String = "document-node()"
 }
 
 object XdmAnyElement : XdmElementType {
@@ -140,7 +140,7 @@ object XdmNamespace : XdmNodeType {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 
-    override fun toString(): String = "namespace()"
+    override fun toString(): String = "namespace-node()"
 }
 
 object XdmProcessingInstruction : XdmNodeType {

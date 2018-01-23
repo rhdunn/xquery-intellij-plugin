@@ -26,7 +26,7 @@ class Sequences : TestCase() {
         assertThat(XdmEmptySequence.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmEmptySequence.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(XdmEmptySequence.upperBound, `is`(XdmSequenceType.Occurs.ZERO))
-        assertThat(XdmEmptySequence.toString(), `is`("()"))
+        assertThat(XdmEmptySequence.toString(), `is`("empty-sequence()"))
     }
 
     fun testXdmOptional() {

@@ -75,7 +75,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyDocument.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyDocument.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmAnyDocument.upperBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmAnyDocument.toString(), `is`("document()"))
+        assertThat(XdmAnyDocument.toString(), `is`("document-node()"))
     }
 
     fun testXdmAnyElement() {
@@ -89,7 +89,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmNamespace.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmNamespace.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(XdmNamespace.upperBound, `is`(XdmSequenceType.Occurs.ONE))
-        assertThat(XdmNamespace.toString(), `is`("namespace()"))
+        assertThat(XdmNamespace.toString(), `is`("namespace-node()"))
     }
 
     fun testXdmProcessingInstruction() {

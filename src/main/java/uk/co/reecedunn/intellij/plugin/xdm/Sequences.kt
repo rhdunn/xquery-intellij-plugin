@@ -30,7 +30,7 @@ object XdmEmptySequence : XdmSequenceType {
         return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 
-    override fun toString(): String = "()"
+    override fun toString(): String = "empty-sequence()"
 }
 
 /**
