@@ -783,6 +783,72 @@ class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
+    // region PITest (XPathTypeDeclaration)
+
+    fun testPITest() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction()")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+        assertThat(type!!.nodeName, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testPITest_NCNameTarget() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction(test)")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+
+        // TODO: Support NCName PITarget specifiers.
+        assertThat(type!!.nodeName, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testPITest_StringLiteralTarget() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction('test')")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+
+        // TODO: Support StringLiteral encoded NCName PITarget specifiers.
+        assertThat(type!!.nodeName, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testPITest_StringLiteralTarget_NormalizeSpace() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction('  test\t\n\r\r  ')")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+
+        // TODO: Support StringLiteral encoded NCName PITarget specifiers.
+        assertThat(type!!.nodeName, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testPITest_StringLiteralTarget_InvalidNCName() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction('*')")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+
+        // TODO: Support StringLiteral encoded NCName PITarget specifiers.
+        assertThat(type!!.nodeName, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region CommentTest (XPathTypeDeclaration)
 
     fun testCommentTest() {
