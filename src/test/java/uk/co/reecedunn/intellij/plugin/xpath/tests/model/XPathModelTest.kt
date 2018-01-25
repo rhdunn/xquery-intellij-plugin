@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("UNCHECKED_CAST")
@@ -796,21 +797,51 @@ class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
-    fun testPITest_NCNameTarget() {
+    fun testPITest_NCNameTarget_NCName() {
         val expr = parse<XPathPITest>("\$x instance of processing-instruction(test)")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         val type = expr.declaredType as? XdmProcessingInstruction
         assertThat(type, `is`(notNullValue()))
 
-        // TODO: Support NCName PITarget specifiers.
+        assertThat(type!!.nodeName!!.prefix, `is`(nullValue()))
+        assertThat(type!!.nodeName!!.namespace, `is`(nullValue()))
+        assertThat(type!!.nodeName!!.localName.staticValue as String, `is`("test"))
+        assertThat(type!!.nodeName!!.declaration!!.get(), `is`(instanceOf(XPathNCName::class.java)))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testPITest_NCNameTarget_Keyword() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction(option)")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+
+        assertThat(type!!.nodeName!!.prefix, `is`(nullValue()))
+        assertThat(type!!.nodeName!!.namespace, `is`(nullValue()))
+        assertThat(type!!.nodeName!!.localName.staticValue as String, `is`("option"))
+        assertThat(type!!.nodeName!!.declaration!!.get(), `is`(instanceOf(XPathNCName::class.java)))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testPITest_StringLiteralTarget_NCName() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction('test')")[0] as XPathTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        val type = expr.declaredType as? XdmProcessingInstruction
+        assertThat(type, `is`(notNullValue()))
+
+        // TODO: Support StringLiteral encoded NCName PITarget specifiers.
         assertThat(type!!.nodeName, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
-    fun testPITest_StringLiteralTarget() {
-        val expr = parse<XPathPITest>("\$x instance of processing-instruction('test')")[0] as XPathTypeDeclaration
+    fun testPITest_StringLiteralTarget_Keyword() {
+        val expr = parse<XPathPITest>("\$x instance of processing-instruction('option')")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         val type = expr.declaredType as? XdmProcessingInstruction
