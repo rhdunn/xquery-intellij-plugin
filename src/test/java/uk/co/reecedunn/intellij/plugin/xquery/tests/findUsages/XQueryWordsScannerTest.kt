@@ -30,7 +30,7 @@ class XQueryWordsScannerTest : TestCase() {
         val scanner = XQueryWordsScanner()
         val occurrences = WordOccurrences()
         scanner.processWords(text, occurrences)
-        return occurrences.wordOccurrrences
+        return occurrences.wordOccurrences
     }
 
     private fun match(occurrence: Pair<WordOccurrence.Kind, CharSequence>, kind: WordOccurrence.Kind, text: CharSequence) {
