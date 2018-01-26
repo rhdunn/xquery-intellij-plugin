@@ -21,6 +21,6 @@ import org.jetbrains.annotations.NotNull;
 public class FileTypeFactory extends com.intellij.openapi.fileTypes.FileTypeFactory {
     @Override
     public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(XQueryFileType.INSTANCE, XQueryFileType.EXTENSIONS);
+        consumer.consume(XQueryFileType.Companion.getINSTANCE(), XQueryFileType.Companion.getEXTENSIONS());
     }
 }

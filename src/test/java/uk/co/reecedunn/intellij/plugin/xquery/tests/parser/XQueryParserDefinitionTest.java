@@ -88,7 +88,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
         VirtualFile file = createVirtualFile("test.xqy", "");
         PsiFile psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false));
         assertThat(psiFile.getClass().getName(), is(XQueryModuleImpl.class.getName()));
-        assertThat(psiFile.getFileType(), is(XQueryFileType.INSTANCE));
+        assertThat(psiFile.getFileType(), is(XQueryFileType.Companion.getINSTANCE()));
     }
 
     public void testSpaceExistanceTypeBetweenTokens() {
