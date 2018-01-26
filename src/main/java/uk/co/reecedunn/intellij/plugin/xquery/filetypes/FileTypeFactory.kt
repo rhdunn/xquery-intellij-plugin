@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.filetypes;
+package uk.co.reecedunn.intellij.plugin.xquery.filetypes
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.fileTypes.FileTypeConsumer
 
-public class FileTypeFactory extends com.intellij.openapi.fileTypes.FileTypeFactory {
-    @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(XQueryFileType.Companion.getINSTANCE(), XQueryFileType.Companion.getEXTENSIONS());
+class FileTypeFactory : com.intellij.openapi.fileTypes.FileTypeFactory() {
+    override fun createFileTypes(consumer: FileTypeConsumer) {
+        consumer.consume(XQueryFileType.INSTANCE, XQueryFileType.EXTENSIONS)
     }
 }
