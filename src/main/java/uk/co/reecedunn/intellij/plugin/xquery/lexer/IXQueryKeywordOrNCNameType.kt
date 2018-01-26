@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lexer;
+package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.NonNls
 
-public class IXQueryKeywordOrNCNameType extends INCNameType {
-    private KeywordType mType;
+class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName) {
+    val keywordType: KeywordType = type
 
-    public enum KeywordType {
+    enum class KeywordType {
         KEYWORD,
         RESERVED_FUNCTION_NAME,
         XQUERY30_RESERVED_FUNCTION_NAME,
         SCRIPTING10_RESERVED_FUNCTION_NAME,
         MARKLOGIC70_RESERVED_FUNCTION_NAME,
-        MARKLOGIC80_RESERVED_FUNCTION_NAME,
+        MARKLOGIC80_RESERVED_FUNCTION_NAME
     }
 
-    public IXQueryKeywordOrNCNameType(@NotNull @NonNls String debugName) {
-        super(debugName);
-        mType = KeywordType.KEYWORD;
-    }
-
-    public IXQueryKeywordOrNCNameType(@NotNull @NonNls String debugName, @NotNull KeywordType type) {
-        super(debugName);
-        mType = type;
-    }
-
-    @NotNull
-    public KeywordType getKeywordType() {
-        return mType;
-    }
+    constructor(@NonNls debugName: String) : this(debugName, KeywordType.KEYWORD)
 }
