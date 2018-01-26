@@ -58,24 +58,24 @@ public class ColorSettingsPageTest extends TestCase {
         }
 
         assertThat(keys.size(), is(18));
-        assertThat(keys.contains(SyntaxHighlighter.COMMENT), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.IDENTIFIER), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.KEYWORD), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.ANNOTATION), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.NUMBER), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.STRING), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.ESCAPED_CHARACTER), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.ENTITY_REFERENCE), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.BAD_CHARACTER), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XML_TAG), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XML_TAG_NAME), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XML_ATTRIBUTE_NAME), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XML_ATTRIBUTE_VALUE), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XML_ENTITY_REFERENCE), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XML_ESCAPED_CHARACTER), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XQDOC_TAG), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XQDOC_TAG_VALUE), is(true));
-        assertThat(keys.contains(SyntaxHighlighter.XQDOC_MARKUP), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getCOMMENT()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getIDENTIFIER()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getKEYWORD()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getANNOTATION()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getNUMBER()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getSTRING()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getESCAPED_CHARACTER()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getENTITY_REFERENCE()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getBAD_CHARACTER()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXML_TAG()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXML_TAG_NAME()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXML_ATTRIBUTE_NAME()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXML_ATTRIBUTE_VALUE()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXML_ENTITY_REFERENCE()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXML_ESCAPED_CHARACTER()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXQDOC_TAG()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXQDOC_TAG_VALUE()), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.Companion.getXQDOC_MARKUP()), is(true));
     }
 
     public void testAdditionalHighlightingTagToDescriptorMap() {
@@ -87,41 +87,41 @@ public class ColorSettingsPageTest extends TestCase {
         ColorSettingsPage settings = new ColorSettingsPage();
         assertThat(settings.getAttributeDescriptors().length, is(18));
         assertThat(settings.getAttributeDescriptors()[0].getDisplayName(), is("Invalid Character"));
-        assertThat(settings.getAttributeDescriptors()[0].getKey(), is(SyntaxHighlighter.BAD_CHARACTER));
+        assertThat(settings.getAttributeDescriptors()[0].getKey(), is(SyntaxHighlighter.Companion.getBAD_CHARACTER()));
         assertThat(settings.getAttributeDescriptors()[1].getDisplayName(), is("Comment"));
-        assertThat(settings.getAttributeDescriptors()[1].getKey(), is(SyntaxHighlighter.COMMENT));
+        assertThat(settings.getAttributeDescriptors()[1].getKey(), is(SyntaxHighlighter.Companion.getCOMMENT()));
         assertThat(settings.getAttributeDescriptors()[2].getDisplayName(), is("Entity Reference"));
-        assertThat(settings.getAttributeDescriptors()[2].getKey(), is(SyntaxHighlighter.ENTITY_REFERENCE));
+        assertThat(settings.getAttributeDescriptors()[2].getKey(), is(SyntaxHighlighter.Companion.getENTITY_REFERENCE()));
         assertThat(settings.getAttributeDescriptors()[3].getDisplayName(), is("Escaped Character"));
-        assertThat(settings.getAttributeDescriptors()[3].getKey(), is(SyntaxHighlighter.ESCAPED_CHARACTER));
+        assertThat(settings.getAttributeDescriptors()[3].getKey(), is(SyntaxHighlighter.Companion.getESCAPED_CHARACTER()));
         assertThat(settings.getAttributeDescriptors()[4].getDisplayName(), is("Identifier"));
-        assertThat(settings.getAttributeDescriptors()[4].getKey(), is(SyntaxHighlighter.IDENTIFIER));
+        assertThat(settings.getAttributeDescriptors()[4].getKey(), is(SyntaxHighlighter.Companion.getIDENTIFIER()));
         assertThat(settings.getAttributeDescriptors()[5].getDisplayName(), is("Keyword"));
-        assertThat(settings.getAttributeDescriptors()[5].getKey(), is(SyntaxHighlighter.KEYWORD));
+        assertThat(settings.getAttributeDescriptors()[5].getKey(), is(SyntaxHighlighter.Companion.getKEYWORD()));
         assertThat(settings.getAttributeDescriptors()[6].getDisplayName(), is("Annotation"));
-        assertThat(settings.getAttributeDescriptors()[6].getKey(), is(SyntaxHighlighter.ANNOTATION));
+        assertThat(settings.getAttributeDescriptors()[6].getKey(), is(SyntaxHighlighter.Companion.getANNOTATION()));
         assertThat(settings.getAttributeDescriptors()[7].getDisplayName(), is("Number"));
-        assertThat(settings.getAttributeDescriptors()[7].getKey(), is(SyntaxHighlighter.NUMBER));
+        assertThat(settings.getAttributeDescriptors()[7].getKey(), is(SyntaxHighlighter.Companion.getNUMBER()));
         assertThat(settings.getAttributeDescriptors()[8].getDisplayName(), is("String"));
-        assertThat(settings.getAttributeDescriptors()[8].getKey(), is(SyntaxHighlighter.STRING));
+        assertThat(settings.getAttributeDescriptors()[8].getKey(), is(SyntaxHighlighter.Companion.getSTRING()));
         assertThat(settings.getAttributeDescriptors()[9].getDisplayName(), is("Direct XML Construction//Tag"));
-        assertThat(settings.getAttributeDescriptors()[9].getKey(), is(SyntaxHighlighter.XML_TAG));
+        assertThat(settings.getAttributeDescriptors()[9].getKey(), is(SyntaxHighlighter.Companion.getXML_TAG()));
         assertThat(settings.getAttributeDescriptors()[10].getDisplayName(), is("Direct XML Construction//Tag Name"));
-        assertThat(settings.getAttributeDescriptors()[10].getKey(), is(SyntaxHighlighter.XML_TAG_NAME));
+        assertThat(settings.getAttributeDescriptors()[10].getKey(), is(SyntaxHighlighter.Companion.getXML_TAG_NAME()));
         assertThat(settings.getAttributeDescriptors()[11].getDisplayName(), is("Direct XML Construction//Attribute Name"));
-        assertThat(settings.getAttributeDescriptors()[11].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_NAME));
+        assertThat(settings.getAttributeDescriptors()[11].getKey(), is(SyntaxHighlighter.Companion.getXML_ATTRIBUTE_NAME()));
         assertThat(settings.getAttributeDescriptors()[12].getDisplayName(), is("Direct XML Construction//Attribute Value"));
-        assertThat(settings.getAttributeDescriptors()[12].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
+        assertThat(settings.getAttributeDescriptors()[12].getKey(), is(SyntaxHighlighter.Companion.getXML_ATTRIBUTE_VALUE()));
         assertThat(settings.getAttributeDescriptors()[13].getDisplayName(), is("Direct XML Construction//Entity Reference"));
-        assertThat(settings.getAttributeDescriptors()[13].getKey(), is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
+        assertThat(settings.getAttributeDescriptors()[13].getKey(), is(SyntaxHighlighter.Companion.getXML_ENTITY_REFERENCE()));
         assertThat(settings.getAttributeDescriptors()[14].getDisplayName(), is("Direct XML Construction//Escaped Character"));
-        assertThat(settings.getAttributeDescriptors()[14].getKey(), is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
+        assertThat(settings.getAttributeDescriptors()[14].getKey(), is(SyntaxHighlighter.Companion.getXML_ESCAPED_CHARACTER()));
         assertThat(settings.getAttributeDescriptors()[15].getDisplayName(), is("xqDoc//Tag"));
-        assertThat(settings.getAttributeDescriptors()[15].getKey(), is(SyntaxHighlighter.XQDOC_TAG));
+        assertThat(settings.getAttributeDescriptors()[15].getKey(), is(SyntaxHighlighter.Companion.getXQDOC_TAG()));
         assertThat(settings.getAttributeDescriptors()[16].getDisplayName(), is("xqDoc//Tag Value"));
-        assertThat(settings.getAttributeDescriptors()[16].getKey(), is(SyntaxHighlighter.XQDOC_TAG_VALUE));
+        assertThat(settings.getAttributeDescriptors()[16].getKey(), is(SyntaxHighlighter.Companion.getXQDOC_TAG_VALUE()));
         assertThat(settings.getAttributeDescriptors()[17].getDisplayName(), is("xqDoc//Markup"));
-        assertThat(settings.getAttributeDescriptors()[17].getKey(), is(SyntaxHighlighter.XQDOC_MARKUP));
+        assertThat(settings.getAttributeDescriptors()[17].getKey(), is(SyntaxHighlighter.Companion.getXQDOC_MARKUP()));
     }
 
     public void testColorDescriptors() {

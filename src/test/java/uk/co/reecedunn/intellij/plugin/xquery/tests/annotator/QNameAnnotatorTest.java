@@ -55,7 +55,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(24));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.IDENTIFIER));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getIDENTIFIER()));
     }
 
     // endregion
@@ -78,7 +78,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(18));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getNS_PREFIX()));
     }
 
     public void testQName_KeywordPrefixPart() {
@@ -98,7 +98,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(20));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getNS_PREFIX()));
     }
 
     public void testQName_MissingPrefixPart() {
@@ -124,7 +124,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(19));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getNS_PREFIX()));
 
         assertThat(annotations.get(2).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(2).getStartOffset(), is(20));
@@ -138,7 +138,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(3).getEndOffset(), is(25));
         assertThat(annotations.get(3).getMessage(), is(nullValue()));
         assertThat(annotations.get(3).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(3).getTextAttributes(), is(SyntaxHighlighter.IDENTIFIER));
+        assertThat(annotations.get(3).getTextAttributes(), is(SyntaxHighlighter.Companion.getIDENTIFIER()));
     }
 
     public void testQName_MissingLocalPart() {
@@ -173,7 +173,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(25));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.IDENTIFIER));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getIDENTIFIER()));
     }
 
     // endregion
@@ -196,14 +196,14 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(2));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.XML_TAG));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getXML_TAG()));
 
         assertThat(annotations.get(2).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(2).getStartOffset(), is(1));
         assertThat(annotations.get(2).getEndOffset(), is(2));
         assertThat(annotations.get(2).getMessage(), is(nullValue()));
         assertThat(annotations.get(2).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(2).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(2).getTextAttributes(), is(SyntaxHighlighter.Companion.getNS_PREFIX()));
 
         assertThat(annotations.get(3).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(3).getStartOffset(), is(11));
@@ -217,14 +217,14 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(4).getEndOffset(), is(12));
         assertThat(annotations.get(4).getMessage(), is(nullValue()));
         assertThat(annotations.get(4).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(4).getTextAttributes(), is(SyntaxHighlighter.XML_TAG));
+        assertThat(annotations.get(4).getTextAttributes(), is(SyntaxHighlighter.Companion.getXML_TAG()));
 
         assertThat(annotations.get(5).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(5).getStartOffset(), is(11));
         assertThat(annotations.get(5).getEndOffset(), is(12));
         assertThat(annotations.get(5).getMessage(), is(nullValue()));
         assertThat(annotations.get(5).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(5).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(5).getTextAttributes(), is(SyntaxHighlighter.Companion.getNS_PREFIX()));
     }
 
     // endregion
@@ -247,7 +247,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(17));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.ANNOTATION));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getANNOTATION()));
     }
 
     public void testAnnotation_QName() {
@@ -267,7 +267,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(12));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.Companion.getNS_PREFIX()));
 
         assertThat(annotations.get(2).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(2).getStartOffset(), is(13));
@@ -281,7 +281,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(3).getEndOffset(), is(19));
         assertThat(annotations.get(3).getMessage(), is(nullValue()));
         assertThat(annotations.get(3).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(3).getTextAttributes(), is(SyntaxHighlighter.ANNOTATION));
+        assertThat(annotations.get(3).getTextAttributes(), is(SyntaxHighlighter.Companion.getANNOTATION()));
     }
 
     // endregion
