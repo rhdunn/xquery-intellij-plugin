@@ -15,6 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.SOURCE)
 public @interface Specifications {
     Specification[] value();
 }

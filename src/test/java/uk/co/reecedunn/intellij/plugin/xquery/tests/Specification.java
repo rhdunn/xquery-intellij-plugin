@@ -16,7 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests;
 
 import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
+@Retention(RetentionPolicy.SOURCE)
 @Repeatable(Specifications.class)
 public @interface Specification {
     String name();

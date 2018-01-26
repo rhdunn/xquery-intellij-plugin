@@ -38,8 +38,8 @@ public class XQueryParserDefinition implements ParserDefinition {
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public Lexer createLexer(Project project) {
         CombinedLexer lexer = new CombinedLexer(new XQueryLexer());
-        lexer.addState(new XQueryLexer(), 0x50000000, 0, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
-        lexer.addState(new XQueryLexer(), 0x60000000, 0, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        lexer.addState(new XQueryLexer(), 0x50000000, 0, XQueryLexer.Companion.getSTATE_MAYBE_DIR_ELEM_CONSTRUCTOR(), XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        lexer.addState(new XQueryLexer(), 0x60000000, 0, XQueryLexer.Companion.getSTATE_START_DIR_ELEM_CONSTRUCTOR(), XQueryTokenType.DIRELEM_OPEN_XML_TAG);
         return lexer;
     }
 
