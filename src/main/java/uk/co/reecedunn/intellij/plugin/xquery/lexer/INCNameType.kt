@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lexer;
+package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import com.intellij.psi.tree.IElementType
+import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
-public class INCNameType extends IElementType {
-    public INCNameType(@NotNull @NonNls String debugName) {
-        super(debugName, XQuery.INSTANCE);
-    }
-}
+open class INCNameType(@NonNls debugName: String) : IElementType(debugName, XQuery)
