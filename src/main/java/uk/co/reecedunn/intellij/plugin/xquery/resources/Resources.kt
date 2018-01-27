@@ -13,18 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.resources;
+package uk.co.reecedunn.intellij.plugin.xquery.resources
 
-import java.io.InputStream;
+import java.io.InputStream
 
-@SuppressWarnings("SameParameterValue")
-public class Resources {
-    // The Resources constructor is not used, but make sure code coverage reports it as covered.
-    @SuppressWarnings("unused")
-    private static Resources INSTANCE = new Resources();
-
-    public static InputStream load(String resource) {
-        ClassLoader loader = Resources.class.getClassLoader();
-        return loader.getResourceAsStream(resource);
+object Resources {
+    fun load(resource: String): InputStream {
+        val loader = Resources::class.java.classLoader
+        return loader.getResourceAsStream(resource)
     }
 }
