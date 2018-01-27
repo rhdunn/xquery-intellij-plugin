@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests;
+package uk.co.reecedunn.intellij.plugin.xquery.tests
 
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Repeatable
 
-@Retention(RetentionPolicy.SOURCE)
-@Repeatable(Specifications.class)
-public @interface Specification {
-    String name();
-    String reference();
-}
+@Retention(AnnotationRetention.SOURCE)
+@Repeatable(Specifications::class) // For Java code
+@kotlin.annotation.Repeatable // For Kotlin code
+annotation class Specification(val name: String, val reference: String)
