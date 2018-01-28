@@ -28,7 +28,7 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParse
     override fun setUp() {
         super.setUp()
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, language, XQueryASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
