@@ -15,9 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests
 
-import java.lang.annotation.Repeatable
-
 @Retention(AnnotationRetention.SOURCE)
-@Repeatable(Specifications::class) // For Java code
-@kotlin.annotation.Repeatable // For Kotlin code
+@Repeatable
 annotation class Specification(val name: String, val reference: String)
