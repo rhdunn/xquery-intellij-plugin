@@ -257,7 +257,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
     @Nullable
     @SuppressWarnings("unchecked")
     public File parseResource(String resource) {
-        VirtualFile file = ResourceVirtualFile.create(ParsingTestCase.class, resource);
+        VirtualFile file = ResourceVirtualFile.Companion.create(ParsingTestCase.class, resource);
         return (File)PsiManager.getInstance(myProject).findFile(file);
     }
 

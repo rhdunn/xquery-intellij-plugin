@@ -43,7 +43,7 @@ public class ResourceVirtualFileSystem extends VirtualFileSystem {
     @Nullable
     @Override
     public VirtualFile findFileByPath(@NotNull String path) {
-        return ResourceVirtualFile.create(ResourceVirtualFileSystem.class, path);
+        return ResourceVirtualFile.Companion.create(ResourceVirtualFileSystem.class, path);
     }
 
     @Override
