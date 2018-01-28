@@ -61,7 +61,7 @@ class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
 
     override fun getName(): String = mName!!
 
-    override fun getFileSystem(): VirtualFileSystem = ResourceVirtualFileSystem.instance
+    override fun getFileSystem(): VirtualFileSystem = ResourceVirtualFileSystem
 
     override fun getPath(): String = if (mFile != null) mFile!!.path else ""
 

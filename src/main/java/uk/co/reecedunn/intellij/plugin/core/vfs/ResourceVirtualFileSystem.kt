@@ -21,7 +21,7 @@ import com.intellij.openapi.vfs.VirtualFileSystem
 
 import java.io.IOException
 
-class ResourceVirtualFileSystem private constructor() : VirtualFileSystem() {
+object ResourceVirtualFileSystem : VirtualFileSystem() {
     override fun getProtocol(): String = "res"
 
     override fun findFileByPath(path: String): VirtualFile? {
@@ -55,8 +55,4 @@ class ResourceVirtualFileSystem private constructor() : VirtualFileSystem() {
     override fun copyFile(requestor: Any, virtualFile: VirtualFile, newParent: VirtualFile, copyName: String): VirtualFile = TODO()
 
     override fun isReadOnly(): Boolean = true
-
-    companion object {
-        val instance = ResourceVirtualFileSystem()
-    }
 }
