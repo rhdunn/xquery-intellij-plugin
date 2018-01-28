@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -44,13 +45,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *    -  BaseX 7.8 and 8.5 UpdateExpr extension; Full Text `fuzzy` option
  */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
-class XQueryParser {
+class XQueryParser extends PsiTreeParser {
     // region Main Interface
 
-    private final PsiBuilder mBuilder;
-
     public XQueryParser(@NotNull PsiBuilder builder) {
-        mBuilder = builder;
+        super(builder);
     }
 
     public void parse() {
@@ -79,65 +78,10 @@ class XQueryParser {
         }
     }
 
-    // endregion
-    // region Parser Helper Methods
-
     private enum ParseStatus {
         MATCHED,
         MATCHED_WITH_ERRORS,
         NOT_MATCHED,
-    }
-
-    private boolean matchTokenType(IElementType type) {
-        if (mBuilder.getTokenType() == type) {
-            mBuilder.advanceLexer();
-            return true;
-        }
-        return false;
-    }
-
-    private PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type) {
-        if (mBuilder.getTokenType() == type) {
-            final PsiBuilder.Marker marker = mark();
-            mBuilder.advanceLexer();
-            return marker;
-        }
-        return null;
-    }
-
-    private PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type1, IElementType type2) {
-        if (mBuilder.getTokenType() == type1 || mBuilder.getTokenType() == type2) {
-            final PsiBuilder.Marker marker = mark();
-            mBuilder.advanceLexer();
-            return marker;
-        }
-        return null;
-    }
-
-    private boolean errorOnTokenType(IElementType type, String message) {
-        if (mBuilder.getTokenType() == type) {
-            final PsiBuilder.Marker errorMarker = mark();
-            mBuilder.advanceLexer();
-            errorMarker.error(message);
-            return true;
-        }
-        return false;
-    }
-
-    private PsiBuilder.Marker mark() {
-        return mBuilder.mark();
-    }
-
-    private IElementType getTokenType() {
-        return mBuilder.getTokenType();
-    }
-
-    private void advanceLexer() {
-        mBuilder.advanceLexer();
-    }
-
-    private void error(String message) {
-        mBuilder.error(message);
     }
 
     // endregion
@@ -5518,7 +5462,7 @@ class XQueryParser {
             getTokenType() == XQueryTokenType.K_SENTENCES ||
             getTokenType() == XQueryTokenType.K_PARAGRAPHS) {
             final PsiBuilder.Marker marker = mark();
-            mBuilder.advanceLexer();
+            advanceLexer();
             marker.done(XQueryElementType.FT_UNIT);
             return true;
         }
@@ -5529,7 +5473,7 @@ class XQueryParser {
         if (getTokenType() == XQueryTokenType.K_SENTENCE ||
             getTokenType() == XQueryTokenType.K_PARAGRAPH) {
             final PsiBuilder.Marker marker = mark();
-            mBuilder.advanceLexer();
+            advanceLexer();
             marker.done(XQueryElementType.FT_BIG_UNIT);
             return true;
         }
@@ -7342,27 +7286,27 @@ class XQueryParser {
     private boolean parseWhiteSpaceAndCommentTokens() {
         boolean skipped = false;
         while (true) {
-            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
-                    mBuilder.getTokenType() == XQueryTokenType.XML_WHITE_SPACE) {
+            if (getTokenType() == XQueryTokenType.WHITE_SPACE ||
+                getTokenType() == XQueryTokenType.XML_WHITE_SPACE) {
                 skipped = true;
-                mBuilder.advanceLexer();
-            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
+                advanceLexer();
+            } else if (getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
                 skipped = true;
                 final PsiBuilder.Marker commentMarker = mark();
-                mBuilder.advanceLexer();
+                advanceLexer();
                 // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
-                if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
-                    mBuilder.advanceLexer();
+                if (getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                    advanceLexer();
                     commentMarker.done(XQueryElementType.COMMENT);
                 } else {
-                    mBuilder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                    advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
                     commentMarker.done(XQueryElementType.COMMENT);
-                    mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+                    error(XQueryBundle.message("parser.error.incomplete-comment"));
                 }
-            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+            } else if (getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                 skipped = true;
                 final PsiBuilder.Marker errorMarker = mark();
-                mBuilder.advanceLexer();
+                advanceLexer();
                 errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start", "(:"));
             } else if (errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"))) {
                 skipped = true;
