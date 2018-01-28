@@ -1,0 +1,472 @@
+/*
+ * Copyright (C) 2016 Reece H. Dunn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
+
+import com.intellij.lexer.LexerBase
+import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+
+import java.util.EmptyStackException
+import java.util.HashMap
+import java.util.Stack
+
+class XQDocLexer : LexerBase() {
+    private val mTokenRange: CodePointRange = CodePointRange()
+    private var mState: Int = 0
+    private val mStates = Stack<Int>()
+    private var mType: IElementType? = null
+
+    // region States
+
+    private fun pushState(state: Int) {
+        mStates.push(state)
+    }
+
+    private fun popState() {
+        try {
+            mStates.pop()
+        } catch (e: EmptyStackException) {
+            //
+        }
+    }
+
+    private fun matchEntityReference() {
+        mTokenRange.match()
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        if (cc == CharacterClass.NAME_START_CHAR) {
+            mTokenRange.match()
+            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
+                mTokenRange.match()
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+            }
+            if (cc == CharacterClass.SEMICOLON) {
+                mTokenRange.match()
+                mType = XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
+            } else {
+                mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+            }
+        } else if (cc == CharacterClass.HASH) {
+            mTokenRange.match()
+            var c = mTokenRange.codePoint
+            if (c == 'x'.toInt()) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                if (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
+                    while (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                    if (c == ';'.toInt()) {
+                        mTokenRange.match()
+                        mType = XQDocTokenType.CHARACTER_REFERENCE
+                    } else {
+                        mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+                    }
+                } else if (c == ';'.toInt()) {
+                    mTokenRange.match()
+                    mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE
+                } else {
+                    mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+                }
+            } else if (c >= '0'.toInt() && c <= '9'.toInt()) {
+                mTokenRange.match()
+                while (c >= '0'.toInt() && c <= '9'.toInt()) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                if (c == ';'.toInt()) {
+                    mTokenRange.match()
+                    mType = XQDocTokenType.CHARACTER_REFERENCE
+                } else {
+                    mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+                }
+            } else if (c == ';'.toInt()) {
+                mTokenRange.match()
+                mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE
+            } else {
+                mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+            }
+        } else if (cc == CharacterClass.SEMICOLON) {
+            mTokenRange.match()
+            mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE
+        } else {
+            mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+        }
+    }
+
+    private fun stateDefault() {
+        val c = mTokenRange.codePoint
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            '~'.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.XQDOC_COMMENT_MARKER
+                pushState(STATE_CONTENTS)
+                pushState(STATE_TRIM)
+            }
+            else -> {
+                mTokenRange.seek(mTokenRange.bufferEnd)
+                mType = XQDocTokenType.COMMENT_CONTENTS
+            }
+        }
+    }
+
+    private fun stateContents() {
+        var c = mTokenRange.codePoint
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            '<'.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.OPEN_XML_TAG
+                pushState(STATE_ELEM_CONSTRUCTOR)
+            }
+            '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
+                pushState(STATE_TRIM)
+                stateTrim()
+            }
+            '&'.toInt() -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+            else -> while (true)
+                when (c) {
+                    '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
+                        pushState(STATE_TRIM)
+                        mType = XQDocTokenType.CONTENTS
+                        return
+                    }
+                    CodePointRange.END_OF_BUFFER, '<'.toInt(), '&'.toInt() -> {
+                        mType = XQDocTokenType.CONTENTS
+                        return
+                    }
+                    else -> {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                }
+        }
+    }
+
+    private fun stateTaggedContents() {
+        var c = mTokenRange.codePoint
+        if (c >= 'a'.toInt() && c <= 'z'.toInt() || c >= 'A'.toInt() && c <= 'Z'.toInt() || c >= '0'.toInt() && c <= '9'.toInt()) {
+            while (c >= 'a'.toInt() && c <= 'z'.toInt() || c >= 'A'.toInt() && c <= 'Z'.toInt() || c >= '0'.toInt() && c <= '9'.toInt()) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+            }
+            mType = (sTagNames as java.util.Map<String, IElementType>).getOrDefault(tokenText, XQDocTokenType.TAG)
+            if (mType === XQDocTokenType.T_PARAM) {
+                popState()
+                pushState(STATE_PARAM_TAG_CONTENTS_START)
+            }
+        } else if (c == ' '.toInt() || c == '\t'.toInt()) {
+            while (c == ' '.toInt() || c == '\t'.toInt()) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+            }
+            mType = XQDocTokenType.WHITE_SPACE
+            popState()
+        } else {
+            popState()
+            stateContents()
+        }
+    }
+
+    private fun stateParamTagContentsStart() {
+        var c = mTokenRange.codePoint
+        if (c == ' '.toInt() || c == '\t'.toInt()) {
+            while (c == ' '.toInt() || c == '\t'.toInt()) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+            }
+            mType = XQDocTokenType.WHITE_SPACE
+        } else if (c == '$'.toInt()) {
+            mTokenRange.match()
+            mType = XQDocTokenType.VARIABLE_INDICATOR
+            popState()
+            pushState(STATE_PARAM_TAG_VARNAME)
+        } else {
+            popState()
+            stateContents()
+        }
+    }
+
+    private fun stateParamTagVarName() {
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        when (cc) {
+            CharacterClass.WHITESPACE -> {
+                mTokenRange.match()
+                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
+                    mTokenRange.match()
+                mType = XQDocTokenType.WHITE_SPACE
+                popState()
+            }
+            CharacterClass.NAME_START_CHAR // XQuery/XML NCName token rules.
+            -> {
+                mTokenRange.match()
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                        cc == CharacterClass.DIGIT ||
+                        cc == CharacterClass.DOT ||
+                        cc == CharacterClass.HYPHEN_MINUS ||
+                        cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match()
+                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                }
+                mType = XQDocTokenType.NCNAME
+            }
+            else -> {
+                popState()
+                stateContents()
+            }
+        }
+    }
+
+    private fun stateElemConstructor(state: Int) {
+        var c = mTokenRange.codePoint
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            '0'.toInt(), '1'.toInt(), '2'.toInt(), '3'.toInt(), '4'.toInt(), '5'.toInt(), '6'.toInt(), '7'.toInt(),
+            '8'.toInt(), '9'.toInt(), 'a'.toInt(), 'b'.toInt(), 'c'.toInt(), 'd'.toInt(), 'e'.toInt(), 'f'.toInt(),
+            'g'.toInt(), 'h'.toInt(), 'i'.toInt(), 'j'.toInt(), 'k'.toInt(), 'l'.toInt(), 'm'.toInt(), 'n'.toInt(),
+            'o'.toInt(), 'p'.toInt(), 'q'.toInt(), 'r'.toInt(), 's'.toInt(), 't'.toInt(), 'u'.toInt(), 'v'.toInt(),
+            'w'.toInt(), 'x'.toInt(), 'y'.toInt(), 'z'.toInt(), 'A'.toInt(), 'B'.toInt(), 'C'.toInt(), 'D'.toInt(),
+            'E'.toInt(), 'F'.toInt(), 'G'.toInt(), 'H'.toInt(), 'I'.toInt(), 'J'.toInt(), 'K'.toInt(), 'L'.toInt(),
+            'M'.toInt(), 'N'.toInt(), 'O'.toInt(), 'P'.toInt(), 'Q'.toInt(), 'R'.toInt(), 'S'.toInt(), 'T'.toInt(),
+            'U'.toInt(), 'V'.toInt(), 'W'.toInt(), 'X'.toInt(), 'Y'.toInt(), 'Z'.toInt() -> {
+                while (c >= 'a'.toInt() && c <= 'z'.toInt() || c >= 'A'.toInt() && c <= 'Z'.toInt() || c >= '0'.toInt() && c <= '9'.toInt()) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                mType = XQDocTokenType.XML_TAG
+            }
+            ' '.toInt(), '\t'.toInt(), '\r'.toInt(), '\n'.toInt() -> {
+                while (c == ' '.toInt() || c == '\t'.toInt() || c == '\r'.toInt() || c == '\n'.toInt()) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                mType = XQDocTokenType.WHITE_SPACE
+            }
+            '='.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.XML_EQUAL
+            }
+            '"'.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START
+                pushState(STATE_ATTRIBUTE_VALUE_QUOTE)
+            }
+            '\''.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START
+                pushState(STATE_ATTRIBUTE_VALUE_APOS)
+            }
+            '/'.toInt() -> {
+                mTokenRange.match()
+                if (mTokenRange.codePoint == '>'.toInt()) {
+                    mTokenRange.match()
+                    mType = XQDocTokenType.SELF_CLOSING_XML_TAG
+                    popState()
+                } else {
+                    mType = XQDocTokenType.INVALID
+                }
+            }
+            '>'.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.END_XML_TAG
+                popState()
+                if (state == STATE_ELEM_CONSTRUCTOR) {
+                    pushState(STATE_ELEM_CONTENTS)
+                }
+            }
+            else -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.INVALID
+            }
+        }
+    }
+
+    private fun stateElemContents() {
+        var c = mTokenRange.codePoint
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            '<'.toInt() -> {
+                mTokenRange.match()
+                if (mTokenRange.codePoint == '/'.toInt()) {
+                    mTokenRange.match()
+                    mType = XQDocTokenType.CLOSE_XML_TAG
+                    popState()
+                    pushState(STATE_ELEM_CONSTRUCTOR_CLOSING)
+                } else {
+                    mType = XQDocTokenType.OPEN_XML_TAG
+                    pushState(STATE_ELEM_CONSTRUCTOR)
+                }
+            }
+            '&'.toInt() -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+            else -> {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                while (true)
+                    when (c) {
+                        CodePointRange.END_OF_BUFFER, '<'.toInt(), '&'.toInt() -> {
+                            mType = XQDocTokenType.XML_ELEMENT_CONTENTS
+                            return
+                        }
+                        else -> {
+                            mTokenRange.match()
+                            c = mTokenRange.codePoint
+                        }
+                    }
+            }
+        }
+    }
+
+    private fun stateAttributeValue(endChar: Int) {
+        var c = mTokenRange.codePoint
+        if (c == CodePointRange.END_OF_BUFFER) {
+            mType = null
+        } else if (c == endChar) {
+            mTokenRange.match()
+            mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
+            popState()
+        } else {
+            while (c != CodePointRange.END_OF_BUFFER && c != endChar) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+            }
+            mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+        }
+    }
+
+    private fun stateTrim() {
+        var c = mTokenRange.codePoint
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            ' '.toInt(), '\t'.toInt() -> {
+                while (c == ' '.toInt() || c == '\t'.toInt()) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                mType = XQDocTokenType.WHITE_SPACE
+            }
+            '\r'.toInt(), '\n'.toInt() -> { // U+000D, U+000A
+                mTokenRange.match()
+                if (c == '\r'.toInt() && mTokenRange.codePoint == '\n'.toInt()) {
+                    mTokenRange.match()
+                }
+
+                c = mTokenRange.codePoint
+                while (c == ' '.toInt() || c == '\t'.toInt()) { // U+0020 || U+0009
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+
+                if (c == ':'.toInt()) {
+                    mTokenRange.match()
+                }
+
+                mType = XQDocTokenType.TRIM
+            }
+            '@'.toInt() -> {
+                mTokenRange.match()
+                mType = XQDocTokenType.TAG_MARKER
+                popState()
+                pushState(STATE_TAGGED_CONTENTS)
+            }
+            else -> {
+                popState()
+                advance()
+            }
+        }
+    }
+
+    // endregion
+    // region Lexer
+
+    override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int) {
+        mTokenRange.start(buffer, startOffset, endOffset)
+        if (initialState != STATE_DEFAULT) {
+            pushState(STATE_CONTENTS)
+        }
+        pushState(initialState)
+        advance()
+    }
+
+    override fun advance() {
+        mTokenRange.flush()
+        try {
+            mState = mStates.peek()
+        } catch (e: EmptyStackException) {
+            mState = STATE_DEFAULT
+        }
+
+        when (mState) {
+            STATE_DEFAULT -> stateDefault()
+            STATE_CONTENTS -> stateContents()
+            STATE_TAGGED_CONTENTS -> stateTaggedContents()
+            STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(mState)
+            STATE_ELEM_CONTENTS -> stateElemContents()
+            STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue('"'.toInt())
+            STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue('\''.toInt())
+            STATE_TRIM -> stateTrim()
+            STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
+            STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
+            else -> throw AssertionError("Invalid state: " + mState)
+        }
+    }
+
+    override fun getState(): Int = mState
+
+    override fun getTokenType(): IElementType? = mType
+
+    override fun getTokenStart(): Int = mTokenRange.start
+
+    override fun getTokenEnd(): Int = mTokenRange.end
+
+    override fun getBufferSequence(): CharSequence = mTokenRange.bufferSequence
+
+    override fun getBufferEnd(): Int = mTokenRange.bufferEnd
+
+    companion object {
+        private val STATE_DEFAULT = 0
+        private val STATE_CONTENTS = 1
+        private val STATE_TAGGED_CONTENTS = 2
+        private val STATE_ELEM_CONSTRUCTOR = 3
+        private val STATE_ELEM_CONTENTS = 4
+        private val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
+        private val STATE_ATTRIBUTE_VALUE_QUOTE = 6
+        private val STATE_ATTRIBUTE_VALUE_APOS = 7
+        private val STATE_TRIM = 8
+        private val STATE_PARAM_TAG_CONTENTS_START = 9
+        private val STATE_PARAM_TAG_VARNAME = 10
+
+        // endregion
+        // region Special Tag Names
+
+        private val sTagNames = HashMap<String, IElementType>()
+        init {
+            sTagNames["author"] = XQDocTokenType.T_AUTHOR
+            sTagNames["deprecated"] = XQDocTokenType.T_DEPRECATED
+            sTagNames["error"] = XQDocTokenType.T_ERROR
+            sTagNames["param"] = XQDocTokenType.T_PARAM
+            sTagNames["return"] = XQDocTokenType.T_RETURN
+            sTagNames["see"] = XQDocTokenType.T_SEE
+            sTagNames["since"] = XQDocTokenType.T_SINCE
+            sTagNames["version"] = XQDocTokenType.T_VERSION
+        }
+    }
+
+    // endregion
+}
