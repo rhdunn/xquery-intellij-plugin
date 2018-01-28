@@ -361,8 +361,8 @@ public interface XQueryTokenType extends TokenType {
         XML_ELEMENT_CONTENTS);
 
     TokenSet COMMENT_TOKENS = TokenSet.create(
-        XQDocTokenType.COMMENT_CONTENTS,
-        XQDocTokenType.CONTENTS,
+        XQDocTokenType.INSTANCE.getCOMMENT_CONTENTS(),
+        XQDocTokenType.INSTANCE.getCONTENTS(),
         COMMENT,
         XML_COMMENT);
 
