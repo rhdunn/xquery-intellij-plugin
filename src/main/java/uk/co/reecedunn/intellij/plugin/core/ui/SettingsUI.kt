@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.ui;
+package uk.co.reecedunn.intellij.plugin.core.ui
 
-import javax.swing.*;
+import javax.swing.*
 
-public interface SettingsUI<Configuration> {
-    JPanel getPanel();
+interface SettingsUI<in Configuration> {
+    val panel: JPanel
 
-    boolean isModified(Configuration configuration);
+    fun isModified(configuration: Configuration): Boolean
 
-    void reset(Configuration configuration);
+    fun reset(configuration: Configuration)
 
-    void apply(Configuration configuration);
+    fun apply(configuration: Configuration)
 }
