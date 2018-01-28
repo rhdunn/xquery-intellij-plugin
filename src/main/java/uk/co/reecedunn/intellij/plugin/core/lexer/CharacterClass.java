@@ -105,7 +105,7 @@ public final class CharacterClass {
     // TODO: Classify any non-conforming XML Char value as INVALID, like with xdm.model.XmlChar.
     public static int getCharClass(int c) {
         if (c < mCharacterClasses.length) { // 0x0000-0x0079
-            if (c == CodePointRange.END_OF_BUFFER)
+            if (c == CodePointRange.Companion.getEND_OF_BUFFER())
                 return END_OF_BUFFER;
             return mCharacterClasses[c];
         }
