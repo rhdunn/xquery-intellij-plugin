@@ -33,8 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryCharRefImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryPredefinedEntityRefImpl
 
 class XQueryASTFactory : ASTFactory() {
-    override fun createComposite(type: IElementType?): CompositeElement? {
-        return CompositeElement(type!!)
+    override fun createComposite(type: IElementType): CompositeElement? {
+        return CompositeElement(type)
     }
 
     override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? {
