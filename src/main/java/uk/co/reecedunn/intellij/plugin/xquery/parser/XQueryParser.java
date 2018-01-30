@@ -297,11 +297,10 @@ class XQueryParser extends PsiTreeParser {
             switch (nextState) {
                 case NOT_MATCHED:
                     if (parseInvalidConstructs && getTokenType() != null) {
-                        if (parseWhiteSpaceAndCommentTokens()) continue;
-                        error(XQueryBundle.message("parser.error.unexpected-token"));
-                        if (parseExprSingle()) continue;
-                        advanceLexer();
-                        continue;
+                        if (!parseWhiteSpaceAndCommentTokens()) {
+                            error(XQueryBundle.message("parser.error.unexpected-token"));
+                            if (!parseExprSingle()) advanceLexer();
+                        }
                     } else {
                         if (state == PrologDeclState.NOT_MATCHED) {
                             prologMarker.drop();
@@ -310,6 +309,7 @@ class XQueryParser extends PsiTreeParser {
                         prologMarker.done(XQueryElementType.PROLOG);
                         return true;
                     }
+                    break;
                 case HEADER_STATEMENT:
                 case UNKNOWN_STATEMENT:
                     if (state == PrologDeclState.NOT_MATCHED) {
@@ -323,13 +323,15 @@ class XQueryParser extends PsiTreeParser {
                     break;
             }
 
-            if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
-                error(XQueryBundle.message("parser.error.expected", ";"));
-                if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
-                    advanceLexer();
+            if (nextState != PrologDeclState.NOT_MATCHED) {
+                if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
+                    error(XQueryBundle.message("parser.error.expected", ";"));
+                    if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                        advanceLexer();
+                    }
                 }
+                parseWhiteSpaceAndCommentTokens();
             }
-            parseWhiteSpaceAndCommentTokens();
         }
     }
 
