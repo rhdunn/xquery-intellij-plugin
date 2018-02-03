@@ -202,7 +202,7 @@ object XQueryElementType {
 
     val SWITCH_EXPR: IElementType = ICompositeElementType("XQUERY_SWITCH_EXPR", XQuerySwitchExprPsiImpl::class.java, XQuery)
     val SWITCH_CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_SWITCH_CASE_CLAUSE", XQuerySwitchCaseClausePsiImpl::class.java, XQuery)
-    val SWITCH_CASE_OPERAND: IElementType = ICompositeElementType("XQUERY_SWITCH_CASE_OPERAND", XQuerySwitchCaseClausePsiImpl::class.java, XQuery)
+    val SWITCH_CASE_OPERAND: IElementType = ICompositeElementType("XQUERY_SWITCH_CASE_OPERAND", XQuerySwitchCaseOperandPsiImpl::class.java, XQuery)
 
     val TRY_CATCH_EXPR: IElementType = ICompositeElementType("XQUERY_TRY_CATCH_EXPR", XQueryTryCatchExprPsiImpl::class.java, XQuery)
     val TRY_CLAUSE: IElementType = ICompositeElementType("XQUERY_TRY_CLAUSE", XQueryTryClausePsiImpl::class.java, XQuery)

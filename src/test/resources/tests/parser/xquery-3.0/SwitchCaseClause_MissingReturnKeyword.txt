@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:38)]
                XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(13:22)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(13:17)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                  XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_OPERAND(18:20)]
+                  XQuerySwitchCaseOperandImpl[XQUERY_SWITCH_CASE_OPERAND(18:20)]
                      XPathOrExprImpl[XQUERY_OR_EXPR(18:20)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(18:20)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(18:20)]
