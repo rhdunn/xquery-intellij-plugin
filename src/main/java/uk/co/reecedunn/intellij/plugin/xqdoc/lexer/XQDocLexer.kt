@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,9 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 
 import java.util.EmptyStackException
-import java.util.HashMap
 import java.util.Stack
+
+// region State Constants
 
 private const val STATE_DEFAULT = 0
 private const val STATE_CONTENTS = 1
@@ -35,6 +36,21 @@ private const val STATE_ATTRIBUTE_VALUE_APOS = 7
 private const val STATE_TRIM = 8
 private const val STATE_PARAM_TAG_CONTENTS_START = 9
 private const val STATE_PARAM_TAG_VARNAME = 10
+
+// endregion
+// region Special Tag Names
+
+private val TAG_NAMES = mapOf(
+        "author" to XQDocTokenType.T_AUTHOR,
+        "deprecated" to XQDocTokenType.T_DEPRECATED,
+        "error" to XQDocTokenType.T_ERROR,
+        "param" to XQDocTokenType.T_PARAM,
+        "return" to XQDocTokenType.T_RETURN,
+        "see" to XQDocTokenType.T_SEE,
+        "since" to XQDocTokenType.T_SINCE,
+        "version" to XQDocTokenType.T_VERSION)
+
+// endregion
 
 class XQDocLexer : LexerBase() {
     private val mTokenRange: CodePointRange = CodePointRange()
@@ -178,7 +194,7 @@ class XQDocLexer : LexerBase() {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
             }
-            mType = (sTagNames as java.util.Map<String, IElementType>).getOrDefault(tokenText, XQDocTokenType.TAG)
+            mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
             if (mType === XQDocTokenType.T_PARAM) {
                 popState()
                 pushState(STATE_PARAM_TAG_CONTENTS_START)
@@ -450,23 +466,6 @@ class XQDocLexer : LexerBase() {
     override fun getBufferSequence(): CharSequence = mTokenRange.bufferSequence
 
     override fun getBufferEnd(): Int = mTokenRange.bufferEnd
-
-    // endregion
-    // region Special Tag Names
-
-    companion object {
-        private val sTagNames = HashMap<String, IElementType>()
-        init {
-            sTagNames["author"] = XQDocTokenType.T_AUTHOR
-            sTagNames["deprecated"] = XQDocTokenType.T_DEPRECATED
-            sTagNames["error"] = XQDocTokenType.T_ERROR
-            sTagNames["param"] = XQDocTokenType.T_PARAM
-            sTagNames["return"] = XQDocTokenType.T_RETURN
-            sTagNames["see"] = XQDocTokenType.T_SEE
-            sTagNames["since"] = XQDocTokenType.T_SINCE
-            sTagNames["version"] = XQDocTokenType.T_VERSION
-        }
-    }
 
     // endregion
 }

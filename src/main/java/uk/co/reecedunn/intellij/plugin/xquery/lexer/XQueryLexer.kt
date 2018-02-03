@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,9 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 
 import java.util.EmptyStackException
-import java.util.HashMap
 import java.util.Stack
+
+// region State Constants
 
 private const val STATE_DEFAULT = 0
 private const val STATE_STRING_LITERAL_QUOTE = 1
@@ -56,6 +57,232 @@ private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
 const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
 const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
 private const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
+
+// endregion
+// region Keywords
+
+private val KEYWORDS = mapOf(
+        "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
+        "all" to XQueryTokenType.K_ALL, // Full Text 1.0
+        "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
+        "ancestor" to XQueryTokenType.K_ANCESTOR,
+        "ancestor-or-self" to XQueryTokenType.K_ANCESTOR_OR_SELF,
+        "and" to XQueryTokenType.K_AND,
+        "any" to XQueryTokenType.K_ANY, // Full Text 1.0
+        "array" to XQueryTokenType.K_ARRAY, // XQuery 3.1
+        "array-node" to XQueryTokenType.K_ARRAY_NODE, // MarkLogic 8.0
+        "as" to XQueryTokenType.K_AS,
+        "ascending" to XQueryTokenType.K_ASCENDING,
+        "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
+        "at" to XQueryTokenType.K_AT,
+        "attribute" to XQueryTokenType.K_ATTRIBUTE,
+        "attribute-decl" to XQueryTokenType.K_ATTRIBUTE_DECL, // MarkLogic 7.0
+        "base-uri" to XQueryTokenType.K_BASE_URI,
+        "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
+        "binary" to XQueryTokenType.K_BINARY, // MarkLogic 6.0
+        "block" to XQueryTokenType.K_BLOCK, // Scripting Extension 1.0
+        "boolean-node" to XQueryTokenType.K_BOOLEAN_NODE, // MarkLogic 8.0
+        "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
+        "by" to XQueryTokenType.K_BY,
+        "case" to XQueryTokenType.K_CASE,
+        "cast" to XQueryTokenType.K_CAST,
+        "castable" to XQueryTokenType.K_CASTABLE,
+        "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
+        "child" to XQueryTokenType.K_CHILD,
+        "collation" to XQueryTokenType.K_COLLATION,
+        "comment" to XQueryTokenType.K_COMMENT,
+        "complex-type" to XQueryTokenType.K_COMPLEX_TYPE, // MarkLogic 7.0
+        "construction" to XQueryTokenType.K_CONSTRUCTION,
+        "contains" to XQueryTokenType.K_CONTAINS, // Full Text 1.0
+        "content" to XQueryTokenType.K_CONTENT, // Full Text 1.0
+        "context" to XQueryTokenType.K_CONTEXT, // XQuery 3.0
+        "copy" to XQueryTokenType.K_COPY, // Update Facility 1.0
+        "copy-namespaces" to XQueryTokenType.K_COPY_NAMESPACES,
+        "count" to XQueryTokenType.K_COUNT, // XQuery 3.0
+        "decimal-format" to XQueryTokenType.K_DECIMAL_FORMAT, // XQuery 3.0
+        "decimal-separator" to XQueryTokenType.K_DECIMAL_SEPARATOR, // XQuery 3.0
+        "declare" to XQueryTokenType.K_DECLARE,
+        "default" to XQueryTokenType.K_DEFAULT,
+        "delete" to XQueryTokenType.K_DELETE, // Update Facility 1.0
+        "descendant" to XQueryTokenType.K_DESCENDANT,
+        "descendant-or-self" to XQueryTokenType.K_DESCENDANT_OR_SELF,
+        "descending" to XQueryTokenType.K_DESCENDING,
+        "diacritics" to XQueryTokenType.K_DIACRITICS, // Full Text 1.0
+        "different" to XQueryTokenType.K_DIFFERENT, // Full Text 1.0
+        "digit" to XQueryTokenType.K_DIGIT, // XQuery 3.0
+        "distance" to XQueryTokenType.K_DISTANCE, // Full Text 1.0
+        "div" to XQueryTokenType.K_DIV,
+        "document" to XQueryTokenType.K_DOCUMENT,
+        "document-node" to XQueryTokenType.K_DOCUMENT_NODE,
+        "element" to XQueryTokenType.K_ELEMENT,
+        "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
+        "else" to XQueryTokenType.K_ELSE,
+        "empty" to XQueryTokenType.K_EMPTY,
+        "empty-sequence" to XQueryTokenType.K_EMPTY_SEQUENCE,
+        "encoding" to XQueryTokenType.K_ENCODING,
+        "end" to XQueryTokenType.K_END, // XQuery 3.0
+        "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0
+        "eq" to XQueryTokenType.K_EQ,
+        "every" to XQueryTokenType.K_EVERY,
+        "exactly" to XQueryTokenType.K_EXACTLY, // Full Text 1.0
+        "except" to XQueryTokenType.K_EXCEPT,
+        "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
+        "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
+        "external" to XQueryTokenType.K_EXTERNAL,
+        "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
+        "following" to XQueryTokenType.K_FOLLOWING,
+        "following-sibling" to XQueryTokenType.K_FOLLOWING_SIBLING,
+        "for" to XQueryTokenType.K_FOR,
+        "from" to XQueryTokenType.K_FROM, // Full Text 1.0
+        "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
+        "ftand" to XQueryTokenType.K_FTAND, // Full Text 1.0
+        "ftnot" to XQueryTokenType.K_FTNOT, // Full Text 1.0
+        "ftor" to XQueryTokenType.K_FTOR, // Full Text 1.0
+        "function" to XQueryTokenType.K_FUNCTION,
+        "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
+        "ge" to XQueryTokenType.K_GE,
+        "greatest" to XQueryTokenType.K_GREATEST,
+        "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
+        "grouping-separator" to XQueryTokenType.K_GROUPING_SEPARATOR, // XQuery 3.0
+        "gt" to XQueryTokenType.K_GT,
+        "idiv" to XQueryTokenType.K_IDIV,
+        "if" to XQueryTokenType.K_IF,
+        "import" to XQueryTokenType.K_IMPORT,
+        "in" to XQueryTokenType.K_IN,
+        "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
+        "inherit" to XQueryTokenType.K_INHERIT,
+        "insensitive" to XQueryTokenType.K_INSENSITIVE, // Full Text 1.0
+        "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
+        "instance" to XQueryTokenType.K_INSTANCE,
+        "intersect" to XQueryTokenType.K_INTERSECT,
+        "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
+        "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
+        "is" to XQueryTokenType.K_IS,
+        "item" to XQueryTokenType.K_ITEM,
+        "language" to XQueryTokenType.K_LANGUAGE, // Full Text 1.0
+        "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
+        "lax" to XQueryTokenType.K_LAX,
+        "le" to XQueryTokenType.K_LE,
+        "least" to XQueryTokenType.K_LEAST,
+        "let" to XQueryTokenType.K_LET,
+        "levels" to XQueryTokenType.K_LEVELS, // Full Text 1.0
+        "lowercase" to XQueryTokenType.K_LOWERCASE, // Full Text 1.0
+        "lt" to XQueryTokenType.K_LT,
+        "map" to XQueryTokenType.K_MAP, // XQuery 3.1
+        "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
+        "mod" to XQueryTokenType.K_MOD,
+        "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
+        "module" to XQueryTokenType.K_MODULE,
+        "most" to XQueryTokenType.K_MOST, // Full Text 1.0
+        "namespace" to XQueryTokenType.K_NAMESPACE,
+        "namespace-node" to XQueryTokenType.K_NAMESPACE_NODE, // XQuery 3.0
+        "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
+        "ne" to XQueryTokenType.K_NE,
+        "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
+        "no" to XQueryTokenType.K_NO, // Full Text 1.0
+        "no-inherit" to XQueryTokenType.K_NO_INHERIT,
+        "no-preserve" to XQueryTokenType.K_NO_PRESERVE,
+        "node" to XQueryTokenType.K_NODE,
+        "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
+        "not" to XQueryTokenType.K_NOT, // Full Text 1.0
+        "null-node" to XQueryTokenType.K_NULL_NODE, // MarkLogic 8.0
+        "number-node" to XQueryTokenType.K_NUMBER_NODE, // MarkLogic 8.0
+        "object-node" to XQueryTokenType.K_OBJECT_NODE, // MarkLogic 8.0
+        "occurs" to XQueryTokenType.K_OCCURS, // Full Text 1.0
+        "of" to XQueryTokenType.K_OF,
+        "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
+        "option" to XQueryTokenType.K_OPTION,
+        "or" to XQueryTokenType.K_OR,
+        "order" to XQueryTokenType.K_ORDER,
+        "ordered" to XQueryTokenType.K_ORDERED,
+        "ordering" to XQueryTokenType.K_ORDERING,
+        "paragraph" to XQueryTokenType.K_PARAGRAPH, // Full Text 1.0
+        "paragraphs" to XQueryTokenType.K_PARAGRAPHS, // Full Text 1.0
+        "parent" to XQueryTokenType.K_PARENT,
+        "pattern-separator" to XQueryTokenType.K_PATTERN_SEPARATOR, // XQuery 3.0
+        "per-mille" to XQueryTokenType.K_PER_MILLE, // XQuery 3.0
+        "percent" to XQueryTokenType.K_PERCENT, // XQuery 3.0
+        "phrase" to XQueryTokenType.K_PHRASE, // Full Text 1.0
+        "preceding" to XQueryTokenType.K_PRECEDING,
+        "preceding-sibling" to XQueryTokenType.K_PRECEDING_SIBLING,
+        "preserve" to XQueryTokenType.K_PRESERVE,
+        "previous" to XQueryTokenType.K_PREVIOUS, // XQuery 3.0
+        "private" to XQueryTokenType.K_PRIVATE, // MarkLogic 6.0
+        "processing-instruction" to XQueryTokenType.K_PROCESSING_INSTRUCTION,
+        "property" to XQueryTokenType.K_PROPERTY, // MarkLogic 6.0
+        "public" to XQueryTokenType.K_PUBLIC, // XQuery 3.0 (§4.15 -- Annotations)
+        "relationship" to XQueryTokenType.K_RELATIONSHIP, // Full Text 1.0
+        "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0
+        "replace" to XQueryTokenType.K_REPLACE, // Update Facility 1.0
+        "return" to XQueryTokenType.K_RETURN,
+        "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
+        "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
+        "same" to XQueryTokenType.K_SAME, // Full Text 1.0
+        "satisfies" to XQueryTokenType.K_SATISFIES,
+        "schema" to XQueryTokenType.K_SCHEMA,
+        "schema-attribute" to XQueryTokenType.K_SCHEMA_ATTRIBUTE,
+        "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
+        "schema-element" to XQueryTokenType.K_SCHEMA_ELEMENT,
+        "schema-facet" to XQueryTokenType.K_SCHEMA_FACET, // MarkLogic 8.0
+        "schema-particle" to XQueryTokenType.K_SCHEMA_PARTICLE, // MarkLogic 7.0
+        "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0
+        "schema-type" to XQueryTokenType.K_SCHEMA_TYPE, // MarkLogic 7.0
+        "score" to XQueryTokenType.K_SCORE, // Full Text 1.0
+        "self" to XQueryTokenType.K_SELF,
+        "sensitive" to XQueryTokenType.K_SENSITIVE, // Full Text 1.0
+        "sentence" to XQueryTokenType.K_SENTENCE, // Full Text 1.0
+        "sentences" to XQueryTokenType.K_SENTENCES, // Full Text 1.0
+        "sequential" to XQueryTokenType.K_SEQUENTIAL, // Scripting Extension 1.0
+        "simple" to XQueryTokenType.K_SIMPLE, // Scripting Extension 1.0
+        "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0
+        "skip" to XQueryTokenType.K_SKIP, // Update Facility 1.0
+        "sliding" to XQueryTokenType.K_SLIDING, // XQuery 3.0
+        "some" to XQueryTokenType.K_SOME,
+        "stable" to XQueryTokenType.K_STABLE,
+        "start" to XQueryTokenType.K_START, // XQuery 3.0
+        "stemming" to XQueryTokenType.K_STEMMING, // Full Text 1.0
+        "stop" to XQueryTokenType.K_STOP, // Full Text 1.0
+        "strict" to XQueryTokenType.K_STRICT,
+        "strip" to XQueryTokenType.K_STRIP,
+        "stylesheet" to XQueryTokenType.K_STYLESHEET, // MarkLogic 6.0
+        "switch" to XQueryTokenType.K_SWITCH, // XQuery 3.0
+        "text" to XQueryTokenType.K_TEXT,
+        "then" to XQueryTokenType.K_THEN,
+        "thesaurus" to XQueryTokenType.K_THESAURUS, // Full Text 1.0
+        "times" to XQueryTokenType.K_TIMES, // Full Text 1.0
+        "to" to XQueryTokenType.K_TO,
+        "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
+        "treat" to XQueryTokenType.K_TREAT,
+        "try" to XQueryTokenType.K_TRY, // XQuery 3.0
+        "tumbling" to XQueryTokenType.K_TUMBLING, // XQuery 3.0
+        "tuple" to XQueryTokenType.K_TUPLE, // Saxon 9.8
+        "type" to XQueryTokenType.K_TYPE, // XQuery 3.0
+        "typeswitch" to XQueryTokenType.K_TYPESWITCH,
+        "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // Scripting Extension 1.0
+        "union" to XQueryTokenType.K_UNION,
+        "unordered" to XQueryTokenType.K_UNORDERED,
+        "update" to XQueryTokenType.K_UPDATE, // BaseX 7.8
+        "updating" to XQueryTokenType.K_UPDATING, // Update Facility 1.0
+        "uppercase" to XQueryTokenType.K_UPPERCASE, // Full Text 1.0
+        "using" to XQueryTokenType.K_USING, // Full Text 1.0
+        "validate" to XQueryTokenType.K_VALIDATE,
+        "value" to XQueryTokenType.K_VALUE, // Update Facility 1.0
+        "variable" to XQueryTokenType.K_VARIABLE,
+        "version" to XQueryTokenType.K_VERSION,
+        "weight" to XQueryTokenType.K_WEIGHT, // Full Text 1.0
+        "when" to XQueryTokenType.K_WHEN, // XQuery 3.0
+        "where" to XQueryTokenType.K_WHERE,
+        "while" to XQueryTokenType.K_WHILE, // Scripting Extension 1.0
+        "wildcards" to XQueryTokenType.K_WILDCARDS, // Full Text 1.0
+        "window" to XQueryTokenType.K_WINDOW, // XQuery 3.0; Full Text 1.0
+        "with" to XQueryTokenType.K_WITH, // Update Facility 1.0
+        "without" to XQueryTokenType.K_WITHOUT, // Full Text 1.0
+        "word" to XQueryTokenType.K_WORD, // Full Text 1.0
+        "words" to XQueryTokenType.K_WORDS, // Full Text 1.0
+        "xquery" to XQueryTokenType.K_XQUERY,
+        "zero-digit" to XQueryTokenType.K_ZERO_DIGIT) // XQuery 3.0
+
+// endregion
 
 class XQueryLexer : LexerBase() {
     private val mTokenRange: CodePointRange
@@ -193,7 +420,7 @@ class XQueryLexer : LexerBase() {
                         mTokenRange.match()
                         cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                     }
-                    mType = (sKeywords as java.util.Map<String, IElementType>).getOrDefault(tokenText, XQueryTokenType.NCNAME)
+                    mType = KEYWORDS[tokenText] ?: XQueryTokenType.NCNAME
                 }
             }
             CharacterClass.PARENTHESIS_OPEN -> {
@@ -1398,234 +1625,6 @@ class XQueryLexer : LexerBase() {
 
     override fun getBufferEnd(): Int {
         return mTokenRange.bufferEnd
-    }
-
-    // endregion
-    // region Keywords
-
-    companion object {
-        private val sKeywords = HashMap<String, IElementType>()
-        init {
-            sKeywords["after"] = XQueryTokenType.K_AFTER // Update Facility 1.0
-            sKeywords["all"] = XQueryTokenType.K_ALL // Full Text 1.0
-            sKeywords["allowing"] = XQueryTokenType.K_ALLOWING // XQuery 3.0
-            sKeywords["ancestor"] = XQueryTokenType.K_ANCESTOR
-            sKeywords["ancestor-or-self"] = XQueryTokenType.K_ANCESTOR_OR_SELF
-            sKeywords["and"] = XQueryTokenType.K_AND
-            sKeywords["any"] = XQueryTokenType.K_ANY // Full Text 1.0
-            sKeywords["array"] = XQueryTokenType.K_ARRAY // XQuery 3.1
-            sKeywords["array-node"] = XQueryTokenType.K_ARRAY_NODE // MarkLogic 8.0
-            sKeywords["as"] = XQueryTokenType.K_AS
-            sKeywords["ascending"] = XQueryTokenType.K_ASCENDING
-            sKeywords["assignable"] = XQueryTokenType.K_ASSIGNABLE // Scripting Extension 1.0
-            sKeywords["at"] = XQueryTokenType.K_AT
-            sKeywords["attribute"] = XQueryTokenType.K_ATTRIBUTE
-            sKeywords["attribute-decl"] = XQueryTokenType.K_ATTRIBUTE_DECL // MarkLogic 7.0
-            sKeywords["base-uri"] = XQueryTokenType.K_BASE_URI
-            sKeywords["before"] = XQueryTokenType.K_BEFORE // Update Facility 1.0
-            sKeywords["binary"] = XQueryTokenType.K_BINARY // MarkLogic 6.0
-            sKeywords["block"] = XQueryTokenType.K_BLOCK // Scripting Extension 1.0
-            sKeywords["boolean-node"] = XQueryTokenType.K_BOOLEAN_NODE // MarkLogic 8.0
-            sKeywords["boundary-space"] = XQueryTokenType.K_BOUNDARY_SPACE
-            sKeywords["by"] = XQueryTokenType.K_BY
-            sKeywords["case"] = XQueryTokenType.K_CASE
-            sKeywords["cast"] = XQueryTokenType.K_CAST
-            sKeywords["castable"] = XQueryTokenType.K_CASTABLE
-            sKeywords["catch"] = XQueryTokenType.K_CATCH // XQuery 3.0
-            sKeywords["child"] = XQueryTokenType.K_CHILD
-            sKeywords["collation"] = XQueryTokenType.K_COLLATION
-            sKeywords["comment"] = XQueryTokenType.K_COMMENT
-            sKeywords["complex-type"] = XQueryTokenType.K_COMPLEX_TYPE // MarkLogic 7.0
-            sKeywords["construction"] = XQueryTokenType.K_CONSTRUCTION
-            sKeywords["contains"] = XQueryTokenType.K_CONTAINS // Full Text 1.0
-            sKeywords["content"] = XQueryTokenType.K_CONTENT // Full Text 1.0
-            sKeywords["context"] = XQueryTokenType.K_CONTEXT // XQuery 3.0
-            sKeywords["copy"] = XQueryTokenType.K_COPY // Update Facility 1.0
-            sKeywords["copy-namespaces"] = XQueryTokenType.K_COPY_NAMESPACES
-            sKeywords["count"] = XQueryTokenType.K_COUNT // XQuery 3.0
-            sKeywords["decimal-format"] = XQueryTokenType.K_DECIMAL_FORMAT // XQuery 3.0
-            sKeywords["decimal-separator"] = XQueryTokenType.K_DECIMAL_SEPARATOR // XQuery 3.0
-            sKeywords["declare"] = XQueryTokenType.K_DECLARE
-            sKeywords["default"] = XQueryTokenType.K_DEFAULT
-            sKeywords["delete"] = XQueryTokenType.K_DELETE // Update Facility 1.0
-            sKeywords["descendant"] = XQueryTokenType.K_DESCENDANT
-            sKeywords["descendant-or-self"] = XQueryTokenType.K_DESCENDANT_OR_SELF
-            sKeywords["descending"] = XQueryTokenType.K_DESCENDING
-            sKeywords["diacritics"] = XQueryTokenType.K_DIACRITICS // Full Text 1.0
-            sKeywords["different"] = XQueryTokenType.K_DIFFERENT // Full Text 1.0
-            sKeywords["digit"] = XQueryTokenType.K_DIGIT // XQuery 3.0
-            sKeywords["distance"] = XQueryTokenType.K_DISTANCE // Full Text 1.0
-            sKeywords["div"] = XQueryTokenType.K_DIV
-            sKeywords["document"] = XQueryTokenType.K_DOCUMENT
-            sKeywords["document-node"] = XQueryTokenType.K_DOCUMENT_NODE
-            sKeywords["element"] = XQueryTokenType.K_ELEMENT
-            sKeywords["element-decl"] = XQueryTokenType.K_ELEMENT_DECL // MarkLogic 7.0
-            sKeywords["else"] = XQueryTokenType.K_ELSE
-            sKeywords["empty"] = XQueryTokenType.K_EMPTY
-            sKeywords["empty-sequence"] = XQueryTokenType.K_EMPTY_SEQUENCE
-            sKeywords["encoding"] = XQueryTokenType.K_ENCODING
-            sKeywords["end"] = XQueryTokenType.K_END // XQuery 3.0
-            sKeywords["entire"] = XQueryTokenType.K_ENTIRE // Full Text 1.0
-            sKeywords["eq"] = XQueryTokenType.K_EQ
-            sKeywords["every"] = XQueryTokenType.K_EVERY
-            sKeywords["exactly"] = XQueryTokenType.K_EXACTLY // Full Text 1.0
-            sKeywords["except"] = XQueryTokenType.K_EXCEPT
-            sKeywords["exit"] = XQueryTokenType.K_EXIT // Scripting Extension 1.0
-            sKeywords["exponent-separator"] = XQueryTokenType.K_EXPONENT_SEPARATOR // XQuery 3.1
-            sKeywords["external"] = XQueryTokenType.K_EXTERNAL
-            sKeywords["first"] = XQueryTokenType.K_FIRST // Update Facility 1.0
-            sKeywords["following"] = XQueryTokenType.K_FOLLOWING
-            sKeywords["following-sibling"] = XQueryTokenType.K_FOLLOWING_SIBLING
-            sKeywords["for"] = XQueryTokenType.K_FOR
-            sKeywords["from"] = XQueryTokenType.K_FROM // Full Text 1.0
-            sKeywords["ft-option"] = XQueryTokenType.K_FT_OPTION // Full Text 1.0
-            sKeywords["ftand"] = XQueryTokenType.K_FTAND // Full Text 1.0
-            sKeywords["ftnot"] = XQueryTokenType.K_FTNOT // Full Text 1.0
-            sKeywords["ftor"] = XQueryTokenType.K_FTOR // Full Text 1.0
-            sKeywords["function"] = XQueryTokenType.K_FUNCTION
-            sKeywords["fuzzy"] = XQueryTokenType.K_FUZZY // BaseX 6.1
-            sKeywords["ge"] = XQueryTokenType.K_GE
-            sKeywords["greatest"] = XQueryTokenType.K_GREATEST
-            sKeywords["group"] = XQueryTokenType.K_GROUP // XQuery 3.0
-            sKeywords["grouping-separator"] = XQueryTokenType.K_GROUPING_SEPARATOR // XQuery 3.0
-            sKeywords["gt"] = XQueryTokenType.K_GT
-            sKeywords["idiv"] = XQueryTokenType.K_IDIV
-            sKeywords["if"] = XQueryTokenType.K_IF
-            sKeywords["import"] = XQueryTokenType.K_IMPORT
-            sKeywords["in"] = XQueryTokenType.K_IN
-            sKeywords["infinity"] = XQueryTokenType.K_INFINITY // XQuery 3.0
-            sKeywords["inherit"] = XQueryTokenType.K_INHERIT
-            sKeywords["insensitive"] = XQueryTokenType.K_INSENSITIVE // Full Text 1.0
-            sKeywords["insert"] = XQueryTokenType.K_INSERT // Update Facility 1.0
-            sKeywords["instance"] = XQueryTokenType.K_INSTANCE
-            sKeywords["intersect"] = XQueryTokenType.K_INTERSECT
-            sKeywords["into"] = XQueryTokenType.K_INTO // Update Facility 1.0
-            sKeywords["invoke"] = XQueryTokenType.K_INVOKE // Update Facility 3.0
-            sKeywords["is"] = XQueryTokenType.K_IS
-            sKeywords["item"] = XQueryTokenType.K_ITEM
-            sKeywords["language"] = XQueryTokenType.K_LANGUAGE // Full Text 1.0
-            sKeywords["last"] = XQueryTokenType.K_LAST // Update Facility 1.0
-            sKeywords["lax"] = XQueryTokenType.K_LAX
-            sKeywords["le"] = XQueryTokenType.K_LE
-            sKeywords["least"] = XQueryTokenType.K_LEAST
-            sKeywords["let"] = XQueryTokenType.K_LET
-            sKeywords["levels"] = XQueryTokenType.K_LEVELS // Full Text 1.0
-            sKeywords["lowercase"] = XQueryTokenType.K_LOWERCASE // Full Text 1.0
-            sKeywords["lt"] = XQueryTokenType.K_LT
-            sKeywords["map"] = XQueryTokenType.K_MAP // XQuery 3.1
-            sKeywords["minus-sign"] = XQueryTokenType.K_MINUS_SIGN // XQuery 3.0
-            sKeywords["mod"] = XQueryTokenType.K_MOD
-            sKeywords["modify"] = XQueryTokenType.K_MODIFY // Update Facility 1.0
-            sKeywords["module"] = XQueryTokenType.K_MODULE
-            sKeywords["most"] = XQueryTokenType.K_MOST // Full Text 1.0
-            sKeywords["namespace"] = XQueryTokenType.K_NAMESPACE
-            sKeywords["namespace-node"] = XQueryTokenType.K_NAMESPACE_NODE // XQuery 3.0
-            sKeywords["NaN"] = XQueryTokenType.K_NAN // XQuery 3.0
-            sKeywords["ne"] = XQueryTokenType.K_NE
-            sKeywords["next"] = XQueryTokenType.K_NEXT // XQuery 3.0
-            sKeywords["no"] = XQueryTokenType.K_NO // Full Text 1.0
-            sKeywords["no-inherit"] = XQueryTokenType.K_NO_INHERIT
-            sKeywords["no-preserve"] = XQueryTokenType.K_NO_PRESERVE
-            sKeywords["node"] = XQueryTokenType.K_NODE
-            sKeywords["nodes"] = XQueryTokenType.K_NODES // Update Facility 1.0
-            sKeywords["not"] = XQueryTokenType.K_NOT // Full Text 1.0
-            sKeywords["null-node"] = XQueryTokenType.K_NULL_NODE // MarkLogic 8.0
-            sKeywords["number-node"] = XQueryTokenType.K_NUMBER_NODE // MarkLogic 8.0
-            sKeywords["object-node"] = XQueryTokenType.K_OBJECT_NODE // MarkLogic 8.0
-            sKeywords["occurs"] = XQueryTokenType.K_OCCURS // Full Text 1.0
-            sKeywords["of"] = XQueryTokenType.K_OF
-            sKeywords["only"] = XQueryTokenType.K_ONLY // XQuery 3.0
-            sKeywords["option"] = XQueryTokenType.K_OPTION
-            sKeywords["or"] = XQueryTokenType.K_OR
-            sKeywords["order"] = XQueryTokenType.K_ORDER
-            sKeywords["ordered"] = XQueryTokenType.K_ORDERED
-            sKeywords["ordering"] = XQueryTokenType.K_ORDERING
-            sKeywords["paragraph"] = XQueryTokenType.K_PARAGRAPH // Full Text 1.0
-            sKeywords["paragraphs"] = XQueryTokenType.K_PARAGRAPHS // Full Text 1.0
-            sKeywords["parent"] = XQueryTokenType.K_PARENT
-            sKeywords["pattern-separator"] = XQueryTokenType.K_PATTERN_SEPARATOR // XQuery 3.0
-            sKeywords["per-mille"] = XQueryTokenType.K_PER_MILLE // XQuery 3.0
-            sKeywords["percent"] = XQueryTokenType.K_PERCENT // XQuery 3.0
-            sKeywords["phrase"] = XQueryTokenType.K_PHRASE // Full Text 1.0
-            sKeywords["preceding"] = XQueryTokenType.K_PRECEDING
-            sKeywords["preceding-sibling"] = XQueryTokenType.K_PRECEDING_SIBLING
-            sKeywords["preserve"] = XQueryTokenType.K_PRESERVE
-            sKeywords["previous"] = XQueryTokenType.K_PREVIOUS // XQuery 3.0
-            sKeywords["private"] = XQueryTokenType.K_PRIVATE // MarkLogic 6.0
-            sKeywords["processing-instruction"] = XQueryTokenType.K_PROCESSING_INSTRUCTION
-            sKeywords["property"] = XQueryTokenType.K_PROPERTY // MarkLogic 6.0
-            sKeywords["public"] = XQueryTokenType.K_PUBLIC // XQuery 3.0 (§4.15 -- Annotations)
-            sKeywords["relationship"] = XQueryTokenType.K_RELATIONSHIP // Full Text 1.0
-            sKeywords["rename"] = XQueryTokenType.K_RENAME // Update Facility 1.0
-            sKeywords["replace"] = XQueryTokenType.K_REPLACE // Update Facility 1.0
-            sKeywords["return"] = XQueryTokenType.K_RETURN
-            sKeywords["returning"] = XQueryTokenType.K_RETURNING // Scripting Extension 1.0
-            sKeywords["revalidation"] = XQueryTokenType.K_REVALIDATION // Update Facility 1.0
-            sKeywords["same"] = XQueryTokenType.K_SAME // Full Text 1.0
-            sKeywords["satisfies"] = XQueryTokenType.K_SATISFIES
-            sKeywords["schema"] = XQueryTokenType.K_SCHEMA
-            sKeywords["schema-attribute"] = XQueryTokenType.K_SCHEMA_ATTRIBUTE
-            sKeywords["schema-component"] = XQueryTokenType.K_SCHEMA_COMPONENT // MarkLogic 7.0
-            sKeywords["schema-element"] = XQueryTokenType.K_SCHEMA_ELEMENT
-            sKeywords["schema-facet"] = XQueryTokenType.K_SCHEMA_FACET // MarkLogic 8.0
-            sKeywords["schema-particle"] = XQueryTokenType.K_SCHEMA_PARTICLE // MarkLogic 7.0
-            sKeywords["schema-root"] = XQueryTokenType.K_SCHEMA_ROOT // MarkLogic 7.0
-            sKeywords["schema-type"] = XQueryTokenType.K_SCHEMA_TYPE // MarkLogic 7.0
-            sKeywords["score"] = XQueryTokenType.K_SCORE // Full Text 1.0
-            sKeywords["self"] = XQueryTokenType.K_SELF
-            sKeywords["sensitive"] = XQueryTokenType.K_SENSITIVE // Full Text 1.0
-            sKeywords["sentence"] = XQueryTokenType.K_SENTENCE // Full Text 1.0
-            sKeywords["sentences"] = XQueryTokenType.K_SENTENCES // Full Text 1.0
-            sKeywords["sequential"] = XQueryTokenType.K_SEQUENTIAL // Scripting Extension 1.0
-            sKeywords["simple"] = XQueryTokenType.K_SIMPLE // Scripting Extension 1.0
-            sKeywords["simple-type"] = XQueryTokenType.K_SIMPLE_TYPE // MarkLogic 7.0
-            sKeywords["skip"] = XQueryTokenType.K_SKIP // Update Facility 1.0
-            sKeywords["sliding"] = XQueryTokenType.K_SLIDING // XQuery 3.0
-            sKeywords["some"] = XQueryTokenType.K_SOME
-            sKeywords["stable"] = XQueryTokenType.K_STABLE
-            sKeywords["start"] = XQueryTokenType.K_START // XQuery 3.0
-            sKeywords["stemming"] = XQueryTokenType.K_STEMMING // Full Text 1.0
-            sKeywords["stop"] = XQueryTokenType.K_STOP // Full Text 1.0
-            sKeywords["strict"] = XQueryTokenType.K_STRICT
-            sKeywords["strip"] = XQueryTokenType.K_STRIP
-            sKeywords["stylesheet"] = XQueryTokenType.K_STYLESHEET // MarkLogic 6.0
-            sKeywords["switch"] = XQueryTokenType.K_SWITCH // XQuery 3.0
-            sKeywords["text"] = XQueryTokenType.K_TEXT
-            sKeywords["then"] = XQueryTokenType.K_THEN
-            sKeywords["thesaurus"] = XQueryTokenType.K_THESAURUS // Full Text 1.0
-            sKeywords["times"] = XQueryTokenType.K_TIMES // Full Text 1.0
-            sKeywords["to"] = XQueryTokenType.K_TO
-            sKeywords["transform"] = XQueryTokenType.K_TRANSFORM // Update Facility 3.0
-            sKeywords["treat"] = XQueryTokenType.K_TREAT
-            sKeywords["try"] = XQueryTokenType.K_TRY // XQuery 3.0
-            sKeywords["tumbling"] = XQueryTokenType.K_TUMBLING // XQuery 3.0
-            sKeywords["tuple"] = XQueryTokenType.K_TUPLE // Saxon 9.8
-            sKeywords["type"] = XQueryTokenType.K_TYPE // XQuery 3.0
-            sKeywords["typeswitch"] = XQueryTokenType.K_TYPESWITCH
-            sKeywords["unassignable"] = XQueryTokenType.K_UNASSIGNABLE // Scripting Extension 1.0
-            sKeywords["union"] = XQueryTokenType.K_UNION
-            sKeywords["unordered"] = XQueryTokenType.K_UNORDERED
-            sKeywords["update"] = XQueryTokenType.K_UPDATE // BaseX 7.8
-            sKeywords["updating"] = XQueryTokenType.K_UPDATING // Update Facility 1.0
-            sKeywords["uppercase"] = XQueryTokenType.K_UPPERCASE // Full Text 1.0
-            sKeywords["using"] = XQueryTokenType.K_USING // Full Text 1.0
-            sKeywords["validate"] = XQueryTokenType.K_VALIDATE
-            sKeywords["value"] = XQueryTokenType.K_VALUE // Update Facility 1.0
-            sKeywords["variable"] = XQueryTokenType.K_VARIABLE
-            sKeywords["version"] = XQueryTokenType.K_VERSION
-            sKeywords["weight"] = XQueryTokenType.K_WEIGHT // Full Text 1.0
-            sKeywords["when"] = XQueryTokenType.K_WHEN // XQuery 3.0
-            sKeywords["where"] = XQueryTokenType.K_WHERE
-            sKeywords["while"] = XQueryTokenType.K_WHILE // Scripting Extension 1.0
-            sKeywords["wildcards"] = XQueryTokenType.K_WILDCARDS // Full Text 1.0
-            sKeywords["window"] = XQueryTokenType.K_WINDOW // XQuery 3.0; Full Text 1.0
-            sKeywords["with"] = XQueryTokenType.K_WITH // Update Facility 1.0
-            sKeywords["without"] = XQueryTokenType.K_WITHOUT // Full Text 1.0
-            sKeywords["word"] = XQueryTokenType.K_WORD // Full Text 1.0
-            sKeywords["words"] = XQueryTokenType.K_WORDS // Full Text 1.0
-            sKeywords["xquery"] = XQueryTokenType.K_XQUERY
-            sKeywords["zero-digit"] = XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
-        }
     }
 
     // endregion
