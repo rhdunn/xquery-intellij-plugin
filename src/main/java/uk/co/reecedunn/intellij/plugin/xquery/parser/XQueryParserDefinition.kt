@@ -27,6 +27,8 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
@@ -34,8 +36,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 class XQueryParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
-        lexer.addState(XQueryLexer(), 0x50000000, 0, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-        lexer.addState(XQueryLexer(), 0x60000000, 0, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
+        lexer.addState(XQueryLexer(), 0x50000000, 0, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
+        lexer.addState(XQueryLexer(), 0x60000000, 0, STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
         return lexer
     }
 

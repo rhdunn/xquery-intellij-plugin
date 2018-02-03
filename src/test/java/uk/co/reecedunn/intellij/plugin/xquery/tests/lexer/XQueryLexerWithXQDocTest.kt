@@ -20,13 +20,14 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_XQUERY_COMMENT
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryLexerWithXQDocTest : LexerTestCase() {
     private fun createLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
-        lexer.addState(XQDocLexer(), 0x70000000, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT)
+        lexer.addState(XQDocLexer(), 0x70000000, STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT)
         return lexer
     }
 

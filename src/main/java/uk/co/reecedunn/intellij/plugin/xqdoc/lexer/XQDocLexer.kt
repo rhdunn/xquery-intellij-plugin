@@ -24,6 +24,18 @@ import java.util.EmptyStackException
 import java.util.HashMap
 import java.util.Stack
 
+private const val STATE_DEFAULT = 0
+private const val STATE_CONTENTS = 1
+private const val STATE_TAGGED_CONTENTS = 2
+private const val STATE_ELEM_CONSTRUCTOR = 3
+private const val STATE_ELEM_CONTENTS = 4
+private const val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
+private const val STATE_ATTRIBUTE_VALUE_QUOTE = 6
+private const val STATE_ATTRIBUTE_VALUE_APOS = 7
+private const val STATE_TRIM = 8
+private const val STATE_PARAM_TAG_CONTENTS_START = 9
+private const val STATE_PARAM_TAG_VARNAME = 10
+
 class XQDocLexer : LexerBase() {
     private val mTokenRange: CodePointRange = CodePointRange()
     private var mState: Int = 0
@@ -439,22 +451,10 @@ class XQDocLexer : LexerBase() {
 
     override fun getBufferEnd(): Int = mTokenRange.bufferEnd
 
+    // endregion
+    // region Special Tag Names
+
     companion object {
-        private val STATE_DEFAULT = 0
-        private val STATE_CONTENTS = 1
-        private val STATE_TAGGED_CONTENTS = 2
-        private val STATE_ELEM_CONSTRUCTOR = 3
-        private val STATE_ELEM_CONTENTS = 4
-        private val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
-        private val STATE_ATTRIBUTE_VALUE_QUOTE = 6
-        private val STATE_ATTRIBUTE_VALUE_APOS = 7
-        private val STATE_TRIM = 8
-        private val STATE_PARAM_TAG_CONTENTS_START = 9
-        private val STATE_PARAM_TAG_VARNAME = 10
-
-        // endregion
-        // region Special Tag Names
-
         private val sTagNames = HashMap<String, IElementType>()
         init {
             sTagNames["author"] = XQDocTokenType.T_AUTHOR

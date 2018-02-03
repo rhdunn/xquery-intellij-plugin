@@ -24,6 +24,39 @@ import java.util.EmptyStackException
 import java.util.HashMap
 import java.util.Stack
 
+private const val STATE_DEFAULT = 0
+private const val STATE_STRING_LITERAL_QUOTE = 1
+private const val STATE_STRING_LITERAL_APOSTROPHE = 2
+private const val STATE_DOUBLE_EXPONENT = 3
+const val STATE_XQUERY_COMMENT = 4
+private const val STATE_XML_COMMENT = 5
+private const val STATE_UNEXPECTED_END_OF_BLOCK = 6
+private const val STATE_CDATA_SECTION = 7
+private const val STATE_PRAGMA_PRE_QNAME = 8
+private const val STATE_PRAGMA_QNAME = 9
+private const val STATE_PRAGMA_CONTENTS = 10
+private const val STATE_DIR_ELEM_CONSTRUCTOR = 11
+private const val STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12
+private const val STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13
+private const val STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE = 14
+private const val STATE_DEFAULT_ATTRIBUTE_QUOT = 15
+private const val STATE_DEFAULT_ATTRIBUTE_APOSTROPHE = 16
+private const val STATE_DIR_ELEM_CONTENT = 17
+private const val STATE_DEFAULT_ELEM_CONTENT = 18
+private const val STATE_XML_COMMENT_ELEM_CONTENT = 19
+private const val STATE_CDATA_SECTION_ELEM_CONTENT = 20
+private const val STATE_PROCESSING_INSTRUCTION = 21
+private const val STATE_PROCESSING_INSTRUCTION_CONTENTS = 22
+private const val STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23
+private const val STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24
+private const val STATE_DIR_ATTRIBUTE_LIST = 25
+private const val STATE_BRACED_URI_LITERAL = 26
+private const val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
+private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
+const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
+const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
+private const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
+
 class XQueryLexer : LexerBase() {
     private val mTokenRange: CodePointRange
     private var mState: Int = 0
@@ -1367,46 +1400,11 @@ class XQueryLexer : LexerBase() {
         return mTokenRange.bufferEnd
     }
 
+    // endregion
+    // region Keywords
+
     companion object {
-
-        private val STATE_DEFAULT = 0
-        private val STATE_STRING_LITERAL_QUOTE = 1
-        private val STATE_STRING_LITERAL_APOSTROPHE = 2
-        private val STATE_DOUBLE_EXPONENT = 3
-        val STATE_XQUERY_COMMENT = 4
-        private val STATE_XML_COMMENT = 5
-        private val STATE_UNEXPECTED_END_OF_BLOCK = 6
-        private val STATE_CDATA_SECTION = 7
-        private val STATE_PRAGMA_PRE_QNAME = 8
-        private val STATE_PRAGMA_QNAME = 9
-        private val STATE_PRAGMA_CONTENTS = 10
-        private val STATE_DIR_ELEM_CONSTRUCTOR = 11
-        private val STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12
-        private val STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13
-        private val STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE = 14
-        private val STATE_DEFAULT_ATTRIBUTE_QUOT = 15
-        private val STATE_DEFAULT_ATTRIBUTE_APOSTROPHE = 16
-        private val STATE_DIR_ELEM_CONTENT = 17
-        private val STATE_DEFAULT_ELEM_CONTENT = 18
-        private val STATE_XML_COMMENT_ELEM_CONTENT = 19
-        private val STATE_CDATA_SECTION_ELEM_CONTENT = 20
-        private val STATE_PROCESSING_INSTRUCTION = 21
-        private val STATE_PROCESSING_INSTRUCTION_CONTENTS = 22
-        private val STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23
-        private val STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24
-        private val STATE_DIR_ATTRIBUTE_LIST = 25
-        private val STATE_BRACED_URI_LITERAL = 26
-        private val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
-        private val STATE_DEFAULT_STRING_INTERPOLATION = 28
-        val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
-        val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
-        private val STATE_BRACED_URI_LITERAL_PRAGMA = 31
-
-        // endregion
-        // region Keywords
-
         private val sKeywords = HashMap<String, IElementType>()
-
         init {
             sKeywords["after"] = XQueryTokenType.K_AFTER // Update Facility 1.0
             sKeywords["all"] = XQueryTokenType.K_ALL // Full Text 1.0
