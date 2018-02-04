@@ -332,20 +332,11 @@ class XQueryLexer : LexerBase() {
                     return
                 } else {
                     mTokenRange.restore()
-                    cc = CharacterClass.DOT
-                    // Fall Through
+                    mType = XQueryTokenType.DECIMAL_LITERAL
                 }
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
-                if (cc != CharacterClass.DOT && CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DOT) {
-                    mTokenRange.match()
-                    while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                        mTokenRange.match()
-                    mType = XQueryTokenType.DECIMAL_LITERAL
-                } else {
-                    mType = if (cc == CharacterClass.DOT) XQueryTokenType.DECIMAL_LITERAL else XQueryTokenType.INTEGER_LITERAL
-                }
                 c = mTokenRange.codePoint
                 if (c == 'e'.toInt() || c == 'E'.toInt()) {
                     mTokenRange.save()
