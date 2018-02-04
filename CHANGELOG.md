@@ -5,9 +5,6 @@
 Language Support:
 
 1.  Support using MarkLogic 8.0 `array-node()` and `object-node()` tests in `document-node()` tests.
-
-Bug Fixes:
-
 1.  Fix parsing Saxon 9.8 `tuple` types with whitespace or comments after the
     item type with an occurrence indicator and before the comma.
 1.  Fix parsing Saxon 9.8 `union` types with whitespace or comments after the
@@ -16,6 +13,10 @@ Bug Fixes:
     item type with an occurrence indicator and before the comma.
 1.  Improve error recovery when parsing incomplete QNames in direct element constructor
     start and end tags, e.g. `<a:></a:>`.
+1.  Fix tokenizing ``` ``[...`]`` ```.
+
+References and Resolving:
+
 1.  Only the variable for the active `typeswitch` `case`/`default` clause should be in scope.
 1.  Fix `for`/`let` bindings so previous binding variables are visible from the `in` expression.
 1.  Fix checking multiple declared variables in a Scripting Extensions `BlockVarDecl` node.

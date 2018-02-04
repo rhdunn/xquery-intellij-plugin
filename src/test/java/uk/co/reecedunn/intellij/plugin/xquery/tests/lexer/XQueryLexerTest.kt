@@ -3942,6 +3942,12 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "One]Two", 27, 3, 10, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
         matchToken(lexer, "]``", 0, 10, 13, XQueryTokenType.STRING_CONSTRUCTOR_END)
         matchToken(lexer, "", 0, 13, 13, null)
+
+        lexer.start("``[`]``")
+        matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
+        matchToken(lexer, "`", 27, 3, 4, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+        matchToken(lexer, "]``", 0, 4, 7, XQueryTokenType.STRING_CONSTRUCTOR_END)
+        matchToken(lexer, "", 0, 7, 7, null)
     }
 
     // endregion

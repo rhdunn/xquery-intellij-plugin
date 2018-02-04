@@ -1374,6 +1374,8 @@ class XQueryLexer : LexerBase() {
                     mTokenRange.restore()
                     mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
                     return
+                } else {
+                    mTokenRange.restore()
                 }
             }
             mTokenRange.match()
