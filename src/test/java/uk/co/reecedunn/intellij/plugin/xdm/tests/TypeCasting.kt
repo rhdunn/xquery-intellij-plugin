@@ -29,6 +29,248 @@ import java.math.BigInteger
 import java.util.*
 
 class TypeCasting : TestCase() {
+    // region Primitive Types :: xs:double
+    //
+    // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
+    // Reference: https://www.w3.org/TR/xmlschema11-2/#double
+
+    fun testXsDouble_FromXsDouble() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast(1.23, XsDouble)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(1.23))
+    }
+
+    fun testXsDouble_FromXsFloat() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast(1.23f, XsFloat)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(1.2300000190734863))
+    }
+
+    fun testXsDouble_FromXsDecimal() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast(BigDecimal("1.23"), XsDecimal)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(1.23))
+    }
+
+    fun testXsDouble_FromXsInteger() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast(BigInteger.valueOf(123), XsInteger)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(123.0))
+    }
+
+    fun testXsDouble_FromXsBoolean() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast(true, XsBoolean)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(1.0))
+
+        result = XsDouble.cast(false, XsBoolean)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(0.0))
+    }
+
+    fun testXsDouble_FromXsString() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("12", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(12.0))
+
+        result = XsDouble.cast("-1.23", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(-1.23))
+
+        result = XsDouble.cast("2.3e8", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(2.3e8))
+    }
+
+    fun testXsDouble_FromXsString_Zero() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("-0", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(-0.0))
+
+        result = XsDouble.cast("0", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(0.0))
+
+        result = XsDouble.cast("+0", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(0.0))
+    }
+
+    fun testXsDouble_FromXsString_Infinity() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("-INF", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.NEGATIVE_INFINITY))
+
+        result = XsDouble.cast("INF", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.POSITIVE_INFINITY))
+
+        // Valid in XSD 1.1, and MarkLogic; Invalid in BaseX.
+        result = XsDouble.cast("+INF", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.POSITIVE_INFINITY))
+    }
+
+    fun testXsDouble_FromXsString_NaN() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("NaN", XsString)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.NaN))
+    }
+
+    fun testXsDouble_FromXsString_InvalidPattern() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("()", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:double'."))
+
+        result = XsDouble.cast("true", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:double'."))
+    }
+
+    fun testXsDouble_FromXsUntypedAtomic() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("12", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(12.0))
+
+        result = XsDouble.cast("-1.23", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(-1.23))
+
+        result = XsDouble.cast("2.3e8", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(2.3e8))
+    }
+
+    fun testXsDouble_FromXsUntypedAtomic_Zero() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("-0", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(-0.0))
+
+        result = XsDouble.cast("0", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(0.0))
+
+        result = XsDouble.cast("+0", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(0.0))
+    }
+
+    fun testXsDouble_FromXsUntypedAtomic_Infinity() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("-INF", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.NEGATIVE_INFINITY))
+
+        result = XsDouble.cast("INF", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.POSITIVE_INFINITY))
+
+        // Valid in XSD 1.1, and MarkLogic; Invalid in BaseX.
+        result = XsDouble.cast("+INF", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.POSITIVE_INFINITY))
+    }
+
+    fun testXsDouble_FromXsUntypedAtomic_NaN() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("NaN", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDouble as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Double::class.java)))
+        assertThat(result.value as Double, `is`(Double.NaN))
+    }
+
+    fun testXsDouble_FromXsUntypedAtomic_InvalidPattern() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast("()", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:double'."))
+
+        result = XsDouble.cast("true", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:double'."))
+    }
+
+    fun testXsDouble_FromIncompatiblePrimitiveType() {
+        var result: XdmTypeCastResult
+
+        result = XsDouble.cast(Date(), XsDate)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(XPTY0004))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("Incompatible types when casting 'xs:date' to 'xs:double'."))
+    }
+
+    // endregion
     // region Primitive Types :: xs:boolean
     //
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-boolean
