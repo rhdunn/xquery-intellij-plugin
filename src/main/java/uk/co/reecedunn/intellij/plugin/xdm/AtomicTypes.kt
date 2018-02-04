@@ -45,7 +45,37 @@ val XsYearMonthDuration = XdmAtomicType(xs("yearMonthDuration"), XsDuration)
 
 val XsDayTimeDuration = XdmAtomicType(xs("dayTimeDuration"), XsDuration)
 
-val XsFloat = XdmAtomicType(xs("float"), XsAnyAtomicType)
+object XsFloat : XdmAtomicType(xs("float"), XsAnyAtomicType) {
+    // @see https://www.w3.org/TR/xpath-functions/#casting-to-numerics
+    // @see https://www.w3.org/TR/xmlschema11-2/#float
+    override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+        return when (type) {
+            XsFloat ->
+                XdmTypeCastResult(value, type)
+            XsDouble ->
+                XdmTypeCastResult((value as Double).toFloat(), XsFloat)
+            XsDecimal, XsInteger ->
+                XdmTypeCastResult(value.toString().toFloat(), XsFloat)
+            XsBoolean ->
+                XdmTypeCastResult(if (value as Boolean) 1.0f else 0.0f, XsFloat)
+            XsString, XsUntypedAtomic -> {
+                val v = value as String
+                when (v) {
+                    // NOTE: `[+-]INF` results in NumberFormatException errors in `toDouble`.
+                    "-INF" -> XdmTypeCastResult(Float.NEGATIVE_INFINITY, XsFloat)
+                    "+INF", "INF" -> XdmTypeCastResult(Float.POSITIVE_INFINITY, XsFloat)
+                    else ->
+                        try {
+                            XdmTypeCastResult(v.toFloat(), XsFloat)
+                        } catch (e: NumberFormatException) {
+                            createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
+                        }
+                }
+            }
+            else -> createCastError(XPTY0004, "fnerror.XPTY0004.incompatible-types", type, this)
+        }
+    }
+}
 
 object XsDouble : XdmAtomicType(xs("double"), XsAnyAtomicType) {
     // @see https://www.w3.org/TR/xpath-functions/#casting-to-numerics

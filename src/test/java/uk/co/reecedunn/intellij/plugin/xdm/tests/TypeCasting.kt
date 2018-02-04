@@ -29,6 +29,248 @@ import java.math.BigInteger
 import java.util.*
 
 class TypeCasting : TestCase() {
+    // region Primitive Types :: xs:float
+    //
+    // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
+    // Reference: https://www.w3.org/TR/xmlschema11-2/#float
+
+    fun testXsFloat_FromXsFloat() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast(1.23f, XsFloat)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(1.23f))
+    }
+
+    fun testXsFloat_FromXsDouble() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast(1.2300000190734863, XsDouble)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(1.23f))
+    }
+
+    fun testXsFloat_FromXsDecimal() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast(BigDecimal("1.23"), XsDecimal)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(1.23f))
+    }
+
+    fun testXsFloat_FromXsInteger() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast(BigInteger.valueOf(123), XsInteger)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(123.0f))
+    }
+
+    fun testXsFloat_FromXsBoolean() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast(true, XsBoolean)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(1.0f))
+
+        result = XsFloat.cast(false, XsBoolean)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(0.0f))
+    }
+
+    fun testXsFloat_FromXsString() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("12", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(12.0f))
+
+        result = XsFloat.cast("-1.23", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(-1.23f))
+
+        result = XsFloat.cast("2.3e8", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(2.3e8f))
+    }
+
+    fun testXsFloat_FromXsString_Zero() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("-0", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(-0.0f))
+
+        result = XsFloat.cast("0", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(0.0f))
+
+        result = XsFloat.cast("+0", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(0.0f))
+    }
+
+    fun testXsFloat_FromXsString_Infinity() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("-INF", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.NEGATIVE_INFINITY))
+
+        result = XsFloat.cast("INF", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.POSITIVE_INFINITY))
+
+        // Valid in XSD 1.1, and MarkLogic; Invalid in BaseX.
+        result = XsFloat.cast("+INF", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.POSITIVE_INFINITY))
+    }
+
+    fun testXsFloat_FromXsString_NaN() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("NaN", XsString)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.NaN))
+    }
+
+    fun testXsFloat_FromXsString_InvalidPattern() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("()", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:float'."))
+
+        result = XsFloat.cast("true", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:float'."))
+    }
+
+    fun testXsFloat_FromXsUntypedAtomic() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("12", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(12.0f))
+
+        result = XsFloat.cast("-1.23", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(-1.23f))
+
+        result = XsFloat.cast("2.3e8", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(2.3e8f))
+    }
+
+    fun testXsFloat_FromXsUntypedAtomic_Zero() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("-0", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(-0.0f))
+
+        result = XsFloat.cast("0", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(0.0f))
+
+        result = XsFloat.cast("+0", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(0.0f))
+    }
+
+    fun testXsFloat_FromXsUntypedAtomic_Infinity() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("-INF", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.NEGATIVE_INFINITY))
+
+        result = XsFloat.cast("INF", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.POSITIVE_INFINITY))
+
+        // Valid in XSD 1.1, and MarkLogic; Invalid in BaseX.
+        result = XsFloat.cast("+INF", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.POSITIVE_INFINITY))
+    }
+
+    fun testXsFloat_FromXsUntypedAtomic_NaN() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("NaN", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsFloat as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Float::class.java)))
+        assertThat(result.value as Float, `is`(Float.NaN))
+    }
+
+    fun testXsFloat_FromXsUntypedAtomic_InvalidPattern() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast("()", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:float'."))
+
+        result = XsFloat.cast("true", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:float'."))
+    }
+
+    fun testXsFloat_FromIncompatiblePrimitiveType() {
+        var result: XdmTypeCastResult
+
+        result = XsFloat.cast(Date(), XsDate)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(XPTY0004))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("Incompatible types when casting 'xs:date' to 'xs:float'."))
+    }
+
+    // endregion
     // region Primitive Types :: xs:double
     //
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
