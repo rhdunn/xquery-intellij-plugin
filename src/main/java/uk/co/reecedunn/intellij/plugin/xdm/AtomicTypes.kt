@@ -113,7 +113,7 @@ object XsBoolean : XdmAtomicType(xs("boolean"), XsAnyAtomicType) {
         return when (type) {
             XsBoolean ->
                 XdmTypeCastResult(value, type)
-            XsString, XsUntypedAtomic -> when (value.toString()) {
+            XsString, XsUntypedAtomic -> when (value as String) {
                 "0", "false" -> XdmTypeCastResult(false, XsBoolean)
                 "1", "true"  -> XdmTypeCastResult(true,  XsBoolean)
                 else -> createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)

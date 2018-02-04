@@ -188,26 +188,6 @@ class TypeCasting : TestCase() {
         assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
         assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
         assertThat(result.value as Boolean, `is`(true))
-
-        result = XsBoolean.cast(0, XsUntypedAtomic)
-        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
-        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
-        assertThat(result.value as Boolean, `is`(false))
-
-        result = XsBoolean.cast(1, XsUntypedAtomic)
-        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
-        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
-        assertThat(result.value as Boolean, `is`(true))
-
-        result = XsBoolean.cast(false, XsUntypedAtomic)
-        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
-        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
-        assertThat(result.value as Boolean, `is`(false))
-
-        result = XsBoolean.cast(true, XsUntypedAtomic)
-        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
-        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
-        assertThat(result.value as Boolean, `is`(true))
     }
 
     fun testXsBoolean_FromXsUntypedAtomic_InvalidPattern() {
@@ -230,14 +210,6 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:boolean'."))
 
         result = XsBoolean.cast("True", XsUntypedAtomic)
-        assertThat(result.type, `is`(FnError as XdmSequenceType))
-        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
-        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
-        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
-        assertThat((result.value as FnErrorObject).description?.staticValue as String,
-                `is`("The value does not match the lexical representation for 'xs:boolean'."))
-
-        result = XsBoolean.cast(2, XsUntypedAtomic)
         assertThat(result.type, `is`(FnError as XdmSequenceType))
         assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
         assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
