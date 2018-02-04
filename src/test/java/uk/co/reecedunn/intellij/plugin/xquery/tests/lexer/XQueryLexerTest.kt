@@ -3927,6 +3927,23 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
+    fun testStringConstructorInterpolation_InterpolationMarkersOutsideStringConstructor() {
+        val lexer = createLexer()
+
+        // String interpolation marker is only valid in string interpolation contexts.
+        lexer.start("`{")
+        matchToken(lexer, "`", 0, 0, 1, XQueryTokenType.INVALID)
+        matchToken(lexer, "{", 0, 1, 2, XQueryTokenType.BLOCK_OPEN)
+        matchToken(lexer, "", 0, 2, 2, null)
+
+        // String interpolation marker is only valid in string interpolation contexts.
+        lexer.start("}`")
+        matchToken(lexer, "}", 0, 0, 1, XQueryTokenType.BLOCK_CLOSE)
+        matchToken(lexer, "`", 0, 1, 2, XQueryTokenType.INVALID)
+        matchToken(lexer, "", 0, 2, 2, null)
+    }
+
+    @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
     fun testStringConstructorInterpolation() {
         val lexer = createLexer()
 

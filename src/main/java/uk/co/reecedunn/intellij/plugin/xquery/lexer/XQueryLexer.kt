@@ -709,10 +709,6 @@ class XQueryLexer : LexerBase() {
                     } else {
                         mType = XQueryTokenType.INVALID
                     }
-                } else if (c == '{'.toInt()) {
-                    mTokenRange.match()
-                    pushState(mState)
-                    mType = XQueryTokenType.STRING_INTERPOLATION_OPEN
                 } else {
                     mType = XQueryTokenType.INVALID
                 }
