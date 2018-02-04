@@ -18,20 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xdm.datatype
 import uk.co.reecedunn.intellij.plugin.xdm.err
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 
-/**
- * Unspecified error.
- */
-val FOER0000 = err("FOER0000")
-
-/**
- * Cannot cast to 'type'.
- */
-val FORG0001 = err("FORG0001")
-
-/**
- * Cannot use 'type' here.
- */
-val XPTY0004 = err("XPTY0004")
+val FOCA0002 = err("FOCA0002") // Cannot cast to 'type'. (Invalid lexical value.)
+val FOER0000 = err("FOER0000") // Unspecified error.
+val FORG0001 = err("FORG0001") // Cannot cast to 'type'. (Generic cast error.)
+val XPTY0004 = err("XPTY0004") // Cannot use 'type' here.
 
 data class FnErrorObject(val code: QName,
                          val description: XdmStaticValue?,

@@ -19,6 +19,7 @@ import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.FOCA0002
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
@@ -510,6 +511,208 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.staticValue as String,
                 `is`("Incompatible types when casting 'xs:date' to 'xs:double'."))
+    }
+
+    // endregion
+    // region Primitive Types :: xs:decimal
+    //
+    // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
+    // Reference: https://www.w3.org/TR/xmlschema11-2/#decimal
+
+    fun testXsDecimal_FromXsDecimal() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast(BigDecimal("1.23"), XsDecimal)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal("1.23")))
+    }
+
+    fun testXsDecimal_FromXsInteger() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast(BigInteger("123"), XsInteger)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal(BigInteger("123"))))
+    }
+
+    fun testXsDecimal_FromXsFloat() {
+        var result: XdmTypeCastResult
+
+        // NOTE: The exact behaviour (re: rounding) is implementation dependent.
+        result = XsDecimal.cast(1.23f, XsFloat)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal("1.230000019073486328125")))
+
+        result = XsDecimal.cast(Float.NaN, XsFloat)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FOCA0002))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast(Float.POSITIVE_INFINITY, XsFloat)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FOCA0002))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast(Float.NEGATIVE_INFINITY, XsFloat)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FOCA0002))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+    }
+
+    fun testXsDecimal_FromXsDouble() {
+        var result: XdmTypeCastResult
+
+        // NOTE: The exact behaviour (re: rounding) is implementation dependent.
+        result = XsDecimal.cast(1.23, XsDouble)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal("1.229999999999999982236431605997495353221893310546875")))
+
+        result = XsDecimal.cast(Double.NaN, XsDouble)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FOCA0002))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast(Double.POSITIVE_INFINITY, XsDouble)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FOCA0002))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast(Double.NEGATIVE_INFINITY, XsDouble)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FOCA0002))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+    }
+
+    fun testXsDecimal_FromXsBoolean() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast(true, XsBoolean)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal.ONE))
+
+        result = XsDecimal.cast(false, XsBoolean)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal.ZERO))
+    }
+
+    fun testXsDecimal_FromXsString() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast("12", XsString)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal.valueOf(12)))
+
+        result = XsDecimal.cast("-1.23", XsString)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal.valueOf(-1.23)))
+    }
+
+    fun testXsDecimal_FromXsString_InvalidPattern() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast("()", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast("true", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast("2e8", XsString)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+    }
+
+    fun testXsDecimal_FromXsUntypedAtomic() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast("12", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal.valueOf(12)))
+
+        result = XsDecimal.cast("-1.23", XsUntypedAtomic)
+        assertThat(result.type, `is`(XsDecimal as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(BigDecimal::class.java)))
+        assertThat(result.value as BigDecimal, `is`(BigDecimal.valueOf(-1.23)))
+    }
+
+    fun testXsDecimal_FromXsUntypedAtomic_InvalidPattern() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast("()", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast("true", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+
+        result = XsDecimal.cast("2e8", XsUntypedAtomic)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(FORG0001))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("The value does not match the lexical representation for 'xs:decimal'."))
+    }
+
+    fun testXsDecimal_FromIncompatiblePrimitiveType() {
+        var result: XdmTypeCastResult
+
+        result = XsDecimal.cast(Date(), XsDate)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(XPTY0004))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.staticValue as String,
+                `is`("Incompatible types when casting 'xs:date' to 'xs:decimal'."))
     }
 
     // endregion

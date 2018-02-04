@@ -21,6 +21,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.FOCA0002
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
@@ -50,14 +51,10 @@ object XsFloat : XdmAtomicType(xs("float"), XsAnyAtomicType) {
     // @see https://www.w3.org/TR/xmlschema11-2/#float
     override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return when (type) {
-            XsFloat ->
-                XdmTypeCastResult(value, type)
-            XsDouble ->
-                XdmTypeCastResult((value as Double).toFloat(), XsFloat)
-            XsDecimal, XsInteger ->
-                XdmTypeCastResult(value.toString().toFloat(), XsFloat)
-            XsBoolean ->
-                XdmTypeCastResult(if (value as Boolean) 1.0f else 0.0f, XsFloat)
+            XsFloat -> XdmTypeCastResult(value, type)
+            XsDouble -> XdmTypeCastResult((value as Double).toFloat(), XsFloat)
+            XsDecimal, XsInteger -> XdmTypeCastResult(value.toString().toFloat(), XsFloat)
+            XsBoolean -> XdmTypeCastResult(if (value as Boolean) 1.0f else 0.0f, XsFloat)
             XsString, XsUntypedAtomic -> {
                 val v = value as String
                 when (v) {
@@ -82,14 +79,10 @@ object XsDouble : XdmAtomicType(xs("double"), XsAnyAtomicType) {
     // @see https://www.w3.org/TR/xmlschema11-2/#double
     override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return when (type) {
-            XsDouble ->
-                XdmTypeCastResult(value, type)
-            XsFloat ->
-                XdmTypeCastResult((value as Float).toDouble(), XsDouble)
-            XsDecimal, XsInteger ->
-                XdmTypeCastResult(value.toString().toDouble(), XsDouble)
-            XsBoolean ->
-                XdmTypeCastResult(if (value as Boolean) 1.0 else 0.0, XsDouble)
+            XsDouble -> XdmTypeCastResult(value, type)
+            XsFloat -> XdmTypeCastResult((value as Float).toDouble(), XsDouble)
+            XsDecimal, XsInteger -> XdmTypeCastResult(value.toString().toDouble(), XsDouble)
+            XsBoolean -> XdmTypeCastResult(if (value as Boolean) 1.0 else 0.0, XsDouble)
             XsString, XsUntypedAtomic -> {
                 val v = value as String
                 when (v) {
@@ -109,7 +102,37 @@ object XsDouble : XdmAtomicType(xs("double"), XsAnyAtomicType) {
     }
 }
 
-val XsDecimal = XdmAtomicType(xs("decimal"), XsAnyAtomicType)
+object XsDecimal : XdmAtomicType(xs("decimal"), XsAnyAtomicType) {
+    // @see https://www.w3.org/TR/xpath-functions/#casting-to-numerics
+    // @see https://www.w3.org/TR/xmlschema11-2/#decimal
+    override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+        return when (type) {
+            XsDecimal -> XdmTypeCastResult(value, type)
+            XsInteger -> XdmTypeCastResult(BigDecimal(value as BigInteger), XsDecimal)
+            XsDouble, XsFloat -> {
+                val v = if (type == XsDouble) value as Double else (value as Float).toDouble()
+                if (v.isInfinite() || v.isNaN())
+                    createCastError(FOCA0002, "fnerror.FORG0001.lexical-representation", this)
+                else
+                    XdmTypeCastResult(BigDecimal(v), XsDecimal)
+            }
+            XsBoolean ->
+                XdmTypeCastResult(if (value as Boolean) BigDecimal.ONE else BigDecimal.ZERO, XsDecimal)
+            XsString, XsUntypedAtomic -> {
+                val v = value as String
+                try {
+                    if (v.contains('e', true)) // XQuery/XMLSchema don't support exponential xs:decimals.
+                        createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
+                    else
+                        XdmTypeCastResult(BigDecimal(v), XsDecimal)
+                } catch (e: NumberFormatException) {
+                    createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
+                }
+            }
+            else -> createCastError(XPTY0004, "fnerror.XPTY0004.incompatible-types", type, this)
+        }
+    }
+}
 
 val XsInteger = XdmAtomicType(xs("integer"), XsDecimal)
 
