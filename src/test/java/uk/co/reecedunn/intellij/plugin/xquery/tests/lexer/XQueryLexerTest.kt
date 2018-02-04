@@ -2757,6 +2757,25 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 13, 13, null)
     }
 
+    @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    fun testStringLiteral_OpenBrace() {
+        val lexer = createLexer()
+
+        // '{' is a bad character in BracedURILiterals, but not string literals.
+        lexer.start("\"{\"")
+        matchToken(lexer, "\"", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START)
+        matchToken(lexer, "{", 1, 1, 2, XQueryTokenType.STRING_LITERAL_CONTENTS)
+        matchToken(lexer, "\"", 1, 2, 3, XQueryTokenType.STRING_LITERAL_END)
+        matchToken(lexer, "", 0, 3, 3, null)
+
+        // '{' is a bad character in BracedURILiterals, but not string literals.
+        lexer.start("'{'")
+        matchToken(lexer, "'", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START)
+        matchToken(lexer, "{", 2, 1, 2, XQueryTokenType.STRING_LITERAL_CONTENTS)
+        matchToken(lexer, "'", 2, 2, 3, XQueryTokenType.STRING_LITERAL_END)
+        matchToken(lexer, "", 0, 3, 3, null)
+    }
+
     // endregion
     // region XQuery 1.0 :: StringLiteral + PredefinedEntityRef
 
