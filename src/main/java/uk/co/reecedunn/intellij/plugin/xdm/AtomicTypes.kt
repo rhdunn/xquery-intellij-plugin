@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
+import java.math.BigDecimal
 import java.math.BigInteger
 
 val XsUntypedAtomic = XdmAtomicType(xs("untypedAtomic"), XsAnyAtomicType)
@@ -125,6 +126,10 @@ object XsBoolean : XdmAtomicType(xs("boolean"), XsAnyAtomicType) {
             XsDouble -> {
                 val v = value as Double
                 XdmTypeCastResult(v != 0.0 && !v.isNaN(), XsBoolean)
+            }
+            XsDecimal -> {
+                val v = value as BigDecimal
+                XdmTypeCastResult(v != BigDecimal.ZERO, XsBoolean)
             }
             XsInteger -> {
                 val v = value as BigInteger

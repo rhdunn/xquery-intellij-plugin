@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
+import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.*
 
@@ -93,6 +94,25 @@ class TypeCasting : TestCase() {
         assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
         assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
         assertThat(result.value as Boolean, `is`(false))
+    }
+
+    fun testXsBoolean_FromXsDecimal() {
+        var result: XdmTypeCastResult
+
+        result = XsBoolean.cast(BigDecimal.ZERO, XsDecimal)
+        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
+        assertThat(result.value as Boolean, `is`(false))
+
+        result = XsBoolean.cast(BigDecimal.ONE, XsDecimal)
+        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
+        assertThat(result.value as Boolean, `is`(true))
+
+        result = XsBoolean.cast(BigDecimal.valueOf(2), XsDecimal)
+        assertThat(result.type, `is`(XsBoolean as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(Boolean::class.java)))
+        assertThat(result.value as Boolean, `is`(true))
     }
 
     fun testXsBoolean_FromXsInteger() {
