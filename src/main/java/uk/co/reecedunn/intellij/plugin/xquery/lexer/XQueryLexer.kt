@@ -733,7 +733,7 @@ class XQueryLexer : LexerBase() {
             }
         } else if (c == '&'.toInt()) {
             matchEntityReference(if (type == '"') STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
-        } else if (c == '{'.toInt() && type == '}') {
+        } else if (c == '{'.toInt()) {
             mTokenRange.match()
             mType = XQueryTokenType.BAD_CHARACTER
         } else if (c == CodePointRange.END_OF_BUFFER) {
