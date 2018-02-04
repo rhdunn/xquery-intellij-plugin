@@ -1054,6 +1054,13 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, ">", 12, 20, 21, XQueryTokenType.END_XML_TAG)
         matchToken(lexer, "", 0, 21, 21, null)
 
+        lexer.start("<one:two/*/>")
+        matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
+        matchToken(lexer, "/", 0, 8, 9, XQueryTokenType.DIRECT_DESCENDANTS_PATH)
+        matchToken(lexer, "*", 0, 9, 10, XQueryTokenType.STAR)
+        matchToken(lexer, "/>", 0, 10, 12, XQueryTokenType.SELF_CLOSING_XML_TAG)
+        matchToken(lexer, "", 0, 12, 12, null)
+
         lexer.start("<one:two//*/>")
         matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
         matchToken(lexer, "//", 0, 8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH)
@@ -1391,6 +1398,20 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "  ", 25, 38, 40, XQueryTokenType.XML_WHITE_SPACE)
         matchToken(lexer, "/>", 25, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG)
         matchToken(lexer, "", 0, 42, 42, null)
+    }
+
+    @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
+    @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
+    fun testDirAttributeList_IncompleteClosingTag() {
+        val lexer = createLexer()
+
+        lexer.start("<a b/")
+        matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
+        matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
+        matchToken(lexer, " ", 0x60000000 or 11, 2, 3, XQueryTokenType.XML_WHITE_SPACE)
+        matchToken(lexer, "b", 25, 3, 4, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+        matchToken(lexer, "/", 25, 4, 5, XQueryTokenType.INVALID)
+        matchToken(lexer, "", 25, 5, 5, null)
     }
 
     // endregion
