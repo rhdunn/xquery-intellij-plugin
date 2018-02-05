@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import java.math.BigInteger
 
 interface XdmStaticValue {
     val cacheable: CachingBehaviour
@@ -26,5 +27,5 @@ interface XdmStaticValue {
 }
 
 fun XdmStaticValue.toInt(): Int {
-    return (staticValue as String).toInt()
+    return (staticValue as BigInteger).toInt()
 }

@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+import java.math.BigInteger
 
 @Suppress("UNCHECKED_CAST")
 class XPathModelTest : ParserTestCase() {
@@ -89,7 +90,7 @@ class XPathModelTest : ParserTestCase() {
         val literal = parse<XPathIntegerLiteral>("123")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue as String, `is`("123"))
+        assertThat(literal.staticValue as BigInteger, `is`(BigInteger.valueOf(123)))
         assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
         assertThat(literal.toInt(), `is`(123))
 
@@ -123,7 +124,7 @@ class XPathModelTest : ParserTestCase() {
         val literal = parse<XPathLiteral>("123")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue as String, `is`("123"))
+        assertThat(literal.staticValue as BigInteger, `is`(BigInteger.valueOf(123)))
         assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
