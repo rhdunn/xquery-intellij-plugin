@@ -77,7 +77,7 @@ class XPathModelTest : ParserTestCase() {
         val literal = parse<XPathDoubleLiteral>("1e3")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue as String, `is`("1e3"))
+        assertThat(literal.staticValue as Double, `is`(1e3))
         assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -104,7 +104,7 @@ class XPathModelTest : ParserTestCase() {
         val literal = parse<XPathLiteral>("1e3")[0] as XdmStaticValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue as String, `is`("1e3"))
+        assertThat(literal.staticValue as Double, `is`(1e3))
         assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -1748,8 +1748,8 @@ class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(notNullValue()))
-        assertThat(expr.staticValue, `is`(instanceOf(String::class.java)))
-        assertThat(expr.staticValue as String, `is`("1e3"))
+        assertThat(expr.staticValue, `is`(instanceOf(Double::class.java)))
+        assertThat(expr.staticValue as Double, `is`(1e3))
         assertThat(expr.staticType, `is`(XsDouble as XdmSequenceType))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
