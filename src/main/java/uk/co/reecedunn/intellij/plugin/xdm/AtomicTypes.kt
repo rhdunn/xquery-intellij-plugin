@@ -134,7 +134,33 @@ object XsDecimal : XdmAtomicType(xs("decimal"), XsAnyAtomicType) {
     }
 }
 
-val XsInteger = XdmAtomicType(xs("integer"), XsDecimal)
+object XsInteger : XdmAtomicType(xs("integer"), XsDecimal) {
+    // @see https://www.w3.org/TR/xpath-functions/#casting-to-numerics
+    // @see https://www.w3.org/TR/xmlschema11-2/#integer
+    override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+        return when (type) {
+            XsInteger -> XdmTypeCastResult(value, type)
+            XsDecimal -> XdmTypeCastResult((value as BigDecimal).toBigInteger(), XsInteger)
+            XsDouble, XsFloat -> {
+                val v = if (type == XsDouble) value as Double else (value as Float).toDouble()
+                if (v.isInfinite() || v.isNaN())
+                    createCastError(FOCA0002, "fnerror.FORG0001.lexical-representation", this)
+                else
+                    XdmTypeCastResult(BigDecimal(v).toBigInteger(), XsInteger)
+            }
+            XsBoolean ->
+                XdmTypeCastResult(if (value as Boolean) BigInteger.ONE else BigInteger.ZERO, XsInteger)
+            XsString, XsUntypedAtomic -> {
+                try {
+                    XdmTypeCastResult(BigInteger(value as String), XsInteger)
+                } catch (e: NumberFormatException) {
+                    createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
+                }
+            }
+            else -> createCastError(XPTY0004, "fnerror.XPTY0004.incompatible-types", type, this)
+        }
+    }
+}
 
 val XsNonPositiveInteger = XdmAtomicType(xs("nonPositiveInteger"), XsInteger)
 
