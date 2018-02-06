@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,5 +31,5 @@ class XPathLiteralPsiImpl(node: ASTNode):
 
     override val staticType get(): XdmSequenceType = (firstChild as XdmStaticValue).staticType
 
-    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
+    override val cacheable: CachingBehaviour = (firstChild as XdmStaticValue).cacheable
 }
