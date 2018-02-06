@@ -1591,30 +1591,17 @@ class XQueryLexer : LexerBase() {
         }
     }
 
-    override fun getState(): Int {
-        return mState
-    }
+    override fun getState(): Int = mState
 
-    override fun getTokenType(): IElementType? {
-        return mType
-    }
+    override fun getTokenType(): IElementType? = mType
 
-    override fun getTokenStart(): Int {
-        return mTokenRange.start
-    }
+    override fun getTokenStart(): Int = mTokenRange.start
 
-    override fun getTokenEnd(): Int {
-        return mTokenRange.end
-    }
+    override fun getTokenEnd(): Int = mTokenRange.end
 
-    override// jacoco Code Coverage reports an unchecked branch when @NotNull is used.
-    fun getBufferSequence(): CharSequence {
-        return mTokenRange.bufferSequence
-    }
+    override fun getBufferSequence(): CharSequence = mTokenRange.bufferSequence
 
-    override fun getBufferEnd(): Int {
-        return mTokenRange.bufferEnd
-    }
+    override fun getBufferEnd(): Int = mTokenRange.bufferEnd
 
     // endregion
 }
