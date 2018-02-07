@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 
 import java.util.EmptyStackException
 import java.util.Stack
@@ -284,15 +284,10 @@ private val KEYWORDS = mapOf(
 
 // endregion
 
-class XQueryLexer : LexerBase() {
-    private val mTokenRange: CodePointRange
+class XQueryLexer : LexerImpl() {
     private var mState: Int = 0
     private val mStates = Stack<Int>()
     private var mType: IElementType? = null
-
-    init {
-        mTokenRange = CodePointRange()
-    }
 
     // region States
 
@@ -1594,14 +1589,6 @@ class XQueryLexer : LexerBase() {
     override fun getState(): Int = mState
 
     override fun getTokenType(): IElementType? = mType
-
-    override fun getTokenStart(): Int = mTokenRange.start
-
-    override fun getTokenEnd(): Int = mTokenRange.end
-
-    override fun getBufferSequence(): CharSequence = mTokenRange.bufferSequence
-
-    override fun getBufferEnd(): Int = mTokenRange.bufferEnd
 
     // endregion
 }
