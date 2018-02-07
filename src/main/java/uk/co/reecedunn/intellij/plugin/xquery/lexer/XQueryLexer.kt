@@ -18,13 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
-
-import java.util.EmptyStackException
-import java.util.Stack
+import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 // region State Constants
 
-private const val STATE_DEFAULT = 0
 private const val STATE_STRING_LITERAL_QUOTE = 1
 private const val STATE_STRING_LITERAL_APOSTROPHE = 2
 private const val STATE_DOUBLE_EXPONENT = 3
@@ -283,24 +280,8 @@ private val KEYWORDS = mapOf(
 
 // endregion
 
-class XQueryLexer : LexerImpl() {
-    private var mState: Int = 0
-    private val mStates = Stack<Int>()
-
+class XQueryLexer : LexerImpl(STATE_DEFAULT) {
     // region States
-
-    private fun pushState(state: Int) {
-        mStates.push(state)
-    }
-
-    private fun popState() {
-        try {
-            mStates.pop()
-        } catch (e: EmptyStackException) {
-            //
-        }
-
-    }
 
     private fun stateDefault(mState: Int) {
         var c = mTokenRange.codePoint
@@ -1540,27 +1521,9 @@ class XQueryLexer : LexerImpl() {
     // endregion
     // region Lexer
 
-    override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int) {
-        mTokenRange.start(buffer, startOffset, endOffset)
-        mStates.clear()
-
-        if (initialState != STATE_DEFAULT) {
-            pushState(STATE_DEFAULT)
-        }
-        pushState(initialState)
-        advance()
-    }
-
     override fun advance() {
-        mTokenRange.flush()
-        try {
-            mState = mStates.peek()
-        } catch (e: EmptyStackException) {
-            mState = STATE_DEFAULT
-        }
-
-        when (mState) {
-            STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(mState)
+        when (nextState()) {
+            STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(getState())
             STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
             STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
             STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
@@ -1571,20 +1534,18 @@ class XQueryLexer : LexerImpl() {
             STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
             STATE_PRAGMA_QNAME -> statePragmaQName()
             STATE_PRAGMA_CONTENTS -> statePragmaContents()
-            STATE_DIR_ELEM_CONSTRUCTOR, STATE_DIR_ELEM_CONSTRUCTOR_CLOSING, STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(mState)
+            STATE_DIR_ELEM_CONSTRUCTOR, STATE_DIR_ELEM_CONSTRUCTOR_CLOSING, STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(getState())
             STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> stateDirAttributeValue('"')
             STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> stateDirAttributeValue('\'')
             STATE_DIR_ELEM_CONTENT -> stateDirElemContent()
-            STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(mState)
+            STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(getState())
             STATE_PROCESSING_INSTRUCTION_CONTENTS, STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> stateProcessingInstructionContents()
             STATE_BRACED_URI_LITERAL, STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
             STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
             STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
-            else -> throw AssertionError("Invalid state: " + mState)
+            else -> throw AssertionError("Invalid state: " + getState())
         }
     }
-
-    override fun getState(): Int = mState
 
     // endregion
 }

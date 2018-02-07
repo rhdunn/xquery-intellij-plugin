@@ -17,12 +17,52 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
+import java.util.*
 
-abstract class LexerImpl : LexerBase() {
+const val STATE_DEFAULT = 0
+
+abstract class LexerImpl(private val baseState: Int) : LexerBase() {
     protected val mTokenRange: CodePointRange = CodePointRange()
     protected var mType: IElementType? = null
 
+    // region States
+
+    private var mState: Int = 0
+    private val mStates = Stack<Int>()
+
+    protected fun pushState(state: Int) {
+        mStates.push(state)
+    }
+
+    protected fun popState() {
+        try {
+            mStates.pop()
+        } catch (e: EmptyStackException) {
+            //
+        }
+
+    }
+
+    protected fun nextState(): Int {
+        mTokenRange.flush()
+        mState = try { mStates.peek() } catch (e: EmptyStackException) { STATE_DEFAULT }
+        return mState
+    }
+
+    // endregion
     // region Lexer
+
+    override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int) {
+        mTokenRange.start(buffer, startOffset, endOffset)
+        mStates.clear()
+        if (initialState != STATE_DEFAULT) {
+            pushState(baseState)
+        }
+        pushState(initialState)
+        advance()
+    }
+
+    override fun getState(): Int = mState
 
     override fun getTokenType(): IElementType? = mType
 

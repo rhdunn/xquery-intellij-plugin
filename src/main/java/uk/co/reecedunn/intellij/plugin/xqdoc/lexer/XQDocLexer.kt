@@ -18,13 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
-
-import java.util.EmptyStackException
-import java.util.Stack
+import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 // region State Constants
 
-private const val STATE_DEFAULT = 0
 private const val STATE_CONTENTS = 1
 private const val STATE_TAGGED_CONTENTS = 2
 private const val STATE_ELEM_CONSTRUCTOR = 3
@@ -51,23 +48,8 @@ private val TAG_NAMES = mapOf(
 
 // endregion
 
-class XQDocLexer : LexerImpl() {
-    private var mState: Int = 0
-    private val mStates = Stack<Int>()
-
+class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     // region States
-
-    private fun pushState(state: Int) {
-        mStates.push(state)
-    }
-
-    private fun popState() {
-        try {
-            mStates.pop()
-        } catch (e: EmptyStackException) {
-            //
-        }
-    }
 
     private fun matchEntityReference() {
         mTokenRange.match()
@@ -420,39 +402,21 @@ class XQDocLexer : LexerImpl() {
     // endregion
     // region Lexer
 
-    override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int) {
-        mTokenRange.start(buffer, startOffset, endOffset)
-        if (initialState != STATE_DEFAULT) {
-            pushState(STATE_CONTENTS)
-        }
-        pushState(initialState)
-        advance()
-    }
-
     override fun advance() {
-        mTokenRange.flush()
-        try {
-            mState = mStates.peek()
-        } catch (e: EmptyStackException) {
-            mState = STATE_DEFAULT
-        }
-
-        when (mState) {
+        when (nextState()) {
             STATE_DEFAULT -> stateDefault()
             STATE_CONTENTS -> stateContents()
             STATE_TAGGED_CONTENTS -> stateTaggedContents()
-            STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(mState)
+            STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(getState())
             STATE_ELEM_CONTENTS -> stateElemContents()
             STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue('"'.toInt())
             STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue('\''.toInt())
             STATE_TRIM -> stateTrim()
             STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
             STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
-            else -> throw AssertionError("Invalid state: " + mState)
+            else -> throw AssertionError("Invalid state: " + getState())
         }
     }
-
-    override fun getState(): Int = mState
 
     // endregion
 }
