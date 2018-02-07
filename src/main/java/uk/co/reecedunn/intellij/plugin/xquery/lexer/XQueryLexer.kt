@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
@@ -287,7 +286,6 @@ private val KEYWORDS = mapOf(
 class XQueryLexer : LexerImpl() {
     private var mState: Int = 0
     private val mStates = Stack<Int>()
-    private var mType: IElementType? = null
 
     // region States
 
@@ -1587,8 +1585,6 @@ class XQueryLexer : LexerImpl() {
     }
 
     override fun getState(): Int = mState
-
-    override fun getTokenType(): IElementType? = mType
 
     // endregion
 }

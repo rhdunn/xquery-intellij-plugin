@@ -16,11 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import com.intellij.lexer.LexerBase
+import com.intellij.psi.tree.IElementType
 
 abstract class LexerImpl : LexerBase() {
     protected val mTokenRange: CodePointRange = CodePointRange()
+    protected var mType: IElementType? = null
 
     // region Lexer
+
+    override fun getTokenType(): IElementType? = mType
 
     override fun getTokenStart(): Int = mTokenRange.start
 
