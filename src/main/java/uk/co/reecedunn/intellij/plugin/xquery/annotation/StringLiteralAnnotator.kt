@@ -17,18 +17,44 @@ package uk.co.reecedunn.intellij.plugin.xquery.annotation
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
+import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.markup.TextAttributes
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class StringLiteralAnnotator : Annotator {
+    private fun annotateTokens(element: PsiElement, holder: AnnotationHolder) {
+        var start = 0
+        var end: Int = element.textLength
+        val offset: Int = element.textOffset
+
+        if (element.firstChild.node.elementType === XQueryTokenType.STRING_LITERAL_START)
+            ++start
+        if (element.lastChild.node.elementType === XQueryTokenType.STRING_LITERAL_END)
+            --end
+
+        val lexer: Lexer = XQueryLexer()
+        val highlighter = SyntaxHighlighter()
+        lexer.start(element.text, start, end)
+        while (lexer.tokenType !== null) {
+            val range = TextRange(lexer.tokenStart + offset, lexer.tokenEnd + offset)
+            val attrs = highlighter.getTokenHighlights(lexer.tokenType!!)
+            if (attrs.isNotEmpty())
+                holder.createInfoAnnotation(range, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
+            for (attr in attrs) {
+                holder.createInfoAnnotation(range, null).textAttributes = attr
+            }
+            lexer.advance()
+        }
+    }
+
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XPathStringLiteral) return
-        if (element.parent is XPathPITest) {
-            val range = element.firstChild.nextSibling
-            holder.createInfoAnnotation(range, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-            holder.createInfoAnnotation(range, null).textAttributes = SyntaxHighlighter.IDENTIFIER
-        }
+        if (element.parent is XPathPITest)
+            annotateTokens(element, holder)
     }
 }
