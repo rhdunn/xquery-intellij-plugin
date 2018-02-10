@@ -62,6 +62,7 @@
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryEQNameManipulator"/>
 
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.StringLiteralAnnotator"/>
 
     <!-- XPST0003 -->
     <localInspection language="XQuery" shortName="FinalStatementSemicolon" bundle="messages.XQueryBundle"
