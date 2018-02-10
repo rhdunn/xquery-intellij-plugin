@@ -33,8 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 class QNameAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XPathEQName) return
-        if (element.getParent() is XPathEQName) return
-        if (element is XPathVarName) return // TODO: Remove this when VarName no longer implements XPathEQName.
 
         val qname = (element as XdmStaticValue).staticValue as? QName
         val xmlns: Boolean
