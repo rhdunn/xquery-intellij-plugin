@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
+import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
@@ -59,7 +60,8 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             return ENTITY_REFERENCE_KEYS
         } else if (type === XQueryTokenType.BAD_CHARACTER) {
             return BAD_CHARACTER_KEYS
-        } else if (type === XQueryTokenType.NCNAME) {
+        } else if (type === XQueryTokenType.NCNAME ||
+                type == XmlSchemaDataTypeTokenType.NCNAME) {
             return IDENTIFIER_KEYS
         } else if (type === XQueryTokenType.COMMENT_START_TAG ||
                 type === XQueryTokenType.COMMENT ||
