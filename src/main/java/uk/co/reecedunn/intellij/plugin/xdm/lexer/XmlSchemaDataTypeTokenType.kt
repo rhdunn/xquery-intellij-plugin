@@ -21,6 +21,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 object XmlSchemaDataTypeTokenType {
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
+    val UNKNOWN = IElementType("XSDM_UNNKNOWN_TOKEN", XQuery)
 
-    val NCNAME = IElementType("XSDM_NCNAME", XQuery)
+    val EMPTY_ENTITY_REFERENCE = IElementType("XSDM_EMPTY_ENTITY_REFERENCE_TOKEN", XQuery)
+    val PARTIAL_ENTITY_REFERENCE = IElementType("XSDM_PARTIAL_ENTITY_REFERENCE_TOKEN", XQuery)
+    val PREDEFINED_ENTITY_REFERENCE = IElementType("XSDM_PREDEFINED_ENTITY_REFERENCE_TOKEN", XQuery)
+    val CHARACTER_REFERENCE = IElementType("XSDM_CHARACTER_REFERENCE_TOKEN", XQuery)
+
+    val NCNAME = IElementType("XSDM_NCNAME_TOKEN", XQuery)
 }

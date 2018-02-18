@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
@@ -56,7 +57,84 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                 }
                 XmlSchemaDataTypeTokenType.NCNAME
             }
-            else -> null
+            CharacterClass.AMPERSAND -> matchEntityReference()
+            else -> {
+                mTokenRange.match()
+                var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                while (cc != CharacterClass.WHITESPACE && cc != CharacterClass.AMPERSAND && cc != CharacterClass.END_OF_BUFFER) {
+                    mTokenRange.match()
+                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                }
+                XmlSchemaDataTypeTokenType.UNKNOWN
+            }
+        }
+    }
+
+    // endregion
+    // region Helper Functions
+
+    private fun matchEntityReference(): IElementType {
+        mTokenRange.match()
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        if (cc == CharacterClass.NAME_START_CHAR) {
+            mTokenRange.match()
+            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
+                mTokenRange.match()
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+            }
+            if (cc == CharacterClass.SEMICOLON) {
+                mTokenRange.match()
+                return XmlSchemaDataTypeTokenType.PREDEFINED_ENTITY_REFERENCE
+            } else {
+                return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+            }
+        } else if (cc == CharacterClass.HASH) {
+            mTokenRange.match()
+            var c = mTokenRange.codePoint
+            if (c == 'x'.toInt()) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                if (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
+                    while (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                    if (c == ';'.toInt()) {
+                        mTokenRange.match()
+                        return XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE
+                    } else {
+                        return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+                    }
+                } else if (c == ';'.toInt()) {
+                    mTokenRange.match()
+                    return XmlSchemaDataTypeTokenType.EMPTY_ENTITY_REFERENCE
+                } else {
+                    return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+                }
+            } else if (c >= '0'.toInt() && c <= '9'.toInt()) {
+                mTokenRange.match()
+                while (c >= '0'.toInt() && c <= '9'.toInt()) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                if (c == ';'.toInt()) {
+                    mTokenRange.match()
+                    return XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE
+                } else {
+                    return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+                }
+            } else if (c == ';'.toInt()) {
+                mTokenRange.match()
+                return XmlSchemaDataTypeTokenType.EMPTY_ENTITY_REFERENCE
+            } else {
+                return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+            }
+        } else if (cc == CharacterClass.SEMICOLON) {
+            mTokenRange.match()
+            return XmlSchemaDataTypeTokenType.EMPTY_ENTITY_REFERENCE
+        } else {
+            return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
         }
     }
 
