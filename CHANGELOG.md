@@ -15,6 +15,10 @@ Language Support:
     start and end tags, e.g. `<a:></a:>`.
 1.  Fix tokenizing ``` ``[...`]`` ```.
 
+Syntax Highlighting:
+
+1.  Highlight NCNames in `processing-instruction` StringLiterals.
+
 References and Resolving:
 
 1.  Only the variable for the active `typeswitch` `case`/`default` clause should be in scope.

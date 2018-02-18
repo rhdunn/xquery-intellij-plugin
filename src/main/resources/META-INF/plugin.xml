@@ -23,6 +23,10 @@
       <li>Improve error recovery when parsing incomplete QNames in direct element constructor start and end tags, e.g. <code>&lt;a:&gt;&lt;/a:&gt;</code>.</li>
       <li>Fix tokenizing <code>``[...`]``</code>.</li>
     </ol>
+    <p>Syntax Highlighting:</p>
+    <ol>
+      <li>Highlight NCNames in <code>processing-instruction</code> StringLiterals.</li>
+    </ol>
     <p>References and Resolving:</p>
     <ol>
       <li>Only the variable for the active <code>typeswitch</code> <code>case</code>/<code>default</code> clause should be in scope.</li>

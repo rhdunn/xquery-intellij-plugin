@@ -21,13 +21,15 @@ import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.lexer.STATE_NCNAME
+import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeLexer
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class StringLiteralAnnotator : Annotator {
-    private fun annotateTokens(element: PsiElement, holder: AnnotationHolder) {
+    private fun annotateTokens(element: PsiElement, holder: AnnotationHolder, state: Int) {
         var start = 0
         var end: Int = element.textLength
         val offset: Int = element.textOffset
@@ -37,9 +39,9 @@ class StringLiteralAnnotator : Annotator {
         if (element.lastChild.node.elementType === XQueryTokenType.STRING_LITERAL_END)
             --end
 
-        val lexer: Lexer = XQueryLexer()
+        val lexer: Lexer = XmlSchemaDataTypeLexer()
         val highlighter = SyntaxHighlighter()
-        lexer.start(element.text, start, end)
+        lexer.start(element.text, start, end, state)
         while (lexer.tokenType !== null) {
             val range = TextRange(lexer.tokenStart + offset, lexer.tokenEnd + offset)
             val attrs = highlighter.getTokenHighlights(lexer.tokenType!!)
@@ -55,6 +57,6 @@ class StringLiteralAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XPathStringLiteral) return
         if (element.parent is XPathPITest)
-            annotateTokens(element, holder)
+            annotateTokens(element, holder, STATE_NCNAME)
     }
 }
