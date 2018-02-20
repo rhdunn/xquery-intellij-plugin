@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 // region State Constants
 
 const val STATE_NCNAME = 1
+private const val STATE_NCNAME_CONTINUATION = 2
 
 // endregion
 
@@ -42,11 +43,17 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE) {
                     mTokenRange.match()
                 }
+                if (state == STATE_NCNAME_CONTINUATION)
+                    popState()
                 XmlSchemaDataTypeTokenType.WHITE_SPACE
             }
-            CharacterClass.NAME_START_CHAR -> {
-                mTokenRange.match()
+            CharacterClass.NAME_START_CHAR,
+            CharacterClass.DIGIT,
+            CharacterClass.DOT,
+            CharacterClass.HYPHEN_MINUS,
+            CharacterClass.NAME_CHAR -> {
                 var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                var isNCNameStart = cc == CharacterClass.NAME_START_CHAR
                 while (cc == CharacterClass.NAME_START_CHAR ||
                         cc == CharacterClass.DIGIT ||
                         cc == CharacterClass.DOT ||
@@ -55,7 +62,12 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                XmlSchemaDataTypeTokenType.NCNAME
+                if (cc == CharacterClass.AMPERSAND && state != STATE_NCNAME_CONTINUATION)
+                    pushState(STATE_NCNAME_CONTINUATION)
+                if (isNCNameStart || state == STATE_NCNAME_CONTINUATION)
+                    XmlSchemaDataTypeTokenType.NCNAME
+                else
+                    XmlSchemaDataTypeTokenType.UNKNOWN
             }
             CharacterClass.AMPERSAND -> matchEntityReference()
             else -> {
@@ -144,7 +156,7 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
     override fun advance() {
         when (nextState()) {
             STATE_DEFAULT -> stateDefault()
-            STATE_NCNAME -> stateNCName()
+            STATE_NCNAME, STATE_NCNAME_CONTINUATION -> stateNCName()
             else -> throw AssertionError("Invalid state: $state")
         }
     }
