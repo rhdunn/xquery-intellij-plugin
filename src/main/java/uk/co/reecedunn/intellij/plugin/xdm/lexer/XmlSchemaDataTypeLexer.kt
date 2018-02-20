@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 const val STATE_NCNAME = 1
 private const val STATE_NCNAME_CONTINUATION = 2
+private const val STATE_NCNAME_INVALID = 3
 
 // endregion
 
@@ -43,7 +44,7 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE) {
                     mTokenRange.match()
                 }
-                if (state == STATE_NCNAME_CONTINUATION)
+                if (state != STATE_NCNAME)
                     popState()
                 XmlSchemaDataTypeTokenType.WHITE_SPACE
             }
@@ -62,12 +63,15 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                if (cc == CharacterClass.AMPERSAND && state != STATE_NCNAME_CONTINUATION)
-                    pushState(STATE_NCNAME_CONTINUATION)
-                if (isNCNameStart || state == STATE_NCNAME_CONTINUATION)
-                    XmlSchemaDataTypeTokenType.NCNAME
-                else
-                    XmlSchemaDataTypeTokenType.UNKNOWN
+                when (state) {
+                    STATE_NCNAME -> {
+                        if (cc == CharacterClass.AMPERSAND)
+                            pushState(STATE_NCNAME_CONTINUATION)
+                        if (isNCNameStart) XmlSchemaDataTypeTokenType.NCNAME else XmlSchemaDataTypeTokenType.UNKNOWN
+                    }
+                    STATE_NCNAME_INVALID -> XmlSchemaDataTypeTokenType.UNKNOWN
+                    else -> XmlSchemaDataTypeTokenType.NCNAME
+                }
             }
             CharacterClass.AMPERSAND -> matchEntityReference()
             else -> {
@@ -77,6 +81,8 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
+                if (cc == CharacterClass.AMPERSAND && state == STATE_NCNAME)
+                    pushState(STATE_NCNAME_INVALID)
                 XmlSchemaDataTypeTokenType.UNKNOWN
             }
         }
@@ -156,7 +162,7 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
     override fun advance() {
         when (nextState()) {
             STATE_DEFAULT -> stateDefault()
-            STATE_NCNAME, STATE_NCNAME_CONTINUATION -> stateNCName()
+            STATE_NCNAME, STATE_NCNAME_CONTINUATION, STATE_NCNAME_INVALID -> stateNCName()
             else -> throw AssertionError("Invalid state: $state")
         }
     }

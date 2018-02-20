@@ -146,13 +146,13 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "&#x2", STATE_NCNAME, 4, 8, XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE)
         matchToken(lexer, "G", STATE_NCNAME, 8, 9, XmlSchemaDataTypeTokenType.NCNAME)
         matchToken(lexer, ";", STATE_NCNAME, 9, 10, XmlSchemaDataTypeTokenType.UNKNOWN)
-        matchToken(lexer, "&#x2", STATE_NCNAME, 10, 14, XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE)
-        matchToken(lexer, "g", STATE_NCNAME, 14, 15, XmlSchemaDataTypeTokenType.NCNAME)
-        matchToken(lexer, ";", STATE_NCNAME, 15, 16, XmlSchemaDataTypeTokenType.UNKNOWN)
-        matchToken(lexer, "&#x", STATE_NCNAME, 16, 19, XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE)
-        matchToken(lexer, "g2", STATE_NCNAME, 19, 21, XmlSchemaDataTypeTokenType.NCNAME)
-        matchToken(lexer, ";", STATE_NCNAME, 21, 22, XmlSchemaDataTypeTokenType.UNKNOWN)
-        matchToken(lexer, "", STATE_NCNAME, 22, 22, null)
+        matchToken(lexer, "&#x2", 3, 10, 14, XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE)
+        matchToken(lexer, "g", 3, 14, 15, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, ";", 3, 15, 16, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, "&#x", 3, 16, 19, XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE)
+        matchToken(lexer, "g2", 3, 19, 21, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, ";", 3, 21, 22, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, "", 3, 22, 22, null)
     }
 
     fun testNCName_NCNames() {
@@ -187,6 +187,24 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "&#x77;", 2, 22, 28, XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE)
         matchToken(lexer, "b", 2, 28, 29, XmlSchemaDataTypeTokenType.NCNAME)
         matchToken(lexer, " ", 2, 29, 30, XmlSchemaDataTypeTokenType.WHITE_SPACE)
+        matchToken(lexer, "c", STATE_NCNAME, 30, 31, XmlSchemaDataTypeTokenType.NCNAME)
+        matchToken(lexer, "", STATE_NCNAME, 31, 31, null)
+    }
+
+    fun testNCName_InvalidCharacter() {
+        val lexer = createLexer()
+
+        lexer.start("~&#x74;b&#x75;.&#x76;-&#x77;0 c", 0, 31, STATE_NCNAME)
+        matchToken(lexer, "~", STATE_NCNAME, 0, 1, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, "&#x74;", 3, 1, 7, XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE)
+        matchToken(lexer, "b", 3, 7, 8, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, "&#x75;", 3, 8, 14, XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE)
+        matchToken(lexer, ".", 3, 14, 15, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, "&#x76;", 3, 15, 21, XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE)
+        matchToken(lexer, "-", 3, 21, 22, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, "&#x77;", 3, 22, 28, XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE)
+        matchToken(lexer, "0", 3, 28, 29, XmlSchemaDataTypeTokenType.UNKNOWN)
+        matchToken(lexer, " ", 3, 29, 30, XmlSchemaDataTypeTokenType.WHITE_SPACE)
         matchToken(lexer, "c", STATE_NCNAME, 30, 31, XmlSchemaDataTypeTokenType.NCNAME)
         matchToken(lexer, "", STATE_NCNAME, 31, 31, null)
     }
