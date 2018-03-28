@@ -49,7 +49,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
             if (moduleDecl != null) {
                 val prefix = moduleDecl.namespacePrefix?.staticValue as? String
                 val uri = moduleDecl.namespaceUri
-                if (prefix != null) {
+                if (prefix != null && uri != null) {
                     prefices.put(prefix, uri as XQueryUriLiteral)
                 }
             }

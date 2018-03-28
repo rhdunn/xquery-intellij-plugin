@@ -61,6 +61,14 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("test"))
     }
 
+    fun testModuleDecl_NoUri() {
+        val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-no-uri.xq")
+
+        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        assertThat(problems, `is`(notNullValue()))
+        assertThat(problems!!.size, `is`(0))
+    }
+
     fun testModuleImport_NamespaceDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq")
 
