@@ -189,7 +189,7 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
     }
 
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
-        val file = LightVirtualFile(name, language, text)
+        val file = LightVirtualFile(name, language!!, text)
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
     }
