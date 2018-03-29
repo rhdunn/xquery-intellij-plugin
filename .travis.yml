@@ -6,9 +6,9 @@ jdk:
 env:
   - IDEA_VERSION=LATEST-TRUNK-SNAPSHOT
   - IDEA_VERSION=LATEST-EAP-SNAPSHOT
-  - IDEA_VERSION=IC-2017.3 # Stable
-  - IDEA_VERSION=IC-2017.2 # Previous
-  - IDEA_VERSION=IC-2017.1 # Old
+  - IDEA_VERSION=IC-2018.1 # Stable
+  - IDEA_VERSION=IC-2017.3 # Previous
+  - IDEA_VERSION=IC-2017.2 # Old
 
 # Code Coverage
 after_success:

@@ -8,8 +8,8 @@ buildscript {
         if (since.matches()) {
             return since.group(2)
         }
-        if (version == "LATEST-EAP-SNAPSHOT") return "181"
-        return "181" // version == "LATEST-TRUNK-SNAPSHOT"
+        if (version == "LATEST-EAP-SNAPSHOT") return "182"
+        return "182" // version == "LATEST-TRUNK-SNAPSHOT"
     }
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: 'IC-2017.3'
