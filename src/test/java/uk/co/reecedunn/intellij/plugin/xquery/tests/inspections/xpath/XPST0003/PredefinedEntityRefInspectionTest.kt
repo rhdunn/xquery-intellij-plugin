@@ -2194,7 +2194,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
 
         val file = parseText(entities)
 
-        val problems = inspect(file!!, PredefinedEntityRefInspection())
+        val problems = inspect(file, PredefinedEntityRefInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -2209,7 +2209,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
 
         val file = parseText(entities)
 
-        val problems = inspect(file!!, PredefinedEntityRefInspection())
+        val problems = inspect(file, PredefinedEntityRefInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(inspectionCount))
 

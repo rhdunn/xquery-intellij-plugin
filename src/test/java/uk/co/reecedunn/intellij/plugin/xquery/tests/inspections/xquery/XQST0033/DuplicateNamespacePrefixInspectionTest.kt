@@ -43,7 +43,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testNoDuplicates() {
         val file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -51,7 +51,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testModuleDecl_ModuleImport() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -64,7 +64,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testModuleDecl_NoUri() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-no-uri.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -72,7 +72,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testModuleImport_NamespaceDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -85,7 +85,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testNamespaceDecl_SchemaImport() {
         val file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -98,7 +98,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testSchemaImport_ModuleImport() {
         val file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -114,7 +114,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testOtherTransaction_NoDuplicates() {
         val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -122,7 +122,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     fun testOtherTransaction_Duplicates() {
         val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq")
 
-        val problems = inspect(file!!, DuplicateNamespacePrefixInspection())
+        val problems = inspect(file, DuplicateNamespacePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 

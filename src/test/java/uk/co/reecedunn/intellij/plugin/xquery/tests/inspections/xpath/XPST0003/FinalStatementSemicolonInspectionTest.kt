@@ -46,7 +46,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -56,7 +56,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -66,7 +66,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -76,7 +76,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -86,7 +86,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -99,7 +99,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -109,7 +109,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -119,7 +119,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -129,7 +129,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -143,7 +143,7 @@ class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
-        val problems = inspect(file!!, FinalStatementSemicolonInspection())
+        val problems = inspect(file, FinalStatementSemicolonInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }

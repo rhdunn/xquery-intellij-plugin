@@ -46,7 +46,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_1_20170321.label
         val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -56,7 +56,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_1_20170321.label
         val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -70,7 +70,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_1_20170321.label
         val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -83,7 +83,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -93,7 +93,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -107,7 +107,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -119,7 +119,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -128,7 +128,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/psi/marklogic-8.0/MapConstructorEntry_SaxonSeparator.xq")
 
-        val problems = inspect(file!!, MapConstructorEntryInspection())
+        val problems = inspect(file, MapConstructorEntryInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 

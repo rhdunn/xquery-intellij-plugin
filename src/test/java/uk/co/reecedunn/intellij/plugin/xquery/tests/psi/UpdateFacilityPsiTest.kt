@@ -35,7 +35,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region CompatibilityAnnotation
 
     fun testCompatibilityAnnotation_FunctionDecl() {
-        val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<UpdateFacilityCompatibilityAnnotation>().first()
@@ -50,7 +50,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     }
 
     fun testCompatibilityAnnotation_VarDecl() {
-        val file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq")!!
+        val file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<UpdateFacilityCompatibilityAnnotation>().first()
@@ -68,7 +68,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region DeleteExpr
 
     fun testDeleteExpr() {
-        val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
 
         val deleteExprPsi = file.descendants().filterIsInstance<UpdateFacilityDeleteExpr>().first()
         val conformance = deleteExprPsi as XQueryConformance
@@ -85,7 +85,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region FunctionDecl
 
     fun testFunctionDecl_Updating() {
-        val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<UpdateFacilityCompatibilityAnnotation>().first()
@@ -103,7 +103,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region InsertExpr
 
     fun testInsertExpr() {
-        val file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq")
 
         val insertExprPsi = file.descendants().filterIsInstance<UpdateFacilityInsertExpr>().first()
         val conformance = insertExprPsi as XQueryConformance
@@ -120,7 +120,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region RenameExpr
 
     fun testRenameExpr() {
-        val file = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq")
 
         val renameExprPsi = file.descendants().filterIsInstance<UpdateFacilityRenameExpr>().first()
         val conformance = renameExprPsi as XQueryConformance
@@ -137,7 +137,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region ReplaceExpr
 
     fun testReplaceExpr() {
-        val file = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq")
 
         val replaceExprPsi = file.descendants().filterIsInstance<UpdateFacilityReplaceExpr>().first()
         val conformance = replaceExprPsi as XQueryConformance
@@ -154,7 +154,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region RevalidationDecl
 
     fun testRevalidationDecl() {
-        val file = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq")
 
         val revalidationDeclPsi = file.descendants().filterIsInstance<UpdateFacilityRevalidationDecl>().first()
         val conformance = revalidationDeclPsi as XQueryConformance
@@ -171,7 +171,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region TransformExpr (CopyModifyExpr)
 
     fun testTransformExpr() {
-        val file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq")
 
         val transformExprPsi = file.descendants().filterIsInstance<UpdateFacilityCopyModifyExpr>().first()
         val conformance = transformExprPsi as XQueryConformance
@@ -188,7 +188,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region TransformWithExpr
 
     fun testTransformWithExpr() {
-        val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
 
         val transformWithExprPsi = file.descendants().filterIsInstance<UpdateFacilityTransformWithExpr>().first()
         val conformance = transformWithExprPsi as XQueryConformance
@@ -206,7 +206,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // region UpdatingFunctionCall
 
     fun testUpdatingFunctionCall() {
-        val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")!!
+        val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
 
         val updatingFunctionCallPsi = file.descendants().filterIsInstance<UpdateFacilityUpdatingFunctionCall>().first()
         val conformance = updatingFunctionCallPsi as XQueryConformance

@@ -41,7 +41,7 @@ class SaxonPsiTest : ParserTestCase() {
     // region TupleType
 
     fun testTupleType() {
-        val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")!!
+        val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -62,7 +62,7 @@ class SaxonPsiTest : ParserTestCase() {
     // region TypeDecl
 
     fun testTypeDecl() {
-        val file = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")!!
+        val file = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
 
         val typeDeclPsi = file.descendants().filterIsInstance<SaxonTypeDecl>().first()
         val conformance = typeDeclPsi as XQueryConformance
@@ -79,7 +79,7 @@ class SaxonPsiTest : ParserTestCase() {
     // region UnionType
 
     fun testUnionType() {
-        val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")!!
+        val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -101,7 +101,7 @@ class SaxonPsiTest : ParserTestCase() {
     // region XPathMapConstructorEntry
 
     fun testMapConstructorEntry() {
-        val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")!!
+        val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()

@@ -30,13 +30,13 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testNCName() {
         val file = parseResource("tests/parser/xquery-1.0/OptionDecl.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
     fun testNCName_Keyword() {
         val file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(2))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -59,7 +59,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testQName() {
         val file = parseResource("tests/parser/xquery-1.0/QName.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(2))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -79,7 +79,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testQName_KeywordPrefixPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(2))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -99,13 +99,13 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testQName_MissingPrefixPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
     fun testQName_KeywordLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(4))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -139,7 +139,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testQName_MissingLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
@@ -148,13 +148,13 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testURIQualifiedName() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
     fun testURIQualifiedName_Keyword() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(2))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -177,7 +177,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testDirAttributeList_XmlnsAttribute() {
         val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(6))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -228,7 +228,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testAnnotation() {
         val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(2))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
@@ -248,7 +248,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
 
     fun testAnnotation_QName() {
         val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
-        val annotations = annotateTree(file!!, QNameAnnotator())
+        val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(4))
 
         assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))

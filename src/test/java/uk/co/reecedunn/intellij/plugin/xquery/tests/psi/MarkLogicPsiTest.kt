@@ -38,7 +38,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region AnyKindTest
 
     fun testAnyKindTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -56,7 +56,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testAnyKindTest_Wildcard() {
-        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -77,7 +77,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region ArrayConstructor
 
     fun testArrayConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
 
         val arrayConstructorPsi = file.descendants().filterIsInstance<XPathArrayConstructor>().first()
         val versioned = arrayConstructorPsi as XQueryConformance
@@ -94,7 +94,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region ArrayTest
 
     fun testArrayTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/ArrayTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/ArrayTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -115,7 +115,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region AttributeDeclTest
 
     fun testAttributeDeclTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -136,7 +136,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region BinaryConstructor
 
     fun testBinaryConstructor() {
-        val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
         val binaryKindTestPsi = file.descendants().filterIsInstance<MarkLogicBinaryConstructor>().first()
         val conformance = binaryKindTestPsi as XQueryConformance
@@ -154,7 +154,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region BinaryTest
 
     fun testBinaryTest() {
-        val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -176,7 +176,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region BooleanConstructor
 
     fun testBooleanConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
 
         val booleanConstructorPsi = file.descendants().filterIsInstance<MarkLogicBooleanConstructor>().first()
         val conformance = booleanConstructorPsi as XQueryConformance
@@ -193,7 +193,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region BooleanTest
 
     fun testBooleanTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -214,7 +214,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region CatchClause
 
     fun testCatchClause() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
@@ -232,7 +232,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region CompatibilityAnnotation
 
     fun testCompatibilityAnnotation_FunctionDecl() {
-        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<MarkLogicCompatibilityAnnotation>().first()
@@ -247,7 +247,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testCompatibilityAnnotation_VarDecl() {
-        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<MarkLogicCompatibilityAnnotation>().first()
@@ -265,7 +265,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region ComplexTypeTest
 
     fun testComplexTypeTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -286,7 +286,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region ElementDeclTest
 
     fun testElementDeclTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -307,7 +307,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region EnclosedExpr (CatchClause)
 
     fun testEnclosedExpr_CatchClause() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
@@ -322,7 +322,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testEnclosedExpr_CatchClause_NoExpr() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
@@ -342,7 +342,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region ForwardAxis
 
     fun testForwardAxis_Namespace() {
-        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as XQueryConformance
@@ -356,7 +356,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testForwardAxis_Property() {
-        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as XQueryConformance
@@ -373,7 +373,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region MapConstructor
 
     fun testMapConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
 
         val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val versioned = objectConstructorPsi as XQueryConformance
@@ -390,7 +390,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region MapTest
 
     fun testMapTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/MapTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -411,7 +411,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region NullConstructor
 
     fun testNullConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
 
         val nullKindTestPsi = file.descendants().filterIsInstance<MarkLogicNullConstructor>().first()
         val conformance = nullKindTestPsi as XQueryConformance
@@ -428,7 +428,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region NullTest
 
     fun testNullTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NullTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/NullTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -449,7 +449,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region NumberConstructor
 
     fun testNumberConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
 
         val numberConstructorPsi = file.descendants().filterIsInstance<MarkLogicNumberConstructor>().first()
         val conformance = numberConstructorPsi as XQueryConformance
@@ -466,7 +466,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region NumberTest
 
     fun testNumberTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -487,7 +487,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region SchemaComponentTest
 
     fun testSchemaComponentTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -508,7 +508,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region SchemaFacetTest
 
     fun testSchemaFacetTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -529,7 +529,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region SchemaParticleTest
 
     fun testSchemaParticleTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -550,7 +550,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region SchemaRootTest
 
     fun testSchemaRootTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -571,7 +571,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region SchemaTypeTest
 
     fun testSchemaTypeTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -592,7 +592,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region SimpleTypeTest
 
     fun testSimpleTypeTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")!!
+        val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
 
         val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -613,7 +613,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region StylesheetImport
 
     fun testStylesheetImport() {
-        val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
 
         val stylesheetImportPsi = file.descendants().filterIsInstance<MarkLogicStylesheetImport>().first()
         val conformance = stylesheetImportPsi as XQueryConformance
@@ -630,7 +630,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region TextTest
 
     fun testTextTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
@@ -651,7 +651,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region Transactions + TransactionSeparator
 
     fun testTransactions_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
+        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().firstOrNull()
@@ -660,7 +660,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testTransactions_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().first()
@@ -674,7 +674,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testTransactions_Multiple_First() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().first()
@@ -691,7 +691,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testTransactions_Multiple_Last() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().last()
@@ -705,7 +705,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testTransactions_Multiple_NoSemicolonAtEnd_Last() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().last()
@@ -719,7 +719,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     fun testTransactions_Multiple_WithProlog() {
-        val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
         val transactionSeparatorPsi = file.children().filterIsInstance<MarkLogicTransactionSeparator>().first()
         val conformance = transactionSeparatorPsi as XQueryConformance
@@ -737,7 +737,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region ValidateExpr
 
     fun testValidateExpr_ValidateAs() {
-        val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")!!
+        val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
 
         val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
         val versioned = validateExprPsi as XQueryConformance
@@ -755,7 +755,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // region XPathMapConstructorEntry
 
     fun testMapConstructorEntry() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")!!
+        val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()

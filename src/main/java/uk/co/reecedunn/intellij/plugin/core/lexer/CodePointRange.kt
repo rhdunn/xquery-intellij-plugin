@@ -33,9 +33,9 @@ class CodePointRange {
     val codePoint get(): Int {
         if (end == bufferEnd)
             return END_OF_BUFFER
-        val high = bufferSequence!![end]
+        val high = bufferSequence[end]
         if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
-            val low = bufferSequence!![end + 1]
+            val low = bufferSequence[end + 1]
             if (Character.isLowSurrogate(low)) {
                 return Character.toCodePoint(high, low)
             }
@@ -56,9 +56,9 @@ class CodePointRange {
 
     fun match() {
         if (end != bufferEnd) {
-            if (Character.isHighSurrogate(bufferSequence!![end])) {
+            if (Character.isHighSurrogate(bufferSequence[end])) {
                 end += 1
-                if (end != bufferEnd && Character.isLowSurrogate(bufferSequence!![end]))
+                if (end != bufferEnd && Character.isLowSurrogate(bufferSequence[end]))
                     end += 1
             } else {
                 end += 1

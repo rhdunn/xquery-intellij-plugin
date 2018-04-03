@@ -36,7 +36,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region ApplyExpr
 
     fun testApplyExpr_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
@@ -50,7 +50,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testApplyExpr_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
@@ -65,7 +65,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testApplyExpr_Multiple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
@@ -80,7 +80,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
@@ -98,7 +98,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region AssignmentExpr
 
     fun testAssignmentExpr() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
 
         val assignmentExpr = file.descendants().filterIsInstance<ScriptingAssignmentExpr>().first()
         val conformance = assignmentExpr as XQueryConformance
@@ -115,7 +115,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region BlockExpr
 
     fun testBlockExpr() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
         val blockExpr = file.descendants().filterIsInstance<ScriptingBlockExpr>().first()
         val conformance = blockExpr as XQueryConformance
@@ -132,7 +132,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region BlockVarDecl
 
     fun testBlockVarDecl() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
@@ -153,7 +153,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region ExitExpr
 
     fun testExitExpr() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
 
         val exitExpr = file.descendants().filterIsInstance<ScriptingExitExpr>().first()
         val conformance = exitExpr as XQueryConformance
@@ -170,7 +170,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region FunctionDecl
 
     fun testFunctionDecl_Simple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
@@ -185,7 +185,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testFunctionDecl_Sequential() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
@@ -203,7 +203,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region QueryBody (ApplyExpr)
 
     fun testQueryBody_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
+        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
@@ -216,7 +216,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testQueryBody_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
@@ -229,7 +229,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testQueryBody_Multiple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
@@ -242,7 +242,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testQueryBody_Multiple_NoSemicolonAtEnd() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().last()
         val conformance = applyExpr as XQueryConformance
@@ -258,7 +258,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region VarDecl
 
     fun testVarDecl_Assignable() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
@@ -273,7 +273,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testVarDecl_Unassignable() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
@@ -291,7 +291,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region WhileExpr
 
     fun testWhileExpr() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 
         val whileExpr = file.descendants().filterIsInstance<ScriptingWhileExpr>().first()
         val conformance = whileExpr as XQueryConformance

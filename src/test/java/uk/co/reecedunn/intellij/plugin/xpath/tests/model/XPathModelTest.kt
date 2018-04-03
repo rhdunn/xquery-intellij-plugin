@@ -816,9 +816,9 @@ class XPathModelTest : ParserTestCase() {
         assertThat(type, `is`(notNullValue()))
 
         assertThat(type!!.nodeName!!.prefix, `is`(nullValue()))
-        assertThat(type!!.nodeName!!.namespace, `is`(nullValue()))
-        assertThat(type!!.nodeName!!.localName.staticValue as String, `is`("test"))
-        assertThat(type!!.nodeName!!.declaration!!.get(), `is`(instanceOf(XPathNCName::class.java)))
+        assertThat(type.nodeName!!.namespace, `is`(nullValue()))
+        assertThat(type.nodeName!!.localName.staticValue as String, `is`("test"))
+        assertThat(type.nodeName!!.declaration!!.get(), `is`(instanceOf(XPathNCName::class.java)))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -831,9 +831,9 @@ class XPathModelTest : ParserTestCase() {
         assertThat(type, `is`(notNullValue()))
 
         assertThat(type!!.nodeName!!.prefix, `is`(nullValue()))
-        assertThat(type!!.nodeName!!.namespace, `is`(nullValue()))
-        assertThat(type!!.nodeName!!.localName.staticValue as String, `is`("option"))
-        assertThat(type!!.nodeName!!.declaration!!.get(), `is`(instanceOf(XPathNCName::class.java)))
+        assertThat(type.nodeName!!.namespace, `is`(nullValue()))
+        assertThat(type.nodeName!!.localName.staticValue as String, `is`("option"))
+        assertThat(type.nodeName!!.declaration!!.get(), `is`(instanceOf(XPathNCName::class.java)))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }

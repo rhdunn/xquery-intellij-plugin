@@ -47,7 +47,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -56,7 +56,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -70,7 +70,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -81,7 +81,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -96,7 +96,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -107,7 +107,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -122,7 +122,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -133,7 +133,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -151,7 +151,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -162,7 +162,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -180,7 +180,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -191,7 +191,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(2))
 
@@ -213,7 +213,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -224,7 +224,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -239,7 +239,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -250,7 +250,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
-        val problems = inspect(file!!, UnsupportedConstructInspection())
+        val problems = inspect(file, UnsupportedConstructInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 

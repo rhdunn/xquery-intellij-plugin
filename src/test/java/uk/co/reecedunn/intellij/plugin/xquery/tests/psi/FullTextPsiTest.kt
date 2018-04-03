@@ -38,7 +38,7 @@ class FullTextPsiTest : ParserTestCase() {
     // region FTContainsExpr
 
     fun testFTContainsExpr_NoContainsExpr() {
-        val file = parseResource("tests/parser/xquery-1.0/StringLiteral.xq")!!
+        val file = parseResource("tests/parser/xquery-1.0/StringLiteral.xq")
 
         val ftcontainsExprPsi = file.descendants().filterIsInstance<FTContainsExpr>().first()
         val conformance = ftcontainsExprPsi as XQueryConformance
@@ -51,7 +51,7 @@ class FullTextPsiTest : ParserTestCase() {
     }
 
     fun testFTContainsExpr() {
-        val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")!!
+        val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 
         val ftcontainsExprPsi = file.descendants().filterIsInstance<FTContainsExpr>().first()
         val conformance = ftcontainsExprPsi as XQueryConformance
@@ -68,7 +68,7 @@ class FullTextPsiTest : ParserTestCase() {
     // region FTScoreVar
 
     fun testFTScoreVar() {
-        val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")!!
+        val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
 
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
@@ -87,7 +87,7 @@ class FullTextPsiTest : ParserTestCase() {
     // region FTOptionDecl
 
     fun testFTOptionDecl() {
-        val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")!!
+        val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
 
         val ftoptionDeclPsi = file.descendants().filterIsInstance<FTOptionDecl>().first()
         val conformance = ftoptionDeclPsi as XQueryConformance

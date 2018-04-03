@@ -44,7 +44,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     fun testNoVersionDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0031/no-versiondecl.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -52,7 +52,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     fun testEmptyVersionDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0031/empty-version.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -66,7 +66,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         // XQueryVersion.parse("3.99") returns XQueryVersion.UNSUPPORTED
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.99.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -80,7 +80,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         // XQueryVersion.parse("9.7") returns XQueryVersion.VERSION_9_7, but that is not a valid XQuery version.
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-9.7.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -98,7 +98,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -108,7 +108,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.0.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -126,7 +126,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.0.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -136,7 +136,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -154,7 +154,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -164,7 +164,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/transaction-same-version.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(2))
 
@@ -184,7 +184,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/transaction-unsupported-other-version.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -199,7 +199,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
 
         val file = parseResource("tests/inspections/xquery/XQST0031/transaction-different-version.xq")
 
-        val problems = inspect(file!!, UnsupportedXQueryVersionInspection())
+        val problems = inspect(file, UnsupportedXQueryVersionInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 

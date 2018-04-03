@@ -46,7 +46,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     fun testXmlns() {
         val file = parseResource("tests/inspections/xpath/XPST0081/xmlns.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -57,7 +57,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     fun testBuiltinXQuery() {
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -65,7 +65,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     fun testBuiltinXQuery31() {
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery-3.1.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -78,7 +78,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -87,7 +87,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -104,7 +104,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     fun testQName() {
         val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -121,7 +121,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     fun testModuleDecl_BoundPrefix() {
         val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -129,7 +129,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     fun testModuleDecl_UnboundPrefix() {
         val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq")
 
-        val problems = inspect(file!!, UnboundQNamePrefixInspection())
+        val problems = inspect(file, UnboundQNamePrefixInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 

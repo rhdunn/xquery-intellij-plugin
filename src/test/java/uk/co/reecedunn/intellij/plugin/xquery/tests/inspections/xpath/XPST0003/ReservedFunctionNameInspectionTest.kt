@@ -47,7 +47,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -56,7 +56,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "marklogic/v7"
         val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -65,7 +65,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -81,7 +81,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "saxon/HE/v9.5"
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -90,7 +90,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -108,7 +108,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -117,7 +117,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "marklogic/v7"
         val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -126,7 +126,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -142,7 +142,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "saxon/HE/v9.5"
         val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -151,7 +151,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -169,7 +169,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -185,7 +185,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 
@@ -201,7 +201,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "saxon/HE/v9.5"
         val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(0))
     }
@@ -210,7 +210,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
 
-        val problems = inspect(file!!, ReservedFunctionNameInspection())
+        val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
         assertThat(problems!!.size, `is`(1))
 

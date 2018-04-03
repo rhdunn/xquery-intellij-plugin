@@ -38,7 +38,7 @@ class BaseXPsiTest : ParserTestCase() {
     // region FTFuzzyOption
 
     fun testFTFuzzyOption() {
-        val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")!!
+        val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
 
         val containsExpr = file.descendants().filterIsInstance<FTContainsExpr>().first()
         val selection = containsExpr.children().filterIsInstance<FTSelection>().first()
@@ -59,7 +59,7 @@ class BaseXPsiTest : ParserTestCase() {
     // region UpdateExpr
 
     fun testUpdateExpr() {
-        val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")!!
+        val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
 
         val updateExpr = file.descendants().filterIsInstance<BaseXUpdateExpr>().first()
         val conformance = updateExpr as XQueryConformance
@@ -73,7 +73,7 @@ class BaseXPsiTest : ParserTestCase() {
     }
 
     fun testUpdateExpr_Block() {
-        val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")!!
+        val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
 
         val updateExpr = file.descendants().filterIsInstance<BaseXUpdateExpr>().first()
         val conformance = updateExpr as XQueryConformance
