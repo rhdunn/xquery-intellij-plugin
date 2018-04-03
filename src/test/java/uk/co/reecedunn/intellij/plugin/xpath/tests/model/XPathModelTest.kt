@@ -231,6 +231,15 @@ class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
+    fun testNCName_Wildcard() {
+        val expr = parse<XPathNCName>("declare option * \"\";")[0] as XdmStaticValue
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+
+        assertThat(expr.staticValue, `is`(nullValue()))
+        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
     // endregion
     // region QName (XdmStaticValue)
 

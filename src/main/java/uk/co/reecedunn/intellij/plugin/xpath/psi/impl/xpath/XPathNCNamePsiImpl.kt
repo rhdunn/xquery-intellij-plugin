@@ -22,6 +22,7 @@ import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
+import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
@@ -34,9 +35,9 @@ open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNC
     // on the static context, and thus can be cached.
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val staticType: XdmSequenceType = XsQName
+    override val staticType: XdmSequenceType = (firstChild as? XdmStaticValue)?.let { XsQName } ?: XsUntyped
 
-    override val staticValue get(): Any? = createLexicalQName(null, firstChild as XdmStaticValue, this)
+    override val staticValue get(): Any? = (firstChild as? XdmStaticValue)?.let { createLexicalQName(null, firstChild as XdmStaticValue, this) }
 
     // endregion
     // region PsiNameIdentifierOwner
