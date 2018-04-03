@@ -62,7 +62,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
                 if (ns == null || prefix == null)
                     return
 
-                val duplicate: XQueryUriLiteral? = prefices.get(prefix)
+                val duplicate: XQueryUriLiteral? = prefices[prefix]
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
                     descriptors.add(manager.createProblemDescriptor(ns.namespacePrefix as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))

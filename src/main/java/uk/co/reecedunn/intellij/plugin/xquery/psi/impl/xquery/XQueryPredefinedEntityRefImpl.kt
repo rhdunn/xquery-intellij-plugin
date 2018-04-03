@@ -49,6 +49,6 @@ private var ENTITIES: HashMap<String, XQueryEntityRef>? = null
 class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryPredefinedEntityRef {
     override val entityRef get(): XQueryEntityRef {
         val entity = node.chars
-        return ENTITIES!!.get(entity) ?: XQueryEntityRef(entity, entity, XQueryEntityRefType.Unknown)
+        return ENTITIES!![entity] ?: XQueryEntityRef(entity, entity, XQueryEntityRefType.Unknown)
     }
 }

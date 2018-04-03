@@ -2829,7 +2829,7 @@ class XQueryPsiTest : ParserTestCase() {
         val modules = file.children().filterIsInstance<XQueryLibraryModule>().toList()
         assertThat(modules.size, `is`(1))
 
-        val provider = modules.get(0) as XQueryPrologResolver
+        val provider = modules[0] as XQueryPrologResolver
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
@@ -2839,7 +2839,7 @@ class XQueryPsiTest : ParserTestCase() {
         val modules = file.children().filterIsInstance<XQueryLibraryModule>().toList()
         assertThat(modules.size, `is`(1))
 
-        val provider = modules.get(0) as XQueryPrologResolver
+        val provider = modules[0] as XQueryPrologResolver
         assertThat<XQueryProlog>(provider.prolog, `is`(notNullValue()))
 
         val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
