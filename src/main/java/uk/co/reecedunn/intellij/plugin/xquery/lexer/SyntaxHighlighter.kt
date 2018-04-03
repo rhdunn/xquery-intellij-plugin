@@ -61,7 +61,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
         } else if (type === XQueryTokenType.BAD_CHARACTER) {
             return BAD_CHARACTER_KEYS
         } else if (type === XQueryTokenType.NCNAME ||
-                type == XmlSchemaDataTypeTokenType.NCNAME) {
+                type === XmlSchemaDataTypeTokenType.NCNAME) {
             return IDENTIFIER_KEYS
         } else if (type === XQueryTokenType.COMMENT_START_TAG ||
                 type === XQueryTokenType.COMMENT ||

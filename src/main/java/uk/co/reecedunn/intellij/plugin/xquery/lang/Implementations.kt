@@ -211,7 +211,7 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override val products: List<Product> = listOf(HE, PE, EE, EE_T, EE_Q, EE_V)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this || dialect == UpdateFacility || dialect === XQuery
+        dialect === this || dialect === UpdateFacility || dialect === XQuery
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
         XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
