@@ -59,7 +59,7 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
                     descriptors.add(manager.createProblemDescriptor(ns.namespaceUri as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
-                uris.put(uri, ns)
+                uris[uri] = ns
             })
         }
         return descriptors.toTypedArray()
