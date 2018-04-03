@@ -22,6 +22,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 
+@Suppress("JoinDeclarationAndAssignment")
 class ModelTest : TestCase() {
     // region Version :: Display Name (toString)
 

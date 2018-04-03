@@ -29,10 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
-    private val settings: XQueryProjectSettings
-    init {
-        settings = XQueryProjectSettings.getInstance(project)
-    }
+    private val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
 
     private var product: Product? = null
     private var productVersion: Version? = null

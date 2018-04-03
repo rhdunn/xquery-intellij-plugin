@@ -29,6 +29,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.*
 
+@Suppress("JoinDeclarationAndAssignment")
 class TypeCasting : TestCase() {
     // region Primitive Types :: xs:float
     //

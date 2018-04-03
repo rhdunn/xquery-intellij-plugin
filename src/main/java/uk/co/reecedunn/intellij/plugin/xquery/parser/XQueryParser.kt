@@ -126,8 +126,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseModule(isFirst: Boolean): Boolean {
-        var hasVersionDeclOrWhitespace: Boolean
-        hasVersionDeclOrWhitespace = parseVersionDecl()
+        var hasVersionDeclOrWhitespace: Boolean = parseVersionDecl()
         hasVersionDeclOrWhitespace = hasVersionDeclOrWhitespace or parseWhiteSpaceAndCommentTokens()
 
         val moduleMarker = mark()
