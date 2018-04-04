@@ -70,7 +70,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
                     descriptors.add(manager.createProblemDescriptor(ns.namespacePrefix as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
-                prefices.put(prefix, ns.namespaceUri as? XQueryUriLiteral)
+                prefices[prefix] = ns.namespaceUri as? XQueryUriLiteral
             })
         }
         return descriptors.toTypedArray()
