@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import java.util.*
 
-private class PsiElementTreeIterator(private var node: PsiElement?) : Iterator<PsiElement> {
+private class PsiElementTreeIterator(node: PsiElement?) : Iterator<PsiElement> {
     private val stack: Stack<PsiElement> = Stack()
     init {
         stack.push(node)
