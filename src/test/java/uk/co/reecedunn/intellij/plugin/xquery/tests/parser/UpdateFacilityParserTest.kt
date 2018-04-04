@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
 class UpdateFacilityParserTest : ParserTestCase() {
     // region Update Facility 1.0 :: FunctionDecl

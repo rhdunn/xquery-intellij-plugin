@@ -16,16 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.filetypes
 
 import com.intellij.openapi.vfs.CharsetToolkit
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.ParsingTestCase
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
 
 class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition()) {
     private fun createVirtualFile(@NonNls name: String, text: String): LightVirtualFile {

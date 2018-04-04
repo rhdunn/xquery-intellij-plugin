@@ -16,11 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import junit.framework.TestCase
-import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
+import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 
 class ByteSequenceTest : TestCase() {
     fun testConstruction() {

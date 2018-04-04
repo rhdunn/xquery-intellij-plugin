@@ -16,15 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
 import junit.framework.TestCase
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
+import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeTokenType
 
 class SyntaxHighlighterTest : TestCase() {
     fun testFactory() {

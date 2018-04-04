@@ -18,12 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.markup.TextAttributes
-import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 
 class QNameAnnotatorTest : AnnotatorTestCase() {
     // region NCName

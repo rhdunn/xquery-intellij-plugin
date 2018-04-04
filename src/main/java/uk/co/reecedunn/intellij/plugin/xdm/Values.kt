@@ -20,7 +20,9 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
 import java.lang.ref.WeakReference
 
 private class XdmLiteralValue(override val staticValue: Any?,

@@ -17,8 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui
 
 import com.intellij.openapi.options.ConfigurationException
 import com.intellij.openapi.options.SettingsEditor
-
-import javax.swing.*
+import javax.swing.JComponent
 
 class SettingsEditorImpl<Configuration>(private val mSettingsFactory: SettingsUIFactory<Configuration>):
         SettingsEditor<Configuration>() {

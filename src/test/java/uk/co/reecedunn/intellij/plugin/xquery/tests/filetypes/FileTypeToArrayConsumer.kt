@@ -20,8 +20,7 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.fileTypes.FileTypeConsumer
 import com.intellij.openapi.util.Pair
 import org.jetbrains.annotations.NonNls
-
-import java.util.ArrayList
+import java.util.*
 
 internal class FileTypeToArrayConsumer : FileTypeConsumer {
     val fileTypes: MutableList<Pair<FileType, String>> = ArrayList()

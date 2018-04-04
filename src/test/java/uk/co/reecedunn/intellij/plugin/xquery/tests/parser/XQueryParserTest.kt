@@ -15,11 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
 class XQueryParserTest : ParserTestCase() {
     // region Parser :: Empty Buffer

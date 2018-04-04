@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xdm
 import org.jetbrains.annotations.PropertyKey
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
 import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle

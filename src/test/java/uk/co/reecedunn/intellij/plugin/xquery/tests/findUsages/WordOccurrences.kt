@@ -18,8 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
 import com.intellij.util.Processor
-
-import java.util.ArrayList
+import java.util.*
 
 class WordOccurrences : Processor<WordOccurrence> {
     private val mWordOccurrences = ArrayList<Pair<WordOccurrence.Kind, CharSequence>>()

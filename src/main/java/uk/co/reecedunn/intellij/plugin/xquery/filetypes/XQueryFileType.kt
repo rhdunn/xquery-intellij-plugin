@@ -27,10 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
-
-import javax.swing.*
 import java.nio.charset.Charset
 import java.nio.charset.UnsupportedCharsetException
+import javax.swing.Icon
 
 private val UTF_8 = Charset.forName("UTF-8")
 

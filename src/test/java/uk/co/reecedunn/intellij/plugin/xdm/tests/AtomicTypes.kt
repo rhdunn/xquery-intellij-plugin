@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
 import junit.framework.TestCase
-import org.apache.xerces.xs.datatypes.XSDecimal
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat

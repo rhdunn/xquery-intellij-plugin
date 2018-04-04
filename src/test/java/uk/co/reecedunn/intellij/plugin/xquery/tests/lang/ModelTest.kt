@@ -16,11 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang
 
 import junit.framework.TestCase
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 
 @Suppress("JoinDeclarationAndAssignment")
 class ModelTest : TestCase() {

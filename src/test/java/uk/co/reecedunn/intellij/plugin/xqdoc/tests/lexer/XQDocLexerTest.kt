@@ -15,13 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.tests.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 class XQDocLexerTest : LexerTestCase() {
     // region Lexer :: Invalid State

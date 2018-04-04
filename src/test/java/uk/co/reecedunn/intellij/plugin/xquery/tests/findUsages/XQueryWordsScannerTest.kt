@@ -18,10 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
 import junit.framework.TestCase
-import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryWordsScanner
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryWordsScanner
 
 class XQueryWordsScannerTest : TestCase() {
     // region Test Helpers

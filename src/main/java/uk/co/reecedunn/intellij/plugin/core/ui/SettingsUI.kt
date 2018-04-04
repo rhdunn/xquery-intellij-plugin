@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui
 
-import javax.swing.*
+import javax.swing.JPanel
 
 interface SettingsUI<in Configuration> {
     val panel: JPanel

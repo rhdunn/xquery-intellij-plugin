@@ -22,8 +22,7 @@ import com.intellij.lang.annotation.AnnotationSession
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-
-import java.util.ArrayList
+import java.util.*
 
 internal class AnnotationCollector : AnnotationHolder {
     val annotations: MutableList<Annotation> = ArrayList()

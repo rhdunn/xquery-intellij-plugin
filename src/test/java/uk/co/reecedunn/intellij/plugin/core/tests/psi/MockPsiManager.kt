@@ -21,8 +21,9 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import org.apache.xmlbeans.impl.common.IOUtil
-
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
 import java.nio.charset.Charset
 
 class MockPsiManager(project: Project) : com.intellij.mock.MockPsiManager(project) {

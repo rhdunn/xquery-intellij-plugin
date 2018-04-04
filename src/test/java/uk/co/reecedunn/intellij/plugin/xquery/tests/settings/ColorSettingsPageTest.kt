@@ -17,14 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import junit.framework.TestCase
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage
-
-import java.util.ArrayList
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage
+import java.util.*
 
 class ColorSettingsPageTest : TestCase() {
     fun testIcon() {

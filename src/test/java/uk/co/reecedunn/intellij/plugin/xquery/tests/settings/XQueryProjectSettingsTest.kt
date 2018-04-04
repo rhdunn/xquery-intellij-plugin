@@ -17,15 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
 
 import com.intellij.util.xmlb.XmlSerializer
 import junit.framework.TestCase
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.jdom.output.XMLOutputter
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
-
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 
 class XQueryProjectSettingsTest : TestCase() {
     fun testDefaultValues() {

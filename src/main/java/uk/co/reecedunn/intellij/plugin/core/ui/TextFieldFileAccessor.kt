@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.core.ui
 import com.intellij.openapi.ui.TextComponentAccessor
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
-
-import javax.swing.*
 import java.io.File
+import javax.swing.JTextField
 
 class TextFieldFileAccessor : TextComponentAccessor<JTextField> {
     override fun getText(component: JTextField): String {

@@ -23,9 +23,9 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.lexer.STATE_NCNAME
 import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeLexer
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class StringLiteralAnnotator : Annotator {

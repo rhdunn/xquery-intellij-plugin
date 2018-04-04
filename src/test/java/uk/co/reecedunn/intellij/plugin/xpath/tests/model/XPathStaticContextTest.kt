@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 

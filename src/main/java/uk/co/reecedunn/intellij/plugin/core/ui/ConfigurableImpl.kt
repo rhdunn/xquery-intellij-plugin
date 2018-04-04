@@ -17,8 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui
 
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ConfigurationException
-
-import javax.swing.*
+import javax.swing.JComponent
 
 abstract class ConfigurableImpl<Configuration>(private val mConfiguration: Configuration):
         Configurable, SettingsUIFactory<Configuration> {

@@ -16,11 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import junit.framework.TestCase
-import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
-
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
+import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
+import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
 class CharacterClassTest : TestCase() {
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Char")

@@ -16,10 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import junit.framework.TestCase
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 
 class CodePointRangeTest : TestCase() {
     fun testEmptyBuffer() {

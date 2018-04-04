@@ -19,8 +19,9 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
-
-import javax.swing.*
+import javax.swing.JComboBox
+import javax.swing.JList
+import javax.swing.JPanel
 
 @Suppress("PrivatePropertyName")
 class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {

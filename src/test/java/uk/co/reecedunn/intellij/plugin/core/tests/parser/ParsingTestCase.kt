@@ -51,12 +51,13 @@ import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.apache.xmlbeans.impl.common.IOUtil
 import org.jetbrains.annotations.NonNls
-import org.picocontainer.*
+import org.picocontainer.PicoContainer
+import org.picocontainer.PicoInitializationException
+import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader

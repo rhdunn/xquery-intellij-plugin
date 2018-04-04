@@ -16,13 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003
 
 import com.intellij.codeInspection.ProblemHighlightType
+import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
-
-import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
 
 // region XML Entities
 

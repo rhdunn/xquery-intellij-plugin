@@ -17,17 +17,15 @@ package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
 import junit.framework.TestCase
 import org.apache.xmlbeans.impl.common.IOUtil
+import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
-
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringWriter
-
-import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.Is.`is`
 
 class ResourceVirtualFileTest : TestCase() {
     @Throws(IOException::class)
