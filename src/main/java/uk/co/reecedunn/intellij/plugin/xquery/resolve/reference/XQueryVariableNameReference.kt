@@ -27,7 +27,7 @@ class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiR
         val match = name.inScopeVariablesForFile().find { variable ->
             val qname = variable.variableName!!
             val matchPrefix = name.prefix?.text == (qname.prefix?.staticValue as? String)
-            val matchLocalName = name.localName?.text == (qname.localName?.staticValue as? String)
+            val matchLocalName = name.localName?.text == (qname.localName.staticValue as? String)
             matchPrefix && matchLocalName
         }
         return match?.variableName?.declaration?.get() as? PsiElement
