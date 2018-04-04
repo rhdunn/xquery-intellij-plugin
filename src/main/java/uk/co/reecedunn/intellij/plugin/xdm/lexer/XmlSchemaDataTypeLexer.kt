@@ -53,7 +53,7 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.HYPHEN_MINUS,
             CharacterClass.NAME_CHAR -> {
                 var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                var isNCNameStart = cc == CharacterClass.NAME_START_CHAR
+                val isNCNameStart = cc == CharacterClass.NAME_START_CHAR
                 while (cc == CharacterClass.NAME_START_CHAR ||
                         cc == CharacterClass.DIGIT ||
                         cc == CharacterClass.DOT ||
