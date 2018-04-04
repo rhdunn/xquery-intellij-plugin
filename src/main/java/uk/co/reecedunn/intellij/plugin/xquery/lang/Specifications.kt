@@ -93,7 +93,7 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
     }
 
     fun versionForXQuery(product: Product, version: Version, xquery: String): Specification? =
-            versionsForXQuery(xquery).filter { spec -> product.conformsTo(version, spec) }.firstOrNull()
+            versionsForXQuery(xquery).firstOrNull { spec -> product.conformsTo(version, spec) }
 }
 
 /**
