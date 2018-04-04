@@ -37,6 +37,6 @@ class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
         val element = children().filterIsInstance<XQueryDFPropertyName>().filter { e ->
             e.firstChild.node.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
         }.firstOrNull()
-        return if (element != null) element else findChildByType<PsiElement>(XQueryTokenType.K_DECIMAL_FORMAT) ?: this
+        return if (element != null) element else findChildByType(XQueryTokenType.K_DECIMAL_FORMAT) ?: this
     }
 }

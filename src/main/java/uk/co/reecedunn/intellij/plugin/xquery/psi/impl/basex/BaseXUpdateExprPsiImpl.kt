@@ -37,6 +37,6 @@ class BaseXUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), BaseXU
 
     override val conformanceElement get(): PsiElement {
         val element = findChildByType<PsiElement>(XQueryTokenType.BLOCK_OPEN)
-        return element ?: findChildByType<PsiElement>(XQueryTokenType.K_UPDATE) ?: firstChild
+        return element ?: findChildByType(XQueryTokenType.K_UPDATE) ?: firstChild
     }
 }

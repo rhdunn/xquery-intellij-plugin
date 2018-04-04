@@ -45,5 +45,5 @@ class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     }
 
     override val conformanceElement get(): PsiElement =
-        findChildByType<PsiElement>(VALIDATE_BY_TYPENAME) ?: firstChild
+        findChildByType(VALIDATE_BY_TYPENAME) ?: firstChild
 }
