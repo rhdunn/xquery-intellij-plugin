@@ -81,7 +81,7 @@ class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
         }
 
         val children = mFile!!.list() ?: return null
-        return children.map { child -> ResourceVirtualFile(mLoader, mResource + "/" + child) }.toTypedArray()
+        return children.map { child -> ResourceVirtualFile(mLoader, "$mResource/$child") }.toTypedArray()
     }
 
     @Throws(IOException::class)

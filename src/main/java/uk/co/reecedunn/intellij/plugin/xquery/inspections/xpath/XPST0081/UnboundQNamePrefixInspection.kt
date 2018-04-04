@@ -36,7 +36,7 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
         XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.display-name")
 
     override fun getDescriptionFileName(): String? =
-        id + ".html"
+            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

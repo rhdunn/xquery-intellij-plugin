@@ -34,7 +34,7 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
         XQueryBundle.message("inspection.XQST0031.unsupported-version.display-name")
 
     override fun getDescriptionFileName(): String? =
-        id + ".html"
+            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
