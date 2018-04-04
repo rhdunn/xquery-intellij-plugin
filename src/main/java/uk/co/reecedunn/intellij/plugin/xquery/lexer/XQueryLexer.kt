@@ -1523,7 +1523,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
 
     override fun advance() {
         when (nextState()) {
-            STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(getState())
+            STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
             STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
             STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
             STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
@@ -1534,16 +1534,16 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
             STATE_PRAGMA_QNAME -> statePragmaQName()
             STATE_PRAGMA_CONTENTS -> statePragmaContents()
-            STATE_DIR_ELEM_CONSTRUCTOR, STATE_DIR_ELEM_CONSTRUCTOR_CLOSING, STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(getState())
+            STATE_DIR_ELEM_CONSTRUCTOR, STATE_DIR_ELEM_CONSTRUCTOR_CLOSING, STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(state)
             STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> stateDirAttributeValue('"')
             STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> stateDirAttributeValue('\'')
             STATE_DIR_ELEM_CONTENT -> stateDirElemContent()
-            STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(getState())
+            STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(state)
             STATE_PROCESSING_INSTRUCTION_CONTENTS, STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> stateProcessingInstructionContents()
             STATE_BRACED_URI_LITERAL, STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
             STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
             STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
-            else -> throw AssertionError("Invalid state: " + getState())
+            else -> throw AssertionError("Invalid state: $state")
         }
     }
 

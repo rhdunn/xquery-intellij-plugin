@@ -407,14 +407,14 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             STATE_DEFAULT -> stateDefault()
             STATE_CONTENTS -> stateContents()
             STATE_TAGGED_CONTENTS -> stateTaggedContents()
-            STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(getState())
+            STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
             STATE_ELEM_CONTENTS -> stateElemContents()
             STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue('"'.toInt())
             STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue('\''.toInt())
             STATE_TRIM -> stateTrim()
             STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
             STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
-            else -> throw AssertionError("Invalid state: " + getState())
+            else -> throw AssertionError("Invalid state: $state")
         }
     }
 
