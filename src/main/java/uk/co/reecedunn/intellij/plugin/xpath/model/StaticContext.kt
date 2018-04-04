@@ -108,7 +108,7 @@ private fun PsiElement.windowConditionVariables(context: InScopeVariableContext)
 // WindowClause + (SlidingWindowClause | TumblingWindowClause)
 private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
     val node = children().map { e -> when (e) {
-        is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e as PsiElement
+        is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e
         else -> null
     }}.filterNotNull().firstOrNull() ?: return emptySequence()
 
