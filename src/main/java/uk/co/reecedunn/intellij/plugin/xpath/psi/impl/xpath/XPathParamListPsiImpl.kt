@@ -40,7 +40,7 @@ class XPathParamListPsiImpl(node: ASTNode):
     override val cacheable get(): CachingBehaviour = cachedArguments.cachingBehaviour
 
     override val arguments get(): List<XPathVariableBinding> = cachedArguments.get()!!
-    val cachedArguments = CacheableProperty {
+    private val cachedArguments = CacheableProperty {
         children().filterIsInstance<XPathParam>().map { param -> param as XPathVariableBinding }.toList() `is` Cacheable
     }
 

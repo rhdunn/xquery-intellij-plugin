@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.parser
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
 
-open class PsiTreeParser(val builder: PsiBuilder) {
+open class PsiTreeParser(private val builder: PsiBuilder) {
     // region Parser Helper Functions
 
     protected fun matchTokenType(type: IElementType): Boolean {
