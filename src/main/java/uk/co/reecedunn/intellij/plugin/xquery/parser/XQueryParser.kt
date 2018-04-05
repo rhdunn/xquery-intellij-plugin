@@ -955,10 +955,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         var firstAnnotation: IElementType? = null
         var annotation: IElementType?
         do {
-            if (parseAnnotation()) {
-                annotation = XQueryElementType.ANNOTATION
+            annotation = if (parseAnnotation()) {
+                XQueryElementType.ANNOTATION
             } else {
-                annotation = parseCompatibilityAnnotationDecl()
+                parseCompatibilityAnnotationDecl()
             }
 
             if (firstAnnotation == null) {
@@ -1547,12 +1547,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             return true
         } else if (errorOnTokenType(XQueryTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
             parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() !== XQueryTokenType.PARENTHESIS_OPEN && parseExprSingle()) {
+            return if (getTokenType() !== XQueryTokenType.PARENTHESIS_OPEN && parseExprSingle()) {
                 flworExprMarker.drop()
-                return true
+                true
             } else {
                 flworExprMarker.rollbackTo()
-                return false
+                false
             }
         }
         flworExprMarker.drop()
@@ -1592,15 +1592,15 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val forClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FOR)
         if (forClauseMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseForClause()) {
+            return if (parseForClause()) {
                 forClauseMarker.done(XQueryElementType.FOR_CLAUSE)
-                return true
+                true
             } else if (parseTumblingWindowClause() || parseSlidingWindowClause()) {
                 forClauseMarker.done(XQueryElementType.WINDOW_CLAUSE)
-                return true
+                true
             } else {
                 forClauseMarker.rollbackTo()
-                return false
+                false
             }
         }
         return false

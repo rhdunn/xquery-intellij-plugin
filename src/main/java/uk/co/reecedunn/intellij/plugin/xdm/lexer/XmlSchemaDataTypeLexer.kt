@@ -100,11 +100,11 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
             }
-            if (cc == CharacterClass.SEMICOLON) {
+            return if (cc == CharacterClass.SEMICOLON) {
                 mTokenRange.match()
-                return XmlSchemaDataTypeTokenType.PREDEFINED_ENTITY_REFERENCE
+                XmlSchemaDataTypeTokenType.PREDEFINED_ENTITY_REFERENCE
             } else {
-                return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+                XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
             }
         } else if (cc == CharacterClass.HASH) {
             mTokenRange.match()
@@ -117,11 +117,11 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.match()
                         c = mTokenRange.codePoint
                     }
-                    if (c == ';'.toInt()) {
+                    return if (c == ';'.toInt()) {
                         mTokenRange.match()
-                        return XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE
+                        XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE
                     } else {
-                        return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+                        XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
                     }
                 } else if (c == ';'.toInt()) {
                     mTokenRange.match()
@@ -135,11 +135,11 @@ class XmlSchemaDataTypeLexer : LexerImpl(STATE_DEFAULT) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }
-                if (c == ';'.toInt()) {
+                return if (c == ';'.toInt()) {
                     mTokenRange.match()
-                    return XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE
+                    XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE
                 } else {
-                    return XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
+                    XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE
                 }
             } else if (c == ';'.toInt()) {
                 mTokenRange.match()

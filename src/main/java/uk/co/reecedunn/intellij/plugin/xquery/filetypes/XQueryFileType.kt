@@ -59,9 +59,9 @@ class XQueryFileType private constructor() : LanguageFileType(XQuery) {
     private fun matchWhiteSpaceOrComment(lexer: Lexer, required: Boolean): Boolean {
         var matched = false
         while (true) {
-            if (lexer.tokenType === XQueryTokenType.WHITE_SPACE) {
+            matched = if (lexer.tokenType === XQueryTokenType.WHITE_SPACE) {
                 lexer.advance()
-                matched = true
+                true
             } else if (lexer.tokenType === XQueryTokenType.COMMENT_START_TAG) {
                 lexer.advance()
                 if (lexer.tokenType === XQueryTokenType.COMMENT) {
@@ -70,7 +70,7 @@ class XQueryFileType private constructor() : LanguageFileType(XQuery) {
                 if (lexer.tokenType === XQueryTokenType.COMMENT_END_TAG) {
                     lexer.advance()
                 }
-                matched = true
+                true
             } else {
                 return matched && required
             }
@@ -103,10 +103,10 @@ class XQueryFileType private constructor() : LanguageFileType(XQuery) {
         if (!matchWhiteSpaceOrComment(lexer, true)) return UTF_8
         if (!matchToken(lexer, XQueryTokenType.K_ENCODING)) return UTF_8
         if (!matchWhiteSpaceOrComment(lexer, true)) return UTF_8
-        try {
-            return Charset.forName(matchString(lexer, "utf-8")!!)
+        return try {
+            Charset.forName(matchString(lexer, "utf-8")!!)
         } catch (e: UnsupportedCharsetException) {
-            return UTF_8
+            UTF_8
         }
 
     }

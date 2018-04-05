@@ -75,13 +75,13 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             return null
         }
 
-        when (element) {
+        return when (element) {
             is XPathEnclosedExpr, is XPathComment ->
-                return element.textRange
+                element.textRange
             is XQueryDirElemConstructor ->
-                return getDirElemConstructorRange(element)
+                getDirElemConstructorRange(element)
             else ->
-                return null
+                null
         }
     }
 
@@ -102,13 +102,13 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     }
 
     override fun getPlaceholderText(node: ASTNode): String? {
-        when (node.psi) {
+        return when (node.psi) {
             is XPathEnclosedExpr ->
-                return "{...}"
+                "{...}"
             is XPathComment ->
-                return "(...)"
+                "(...)"
             else ->
-                return "..."
+                "..."
         }
     }
 

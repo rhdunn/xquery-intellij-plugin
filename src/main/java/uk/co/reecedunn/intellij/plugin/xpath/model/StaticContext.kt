@@ -86,11 +86,11 @@ private fun PsiElement.flworBindingVariables(node: PsiElement, context: InScopeV
 
 // ForClause, LetClause, GroupingSpecList
 private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XPathVariableBinding> {
-    if (context.visitedFlworClause) {
+    return if (context.visitedFlworClause) {
         context.visitedFlworClause = false
-        return emptySequence()
+        emptySequence()
     } else {
-        return children().flatMap { binding -> when (binding) {
+        children().flatMap { binding -> when (binding) {
             is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> binding.flworBindingVariables(this, context)
             else -> emptySequence()
         }}

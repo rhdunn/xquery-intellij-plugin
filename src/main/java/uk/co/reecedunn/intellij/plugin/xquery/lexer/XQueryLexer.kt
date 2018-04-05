@@ -335,13 +335,13 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
-                if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DOT) {
+                mType = if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DOT) {
                     mTokenRange.match()
                     while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                         mTokenRange.match()
-                    mType = XQueryTokenType.DECIMAL_LITERAL
+                    XQueryTokenType.DECIMAL_LITERAL
                 } else {
-                    mType = XQueryTokenType.INTEGER_LITERAL
+                    XQueryTokenType.INTEGER_LITERAL
                 }
                 c = mTokenRange.codePoint
                 if (c == 'e'.toInt() || c == 'E'.toInt()) {
@@ -410,35 +410,35 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.COLON -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == ')'.toInt()) {
+                mType = if (c == ')'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.COMMENT_END_TAG
+                    XQueryTokenType.COMMENT_END_TAG
                 } else if (c == ':'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.AXIS_SEPARATOR
+                    XQueryTokenType.AXIS_SEPARATOR
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.ASSIGN_EQUAL
+                    XQueryTokenType.ASSIGN_EQUAL
                 } else {
-                    mType = XQueryTokenType.QNAME_SEPARATOR
+                    XQueryTokenType.QNAME_SEPARATOR
                 }
             }
             CharacterClass.HASH -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == ')'.toInt()) {
+                mType = if (mTokenRange.codePoint == ')'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.PRAGMA_END
+                    XQueryTokenType.PRAGMA_END
                 } else {
-                    mType = XQueryTokenType.FUNCTION_REF_OPERATOR
+                    XQueryTokenType.FUNCTION_REF_OPERATOR
                 }
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '='.toInt()) {
+                mType = if (mTokenRange.codePoint == '='.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.NOT_EQUAL
+                    XQueryTokenType.NOT_EQUAL
                 } else {
-                    mType = XQueryTokenType.MAP_OPERATOR // XQuery 3.0
+                    XQueryTokenType.MAP_OPERATOR // XQuery 3.0
                 }
             }
             CharacterClass.DOLLAR -> {
@@ -460,18 +460,18 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.HYPHEN_MINUS -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == '-'.toInt()) {
+                mType = if (c == '-'.toInt()) {
                     mTokenRange.save()
                     mTokenRange.match()
                     if (mTokenRange.codePoint == '>'.toInt()) {
                         mTokenRange.match()
-                        mType = XQueryTokenType.XML_COMMENT_END_TAG
+                        XQueryTokenType.XML_COMMENT_END_TAG
                     } else {
                         mTokenRange.restore()
-                        mType = XQueryTokenType.MINUS
+                        XQueryTokenType.MINUS
                     }
                 } else {
-                    mType = XQueryTokenType.MINUS
+                    XQueryTokenType.MINUS
                 }
             }
             CharacterClass.SEMICOLON -> {
@@ -488,14 +488,14 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                     val position = mTokenRange.end
                     mTokenRange.match()
                     matchOpenXmlTag()
-                    if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
+                    mType = if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
                         // For when adding a DirElemConstructor before another one -- i.e. <<a/>
                         mTokenRange.seek(position)
-                        mType = XQueryTokenType.LESS_THAN
+                        XQueryTokenType.LESS_THAN
                     } else {
                         mTokenRange.seek(position)
                         mTokenRange.match()
-                        mType = XQueryTokenType.NODE_BEFORE
+                        XQueryTokenType.NODE_BEFORE
                     }
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
@@ -563,24 +563,24 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.GREATER_THAN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == '>'.toInt()) {
+                mType = if (c == '>'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.NODE_AFTER
+                    XQueryTokenType.NODE_AFTER
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.GREATER_THAN_OR_EQUAL
+                    XQueryTokenType.GREATER_THAN_OR_EQUAL
                 } else {
-                    mType = XQueryTokenType.GREATER_THAN
+                    XQueryTokenType.GREATER_THAN
                 }
             }
             CharacterClass.EQUAL -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == '>'.toInt()) {
+                mType = if (c == '>'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.ARROW
+                    XQueryTokenType.ARROW
                 } else {
-                    mType = XQueryTokenType.EQUAL
+                    XQueryTokenType.EQUAL
                 }
             }
             CharacterClass.CURLY_BRACE_OPEN -> {
@@ -590,34 +590,34 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             }
             CharacterClass.CURLY_BRACE_CLOSE -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '`'.toInt() && mState == STATE_DEFAULT_STRING_INTERPOLATION) {
+                mType = if (mTokenRange.codePoint == '`'.toInt() && mState == STATE_DEFAULT_STRING_INTERPOLATION) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.STRING_INTERPOLATION_CLOSE
+                    XQueryTokenType.STRING_INTERPOLATION_CLOSE
                 } else {
-                    mType = XQueryTokenType.BLOCK_CLOSE
+                    XQueryTokenType.BLOCK_CLOSE
                 }
                 popState()
             }
             CharacterClass.VERTICAL_BAR -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '|'.toInt()) {
+                mType = if (mTokenRange.codePoint == '|'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.CONCATENATION
+                    XQueryTokenType.CONCATENATION
                 } else {
-                    mType = XQueryTokenType.UNION
+                    XQueryTokenType.UNION
                 }
             }
             CharacterClass.FORWARD_SLASH -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == '/'.toInt()) {
+                mType = if (c == '/'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.ALL_DESCENDANTS_PATH
+                    XQueryTokenType.ALL_DESCENDANTS_PATH
                 } else if (c == '>'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.SELF_CLOSING_XML_TAG
+                    XQueryTokenType.SELF_CLOSING_XML_TAG
                 } else {
-                    mType = XQueryTokenType.DIRECT_DESCENDANTS_PATH
+                    XQueryTokenType.DIRECT_DESCENDANTS_PATH
                 }
             }
             CharacterClass.AT_SIGN -> {
@@ -634,20 +634,20 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 if (c == ']'.toInt()) {
                     mTokenRange.save()
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.toInt()) {
+                    mType = if (mTokenRange.codePoint == '>'.toInt()) {
                         mTokenRange.match()
-                        mType = XQueryTokenType.CDATA_SECTION_END_TAG
+                        XQueryTokenType.CDATA_SECTION_END_TAG
                     } else {
                         mTokenRange.restore()
-                        mType = XQueryTokenType.SQUARE_CLOSE
+                        XQueryTokenType.SQUARE_CLOSE
                     }
                 } else if (c == '`'.toInt()) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '`'.toInt()) {
+                    mType = if (mTokenRange.codePoint == '`'.toInt()) {
                         mTokenRange.match()
-                        mType = XQueryTokenType.STRING_CONSTRUCTOR_END
+                        XQueryTokenType.STRING_CONSTRUCTOR_END
                     } else {
-                        mType = XQueryTokenType.INVALID
+                        XQueryTokenType.INVALID
                     }
                 } else {
                     mType = XQueryTokenType.SQUARE_CLOSE
@@ -656,11 +656,11 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == '>'.toInt()) {
+                mType = if (c == '>'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
+                    XQueryTokenType.PROCESSING_INSTRUCTION_END
                 } else {
-                    mType = XQueryTokenType.OPTIONAL
+                    XQueryTokenType.OPTIONAL
                 }
             }
             CharacterClass.PERCENT -> {
@@ -1095,11 +1095,11 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             }
         } else if (c == '}'.toInt()) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == '}'.toInt()) {
+            mType = if (mTokenRange.codePoint == '}'.toInt()) {
                 mTokenRange.match()
-                mType = XQueryTokenType.XML_ESCAPED_CHARACTER
+                XQueryTokenType.XML_ESCAPED_CHARACTER
             } else {
-                mType = XQueryTokenType.BLOCK_CLOSE
+                XQueryTokenType.BLOCK_CLOSE
             }
         } else if (c == '<'.toInt()) {
             mTokenRange.match()
@@ -1140,11 +1140,11 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             }
         } else if (c == '}'.toInt()) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == '}'.toInt()) {
+            mType = if (mTokenRange.codePoint == '}'.toInt()) {
                 mTokenRange.match()
-                mType = XQueryTokenType.ESCAPED_CHARACTER
+                XQueryTokenType.ESCAPED_CHARACTER
             } else {
-                mType = XQueryTokenType.BLOCK_CLOSE
+                XQueryTokenType.BLOCK_CLOSE
             }
         } else if (c == '<'.toInt()) {
             mTokenRange.match()
@@ -1463,11 +1463,11 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
             }
-            if (cc == CharacterClass.SEMICOLON) {
+            mType = if (cc == CharacterClass.SEMICOLON) {
                 mTokenRange.match()
-                mType = if (isAttributeValue) XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE else XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
+                if (isAttributeValue) XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE else XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
             } else {
-                mType = if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
+                if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
             }
         } else if (cc == CharacterClass.HASH) {
             mTokenRange.match()
@@ -1480,11 +1480,11 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.match()
                         c = mTokenRange.codePoint
                     }
-                    if (c == ';'.toInt()) {
+                    mType = if (c == ';'.toInt()) {
                         mTokenRange.match()
-                        mType = if (isAttributeValue) XQueryTokenType.XML_CHARACTER_REFERENCE else XQueryTokenType.CHARACTER_REFERENCE
+                        if (isAttributeValue) XQueryTokenType.XML_CHARACTER_REFERENCE else XQueryTokenType.CHARACTER_REFERENCE
                     } else {
-                        mType = if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
+                        if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
                     }
                 } else if (c == ';'.toInt()) {
                     mTokenRange.match()
@@ -1498,11 +1498,11 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }
-                if (c == ';'.toInt()) {
+                mType = if (c == ';'.toInt()) {
                     mTokenRange.match()
-                    mType = if (isAttributeValue) XQueryTokenType.XML_CHARACTER_REFERENCE else XQueryTokenType.CHARACTER_REFERENCE
+                    if (isAttributeValue) XQueryTokenType.XML_CHARACTER_REFERENCE else XQueryTokenType.CHARACTER_REFERENCE
                 } else {
-                    mType = if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
+                    if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
                 }
             } else if (c == ';'.toInt()) {
                 mTokenRange.match()

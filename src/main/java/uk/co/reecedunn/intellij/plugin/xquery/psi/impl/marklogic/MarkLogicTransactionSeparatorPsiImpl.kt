@@ -34,15 +34,15 @@ private val XQUERY = listOf<Version>()
 
 class MarkLogicTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicTransactionSeparator, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        if (parent.node.elementType === XQueryElementType.FILE) {
+        return if (parent.node.elementType === XQueryElementType.FILE) {
             // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
-            return MARKLOGIC60
+            MARKLOGIC60
         } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
             // The last TransactionSeparator in a QueryBody.
             // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
-            return XQUERY
+            XQUERY
         } else {
-            return MARKLOGIC60_SCRIPTING
+            MARKLOGIC60_SCRIPTING
         }
     }
 

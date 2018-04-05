@@ -144,16 +144,16 @@ class VersionedProductId {
         set(value) {
             val parts = value?.split("/") ?: listOf()
 
-            if (parts.size >= 1) {
+            vendor = if (parts.size >= 1) {
                 when (parts[0]) {
-                    "basex" -> vendor = BaseX
-                    "marklogic" -> vendor = MarkLogic
-                    "saxon" -> vendor = Saxon
-                    "w3c" -> vendor = W3C
-                    else -> vendor = null
+                    "basex" -> BaseX
+                    "marklogic" -> MarkLogic
+                    "saxon" -> Saxon
+                    "w3c" -> W3C
+                    else -> null
                 }
             } else {
-                vendor = null
+                null
             }
 
             var version: Version? = null

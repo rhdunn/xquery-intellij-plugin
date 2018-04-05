@@ -61,11 +61,11 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
             }
-            if (cc == CharacterClass.SEMICOLON) {
+            mType = if (cc == CharacterClass.SEMICOLON) {
                 mTokenRange.match()
-                mType = XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
+                XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
             } else {
-                mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+                XQDocTokenType.PARTIAL_ENTITY_REFERENCE
             }
         } else if (cc == CharacterClass.HASH) {
             mTokenRange.match()
@@ -78,11 +78,11 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                         mTokenRange.match()
                         c = mTokenRange.codePoint
                     }
-                    if (c == ';'.toInt()) {
+                    mType = if (c == ';'.toInt()) {
                         mTokenRange.match()
-                        mType = XQDocTokenType.CHARACTER_REFERENCE
+                        XQDocTokenType.CHARACTER_REFERENCE
                     } else {
-                        mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+                        XQDocTokenType.PARTIAL_ENTITY_REFERENCE
                     }
                 } else if (c == ';'.toInt()) {
                     mTokenRange.match()
@@ -96,11 +96,11 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }
-                if (c == ';'.toInt()) {
+                mType = if (c == ';'.toInt()) {
                     mTokenRange.match()
-                    mType = XQDocTokenType.CHARACTER_REFERENCE
+                    XQDocTokenType.CHARACTER_REFERENCE
                 } else {
-                    mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+                    XQDocTokenType.PARTIAL_ENTITY_REFERENCE
                 }
             } else if (c == ';'.toInt()) {
                 mTokenRange.match()
