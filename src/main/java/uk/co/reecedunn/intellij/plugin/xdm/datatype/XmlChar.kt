@@ -54,6 +54,7 @@ data class XmlChar(val codepoint: Int) {
      *   -  U+007F DEL (DELETE)
      *   -  U+0085 NEL (NEXT LINE)
      */
+    @Suppress("unused")
     val isUnsupportedControlCharacter get(): Boolean {
         return (codepoint in 0x00..0x1F || codepoint in 0x7F..0x9F) && codepoint !in VALID_CONTROL_CHARACTERS
     }
@@ -65,6 +66,7 @@ data class XmlChar(val codepoint: Int) {
      *
      * The XML `Char` regular expression excludes these codepoints.
      */
+    @Suppress("unused")
     val isSurrogate: Boolean = codepoint in 0xD800..0xDFFF
 
     /**
@@ -82,6 +84,7 @@ data class XmlChar(val codepoint: Int) {
      * may be assigned at some point in the future, so using those is not
      * invalid.
      */
+    @Suppress("unused")
     val isPermanentlyUnassigned get(): Boolean {
         return (codepoint and 0x00FFFF) in 0xFFFE..0xFFFF || codepoint in 0xFDD0..0xFDEF
     }

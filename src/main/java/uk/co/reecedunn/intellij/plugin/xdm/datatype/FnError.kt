@@ -27,7 +27,11 @@ data class FnErrorObject(val code: QName,
                          val description: XdmStaticValue?,
                          val errorObject: List<XdmStaticValue>) {
 
+    @Suppress("unused")
     constructor(): this(FOER0000, null, listOf())
+
+    @Suppress("unused")
     constructor(code: QName): this(code, null, listOf())
+
     constructor(code: QName, description: XdmStaticValue): this(code, description, listOf())
 }

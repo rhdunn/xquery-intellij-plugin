@@ -89,6 +89,7 @@ private class PsiNotTokenIterator(private val nodes: Iterator<PsiElement>,
     }
 }
 
+@Suppress("unused")
 fun PsiElement.ancestors(): Sequence<PsiElement> {
     return PsiElementIterator(parent, PsiElement::getParent).asSequence()
 }

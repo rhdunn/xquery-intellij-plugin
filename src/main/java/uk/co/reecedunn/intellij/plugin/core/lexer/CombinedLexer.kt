@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,15 +31,14 @@ class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
     internal inner class State(val lexer: Lexer,
                                val state: Int,
                                val parentState: Int,
-                               val childState: Int,
-                               val transition: IElementType)
+                               val childState: Int)
 
     fun addState(lexer: Lexer, stateId: Int, parentStateId: Int, transition: IElementType) {
         addState(lexer, stateId, parentStateId, 0, transition)
     }
 
     fun addState(lexer: Lexer, stateId: Int, parentStateId: Int, childStateId: Int, transition: IElementType) {
-        val state = State(lexer, stateId, parentStateId, childStateId, transition)
+        val state = State(lexer, stateId, parentStateId, childStateId)
         mStates[stateId] = state
         mTransitions[transition] = state
         mStateMask = mStateMask or stateId

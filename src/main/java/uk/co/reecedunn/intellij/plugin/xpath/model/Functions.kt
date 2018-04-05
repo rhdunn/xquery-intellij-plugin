@@ -26,6 +26,7 @@ interface XPathFunctionName {
     val functionName: QName?
 }
 
+@Suppress("unused")
 val VARIABLE_ARITY: Int = -1
 
 interface XPathFunctionArguments<T> {
@@ -40,6 +41,7 @@ interface XPathFunctionDeclaration : XPathFunctionName, XPathFunctionArguments<X
     val returnType: XdmSequenceType?
 }
 
+@Suppress("unused")
 interface XPathFunctionEvaluation : XPathFunctionName, XPathFunctionArguments<XdmStaticValue> {
     val result: XdmStaticValue?
 }

@@ -71,6 +71,7 @@ open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType):
 open class XdmListType(typeName: QName?, override val itemType: XdmSequenceType):
         XdmSimpleType(typeName, XsAnySimpleType) {
 
+    @Suppress("unused")
     constructor(itemType: XdmSequenceType): this(null, itemType)
 
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO

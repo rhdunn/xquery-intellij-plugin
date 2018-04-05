@@ -19,22 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference
-
-private val QNAME_SEPARATORS = TokenSet.create(
-    XQueryTokenType.QNAME_SEPARATOR,
-    XQueryTokenType.XML_TAG_QNAME_SEPARATOR,
-    XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
 
 abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
     override fun equals(other: Any?): Boolean {

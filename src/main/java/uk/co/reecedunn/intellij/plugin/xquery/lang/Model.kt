@@ -38,7 +38,14 @@ class NamedVersion(id: String, value: Double, val name: String, kind: Versioned)
     override fun toString(): String = kind.name + " " + name
 }
 
-class Specification(id: String, value: Double, date: Int, val label: String, val href: String, kind: Versioned) : Version(id, value, kind) {
+class Specification(id: String,
+                    value: Double,
+                    @Suppress("UNUSED_PARAMETER") date: Int,
+                    val label: String,
+                    @Suppress("unused") val href: String,
+                    kind: Versioned) :
+        Version(id, value, kind) {
+
     override fun toString(): String = kind.name + " " + label
 }
 
@@ -64,7 +71,11 @@ abstract class Product(val id: String, val name: String, val implementation: Imp
     abstract fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned>
 }
 
-abstract class Implementation(override val id: String, override val name: String, val vendorUri: String): Versioned {
+abstract class Implementation(override val id: String,
+                              override val name: String,
+                              @Suppress("unused") val vendorUri: String) :
+        Versioned {
+
     abstract val products: List<Product>
 
     abstract fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String?

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,22 +30,6 @@ class XQueryProjectSettingsConfigurableTest : ParserTestCase() {
     override fun setUp() {
         super.setUp()
         registerApplicationService(UISettings::class.java, UISettings())
-    }
-
-    private fun getComponentByName(component: JComponent, name: String): Component? {
-        return component.components.firstOrNull { it.name != null && it.name == name }
-    }
-
-    private fun getSelectedItem(component: JComponent?, name: String): Any? {
-        val comboBox = getComponentByName(component!!, name) as JComboBox<*>?
-        return comboBox?.selectedItem
-    }
-
-    private fun setSelectedItem(component: JComponent?, name: String, item: Any) {
-        val comboBox = getComponentByName(component!!, name) as JComboBox<*>?
-        if (comboBox != null) {
-            comboBox.selectedItem = item
-        }
     }
 
     fun testDisplayName() {
