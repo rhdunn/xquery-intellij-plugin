@@ -79,6 +79,6 @@ class CodePointRange {
     }
 
     companion object {
-        val END_OF_BUFFER = -1
+        const val END_OF_BUFFER = -1
     }
 }

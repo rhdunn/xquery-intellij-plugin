@@ -27,7 +27,7 @@ interface XPathFunctionName {
 }
 
 @Suppress("unused")
-val VARIABLE_ARITY: Int = -1
+const val VARIABLE_ARITY: Int = -1
 
 interface XPathFunctionArguments<T> {
     val cacheable: CachingBehaviour
