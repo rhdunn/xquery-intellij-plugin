@@ -63,10 +63,10 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().forEach { element ->
-            val localname = when {
-                element is XPathFunctionCall -> getLocalName(element.functionName)
-                element is XQueryFunctionDecl -> getLocalName(element.functionName)
-                element is XPathNamedFunctionRef -> getLocalName(element.functionName)
+            val localname = when (element) {
+                is XPathFunctionCall -> getLocalName(element.functionName)
+                is XQueryFunctionDecl -> getLocalName(element.functionName)
+                is XPathNamedFunctionRef -> getLocalName(element.functionName)
                 else -> null
             }
             when (localname?.second) {
