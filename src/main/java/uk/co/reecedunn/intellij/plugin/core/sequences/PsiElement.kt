@@ -119,8 +119,7 @@ fun PsiElement.walkTree(): PsiElementReversibleSequence {
                 // object location to the child in the parent directory, which will
                 // result in prevSibling logging a "Cannot find element among its
                 // parent' children." error.
-                val next = if (parent is PsiDirectory) null else e.prevSibling
-                if (next == null) parent else next
+                (if (parent is PsiDirectory) null else e.prevSibling) ?: parent
             })
         })
 }
