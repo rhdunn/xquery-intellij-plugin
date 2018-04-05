@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 // region BaseX
@@ -35,7 +36,9 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
+    @Suppress("PropertyName")
     val FLAVOURS_XQUERY: List<Versioned> = listOf(BaseX, XQuery, FullText, UpdateFacility)
+    @Suppress("PropertyName")
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
 
     override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
@@ -96,8 +99,11 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
+    @Suppress("PropertyName")
     val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
+    @Suppress("PropertyName")
     val FLAVOURS_MARKLOGIC: List<Versioned> = listOf(MarkLogic)
+    @Suppress("PropertyName")
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
 
     override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
@@ -172,9 +178,13 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
 
     // UpdateFacility support requires EE (http://www.saxonica.com/products/feature-matrix-9-8.xml)
     // Saxon extensions require PE or EE (http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions)
+    @Suppress("PropertyName")
     val FLAVOURS_EE: List<Versioned> = listOf(Saxon, XQuery, UpdateFacility)
+    @Suppress("PropertyName")
     val FLAVOURS_PE: List<Versioned> = listOf(Saxon, XQuery)
+    @Suppress("PropertyName")
     val FLAVOURS_HE: List<Versioned> = listOf(XQuery)
+    @Suppress("PropertyName")
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
 
     override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
@@ -250,9 +260,13 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
 
+    @Suppress("PropertyName")
     val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuery, FullText, UpdateFacility, Scripting)
+    @Suppress("PropertyName")
     val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuery, FullText, UpdateFacility)
+    @Suppress("PropertyName")
     val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
+    @Suppress("PropertyName")
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
 
     override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {

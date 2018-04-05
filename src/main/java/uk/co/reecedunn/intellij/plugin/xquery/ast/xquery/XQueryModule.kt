@@ -42,8 +42,10 @@ data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: S
  * the top-level grammar production in the XQuery specifications.
  */
 interface XQueryModule : PsiFile {
+    @Suppress("PropertyName")
     val XQueryVersion: XQueryVersionRef
 
+    @Suppress("PropertyName")
     val XQueryVersions: Sequence<XQueryVersionRef>
 
     val predefinedStaticContext: XQueryProlog?

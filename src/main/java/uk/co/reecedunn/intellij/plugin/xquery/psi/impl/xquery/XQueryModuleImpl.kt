@@ -55,6 +55,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
 
     override fun getFileType(): FileType = XQueryFileType.INSTANCE
 
+    @Suppress("PropertyName")
     override val XQueryVersions get(): Sequence<XQueryVersionRef> {
         var isFirst = true
         return children().map { child -> when (child) {
@@ -75,6 +76,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
         }}.filterNotNull()
     }
 
+    @Suppress("PropertyName")
     override val XQueryVersion get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
     override fun toString(): String = "XQueryModule(" + containingFile.name + ")"

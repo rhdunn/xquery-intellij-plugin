@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
     // region Settings
 
+    @Suppress("PrivatePropertyName")
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
 
     @get:Transient
@@ -50,12 +51,16 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
             PRODUCT_VERSION.id = version
         }
 
+    @Suppress("PropertyName")
     var XQueryVersion: String? = "1.0"
 
+    @Suppress("PropertyName")
     var XQuery10Dialect: String? = "xquery"
 
+    @Suppress("PropertyName")
     var XQuery30Dialect: String? = "xquery"
 
+    @Suppress("PropertyName")
     var XQuery31Dialect: String? = "xquery"
 
     // endregion

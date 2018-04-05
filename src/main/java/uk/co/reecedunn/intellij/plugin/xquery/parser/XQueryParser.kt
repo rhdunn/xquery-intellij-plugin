@@ -43,6 +43,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * -  Saxon 9.4 `map`, and 9.8 `tuple`, `union`, and `declare type` extensions
  * -  BaseX 7.8 and 8.5 UpdateExpr extension; Full Text `fuzzy` option
  */
+@Suppress("FunctionName")
 internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Main Interface
 
