@@ -19,7 +19,7 @@ import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ConfigurationException
 import javax.swing.JComponent
 
-abstract class ConfigurableImpl<Configuration>(private val mConfiguration: Configuration):
+abstract class ConfigurableImpl<in Configuration>(private val mConfiguration: Configuration):
         Configurable, SettingsUIFactory<Configuration> {
 
     private var mSettings: SettingsUI<Configuration>? = null
