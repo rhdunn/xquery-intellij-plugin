@@ -144,7 +144,7 @@ class VersionedProductId {
         set(value) {
             val parts = value?.split("/") ?: listOf()
 
-            vendor = if (parts.size >= 1) {
+            vendor = if (parts.isNotEmpty()) {
                 when (parts[0]) {
                     "basex" -> BaseX
                     "marklogic" -> MarkLogic
