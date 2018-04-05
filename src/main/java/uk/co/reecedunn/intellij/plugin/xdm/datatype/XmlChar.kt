@@ -36,6 +36,7 @@ data class XmlChar(val codepoint: Int) {
      * Any value outside the range U+0000 to U+10FFFF is an invalid codepoint.
      * Invalid codepoints are not allowed in the XML `Char` regular expression.
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     val isValid: Boolean = codepoint in 0..0x10FFFF
 
     /**
