@@ -21,9 +21,6 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-import java.awt.Component
-import javax.swing.JComboBox
-import javax.swing.JComponent
 
 class XQueryProjectSettingsConfigurableTest : ParserTestCase() {
     @Throws(Exception::class)
