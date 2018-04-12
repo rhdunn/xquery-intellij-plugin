@@ -13,29 +13,18 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.1:</h3>
+    <h3>Release 1.2-dev:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>Support using MarkLogic 8.0 <code>array-node()</code> and <code>object-node()</code> tests in <code>document-node()</code> tests.</li>
-      <li>Fix parsing Saxon 9.8 <code>tuple</code> types with whitespace or comments after the item type with an occurrence indicator and before the comma.</li>
-      <li>Fix parsing Saxon 9.8 <code>union</code> types with whitespace or comments after the QName and before the comma.</li>
-      <li>Fix parsing <code>TypedFunctionTest</code> constructs with whitespace or comments after the item type with an occurrence indicator and before the comma.</li>
-      <li>Improve error recovery when parsing incomplete QNames in direct element constructor start and end tags, e.g. <code>&lt;a:&gt;&lt;/a:&gt;</code>.</li>
-      <li>Fix tokenizing <code>``[...`]``</code>.</li>
     </ol>
     <p>Syntax Highlighting:</p>
     <ol>
-      <li>Highlight NCNames in <code>processing-instruction</code> StringLiterals.</li>
     </ol>
     <p>References and Resolving:</p>
     <ol>
-      <li>Only the variable for the active <code>typeswitch</code> <code>case</code>/<code>default</code> clause should be in scope.</li>
-      <li>Fix <code>for</code>/<code>let</code> bindings so previous binding variables are visible from the <code>in</code> expression.</li>
-      <li>Fix checking multiple declared variables in a Scripting Extensions <code>BlockVarDecl</code> node.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
-      <li>XQST0118: Mismatched open and close XML tag in direct element constructors.</li>
     </ol>
   ]]></change-notes>
 
