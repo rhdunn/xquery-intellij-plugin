@@ -524,6 +524,9 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NODES).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NODES)[0], `is`(SyntaxHighlighter.KEYWORD))
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NON_DETERMINISTIC).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NON_DETERMINISTIC)[0], `is`(SyntaxHighlighter.KEYWORD))
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NOT).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NOT)[0], `is`(SyntaxHighlighter.KEYWORD))
 

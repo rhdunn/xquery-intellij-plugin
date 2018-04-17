@@ -5063,6 +5063,18 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     // endregion
+    // region BaseX 8.4 :: NonDeterministicFunctionCall
+
+    fun testNonDeterministicFunctionCall() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "non-deterministic", XQueryTokenType.K_NON_DETERMINISTIC)
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    // endregion
     // region BaseX 8.5 :: UpdateExpr
 
     fun testUpdateExpr_BaseX85() {

@@ -180,6 +180,7 @@ private val KEYWORDS = mapOf(
         "no-preserve" to XQueryTokenType.K_NO_PRESERVE,
         "node" to XQueryTokenType.K_NODE,
         "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
+        "non-deterministic" to XQueryTokenType.K_NON_DETERMINISTIC, // BaseX 8.4
         "not" to XQueryTokenType.K_NOT, // Full Text 1.0
         "null-node" to XQueryTokenType.K_NULL_NODE, // MarkLogic 8.0
         "number-node" to XQueryTokenType.K_NUMBER_NODE, // MarkLogic 8.0
