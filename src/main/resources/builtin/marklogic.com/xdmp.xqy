@@ -42,6 +42,9 @@ declare %a:since("marklogic", "5.0") function xdmp:apply($function as xdmp:funct
 declare %a:since("marklogic", "5.0") function xdmp:architecture() as xs:string external;
 declare %a:since("marklogic", "8.0") function xdmp:atomizable() as xs:boolean external;
 declare %a:since("marklogic", "7.0") function xdmp:atomizable($item as item()) as xs:boolean external;
+declare %a:since("marklogic", "9.0") function xdmp:aws-region() as string? external;
+declare %a:since("marklogic", "9.0") function xdmp:aws-services-domain() as string? external;
+declare %a:since("marklogic", "9.0") function xdmp:aws-services-partition() as string? external;
 declare %a:since("marklogic", "5.0") function xdmp:base64-decode($encoded as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:base64-encode($plaintext as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:binary-decode($encoded as node(), $encoding-name as xs:string) as xs:string external;
@@ -138,6 +141,7 @@ declare %a:since("marklogic", "5.0") function xdmp:database-restore($forestIDs a
 declare %a:since("marklogic", "8.0") function xdmp:database-restore($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?) as xs:unsignedLong external;
 declare %a:since("marklogic", "8.0") function xdmp:database-restore($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?, $incremental-backup-path as xs:string?) as xs:unsignedLong external;
 declare %a:since("marklogic", "9.0") function xdmp:database-restore($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?, $incremental-backup-path as xs:string?, $backup-passphrase as xs:string?) as xs:unsignedLong external;
+declare %a:since("marklogic", "9.0") function xdmp:database-restore($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?, $incremental-backup-path as xs:string?, $backup-passphrase as xs:string?, $forest-map as map:map?) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:database-restore-cancel($jobid as xs:unsignedLong) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function xdmp:database-restore-status($jobid as xs:unsignedLong) as element() external;
 declare %a:since("marklogic", "5.0") function xdmp:database-restore-validate($forestIDs as xs:unsignedLong*, $pathname as xs:string) as element() external;
@@ -147,6 +151,8 @@ declare %a:since("marklogic", "5.0") function xdmp:database-restore-validate($fo
 declare %a:since("marklogic", "5.0") function xdmp:database-restore-validate($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $include-replicas as xs:boolean?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?) as element() external;
 declare %a:since("marklogic", "8.0") function xdmp:database-restore-validate($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $include-replicas as xs:boolean?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?) as element() external;
 declare %a:since("marklogic", "8.0") function xdmp:database-restore-validate($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $include-replicas as xs:boolean?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?, $incremental-backup-path as xs:string?) as element() external;
+declare %a:since("marklogic", "9.0") function xdmp:database-restore-validate($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $include-replicas as xs:boolean?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?, $incremental-backup-path as xs:string?, $backup-passphrase as xs:string?) as element() external;
+declare %a:since("marklogic", "9.0") function xdmp:database-restore-validate($forestIDs as xs:unsignedLong*, $pathname as xs:string, $restoreToTime as xs:dateTime?, $include-replicas as xs:boolean?, $journal-archiving as xs:boolean?, $journal-archive-path as xs:string?, $incremental-backup as xs:boolean?, $incremental-backup-path as xs:string?, $backup-passphrase as xs:string?, $forest-map as map:map?) as element() external;
 declare %a:since("marklogic", "5.0") function xdmp:databases() as xs:unsignedLong* external;
 declare %a:since("marklogic", "6.0") function xdmp:dayname-from-date($arg as xs:date?) as xs:string? external;
 declare %a:since("marklogic", "6.0") function xdmp:decode-from-NCName($name as xs:string) as xs:string external;
@@ -225,8 +231,8 @@ declare %a:since("marklogic", "5.0") function xdmp:encoding-language-detect($doc
 declare %a:since("marklogic", "5.0") function xdmp:estimate($expression as item()*) as xs:integer external;
 declare %a:since("marklogic", "5.0") function xdmp:estimate($expression as item()*, $maximum as xs:double?) as xs:integer external;
 declare %a:since("marklogic", "5.0") function xdmp:eval($xquery as xs:string) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:eval($xquery as xs:string, $vars as item()*) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:eval($xquery as xs:string, $vars as item()*, $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:eval($xquery as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :)) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:eval($xquery as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :), $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "5.0", "xdmp:eval#3") function xdmp:eval-in($xquery as xs:string, $ID (: as [5.0]xs:unsignedLong [8.0]xs:unsignedLong* :)) as item()* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "5.0", "xdmp:eval#3") function xdmp:eval-in($xquery as xs:string, $ID (: as [5.0]xs:unsignedLong [8.0]xs:unsignedLong* :), $vars as item()*) as item()* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "5.0", "xdmp:eval#3") function xdmp:eval-in($xquery as xs:string, $ID (: as [5.0]xs:unsignedLong [8.0]xs:unsignedLong* :), $vars as item()*, $modules as xs:unsignedLong?) as item()* external;
@@ -244,7 +250,7 @@ declare %a:since("marklogic", "8.0") function xdmp:filesystem-directory-create($
 declare %a:since("marklogic", "8.0") function xdmp:filesystem-directory-create($pathname as xs:string, $options (: as (element()?|map:map?) :)) as empty-sequence() external;
 declare %a:since("marklogic", "9.0") function xdmp:filesystem-directory-delete($pathname as xs:string) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:filesystem-file($pathname as xs:string) as xs:string external;
-declare %a:since("marklogic", "9.0") function xdmp:filesystem-file-encryption-status($pathname as xs:string) as element(file-encryption-status) external;
+declare %a:since("marklogic", "9.0") function xdmp:filesystem-file-encryption-status($pathname as xs:string) as element(file-encryption-status)? external;
 declare %a:since("marklogic", "5.0") function xdmp:filesystem-file-exists($pathname as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "7.0") function xdmp:filesystem-file-exists($pathname as xs:string, $host as xs:unsignedLong?) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:filesystem-file-get-time($pathname as xs:string) as xs:dateTime* external;
@@ -260,7 +266,9 @@ declare %a:since("marklogic", "5.0") function xdmp:forest-clear($forestIDs as xs
 declare %a:since("marklogic", "5.0") function xdmp:forest-counts($forest-id (: as [5.0]xs:unsignedLong [6.0]xs:unsignedLong* :)) (: as [5.0]element(forest-counts) [8.0]element(forest-counts)* :) external;
 declare %a:since("marklogic", "5.0") function xdmp:forest-counts($forest-id (: as [5.0]xs:unsignedLong [6.0]xs:unsignedLong* :), $show-elements as xs:string*) (: as [5.0]element(forest-counts) [8.0]element(forest-counts)* :) external;
 declare %a:since("marklogic", "7.0") function xdmp:forest-counts($forest-id as xs:unsignedLong*, $show-elements as xs:string*, $options as xs:string*) (: as [5.0]element(forest-counts) [8.0]element(forest-counts)* :) external;
-declare %a:since("marklogic", "5.0") function xdmp:forest-databases($forest as xs:unsignedLong) as xs:unsignedLong external;
+declare %a:since("marklogic", "9.0") function xdmp:forest-database-replication-resume($forest-ID as xs:unsignedLong*, $forceBulkReplication as xs:boolean) as empty-sequence() external;
+declare %a:since("marklogic", "9.0") function xdmp:forest-database-replication-suspend($forest-ID as xs:unsignedLong*) as empty-sequence() external;
+declare %a:since("marklogic", "5.0") function xdmp:forest-databases($forest as xs:unsignedLong) as xs:unsignedLong? external;
 declare %a:since("marklogic", "9.0") function xdmp:forest-failover-info($id as xs:unsignedLong) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:forest-host($id as xs:unsignedLong) as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:forest-name($forest-id as xs:unsignedLong) as xs:string external;
@@ -341,8 +349,12 @@ declare %a:since("marklogic", "5.0") function xdmp:group-hosts() as xs:unsignedL
 declare %a:since("marklogic", "5.0") function xdmp:group-hosts($groupID as xs:unsignedLong) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function xdmp:group-name() as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:group-name($groupID as xs:unsignedLong) as xs:string external;
+declare %a:since("marklogic", "9.0") function xdmp:group-port-servers() as xs:unsignedLong* external;
+declare %a:since("marklogic", "9.0") function xdmp:group-port-servers($groupID as xs:unsignedLong) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function xdmp:group-servers() as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function xdmp:group-servers($groupID as xs:unsignedLong) as xs:unsignedLong* external;
+declare %a:since("marklogic", "9.0") function xdmp:group-task-server() as xs:unsignedLong* external;
+declare %a:since("marklogic", "9.0") function xdmp:group-task-server($groupID as xs:unsignedLong) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function xdmp:groups() as xs:unsignedLong* external;
 declare %a:since("marklogic", "7.0") function xdmp:gss-server-negotiate($inputToken as xs:string) as element() external;
 declare %a:since("marklogic", "5.0") function xdmp:gunzip($gzipnode as binary(), $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as node()+ external;
@@ -391,8 +403,8 @@ declare %a:since("marklogic", "9.0") function xdmp:integer-to-binary($val as xs:
 declare %a:since("marklogic", "5.0") function xdmp:integer-to-hex($val as xs:integer) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:integer-to-octal($val as xs:integer) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:invoke($path as xs:string) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:invoke($path as xs:string, $vars as item()*) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:invoke($path as xs:string, $vars as item()*, $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:invoke($path as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :)) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:invoke($path as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :), $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
 declare %a:since("marklogic", "7.0") function xdmp:invoke-function($func (: as [7.0]function() as item()* [9.0]function() :)) as item()* external;
 declare %a:since("marklogic", "7.0") function xdmp:invoke-function($func (: as [7.0]function() as item()* [9.0]function() :), $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "5.0", "xdmp:invoke#3") function xdmp:invoke-in($uri as xs:string, $ID (: as [5.0]xs:unsignedLong [8.0]xs:unsignedLong* :)) as item()* external;
@@ -402,8 +414,8 @@ declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "5.0", "xdmp:inv
 declare %a:since("marklogic", "9.0") function xdmp:is-whitespace-node() as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:is-whitespace-node($text as node()) as xs:boolean external;
 declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string) as item()* external;
-declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars as item()*) as item()* external;
-declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars as item()*, $options as node()?) as item()* external;
+declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :)) as item()* external;
+declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :), $options as node()?) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:key-from-QName($name as xs:QName) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-export($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-import($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
@@ -541,6 +553,7 @@ declare %a:since("marklogic", "9.0") function xdmp:server-coordinate-system($id 
 declare %a:since("marklogic", "7.0") function xdmp:server-database($id as xs:unsignedLong) as xs:unsignedLong? external;
 declare %a:since("marklogic", "7.0") function xdmp:server-default-xquery-version($id as xs:unsignedLong) as xs:string? external;
 declare %a:since("marklogic", "7.0") function xdmp:server-group($id as xs:unsignedLong) as xs:unsignedLong external;
+declare %a:since("marklogic", "9.0") function xdmp:server-kind($id as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "7.0") function xdmp:server-modules-database($id as xs:unsignedLong) as xs:unsignedLong? external;
 declare %a:since("marklogic", "5.0") function xdmp:server-name($id as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "7.0") function xdmp:server-port($id as xs:unsignedLong) as xs:unsignedInt? external;
@@ -576,11 +589,12 @@ declare %a:since("marklogic", "7.0") function xdmp:sha384($data as item(), $enco
 declare %a:since("marklogic", "5.0") function xdmp:sha512($data as item()) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:sha512($data as item(), $encoding as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:shutdown($hostIDs as xs:unsignedLong*, $reason as xs:string) as empty-sequence() external;
+declare %a:since("marklogic", "9.0") function xdmp:shutdown($hostIDs as xs:unsignedLong*, $reason as xs:string, $failover as xs:boolean) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:sleep($msec as xs:unsignedInt) as empty-sequence() external;
 declare %a:since("marklogic", "8.0") function xdmp:software-version() as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:spawn($path as xs:string) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:spawn($path as xs:string, $vars as item()*) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:spawn($path as xs:string, $vars as item()*, $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:spawn($path as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :)) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:spawn($path as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :), $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
 declare %a:since("marklogic", "7.0") function xdmp:spawn-function($function as function() as item()*) as item()* external;
 declare %a:since("marklogic", "7.0") function xdmp:spawn-function($function as function() as item()*, $options (: as [5.0]node()? [8.0](element()|map:map)? :)) as item()* external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "5.0", "xdmp:spawn#3") function xdmp:spawn-in($path as xs:string, $ID as xs:unsignedLong) as empty-sequence() external;
