@@ -1,0 +1,1 @@
+let $ x := fn:true # 0 return non-deterministic $ x

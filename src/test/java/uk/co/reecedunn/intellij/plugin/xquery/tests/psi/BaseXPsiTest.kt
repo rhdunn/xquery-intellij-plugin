@@ -21,7 +21,9 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXFTFuzzyOption
+import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXNonDeterministicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
@@ -53,6 +55,23 @@ class BaseXPsiTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_FUZZY))
+    }
+
+    // endregion
+    // region NonDeterministicFunctionCall
+
+    fun testNonDeterministicFunctionCall() {
+        val file = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
+
+        val nonDeterministicFunctionCall = file.walkTree().filterIsInstance<BaseXNonDeterministicFunctionCall>().first()
+        val conformance = nonDeterministicFunctionCall as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(BaseX.VERSION_8_4))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`<IElementType>(XQueryTokenType.K_NON_DETERMINISTIC))
     }
 
     // endregion

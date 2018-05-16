@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,33 @@ class BaseXParserTest : ParserTestCase() {
     fun testUpdateExpr_Multiple() {
         val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_Multiple.txt")
         val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
+    // region BaseX 8.4 :: NonDeterministicFunctionCall
+
+    fun testNonDeterministicFunctionCall() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    fun testNonDeterministicFunctionCall_CompactWhitespace() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    fun testNonDeterministicFunctionCall_MissingVariableIndicator() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    fun testNonDeterministicFunctionCall_MissingArgumentList() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

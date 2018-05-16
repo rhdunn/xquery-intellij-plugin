@@ -2,6 +2,10 @@
 
 ## 1.2 - (In Development)
 
+Language Support:
+
+1.  Support BaseX 8.4 `non-deterministic` function calls.
+
 ## 1.1 - 2018-04-10
 
 Language Support:

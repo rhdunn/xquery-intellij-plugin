@@ -3164,6 +3164,13 @@ class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    fun testAbbrevForwardStep_KeywordNCNames_BaseX84() {
+        val expected = loadResource("tests/parser/basex-8.4/AbbrevForwardStep_KeywordNCNames_BaseX84.txt")
+        val actual = parseResource("tests/parser/basex-8.4/AbbrevForwardStep_KeywordNCNames_BaseX84.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     // endregion
     // region XQuery 1.0 :: ReverseStep
 
@@ -3773,6 +3780,13 @@ class XQueryParserTest : ParserTestCase() {
     fun testFunctionCall_KeywordNCNames_BaseX78() {
         val expected = loadResource("tests/parser/basex-7.8/FunctionCall_KeywordNCNames_BaseX78.txt")
         val actual = parseResource("tests/parser/basex-7.8/FunctionCall_KeywordNCNames_BaseX78.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    fun testFunctionCall_KeywordNCNames_BaseX84() {
+        val expected = loadResource("tests/parser/basex-8.4/FunctionCall_KeywordNCNames_BaseX84.txt")
+        val actual = parseResource("tests/parser/basex-8.4/FunctionCall_KeywordNCNames_BaseX84.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

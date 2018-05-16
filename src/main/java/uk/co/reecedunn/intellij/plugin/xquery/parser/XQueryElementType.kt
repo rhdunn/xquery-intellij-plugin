@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXNonDeterministicFunctionCallPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
@@ -426,6 +427,8 @@ object XQueryElementType {
     val FT_FUZZY_OPTION: IElementType = ICompositeElementType("XQUERY_FT_FUZZY_OPTION", BaseXFTFuzzyOptionPsiImpl::class.java, XQuery)
 
     val UPDATE_EXPR: IElementType = ICompositeElementType("XQUERY_UPDATE_EXPR", BaseXUpdateExprPsiImpl::class.java, XQuery)
+
+    val NON_DETERMINISTIC_FUNCTION_CALL: IElementType = ICompositeElementType("NON_DETERMINISTIC_FUNCTION_CALL", BaseXNonDeterministicFunctionCallPsiImpl::class.java, XQuery)
 
     // endregion
     // region Saxon

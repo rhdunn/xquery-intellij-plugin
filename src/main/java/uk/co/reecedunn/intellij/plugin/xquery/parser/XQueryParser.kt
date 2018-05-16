@@ -4019,6 +4019,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return (parseLiteral()
                 || parseVarRef(type)
                 || parseParenthesizedExpr()
+                || parseNonDeterministicFunctionCall()
                 || parseContextItemExpr()
                 || parseOrderedExpr()
                 || parseUnorderedExpr()
@@ -4126,6 +4127,30 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
+    private fun parseNonDeterministicFunctionCall(): Boolean {
+        val nonDeterministicFunctionCallMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NON_DETERMINISTIC);
+        if (nonDeterministicFunctionCallMarker != null) {
+            parseWhiteSpaceAndCommentTokens()
+            if (getTokenType() != XQueryTokenType.VARIABLE_INDICATOR) {
+                nonDeterministicFunctionCallMarker.rollbackTo()
+                return false
+            }
+
+            if (!parseVarRef(null)) {
+                error(XQueryBundle.message("parser.error.expected", "VarDecl"))
+            }
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!parseArgumentList()) {
+                error(XQueryBundle.message("parser.error.expected", "ArgumentList"))
+            }
+
+            nonDeterministicFunctionCallMarker.done(XQueryElementType.NON_DETERMINISTIC_FUNCTION_CALL)
+            return true
+        }
+        return false
+    }
+
     private fun parseFunctionCall(): Boolean {
         if (getTokenType() is IXQueryKeywordOrNCNameType) {
             val type = getTokenType() as IXQueryKeywordOrNCNameType?
@@ -4145,7 +4170,8 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                         return false
                     }
                 }
-            }// Otherwise, fall through to the FunctionCall parser to parse it as a FunctionCall to allow
+            }
+            // Otherwise, fall through to the FunctionCall parser to parse it as a FunctionCall to allow
             // standard XQuery to use these keywords as function names.
         }
 
