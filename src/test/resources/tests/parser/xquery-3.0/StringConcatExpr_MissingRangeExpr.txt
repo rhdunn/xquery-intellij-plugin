@@ -8,15 +8,14 @@ XQueryModuleImpl[FILE(0:4)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:4)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:4)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:2)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:2)]
-                                 XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                                    XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
-                                       XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
-                                          XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                                             XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                    XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                              XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                 XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
+                                    XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
+                                       XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                                          XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                                             XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                 XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                            LeafPsiElement[XQUERY_CONCATENATION(2:4)]('||')
                            PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'RangeExpr'.')

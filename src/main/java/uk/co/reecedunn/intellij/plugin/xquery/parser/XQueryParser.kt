@@ -3339,14 +3339,19 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val additiveExprMarker = mark()
         if (parseMultiplicativeExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveAdditativeExpr = false
             while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseMultiplicativeExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "MultiplicativeExpr"))
                 }
+                haveAdditativeExpr = true
             }
 
-            additiveExprMarker.done(XQueryElementType.ADDITIVE_EXPR)
+            if (haveAdditativeExpr)
+                additiveExprMarker.done(XQueryElementType.ADDITIVE_EXPR)
+            else
+                additiveExprMarker.drop()
             return true
         }
         additiveExprMarker.drop()

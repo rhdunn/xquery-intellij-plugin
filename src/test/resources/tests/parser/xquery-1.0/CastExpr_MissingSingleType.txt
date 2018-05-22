@@ -8,11 +8,10 @@ XQueryModuleImpl[FILE(0:10)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:10)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:10)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:10)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
-                                 XPathCastExprImpl[XQUERY_CAST_EXPR(0:10)]
-                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(8:10)]('as')
-                                    PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'SingleType'.')
+                              XPathCastExprImpl[XQUERY_CAST_EXPR(0:10)]
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(8:10)]('as')
+                                 PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'SingleType'.')

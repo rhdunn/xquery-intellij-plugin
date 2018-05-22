@@ -25,14 +25,13 @@ XQueryModuleImpl[FILE(0:80)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(27:31)]
                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(27:31)]
                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(27:31)]
-                                       XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(27:31)]
-                                          XPathVarRefImpl[XQUERY_VAR_REF(27:31)]
-                                             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                                             XPathVarNameImpl[XQUERY_VAR_NAME(29:31)]
-                                                XPathNCNameImpl[XQUERY_NCNAME(29:31)]
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(29:30)]('y')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                                       XPathVarRefImpl[XQUERY_VAR_REF(27:31)]
+                                          LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+                                          XPathVarNameImpl[XQUERY_VAR_NAME(29:31)]
+                                             XPathNCNameImpl[XQUERY_NCNAME(29:31)]
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(29:30)]('y')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                      XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(31:51)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_START(31:36)]('start')
                         PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
@@ -45,16 +44,15 @@ XQueryModuleImpl[FILE(0:80)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(42:51)]
                                     XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(42:51)]
                                        XPathRangeExprImpl[XQUERY_RANGE_EXPR(42:51)]
-                                          XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(42:51)]
-                                             XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(42:50)]
-                                                XPathNCNameImpl[XQUERY_NCNAME(42:47)]
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(42:46)]('true')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                                                XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(47:50)]
-                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(47:48)]('(')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(49:50)](')')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
+                                          XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(42:50)]
+                                             XPathNCNameImpl[XQUERY_NCNAME(42:47)]
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(42:46)]('true')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+                                             XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(47:50)]
+                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(47:48)]('(')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(49:50)](')')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                      XQueryWindowEndConditionImpl[XQUERY_WINDOW_END_CONDITION(51:70)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_END(51:54)]('end')
                         PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
@@ -67,16 +65,15 @@ XQueryModuleImpl[FILE(0:80)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(60:70)]
                                     XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(60:70)]
                                        XPathRangeExprImpl[XQUERY_RANGE_EXPR(60:70)]
-                                          XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(60:70)]
-                                             XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(60:69)]
-                                                XPathNCNameImpl[XQUERY_NCNAME(60:66)]
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(60:65)]('false')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(65:66)](' ')
-                                                XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(66:69)]
-                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(66:67)]('(')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
-                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(68:69)](')')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
+                                          XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(60:69)]
+                                             XPathNCNameImpl[XQUERY_NCNAME(60:66)]
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(60:65)]('false')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(65:66)](' ')
+                                             XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(66:69)]
+                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(66:67)]('(')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
+                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(68:69)](')')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(70:80)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(70:76)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
@@ -86,10 +83,9 @@ XQueryModuleImpl[FILE(0:80)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(77:80)]
                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(77:80)]
                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(77:80)]
-                                    XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(77:80)]
-                                       XPathVarRefImpl[XQUERY_VAR_REF(77:80)]
-                                          LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(77:78)]('$')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(78:79)](' ')
-                                          XPathVarNameImpl[XQUERY_VAR_NAME(79:80)]
-                                             XPathNCNameImpl[XQUERY_NCNAME(79:80)]
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(79:80)]('x')
+                                    XPathVarRefImpl[XQUERY_VAR_REF(77:80)]
+                                       LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(77:78)]('$')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(78:79)](' ')
+                                       XPathVarNameImpl[XQUERY_VAR_NAME(79:80)]
+                                          XPathNCNameImpl[XQUERY_NCNAME(79:80)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(79:80)]('x')

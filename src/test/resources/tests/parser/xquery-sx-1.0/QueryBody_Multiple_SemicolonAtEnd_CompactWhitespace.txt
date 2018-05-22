@@ -8,8 +8,7 @@ XQueryModuleImpl[FILE(0:6)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:1)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:1)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:1)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:1)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:3)]
@@ -19,8 +18,7 @@ XQueryModuleImpl[FILE(0:6)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(2:3)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(2:3)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(2:3)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(2:3)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(3:4)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(3:4)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(4:5)]
@@ -30,7 +28,6 @@ XQueryModuleImpl[FILE(0:6)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(4:5)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(4:5)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(4:5)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(4:5)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('4')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('4')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(5:6)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(5:6)](';')

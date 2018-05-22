@@ -10,14 +10,13 @@ XQueryModuleImpl[FILE(0:4)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1:4)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(1:4)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(1:4)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(1:4)]
-                                 XPathAxisStepImpl[XQUERY_AXIS_STEP(1:4)]
-                                    XPathForwardStepImpl[XQUERY_FORWARD_STEP(1:4)]
-                                       XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(1:4)]
-                                          XPathNodeTestImpl[XQUERY_NODE_TEST(1:4)]
-                                             XPathNameTestImpl[XQUERY_NAME_TEST(1:4)]
-                                                XPathQNameImpl[XQUERY_QNAME(1:4)]
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('a')
-                                                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:4)]('b')
-                                    XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]
+                              XPathAxisStepImpl[XQUERY_AXIS_STEP(1:4)]
+                                 XPathForwardStepImpl[XQUERY_FORWARD_STEP(1:4)]
+                                    XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(1:4)]
+                                       XPathNodeTestImpl[XQUERY_NODE_TEST(1:4)]
+                                          XPathNameTestImpl[XQUERY_NAME_TEST(1:4)]
+                                             XPathQNameImpl[XQUERY_QNAME(1:4)]
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('a')
+                                                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:4)]('b')
+                                 XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]

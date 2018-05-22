@@ -8,22 +8,21 @@ XQueryModuleImpl[FILE(0:25)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:25)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:25)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:25)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:25)]
-                                 XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:25)]
-                                    XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:25)]
-                                       LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                       XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                                          XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                       LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-                                       XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:21)]
-                                          XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(3:21)]
-                                             LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(3:5)]('<?')
-                                             XPathNCNameImpl[XQUERY_NCNAME(5:7)]
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:6)]('b')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                             LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(7:19)]('lorem!ipsum ')
-                                             LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(19:21)]('?>')
-                                       LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(21:23)]('</')
-                                       XPathNCNameImpl[XQUERY_NCNAME(23:24)]
-                                          XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(23:24)]('a')
-                                       LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(24:25)]('>')
+                              XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:25)]
+                                 XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:25)]
+                                    LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                    XPathNCNameImpl[XQUERY_NCNAME(1:2)]
+                                       XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                    LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+                                    XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:21)]
+                                       XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(3:21)]
+                                          LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(3:5)]('<?')
+                                          XPathNCNameImpl[XQUERY_NCNAME(5:7)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:6)]('b')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                          LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(7:19)]('lorem!ipsum ')
+                                          LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(19:21)]('?>')
+                                    LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(21:23)]('</')
+                                    XPathNCNameImpl[XQUERY_NCNAME(23:24)]
+                                       XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(23:24)]('a')
+                                    LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(24:25)]('>')

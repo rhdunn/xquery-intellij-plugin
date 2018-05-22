@@ -30,9 +30,8 @@ XQueryModuleImpl[FILE(0:54)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(36:38)]
                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(36:38)]
                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(36:38)]
-                                    XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(36:38)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(36:37)]('1')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(36:37)]('1')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                XQueryDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(38:54)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(38:45)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
@@ -44,5 +43,4 @@ XQueryModuleImpl[FILE(0:54)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(53:54)]
                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(53:54)]
                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(53:54)]
-                                    XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(53:54)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(53:54)]('2')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(53:54)]('2')

@@ -8,8 +8,7 @@ XQueryModuleImpl[FILE(0:5)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:5)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:5)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:5)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:5)]
-                                 XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:5)]
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
-                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(3:4)]('{')
-                                    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(4:5)]('}')
+                              XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:5)]
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+                                 LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(3:4)]('{')
+                                 LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(4:5)]('}')

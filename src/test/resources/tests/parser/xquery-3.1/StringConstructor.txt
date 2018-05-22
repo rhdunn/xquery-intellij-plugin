@@ -8,9 +8,8 @@ XQueryModuleImpl[FILE(0:19)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:19)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:19)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:19)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:19)]
-                                 XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:19)]
-                                    LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                                    XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
-                                       LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
-                                    LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(16:19)](']``')
+                              XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:19)]
+                                 LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                                 XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
+                                    LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
+                                 LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(16:19)](']``')

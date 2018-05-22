@@ -8,23 +8,21 @@ XQueryModuleImpl[FILE(0:12)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:12)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:12)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:12)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:12)]
-                                 XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:12)]
-                                    XQueryCompTextConstructorImpl[XQUERY_COMP_TEXT_CONSTRUCTOR(0:12)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
-                                       XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(4:12)]
-                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
-                                          XPathExprImpl[XQUERY_EXPR(5:11)]
-                                             ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(5:11)]
-                                                XPathOrExprImpl[XQUERY_OR_EXPR(5:11)]
-                                                   XPathAndExprImpl[XQUERY_AND_EXPR(5:11)]
-                                                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(5:11)]
-                                                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(5:11)]
-                                                            XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(5:11)]
-                                                               XPathRangeExprImpl[XQUERY_RANGE_EXPR(5:11)]
-                                                                  XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(5:11)]
-                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(5:11)]
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(5:6)]('"')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(6:10)]('test')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(10:11)]('"')
-                                          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                              XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:12)]
+                                 XQueryCompTextConstructorImpl[XQUERY_COMP_TEXT_CONSTRUCTOR(0:12)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
+                                    XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(4:12)]
+                                       LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
+                                       XPathExprImpl[XQUERY_EXPR(5:11)]
+                                          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(5:11)]
+                                             XPathOrExprImpl[XQUERY_OR_EXPR(5:11)]
+                                                XPathAndExprImpl[XQUERY_AND_EXPR(5:11)]
+                                                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(5:11)]
+                                                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(5:11)]
+                                                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(5:11)]
+                                                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(5:11)]
+                                                               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(5:11)]
+                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(5:6)]('"')
+                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(6:10)]('test')
+                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(10:11)]('"')
+                                       LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')

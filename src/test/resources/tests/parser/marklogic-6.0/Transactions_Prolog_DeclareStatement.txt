@@ -8,9 +8,8 @@ XQueryModuleImpl[FILE(0:31)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:2)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:2)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:2)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:2)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(1:2)]('\n')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(1:2)]('\n')
    MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
       PsiWhiteSpaceImpl[WHITE_SPACE(3:4)]('\n')
@@ -36,8 +35,7 @@ XQueryModuleImpl[FILE(0:31)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(27:28)]
                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(27:28)]
                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(27:28)]
-                                    XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(27:28)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('3')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('3')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(29:30)]('\n')
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(30:31)]
@@ -48,5 +46,4 @@ XQueryModuleImpl[FILE(0:31)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(30:31)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(30:31)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(30:31)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(30:31)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('4')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('4')

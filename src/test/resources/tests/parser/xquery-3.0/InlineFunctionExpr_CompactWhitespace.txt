@@ -8,21 +8,19 @@ XQueryModuleImpl[FILE(0:13)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:13)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:13)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:13)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:13)]
-                                 XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
-                                    LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-                                    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(9:10)](')')
-                                    XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(10:13)]
-                                       LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
-                                       XPathExprImpl[XQUERY_EXPR(11:12)]
-                                          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:12)]
-                                             XPathOrExprImpl[XQUERY_OR_EXPR(11:12)]
-                                                XPathAndExprImpl[XQUERY_AND_EXPR(11:12)]
-                                                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:12)]
-                                                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:12)]
-                                                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:12)]
-                                                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(11:12)]
-                                                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(11:12)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('2')
-                                       LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')
+                              XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
+                                 LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+                                 LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(9:10)](')')
+                                 XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(10:13)]
+                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
+                                    XPathExprImpl[XQUERY_EXPR(11:12)]
+                                       ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:12)]
+                                          XPathOrExprImpl[XQUERY_OR_EXPR(11:12)]
+                                             XPathAndExprImpl[XQUERY_AND_EXPR(11:12)]
+                                                XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:12)]
+                                                   FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:12)]
+                                                      XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:12)]
+                                                         XPathRangeExprImpl[XQUERY_RANGE_EXPR(11:12)]
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('2')
+                                    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')

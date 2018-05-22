@@ -8,15 +8,14 @@ XQueryModuleImpl[FILE(0:11)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:11)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:11)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:11)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:11)]
-                                 XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:11)]
-                                    XPathQNameImpl[XQUERY_QNAME(0:8)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('math')
-                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('sin')
-                                    XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(8:11)]
-                                       LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-                                       XPathArgumentImpl[XQUERY_ARGUMENT(9:10)]
-                                          XPathArgumentPlaceholderImpl[XQUERY_ARGUMENT_PLACEHOLDER(9:10)]
-                                             LeafPsiElement[XQUERY_OPTIONAL_TOKEN(9:10)]('?')
-                                       LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
+                              XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:11)]
+                                 XPathQNameImpl[XQUERY_QNAME(0:8)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('math')
+                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('sin')
+                                 XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(8:11)]
+                                    LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+                                    XPathArgumentImpl[XQUERY_ARGUMENT(9:10)]
+                                       XPathArgumentPlaceholderImpl[XQUERY_ARGUMENT_PLACEHOLDER(9:10)]
+                                          LeafPsiElement[XQUERY_OPTIONAL_TOKEN(9:10)]('?')
+                                    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')

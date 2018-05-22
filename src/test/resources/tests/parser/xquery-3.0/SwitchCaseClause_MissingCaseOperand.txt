@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:17)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:11)]
                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(9:11)]
                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(9:11)]
-                                       XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(9:11)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(13:17)]

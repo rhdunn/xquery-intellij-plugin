@@ -8,5 +8,4 @@ XQueryModuleImpl[FILE(0:7)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:7)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:7)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:7)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:7)]
-                                 XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
+                              XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
