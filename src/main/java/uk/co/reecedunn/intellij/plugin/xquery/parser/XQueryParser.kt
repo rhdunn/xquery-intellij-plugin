@@ -3460,15 +3460,17 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!parseSequenceType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 }
+                treatExprMarker.done(XQueryElementType.TREAT_EXPR)
             } else if (getTokenType() === XQueryTokenType.K_AS && type !== XQueryElementType.SOURCE_EXPR && type !== XQueryElementType.TARGET_EXPR) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
                 advanceLexer()
 
                 parseWhiteSpaceAndCommentTokens()
                 parseSingleType()
+                treatExprMarker.done(XQueryElementType.TREAT_EXPR)
+            } else {
+                treatExprMarker.drop()
             }
-
-            treatExprMarker.done(XQueryElementType.TREAT_EXPR)
             return true
         }
         treatExprMarker.drop()

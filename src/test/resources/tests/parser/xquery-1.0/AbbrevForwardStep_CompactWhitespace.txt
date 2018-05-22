@@ -13,13 +13,12 @@ XQueryModuleImpl[FILE(0:3)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:3)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:3)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:3)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:3)]
-                                                XPathAxisStepImpl[XQUERY_AXIS_STEP(0:3)]
-                                                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:3)]
-                                                      XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:3)]
-                                                         LeafPsiElement[XQUERY_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
-                                                         XPathNodeTestImpl[XQUERY_NODE_TEST(1:3)]
-                                                            XPathNameTestImpl[XQUERY_NAME_TEST(1:3)]
-                                                               XPathNCNameImpl[XQUERY_NCNAME(1:3)]
-                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:3)]('id')
-                                                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]
+                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(0:3)]
+                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:3)]
+                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:3)]
+                                                      LeafPsiElement[XQUERY_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
+                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(1:3)]
+                                                         XPathNameTestImpl[XQUERY_NAME_TEST(1:3)]
+                                                            XPathNCNameImpl[XQUERY_NCNAME(1:3)]
+                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:3)]('id')
+                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]

@@ -13,12 +13,11 @@ XQueryModuleImpl[FILE(0:15)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:15)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:15)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:15)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:15)]
-                                                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
-                                                   XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:15)]
-                                                      LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
-                                                      XPathNCNameImpl[XQUERY_NCNAME(2:4)]
-                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('a')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                      LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(4:15)]('lorem!ipsum')
-                                                      PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected '?>'.')
+                                             XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
+                                                XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:15)]
+                                                   LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
+                                                   XPathNCNameImpl[XQUERY_NCNAME(2:4)]
+                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('a')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                                   LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(4:15)]('lorem!ipsum')
+                                                   PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected '?>'.')

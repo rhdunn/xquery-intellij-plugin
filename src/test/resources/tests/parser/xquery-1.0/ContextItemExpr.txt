@@ -13,6 +13,5 @@ XQueryModuleImpl[FILE(0:1)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:1)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:1)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:1)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:1)]
-                                                XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
-                                                   LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')
+                                             XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
+                                                LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')

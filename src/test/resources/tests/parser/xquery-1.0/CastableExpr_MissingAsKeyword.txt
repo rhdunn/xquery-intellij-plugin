@@ -13,16 +13,15 @@ XQueryModuleImpl[FILE(0:21)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:21)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:21)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:21)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:21)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:21)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                   PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected keyword: as.')
-                                                   XPathSingleTypeImpl[XQUERY_SINGLE_TYPE(12:21)]
-                                                      XPathSimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(12:21)]
-                                                         XPathQNameImpl[XQUERY_QNAME(12:21)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
-                                                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('double')
+                                             XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:21)]
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected keyword: as.')
+                                                XPathSingleTypeImpl[XQUERY_SINGLE_TYPE(12:21)]
+                                                   XPathSimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(12:21)]
+                                                      XPathQNameImpl[XQUERY_QNAME(12:21)]
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
+                                                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('double')

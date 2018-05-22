@@ -31,5 +31,4 @@ XQueryModuleImpl[FILE(0:15)]
                                           XPathUnionExprImpl[XQUERY_UNION_EXPR(14:15)]
                                              XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(14:15)]
                                                 XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(14:15)]
-                                                   XPathTreatExprImpl[XQUERY_TREAT_EXPR(14:15)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')

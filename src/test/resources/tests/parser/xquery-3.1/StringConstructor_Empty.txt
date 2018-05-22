@@ -13,8 +13,7 @@ XQueryModuleImpl[FILE(0:6)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:6)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:6)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:6)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:6)]
-                                                XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:6)]
-                                                   LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                                                   XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:3)]
-                                                   LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(3:6)](']``')
+                                             XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:6)]
+                                                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                                                XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:3)]
+                                                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(3:6)](']``')

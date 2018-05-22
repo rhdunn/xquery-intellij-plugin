@@ -13,9 +13,8 @@ XQueryModuleImpl[FILE(0:5)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:5)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:5)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:5)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:5)]
-                                                XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:5)]
-                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
-                                                   PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected '}'.')
+                                             XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:5)]
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
+                                                PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected '}'.')

@@ -13,16 +13,15 @@ XQueryModuleImpl[FILE(0:40)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:7)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]
-                                                XPathAxisStepImpl[XQUERY_AXIS_STEP(0:7)]
-                                                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
-                                                      XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:7)]
-                                                         XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
-                                                            XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
-                                                               XPathNCNameImpl[XQUERY_NCNAME(0:7)]
-                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
+                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(0:7)]
+                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
+                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:7)]
+                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
+                                                         XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
+                                                            XPathNCNameImpl[XQUERY_NCNAME(0:7)]
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(7:8)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)]('\n')
             XPathOrExprImpl[XQUERY_OR_EXPR(9:17)]
@@ -36,16 +35,15 @@ XQueryModuleImpl[FILE(0:40)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(9:17)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(9:17)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(9:17)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(9:17)]
-                                                XPathAxisStepImpl[XQUERY_AXIS_STEP(9:17)]
-                                                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(9:17)]
-                                                      XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(9:17)]
-                                                         XPathNodeTestImpl[XQUERY_NODE_TEST(9:17)]
-                                                            XPathNameTestImpl[XQUERY_NAME_TEST(9:17)]
-                                                               XPathNCNameImpl[XQUERY_NCNAME(9:17)]
-                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRIVATE(9:16)]('private')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                                                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
+                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(9:17)]
+                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(9:17)]
+                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(9:17)]
+                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(9:17)]
+                                                         XPathNameTestImpl[XQUERY_NAME_TEST(9:17)]
+                                                            XPathNCNameImpl[XQUERY_NCNAME(9:17)]
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRIVATE(9:16)]('private')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(17:18)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)]('\n')
             XPathOrExprImpl[XQUERY_OR_EXPR(19:28)]
@@ -59,16 +57,15 @@ XQueryModuleImpl[FILE(0:40)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(19:28)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(19:28)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(19:28)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(19:28)]
-                                                XPathAxisStepImpl[XQUERY_AXIS_STEP(19:28)]
-                                                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(19:28)]
-                                                      XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(19:28)]
-                                                         XPathNodeTestImpl[XQUERY_NODE_TEST(19:28)]
-                                                            XPathNameTestImpl[XQUERY_NAME_TEST(19:28)]
-                                                               XPathNCNameImpl[XQUERY_NCNAME(19:28)]
-                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROPERTY(19:27)]('property')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                                                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(28:28)]
+                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(19:28)]
+                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(19:28)]
+                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(19:28)]
+                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(19:28)]
+                                                         XPathNameTestImpl[XQUERY_NAME_TEST(19:28)]
+                                                            XPathNCNameImpl[XQUERY_NCNAME(19:28)]
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROPERTY(19:27)]('property')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(28:28)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(28:29)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(29:30)]('\n')
             XPathOrExprImpl[XQUERY_OR_EXPR(30:40)]
@@ -82,12 +79,11 @@ XQueryModuleImpl[FILE(0:40)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(30:40)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(30:40)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(30:40)]
-                                             XPathTreatExprImpl[XQUERY_TREAT_EXPR(30:40)]
-                                                XPathAxisStepImpl[XQUERY_AXIS_STEP(30:40)]
-                                                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(30:40)]
-                                                      XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(30:40)]
-                                                         XPathNodeTestImpl[XQUERY_NODE_TEST(30:40)]
-                                                            XPathNameTestImpl[XQUERY_NAME_TEST(30:40)]
-                                                               XPathNCNameImpl[XQUERY_NCNAME(30:40)]
-                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STYLESHEET(30:40)]('stylesheet')
-                                                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(40:40)]
+                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(30:40)]
+                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(30:40)]
+                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(30:40)]
+                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(30:40)]
+                                                         XPathNameTestImpl[XQUERY_NAME_TEST(30:40)]
+                                                            XPathNCNameImpl[XQUERY_NCNAME(30:40)]
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STYLESHEET(30:40)]('stylesheet')
+                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(40:40)]
