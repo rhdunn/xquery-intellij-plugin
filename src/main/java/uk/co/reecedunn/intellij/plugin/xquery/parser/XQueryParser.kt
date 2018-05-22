@@ -3795,6 +3795,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val relativePathExprMarker = mark()
         if (parseStepExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveRelativePathExpr = false
             while (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH) || matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseStepExpr(null)) {
@@ -3802,9 +3803,13 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 }
 
                 parseWhiteSpaceAndCommentTokens()
+                haveRelativePathExpr = true
             }
 
-            relativePathExprMarker.done(XQueryElementType.RELATIVE_PATH_EXPR)
+            if (haveRelativePathExpr)
+                relativePathExprMarker.done(XQueryElementType.RELATIVE_PATH_EXPR)
+            else
+                relativePathExprMarker.drop()
             return true
         }
         relativePathExprMarker.drop()

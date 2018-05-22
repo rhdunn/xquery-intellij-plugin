@@ -20,10 +20,9 @@ XQueryModuleImpl[FILE(0:15)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:15)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:15)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:15)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
-                                                                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
-                                                                        XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:15)]
-                                                                           PsiErrorElementImpl[ERROR_ELEMENT(0:9)]('XPST0003: CDATA sections must be placed within element tags.')
-                                                                              LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')
-                                                                           LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')
-                                                                        PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Unclosed CDATA section.')
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
+                                                                     XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:15)]
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(0:9)]('XPST0003: CDATA sections must be placed within element tags.')
+                                                                           LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')
+                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')
+                                                                     PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Unclosed CDATA section.')

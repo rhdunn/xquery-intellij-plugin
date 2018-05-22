@@ -32,9 +32,8 @@ XQueryModuleImpl[FILE(0:50)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(45:47)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(45:47)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(45:47)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(45:47)]
-                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('2')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('2')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
    PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Expected end of file.')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(47:49)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(47:49)]
@@ -57,9 +56,8 @@ XQueryModuleImpl[FILE(0:50)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(47:49)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(47:49)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(47:49)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(47:49)]
-                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(47:48)]('3')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(47:48)]('3')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(49:50)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(49:50)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(49:50)]
@@ -81,5 +79,4 @@ XQueryModuleImpl[FILE(0:50)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(49:50)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(49:50)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(49:50)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(49:50)]
-                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(49:50)]('4')
+                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(49:50)]('4')

@@ -53,10 +53,9 @@ XQueryModuleImpl[FILE(0:60)]
                                                                                                                   XPathUnaryExprImpl[XQUERY_UNARY_EXPR(52:59)]
                                                                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(52:59)]
                                                                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(52:59)]
-                                                                                                                           XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(52:59)]
-                                                                                                                              XPathStringLiteralImpl[XQUERY_STRING_LITERAL(52:58)]
-                                                                                                                                 LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(52:53)]('"')
-                                                                                                                                 LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(53:57)]('true')
-                                                                                                                                 LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('"')
-                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+                                                                                                                           XPathStringLiteralImpl[XQUERY_STRING_LITERAL(52:58)]
+                                                                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(52:53)]('"')
+                                                                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(53:57)]('true')
+                                                                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('"')
+                                                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
                                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(59:60)]('}')

@@ -20,10 +20,9 @@ XQueryModuleImpl[FILE(0:8)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:8)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
-                                                                     XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:8)]
-                                                                        XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
-                                                                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
-                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
-                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
+                                                                  XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:8)]
+                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:6)]
+                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
+                                                                     XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
+                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
+                                                                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')

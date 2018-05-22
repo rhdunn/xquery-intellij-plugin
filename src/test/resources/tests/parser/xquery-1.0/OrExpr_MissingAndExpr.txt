@@ -20,15 +20,14 @@ XQueryModuleImpl[FILE(0:4)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:2)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
-                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
-                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                                    XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                                                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                                                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
+                                                                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
                PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'AndExpr'.')

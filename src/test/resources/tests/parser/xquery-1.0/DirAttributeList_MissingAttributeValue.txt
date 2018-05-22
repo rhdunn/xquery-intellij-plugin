@@ -20,23 +20,22 @@ XQueryModuleImpl[FILE(0:16)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:16)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:16)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
-                                                                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:16)]
-                                                                        XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:16)]
-                                                                           LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                                                           XPathQNameImpl[XQUERY_QNAME(1:4)]
-                                                                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                                                              LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
-                                                                           XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:14)]
-                                                                              XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
-                                                                              XQueryDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(5:14)]
-                                                                                 XPathQNameImpl[XQUERY_QNAME(5:11)]
-                                                                                    XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(5:8)]('xml')
-                                                                                    LeafPsiElement[XQUERY_XML_ATTRIBUTE_QNAME_SEPARATOR_TOKEN(8:9)](':')
-                                                                                    XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(9:11)]('id')
-                                                                                 XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(11:12)](' ')
-                                                                                 LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(12:13)]('=')
-                                                                                 XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(13:14)](' ')
-                                                                                 PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Missing attribute string.')
-                                                                           LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(14:16)]('/>')
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:16)]
+                                                                     XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:16)]
+                                                                        LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                                        XPathQNameImpl[XQUERY_QNAME(1:4)]
+                                                                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                                                           LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
+                                                                        XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:14)]
+                                                                           XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
+                                                                           XQueryDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(5:14)]
+                                                                              XPathQNameImpl[XQUERY_QNAME(5:11)]
+                                                                                 XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(5:8)]('xml')
+                                                                                 LeafPsiElement[XQUERY_XML_ATTRIBUTE_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                                                                 XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(9:11)]('id')
+                                                                              XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(11:12)](' ')
+                                                                              LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(12:13)]('=')
+                                                                              XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(13:14)](' ')
+                                                                              PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Missing attribute string.')
+                                                                        LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(14:16)]('/>')

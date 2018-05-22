@@ -27,9 +27,8 @@ XQueryModuleImpl[FILE(0:43)]
                                                                   XPathUnaryExprImpl[XQUERY_UNARY_EXPR(9:11)]
                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(9:11)]
                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(9:11)]
-                                                                           XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(9:11)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected ')'.')
                XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(11:27)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(11:15)]('case')
@@ -53,9 +52,8 @@ XQueryModuleImpl[FILE(0:43)]
                                                                   XPathUnaryExprImpl[XQUERY_UNARY_EXPR(16:18)]
                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(16:18)]
                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(16:18)]
-                                                                           XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(16:18)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('1')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('1')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(18:24)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   XPathOrExprImpl[XQUERY_OR_EXPR(25:27)]
@@ -76,9 +74,8 @@ XQueryModuleImpl[FILE(0:43)]
                                                                XPathUnaryExprImpl[XQUERY_UNARY_EXPR(25:27)]
                                                                   XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(25:27)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(25:27)]
-                                                                        XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(25:27)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(27:34)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(35:41)]('return')
@@ -101,5 +98,4 @@ XQueryModuleImpl[FILE(0:43)]
                                                             XPathUnaryExprImpl[XQUERY_UNARY_EXPR(42:43)]
                                                                XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(42:43)]
                                                                   XPathPathExprImpl[XQUERY_PATH_EXPR(42:43)]
-                                                                     XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(42:43)]
-                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('3')
+                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('3')

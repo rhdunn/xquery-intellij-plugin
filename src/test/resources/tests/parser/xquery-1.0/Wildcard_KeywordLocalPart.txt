@@ -20,14 +20,13 @@ XQueryModuleImpl[FILE(0:8)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:8)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
-                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
-                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
-                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
-                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:8)]
-                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:8)]
-                                                                                    XPathWildcardImpl[XQUERY_WILDCARD(0:8)]
-                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(0:6)]('option')
-                                                                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
-                                                                                       LeafPsiElement[XQUERY_STAR_TOKEN(7:8)]('*')
-                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                                                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
+                                                                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
+                                                                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(0:8)]
+                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(0:8)]
+                                                                                 XPathWildcardImpl[XQUERY_WILDCARD(0:8)]
+                                                                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(0:6)]('option')
+                                                                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
+                                                                                    LeafPsiElement[XQUERY_STAR_TOKEN(7:8)]('*')
+                                                                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]

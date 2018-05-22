@@ -20,8 +20,7 @@ XQueryModuleImpl[FILE(0:4)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:2)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TO(2:4)]('to')
                               PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'AdditiveExpr'.')

@@ -20,14 +20,13 @@ XQueryModuleImpl[FILE(0:11)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:11)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:11)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:11)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
-                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:11)]
-                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:11)]
-                                                                           XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CHILD(0:5)]('child')
-                                                                              LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(7:11)]
-                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(7:11)]
-                                                                                 XPathNCNameImpl[XQUERY_NCNAME(7:11)]
-                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('para')
-                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]
+                                                                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:11)]
+                                                                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:11)]
+                                                                        XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CHILD(0:5)]('child')
+                                                                           LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                                                                        XPathNodeTestImpl[XQUERY_NODE_TEST(7:11)]
+                                                                           XPathNameTestImpl[XQUERY_NAME_TEST(7:11)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(7:11)]
+                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('para')
+                                                                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]

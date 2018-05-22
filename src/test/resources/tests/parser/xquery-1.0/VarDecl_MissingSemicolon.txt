@@ -34,6 +34,5 @@ XQueryModuleImpl[FILE(0:27)]
                                                                XPathUnaryExprImpl[XQUERY_UNARY_EXPR(26:27)]
                                                                   XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(26:27)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(26:27)]
-                                                                        XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(26:27)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
          PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected ';'.')

@@ -20,9 +20,8 @@ XQueryModuleImpl[FILE(0:4)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:4)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:4)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]
-                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
-                                                                        LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')
-                                                                        PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('"')
+                                                                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]
+                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
+                                                                     LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')
+                                                                     PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')
+                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('"')

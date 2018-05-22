@@ -20,14 +20,13 @@ XQueryModuleImpl[FILE(0:4)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:4)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:4)]
-                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]
-                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:4)]
-                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:4)]
-                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:4)]
-                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:4)]
-                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:4)]
-                                                                                    XPathWildcardImpl[XQUERY_WILDCARD(0:4)]
-                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('xh')
-                                                                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                                       LeafPsiElement[XQUERY_STAR_TOKEN(3:4)]('*')
-                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]
+                                                                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:4)]
+                                                                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:4)]
+                                                                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:4)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(0:4)]
+                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(0:4)]
+                                                                                 XPathWildcardImpl[XQUERY_WILDCARD(0:4)]
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('xh')
+                                                                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                                    LeafPsiElement[XQUERY_STAR_TOKEN(3:4)]('*')
+                                                                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]
