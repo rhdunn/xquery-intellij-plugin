@@ -14,8 +14,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:1)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:1)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:1)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:1)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
                      LeafPsiElement[XQUERY_EQUAL_TOKEN(1:2)]('=')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(2:3)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(2:3)]
@@ -26,8 +25,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(2:3)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(2:3)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(2:3)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(2:3)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
             LeafPsiElement[XQUERY_COMMA_TOKEN(3:4)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(4:8)]
                XPathAndExprImpl[XQUERY_AND_EXPR(4:8)]
@@ -41,8 +39,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(4:5)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(4:5)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(4:5)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(4:5)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('1')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('1')
                      LeafPsiElement[XQUERY_NOT_EQUAL_TOKEN(5:7)]('!=')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(7:8)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(7:8)]
@@ -53,8 +50,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(7:8)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(7:8)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(7:8)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(7:8)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')
             LeafPsiElement[XQUERY_COMMA_TOKEN(8:9)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(9:12)]
                XPathAndExprImpl[XQUERY_AND_EXPR(9:12)]
@@ -68,8 +64,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(9:10)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(9:10)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(9:10)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(9:10)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('1')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('1')
                      LeafPsiElement[XQUERY_LESS_THAN_TOKEN(10:11)]('<')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:12)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:12)]
@@ -80,8 +75,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(11:12)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(11:12)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(11:12)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(11:12)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('2')
             LeafPsiElement[XQUERY_COMMA_TOKEN(12:13)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(13:17)]
                XPathAndExprImpl[XQUERY_AND_EXPR(13:17)]
@@ -95,8 +89,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(13:14)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(13:14)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(13:14)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(13:14)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
                      LeafPsiElement[XQUERY_LESS_THAN_OR_EQUAL_TOKEN(14:16)]('<=')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(16:17)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(16:17)]
@@ -107,8 +100,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(16:17)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(16:17)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(16:17)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(16:17)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('2')
             LeafPsiElement[XQUERY_COMMA_TOKEN(17:18)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(18:21)]
                XPathAndExprImpl[XQUERY_AND_EXPR(18:21)]
@@ -122,8 +114,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(18:19)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(18:19)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(18:19)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(18:19)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
                      LeafPsiElement[XQUERY_GREATER_THAN_TOKEN(19:20)]('>')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(20:21)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(20:21)]
@@ -134,8 +125,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(20:21)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(20:21)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(20:21)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(20:21)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(20:21)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(20:21)]('2')
             LeafPsiElement[XQUERY_COMMA_TOKEN(21:22)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(22:26)]
                XPathAndExprImpl[XQUERY_AND_EXPR(22:26)]
@@ -149,8 +139,7 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(22:23)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(22:23)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(22:23)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(22:23)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(22:23)]('1')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(22:23)]('1')
                      LeafPsiElement[XQUERY_GREATER_THAN_OR_EQUAL_TOKEN(23:25)]('>=')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(25:26)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(25:26)]
@@ -161,5 +150,4 @@ XQueryModuleImpl[FILE(0:26)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(25:26)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(25:26)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(25:26)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(25:26)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')

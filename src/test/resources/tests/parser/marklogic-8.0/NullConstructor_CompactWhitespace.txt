@@ -14,8 +14,7 @@ XQueryModuleImpl[FILE(0:11)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:11)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:11)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:11)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:11)]
-                                                   MarkLogicNullConstructorImpl[XQUERY_NULL_CONSTRUCTOR(0:11)]
-                                                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
-                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')
+                                                MarkLogicNullConstructorImpl[XQUERY_NULL_CONSTRUCTOR(0:11)]
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
+                                                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')

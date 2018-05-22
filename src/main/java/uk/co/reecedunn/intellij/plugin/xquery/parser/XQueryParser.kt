@@ -3492,9 +3492,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!parseSingleType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SingleType"))
                 }
+                castableExprMarker.done(XQueryElementType.CASTABLE_EXPR)
+            } else {
+                castableExprMarker.drop()
             }
-
-            castableExprMarker.done(XQueryElementType.CASTABLE_EXPR)
             return true
         }
         castableExprMarker.drop()

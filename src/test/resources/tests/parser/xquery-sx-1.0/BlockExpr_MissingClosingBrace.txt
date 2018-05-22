@@ -23,9 +23,8 @@ XQueryModuleImpl[FILE(0:11)]
                                                    XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(8:11)]
                                                       XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(8:11)]
                                                          XPathTreatExprImpl[XQUERY_TREAT_EXPR(8:11)]
-                                                            XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(8:11)]
-                                                               XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(8:11)]
-                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
+                                                            XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(8:11)]
+                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
                   PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected '}'.')

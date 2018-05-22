@@ -17,5 +17,4 @@ XQueryModuleImpl[FILE(0:8)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(7:8)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(7:8)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(7:8)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(7:8)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')

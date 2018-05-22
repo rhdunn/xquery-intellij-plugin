@@ -35,7 +35,6 @@ XQueryModuleImpl[FILE(0:33)]
                                              XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(31:32)]
                                                 XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(31:32)]
                                                    XPathTreatExprImpl[XQUERY_TREAT_EXPR(31:32)]
-                                                      XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(31:32)]
-                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(31:32)]('1')
+                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(31:32)]('1')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing query body.')

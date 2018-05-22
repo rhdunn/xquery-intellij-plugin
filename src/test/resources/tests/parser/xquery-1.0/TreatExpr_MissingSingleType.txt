@@ -14,9 +14,8 @@ XQueryModuleImpl[FILE(0:11)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:11)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:11)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:11)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:3)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TREAT(3:8)]('treat')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(9:11)]('as')

@@ -14,5 +14,4 @@ XQueryModuleImpl[FILE(0:12)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:12)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:12)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:12)]
-                                                   XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')
+                                                XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')

@@ -14,9 +14,8 @@ XQueryModuleImpl[FILE(0:15)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:15)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:15)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:15)]
-                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:3)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                 PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected keyword: cast, castable, treat.')
                                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(3:5)]('as')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
