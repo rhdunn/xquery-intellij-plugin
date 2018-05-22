@@ -9,22 +9,20 @@ XQueryModuleImpl[FILE(0:17)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:17)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:17)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:17)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:17)]
-                                    MarkLogicNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:17)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                       LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                       XPathExprImpl[XQUERY_EXPR(14:16)]
-                                          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(14:16)]
-                                             XPathOrExprImpl[XQUERY_OR_EXPR(14:16)]
-                                                XPathAndExprImpl[XQUERY_AND_EXPR(14:16)]
-                                                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:16)]
-                                                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(14:16)]
-                                                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(14:16)]
-                                                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(14:16)]
-                                                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(14:16)]
-                                                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(14:16)]
-                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                       LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(16:17)]('}')
+                                 MarkLogicNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:17)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                    XPathExprImpl[XQUERY_EXPR(14:16)]
+                                       ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(14:16)]
+                                          XPathOrExprImpl[XQUERY_OR_EXPR(14:16)]
+                                             XPathAndExprImpl[XQUERY_AND_EXPR(14:16)]
+                                                XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:16)]
+                                                   FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(14:16)]
+                                                      XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(14:16)]
+                                                         XPathRangeExprImpl[XQUERY_RANGE_EXPR(14:16)]
+                                                            XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(14:16)]
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(16:17)]('}')

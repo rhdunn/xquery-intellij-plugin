@@ -3357,6 +3357,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val multiplicativeExprMarker = mark()
         if (parseUnionExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveMultiplicativeExpr = false
             while (matchTokenType(XQueryTokenType.STAR) ||
                     matchTokenType(XQueryTokenType.K_DIV) ||
                     matchTokenType(XQueryTokenType.K_IDIV) ||
@@ -3365,9 +3366,13 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!parseUnionExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "UnionExpr"))
                 }
+                haveMultiplicativeExpr = true
             }
 
-            multiplicativeExprMarker.done(XQueryElementType.MULTIPLICATIVE_EXPR)
+            if (haveMultiplicativeExpr)
+                multiplicativeExprMarker.done(XQueryElementType.MULTIPLICATIVE_EXPR)
+            else
+                multiplicativeExprMarker.drop()
             return true
         }
         multiplicativeExprMarker.drop()

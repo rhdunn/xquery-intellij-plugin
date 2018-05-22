@@ -9,9 +9,8 @@ XQueryModuleImpl[FILE(0:5)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:5)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:5)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:5)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:5)]
-                                    XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
-                                       LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                                       XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
-                                          XPathNCNameImpl[XQUERY_NCNAME(1:5)]
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')
+                                 XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
+                                    LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                                    XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
+                                       XPathNCNameImpl[XQUERY_NCNAME(1:5)]
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')

@@ -9,9 +9,8 @@ XQueryModuleImpl[FILE(0:10)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:10)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:10)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:10)]
-                                    XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:10)]
-                                       XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:10)]
-                                          LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')
-                                          PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')
-                                       PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Unclosed XML comment.')
+                                 XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:10)]
+                                    XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:10)]
+                                       LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')
+                                       PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')
+                                    PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Unclosed XML comment.')

@@ -9,17 +9,16 @@ XQueryModuleImpl[FILE(0:16)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:16)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:16)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:16)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:16)]
-                                    XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:16)]
-                                       XPathVarRefImpl[XQUERY_VAR_REF(0:2)]
-                                          LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                                          XPathVarNameImpl[XQUERY_VAR_NAME(1:2)]
-                                             XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('x')
-                                       LeafPsiElement[XQUERY_ARROW_TOKEN(2:4)]('=>')
-                                       XPathArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(4:14)]
-                                          XPathNCNameImpl[XQUERY_NCNAME(4:14)]
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:14)]('upper-case')
-                                       XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(14:16)]
-                                          LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
-                                          LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
+                                 XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:16)]
+                                    XPathVarRefImpl[XQUERY_VAR_REF(0:2)]
+                                       LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                                       XPathVarNameImpl[XQUERY_VAR_NAME(1:2)]
+                                          XPathNCNameImpl[XQUERY_NCNAME(1:2)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('x')
+                                    LeafPsiElement[XQUERY_ARROW_TOKEN(2:4)]('=>')
+                                    XPathArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(4:14)]
+                                       XPathNCNameImpl[XQUERY_NCNAME(4:14)]
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:14)]('upper-case')
+                                    XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(14:16)]
+                                       LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
+                                       LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')

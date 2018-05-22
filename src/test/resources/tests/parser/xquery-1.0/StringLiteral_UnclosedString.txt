@@ -9,8 +9,7 @@ XQueryModuleImpl[FILE(0:8)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:8)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:8)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:8)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:8)]
-                                    XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]
-                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
-                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
-                                    PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')
+                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
+                                 PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')

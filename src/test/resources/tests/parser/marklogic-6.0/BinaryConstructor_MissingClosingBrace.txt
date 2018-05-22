@@ -9,24 +9,22 @@ XQueryModuleImpl[FILE(0:13)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:13)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:13)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:13)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:13)]
-                                    MarkLogicBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:13)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                       LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                       XPathExprImpl[XQUERY_EXPR(9:13)]
-                                          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:13)]
-                                             XPathOrExprImpl[XQUERY_OR_EXPR(9:13)]
-                                                XPathAndExprImpl[XQUERY_AND_EXPR(9:13)]
-                                                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:13)]
-                                                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:13)]
-                                                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(9:13)]
-                                                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(9:13)]
-                                                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(9:13)]
-                                                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(9:13)]
-                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(9:13)]
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(9:10)]('"')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:12)]('A0')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(12:13)]('"')
-                                       PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected '}'.')
+                                 MarkLogicBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:13)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                    XPathExprImpl[XQUERY_EXPR(9:13)]
+                                       ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:13)]
+                                          XPathOrExprImpl[XQUERY_OR_EXPR(9:13)]
+                                             XPathAndExprImpl[XQUERY_AND_EXPR(9:13)]
+                                                XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:13)]
+                                                   FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:13)]
+                                                      XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(9:13)]
+                                                         XPathRangeExprImpl[XQUERY_RANGE_EXPR(9:13)]
+                                                            XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(9:13)]
+                                                               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(9:13)]
+                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(9:10)]('"')
+                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:12)]('A0')
+                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(12:13)]('"')
+                                    PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected '}'.')

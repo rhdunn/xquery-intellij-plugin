@@ -18,8 +18,7 @@ XQueryModuleImpl[FILE(0:9)]
                                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(6:8)]
                                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(6:8)]
                                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(6:8)]
-                                                XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(6:8)]
-                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
                PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'CatchClause'.')

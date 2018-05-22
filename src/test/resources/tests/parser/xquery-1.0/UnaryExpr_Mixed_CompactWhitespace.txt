@@ -9,11 +9,10 @@ XQueryModuleImpl[FILE(0:9)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:4)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:4)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:4)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]
-                                    XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
-                                       LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
-                                       LeafPsiElement[XQUERY_MINUS_TOKEN(1:2)]('-')
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:4)]('10')
+                                 XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
+                                    LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
+                                    LeafPsiElement[XQUERY_MINUS_TOKEN(1:2)]('-')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:4)]('10')
             LeafPsiElement[XQUERY_COMMA_TOKEN(4:5)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(5:9)]
                XPathAndExprImpl[XQUERY_AND_EXPR(5:9)]
@@ -22,8 +21,7 @@ XQueryModuleImpl[FILE(0:9)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(5:9)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(5:9)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(5:9)]
-                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(5:9)]
-                                    XPathUnaryExprImpl[XQUERY_UNARY_EXPR(5:9)]
-                                       LeafPsiElement[XQUERY_MINUS_TOKEN(5:6)]('-')
-                                       LeafPsiElement[XQUERY_PLUS_TOKEN(6:7)]('+')
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:9)]('10')
+                                 XPathUnaryExprImpl[XQUERY_UNARY_EXPR(5:9)]
+                                    LeafPsiElement[XQUERY_MINUS_TOKEN(5:6)]('-')
+                                    LeafPsiElement[XQUERY_PLUS_TOKEN(6:7)]('+')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:9)]('10')
