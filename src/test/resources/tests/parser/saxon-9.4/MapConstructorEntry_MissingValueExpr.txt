@@ -6,25 +6,23 @@ XQueryModuleImpl[FILE(0:14)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:14)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:14)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:14)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:14)]
-                           XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:14)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                              LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                              XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(6:13)]
-                                 XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(6:10)]
-                                    XPathOrExprImpl[XQUERY_OR_EXPR(6:10)]
-                                       XPathAndExprImpl[XQUERY_AND_EXPR(6:10)]
-                                          XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:10)]
-                                             FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(6:10)]
-                                                XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(6:10)]
-                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(6:9)]
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(6:7)]('"')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(7:8)]('1')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('"')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                 LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(10:12)](':=')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                 PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Missing expression.')
-                              LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(13:14)]('}')
+                        XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:14)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                           XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(6:13)]
+                              XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(6:10)]
+                                 XPathOrExprImpl[XQUERY_OR_EXPR(6:10)]
+                                    XPathAndExprImpl[XQUERY_AND_EXPR(6:10)]
+                                       XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:10)]
+                                          FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(6:10)]
+                                             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(6:9)]
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(6:7)]('"')
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(7:8)]('1')
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('"')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                              LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(10:12)](':=')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                              PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Missing expression.')
+                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(13:14)]('}')

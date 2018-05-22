@@ -6,8 +6,7 @@ XQueryModuleImpl[FILE(0:3)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:3)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:3)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:3)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:3)]
-                           XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:3)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                              LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(1:2)]('!')
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
+                        XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:3)]
+                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                           LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(1:2)]('!')
+                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')

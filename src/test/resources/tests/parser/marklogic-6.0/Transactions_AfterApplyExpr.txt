@@ -6,8 +6,7 @@ XQueryModuleImpl[FILE(0:53)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:1)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:1)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:1)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:1)]
-                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:4)]
@@ -15,9 +14,8 @@ XQueryModuleImpl[FILE(0:53)]
                XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(2:4)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(2:4)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(2:4)]
-                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)]('\n')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(3:4)]('\n')
    MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(4:6)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
       PsiWhiteSpaceImpl[WHITE_SPACE(5:6)]('\n')
@@ -40,5 +38,4 @@ XQueryModuleImpl[FILE(0:53)]
                XPathAndExprImpl[XQUERY_AND_EXPR(52:53)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(52:53)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(52:53)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(52:53)]
-                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(52:53)]('4')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(52:53)]('4')

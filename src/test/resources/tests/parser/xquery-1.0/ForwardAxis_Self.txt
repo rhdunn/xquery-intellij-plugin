@@ -6,16 +6,15 @@ XQueryModuleImpl[FILE(0:12)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:12)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:12)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:12)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:12)]
-                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
-                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:12)]
-                                 XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                    LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                 XPathNodeTestImpl[XQUERY_NODE_TEST(8:12)]
-                                    XPathNameTestImpl[XQUERY_NAME_TEST(8:12)]
-                                       XPathNCNameImpl[XQUERY_NCNAME(8:12)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:12)]('para')
-                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
+                        XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
+                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:12)]
+                              XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                 LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                              XPathNodeTestImpl[XQUERY_NODE_TEST(8:12)]
+                                 XPathNameTestImpl[XQUERY_NAME_TEST(8:12)]
+                                    XPathNCNameImpl[XQUERY_NCNAME(8:12)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:12)]('para')
+                           XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

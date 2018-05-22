@@ -6,22 +6,20 @@ XQueryModuleImpl[FILE(0:23)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:23)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:23)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:23)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:23)]
-                           MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:23)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                              LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                              XPathExprImpl[XQUERY_EXPR(15:22)]
-                                 ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(15:22)]
-                                    XPathOrExprImpl[XQUERY_OR_EXPR(15:22)]
-                                       XPathAndExprImpl[XQUERY_AND_EXPR(15:22)]
-                                          XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(15:22)]
-                                             FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(15:22)]
-                                                XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(15:22)]
-                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:21)]
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:20)]('true')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(20:21)]('"')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                              LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(22:23)]('}')
+                        MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:23)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                           XPathExprImpl[XQUERY_EXPR(15:22)]
+                              ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(15:22)]
+                                 XPathOrExprImpl[XQUERY_OR_EXPR(15:22)]
+                                    XPathAndExprImpl[XQUERY_AND_EXPR(15:22)]
+                                       XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(15:22)]
+                                          FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(15:22)]
+                                             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:21)]
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:20)]('true')
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(20:21)]('"')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(22:23)]('}')

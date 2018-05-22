@@ -6,11 +6,10 @@ XQueryModuleImpl[FILE(0:14)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:14)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:14)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:14)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:14)]
-                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:14)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(12:14)]('of')
-                              PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Expected 'SequenceType'.')
+                        XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:14)]
+                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(12:14)]('of')
+                           PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Expected 'SequenceType'.')

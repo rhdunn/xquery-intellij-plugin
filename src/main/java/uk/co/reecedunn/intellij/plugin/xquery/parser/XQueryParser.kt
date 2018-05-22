@@ -3302,15 +3302,20 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val stringConcatExprMarker = mark()
         if (parseRangeExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveStringConcatExpr = false
             while (matchTokenType(XQueryTokenType.CONCATENATION)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseRangeExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "RangeExpr"))
                 }
                 parseWhiteSpaceAndCommentTokens()
+                haveStringConcatExpr = true
             }
 
-            stringConcatExprMarker.done(XQueryElementType.STRING_CONCAT_EXPR)
+            if (haveStringConcatExpr)
+                stringConcatExprMarker.done(XQueryElementType.STRING_CONCAT_EXPR)
+            else
+                stringConcatExprMarker.drop()
             return true
         }
         stringConcatExprMarker.drop()

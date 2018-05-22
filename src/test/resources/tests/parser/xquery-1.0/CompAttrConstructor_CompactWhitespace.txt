@@ -6,26 +6,24 @@ XQueryModuleImpl[FILE(0:24)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:24)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:24)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:24)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:24)]
-                           XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:24)]
-                              XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:24)]
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                 XPathQNameImpl[XQUERY_QNAME(10:16)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:13)]('xml')
-                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:16)]('id')
-                                 XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(16:24)]
-                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(16:17)]('{')
-                                    XPathExprImpl[XQUERY_EXPR(17:23)]
-                                       ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(17:23)]
-                                          XPathOrExprImpl[XQUERY_OR_EXPR(17:23)]
-                                             XPathAndExprImpl[XQUERY_AND_EXPR(17:23)]
-                                                XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(17:23)]
-                                                   FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(17:23)]
-                                                      XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(17:23)]
-                                                         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(17:23)]
-                                                            LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(17:18)]('"')
-                                                            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(18:22)]('test')
-                                                            LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(22:23)]('"')
-                                    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(23:24)]('}')
+                        XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:24)]
+                           XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:24)]
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                              XPathQNameImpl[XQUERY_QNAME(10:16)]
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:13)]('xml')
+                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:16)]('id')
+                              XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(16:24)]
+                                 LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(16:17)]('{')
+                                 XPathExprImpl[XQUERY_EXPR(17:23)]
+                                    ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(17:23)]
+                                       XPathOrExprImpl[XQUERY_OR_EXPR(17:23)]
+                                          XPathAndExprImpl[XQUERY_AND_EXPR(17:23)]
+                                             XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(17:23)]
+                                                FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(17:23)]
+                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(17:23)]
+                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(17:18)]('"')
+                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(18:22)]('test')
+                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(22:23)]('"')
+                                 LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(23:24)]('}')

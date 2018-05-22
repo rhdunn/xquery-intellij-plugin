@@ -6,11 +6,10 @@ XQueryModuleImpl[FILE(0:12)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:12)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:12)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:12)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:12)]
-                           XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:12)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
-                              PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected '{'.')
+                        XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:12)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
+                           PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected '{'.')

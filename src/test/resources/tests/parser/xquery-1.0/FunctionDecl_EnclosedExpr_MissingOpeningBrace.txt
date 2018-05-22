@@ -23,12 +23,11 @@ XQueryModuleImpl[FILE(0:39)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(29:36)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(29:36)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(29:36)]
-                                 XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(29:36)]
-                                    XPathStringLiteralImpl[XQUERY_STRING_LITERAL(29:35)]
-                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('"')
-                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:34)]('true')
-                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('"')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(29:35)]
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('"')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:34)]('true')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('"')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')

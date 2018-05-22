@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:36)]
                               XPathAndExprImpl[XQUERY_AND_EXPR(6:8)]
                                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:8)]
                                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(6:8)]
-                                       XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(6:8)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:36)]
@@ -39,7 +38,6 @@ XQueryModuleImpl[FILE(0:36)]
                               XPathAndExprImpl[XQUERY_AND_EXPR(33:35)]
                                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(33:35)]
                                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(33:35)]
-                                       XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(33:35)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('2')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('2')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(35:36)]('}')

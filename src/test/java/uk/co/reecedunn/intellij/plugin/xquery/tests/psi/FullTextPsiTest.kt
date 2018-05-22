@@ -47,7 +47,7 @@ class FullTextPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.STRING_CONCAT_EXPR))
+                `is`<IElementType>(XQueryElementType.STRING_LITERAL))
     }
 
     fun testFTContainsExpr() {

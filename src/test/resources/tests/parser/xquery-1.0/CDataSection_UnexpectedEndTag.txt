@@ -6,7 +6,6 @@ XQueryModuleImpl[FILE(0:3)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:3)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:3)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:3)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:3)]
-                           XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:3)]
-                              PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of CDATA section marker found without a '<![CDATA[' start of CDATA section marker.')
-                                 LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')
+                        XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:3)]
+                           PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of CDATA section marker found without a '<![CDATA[' start of CDATA section marker.')
+                              LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')

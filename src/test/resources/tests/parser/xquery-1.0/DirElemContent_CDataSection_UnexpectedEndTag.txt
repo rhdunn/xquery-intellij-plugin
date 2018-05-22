@@ -6,16 +6,15 @@ XQueryModuleImpl[FILE(0:10)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:10)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:10)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:10)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:10)]
-                           XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:10)]
-                              XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:10)]
-                                 LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                 XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                                    XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                 LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-                                 XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:6)]
-                                    LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:6)](']]>')
-                                 LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(6:8)]('</')
-                                 XPathNCNameImpl[XQUERY_NCNAME(8:9)]
-                                    XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(8:9)]('a')
-                                 LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(9:10)]('>')
+                        XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:10)]
+                           XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:10)]
+                              LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                              XPathNCNameImpl[XQUERY_NCNAME(1:2)]
+                                 XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                              LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+                              XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:6)]
+                                 LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:6)](']]>')
+                              LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(6:8)]('</')
+                              XPathNCNameImpl[XQUERY_NCNAME(8:9)]
+                                 XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(8:9)]('a')
+                              LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(9:10)]('>')

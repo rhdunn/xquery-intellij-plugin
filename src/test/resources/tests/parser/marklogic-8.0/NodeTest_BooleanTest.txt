@@ -6,13 +6,12 @@ XQueryModuleImpl[FILE(0:14)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:14)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:14)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:14)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:14)]
-                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
-                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:14)]
-                                 XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:14)]
-                                    XPathNodeTestImpl[XQUERY_NODE_TEST(0:14)]
-                                       MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(0:14)]
-                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
-                                          LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
-                                          LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
-                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
+                        XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
+                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:14)]
+                              XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:14)]
+                                 XPathNodeTestImpl[XQUERY_NODE_TEST(0:14)]
+                                    MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(0:14)]
+                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                                       LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
+                                       LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
+                           XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]

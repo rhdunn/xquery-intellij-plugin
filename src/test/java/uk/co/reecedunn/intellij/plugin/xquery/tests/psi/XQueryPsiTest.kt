@@ -1767,19 +1767,6 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.CONCATENATION))
     }
 
-    fun testStringConcatExpr_NoConcatenation() {
-        val file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq")
-
-        val stringConcatExprPsi = file.descendants().filterIsInstance<XPathStringConcatExpr>().first()
-        val versioned = stringConcatExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.AXIS_STEP))
-    }
-
     // endregion
     // region StringConstructor
 

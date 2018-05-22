@@ -6,14 +6,13 @@ XQueryModuleImpl[FILE(0:7)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:7)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:7)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:7)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:7)]
-                           XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:7)]
-                              XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
-                                 LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                 PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: Whitespace is not allowed here.')
-                                    XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(1:2)](' ')
-                                 XPathQNameImpl[XQUERY_QNAME(2:5)]
-                                    XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(2:3)]('a')
-                                    LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(3:4)](':')
-                                    XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(4:5)]('b')
-                                 LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')
+                        XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:7)]
+                           XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
+                              LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                              PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: Whitespace is not allowed here.')
+                                 XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(1:2)](' ')
+                              XPathQNameImpl[XQUERY_QNAME(2:5)]
+                                 XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(2:3)]('a')
+                                 LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(3:4)](':')
+                                 XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(4:5)]('b')
+                              LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')

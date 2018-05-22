@@ -6,18 +6,17 @@ XQueryModuleImpl[FILE(0:14)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:14)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:14)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:14)]
-                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:14)]
-                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
-                              XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:14)]
-                                 XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
-                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                    LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                 XPathNodeTestImpl[XQUERY_NODE_TEST(10:14)]
-                                    XPathNameTestImpl[XQUERY_NAME_TEST(10:14)]
-                                       XPathWildcardImpl[XQUERY_WILDCARD(10:14)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:12)]('xh')
-                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(12:13)](':')
-                                          LeafPsiElement[XQUERY_STAR_TOKEN(13:14)]('*')
-                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
+                        XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
+                           XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:14)]
+                              XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                 LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                              XPathNodeTestImpl[XQUERY_NODE_TEST(10:14)]
+                                 XPathNameTestImpl[XQUERY_NAME_TEST(10:14)]
+                                    XPathWildcardImpl[XQUERY_WILDCARD(10:14)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:12)]('xh')
+                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(12:13)](':')
+                                       LeafPsiElement[XQUERY_STAR_TOKEN(13:14)]('*')
+                           XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
