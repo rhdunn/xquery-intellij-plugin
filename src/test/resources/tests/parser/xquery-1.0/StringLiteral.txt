@@ -5,8 +5,7 @@ XQueryModuleImpl[FILE(0:9)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:9)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:9)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:9)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:9)]
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]
-                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('"')
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('"')

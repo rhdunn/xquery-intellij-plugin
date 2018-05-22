@@ -5,11 +5,10 @@ XQueryModuleImpl[FILE(0:16)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:16)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:16)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:16)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:16)]
-                        MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:16)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing expression.')
-                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')
+                     MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:16)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing expression.')
+                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')

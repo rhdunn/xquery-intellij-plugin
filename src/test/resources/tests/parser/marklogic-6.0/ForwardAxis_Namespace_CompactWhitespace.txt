@@ -5,14 +5,13 @@ XQueryModuleImpl[FILE(0:15)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:15)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:15)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:15)]
-                        XPathAxisStepImpl[XQUERY_AXIS_STEP(0:15)]
-                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:15)]
-                              XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:11)]
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
-                                 LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(9:11)]('::')
-                              XPathNodeTestImpl[XQUERY_NODE_TEST(11:15)]
-                                 XPathNameTestImpl[XQUERY_NAME_TEST(11:15)]
-                                    XPathNCNameImpl[XQUERY_NCNAME(11:15)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:15)]('para')
-                           XPathPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
+                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:15)]
+                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:15)]
+                           XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:11)]
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
+                              LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(9:11)]('::')
+                           XPathNodeTestImpl[XQUERY_NODE_TEST(11:15)]
+                              XPathNameTestImpl[XQUERY_NAME_TEST(11:15)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(11:15)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:15)]('para')
+                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]

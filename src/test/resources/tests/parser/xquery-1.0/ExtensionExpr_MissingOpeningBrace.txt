@@ -5,26 +5,24 @@ XQueryModuleImpl[FILE(0:37)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:37)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:37)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:37)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:37)]
-                        XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:37)]
-                           XQueryPragmaImpl[XQUERY_PRAGMA(0:33)]
-                              LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                              XPathQNameImpl[XQUERY_QNAME(3:11)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
-                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                              LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(12:31)]('Lorem ipsum dolor. ')
-                              LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(31:33)]('#)')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected '{'.')
-                           XPathExprImpl[XQUERY_EXPR(34:36)]
-                              ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(34:36)]
-                                 XPathOrExprImpl[XQUERY_OR_EXPR(34:36)]
-                                    XPathAndExprImpl[XQUERY_AND_EXPR(34:36)]
-                                       XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(34:36)]
-                                          FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(34:36)]
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(34:35)]('2')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')
+                     XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:37)]
+                        XQueryPragmaImpl[XQUERY_PRAGMA(0:33)]
+                           LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                           XPathQNameImpl[XQUERY_QNAME(3:11)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                           LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(12:31)]('Lorem ipsum dolor. ')
+                           LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(31:33)]('#)')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected '{'.')
+                        XPathExprImpl[XQUERY_EXPR(34:36)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(34:36)]
+                              XPathOrExprImpl[XQUERY_OR_EXPR(34:36)]
+                                 XPathAndExprImpl[XQUERY_AND_EXPR(34:36)]
+                                    XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(34:36)]
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(34:35)]('2')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')

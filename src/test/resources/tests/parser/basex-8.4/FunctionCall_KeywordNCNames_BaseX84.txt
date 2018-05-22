@@ -5,10 +5,9 @@ XQueryModuleImpl[FILE(0:19)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:19)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:19)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:19)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:19)]
-                        XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:19)]
-                           XPathNCNameImpl[XQUERY_NCNAME(0:17)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(0:17)]('non-deterministic')
-                           XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(17:19)]
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
+                     XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:19)]
+                        XPathNCNameImpl[XQUERY_NCNAME(0:17)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(0:17)]('non-deterministic')
+                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(17:19)]
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')

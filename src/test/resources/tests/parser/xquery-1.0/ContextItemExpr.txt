@@ -5,6 +5,5 @@ XQueryModuleImpl[FILE(0:1)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:1)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:1)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:1)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:1)]
-                        XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
-                           LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')
+                     XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
+                        LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')

@@ -5,7 +5,6 @@ XQueryModuleImpl[FILE(0:2)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:2)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:2)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:2)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:2)]
-                        XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
+                     XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')

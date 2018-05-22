@@ -5,23 +5,21 @@ XQueryModuleImpl[FILE(0:16)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:16)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:16)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:16)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:16)]
-                        XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:16)]
-                           XQueryCompDocConstructorImpl[XQUERY_COMP_DOC_CONSTRUCTOR(0:16)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT(0:8)]('document')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                              XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(9:16)]
-                                 LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                 XPathExprImpl[XQUERY_EXPR(11:15)]
-                                    ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:15)]
-                                       XPathOrExprImpl[XQUERY_OR_EXPR(11:15)]
-                                          XPathAndExprImpl[XQUERY_AND_EXPR(11:15)]
-                                             XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:15)]
-                                                FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:15)]
-                                                   XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(11:14)]
-                                                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                                 LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')
+                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:16)]
+                        XQueryCompDocConstructorImpl[XQUERY_COMP_DOC_CONSTRUCTOR(0:16)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT(0:8)]('document')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                           XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(9:16)]
+                              LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                              XPathExprImpl[XQUERY_EXPR(11:15)]
+                                 ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:15)]
+                                    XPathOrExprImpl[XQUERY_OR_EXPR(11:15)]
+                                       XPathAndExprImpl[XQUERY_AND_EXPR(11:15)]
+                                          XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:15)]
+                                             XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(11:14)]
+                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                              LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')

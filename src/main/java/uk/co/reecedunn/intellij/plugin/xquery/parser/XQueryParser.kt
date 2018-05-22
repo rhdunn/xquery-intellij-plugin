@@ -3267,9 +3267,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
                 parseWhiteSpaceAndCommentTokens()
                 parseFTIgnoreOption()
+                containsExprMarker.done(XQueryElementType.FT_CONTAINS_EXPR)
+            } else {
+                containsExprMarker.drop()
             }
-
-            containsExprMarker.done(XQueryElementType.FT_CONTAINS_EXPR)
             return true
         }
         containsExprMarker.drop()

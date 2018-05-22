@@ -43,7 +43,6 @@ XQueryModuleImpl[FILE(0:40)]
                                                    XPathOrExprImpl[XQUERY_OR_EXPR(37:39)]
                                                       XPathAndExprImpl[XQUERY_AND_EXPR(37:39)]
                                                          XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(37:39)]
-                                                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(37:39)]
-                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(37:38)]('5')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(37:38)]('5')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                                              LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(39:40)]('}')

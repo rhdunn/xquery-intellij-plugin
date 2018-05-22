@@ -39,6 +39,5 @@ XQueryModuleImpl[FILE(0:35)]
                                                    XPathOrExprImpl[XQUERY_OR_EXPR(33:34)]
                                                       XPathAndExprImpl[XQUERY_AND_EXPR(33:34)]
                                                          XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(33:34)]
-                                                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(33:34)]
-                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('5')
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('5')
                                              LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(34:35)]('}')

@@ -5,17 +5,16 @@ XQueryModuleImpl[FILE(0:17)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:17)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:17)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:17)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:17)]
-                        XPathAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
-                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
-                              XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:17)]
-                                 XPathNodeTestImpl[XQUERY_NODE_TEST(0:17)]
-                                    MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(0:17)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
-                                       LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
-                                       XPathStringLiteralImpl[XQUERY_STRING_LITERAL(11:16)]
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(11:12)]('"')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:15)]('key')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
-                                       LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
-                           XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
+                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
+                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
+                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:17)]
+                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:17)]
+                                 MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(0:17)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
+                                    LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
+                                    XPathStringLiteralImpl[XQUERY_STRING_LITERAL(11:16)]
+                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(11:12)]('"')
+                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:15)]('key')
+                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
+                                    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
+                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]

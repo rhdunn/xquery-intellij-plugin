@@ -5,24 +5,20 @@ XQueryModuleImpl[FILE(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:7)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:7)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:7)]
-                        XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:7)]
-                           LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
-                           XPathOrExprImpl[XQUERY_OR_EXPR(1:2)]
-                              XPathAndExprImpl[XQUERY_AND_EXPR(1:2)]
-                                 XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1:2)]
-                                    FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1:2)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(1:2)]('1')
-                           LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
-                           XPathOrExprImpl[XQUERY_OR_EXPR(3:4)]
-                              XPathAndExprImpl[XQUERY_AND_EXPR(3:4)]
-                                 XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(3:4)]
-                                    FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(3:4)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(3:4)]('2')
-                           LeafPsiElement[XQUERY_COMMA_TOKEN(4:5)](',')
-                           XPathOrExprImpl[XQUERY_OR_EXPR(5:6)]
-                              XPathAndExprImpl[XQUERY_AND_EXPR(5:6)]
-                                 XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(5:6)]
-                                    FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(5:6)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('3')
-                           LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(6:7)](']')
+                     XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:7)]
+                        LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
+                        XPathOrExprImpl[XQUERY_OR_EXPR(1:2)]
+                           XPathAndExprImpl[XQUERY_AND_EXPR(1:2)]
+                              XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1:2)]
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(1:2)]('1')
+                        LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
+                        XPathOrExprImpl[XQUERY_OR_EXPR(3:4)]
+                           XPathAndExprImpl[XQUERY_AND_EXPR(3:4)]
+                              XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(3:4)]
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(3:4)]('2')
+                        LeafPsiElement[XQUERY_COMMA_TOKEN(4:5)](',')
+                        XPathOrExprImpl[XQUERY_OR_EXPR(5:6)]
+                           XPathAndExprImpl[XQUERY_AND_EXPR(5:6)]
+                              XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(5:6)]
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('3')
+                        LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(6:7)](']')

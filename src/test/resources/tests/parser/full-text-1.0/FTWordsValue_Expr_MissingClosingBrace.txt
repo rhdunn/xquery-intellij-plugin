@@ -35,11 +35,10 @@ XQueryModuleImpl[FILE(0:29)]
                                                          XPathOrExprImpl[XQUERY_OR_EXPR(22:29)]
                                                             XPathAndExprImpl[XQUERY_AND_EXPR(22:29)]
                                                                XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(22:29)]
-                                                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(22:29)]
-                                                                     XPathVarRefImpl[XQUERY_VAR_REF(22:29)]
-                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                                                                        XPathVarNameImpl[XQUERY_VAR_NAME(24:29)]
-                                                                           XPathNCNameImpl[XQUERY_NCNAME(24:29)]
-                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
+                                                                  XPathVarRefImpl[XQUERY_VAR_REF(22:29)]
+                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                                                                     XPathVarNameImpl[XQUERY_VAR_NAME(24:29)]
+                                                                        XPathNCNameImpl[XQUERY_NCNAME(24:29)]
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
                                                    PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected '}'.')

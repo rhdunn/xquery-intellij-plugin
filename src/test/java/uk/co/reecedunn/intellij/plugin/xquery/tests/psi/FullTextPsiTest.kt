@@ -37,19 +37,6 @@ class FullTextPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region FTContainsExpr
 
-    fun testFTContainsExpr_NoContainsExpr() {
-        val file = parseResource("tests/parser/xquery-1.0/StringLiteral.xq")
-
-        val ftcontainsExprPsi = file.descendants().filterIsInstance<FTContainsExpr>().first()
-        val conformance = ftcontainsExprPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.STRING_LITERAL))
-    }
-
     fun testFTContainsExpr() {
         val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 

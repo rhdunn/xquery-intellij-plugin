@@ -5,8 +5,7 @@ XQueryModuleImpl[FILE(0:3)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:2)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:2)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:2)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:2)]
-                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
             PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Missing expression.')
