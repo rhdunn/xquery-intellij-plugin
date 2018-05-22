@@ -28,9 +28,8 @@ XQueryModuleImpl[FILE(0:34)]
                                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(6:8)]
                                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(6:8)]
                                                                            XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(6:8)]
-                                                                              XPathPathExprImpl[XQUERY_PATH_EXPR(6:8)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:34)]
@@ -65,6 +64,5 @@ XQueryModuleImpl[FILE(0:34)]
                                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(33:34)]
                                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(33:34)]
                                                                            XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(33:34)]
-                                                                              XPathPathExprImpl[XQUERY_PATH_EXPR(33:34)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('2')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('2')
                      PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected '}'.')

@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
@@ -1771,7 +1772,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.PATH_EXPR))
+                `is`<IElementType>(XQueryElementType.AXIS_STEP))
     }
 
     // endregion
@@ -1949,9 +1950,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testUnaryLookup() {
         val file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq")
 
-        val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
-        val pathExprPsi = simpleMapExprPsi.children().filterIsInstance<XPathPathExpr>().toList()[1]
-        val unaryLookupPsi = pathExprPsi.descendants().filterIsInstance<XPathUnaryLookup>().first()
+        val unaryLookupPsi = file.walkTree().filterIsInstance<XPathUnaryLookup>().first()
         val versioned = unaryLookupPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

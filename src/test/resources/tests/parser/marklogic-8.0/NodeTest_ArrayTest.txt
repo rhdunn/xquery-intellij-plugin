@@ -19,13 +19,12 @@ XQueryModuleImpl[FILE(0:12)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:12)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:12)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:12)]
-                                                               XPathPathExprImpl[XQUERY_PATH_EXPR(0:12)]
-                                                                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
-                                                                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:12)]
-                                                                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:12)]
-                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(0:12)]
-                                                                              MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(0:12)]
-                                                                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
-                                                                                 LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
-                                                                                 LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
-                                                                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
+                                                               XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
+                                                                  XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:12)]
+                                                                     XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:12)]
+                                                                        XPathNodeTestImpl[XQUERY_NODE_TEST(0:12)]
+                                                                           MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(0:12)]
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
+                                                                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
+                                                                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
+                                                                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

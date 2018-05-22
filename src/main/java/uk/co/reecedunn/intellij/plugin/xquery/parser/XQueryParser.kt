@@ -3784,7 +3784,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             pathExprMarker.done(XQueryElementType.PATH_EXPR)
             return true
         } else if (parseRelativePathExpr(type)) {
-            pathExprMarker.done(XQueryElementType.PATH_EXPR)
+            pathExprMarker.drop()
             return true
         }
         pathExprMarker.drop()

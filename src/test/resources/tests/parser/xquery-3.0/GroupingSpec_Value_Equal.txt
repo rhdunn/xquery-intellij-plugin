@@ -32,14 +32,13 @@ XQueryModuleImpl[FILE(0:42)]
                                                                XPathArrowExprImpl[XQUERY_ARROW_EXPR(11:15)]
                                                                   XPathUnaryExprImpl[XQUERY_UNARY_EXPR(11:15)]
                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(11:15)]
-                                                                        XPathPathExprImpl[XQUERY_PATH_EXPR(11:15)]
-                                                                           XPathVarRefImpl[XQUERY_VAR_REF(11:15)]
-                                                                              LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                                              XPathVarNameImpl[XQUERY_VAR_NAME(13:15)]
-                                                                                 XPathNCNameImpl[XQUERY_NCNAME(13:15)]
-                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('y')
-                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                                                                        XPathVarRefImpl[XQUERY_VAR_REF(11:15)]
+                                                                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                                                                           XPathVarNameImpl[XQUERY_VAR_NAME(13:15)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(13:15)]
+                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('y')
+                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(15:32)]
                   XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(15:32)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(15:20)]('group')
@@ -75,9 +74,8 @@ XQueryModuleImpl[FILE(0:42)]
                                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(30:32)]
                                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(30:32)]
                                                                            XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(30:32)]
-                                                                              XPathPathExprImpl[XQUERY_PATH_EXPR(30:32)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('2')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('2')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(32:42)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(32:38)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
@@ -98,10 +96,9 @@ XQueryModuleImpl[FILE(0:42)]
                                                             XPathArrowExprImpl[XQUERY_ARROW_EXPR(39:42)]
                                                                XPathUnaryExprImpl[XQUERY_UNARY_EXPR(39:42)]
                                                                   XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(39:42)]
-                                                                     XPathPathExprImpl[XQUERY_PATH_EXPR(39:42)]
-                                                                        XPathVarRefImpl[XQUERY_VAR_REF(39:42)]
-                                                                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(39:40)]('$')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-                                                                           XPathVarNameImpl[XQUERY_VAR_NAME(41:42)]
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(41:42)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:42)]('x')
+                                                                     XPathVarRefImpl[XQUERY_VAR_REF(39:42)]
+                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(39:40)]('$')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
+                                                                        XPathVarNameImpl[XQUERY_VAR_NAME(41:42)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(41:42)]
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:42)]('x')

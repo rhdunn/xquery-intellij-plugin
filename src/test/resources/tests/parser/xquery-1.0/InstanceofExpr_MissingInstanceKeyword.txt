@@ -19,9 +19,8 @@ XQueryModuleImpl[FILE(0:15)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:3)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:3)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:3)]
-                                                               XPathPathExprImpl[XQUERY_PATH_EXPR(0:3)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                              PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected keyword: instance.')
                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(3:5)]('of')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
