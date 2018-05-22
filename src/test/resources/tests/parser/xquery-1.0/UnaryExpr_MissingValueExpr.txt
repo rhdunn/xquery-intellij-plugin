@@ -11,11 +11,10 @@ XQueryModuleImpl[FILE(0:5)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:2)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:2)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:2)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:2)]
-                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
-                                             LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'ValueExpr'.')
+                                       XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
+                                          LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'ValueExpr'.')
             LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
             XPathOrExprImpl[XQUERY_OR_EXPR(4:5)]
@@ -27,7 +26,6 @@ XQueryModuleImpl[FILE(0:5)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(4:5)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(4:5)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(4:5)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(4:5)]
-                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
-                                             LeafPsiElement[XQUERY_MINUS_TOKEN(4:5)]('-')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ValueExpr'.')
+                                       XPathUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
+                                          LeafPsiElement[XQUERY_MINUS_TOKEN(4:5)]('-')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ValueExpr'.')

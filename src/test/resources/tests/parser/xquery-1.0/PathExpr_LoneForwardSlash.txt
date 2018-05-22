@@ -11,6 +11,5 @@ XQueryModuleImpl[FILE(0:1)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:1)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:1)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:1)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:1)]
-                                          XPathPathExprImpl[XQUERY_PATH_EXPR(0:1)]
-                                             LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')
+                                       XPathPathExprImpl[XQUERY_PATH_EXPR(0:1)]
+                                          LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')

@@ -11,5 +11,4 @@ XQueryModuleImpl[FILE(0:12)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:12)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:12)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:12)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]
-                                          XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')
+                                       XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')

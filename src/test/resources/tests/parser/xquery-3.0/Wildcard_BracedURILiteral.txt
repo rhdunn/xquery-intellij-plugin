@@ -11,16 +11,15 @@ XQueryModuleImpl[FILE(0:32)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:32)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:32)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:32)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:32)]
-                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(0:32)]
-                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:32)]
-                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:32)]
-                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:32)]
-                                                      XPathNameTestImpl[XQUERY_NAME_TEST(0:32)]
-                                                         XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(0:32)]
-                                                            XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
-                                                               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
-                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
-                                                               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
-                                                            LeafPsiElement[XQUERY_STAR_TOKEN(31:32)]('*')
-                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(32:32)]
+                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(0:32)]
+                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:32)]
+                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:32)]
+                                                XPathNodeTestImpl[XQUERY_NODE_TEST(0:32)]
+                                                   XPathNameTestImpl[XQUERY_NAME_TEST(0:32)]
+                                                      XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(0:32)]
+                                                         XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
+                                                            LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
+                                                            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
+                                                            LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
+                                                         LeafPsiElement[XQUERY_STAR_TOKEN(31:32)]('*')
+                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(32:32)]

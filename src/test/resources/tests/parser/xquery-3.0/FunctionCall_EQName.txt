@@ -11,16 +11,15 @@ XQueryModuleImpl[FILE(0:39)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:39)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:39)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:39)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:39)]
-                                          XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:39)]
-                                             XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(0:35)]
-                                                XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
-                                                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
-                                                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
-                                                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:35)]('name')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                                             XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(36:39)]
-                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
+                                       XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:39)]
+                                          XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(0:35)]
+                                             XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
+                                                LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
+                                                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
+                                                LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:35)]('name')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                                          XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(36:39)]
+                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')

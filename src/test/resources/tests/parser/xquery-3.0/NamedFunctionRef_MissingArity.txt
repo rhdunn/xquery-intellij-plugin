@@ -11,10 +11,9 @@ XQueryModuleImpl[FILE(0:6)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:6)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:6)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:6)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:6)]
-                                          XPathNamedFunctionRefImpl[XQUERY_NAMED_FUNCTION_REF(0:6)]
-                                             XPathNCNameImpl[XQUERY_NCNAME(0:5)]
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('true')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                             LeafPsiElement[XQUERY_FUNCTION_REF_OPERATOR_TOKEN(5:6)]('#')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected 'IntegerLiteral'.')
+                                       XPathNamedFunctionRefImpl[XQUERY_NAMED_FUNCTION_REF(0:6)]
+                                          XPathNCNameImpl[XQUERY_NCNAME(0:5)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('true')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                          LeafPsiElement[XQUERY_FUNCTION_REF_OPERATOR_TOKEN(5:6)]('#')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected 'IntegerLiteral'.')

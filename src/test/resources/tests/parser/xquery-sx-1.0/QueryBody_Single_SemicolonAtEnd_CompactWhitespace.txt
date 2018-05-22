@@ -11,7 +11,6 @@ XQueryModuleImpl[FILE(0:2)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:1)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:1)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:1)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:1)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')

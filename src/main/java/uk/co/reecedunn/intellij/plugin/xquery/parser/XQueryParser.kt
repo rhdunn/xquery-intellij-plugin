@@ -3396,15 +3396,20 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val intersectExceptExprMarker = mark()
         if (parseInstanceofExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveIntersectExceptExpr = false
             while (matchTokenType(XQueryTokenType.K_INTERSECT) || matchTokenType(XQueryTokenType.K_EXCEPT)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseInstanceofExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "InstanceofExpr"))
                 }
                 parseWhiteSpaceAndCommentTokens()
+                haveIntersectExceptExpr = true
             }
 
-            intersectExceptExprMarker.done(XQueryElementType.INTERSECT_EXCEPT_EXPR)
+            if (haveIntersectExceptExpr)
+                intersectExceptExprMarker.done(XQueryElementType.INTERSECT_EXCEPT_EXPR)
+            else
+                intersectExceptExprMarker.drop()
             return true
         }
         intersectExceptExprMarker.drop()

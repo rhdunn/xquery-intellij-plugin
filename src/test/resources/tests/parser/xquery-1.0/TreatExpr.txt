@@ -11,18 +11,17 @@ XQueryModuleImpl[FILE(0:21)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:21)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:21)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:21)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:21)]
-                                          XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:21)]
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TREAT(3:8)]('treat')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(9:11)]('as')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                             XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(12:21)]
-                                                XPathItemTypeImpl[XQUERY_ITEM_TYPE(12:21)]
-                                                   XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(12:21)]
-                                                      XPathQNameImpl[XQUERY_QNAME(12:21)]
-                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
-                                                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
-                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('double')
+                                       XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:21)]
+                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TREAT(3:8)]('treat')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(9:11)]('as')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                          XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(12:21)]
+                                             XPathItemTypeImpl[XQUERY_ITEM_TYPE(12:21)]
+                                                XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(12:21)]
+                                                   XPathQNameImpl[XQUERY_QNAME(12:21)]
+                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
+                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
+                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('double')

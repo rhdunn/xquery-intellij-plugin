@@ -11,16 +11,15 @@ XQueryModuleImpl[FILE(0:28)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:4)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:2)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:2)]
-                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
-                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
-                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                                                      XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                         XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
+                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
+                                                XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                                                   XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                                                      XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                                     LeafPsiElement[XQUERY_STAR_TOKEN(2:3)]('*')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                     PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'UnionExpr'.')
@@ -35,16 +34,15 @@ XQueryModuleImpl[FILE(0:28)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(6:12)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(6:12)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(6:8)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(6:8)]
-                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(6:8)]
-                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(6:8)]
-                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(6:8)]
-                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(6:8)]
-                                                      XPathNameTestImpl[XQUERY_NAME_TEST(6:8)]
-                                                         XPathNCNameImpl[XQUERY_NCNAME(6:8)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('a')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(6:8)]
+                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(6:8)]
+                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(6:8)]
+                                                XPathNodeTestImpl[XQUERY_NODE_TEST(6:8)]
+                                                   XPathNameTestImpl[XQUERY_NAME_TEST(6:8)]
+                                                      XPathNCNameImpl[XQUERY_NCNAME(6:8)]
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('a')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(8:11)]('div')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                     PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'UnionExpr'.')
@@ -59,16 +57,15 @@ XQueryModuleImpl[FILE(0:28)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(14:21)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(14:21)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(14:16)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(14:16)]
-                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(14:16)]
-                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(14:16)]
-                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
-                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(14:16)]
-                                                      XPathNameTestImpl[XQUERY_NAME_TEST(14:16)]
-                                                         XPathNCNameImpl[XQUERY_NCNAME(14:16)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('a')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
+                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(14:16)]
+                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(14:16)]
+                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
+                                                XPathNodeTestImpl[XQUERY_NODE_TEST(14:16)]
+                                                   XPathNameTestImpl[XQUERY_NAME_TEST(14:16)]
+                                                      XPathNCNameImpl[XQUERY_NCNAME(14:16)]
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('a')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IDIV(16:20)]('idiv')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                                     PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected 'UnionExpr'.')
@@ -83,15 +80,14 @@ XQueryModuleImpl[FILE(0:28)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(23:28)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(23:28)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(23:25)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(23:25)]
-                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(23:25)]
-                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(23:25)]
-                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(23:25)]
-                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(23:25)]
-                                                      XPathNameTestImpl[XQUERY_NAME_TEST(23:25)]
-                                                         XPathNCNameImpl[XQUERY_NCNAME(23:25)]
-                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:24)]('a')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
+                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(23:25)]
+                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(23:25)]
+                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(23:25)]
+                                                XPathNodeTestImpl[XQUERY_NODE_TEST(23:25)]
+                                                   XPathNameTestImpl[XQUERY_NAME_TEST(23:25)]
+                                                      XPathNCNameImpl[XQUERY_NCNAME(23:25)]
+                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:24)]('a')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MOD(25:28)]('mod')
                                     PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'UnionExpr'.')

@@ -11,16 +11,15 @@ XQueryModuleImpl[FILE(0:7)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:6)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:6)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:6)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:6)]
-                                          XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:6)]
-                                             XPathVarRefImpl[XQUERY_VAR_REF(0:4)]
-                                                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                XPathVarNameImpl[XQUERY_VAR_NAME(2:4)]
-                                                   XPathNCNameImpl[XQUERY_NCNAME(2:4)]
-                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('m')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                             LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(4:5)]('!')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected 'PathExpr'.')
+                                       XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:6)]
+                                          XPathVarRefImpl[XQUERY_VAR_REF(0:4)]
+                                             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                             XPathVarNameImpl[XQUERY_VAR_NAME(2:4)]
+                                                XPathNCNameImpl[XQUERY_NCNAME(2:4)]
+                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('m')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                          LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(4:5)]('!')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected 'PathExpr'.')
    LeafPsiElement[XQUERY_OPTIONAL_TOKEN(6:7)]('?')

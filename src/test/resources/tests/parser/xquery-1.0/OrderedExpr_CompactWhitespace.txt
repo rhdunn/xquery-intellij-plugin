@@ -11,22 +11,20 @@ XQueryModuleImpl[FILE(0:10)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:10)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:10)]
-                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:10)]
-                                          XQueryOrderedExprImpl[XQUERY_ORDERED_EXPR(0:10)]
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERED(0:7)]('ordered')
-                                             XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:10)]
-                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
-                                                XPathExprImpl[XQUERY_EXPR(8:9)]
-                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:9)]
-                                                      XPathOrExprImpl[XQUERY_OR_EXPR(8:9)]
-                                                         XPathAndExprImpl[XQUERY_AND_EXPR(8:9)]
-                                                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(8:9)]
-                                                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(8:9)]
-                                                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(8:9)]
-                                                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(8:9)]
-                                                                        XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(8:9)]
-                                                                           XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(8:9)]
-                                                                              XPathUnionExprImpl[XQUERY_UNION_EXPR(8:9)]
-                                                                                 XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(8:9)]
-                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('1')
-                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(9:10)]('}')
+                                       XQueryOrderedExprImpl[XQUERY_ORDERED_EXPR(0:10)]
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERED(0:7)]('ordered')
+                                          XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:10)]
+                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
+                                             XPathExprImpl[XQUERY_EXPR(8:9)]
+                                                ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:9)]
+                                                   XPathOrExprImpl[XQUERY_OR_EXPR(8:9)]
+                                                      XPathAndExprImpl[XQUERY_AND_EXPR(8:9)]
+                                                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(8:9)]
+                                                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(8:9)]
+                                                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(8:9)]
+                                                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(8:9)]
+                                                                     XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(8:9)]
+                                                                        XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(8:9)]
+                                                                           XPathUnionExprImpl[XQUERY_UNION_EXPR(8:9)]
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('1')
+                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(9:10)]('}')
