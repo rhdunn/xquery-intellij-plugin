@@ -10,34 +10,32 @@ XQueryModuleImpl[FILE(0:40)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:40)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:40)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:40)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:40)]
-                                       XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:40)]
-                                          XQueryCompPIConstructorImpl[XQUERY_COMP_PI_CONSTRUCTOR(0:40)]
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-                                             XPathQNameImpl[XQUERY_QNAME(23:29)]
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:25)]('xh')
-                                                PsiErrorElementImpl[ERROR_ELEMENT(25:26)]('XPST0003: Expected an identifier not a qualified name.')
-                                                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(25:26)](':')
-                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(26:29)]('div')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                                             XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(30:40)]
-                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(30:31)]('{')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                                                XPathExprImpl[XQUERY_EXPR(32:39)]
-                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(32:39)]
-                                                      XPathOrExprImpl[XQUERY_OR_EXPR(32:39)]
-                                                         XPathAndExprImpl[XQUERY_AND_EXPR(32:39)]
-                                                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(32:39)]
-                                                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(32:39)]
-                                                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(32:39)]
-                                                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(32:39)]
-                                                                        XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(32:39)]
-                                                                           XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(32:39)]
-                                                                              XPathUnionExprImpl[XQUERY_UNION_EXPR(32:39)]
-                                                                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(32:38)]
-                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(32:33)]('"')
-                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(33:37)]('test')
-                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(37:38)]('"')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(39:40)]('}')
+                                    XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:40)]
+                                       XQueryCompPIConstructorImpl[XQUERY_COMP_PI_CONSTRUCTOR(0:40)]
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+                                          XPathQNameImpl[XQUERY_QNAME(23:29)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:25)]('xh')
+                                             PsiErrorElementImpl[ERROR_ELEMENT(25:26)]('XPST0003: Expected an identifier not a qualified name.')
+                                                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(25:26)](':')
+                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(26:29)]('div')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                                          XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(30:40)]
+                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(30:31)]('{')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                                             XPathExprImpl[XQUERY_EXPR(32:39)]
+                                                ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(32:39)]
+                                                   XPathOrExprImpl[XQUERY_OR_EXPR(32:39)]
+                                                      XPathAndExprImpl[XQUERY_AND_EXPR(32:39)]
+                                                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(32:39)]
+                                                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(32:39)]
+                                                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(32:39)]
+                                                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(32:39)]
+                                                                     XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(32:39)]
+                                                                        XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(32:39)]
+                                                                           XPathStringLiteralImpl[XQUERY_STRING_LITERAL(32:38)]
+                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(32:33)]('"')
+                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(33:37)]('test')
+                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(37:38)]('"')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(39:40)]('}')

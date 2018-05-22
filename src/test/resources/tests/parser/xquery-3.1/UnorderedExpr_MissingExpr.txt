@@ -10,11 +10,10 @@ XQueryModuleImpl[FILE(0:13)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:13)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:13)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:13)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:13)]
-                                       XQueryUnorderedExprImpl[XQUERY_UNORDERED_EXPR(0:13)]
-                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(0:9)]('unordered')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                          XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(10:13)]
-                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')
+                                    XQueryUnorderedExprImpl[XQUERY_UNORDERED_EXPR(0:13)]
+                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(0:9)]('unordered')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                       XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(10:13)]
+                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')

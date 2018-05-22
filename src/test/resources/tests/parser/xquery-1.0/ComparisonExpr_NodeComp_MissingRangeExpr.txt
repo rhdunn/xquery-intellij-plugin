@@ -10,16 +10,15 @@ XQueryModuleImpl[FILE(0:18)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:2)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:2)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:2)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:2)]
-                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
-                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
-                                                XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                                                   XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                      XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                    XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                       XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
+                                          XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
+                                             XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                                                XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                                                   XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                       XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IS(2:4)]('is')
                      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -33,16 +32,15 @@ XQueryModuleImpl[FILE(0:18)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(7:9)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(7:9)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(7:9)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(7:9)]
-                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(7:9)]
-                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(7:9)]
-                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(7:9)]
-                                                XPathNodeTestImpl[XQUERY_NODE_TEST(7:9)]
-                                                   XPathNameTestImpl[XQUERY_NAME_TEST(7:9)]
-                                                      XPathNCNameImpl[XQUERY_NCNAME(7:9)]
-                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:8)]('a')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
+                                    XPathAxisStepImpl[XQUERY_AXIS_STEP(7:9)]
+                                       XPathForwardStepImpl[XQUERY_FORWARD_STEP(7:9)]
+                                          XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(7:9)]
+                                             XPathNodeTestImpl[XQUERY_NODE_TEST(7:9)]
+                                                XPathNameTestImpl[XQUERY_NAME_TEST(7:9)]
+                                                   XPathNCNameImpl[XQUERY_NCNAME(7:9)]
+                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:8)]('a')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                       XPathPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
                      LeafPsiElement[XQUERY_NODE_BEFORE_TOKEN(9:11)]('<<')
                      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -56,15 +54,14 @@ XQueryModuleImpl[FILE(0:18)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(14:16)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(14:16)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(14:16)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(14:16)]
-                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(14:16)]
-                                          XPathForwardStepImpl[XQUERY_FORWARD_STEP(14:16)]
-                                             XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
-                                                XPathNodeTestImpl[XQUERY_NODE_TEST(14:16)]
-                                                   XPathNameTestImpl[XQUERY_NAME_TEST(14:16)]
-                                                      XPathNCNameImpl[XQUERY_NCNAME(14:16)]
-                                                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('a')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
+                                    XPathAxisStepImpl[XQUERY_AXIS_STEP(14:16)]
+                                       XPathForwardStepImpl[XQUERY_FORWARD_STEP(14:16)]
+                                          XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
+                                             XPathNodeTestImpl[XQUERY_NODE_TEST(14:16)]
+                                                XPathNameTestImpl[XQUERY_NAME_TEST(14:16)]
+                                                   XPathNCNameImpl[XQUERY_NCNAME(14:16)]
+                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('a')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                       XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
                      LeafPsiElement[XQUERY_NODE_AFTER_TOKEN(16:18)]('>>')
                      PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected 'FTContainsExpr'.')

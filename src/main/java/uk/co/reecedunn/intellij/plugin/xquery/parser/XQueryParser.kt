@@ -3378,14 +3378,19 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val unionExprMarker = mark()
         if (parseIntersectExceptExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveUnionExpr = false
             while (matchTokenType(XQueryTokenType.K_UNION) || matchTokenType(XQueryTokenType.UNION)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseIntersectExceptExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "IntersectExceptExpr"))
                 }
+                haveUnionExpr = true
             }
 
-            unionExprMarker.done(XQueryElementType.UNION_EXPR)
+            if (haveUnionExpr)
+                unionExprMarker.done(XQueryElementType.UNION_EXPR)
+            else
+                unionExprMarker.drop()
             return true
         }
         unionExprMarker.drop()

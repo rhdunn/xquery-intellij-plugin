@@ -17,9 +17,8 @@ XQueryModuleImpl[FILE(0:20)]
                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(5:7)]
                                        XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(5:7)]
                                           XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(5:7)]
-                                             XPathUnionExprImpl[XQUERY_UNION_EXPR(5:7)]
-                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Expected ')'.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THEN(7:11)]('then')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
@@ -31,9 +30,8 @@ XQueryModuleImpl[FILE(0:20)]
                               XPathRangeExprImpl[XQUERY_RANGE_EXPR(12:14)]
                                  XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(12:14)]
                                     XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(12:14)]
-                                       XPathUnionExprImpl[XQUERY_UNION_EXPR(12:14)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('2')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('2')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELSE(14:18)]('else')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathOrExprImpl[XQUERY_OR_EXPR(19:20)]
@@ -44,5 +42,4 @@ XQueryModuleImpl[FILE(0:20)]
                               XPathRangeExprImpl[XQUERY_RANGE_EXPR(19:20)]
                                  XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(19:20)]
                                     XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(19:20)]
-                                       XPathUnionExprImpl[XQUERY_UNION_EXPR(19:20)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:20)]('3')
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:20)]('3')

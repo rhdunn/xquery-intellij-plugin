@@ -22,9 +22,8 @@ XQueryModuleImpl[FILE(0:50)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(45:47)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(45:47)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(45:47)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(45:47)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('2')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('2')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
    PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Expected end of file.')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(47:49)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(47:49)]
@@ -37,9 +36,8 @@ XQueryModuleImpl[FILE(0:50)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(47:49)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(47:49)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(47:49)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(47:49)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(47:48)]('3')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(47:48)]('3')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(49:50)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(49:50)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(49:50)]
@@ -51,5 +49,4 @@ XQueryModuleImpl[FILE(0:50)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(49:50)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(49:50)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(49:50)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(49:50)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(49:50)]('4')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(49:50)]('4')

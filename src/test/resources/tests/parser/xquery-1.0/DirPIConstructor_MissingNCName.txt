@@ -10,11 +10,10 @@ XQueryModuleImpl[FILE(0:10)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:10)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:10)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:10)]
-                                       XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:10)]
-                                          XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:10)]
-                                             LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Missing identifier.')
-                                             LeafPsiElement[BAD_CHARACTER(2:3)]('!')
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:8)]('ipsum')
-                                             LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(8:10)]('?>')
+                                    XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:10)]
+                                       XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:10)]
+                                          LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Missing identifier.')
+                                          LeafPsiElement[BAD_CHARACTER(2:3)]('!')
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:8)]('ipsum')
+                                          LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(8:10)]('?>')

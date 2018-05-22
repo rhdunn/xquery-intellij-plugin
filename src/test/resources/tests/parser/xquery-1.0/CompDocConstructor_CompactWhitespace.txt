@@ -10,24 +10,22 @@ XQueryModuleImpl[FILE(0:12)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:12)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:12)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:12)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:12)]
-                                       XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:12)]
-                                          XQueryCompDocConstructorImpl[XQUERY_COMP_DOC_CONSTRUCTOR(0:12)]
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT(0:8)]('document')
-                                             XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(8:12)]
-                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
-                                                XPathExprImpl[XQUERY_EXPR(9:11)]
-                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:11)]
-                                                      XPathOrExprImpl[XQUERY_OR_EXPR(9:11)]
-                                                         XPathAndExprImpl[XQUERY_AND_EXPR(9:11)]
-                                                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:11)]
-                                                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:11)]
-                                                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(9:11)]
-                                                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(9:11)]
-                                                                        XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(9:11)]
-                                                                           XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(9:11)]
-                                                                              XPathUnionExprImpl[XQUERY_UNION_EXPR(9:11)]
-                                                                                 XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(9:11)]
-                                                                                    LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
-                                                                                    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
-                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                                    XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:12)]
+                                       XQueryCompDocConstructorImpl[XQUERY_COMP_DOC_CONSTRUCTOR(0:12)]
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT(0:8)]('document')
+                                          XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(8:12)]
+                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
+                                             XPathExprImpl[XQUERY_EXPR(9:11)]
+                                                ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:11)]
+                                                   XPathOrExprImpl[XQUERY_OR_EXPR(9:11)]
+                                                      XPathAndExprImpl[XQUERY_AND_EXPR(9:11)]
+                                                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:11)]
+                                                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:11)]
+                                                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(9:11)]
+                                                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(9:11)]
+                                                                     XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(9:11)]
+                                                                        XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(9:11)]
+                                                                           XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(9:11)]
+                                                                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+                                                                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
+                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')

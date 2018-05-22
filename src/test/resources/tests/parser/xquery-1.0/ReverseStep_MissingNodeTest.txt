@@ -10,12 +10,11 @@ XQueryModuleImpl[FILE(0:9)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:9)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:9)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:9)]
-                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:9)]
-                                       XPathAxisStepImpl[XQUERY_AXIS_STEP(0:9)]
-                                          XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:9)]
-                                             XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
-                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'NodeTest'.')
-                                          XPathPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
+                                    XPathAxisStepImpl[XQUERY_AXIS_STEP(0:9)]
+                                       XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:9)]
+                                          XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
+                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                             LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'NodeTest'.')
+                                       XPathPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
