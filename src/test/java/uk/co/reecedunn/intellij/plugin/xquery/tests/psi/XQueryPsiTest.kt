@@ -1762,19 +1762,6 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.MAP_OPERATOR))
     }
 
-    fun testSimpleMapExpr_NoMap() {
-        val file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq")
-
-        val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
-        val versioned = simpleMapExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.AXIS_STEP))
-    }
-
     // endregion
     // region StringConcatExpr
 

@@ -32,9 +32,8 @@ XQueryModuleImpl[FILE(0:36)]
                                                       XPathCastExprImpl[XQUERY_CAST_EXPR(25:27)]
                                                          XPathArrowExprImpl[XQUERY_ARROW_EXPR(25:27)]
                                                             XPathUnaryExprImpl[XQUERY_UNARY_EXPR(25:27)]
-                                                               XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(25:27)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('1')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('1')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                LeafPsiElement[XQUERY_COMMA_TOKEN(27:28)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                XPathOrExprImpl[XQUERY_OR_EXPR(29:31)]
@@ -53,9 +52,8 @@ XQueryModuleImpl[FILE(0:36)]
                                                       XPathCastExprImpl[XQUERY_CAST_EXPR(29:31)]
                                                          XPathArrowExprImpl[XQUERY_ARROW_EXPR(29:31)]
                                                             XPathUnaryExprImpl[XQUERY_UNARY_EXPR(29:31)]
-                                                               XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(29:31)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(29:30)]('2')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(29:30)]('2')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing expression.')
                LeafPsiElement[XQUERY_COMMA_TOKEN(31:32)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
@@ -75,7 +73,6 @@ XQueryModuleImpl[FILE(0:36)]
                                                       XPathCastExprImpl[XQUERY_CAST_EXPR(33:35)]
                                                          XPathArrowExprImpl[XQUERY_ARROW_EXPR(33:35)]
                                                             XPathUnaryExprImpl[XQUERY_UNARY_EXPR(33:35)]
-                                                               XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(33:35)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('3')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('3')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(35:36)](')')

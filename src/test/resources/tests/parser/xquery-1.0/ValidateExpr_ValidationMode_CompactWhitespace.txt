@@ -41,11 +41,10 @@ XQueryModuleImpl[FILE(0:44)]
                                                                                                             XPathCastExprImpl[XQUERY_CAST_EXPR(13:19)]
                                                                                                                XPathArrowExprImpl[XQUERY_ARROW_EXPR(13:19)]
                                                                                                                   XPathUnaryExprImpl[XQUERY_UNARY_EXPR(13:19)]
-                                                                                                                     XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(13:19)]
-                                                                                                                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
-                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
-                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
-                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
+                                                                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
+                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
+                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
+                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
                                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
             LeafPsiElement[XQUERY_COMMA_TOKEN(20:21)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(21:44)]
@@ -87,9 +86,8 @@ XQueryModuleImpl[FILE(0:44)]
                                                                                                             XPathCastExprImpl[XQUERY_CAST_EXPR(37:43)]
                                                                                                                XPathArrowExprImpl[XQUERY_ARROW_EXPR(37:43)]
                                                                                                                   XPathUnaryExprImpl[XQUERY_UNARY_EXPR(37:43)]
-                                                                                                                     XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(37:43)]
-                                                                                                                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(37:43)]
-                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(37:38)]('"')
-                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(38:42)]('true')
-                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('"')
+                                                                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(37:43)]
+                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(37:38)]('"')
+                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(38:42)]('true')
+                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('"')
                                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(43:44)]('}')

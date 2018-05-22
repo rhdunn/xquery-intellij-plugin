@@ -3751,6 +3751,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
+            var haveSimpleMapExpr = false
             while (matchTokenType(XQueryTokenType.MAP_OPERATOR)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parsePathExpr(null) && !haveErrors) {
@@ -3758,9 +3759,13 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     haveErrors = true
                 }
                 parseWhiteSpaceAndCommentTokens()
+                haveSimpleMapExpr = true
             }
 
-            simpleMapExprMarker.done(XQueryElementType.SIMPLE_MAP_EXPR)
+            if (haveSimpleMapExpr)
+                simpleMapExprMarker.done(XQueryElementType.SIMPLE_MAP_EXPR)
+            else
+                simpleMapExprMarker.drop()
             return true
         }
         simpleMapExprMarker.drop()

@@ -18,5 +18,4 @@ XQueryModuleImpl[FILE(0:4)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:4)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:4)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
-                                                            XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:4)]
-                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')

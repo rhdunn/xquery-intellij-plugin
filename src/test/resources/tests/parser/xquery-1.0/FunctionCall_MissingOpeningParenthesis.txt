@@ -18,17 +18,16 @@ XQueryModuleImpl[FILE(0:9)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:8)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:8)]
                                                          XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
-                                                            XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
-                                                               XPathAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
-                                                                  XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
-                                                                     XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:7)]
-                                                                        XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
-                                                                           XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
-                                                                              XPathQNameImpl[XQUERY_QNAME(0:7)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('fn')
-                                                                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('true')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                                            XPathAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
+                                                               XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
+                                                                  XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:7)]
+                                                                     XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
+                                                                        XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
+                                                                           XPathQNameImpl[XQUERY_QNAME(0:7)]
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('fn')
+                                                                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('true')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                               XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
    PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected end of file.')
    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
