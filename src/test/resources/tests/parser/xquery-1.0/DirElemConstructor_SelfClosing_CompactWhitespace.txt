@@ -4,12 +4,11 @@ XQueryModuleImpl[FILE(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:7)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:7)]
-                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:7)]
-                        XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
-                           LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                           XPathQNameImpl[XQUERY_QNAME(1:5)]
-                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
-                              LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
-                           LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')
+                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:7)]
+                     XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
+                        LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                        XPathQNameImpl[XQUERY_QNAME(1:5)]
+                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
+                           LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
+                        LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')

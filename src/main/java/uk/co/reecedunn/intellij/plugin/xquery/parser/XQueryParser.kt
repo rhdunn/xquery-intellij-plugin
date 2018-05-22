@@ -3229,9 +3229,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!parseFTContainsExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "FTContainsExpr"))
                 }
+                comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR)
+            } else {
+                comparisonExprMarker.drop()
             }
-
-            comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR)
             return true
         } else if (errorOnTokenType(XQueryTokenType.LESS_THAN, XQueryBundle.message("parser.error.comparison-no-lhs-or-direlem"))) {
             parseWhiteSpaceAndCommentTokens()

@@ -4,15 +4,13 @@ XQueryModuleImpl[FILE(0:13)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:13)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:13)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:13)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:13)]
-                     XPathCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:13)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
-                        XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(10:13)]
-                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
-                           XPathExprImpl[XQUERY_EXPR(11:12)]
-                              ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:12)]
-                                 XPathOrExprImpl[XQUERY_OR_EXPR(11:12)]
-                                    XPathAndExprImpl[XQUERY_AND_EXPR(11:12)]
-                                       XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:12)]
-                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('1')
-                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')
+                  XPathCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:13)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
+                     XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(10:13)]
+                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
+                        XPathExprImpl[XQUERY_EXPR(11:12)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:12)]
+                              XPathOrExprImpl[XQUERY_OR_EXPR(11:12)]
+                                 XPathAndExprImpl[XQUERY_AND_EXPR(11:12)]
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('1')
+                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')

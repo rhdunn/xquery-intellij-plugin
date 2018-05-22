@@ -4,19 +4,17 @@ XQueryModuleImpl[FILE(0:21)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:21)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:21)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:21)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:21)]
-                     XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:21)]
-                        LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                        XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:18)]
-                           LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:7)]('One ')
-                           XQueryStringConstructorInterpolationImpl[XQUERY_STRING_CONSTRUCTOR_INTERPOLATION(7:12)]
-                              LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(7:9)]('`{')
-                              XPathExprImpl[XQUERY_EXPR(9:10)]
-                                 ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:10)]
-                                    XPathOrExprImpl[XQUERY_OR_EXPR(9:10)]
-                                       XPathAndExprImpl[XQUERY_AND_EXPR(9:10)]
-                                          XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:10)]
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
-                              LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(10:12)]('}`')
-                           LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(12:18)](' Three')
-                        LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(18:21)](']``')
+                  XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:21)]
+                     LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                     XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:18)]
+                        LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:7)]('One ')
+                        XQueryStringConstructorInterpolationImpl[XQUERY_STRING_CONSTRUCTOR_INTERPOLATION(7:12)]
+                           LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(7:9)]('`{')
+                           XPathExprImpl[XQUERY_EXPR(9:10)]
+                              ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:10)]
+                                 XPathOrExprImpl[XQUERY_OR_EXPR(9:10)]
+                                    XPathAndExprImpl[XQUERY_AND_EXPR(9:10)]
+                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                           LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(10:12)]('}`')
+                        LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(12:18)](' Three')
+                     LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(18:21)](']``')

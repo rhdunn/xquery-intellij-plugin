@@ -4,13 +4,12 @@ XQueryModuleImpl[FILE(0:5)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:5)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:5)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:5)]
-                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:5)]
-                        XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:5)]
-                           LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                           XPathQNameImpl[XQUERY_QNAME(1:4)]
-                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                              LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
-                           LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(4:5)]('>')
-                           PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Unclosed XML tag.')
+                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:5)]
+                     XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:5)]
+                        LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                        XPathQNameImpl[XQUERY_QNAME(1:4)]
+                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                           LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
+                        LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(4:5)]('>')
+                        PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Unclosed XML tag.')

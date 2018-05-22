@@ -4,17 +4,16 @@ XQueryModuleImpl[FILE(0:11)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:11)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:11)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:11)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:11)]
-                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:11)]
-                        XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:11)]
-                           LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                           XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                           LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-                           XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:7)]
-                              PsiErrorElementImpl[ERROR_ELEMENT(3:7)]('XPST0003: Entity references must not be empty.')
-                                 LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(3:7)]('&#x;')
-                           LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(7:9)]('</')
-                           XPathNCNameImpl[XQUERY_NCNAME(9:10)]
-                              XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(9:10)]('a')
-                           LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(10:11)]('>')
+                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:11)]
+                     XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:11)]
+                        LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                        XPathNCNameImpl[XQUERY_NCNAME(1:2)]
+                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                        LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+                        XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:7)]
+                           PsiErrorElementImpl[ERROR_ELEMENT(3:7)]('XPST0003: Entity references must not be empty.')
+                              LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(3:7)]('&#x;')
+                        LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(7:9)]('</')
+                        XPathNCNameImpl[XQUERY_NCNAME(9:10)]
+                           XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(9:10)]('a')
+                        LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(10:11)]('>')

@@ -4,10 +4,9 @@ XQueryModuleImpl[FILE(0:5)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:5)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:5)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:5)]
-                     XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
-                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                        LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(2:3)]('!')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
+                  XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
+                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                     LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(2:3)]('!')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')

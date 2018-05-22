@@ -18,6 +18,5 @@ XQueryModuleImpl[FILE(0:27)]
                XQueryVarValueImpl[XQUERY_VAR_VALUE(26:27)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(26:27)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(26:27)]
-                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(26:27)]
-                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
          PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected ';'.')

@@ -7,5 +7,4 @@ XQueryModuleImpl[FILE(0:8)]
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             XPathOrExprImpl[XQUERY_OR_EXPR(7:8)]
                XPathAndExprImpl[XQUERY_AND_EXPR(7:8)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(7:8)]
-                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')
+                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')

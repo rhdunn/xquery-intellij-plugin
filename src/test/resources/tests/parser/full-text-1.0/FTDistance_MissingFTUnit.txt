@@ -4,40 +4,39 @@ XQueryModuleImpl[FILE(0:46)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:46)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:46)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:46)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:46)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:46)]
-                        XPathAxisStepImpl[XQUERY_AXIS_STEP(0:6)]
-                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
-                              XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:6)]
-                                 XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
-                                    XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
-                                       XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                           XPathPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                        FTSelectionImpl[XQUERY_FT_SELECTION(20:46)]
-                           FTOrImpl[XQUERY_FT_OR(20:28)]
-                              FTAndImpl[XQUERY_FT_AND(20:28)]
-                                 FTMildNotImpl[XQUERY_FT_MILD_NOT(20:28)]
-                                    FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:28)]
-                                       FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:28)]
-                                          FTPrimaryImpl[XQUERY_FT_PRIMARY(20:28)]
-                                             FTWordsImpl[XQUERY_FT_WORDS(20:28)]
-                                                FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:27)]
-                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                           FTDistanceImpl[XQUERY_FT_DISTANCE(28:46)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                              FTRangeImpl[XQUERY_FT_RANGE(37:46)]
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('4')
-                              PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected keyword: paragraphs, sentences, words.')
+                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:46)]
+                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:6)]
+                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
+                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:6)]
+                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
+                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
+                                    XPathNCNameImpl[XQUERY_NCNAME(0:6)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                     FTSelectionImpl[XQUERY_FT_SELECTION(20:46)]
+                        FTOrImpl[XQUERY_FT_OR(20:28)]
+                           FTAndImpl[XQUERY_FT_AND(20:28)]
+                              FTMildNotImpl[XQUERY_FT_MILD_NOT(20:28)]
+                                 FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:28)]
+                                    FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:28)]
+                                       FTPrimaryImpl[XQUERY_FT_PRIMARY(20:28)]
+                                          FTWordsImpl[XQUERY_FT_WORDS(20:28)]
+                                             FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:27)]
+                                                XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                                                   LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(20:21)]('"')
+                                                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                                                   LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        FTDistanceImpl[XQUERY_FT_DISTANCE(28:46)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                           FTRangeImpl[XQUERY_FT_RANGE(37:46)]
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('4')
+                           PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected keyword: paragraphs, sentences, words.')

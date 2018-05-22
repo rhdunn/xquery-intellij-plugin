@@ -4,7 +4,6 @@ XQueryModuleImpl[FILE(0:3)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:3)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:3)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:3)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:3)]
-                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:3)]
-                        PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of comment marker found without a '<!--' start of comment marker.')
-                           LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(0:3)]('-->')
+                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:3)]
+                     PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of comment marker found without a '<!--' start of comment marker.')
+                        LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(0:3)]('-->')

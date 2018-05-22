@@ -4,12 +4,11 @@ XQueryModuleImpl[FILE(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:18)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:18)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:18)]
-                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:18)]
-                        XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:18)]
-                           LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
-                           XPathNCNameImpl[XQUERY_NCNAME(2:4)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('a')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                           LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(4:16)]('lorem!ipsum ')
-                           LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(16:18)]('?>')
+                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:18)]
+                     XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:18)]
+                        LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
+                        XPathNCNameImpl[XQUERY_NCNAME(2:4)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('a')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                        LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(4:16)]('lorem!ipsum ')
+                        LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(16:18)]('?>')

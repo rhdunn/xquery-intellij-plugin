@@ -4,13 +4,11 @@ XQueryModuleImpl[FILE(0:5)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:5)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:5)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:5)]
-                     XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:5)]
-                        LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                        XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
-                           XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
-                              XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(2:4)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('1')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                        LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(4:5)](']')
+                  XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:5)]
+                     LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                     XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
+                        XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
+                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('1')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                     LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(4:5)](']')

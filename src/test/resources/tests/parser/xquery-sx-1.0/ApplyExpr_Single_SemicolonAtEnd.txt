@@ -4,17 +4,15 @@ XQueryModuleImpl[FILE(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:7)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:7)]
-                     XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:7)]
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                        XPathExprImpl[XQUERY_EXPR(2:6)]
-                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:4)]
-                              XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
-                                 XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
-                                    XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(2:4)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                           LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(6:7)](')')
+                  XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:7)]
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                     XPathExprImpl[XQUERY_EXPR(2:6)]
+                        ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:4)]
+                           XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
+                              XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                        LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(6:7)](')')

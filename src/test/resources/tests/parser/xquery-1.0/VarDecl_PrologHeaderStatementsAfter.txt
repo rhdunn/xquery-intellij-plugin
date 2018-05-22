@@ -18,9 +18,8 @@ XQueryModuleImpl[FILE(0:520)]
                XQueryVarValueImpl[XQUERY_VAR_VALUE(26:28)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(26:28)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(26:28)]
-                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(26:28)]
-                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(29:30)]('\n')
          XQueryBaseURIDeclImpl[XQUERY_BASE_URI_DECL(30:72)]

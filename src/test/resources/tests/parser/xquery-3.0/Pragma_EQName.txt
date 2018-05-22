@@ -4,28 +4,26 @@ XQueryModuleImpl[FILE(0:66)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:66)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:66)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:66)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:66)]
-                     XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:66)]
-                        XQueryPragmaImpl[XQUERY_PRAGMA(0:60)]
-                           LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                           XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(3:38)]
-                              XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(3:34)]
-                                 LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(3:5)]('Q{')
-                                 LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(5:33)]('http://www.example.com/test#')
-                                 LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(33:34)]('}')
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(34:38)]('name')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                           LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(39:58)]('Lorem ipsum dolor. ')
-                           LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(58:60)]('#)')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
-                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(61:62)]('{')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
-                        XPathExprImpl[XQUERY_EXPR(63:65)]
-                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(63:65)]
-                              XPathOrExprImpl[XQUERY_OR_EXPR(63:65)]
-                                 XPathAndExprImpl[XQUERY_AND_EXPR(63:65)]
-                                    XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(63:65)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(63:64)]('2')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(65:66)]('}')
+                  XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:66)]
+                     XQueryPragmaImpl[XQUERY_PRAGMA(0:60)]
+                        LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                        XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(3:38)]
+                           XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(3:34)]
+                              LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(3:5)]('Q{')
+                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(5:33)]('http://www.example.com/test#')
+                              LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(33:34)]('}')
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(34:38)]('name')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                        LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(39:58)]('Lorem ipsum dolor. ')
+                        LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(58:60)]('#)')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
+                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(61:62)]('{')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
+                     XPathExprImpl[XQUERY_EXPR(63:65)]
+                        ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(63:65)]
+                           XPathOrExprImpl[XQUERY_OR_EXPR(63:65)]
+                              XPathAndExprImpl[XQUERY_AND_EXPR(63:65)]
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(63:64)]('2')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
+                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(65:66)]('}')

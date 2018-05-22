@@ -4,14 +4,13 @@ XQueryModuleImpl[FILE(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:4)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:4)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:4)]
-                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:4)]
-                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:4)]
-                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:4)]
-                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:4)]
-                              LeafPsiElement[XQUERY_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                              XPathNodeTestImpl[XQUERY_NODE_TEST(2:4)]
-                                 XPathNameTestImpl[XQUERY_NAME_TEST(2:4)]
-                                    XPathNCNameImpl[XQUERY_NCNAME(2:4)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:4)]('id')
-                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]
+                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:4)]
+                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:4)]
+                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:4)]
+                           LeafPsiElement[XQUERY_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                           XPathNodeTestImpl[XQUERY_NODE_TEST(2:4)]
+                              XPathNameTestImpl[XQUERY_NAME_TEST(2:4)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(2:4)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:4)]('id')
+                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]
