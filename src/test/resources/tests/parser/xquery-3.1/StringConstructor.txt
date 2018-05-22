@@ -16,9 +16,8 @@ XQueryModuleImpl[FILE(0:19)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:19)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:19)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:19)]
-                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:19)]
-                                                         XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:19)]
-                                                            LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                                                            XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
-                                                               LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
-                                                            LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(16:19)](']``')
+                                                      XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:19)]
+                                                         LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                                                         XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
+                                                            LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
+                                                         LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(16:19)](']``')

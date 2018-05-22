@@ -23,9 +23,8 @@ XQueryModuleImpl[FILE(0:22)]
                                                       XPathTreatExprImpl[XQUERY_TREAT_EXPR(5:7)]
                                                          XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(5:7)]
                                                             XPathCastExprImpl[XQUERY_CAST_EXPR(5:7)]
-                                                               XPathArrowExprImpl[XQUERY_ARROW_EXPR(5:7)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THEN(9:13)]('then')
@@ -44,9 +43,8 @@ XQueryModuleImpl[FILE(0:22)]
                                                 XPathTreatExprImpl[XQUERY_TREAT_EXPR(14:16)]
                                                    XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(14:16)]
                                                       XPathCastExprImpl[XQUERY_CAST_EXPR(14:16)]
-                                                         XPathArrowExprImpl[XQUERY_ARROW_EXPR(14:16)]
-                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELSE(16:20)]('else')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XPathOrExprImpl[XQUERY_OR_EXPR(21:22)]
@@ -63,5 +61,4 @@ XQueryModuleImpl[FILE(0:22)]
                                                 XPathTreatExprImpl[XQUERY_TREAT_EXPR(21:22)]
                                                    XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(21:22)]
                                                       XPathCastExprImpl[XQUERY_CAST_EXPR(21:22)]
-                                                         XPathArrowExprImpl[XQUERY_ARROW_EXPR(21:22)]
-                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(21:22)]('3')
+                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(21:22)]('3')

@@ -16,9 +16,8 @@ XQueryModuleImpl[FILE(0:13)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:13)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:13)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:13)]
-                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:13)]
-                                                         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:13)]
-                                                            XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:13)]
-                                                               LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')
-                                                               PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')
-                                                               LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(10:13)]('-->')
+                                                      XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:13)]
+                                                         XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:13)]
+                                                            LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')
+                                                            PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')
+                                                            LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(10:13)]('-->')

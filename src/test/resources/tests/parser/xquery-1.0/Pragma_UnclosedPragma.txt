@@ -16,15 +16,14 @@ XQueryModuleImpl[FILE(0:36)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:36)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:36)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:36)]
-                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:36)]
-                                                         XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:36)]
-                                                            XQueryPragmaImpl[XQUERY_PRAGMA(0:36)]
-                                                               LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                                               XPathQNameImpl[XQUERY_QNAME(3:11)]
-                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
-                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
-                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                               LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(12:36)]('Lorem ipsum dolor. { 2 }')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected '#)'.')
+                                                      XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:36)]
+                                                         XQueryPragmaImpl[XQUERY_PRAGMA(0:36)]
+                                                            LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                            XPathQNameImpl[XQUERY_QNAME(3:11)]
+                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
+                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
+                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                            LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(12:36)]('Lorem ipsum dolor. { 2 }')
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected '#)'.')

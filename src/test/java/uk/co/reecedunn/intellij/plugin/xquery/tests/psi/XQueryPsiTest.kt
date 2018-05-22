@@ -290,19 +290,6 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.ARROW))
     }
 
-    fun testArrowExpr_NoMap() {
-        val file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq")
-
-        val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val versioned = arrowExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.AXIS_STEP))
-    }
-
     // endregion
     // region BracedURILiteral
 

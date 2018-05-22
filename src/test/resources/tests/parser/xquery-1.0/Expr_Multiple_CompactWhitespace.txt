@@ -16,8 +16,7 @@ XQueryModuleImpl[FILE(0:3)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:1)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:1)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:1)]
-                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:1)]
-                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1:2)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(2:3)]
                XPathAndExprImpl[XQUERY_AND_EXPR(2:3)]
@@ -33,5 +32,4 @@ XQueryModuleImpl[FILE(0:3)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(2:3)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(2:3)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(2:3)]
-                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(2:3)]
-                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
+                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')

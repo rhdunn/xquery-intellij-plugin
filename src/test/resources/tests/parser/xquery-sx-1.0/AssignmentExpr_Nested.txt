@@ -34,5 +34,4 @@ XQueryModuleImpl[FILE(0:15)]
                                                    XPathTreatExprImpl[XQUERY_TREAT_EXPR(14:15)]
                                                       XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(14:15)]
                                                          XPathCastExprImpl[XQUERY_CAST_EXPR(14:15)]
-                                                            XPathArrowExprImpl[XQUERY_ARROW_EXPR(14:15)]
-                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')

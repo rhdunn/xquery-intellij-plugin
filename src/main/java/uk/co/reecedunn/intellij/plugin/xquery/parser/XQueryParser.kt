@@ -3538,7 +3538,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             } else if (parseUpdateExpr()) {
                 exprMarker.done(XQueryElementType.UPDATE_EXPR)
             } else {
-                exprMarker.done(XQueryElementType.ARROW_EXPR)
+                exprMarker.drop()
             }
             return true
         }

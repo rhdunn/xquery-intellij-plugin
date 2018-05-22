@@ -16,17 +16,16 @@ XQueryModuleImpl[FILE(0:15)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:15)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:15)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:15)]
-                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:15)]
-                                                         XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
-                                                            XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
-                                                               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                                                               XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
-                                                                  XPathNCNameImpl[XQUERY_NCNAME(1:5)]
-                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')
-                                                            LeafPsiElement[XQUERY_ALL_DESCENDANTS_PATH_TOKEN(5:7)]('//')
-                                                            XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]
-                                                               XPathNCNameImpl[XQUERY_NCNAME(7:13)]
-                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:13)]('string')
-                                                               XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(13:15)]
-                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
-                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
+                                                      XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
+                                                         XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
+                                                            LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                                                            XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
+                                                               XPathNCNameImpl[XQUERY_NCNAME(1:5)]
+                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')
+                                                         LeafPsiElement[XQUERY_ALL_DESCENDANTS_PATH_TOKEN(5:7)]('//')
+                                                         XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]
+                                                            XPathNCNameImpl[XQUERY_NCNAME(7:13)]
+                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:13)]('string')
+                                                            XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(13:15)]
+                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
+                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
