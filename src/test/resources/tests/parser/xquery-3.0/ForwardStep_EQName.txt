@@ -7,20 +7,19 @@ XQueryModuleImpl[FILE(0:43)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:43)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:43)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:43)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:43)]
-                              XPathAxisStepImpl[XQUERY_AXIS_STEP(0:43)]
-                                 XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:43)]
-                                    XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                       LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                    XPathNodeTestImpl[XQUERY_NODE_TEST(8:43)]
-                                       XPathNameTestImpl[XQUERY_NAME_TEST(8:43)]
-                                          XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(8:43)]
-                                             XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(8:39)]
-                                                LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(8:10)]('Q{')
-                                                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:38)]('http://www.example.com/test#')
-                                                LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(38:39)]('}')
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:43)]('name')
-                                 XPathPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]
+                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:43)]
+                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:43)]
+                                 XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                    LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                 XPathNodeTestImpl[XQUERY_NODE_TEST(8:43)]
+                                    XPathNameTestImpl[XQUERY_NAME_TEST(8:43)]
+                                       XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(8:43)]
+                                          XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(8:39)]
+                                             LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(8:10)]('Q{')
+                                             LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:38)]('http://www.example.com/test#')
+                                             LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(38:39)]('}')
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:43)]('name')
+                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]

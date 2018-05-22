@@ -7,14 +7,13 @@ XQueryModuleImpl[FILE(0:16)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:16)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:16)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:16)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:16)]
-                              XPathAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
-                                 XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
-                                    XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:12)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT(0:10)]('descendant')
-                                       LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(10:12)]('::')
-                                    XPathNodeTestImpl[XQUERY_NODE_TEST(12:16)]
-                                       XPathNameTestImpl[XQUERY_NAME_TEST(12:16)]
-                                          XPathNCNameImpl[XQUERY_NCNAME(12:16)]
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:16)]('para')
-                                 XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
+                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
+                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
+                                 XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:12)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT(0:10)]('descendant')
+                                    LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(10:12)]('::')
+                                 XPathNodeTestImpl[XQUERY_NODE_TEST(12:16)]
+                                    XPathNameTestImpl[XQUERY_NAME_TEST(12:16)]
+                                       XPathNCNameImpl[XQUERY_NCNAME(12:16)]
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:16)]('para')
+                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]

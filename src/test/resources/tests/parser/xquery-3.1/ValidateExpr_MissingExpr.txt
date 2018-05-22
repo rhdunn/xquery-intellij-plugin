@@ -7,11 +7,10 @@ XQueryModuleImpl[FILE(0:12)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:12)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:12)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:12)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:12)]
-                              XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:12)]
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                 LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                 PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')
-                                 LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                           XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:12)]
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                              LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                              PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')
+                              LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')

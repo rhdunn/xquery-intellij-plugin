@@ -7,14 +7,13 @@ XQueryModuleImpl[FILE(0:22)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:22)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:22)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:22)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:22)]
-                              XPathAxisStepImpl[XQUERY_AXIS_STEP(0:22)]
-                                 XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:22)]
-                                    XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:18)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF(0:16)]('ancestor-or-self')
-                                       LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(16:18)]('::')
-                                    XPathNodeTestImpl[XQUERY_NODE_TEST(18:22)]
-                                       XPathNameTestImpl[XQUERY_NAME_TEST(18:22)]
-                                          XPathNCNameImpl[XQUERY_NCNAME(18:22)]
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:22)]('para')
-                                 XPathPredicateListImpl[XQUERY_PREDICATE_LIST(22:22)]
+                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:22)]
+                              XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:22)]
+                                 XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:18)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF(0:16)]('ancestor-or-self')
+                                    LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(16:18)]('::')
+                                 XPathNodeTestImpl[XQUERY_NODE_TEST(18:22)]
+                                    XPathNameTestImpl[XQUERY_NAME_TEST(18:22)]
+                                       XPathNCNameImpl[XQUERY_NCNAME(18:22)]
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:22)]('para')
+                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(22:22)]

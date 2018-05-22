@@ -7,5 +7,4 @@ XQueryModuleImpl[FILE(0:4)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:4)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:4)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:4)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:4)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')
+                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')

@@ -7,16 +7,15 @@ XQueryModuleImpl[FILE(0:13)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:13)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:13)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:13)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:13)]
-                              XPathAxisStepImpl[XQUERY_AXIS_STEP(0:13)]
-                                 XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:13)]
-                                    XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:6)]
-                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                                       LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(4:6)]('::')
-                                    XPathNodeTestImpl[XQUERY_NODE_TEST(6:13)]
-                                       XPathNameTestImpl[XQUERY_NAME_TEST(6:13)]
-                                          XPathQNameImpl[XQUERY_QNAME(6:13)]
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:8)]('xh')
-                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:13)]('body')
-                                 XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
+                           XPathAxisStepImpl[XQUERY_AXIS_STEP(0:13)]
+                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:13)]
+                                 XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:6)]
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                                    LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(4:6)]('::')
+                                 XPathNodeTestImpl[XQUERY_NODE_TEST(6:13)]
+                                    XPathNameTestImpl[XQUERY_NAME_TEST(6:13)]
+                                       XPathQNameImpl[XQUERY_QNAME(6:13)]
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:8)]('xh')
+                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:13)]('body')
+                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]

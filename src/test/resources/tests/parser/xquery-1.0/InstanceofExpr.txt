@@ -7,18 +7,17 @@ XQueryModuleImpl[FILE(0:24)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:24)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:24)]
                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:24)]
-                           XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:24)]
-                              XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:24)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(12:14)]('of')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                                 XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(15:24)]
-                                    XPathItemTypeImpl[XQUERY_ITEM_TYPE(15:24)]
-                                       XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(15:24)]
-                                          XPathQNameImpl[XQUERY_QNAME(15:24)]
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:17)]('xs')
-                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(17:18)](':')
-                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:24)]('double')
+                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:24)]
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(12:14)]('of')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                              XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(15:24)]
+                                 XPathItemTypeImpl[XQUERY_ITEM_TYPE(15:24)]
+                                    XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(15:24)]
+                                       XPathQNameImpl[XQUERY_QNAME(15:24)]
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:17)]('xs')
+                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(17:18)](':')
+                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:24)]('double')

@@ -3326,9 +3326,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!parseAdditiveExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"))
                 }
+                rangeExprMarker.done(XQueryElementType.RANGE_EXPR)
+            } else {
+                rangeExprMarker.drop()
             }
-
-            rangeExprMarker.done(XQueryElementType.RANGE_EXPR)
             return true
         }
         rangeExprMarker.drop()

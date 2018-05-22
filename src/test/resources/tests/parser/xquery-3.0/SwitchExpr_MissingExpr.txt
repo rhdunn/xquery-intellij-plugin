@@ -19,9 +19,8 @@ XQueryModuleImpl[FILE(0:43)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(16:18)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(16:18)]
                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(16:18)]
-                                    XPathRangeExprImpl[XQUERY_RANGE_EXPR(16:18)]
-                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('1')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('1')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(18:24)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   XPathOrExprImpl[XQUERY_OR_EXPR(25:27)]
@@ -29,9 +28,8 @@ XQueryModuleImpl[FILE(0:43)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(25:27)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(25:27)]
                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(25:27)]
-                                 XPathRangeExprImpl[XQUERY_RANGE_EXPR(25:27)]
-                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
-                                    PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(27:34)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(35:41)]('return')
@@ -41,5 +39,4 @@ XQueryModuleImpl[FILE(0:43)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(42:43)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(42:43)]
                            XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(42:43)]
-                              XPathRangeExprImpl[XQUERY_RANGE_EXPR(42:43)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('3')
+                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('3')

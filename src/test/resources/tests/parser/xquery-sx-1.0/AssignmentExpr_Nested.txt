@@ -25,5 +25,4 @@ XQueryModuleImpl[FILE(0:15)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:15)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(14:15)]
                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(14:15)]
-                                 XPathRangeExprImpl[XQUERY_RANGE_EXPR(14:15)]
-                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
