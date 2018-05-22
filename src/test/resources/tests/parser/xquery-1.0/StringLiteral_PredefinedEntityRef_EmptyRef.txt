@@ -12,9 +12,8 @@ XQueryModuleImpl[FILE(0:4)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:4)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]
-                                             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]
-                                                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
-                                                PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')
-                                                   LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')
-                                                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('"')
+                                          XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]
+                                             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
+                                             PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')
+                                                LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')
+                                             LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('"')

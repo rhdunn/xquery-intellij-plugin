@@ -12,10 +12,9 @@ XQueryModuleImpl[FILE(0:5)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:5)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:5)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:5)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:5)]
-                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
-                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(2:3)]('!')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
+                                          XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
+                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                             LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(2:3)]('!')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')

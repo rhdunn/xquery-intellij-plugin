@@ -12,17 +12,16 @@ XQueryModuleImpl[FILE(0:20)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:20)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:20)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:20)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:20)]
-                                             XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:20)]
-                                                XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:20)]
-                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                   XPathQNameImpl[XQUERY_QNAME(10:16)]
-                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:13)]('xml')
-                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
-                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:16)]('id')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                                                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:20)]
-                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(17:18)]('{')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-                                                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
+                                          XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:20)]
+                                             XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:20)]
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                XPathQNameImpl[XQUERY_QNAME(10:16)]
+                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:13)]('xml')
+                                                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
+                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:16)]('id')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                                                XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:20)]
+                                                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(17:18)]('{')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')

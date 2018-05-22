@@ -12,15 +12,14 @@ XQueryModuleImpl[FILE(0:14)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:14)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:14)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:14)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:14)]
-                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
-                                                XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:14)]
-                                                   XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:8)]
-                                                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
-                                                      LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(6:8)]('::')
-                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(8:14)]
-                                                      XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(8:14)]
-                                                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
-                                                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
-                                                         LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
-                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
+                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
+                                             XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:14)]
+                                                XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:8)]
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                                                   LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(6:8)]('::')
+                                                XPathNodeTestImpl[XQUERY_NODE_TEST(8:14)]
+                                                   XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(8:14)]
+                                                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
+                                                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
+                                                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
+                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]

@@ -12,15 +12,14 @@ XQueryModuleImpl[FILE(0:3)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:3)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:3)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:3)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:3)]
-                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(0:3)]
-                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:3)]
-                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:3)]
-                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(0:3)]
-                                                         XPathNameTestImpl[XQUERY_NAME_TEST(0:3)]
-                                                            XPathWildcardImpl[XQUERY_WILDCARD(0:3)]
-                                                               LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
-                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(2:3)]('XPST0003: Wildcard prefix and local parts are not allowed.')
-                                                                  LeafPsiElement[XQUERY_STAR_TOKEN(2:3)]('*')
-                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]
+                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(0:3)]
+                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:3)]
+                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:3)]
+                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:3)]
+                                                      XPathNameTestImpl[XQUERY_NAME_TEST(0:3)]
+                                                         XPathWildcardImpl[XQUERY_WILDCARD(0:3)]
+                                                            LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
+                                                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(2:3)]('XPST0003: Wildcard prefix and local parts are not allowed.')
+                                                               LeafPsiElement[XQUERY_STAR_TOKEN(2:3)]('*')
+                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]

@@ -12,28 +12,26 @@ XQueryModuleImpl[FILE(0:19)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:19)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:19)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:19)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:19)]
-                                             XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:19)]
-                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                                XPathExprImpl[XQUERY_EXPR(11:18)]
-                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:18)]
-                                                      XPathOrExprImpl[XQUERY_OR_EXPR(11:18)]
-                                                         XPathAndExprImpl[XQUERY_AND_EXPR(11:18)]
-                                                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:18)]
-                                                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:18)]
-                                                                  XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:18)]
-                                                                     XPathRangeExprImpl[XQUERY_RANGE_EXPR(11:18)]
-                                                                        XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(11:18)]
-                                                                           XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(11:18)]
-                                                                              XPathUnionExprImpl[XQUERY_UNION_EXPR(11:18)]
-                                                                                 XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(11:18)]
-                                                                                    XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(11:18)]
-                                                                                       XPathStringLiteralImpl[XQUERY_STRING_LITERAL(11:17)]
-                                                                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(11:12)]('"')
-                                                                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:16)]('true')
-                                                                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(16:17)]('"')
-                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(18:19)]('}')
+                                          XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:19)]
+                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                                             XPathExprImpl[XQUERY_EXPR(11:18)]
+                                                ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:18)]
+                                                   XPathOrExprImpl[XQUERY_OR_EXPR(11:18)]
+                                                      XPathAndExprImpl[XQUERY_AND_EXPR(11:18)]
+                                                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:18)]
+                                                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:18)]
+                                                               XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:18)]
+                                                                  XPathRangeExprImpl[XQUERY_RANGE_EXPR(11:18)]
+                                                                     XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(11:18)]
+                                                                        XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(11:18)]
+                                                                           XPathUnionExprImpl[XQUERY_UNION_EXPR(11:18)]
+                                                                              XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(11:18)]
+                                                                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(11:17)]
+                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(11:12)]('"')
+                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:16)]('true')
+                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(16:17)]('"')
+                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(18:19)]('}')

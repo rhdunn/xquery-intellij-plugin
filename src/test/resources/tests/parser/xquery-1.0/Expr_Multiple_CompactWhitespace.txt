@@ -12,8 +12,7 @@ XQueryModuleImpl[FILE(0:3)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:1)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:1)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:1)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:1)]
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1:2)](',')
             XPathOrExprImpl[XQUERY_OR_EXPR(2:3)]
                XPathAndExprImpl[XQUERY_AND_EXPR(2:3)]
@@ -25,5 +24,4 @@ XQueryModuleImpl[FILE(0:3)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(2:3)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(2:3)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(2:3)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(2:3)]
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
+                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')

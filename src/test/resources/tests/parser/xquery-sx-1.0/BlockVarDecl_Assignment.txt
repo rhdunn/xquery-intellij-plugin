@@ -43,9 +43,8 @@ XQueryModuleImpl[FILE(0:62)]
                                                 XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(51:53)]
                                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(51:53)]
                                                       XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(51:53)]
-                                                         XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(51:53)]
-                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(51:52)]('2')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
+                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(51:52)]('2')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(53:54)](';')
                      PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(55:59)]
@@ -60,12 +59,11 @@ XQueryModuleImpl[FILE(0:62)]
                                              XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(55:59)]
                                                 XPathUnionExprImpl[XQUERY_UNION_EXPR(55:59)]
                                                    XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(55:59)]
-                                                      XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(55:59)]
-                                                         XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(55:58)]
-                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(55:56)]('(')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
-                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(57:58)](')')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+                                                      XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(55:58)]
+                                                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(55:56)]('(')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
+                                                         LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(57:58)](')')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(59:60)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(61:62)](';')

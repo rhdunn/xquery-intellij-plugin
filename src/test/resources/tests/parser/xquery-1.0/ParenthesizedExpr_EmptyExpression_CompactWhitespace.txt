@@ -12,7 +12,6 @@ XQueryModuleImpl[FILE(0:2)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:2)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:2)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:2)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
-                                             XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
-                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
+                                          XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
+                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')

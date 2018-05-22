@@ -12,13 +12,12 @@ XQueryModuleImpl[FILE(0:20)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:20)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:20)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:20)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:20)]
-                                             XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:20)]
-                                                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                                                XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:17)]
-                                                   LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:7)]('One ')
-                                                   XQueryStringConstructorInterpolationImpl[XQUERY_STRING_CONSTRUCTOR_INTERPOLATION(7:11)]
-                                                      LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(7:9)]('`{')
-                                                      LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(9:11)]('}`')
-                                                   LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(11:17)](' Three')
-                                                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(17:20)](']``')
+                                          XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:20)]
+                                             LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                                             XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:17)]
+                                                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:7)]('One ')
+                                                XQueryStringConstructorInterpolationImpl[XQUERY_STRING_CONSTRUCTOR_INTERPOLATION(7:11)]
+                                                   LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(7:9)]('`{')
+                                                   LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(9:11)]('}`')
+                                                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(11:17)](' Three')
+                                             LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(17:20)](']``')

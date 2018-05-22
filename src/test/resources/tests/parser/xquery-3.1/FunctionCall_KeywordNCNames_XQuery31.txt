@@ -17,16 +17,15 @@ XQueryModuleImpl[FILE(0:95)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(38:95)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(38:95)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(38:95)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(38:95)]
-                                             XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
-                                                XPathNCNameImpl[XQUERY_NCNAME(38:56)]
-                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
-                                                XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(56:58)]
-                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(56:57)]('(')
-                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(57:58)](')')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(58:59)]('\n')
-                                             XPathCommentImpl[XQUERY_COMMENT(59:94)]
-                                                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(59:61)]('(:')
-                                                PsiCommentImpl[XQUERY_COMMENT_TOKEN(61:92)](' Reserved Function Name -- map ')
-                                                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(92:94)](':)')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(94:95)]('\n')
+                                          XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
+                                             XPathNCNameImpl[XQUERY_NCNAME(38:56)]
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
+                                             XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(56:58)]
+                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(56:57)]('(')
+                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(57:58)](')')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(58:59)]('\n')
+                                          XPathCommentImpl[XQUERY_COMMENT(59:94)]
+                                             LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(59:61)]('(:')
+                                             PsiCommentImpl[XQUERY_COMMENT_TOKEN(61:92)](' Reserved Function Name -- map ')
+                                             LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(92:94)](':)')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(94:95)]('\n')

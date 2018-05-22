@@ -12,13 +12,12 @@ XQueryModuleImpl[FILE(0:13)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:13)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:13)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:13)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:13)]
-                                             XPathAxisStepImpl[XQUERY_AXIS_STEP(0:13)]
-                                                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:13)]
-                                                   XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:13)]
-                                                      XPathNodeTestImpl[XQUERY_NODE_TEST(0:13)]
-                                                         MarkLogicNumberTestImpl[XQUERY_NUMBER_TEST(0:13)]
-                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
-                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
-                                                XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
+                                          XPathAxisStepImpl[XQUERY_AXIS_STEP(0:13)]
+                                             XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:13)]
+                                                XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:13)]
+                                                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:13)]
+                                                      MarkLogicNumberTestImpl[XQUERY_NUMBER_TEST(0:13)]
+                                                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
+                                                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
+                                                         LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
+                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]

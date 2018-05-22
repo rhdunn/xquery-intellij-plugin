@@ -12,39 +12,36 @@ XQueryModuleImpl[FILE(0:11)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:11)]
                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(0:11)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:11)]
-                                          XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:11)]
-                                             XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:11)]
-                                                LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
-                                                   XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
-                                                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(2:4)]
-                                                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(2:4)]
-                                                            XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(2:4)]
-                                                               XPathRangeExprImpl[XQUERY_RANGE_EXPR(2:4)]
-                                                                  XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(2:4)]
-                                                                     XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(2:4)]
-                                                                        XPathUnionExprImpl[XQUERY_UNION_EXPR(2:4)]
-                                                                           XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(2:4)]
-                                                                              XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(2:4)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('1')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                LeafPsiElement[XQUERY_COMMA_TOKEN(4:5)](',')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                                                XPathOrExprImpl[XQUERY_OR_EXPR(6:8)]
-                                                   XPathAndExprImpl[XQUERY_AND_EXPR(6:8)]
-                                                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:8)]
-                                                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(6:8)]
-                                                            XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(6:8)]
-                                                               XPathRangeExprImpl[XQUERY_RANGE_EXPR(6:8)]
-                                                                  XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(6:8)]
-                                                                     XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(6:8)]
-                                                                        XPathUnionExprImpl[XQUERY_UNION_EXPR(6:8)]
-                                                                           XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(6:8)]
-                                                                              XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(6:8)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                LeafPsiElement[XQUERY_COMMA_TOKEN(8:9)](',')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')
-                                                LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(10:11)](']')
+                                          XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:11)]
+                                             LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                             XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
+                                                XPathAndExprImpl[XQUERY_AND_EXPR(2:4)]
+                                                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(2:4)]
+                                                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(2:4)]
+                                                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(2:4)]
+                                                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(2:4)]
+                                                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(2:4)]
+                                                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(2:4)]
+                                                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(2:4)]
+                                                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(2:4)]
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('1')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                             LeafPsiElement[XQUERY_COMMA_TOKEN(4:5)](',')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                                             XPathOrExprImpl[XQUERY_OR_EXPR(6:8)]
+                                                XPathAndExprImpl[XQUERY_AND_EXPR(6:8)]
+                                                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:8)]
+                                                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(6:8)]
+                                                         XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(6:8)]
+                                                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(6:8)]
+                                                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(6:8)]
+                                                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(6:8)]
+                                                                     XPathUnionExprImpl[XQUERY_UNION_EXPR(6:8)]
+                                                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(6:8)]
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                             LeafPsiElement[XQUERY_COMMA_TOKEN(8:9)](',')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                             PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')
+                                             LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(10:11)](']')
