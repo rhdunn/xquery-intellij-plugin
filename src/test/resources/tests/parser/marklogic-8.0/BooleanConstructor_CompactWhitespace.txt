@@ -3,16 +3,14 @@ XQueryModuleImpl[FILE(0:20)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:20)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:20)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:20)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:20)]
-                  MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:20)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
-                     XPathExprImpl[XQUERY_EXPR(13:19)]
-                        ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(13:19)]
-                              XPathAndExprImpl[XQUERY_AND_EXPR(13:19)]
-                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
+               MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:20)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
+                  XPathExprImpl[XQUERY_EXPR(13:19)]
+                     ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
+                        XPathOrExprImpl[XQUERY_OR_EXPR(13:19)]
+                           XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
+                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
+                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
+                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
+                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')

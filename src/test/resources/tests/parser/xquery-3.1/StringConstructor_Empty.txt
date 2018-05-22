@@ -3,8 +3,7 @@ XQueryModuleImpl[FILE(0:6)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:6)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:6)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:6)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:6)]
-                  XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:6)]
-                     LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                     XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:3)]
-                     LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(3:6)](']``')
+               XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:6)]
+                  LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                  XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:3)]
+                  LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(3:6)](']``')

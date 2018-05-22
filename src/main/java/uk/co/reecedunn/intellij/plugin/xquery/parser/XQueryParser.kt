@@ -3206,14 +3206,19 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val andExprMarker = mark()
         if (parseComparisonExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var haveAndExpr = false
             while (matchTokenType(XQueryTokenType.K_AND)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseComparisonExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "ComparisonExpr"))
                 }
+                haveAndExpr = true
             }
 
-            andExprMarker.done(XQueryElementType.AND_EXPR)
+            if (haveAndExpr)
+                andExprMarker.done(XQueryElementType.AND_EXPR)
+            else
+                andExprMarker.drop()
             return true
         }
         andExprMarker.drop()

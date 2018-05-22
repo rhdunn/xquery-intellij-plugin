@@ -10,9 +10,8 @@ XQueryModuleImpl[FILE(0:13)]
                XPathExprImpl[XQUERY_EXPR(5:7)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(5:7)]
                      XPathOrExprImpl[XQUERY_OR_EXPR(5:7)]
-                        XPathAndExprImpl[XQUERY_AND_EXPR(5:7)]
-                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THEN(9:13)]('then')

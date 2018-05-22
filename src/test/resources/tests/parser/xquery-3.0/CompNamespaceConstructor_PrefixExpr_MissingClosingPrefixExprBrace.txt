@@ -3,34 +3,31 @@ XQueryModuleImpl[FILE(0:27)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:27)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:27)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:27)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:27)]
-                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:27)]
-                     XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:27)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                        XQueryEnclosedPrefixExprImpl[XQUERY_ENCLOSED_PREFIX_EXPR(10:17)]
-                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                           XPathExprImpl[XQUERY_EXPR(12:17)]
-                              ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(12:17)]
-                                 XPathOrExprImpl[XQUERY_OR_EXPR(12:17)]
-                                    XPathAndExprImpl[XQUERY_AND_EXPR(12:17)]
-                                       XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:16)]
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:15)]('ns')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '}'.')
-                        XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(17:27)]
-                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(17:18)]('{')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-                           XPathExprImpl[XQUERY_EXPR(19:26)]
-                              ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(19:26)]
-                                 XPathOrExprImpl[XQUERY_OR_EXPR(19:26)]
-                                    XPathAndExprImpl[XQUERY_AND_EXPR(19:26)]
-                                       XPathStringLiteralImpl[XQUERY_STRING_LITERAL(19:25)]
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(24:25)]('"')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(26:27)]('}')
+               XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:27)]
+                  XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:27)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                     XQueryEnclosedPrefixExprImpl[XQUERY_ENCLOSED_PREFIX_EXPR(10:17)]
+                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                        XPathExprImpl[XQUERY_EXPR(12:17)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(12:17)]
+                              XPathOrExprImpl[XQUERY_OR_EXPR(12:17)]
+                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:16)]
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:15)]('ns')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '}'.')
+                     XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(17:27)]
+                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(17:18)]('{')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                        XPathExprImpl[XQUERY_EXPR(19:26)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(19:26)]
+                              XPathOrExprImpl[XQUERY_OR_EXPR(19:26)]
+                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(19:25)]
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(19:20)]('"')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
+                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(24:25)]('"')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(26:27)]('}')

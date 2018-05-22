@@ -6,5 +6,4 @@ XQueryModuleImpl[FILE(0:8)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(0:6)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             XPathOrExprImpl[XQUERY_OR_EXPR(7:8)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(7:8)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')
+               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('2')

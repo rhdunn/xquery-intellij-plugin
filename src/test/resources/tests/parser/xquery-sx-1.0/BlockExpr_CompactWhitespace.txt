@@ -10,8 +10,7 @@ XQueryModuleImpl[FILE(0:9)]
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(6:8)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(6:8)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(6:8)]
-                           XPathAndExprImpl[XQUERY_AND_EXPR(6:8)]
-                              XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(6:8)]
-                                 LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
-                                 LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
+                           XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(6:8)]
+                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
+                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')

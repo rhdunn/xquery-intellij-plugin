@@ -3,13 +3,11 @@ XQueryModuleImpl[FILE(0:4)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:1)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:1)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:1)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:3)]
             XPathOrExprImpl[XQUERY_OR_EXPR(2:3)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(2:3)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
+               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(3:4)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(3:4)](';')

@@ -3,51 +3,50 @@ XQueryModuleImpl[FILE(0:45)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:45)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:45)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:45)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:45)]
-                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:45)]
-                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:6)]
-                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
-                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:6)]
-                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
-                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
-                                    XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                     FTSelectionImpl[XQUERY_FT_SELECTION(20:45)]
-                        FTOrImpl[XQUERY_FT_OR(20:45)]
-                           FTAndImpl[XQUERY_FT_AND(20:45)]
-                              FTMildNotImpl[XQUERY_FT_MILD_NOT(20:45)]
-                                 FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:45)]
-                                    FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:45)]
-                                       FTPrimaryImpl[XQUERY_FT_PRIMARY(20:45)]
-                                          FTExtensionSelectionImpl[XQUERY_FT_EXTENSION_SELECTION(20:45)]
-                                             XQueryPragmaImpl[XQUERY_PRAGMA(20:35)]
-                                                LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(20:22)]('(#')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-                                                XPathNCNameImpl[XQUERY_NCNAME(23:28)]
-                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:27)]('test')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                                                LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(28:33)]('case ')
-                                                LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(33:35)]('#)')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(36:37)]('{')
-                                             PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                                             FTSelectionImpl[XQUERY_FT_SELECTION(38:45)]
-                                                FTOrImpl[XQUERY_FT_OR(38:45)]
-                                                   FTAndImpl[XQUERY_FT_AND(38:45)]
-                                                      FTMildNotImpl[XQUERY_FT_MILD_NOT(38:45)]
-                                                         FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(38:45)]
-                                                            FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(38:45)]
-                                                               FTPrimaryImpl[XQUERY_FT_PRIMARY(38:45)]
-                                                                  FTWordsImpl[XQUERY_FT_WORDS(38:45)]
-                                                                     FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(38:45)]
-                                                                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(38:45)]
-                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(38:39)]('"')
-                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(39:44)]('lorem')
-                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(44:45)]('"')
-                                             PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected '}'.')
+               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:45)]
+                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:6)]
+                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
+                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:6)]
+                           XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
+                              XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(0:6)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                  FTSelectionImpl[XQUERY_FT_SELECTION(20:45)]
+                     FTOrImpl[XQUERY_FT_OR(20:45)]
+                        FTAndImpl[XQUERY_FT_AND(20:45)]
+                           FTMildNotImpl[XQUERY_FT_MILD_NOT(20:45)]
+                              FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:45)]
+                                 FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:45)]
+                                    FTPrimaryImpl[XQUERY_FT_PRIMARY(20:45)]
+                                       FTExtensionSelectionImpl[XQUERY_FT_EXTENSION_SELECTION(20:45)]
+                                          XQueryPragmaImpl[XQUERY_PRAGMA(20:35)]
+                                             LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(20:22)]('(#')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+                                             XPathNCNameImpl[XQUERY_NCNAME(23:28)]
+                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:27)]('test')
+                                                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                                             LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(28:33)]('case ')
+                                             LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(33:35)]('#)')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(36:37)]('{')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                                          FTSelectionImpl[XQUERY_FT_SELECTION(38:45)]
+                                             FTOrImpl[XQUERY_FT_OR(38:45)]
+                                                FTAndImpl[XQUERY_FT_AND(38:45)]
+                                                   FTMildNotImpl[XQUERY_FT_MILD_NOT(38:45)]
+                                                      FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(38:45)]
+                                                         FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(38:45)]
+                                                            FTPrimaryImpl[XQUERY_FT_PRIMARY(38:45)]
+                                                               FTWordsImpl[XQUERY_FT_WORDS(38:45)]
+                                                                  FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(38:45)]
+                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(38:45)]
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(38:39)]('"')
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(39:44)]('lorem')
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(44:45)]('"')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected '}'.')

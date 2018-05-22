@@ -3,21 +3,19 @@ XQueryModuleImpl[FILE(0:14)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:14)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:14)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:14)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:14)]
-                  XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:14)]
-                     XPathNCNameImpl[XQUERY_NCNAME(0:11)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
-                     XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(11:14)]
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                        XPathArgumentImpl[XQUERY_ARGUMENT(12:13)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(12:13)]
-                              XPathAndExprImpl[XQUERY_AND_EXPR(12:13)]
-                                 XPathAxisStepImpl[XQUERY_AXIS_STEP(12:13)]
-                                    XPathForwardStepImpl[XQUERY_FORWARD_STEP(12:13)]
-                                       XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(12:13)]
-                                          XPathNodeTestImpl[XQUERY_NODE_TEST(12:13)]
-                                             XPathNameTestImpl[XQUERY_NAME_TEST(12:13)]
-                                                XPathWildcardImpl[XQUERY_WILDCARD(12:13)]
-                                                   LeafPsiElement[XQUERY_STAR_TOKEN(12:13)]('*')
-                                    XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
+               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:14)]
+                  XPathNCNameImpl[XQUERY_NCNAME(0:11)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
+                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(11:14)]
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
+                     XPathArgumentImpl[XQUERY_ARGUMENT(12:13)]
+                        XPathOrExprImpl[XQUERY_OR_EXPR(12:13)]
+                           XPathAxisStepImpl[XQUERY_AXIS_STEP(12:13)]
+                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(12:13)]
+                                 XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(12:13)]
+                                    XPathNodeTestImpl[XQUERY_NODE_TEST(12:13)]
+                                       XPathNameTestImpl[XQUERY_NAME_TEST(12:13)]
+                                          XPathWildcardImpl[XQUERY_WILDCARD(12:13)]
+                                             LeafPsiElement[XQUERY_STAR_TOKEN(12:13)]('*')
+                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')

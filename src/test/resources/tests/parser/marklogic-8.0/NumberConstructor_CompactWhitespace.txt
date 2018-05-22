@@ -3,13 +3,11 @@ XQueryModuleImpl[FILE(0:14)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:14)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:14)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:14)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:14)]
-                  MarkLogicNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:14)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(11:12)]('{')
-                     XPathExprImpl[XQUERY_EXPR(12:13)]
-                        ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(12:13)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(12:13)]
-                              XPathAndExprImpl[XQUERY_AND_EXPR(12:13)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('2')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(13:14)]('}')
+               MarkLogicNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:14)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
+                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(11:12)]('{')
+                  XPathExprImpl[XQUERY_EXPR(12:13)]
+                     ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(12:13)]
+                        XPathOrExprImpl[XQUERY_OR_EXPR(12:13)]
+                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('2')
+                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(13:14)]('}')

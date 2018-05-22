@@ -3,16 +3,15 @@ XQueryModuleImpl[FILE(0:12)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:12)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:12)]
-                  XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
-                     XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:12)]
-                        XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:8)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
-                           LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(6:8)]('::')
-                        XPathNodeTestImpl[XQUERY_NODE_TEST(8:12)]
-                           XPathNameTestImpl[XQUERY_NAME_TEST(8:12)]
-                              XPathWildcardImpl[XQUERY_WILDCARD(8:12)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('xh')
-                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
-                                 LeafPsiElement[XQUERY_STAR_TOKEN(11:12)]('*')
-                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
+               XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
+                  XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:12)]
+                     XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:8)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                        LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(6:8)]('::')
+                     XPathNodeTestImpl[XQUERY_NODE_TEST(8:12)]
+                        XPathNameTestImpl[XQUERY_NAME_TEST(8:12)]
+                           XPathWildcardImpl[XQUERY_WILDCARD(8:12)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('xh')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
+                              LeafPsiElement[XQUERY_STAR_TOKEN(11:12)]('*')
+                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

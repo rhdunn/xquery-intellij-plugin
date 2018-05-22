@@ -3,5 +3,4 @@ XQueryModuleImpl[FILE(0:12)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:12)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(0:12)]
-                  XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')
+               XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')

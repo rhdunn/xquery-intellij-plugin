@@ -26,5 +26,4 @@ XQueryModuleImpl[FILE(0:68)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(67:68)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(67:68)]
             XPathOrExprImpl[XQUERY_OR_EXPR(67:68)]
-               XPathAndExprImpl[XQUERY_AND_EXPR(67:68)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(67:68)]('2')
+               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(67:68)]('2')
