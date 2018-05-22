@@ -47,7 +47,6 @@ object XQueryElementType {
     val URI_LITERAL: IElementType = ICompositeElementType("XQUERY_URI_LITERAL", XQueryUriLiteralPsiImpl::class.java, XQuery)
     val VAR_NAME: IElementType = ICompositeElementType("XQUERY_VAR_NAME", XPathVarNamePsiImpl::class.java, XQuery)
 
-    val LITERAL: IElementType = ICompositeElementType("XQUERY_LITERAL", XPathLiteralPsiImpl::class.java, XQuery)
     val STRING_LITERAL: IElementType = ICompositeElementType("XQUERY_STRING_LITERAL", XPathStringLiteralPsiImpl::class.java, XQuery)
     val VAR_REF: IElementType = ICompositeElementType("XQUERY_VAR_REF", XPathVarRefPsiImpl::class.java, XQuery)
     val PARENTHESIZED_EXPR: IElementType = ICompositeElementType("XQUERY_PARENTHESIZED_EXPR", XPathParenthesizedExprPsiImpl::class.java, XQuery)

@@ -8,8 +8,7 @@ XQueryModuleImpl[FILE(0:39)]
                XPathNCNameImpl[XQUERY_NCNAME(8:12)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:12)]('test')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
-               XPathLiteralImpl[XQUERY_LITERAL(13:14)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
+               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(15:38)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(15:23)]('function')

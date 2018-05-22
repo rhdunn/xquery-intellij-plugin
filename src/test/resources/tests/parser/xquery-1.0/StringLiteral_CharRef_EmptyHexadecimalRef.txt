@@ -22,9 +22,8 @@ XQueryModuleImpl[FILE(0:6)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:6)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:6)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:6)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:6)]
-                                                                           XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]
-                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
-                                                                              PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')
-                                                                                 LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')
-                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('"')
+                                                                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]
+                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
+                                                                           PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')
+                                                                              LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')
+                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('"')

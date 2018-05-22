@@ -97,7 +97,6 @@ XQueryModuleImpl[FILE(0:49)]
                                                                                     XPathPathExprImpl[XQUERY_PATH_EXPR(42:44)]
                                                                                        XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(42:44)]
                                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(42:44)]
-                                                                                             XPathLiteralImpl[XQUERY_LITERAL(42:43)]
-                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('2')
+                                                                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('2')
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TIMES(44:49)]('times')

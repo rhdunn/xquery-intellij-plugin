@@ -4016,7 +4016,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
     private fun parsePrimaryExpr(type: IElementType?): Boolean {
-        return (parseLiteral()
+        return parseLiteral()
                 || parseVarRef(type)
                 || parseParenthesizedExpr()
                 || parseNonDeterministicFunctionCall()
@@ -4033,17 +4033,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 || parseNumberConstructor()
                 || parseStringConstructor()
                 || parseLookup(XQueryElementType.UNARY_LOOKUP)
-                || parseFunctionCall())
+                || parseFunctionCall()
     }
 
     private fun parseLiteral(): Boolean {
-        val literalMarker = mark()
-        if (parseNumericLiteral() || parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-            literalMarker.done(XQueryElementType.LITERAL)
-            return true
-        }
-        literalMarker.drop()
-        return false
+        return parseNumericLiteral() || parseStringLiteral(XQueryElementType.STRING_LITERAL)
     }
 
     private fun parseNumericLiteral(): Boolean {

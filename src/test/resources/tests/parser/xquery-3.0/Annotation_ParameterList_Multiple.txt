@@ -12,26 +12,22 @@ XQueryModuleImpl[FILE(0:70)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               XPathLiteralImpl[XQUERY_LITERAL(17:18)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(17:18)]('1')
+               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(17:18)]('1')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                LeafPsiElement[XQUERY_COMMA_TOKEN(19:20)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XPathLiteralImpl[XQUERY_LITERAL(21:24)]
-                  XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(21:24)]('2.0')
+               XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(21:24)]('2.0')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                LeafPsiElement[XQUERY_COMMA_TOKEN(25:26)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               XPathLiteralImpl[XQUERY_LITERAL(27:30)]
-                  XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(27:30)]('3e8')
+               XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(27:30)]('3e8')
                PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                LeafPsiElement[XQUERY_COMMA_TOKEN(31:32)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-               XPathLiteralImpl[XQUERY_LITERAL(33:39)]
-                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(33:39)]
-                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(33:34)]('"')
-                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(34:38)]('four')
-                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(38:39)]('"')
+               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(33:39)]
+                  LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(33:34)]('"')
+                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(34:38)]('four')
+                  LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(38:39)]('"')
                PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(40:41)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')

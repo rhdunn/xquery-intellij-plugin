@@ -80,8 +80,7 @@ XQueryModuleImpl[FILE(0:42)]
                                                                               XPathPathExprImpl[XQUERY_PATH_EXPR(30:32)]
                                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(30:32)]
                                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(30:32)]
-                                                                                       XPathLiteralImpl[XQUERY_LITERAL(30:31)]
-                                                                                          XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('2')
+                                                                                       XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('2')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(32:42)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(32:38)]('return')

@@ -83,8 +83,7 @@ XQueryModuleImpl[FILE(0:60)]
                                                                   XPathPathExprImpl[XQUERY_PATH_EXPR(27:29)]
                                                                      XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(27:29)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:29)]
-                                                                           XPathLiteralImpl[XQUERY_LITERAL(27:29)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:29)]('10')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:29)]('10')
             LeafPsiElement[XQUERY_COMMA_TOKEN(29:30)](',')
             XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(30:60)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EVERY(30:35)]('every')
@@ -167,5 +166,4 @@ XQueryModuleImpl[FILE(0:60)]
                                                                   XPathPathExprImpl[XQUERY_PATH_EXPR(58:60)]
                                                                      XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(58:60)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(58:60)]
-                                                                           XPathLiteralImpl[XQUERY_LITERAL(58:60)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(58:60)]('10')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(58:60)]('10')

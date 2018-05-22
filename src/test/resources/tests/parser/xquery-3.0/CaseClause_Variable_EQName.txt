@@ -84,8 +84,7 @@ XQueryModuleImpl[FILE(0:99)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(81:83)]
                                                                         XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(81:83)]
                                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(81:83)]
-                                                                              XPathLiteralImpl[XQUERY_LITERAL(81:82)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(81:82)]('1')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(81:82)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')
                XQueryDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(83:99)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(83:90)]('default')
@@ -112,5 +111,4 @@ XQueryModuleImpl[FILE(0:99)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(98:99)]
                                                                         XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(98:99)]
                                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(98:99)]
-                                                                              XPathLiteralImpl[XQUERY_LITERAL(98:99)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')

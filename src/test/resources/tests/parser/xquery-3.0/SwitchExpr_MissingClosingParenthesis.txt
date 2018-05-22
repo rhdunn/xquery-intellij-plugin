@@ -29,8 +29,7 @@ XQueryModuleImpl[FILE(0:43)]
                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(9:11)]
                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(9:11)]
                                                                               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(9:11)]
-                                                                                 XPathLiteralImpl[XQUERY_LITERAL(9:10)]
-                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected ')'.')
                XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(11:27)]
@@ -57,8 +56,7 @@ XQueryModuleImpl[FILE(0:43)]
                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(16:18)]
                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(16:18)]
                                                                               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(16:18)]
-                                                                                 XPathLiteralImpl[XQUERY_LITERAL(16:17)]
-                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('1')
+                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('1')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(18:24)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
@@ -82,8 +80,7 @@ XQueryModuleImpl[FILE(0:43)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(25:27)]
                                                                         XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(25:27)]
                                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(25:27)]
-                                                                              XPathLiteralImpl[XQUERY_LITERAL(25:26)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(27:34)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
@@ -109,5 +106,4 @@ XQueryModuleImpl[FILE(0:43)]
                                                                   XPathPathExprImpl[XQUERY_PATH_EXPR(42:43)]
                                                                      XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(42:43)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(42:43)]
-                                                                           XPathLiteralImpl[XQUERY_LITERAL(42:43)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('3')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('3')

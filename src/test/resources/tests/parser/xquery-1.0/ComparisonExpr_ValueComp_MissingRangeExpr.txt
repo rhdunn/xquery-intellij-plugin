@@ -22,8 +22,7 @@ XQueryModuleImpl[FILE(0:39)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:2)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:2)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:1)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
                      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
@@ -50,8 +49,7 @@ XQueryModuleImpl[FILE(0:39)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(7:9)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(7:9)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(7:9)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(7:8)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NE(9:11)]('ne')
                      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
@@ -78,8 +76,7 @@ XQueryModuleImpl[FILE(0:39)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(14:16)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(14:16)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(14:15)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LT(16:18)]('lt')
                      PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
@@ -106,8 +103,7 @@ XQueryModuleImpl[FILE(0:39)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(21:23)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(21:23)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(21:23)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(21:22)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(21:22)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(21:22)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LE(23:25)]('le')
                      PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
@@ -134,8 +130,7 @@ XQueryModuleImpl[FILE(0:39)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(28:30)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(28:30)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(28:30)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(28:29)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(28:29)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(28:29)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GT(30:32)]('gt')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
@@ -162,8 +157,7 @@ XQueryModuleImpl[FILE(0:39)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(35:37)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:37)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(35:37)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(35:36)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('1')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GE(37:39)]('ge')
                      PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected 'FTContainsExpr'.')

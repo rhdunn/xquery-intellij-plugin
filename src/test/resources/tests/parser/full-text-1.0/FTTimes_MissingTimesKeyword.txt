@@ -98,6 +98,5 @@ XQueryModuleImpl[FILE(0:49)]
                                                                                     XPathPathExprImpl[XQUERY_PATH_EXPR(48:49)]
                                                                                        XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(48:49)]
                                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(48:49)]
-                                                                                             XPathLiteralImpl[XQUERY_LITERAL(48:49)]
-                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(48:49)]('2')
+                                                                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(48:49)]('2')
                                                 PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Expected keyword: times.')

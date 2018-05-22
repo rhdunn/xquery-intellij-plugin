@@ -97,49 +97,6 @@ class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region Literal (XdmStaticValue)
-
-    fun testLiteral_DoubleLiteral() {
-        val literal = parse<XPathLiteral>("1e3")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as Double, `is`(1e3))
-        assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    fun testLiteral_DecimalLiteral() {
-        val literal = parse<XPathLiteral>("12.34")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as BigDecimal, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
-        assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    fun testLiteral_IntegerLiteral() {
-        val literal = parse<XPathLiteral>("123")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as BigInteger, `is`(BigInteger.valueOf(123)))
-        assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    fun testLiteral_StringLiteral() {
-        val literal = parse<XPathLiteral>("\"Lorem ipsum.\"")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("Lorem ipsum."))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region StringLiteral (XdmStaticValue)
 
     fun testStringLiteral() {

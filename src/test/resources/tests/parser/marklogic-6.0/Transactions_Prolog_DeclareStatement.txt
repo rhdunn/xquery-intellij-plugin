@@ -22,8 +22,7 @@ XQueryModuleImpl[FILE(0:31)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:2)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:2)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:1)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)]('\n')
    MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
@@ -64,8 +63,7 @@ XQueryModuleImpl[FILE(0:31)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(27:28)]
                                                                         XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(27:28)]
                                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:28)]
-                                                                              XPathLiteralImpl[XQUERY_LITERAL(27:28)]
-                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('3')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('3')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(29:30)]('\n')
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(30:31)]
@@ -90,5 +88,4 @@ XQueryModuleImpl[FILE(0:31)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(30:31)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(30:31)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(30:31)]
-                                                                        XPathLiteralImpl[XQUERY_LITERAL(30:31)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('4')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('4')

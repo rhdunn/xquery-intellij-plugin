@@ -51,8 +51,7 @@ XQueryModuleImpl[FILE(0:23)]
                                                                                                                                           XPathPathExprImpl[XQUERY_PATH_EXPR(10:12)]
                                                                                                                                              XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(10:12)]
                                                                                                                                                 XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(10:12)]
-                                                                                                                                                   XPathLiteralImpl[XQUERY_LITERAL(10:11)]
-                                                                                                                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('2')
+                                                                                                                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('2')
                                                                                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                                  LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(12:14)]('}`')
                                                                               LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(14:20)](' Three')

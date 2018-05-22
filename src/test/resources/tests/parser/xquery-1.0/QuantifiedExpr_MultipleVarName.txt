@@ -127,8 +127,7 @@ XQueryModuleImpl[FILE(0:100)]
                                                                   XPathPathExprImpl[XQUERY_PATH_EXPR(46:49)]
                                                                      XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(46:49)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(46:49)]
-                                                                           XPathLiteralImpl[XQUERY_LITERAL(46:48)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(46:48)]('10')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(46:48)]('10')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
@@ -257,5 +256,4 @@ XQueryModuleImpl[FILE(0:100)]
                                                                   XPathPathExprImpl[XQUERY_PATH_EXPR(98:100)]
                                                                      XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(98:100)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(98:100)]
-                                                                           XPathLiteralImpl[XQUERY_LITERAL(98:100)]
-                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:100)]('10')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:100)]('10')

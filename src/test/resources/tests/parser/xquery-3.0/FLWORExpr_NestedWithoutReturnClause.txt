@@ -127,8 +127,7 @@ XQueryModuleImpl[FILE(0:113)]
                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(38:40)]
                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(38:40)]
                                                                               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(38:40)]
-                                                                                 XPathLiteralImpl[XQUERY_LITERAL(38:39)]
-                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('0')
+                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(40:52)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(40:52)]
@@ -290,8 +289,7 @@ XQueryModuleImpl[FILE(0:113)]
                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(90:92)]
                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(90:92)]
                                                                               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(90:92)]
-                                                                                 XPathLiteralImpl[XQUERY_LITERAL(90:91)]
-                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(90:91)]('0')
+                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(90:91)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(91:92)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(92:104)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(92:104)]
