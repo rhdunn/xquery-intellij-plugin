@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:36)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                      LeafPsiElement[XQUERY_EQUAL_TOKEN(2:3)]('=')
                      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -36,9 +35,8 @@ XQueryModuleImpl[FILE(0:36)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(6:8)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(6:8)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(6:8)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(6:8)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XQUERY_NOT_EQUAL_TOKEN(8:10)]('!=')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -57,9 +55,8 @@ XQueryModuleImpl[FILE(0:36)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(13:15)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(13:15)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(13:15)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(13:15)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                      LeafPsiElement[XQUERY_LESS_THAN_TOKEN(15:16)]('<')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -78,9 +75,8 @@ XQueryModuleImpl[FILE(0:36)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(19:21)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(19:21)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(19:21)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(19:21)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:20)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:20)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                      LeafPsiElement[XQUERY_LESS_THAN_OR_EQUAL_TOKEN(21:23)]('<=')
                      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -99,9 +95,8 @@ XQueryModuleImpl[FILE(0:36)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(26:28)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(26:28)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(26:28)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(26:28)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                      LeafPsiElement[XQUERY_GREATER_THAN_TOKEN(28:29)]('>')
                      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected 'FTContainsExpr'.')
@@ -120,8 +115,7 @@ XQueryModuleImpl[FILE(0:36)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(32:34)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(32:34)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(32:34)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(32:34)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(32:33)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(32:33)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                      LeafPsiElement[XQUERY_GREATER_THAN_OR_EQUAL_TOKEN(34:36)]('>=')
                      PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected 'FTContainsExpr'.')

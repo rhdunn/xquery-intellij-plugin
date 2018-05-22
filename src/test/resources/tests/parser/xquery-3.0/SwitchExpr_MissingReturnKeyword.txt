@@ -22,9 +22,8 @@ XQueryModuleImpl[FILE(0:38)]
                                                    XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(9:11)]
                                                       XPathTreatExprImpl[XQUERY_TREAT_EXPR(9:11)]
                                                          XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(9:11)]
-                                                            XPathCastExprImpl[XQUERY_CAST_EXPR(9:11)]
-                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(13:29)]
@@ -44,9 +43,8 @@ XQueryModuleImpl[FILE(0:38)]
                                                    XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(18:20)]
                                                       XPathTreatExprImpl[XQUERY_TREAT_EXPR(18:20)]
                                                          XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(18:20)]
-                                                            XPathCastExprImpl[XQUERY_CAST_EXPR(18:20)]
-                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                   XPathOrExprImpl[XQUERY_OR_EXPR(27:29)]
@@ -62,9 +60,8 @@ XQueryModuleImpl[FILE(0:38)]
                                                 XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(27:29)]
                                                    XPathTreatExprImpl[XQUERY_TREAT_EXPR(27:29)]
                                                       XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(27:29)]
-                                                         XPathCastExprImpl[XQUERY_CAST_EXPR(27:29)]
-                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('2')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('2')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(29:36)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Expected keyword: return.')
@@ -81,5 +78,4 @@ XQueryModuleImpl[FILE(0:38)]
                                              XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(37:38)]
                                                 XPathTreatExprImpl[XQUERY_TREAT_EXPR(37:38)]
                                                    XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(37:38)]
-                                                      XPathCastExprImpl[XQUERY_CAST_EXPR(37:38)]
-                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(37:38)]('3')
+                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(37:38)]('3')

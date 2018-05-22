@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:9)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
             XPathOrExprImpl[XQUERY_OR_EXPR(4:6)]
@@ -33,9 +32,8 @@ XQueryModuleImpl[FILE(0:9)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(4:6)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(4:6)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(4:6)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(4:6)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(6:7)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XPathOrExprImpl[XQUERY_OR_EXPR(8:9)]
@@ -51,5 +49,4 @@ XQueryModuleImpl[FILE(0:9)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(8:9)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(8:9)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(8:9)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(8:9)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('3')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('3')

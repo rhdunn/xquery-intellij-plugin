@@ -15,6 +15,5 @@ XQueryModuleImpl[FILE(0:1)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:1)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:1)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:1)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:1)]
-                                                      XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
-                                                         LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')
+                                                   XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
+                                                      LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')

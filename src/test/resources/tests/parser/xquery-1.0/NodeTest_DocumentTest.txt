@@ -15,15 +15,14 @@ XQueryModuleImpl[FILE(0:17)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:17)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:17)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:17)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:17)]
-                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
-                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
-                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:17)]
-                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(0:17)]
-                                                                  XPathDocumentTestImpl[XQUERY_DOCUMENT_TEST(0:17)]
-                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE(0:13)]('document-node')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
-                                                         XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
+                                                   XPathAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
+                                                      XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
+                                                         XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:17)]
+                                                            XPathNodeTestImpl[XQUERY_NODE_TEST(0:17)]
+                                                               XPathDocumentTestImpl[XQUERY_DOCUMENT_TEST(0:17)]
+                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE(0:13)]('document-node')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
+                                                      XPathPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]

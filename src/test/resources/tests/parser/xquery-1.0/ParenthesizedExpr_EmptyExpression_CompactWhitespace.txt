@@ -15,7 +15,6 @@ XQueryModuleImpl[FILE(0:2)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                      XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
-                                                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                                                         LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
+                                                   XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
+                                                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+                                                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')

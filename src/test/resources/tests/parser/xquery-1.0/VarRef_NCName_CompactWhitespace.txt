@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:5)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:5)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:5)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:5)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:5)]
-                                                      XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
-                                                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                                                         XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
-                                                            XPathNCNameImpl[XQUERY_NCNAME(1:5)]
-                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')
+                                                   XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
+                                                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                                                      XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
+                                                         XPathNCNameImpl[XQUERY_NCNAME(1:5)]
+                                                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')

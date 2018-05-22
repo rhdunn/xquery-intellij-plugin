@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:3)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:3)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:3)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:3)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:3)]
-                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:3)]
-                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                         LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(2:3)]('!')
-                                                         PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected 'PathExpr'.')
+                                                   XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:3)]
+                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                      LeafPsiElement[XQUERY_MAP_OPERATOR_TOKEN(2:3)]('!')
+                                                      PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected 'PathExpr'.')

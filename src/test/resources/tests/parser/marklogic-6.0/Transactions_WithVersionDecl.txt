@@ -26,9 +26,8 @@ XQueryModuleImpl[FILE(0:55)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(25:27)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(25:27)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(25:27)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(25:27)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
    MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(27:29)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(27:28)](';')
       PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
@@ -59,5 +58,4 @@ XQueryModuleImpl[FILE(0:55)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(54:55)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(54:55)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(54:55)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(54:55)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(54:55)]('3')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(54:55)]('3')

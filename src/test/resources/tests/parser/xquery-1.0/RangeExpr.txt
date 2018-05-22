@@ -15,9 +15,8 @@ XQueryModuleImpl[FILE(0:7)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TO(2:4)]('to')
                               PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(5:7)]
@@ -27,5 +26,4 @@ XQueryModuleImpl[FILE(0:7)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(5:7)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(5:7)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(5:7)]
-                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(5:7)]
-                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:7)]('10')
+                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:7)]('10')
