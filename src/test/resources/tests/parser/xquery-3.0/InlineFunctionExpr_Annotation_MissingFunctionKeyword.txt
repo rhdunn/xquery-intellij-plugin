@@ -17,20 +17,19 @@ XQueryModuleImpl[FILE(0:18)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:13)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:13)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:13)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:13)]
-                                                            XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
-                                                               XQueryAnnotationImpl[XQUERY_ANNOTATION(0:12)]
-                                                                  LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                                  XPathNCNameImpl[XQUERY_NCNAME(2:9)]
-                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PUBLIC(2:8)]('public')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                                                  PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected 'Literal'.')
-                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected keyword: function.')
+                                                         XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
+                                                            XQueryAnnotationImpl[XQUERY_ANNOTATION(0:12)]
+                                                               LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                               XPathNCNameImpl[XQUERY_NCNAME(2:9)]
+                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PUBLIC(2:8)]('public')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                                                               PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected 'Literal'.')
+                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected keyword: function.')
    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
    PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(15:17)]
@@ -51,7 +50,6 @@ XQueryModuleImpl[FILE(0:18)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(15:17)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(15:17)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(15:17)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(15:17)]
-                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(15:16)]('2')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(15:16)]('2')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(17:18)]('}')

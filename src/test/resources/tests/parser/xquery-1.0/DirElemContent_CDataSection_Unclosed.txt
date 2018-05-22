@@ -17,15 +17,14 @@ XQueryModuleImpl[FILE(0:22)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:22)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:22)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:22)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:22)]
-                                                            XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:22)]
-                                                               XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:22)]
-                                                                  LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                                                  XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                                                                     XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                                                  LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-                                                                  XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:22)]
-                                                                     XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(3:22)]
-                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
-                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:22)](' Test </a>')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Unclosed CDATA section.')
+                                                         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:22)]
+                                                            XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:22)]
+                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                               XPathNCNameImpl[XQUERY_NCNAME(1:2)]
+                                                                  XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                                               LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+                                                               XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:22)]
+                                                                  XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(3:22)]
+                                                                     LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
+                                                                     LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:22)](' Test </a>')
+                                                                  PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Unclosed CDATA section.')

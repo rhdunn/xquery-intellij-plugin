@@ -17,16 +17,15 @@ XQueryModuleImpl[FILE(0:14)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:14)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:14)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:14)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:14)]
-                                                            XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
-                                                               XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:14)]
-                                                                  XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
-                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                  XPathNodeTestImpl[XQUERY_NODE_TEST(10:14)]
-                                                                     XPathNameTestImpl[XQUERY_NAME_TEST(10:14)]
-                                                                        XPathNCNameImpl[XQUERY_NCNAME(10:14)]
-                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:14)]('para')
-                                                               XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
+                                                         XPathAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
+                                                            XPathReverseStepImpl[XQUERY_REVERSE_STEP(0:14)]
+                                                               XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
+                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                                  LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(10:14)]
+                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(10:14)]
+                                                                     XPathNCNameImpl[XQUERY_NCNAME(10:14)]
+                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:14)]('para')
+                                                            XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]

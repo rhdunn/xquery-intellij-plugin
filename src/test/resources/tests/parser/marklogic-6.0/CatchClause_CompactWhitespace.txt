@@ -24,8 +24,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(4:5)]
                                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(4:5)]
                                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(4:5)]
-                                                                        XPathUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(5:6)]('}')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(6:18)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(6:11)]('catch')
@@ -54,6 +53,5 @@ XQueryModuleImpl[FILE(0:18)]
                                                                XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(16:17)]
                                                                   XPathCastExprImpl[XQUERY_CAST_EXPR(16:17)]
                                                                      XPathArrowExprImpl[XQUERY_ARROW_EXPR(16:17)]
-                                                                        XPathUnaryExprImpl[XQUERY_UNARY_EXPR(16:17)]
-                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('2')
+                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('2')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(17:18)]('}')

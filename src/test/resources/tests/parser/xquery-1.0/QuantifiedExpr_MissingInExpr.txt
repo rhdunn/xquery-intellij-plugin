@@ -17,25 +17,24 @@ XQueryModuleImpl[FILE(0:30)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:14)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:14)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:14)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:14)]
-                                                            XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:13)]
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                                                               XPathExprImpl[XQUERY_EXPR(1:12)]
-                                                                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(1:12)]
-                                                                     XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(1:12)]
-                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SOME(1:5)]('some')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                                                                        XPathQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(6:12)]
-                                                                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(6:7)]('$')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                           XPathVarNameImpl[XQUERY_VAR_NAME(8:10)]
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(8:10)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:9)]('x')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(10:12)]('in')
-                                                                           PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Missing expression.')
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                                         XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:13)]
+                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+                                                            XPathExprImpl[XQUERY_EXPR(1:12)]
+                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(1:12)]
+                                                                  XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(1:12)]
+                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SOME(1:5)]('some')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                                                                     XPathQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(6:12)]
+                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(6:7)]('$')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                        XPathVarNameImpl[XQUERY_VAR_NAME(8:10)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(8:10)]
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:9)]('x')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(10:12)]('in')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Missing expression.')
+                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(14:15)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             XPathOrExprImpl[XQUERY_OR_EXPR(16:30)]
@@ -53,21 +52,20 @@ XQueryModuleImpl[FILE(0:30)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(16:30)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(16:30)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(16:30)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(16:30)]
-                                                            XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(16:30)]
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
-                                                               XPathExprImpl[XQUERY_EXPR(17:29)]
-                                                                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(17:29)]
-                                                                     XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(17:29)]
-                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EVERY(17:22)]('every')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-                                                                        XPathQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(23:29)]
-                                                                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                                                                           XPathVarNameImpl[XQUERY_VAR_NAME(25:27)]
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(25:27)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:26)]('x')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(27:29)]('in')
-                                                                           PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing expression.')
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(29:30)](')')
+                                                         XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(16:30)]
+                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
+                                                            XPathExprImpl[XQUERY_EXPR(17:29)]
+                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(17:29)]
+                                                                  XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(17:29)]
+                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EVERY(17:22)]('every')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+                                                                     XPathQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(23:29)]
+                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+                                                                        XPathVarNameImpl[XQUERY_VAR_NAME(25:27)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(25:27)]
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:26)]('x')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(27:29)]('in')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing expression.')
+                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(29:30)](')')

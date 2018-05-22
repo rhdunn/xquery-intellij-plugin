@@ -17,5 +17,4 @@ XQueryModuleImpl[FILE(0:7)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:7)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:7)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]
-                                                            XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
+                                                         XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')

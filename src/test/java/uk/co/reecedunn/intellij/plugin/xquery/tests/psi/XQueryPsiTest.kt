@@ -300,7 +300,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.UNARY_EXPR))
+                `is`<IElementType>(XQueryElementType.AXIS_STEP))
     }
 
     // endregion

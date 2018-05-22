@@ -17,10 +17,9 @@ XQueryModuleImpl[FILE(0:10)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:10)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:10)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:10)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:10)]
-                                                            MarkLogicBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:10)]
-                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(9:10)]('}')
+                                                         MarkLogicBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:10)]
+                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(9:10)]('}')

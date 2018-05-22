@@ -46,16 +46,15 @@ XQueryModuleImpl[FILE(0:130)]
                                                       XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(78:96)]
                                                          XPathCastExprImpl[XQUERY_CAST_EXPR(78:96)]
                                                             XPathArrowExprImpl[XQUERY_ARROW_EXPR(78:96)]
-                                                               XPathUnaryExprImpl[XQUERY_UNARY_EXPR(78:96)]
-                                                                  XPathAxisStepImpl[XQUERY_AXIS_STEP(78:96)]
-                                                                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(78:96)]
-                                                                        XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(78:96)]
-                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(78:96)]
-                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(78:96)]
-                                                                                 XPathNCNameImpl[XQUERY_NCNAME(78:96)]
-                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(78:95)]('unknown_construct')
-                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
-                                                                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(96:96)]
+                                                               XPathAxisStepImpl[XQUERY_AXIS_STEP(78:96)]
+                                                                  XPathForwardStepImpl[XQUERY_FORWARD_STEP(78:96)]
+                                                                     XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(78:96)]
+                                                                        XPathNodeTestImpl[XQUERY_NODE_TEST(78:96)]
+                                                                           XPathNameTestImpl[XQUERY_NAME_TEST(78:96)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(78:96)]
+                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(78:95)]('unknown_construct')
+                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
+                                                                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(96:96)]
          PsiErrorElementImpl[ERROR_ELEMENT(96:96)]('XPST0003: Expected ';'.')
          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(96:97)]('{')
          PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')
@@ -75,9 +74,8 @@ XQueryModuleImpl[FILE(0:130)]
                                              XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(98:100)]
                                                 XPathCastExprImpl[XQUERY_CAST_EXPR(98:100)]
                                                    XPathArrowExprImpl[XQUERY_ARROW_EXPR(98:100)]
-                                                      XPathUnaryExprImpl[XQUERY_UNARY_EXPR(98:100)]
-                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(99:100)](' ')
+                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(99:100)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(100:100)]('XPST0003: Unexpected token.')
          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(100:101)]('}')
          PsiWhiteSpaceImpl[WHITE_SPACE(101:102)](' ')
@@ -113,7 +111,6 @@ XQueryModuleImpl[FILE(0:130)]
                                                       XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(127:129)]
                                                          XPathCastExprImpl[XQUERY_CAST_EXPR(127:129)]
                                                             XPathArrowExprImpl[XQUERY_ARROW_EXPR(127:129)]
-                                                               XPathUnaryExprImpl[XQUERY_UNARY_EXPR(127:129)]
-                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(127:128)]('3')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(128:129)](' ')
+                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(127:128)]('3')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(128:129)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(129:130)](';')

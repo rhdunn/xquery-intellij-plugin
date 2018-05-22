@@ -3618,12 +3618,17 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             parseWhiteSpaceAndCommentTokens()
             matched = true
         }
-        if (parseValueExpr(if (matched) null else type)) {
-            pathExprMarker.done(XQueryElementType.UNARY_EXPR)
-            return true
-        } else if (matched) {
-            error(XQueryBundle.message("parser.error.expected", "ValueExpr"))
-            pathExprMarker.done(XQueryElementType.UNARY_EXPR)
+        if (matched) {
+            if (parseValueExpr(null)) {
+                pathExprMarker.done(XQueryElementType.UNARY_EXPR)
+                return true
+            } else if (matched) {
+                error(XQueryBundle.message("parser.error.expected", "ValueExpr"))
+                pathExprMarker.done(XQueryElementType.UNARY_EXPR)
+                return true
+            }
+        } else if (parseValueExpr(type)) {
+            pathExprMarker.drop()
             return true
         }
         pathExprMarker.drop()

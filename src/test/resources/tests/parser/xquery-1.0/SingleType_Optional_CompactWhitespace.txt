@@ -17,9 +17,8 @@ XQueryModuleImpl[FILE(0:21)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:21)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:21)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:3)]
-                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:3)]
-                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')
                                                       PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(8:10)]('as')
