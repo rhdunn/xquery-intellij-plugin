@@ -1705,41 +1705,4 @@ class XPathModelTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region Expressions
-    // region PostfixExpr (XdmStaticValue)
-
-    fun testPostfixExpr_LiteralValue() {
-        val expr = parse<XPathPostfixExpr>("1e3")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
-
-        assertThat(expr.staticValue, `is`(notNullValue()))
-        assertThat(expr.staticValue, `is`(instanceOf(Double::class.java)))
-        assertThat(expr.staticValue as Double, `is`(1e3))
-        assertThat(expr.staticType, `is`(XsDouble as XdmSequenceType))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    fun testPostfixExpr_LiteralValue_ComplexExpression() {
-        val expr = parse<XPathPostfixExpr>("1?1")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
-
-        assertThat(expr.staticValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    fun testPostfixExpr_NonLiteralValue() {
-        val expr = parse<XPathPostfixExpr>("test()")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
-
-        assertThat(expr.staticValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
-    // endregion
 }

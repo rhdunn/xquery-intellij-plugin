@@ -21,9 +21,8 @@ XQueryModuleImpl[FILE(0:16)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:16)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
-                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:16)]
-                                                                        XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:16)]
-                                                                           LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                                                                           XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
-                                                                              LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
-                                                                           PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Unclosed string constructor.')
+                                                                     XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:16)]
+                                                                        LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                                                                        XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
+                                                                           LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Unclosed string constructor.')

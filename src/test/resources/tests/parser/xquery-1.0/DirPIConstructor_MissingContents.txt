@@ -21,11 +21,10 @@ XQueryModuleImpl[FILE(0:5)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:5)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:5)]
-                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:5)]
-                                                                        XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:5)]
-                                                                           XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:5)]
-                                                                              LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(2:3)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('a')
-                                                                              PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Processing instruction contents expected.')
-                                                                              LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(3:5)]('?>')
+                                                                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:5)]
+                                                                        XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:5)]
+                                                                           LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(2:3)]
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('a')
+                                                                           PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Processing instruction contents expected.')
+                                                                           LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(3:5)]('?>')

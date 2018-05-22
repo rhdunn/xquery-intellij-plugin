@@ -3969,11 +3969,16 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val postfixExprMarker = mark()
         if (parsePrimaryExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
+            var havePostfixExpr = false
             while (parsePredicate() || parseArgumentList() || parseLookup(XQueryElementType.LOOKUP)) {
                 parseWhiteSpaceAndCommentTokens()
+                havePostfixExpr = true
             }
 
-            postfixExprMarker.done(XQueryElementType.POSTFIX_EXPR)
+            if (havePostfixExpr)
+                postfixExprMarker.done(XQueryElementType.POSTFIX_EXPR)
+            else
+                postfixExprMarker.drop()
             return true
         }
         postfixExprMarker.drop()

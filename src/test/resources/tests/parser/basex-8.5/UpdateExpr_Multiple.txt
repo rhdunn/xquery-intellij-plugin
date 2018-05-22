@@ -62,10 +62,9 @@ XQueryModuleImpl[FILE(0:56)]
                                                                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(28:30)]
                                                                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(28:30)]
                                                                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(28:30)]
-                                                                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(28:30)]
-                                                                                                                                 XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(28:29)]
-                                                                                                                                    LeafPsiElement[XQUERY_DOT_TOKEN(28:29)]('.')
-                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                                                                                                                              XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(28:29)]
+                                                                                                                                 LeafPsiElement[XQUERY_DOT_TOKEN(28:29)]('.')
+                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(32:38)]('update')
@@ -99,8 +98,7 @@ XQueryModuleImpl[FILE(0:56)]
                                                                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(53:55)]
                                                                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(53:55)]
                                                                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(53:55)]
-                                                                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(53:55)]
-                                                                                                                                 XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(53:54)]
-                                                                                                                                    LeafPsiElement[XQUERY_DOT_TOKEN(53:54)]('.')
-                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
+                                                                                                                              XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(53:54)]
+                                                                                                                                 LeafPsiElement[XQUERY_DOT_TOKEN(53:54)]('.')
+                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(55:56)]('}')

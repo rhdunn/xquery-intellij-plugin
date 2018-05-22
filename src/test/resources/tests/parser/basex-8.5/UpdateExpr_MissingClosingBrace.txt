@@ -62,7 +62,6 @@ XQueryModuleImpl[FILE(0:29)]
                                                                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(28:29)]
                                                                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(28:29)]
                                                                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(28:29)]
-                                                                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(28:29)]
-                                                                                                                                 XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(28:29)]
-                                                                                                                                    LeafPsiElement[XQUERY_DOT_TOKEN(28:29)]('.')
+                                                                                                                              XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(28:29)]
+                                                                                                                                 LeafPsiElement[XQUERY_DOT_TOKEN(28:29)]('.')
                                                          PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected '}'.')

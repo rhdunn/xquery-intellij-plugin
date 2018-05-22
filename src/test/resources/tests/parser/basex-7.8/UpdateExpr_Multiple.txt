@@ -60,10 +60,9 @@ XQueryModuleImpl[FILE(0:48)]
                                                                                                                      XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(26:28)]
                                                                                                                         XPathPathExprImpl[XQUERY_PATH_EXPR(26:28)]
                                                                                                                            XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(26:28)]
-                                                                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(26:28)]
-                                                                                                                                 XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(26:27)]
-                                                                                                                                    LeafPsiElement[XQUERY_DOT_TOKEN(26:27)]('.')
-                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                                                                                                                              XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(26:27)]
+                                                                                                                                 LeafPsiElement[XQUERY_DOT_TOKEN(26:27)]('.')
+                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                                                                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(28:34)]('update')
                                                                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                                                                                                                   XPathExprImpl[XQUERY_EXPR(35:48)]
@@ -93,6 +92,5 @@ XQueryModuleImpl[FILE(0:48)]
                                                                                                                                                                               XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(47:48)]
                                                                                                                                                                                  XPathPathExprImpl[XQUERY_PATH_EXPR(47:48)]
                                                                                                                                                                                     XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(47:48)]
-                                                                                                                                                                                       XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(47:48)]
-                                                                                                                                                                                          XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(47:48)]
-                                                                                                                                                                                             LeafPsiElement[XQUERY_DOT_TOKEN(47:48)]('.')
+                                                                                                                                                                                       XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(47:48)]
+                                                                                                                                                                                          LeafPsiElement[XQUERY_DOT_TOKEN(47:48)]('.')

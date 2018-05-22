@@ -64,8 +64,7 @@ XQueryModuleImpl[FILE(0:42)]
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(35:37)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(35:37)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:37)]
-                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(35:37)]
-                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('5')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('5')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                               FTUnitImpl[XQUERY_FT_UNIT(37:42)]
                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(37:42)]('words')

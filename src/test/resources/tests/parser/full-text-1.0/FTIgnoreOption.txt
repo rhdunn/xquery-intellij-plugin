@@ -64,8 +64,7 @@ XQueryModuleImpl[FILE(0:51)]
                                                    XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(44:51)]
                                                       XPathPathExprImpl[XQUERY_PATH_EXPR(44:51)]
                                                          XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(44:51)]
-                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(44:51)]
-                                                               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(44:51)]
-                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(44:45)]('"')
-                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(45:50)]('ipsum')
-                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(50:51)]('"')
+                                                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(44:51)]
+                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(44:45)]('"')
+                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(45:50)]('ipsum')
+                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(50:51)]('"')
