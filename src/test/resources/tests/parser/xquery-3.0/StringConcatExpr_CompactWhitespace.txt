@@ -5,15 +5,13 @@ XQueryModuleImpl[FILE(0:4)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:4)]
                XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:4)]
                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:1)]
-                     XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:1)]
-                        XPathNodeTestImpl[XQUERY_NODE_TEST(0:1)]
-                           XPathNameTestImpl[XQUERY_NAME_TEST(0:1)]
-                              XPathNCNameImpl[XQUERY_NCNAME(0:1)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                     XPathNodeTestImpl[XQUERY_NODE_TEST(0:1)]
+                        XPathNameTestImpl[XQUERY_NAME_TEST(0:1)]
+                           XPathNCNameImpl[XQUERY_NCNAME(0:1)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                   LeafPsiElement[XQUERY_CONCATENATION(1:3)]('||')
                   XPathForwardStepImpl[XQUERY_FORWARD_STEP(3:4)]
-                     XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(3:4)]
-                        XPathNodeTestImpl[XQUERY_NODE_TEST(3:4)]
-                           XPathNameTestImpl[XQUERY_NAME_TEST(3:4)]
-                              XPathNCNameImpl[XQUERY_NCNAME(3:4)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:4)]('b')
+                     XPathNodeTestImpl[XQUERY_NODE_TEST(3:4)]
+                        XPathNameTestImpl[XQUERY_NAME_TEST(3:4)]
+                           XPathNCNameImpl[XQUERY_NCNAME(3:4)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:4)]('b')

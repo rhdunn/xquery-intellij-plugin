@@ -4,10 +4,9 @@ XQueryModuleImpl[FILE(0:5)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:5)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:5)]
-                  XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:5)]
-                     XPathNodeTestImpl[XQUERY_NODE_TEST(0:5)]
-                        XPathNameTestImpl[XQUERY_NAME_TEST(0:5)]
-                           XPathWildcardImpl[XQUERY_WILDCARD(0:5)]
-                              LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
-                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(2:5)]('div')
+                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:5)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(0:5)]
+                        XPathWildcardImpl[XQUERY_WILDCARD(0:5)]
+                           LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
+                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(2:5)]('div')

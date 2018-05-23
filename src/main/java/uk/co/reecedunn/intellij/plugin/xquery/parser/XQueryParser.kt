@@ -3937,7 +3937,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
         parseWhiteSpaceAndCommentTokens()
         if (parseNodeTest(type)) {
-            abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP)
+            if (matched)
+                abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP)
+            else
+                abbrevForwardStepMarker.drop()
             return true
         } else if (matched) {
             error(XQueryBundle.message("parser.error.expected", "NodeTest"))
