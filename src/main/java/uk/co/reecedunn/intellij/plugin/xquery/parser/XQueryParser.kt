@@ -3959,7 +3959,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             reverseStepMarker.done(XQueryElementType.REVERSE_STEP)
             return true
         } else if (parseAbbrevReverseStep()) {
-            reverseStepMarker.done(XQueryElementType.REVERSE_STEP)
+            reverseStepMarker.drop()
             return true
         }
 
