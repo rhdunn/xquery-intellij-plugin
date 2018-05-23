@@ -6515,8 +6515,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseAttribNameOrWildcard(): Boolean {
         val attribNameOrWildcardMarker = mark()
-        if (matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ATTRIBUTE_NAME)) {
+        if (matchTokenType(XQueryTokenType.STAR)) {
             attribNameOrWildcardMarker.done(XQueryElementType.ATTRIB_NAME_OR_WILDCARD)
+            return true
+        } else if (parseEQName(XQueryElementType.ATTRIBUTE_NAME)) {
+            attribNameOrWildcardMarker.drop()
             return true
         }
         attribNameOrWildcardMarker.drop()
