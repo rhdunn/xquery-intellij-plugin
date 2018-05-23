@@ -9,12 +9,11 @@ XQueryModuleImpl[FILE(0:18)]
                   XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(12:17)]
                      XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(12:17)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(12:17)]
-                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(12:17)]
-                              XPathNodeTestImpl[XQUERY_NODE_TEST(12:17)]
-                                 XPathNameTestImpl[XQUERY_NAME_TEST(12:17)]
-                                    XPathQNameImpl[XQUERY_QNAME(12:17)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('a')
-                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:17)]('one')
+                           XPathNodeTestImpl[XQUERY_NODE_TEST(12:17)]
+                              XPathNameTestImpl[XQUERY_NAME_TEST(12:17)]
+                                 XPathQNameImpl[XQUERY_QNAME(12:17)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('a')
+                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:17)]('one')
                      PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(17:18)]('}')

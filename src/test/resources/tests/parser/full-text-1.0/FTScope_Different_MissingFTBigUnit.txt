@@ -4,12 +4,11 @@ XQueryModuleImpl[FILE(0:37)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:37)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:37)]
                FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:37)]
-                  XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
-                     XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
-                        XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
-                           XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
+                        XPathNCNameImpl[XQUERY_NCNAME(0:6)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')

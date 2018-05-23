@@ -3898,7 +3898,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             forwardStepMarker.done(XQueryElementType.FORWARD_STEP)
             return true
         } else if (parseAbbrevForwardStep(type)) {
-            forwardStepMarker.done(XQueryElementType.FORWARD_STEP)
+            forwardStepMarker.drop()
             return true
         }
 

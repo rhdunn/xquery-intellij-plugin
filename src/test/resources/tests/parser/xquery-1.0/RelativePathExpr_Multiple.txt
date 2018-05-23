@@ -13,13 +13,12 @@ XQueryModuleImpl[FILE(0:26)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                   LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(7:8)]('/')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                  XPathForwardStepImpl[XQUERY_FORWARD_STEP(9:13)]
-                     XPathNodeTestImpl[XQUERY_NODE_TEST(9:13)]
-                        XPathNameTestImpl[XQUERY_NAME_TEST(9:13)]
-                           XPathQNameImpl[XQUERY_QNAME(9:13)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:11)]('xh')
-                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(11:12)](':')
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('p')
+                  XPathNodeTestImpl[XQUERY_NODE_TEST(9:13)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(9:13)]
+                        XPathQNameImpl[XQUERY_QNAME(9:13)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:11)]('xh')
+                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(11:12)](':')
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('p')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(14:15)]('/')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')

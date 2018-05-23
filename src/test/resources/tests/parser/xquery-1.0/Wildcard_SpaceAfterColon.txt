@@ -3,12 +3,11 @@ XQueryModuleImpl[FILE(0:7)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
-               XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
-                        XPathWildcardImpl[XQUERY_WILDCARD(0:7)]
-                           LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
-                           PsiErrorElementImpl[ERROR_ELEMENT(2:3)]('XPST0003: Whitespace is not allowed after ':' in a wildcard.')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('para')
+               XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
+                  XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
+                     XPathWildcardImpl[XQUERY_WILDCARD(0:7)]
+                        LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
+                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
+                        PsiErrorElementImpl[ERROR_ELEMENT(2:3)]('XPST0003: Whitespace is not allowed after ':' in a wildcard.')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('para')

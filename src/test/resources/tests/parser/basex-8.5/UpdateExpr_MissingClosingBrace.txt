@@ -6,12 +6,11 @@ XQueryModuleImpl[FILE(0:29)]
                BaseXUpdateExprImpl[XQUERY_UPDATE_EXPR(0:29)]
                   XPathPathExprImpl[XQUERY_PATH_EXPR(0:7)]
                      LeafPsiElement[XQUERY_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
-                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(2:7)]
-                        XPathNodeTestImpl[XQUERY_NODE_TEST(2:7)]
-                           XPathNameTestImpl[XQUERY_NAME_TEST(2:7)]
-                              XPathNCNameImpl[XQUERY_NCNAME(2:7)]
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(2:6)]('item')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                     XPathNodeTestImpl[XQUERY_NODE_TEST(2:7)]
+                        XPathNameTestImpl[XQUERY_NAME_TEST(2:7)]
+                           XPathNCNameImpl[XQUERY_NCNAME(2:7)]
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(2:6)]('item')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(7:13)]('update')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')

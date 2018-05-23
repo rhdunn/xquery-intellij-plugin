@@ -7,12 +7,11 @@ XQueryModuleImpl[FILE(0:20)]
                   LeafPsiElement[XQUERY_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(3:20)]
-                     XPathForwardStepImpl[XQUERY_FORWARD_STEP(3:8)]
-                        XPathNodeTestImpl[XQUERY_NODE_TEST(3:8)]
-                           XPathNameTestImpl[XQUERY_NAME_TEST(3:8)]
-                              XPathNCNameImpl[XQUERY_NCNAME(3:8)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('test')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                     XPathNodeTestImpl[XQUERY_NODE_TEST(3:8)]
+                        XPathNameTestImpl[XQUERY_NAME_TEST(3:8)]
+                           XPathNCNameImpl[XQUERY_NCNAME(3:8)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('test')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(8:9)]('/')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(10:20)]

@@ -3,13 +3,12 @@ XQueryModuleImpl[FILE(0:18)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:18)]
-               XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:18)]
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:18)]
-                     MarkLogicMapTestImpl[XQUERY_MAP_TEST(0:18)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:17)]
-                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:16)]('key')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(16:17)]('"')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(17:18)](')')
+               XPathNodeTestImpl[XQUERY_NODE_TEST(0:18)]
+                  MarkLogicMapTestImpl[XQUERY_MAP_TEST(0:18)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:17)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:16)]('key')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(16:17)]('"')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(17:18)](')')

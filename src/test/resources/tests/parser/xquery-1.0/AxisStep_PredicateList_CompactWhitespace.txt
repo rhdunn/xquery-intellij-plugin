@@ -4,11 +4,10 @@ XQueryModuleImpl[FILE(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
                XPathAxisStepImpl[XQUERY_AXIS_STEP(0:7)]
-                  XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:4)]
-                     XPathNodeTestImpl[XQUERY_NODE_TEST(0:4)]
-                        XPathNameTestImpl[XQUERY_NAME_TEST(0:4)]
-                           XPathNCNameImpl[XQUERY_NCNAME(0:4)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('para')
+                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:4)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(0:4)]
+                        XPathNCNameImpl[XQUERY_NCNAME(0:4)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('para')
                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:7)]
                      XPathPredicateImpl[XQUERY_PREDICATE(4:7)]
                         LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(4:5)]('[')

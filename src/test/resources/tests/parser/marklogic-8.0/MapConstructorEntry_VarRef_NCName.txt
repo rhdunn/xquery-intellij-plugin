@@ -22,10 +22,9 @@ XQueryModuleImpl[FILE(0:25)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                      XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(20:24)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(20:24)]
-                           XPathForwardStepImpl[XQUERY_FORWARD_STEP(20:24)]
-                              XPathNodeTestImpl[XQUERY_NODE_TEST(20:24)]
-                                 XPathNameTestImpl[XQUERY_NAME_TEST(20:24)]
-                                    XPathNCNameImpl[XQUERY_NCNAME(20:24)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:23)]('one')
-                                       PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                           XPathNodeTestImpl[XQUERY_NODE_TEST(20:24)]
+                              XPathNameTestImpl[XQUERY_NAME_TEST(20:24)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(20:24)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:23)]('one')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(24:25)]('}')
