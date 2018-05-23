@@ -16,21 +16,19 @@ XQueryModuleImpl[FILE(0:50)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:50)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:50)]
-                     XPathTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(26:50)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(26:34)]('function')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                        XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(37:46)]
-                           XPathItemTypeImpl[XQUERY_ITEM_TYPE(37:45)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(37:41)]('item')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(42:43)]('(')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(44:45)](')')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(48:50)]('as')
-                        PsiErrorElementImpl[ERROR_ELEMENT(50:50)]('XPST0003: Expected 'SequenceType'.')
+                  XPathTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(26:50)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(26:34)]('function')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(37:45)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(37:41)]('item')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(42:43)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(44:45)](')')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(48:50)]('as')
+                     PsiErrorElementImpl[ERROR_ELEMENT(50:50)]('XPST0003: Expected 'SequenceType'.')

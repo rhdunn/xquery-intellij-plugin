@@ -139,11 +139,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testAnyArrayTest() {
         val file = parseResource("tests/parser/xquery-3.1/AnyArrayTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val anyArrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyArrayTest>().first()
+        val anyArrayTestPsi = file.walkTree().filterIsInstance<XPathAnyArrayTest>().first()
         val versioned = anyArrayTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -160,11 +156,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testAnyFunctionTest() {
         val file = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val anyFunctionTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyFunctionTest>().first()
+        val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathAnyFunctionTest>().first()
         val versioned = anyFunctionTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -182,11 +174,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testAnyKindTest() {
         val file = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyKindTest>().first()
+        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -202,11 +190,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testAnyMapTest() {
         val file = parseResource("tests/parser/xquery-3.1/AnyMapTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val anyMapTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyMapTest>().first()
+        val anyMapTestPsi = file.walkTree().filterIsInstance<XPathAnyMapTest>().first()
         val versioned = anyMapTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1659,11 +1643,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testNamespaceNodeTest() {
         val file = parseResource("tests/parser/xquery-3.0/NamespaceNodeTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val namespaceNodeTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathNamespaceNodeTest>().first()
+        val namespaceNodeTestPsi = file.walkTree().filterIsInstance<XPathNamespaceNodeTest>().first()
         val versioned = namespaceNodeTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -1680,11 +1660,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testParenthesizedItemType() {
         val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val parenthesizedItemTypePsi = sequenceTypePsi.descendants().filterIsInstance<XPathParenthesizedItemType>().first()
+        val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
         val versioned = parenthesizedItemTypePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1728,7 +1704,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.SEQUENCE_TYPE))
+                `is`<IElementType>(XQueryElementType.ITEM_TYPE))
     }
 
     // endregion
@@ -1808,11 +1784,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testTextTest() {
         val file = parseResource("tests/parser/xquery-1.0/TextTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val textTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTextTest>().first()
+        val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
         val versioned = textTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -1846,11 +1818,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testTypedArrayTest() {
         val file = parseResource("tests/parser/xquery-3.1/TypedArrayTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val typedArrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTypedArrayTest>().first()
+        val typedArrayTestPsi = file.walkTree().filterIsInstance<XPathTypedArrayTest>().first()
         val versioned = typedArrayTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -1867,11 +1835,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testTypedFunctionTest() {
         val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val typedFunctionTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTypedFunctionTest>().first()
+        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathTypedFunctionTest>().first()
         val versioned = typedFunctionTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1889,11 +1853,7 @@ class XQueryPsiTest : ParserTestCase() {
     fun testTypedMapTest() {
         val file = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val typedMapTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTypedMapTest>().first()
+        val typedMapTestPsi = file.walkTree().filterIsInstance<XPathTypedMapTest>().first()
         val versioned = typedMapTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

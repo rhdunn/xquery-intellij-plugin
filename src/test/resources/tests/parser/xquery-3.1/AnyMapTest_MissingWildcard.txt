@@ -16,15 +16,14 @@ XQueryModuleImpl[FILE(0:42)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:32)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:32)]
-                     XPathAnyMapTestImpl[XQUERY_ANY_MAP_TEST(24:31)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(24:27)]('map')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing qualified name, braced URI qualified name or '*'.')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                  XPathAnyMapTestImpl[XQUERY_ANY_MAP_TEST(24:31)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(24:27)]('map')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing qualified name, braced URI qualified name or '*'.')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(32:40)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')

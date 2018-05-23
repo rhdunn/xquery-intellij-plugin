@@ -16,15 +16,14 @@ XQueryModuleImpl[FILE(0:61)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:60)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:60)]
-                     XPathPITestImpl[XQUERY_PI_TEST(26:60)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(26:48)]('processing-instruction')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                        XPathNCNameImpl[XQUERY_NCNAME(51:60)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(51:59)]('external')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(60:60)]('XPST0003: Expected ')'.')
+                  XPathPITestImpl[XQUERY_PI_TEST(26:60)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(26:48)]('processing-instruction')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
+                     XPathNCNameImpl[XQUERY_NCNAME(51:60)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(51:59)]('external')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(60:60)]('XPST0003: Expected ')'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(61:61)]('XPST0003: Missing query body.')

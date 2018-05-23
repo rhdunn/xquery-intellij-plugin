@@ -233,15 +233,8 @@ class XQueryReferenceTest : ParserTestCase() {
     fun testEQName_NCName() {
         val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithNCNameReturnType.xq")
 
-        val modulePsi = file.descendants().filterIsInstance<XQueryLibraryModule>().first()
-        val prologPsi = modulePsi.children().filterIsInstance<XQueryProlog>().first()
-        val annotatedDeclPsi = prologPsi.children().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XPathSequenceType>().first()
-        assertThat(sequenceTypePsi, `is`(notNullValue()))
-
+        val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
         val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
-        assertThat(eqname, `is`(notNullValue()))
 
         val ref = eqname.reference
         assertThat(ref, `is`(nullValue()))
@@ -253,15 +246,8 @@ class XQueryReferenceTest : ParserTestCase() {
     fun testEQName_QName() {
         val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithQNameReturnType.xq")
 
-        val modulePsi = file.descendants().filterIsInstance<XQueryLibraryModule>().first()
-        val prologPsi = modulePsi.children().filterIsInstance<XQueryProlog>().first()
-        val annotatedDeclPsi = prologPsi.children().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XPathSequenceType>().first()
-        assertThat(sequenceTypePsi, `is`(notNullValue()))
-
+        val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
         val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
-        assertThat(eqname, `is`(notNullValue()))
 
         val ref = eqname.reference!!
         assertThat(ref.canonicalText, `is`("xs"))
@@ -291,15 +277,8 @@ class XQueryReferenceTest : ParserTestCase() {
     fun testEQName_URIQualifiedName() {
         val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
 
-        val modulePsi = file.descendants().filterIsInstance<XQueryLibraryModule>().first()
-        val prologPsi = modulePsi.children().filterIsInstance<XQueryProlog>().first()
-        val annotatedDeclPsi = prologPsi.children().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XPathSequenceType>().first()
-        assertThat(sequenceTypePsi, `is`(notNullValue()))
-
+        val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
         val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
-        assertThat(eqname, `is`(notNullValue()))
 
         val ref = eqname.reference
         assertThat(ref, `is`(nullValue()))

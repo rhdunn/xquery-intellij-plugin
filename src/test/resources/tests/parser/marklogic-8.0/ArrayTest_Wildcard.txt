@@ -16,17 +16,16 @@ XQueryModuleImpl[FILE(0:53)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:43)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:43)]
-                     MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(26:42)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(26:36)]('array-node')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(39:40)]('XPST0003: Expected 'StringLiteral' or ')'.')
-                           LeafPsiElement[XQUERY_STAR_TOKEN(39:40)]('*')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(41:42)](')')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
+                  MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(26:42)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(26:36)]('array-node')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(39:40)]('XPST0003: Expected 'StringLiteral' or ')'.')
+                        LeafPsiElement[XQUERY_STAR_TOKEN(39:40)]('*')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(41:42)](')')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(43:51)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(52:53)](';')

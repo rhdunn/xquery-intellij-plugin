@@ -20,6 +20,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
@@ -40,11 +41,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testAnyKindTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyKindTest>().first()
+        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -58,11 +55,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testAnyKindTest_Wildcard() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyKindTest>().first()
+        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -96,11 +89,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testArrayTest() {
         val file = parseResource("tests/parser/marklogic-8.0/ArrayTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val arrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicArrayTest>().first()
+        val arrayTestPsi = file.walkTree().filterIsInstance<MarkLogicArrayTest>().first()
         val conformance = arrayTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -117,11 +106,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testAttributeDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val attributeDeclTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicAttributeDeclTest>().first()
+        val attributeDeclTestPsi = file.walkTree().filterIsInstance<MarkLogicAttributeDeclTest>().first()
         val conformance = attributeDeclTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -156,11 +141,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testBinaryTest() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val binaryKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicBinaryTest>().first()
+        val binaryKindTestPsi = file.walkTree().filterIsInstance<MarkLogicBinaryTest>().first()
         val conformance = binaryKindTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
@@ -195,11 +176,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testBooleanTest() {
         val file = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val booleanTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicBooleanTest>().first()
+        val booleanTestPsi = file.walkTree().filterIsInstance<MarkLogicBooleanTest>().first()
         val conformance = booleanTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -267,11 +244,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testComplexTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val complexTypeTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicComplexTypeTest>().first()
+        val complexTypeTestPsi = file.walkTree().filterIsInstance<MarkLogicComplexTypeTest>().first()
         val conformance = complexTypeTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -288,11 +261,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testElementDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val elementDeclTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicElementDeclTest>().first()
+        val elementDeclTestPsi = file.walkTree().filterIsInstance<MarkLogicElementDeclTest>().first()
         val conformance = elementDeclTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -392,11 +361,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testMapTest() {
         val file = parseResource("tests/parser/marklogic-8.0/MapTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val objectTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicMapTest>().first()
+        val objectTestPsi = file.walkTree().filterIsInstance<MarkLogicMapTest>().first()
         val conformance = objectTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -430,11 +395,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testNullTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NullTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val nullTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicNullTest>().first()
+        val nullTestPsi = file.walkTree().filterIsInstance<MarkLogicNullTest>().first()
         val conformance = nullTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -468,11 +429,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testNumberTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val numberTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicNumberTest>().first()
+        val numberTestPsi = file.walkTree().filterIsInstance<MarkLogicNumberTest>().first()
         val conformance = numberTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -489,11 +446,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testSchemaComponentTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val schemaComponentTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaComponentTest>().first()
+        val schemaComponentTestPsi = file.walkTree().filterIsInstance<MarkLogicSchemaComponentTest>().first()
         val conformance = schemaComponentTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -510,11 +463,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testSchemaFacetTest() {
         val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val schemaFacetTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaFacetTest>().first()
+        val schemaFacetTestPsi = file.walkTree().filterIsInstance<MarkLogicSchemaFacetTest>().first()
         val conformance = schemaFacetTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -531,11 +480,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testSchemaParticleTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val schemaParticleTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaParticleTest>().first()
+        val schemaParticleTestPsi = file.walkTree().filterIsInstance<MarkLogicSchemaParticleTest>().first()
         val conformance = schemaParticleTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -552,11 +497,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testSchemaRootTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val schemaRootTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaRootTest>().first()
+        val schemaRootTestPsi = file.walkTree().filterIsInstance<MarkLogicSchemaRootTest>().first()
         val conformance = schemaRootTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -573,11 +514,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testSchemaTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val schemaTypeTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaTypeTest>().first()
+        val schemaTypeTestPsi = file.walkTree().filterIsInstance<MarkLogicSchemaTypeTest>().first()
         val conformance = schemaTypeTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -594,11 +531,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testSimpleTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
 
-        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val simpleTypeTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSimpleTypeTest>().first()
+        val simpleTypeTestPsi = file.walkTree().filterIsInstance<MarkLogicSimpleTypeTest>().first()
         val conformance = simpleTypeTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -632,11 +565,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testTextTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val textTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTextTest>().first()
+        val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
         val versioned = textTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

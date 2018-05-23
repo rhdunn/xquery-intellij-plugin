@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
@@ -43,11 +44,7 @@ class SaxonPsiTest : ParserTestCase() {
     fun testTupleType() {
         val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val tupleTypePsi = sequenceTypePsi.descendants().filterIsInstance<SaxonTupleType>().first()
+        val tupleTypePsi = file.walkTree().filterIsInstance<SaxonTupleType>().first()
         val conformance = tupleTypePsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -81,11 +78,7 @@ class SaxonPsiTest : ParserTestCase() {
     fun testUnionType() {
         val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
-        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val unionTypePsi = sequenceTypePsi.descendants().filterIsInstance<SaxonUnionType>().first()
+        val unionTypePsi = file.walkTree().filterIsInstance<SaxonUnionType>().first()
         val conformance = unionTypePsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))

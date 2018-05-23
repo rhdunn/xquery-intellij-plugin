@@ -41,12 +41,11 @@ XQueryModuleImpl[FILE(0:44)]
                            XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(28:42)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(28:30)]('as')
                               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                              XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(31:42)]
-                                 XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(31:41)]
-                                    XPathQNameImpl[XQUERY_QNAME(31:41)]
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:33)]('xs')
-                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(33:34)](':')
-                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(34:41)]('integer')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+                              XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(31:41)]
+                                 XPathQNameImpl[XQUERY_QNAME(31:41)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:33)]('xs')
+                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(33:34)](':')
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(34:41)]('integer')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                            LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(42:44)](':=')
                            PsiErrorElementImpl[ERROR_ELEMENT(44:44)]('XPST0003: Missing expression.')

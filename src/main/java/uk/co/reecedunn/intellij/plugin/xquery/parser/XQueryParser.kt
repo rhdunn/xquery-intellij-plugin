@@ -5963,9 +5963,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             return true
         } else if (parseItemType()) {
             parseWhiteSpaceAndCommentTokens()
-            parseOccurrenceIndicator()
-
-            sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
+            if (parseOccurrenceIndicator())
+                sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
+            else
+                sequenceTypeMarker.drop()
             return true
         }
 

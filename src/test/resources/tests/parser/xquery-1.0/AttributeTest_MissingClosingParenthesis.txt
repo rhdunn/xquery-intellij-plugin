@@ -16,19 +16,18 @@ XQueryModuleImpl[FILE(0:59)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:49)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:49)]
-                     XPathAttributeTestImpl[XQUERY_ATTRIBUTE_TEST(26:49)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(26:35)]('attribute')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                        XPathAttributeNameImpl[XQUERY_ATTRIBUTE_NAME(38:48)]
-                           XPathQNameImpl[XQUERY_QNAME(38:48)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:42)]('html')
-                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(42:43)](':')
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:48)]('class')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Expected ')'.')
+                  XPathAttributeTestImpl[XQUERY_ATTRIBUTE_TEST(26:49)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(26:35)]('attribute')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                     XPathAttributeNameImpl[XQUERY_ATTRIBUTE_NAME(38:48)]
+                        XPathQNameImpl[XQUERY_QNAME(38:48)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:42)]('html')
+                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(42:43)](':')
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:48)]('class')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Expected ')'.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(49:57)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(58:59)](';')

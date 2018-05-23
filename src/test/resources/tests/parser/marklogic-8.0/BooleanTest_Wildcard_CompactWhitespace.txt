@@ -14,13 +14,12 @@ XQueryModuleImpl[FILE(0:48)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:39)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:39)]
-                     MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(24:39)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(24:36)]('boolean-node')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
-                        PsiErrorElementImpl[ERROR_ELEMENT(37:38)]('XPST0003: Expected 'StringLiteral' or ')'.')
-                           LeafPsiElement[XQUERY_STAR_TOKEN(37:38)]('*')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
+                  MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(24:39)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(24:36)]('boolean-node')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
+                     PsiErrorElementImpl[ERROR_ELEMENT(37:38)]('XPST0003: Expected 'StringLiteral' or ')'.')
+                        LeafPsiElement[XQUERY_STAR_TOKEN(37:38)]('*')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(39:47)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(47:48)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Missing query body.')

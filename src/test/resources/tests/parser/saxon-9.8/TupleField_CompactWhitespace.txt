@@ -14,21 +14,19 @@ XQueryModuleImpl[FILE(0:44)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(19:40)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:40)]
-                     SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(22:40)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                        SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(28:39)]
-                           XPathNCNameImpl[XQUERY_NCNAME(28:29)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(28:29)]('a')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(29:30)](':')
-                           XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(30:39)]
-                              XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(30:39)]
-                                 XPathQNameImpl[XQUERY_QNAME(30:39)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(30:32)]('xs')
-                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(32:33)](':')
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(33:39)]('string')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
+                  SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(22:40)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
+                     SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(28:39)]
+                        XPathNCNameImpl[XQUERY_NCNAME(28:29)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(28:29)]('a')
+                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(29:30)](':')
+                        XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(30:39)]
+                           XPathQNameImpl[XQUERY_QNAME(30:39)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(30:32)]('xs')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(32:33)](':')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(33:39)]('string')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(40:42)](':=')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(42:43)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(42:43)]
