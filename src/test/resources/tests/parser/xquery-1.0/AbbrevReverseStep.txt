@@ -3,6 +3,5 @@ XQueryModuleImpl[FILE(0:2)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:2)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:2)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:2)]
-               XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                  XPathAbbrevReverseStepImpl[XQUERY_ABBREV_REVERSE_STEP(0:2)]
-                     LeafPsiElement[XQUERY_PARENT_SELECTOR_TOKEN(0:2)]('..')
+               XPathAbbrevReverseStepImpl[XQUERY_ABBREV_REVERSE_STEP(0:2)]
+                  LeafPsiElement[XQUERY_PARENT_SELECTOR_TOKEN(0:2)]('..')

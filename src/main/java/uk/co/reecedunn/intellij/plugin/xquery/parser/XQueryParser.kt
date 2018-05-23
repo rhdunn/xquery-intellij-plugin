@@ -3876,9 +3876,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val axisStepMarker = mark()
         if (parseReverseStep() || parseForwardStep(type)) {
             parseWhiteSpaceAndCommentTokens()
-            parsePredicateList()
-
-            axisStepMarker.done(XQueryElementType.AXIS_STEP)
+            if (parsePredicateList())
+                axisStepMarker.done(XQueryElementType.AXIS_STEP)
+            else
+                axisStepMarker.drop()
             return true
         }
 
@@ -4050,7 +4051,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             predicateListMarker.done(XQueryElementType.PREDICATE_LIST)
         else
             predicateListMarker.drop()
-        return true
+        return havePredicate
     }
 
     private fun parsePredicate(): Boolean {
