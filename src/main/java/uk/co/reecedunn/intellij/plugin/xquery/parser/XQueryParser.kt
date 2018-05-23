@@ -4041,10 +4041,15 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parsePredicateList(): Boolean {
         val predicateListMarker = mark()
+        var havePredicate = false
         while (parsePredicate()) {
             parseWhiteSpaceAndCommentTokens()
+            havePredicate = true
         }
-        predicateListMarker.done(XQueryElementType.PREDICATE_LIST)
+        if (havePredicate)
+            predicateListMarker.done(XQueryElementType.PREDICATE_LIST)
+        else
+            predicateListMarker.drop()
         return true
     }
 

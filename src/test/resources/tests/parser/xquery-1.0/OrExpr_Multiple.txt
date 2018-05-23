@@ -11,7 +11,6 @@ XQueryModuleImpl[FILE(0:11)]
                               XPathNCNameImpl[XQUERY_NCNAME(0:2)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                XPathAxisStepImpl[XQUERY_AXIS_STEP(5:7)]
@@ -22,7 +21,6 @@ XQueryModuleImpl[FILE(0:11)]
                               XPathNCNameImpl[XQUERY_NCNAME(5:7)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:6)]('b')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OR(7:9)]('or')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XPathAxisStepImpl[XQUERY_AXIS_STEP(10:11)]
@@ -32,4 +30,3 @@ XQueryModuleImpl[FILE(0:11)]
                            XPathNameTestImpl[XQUERY_NAME_TEST(10:11)]
                               XPathNCNameImpl[XQUERY_NCNAME(10:11)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:11)]('c')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]

@@ -14,4 +14,3 @@ XQueryModuleImpl[FILE(0:32)]
                                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
                                     LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
                                  LeafPsiElement[XQUERY_STAR_TOKEN(31:32)]('*')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(32:32)]

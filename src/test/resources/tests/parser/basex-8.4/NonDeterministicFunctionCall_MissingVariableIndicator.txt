@@ -38,7 +38,6 @@ XQueryModuleImpl[FILE(0:53)]
                                     XPathNCNameImpl[XQUERY_NCNAME(30:48)]
                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(30:47)]('non-deterministic')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(48:48)]
    PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Expected end of file.')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(48:53)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(48:53)]

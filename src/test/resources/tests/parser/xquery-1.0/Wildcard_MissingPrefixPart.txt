@@ -11,4 +11,3 @@ XQueryModuleImpl[FILE(0:2)]
                               PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Missing prefix before ':' in qualified name.')
                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')
                                  LeafPsiElement[XQUERY_STAR_TOKEN(1:2)]('*')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]

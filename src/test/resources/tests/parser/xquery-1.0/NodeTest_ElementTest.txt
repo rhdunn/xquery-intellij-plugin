@@ -16,4 +16,3 @@ XQueryModuleImpl[FILE(0:13)]
                                  LeafPsiElement[XQUERY_STAR_TOKEN(10:11)]('*')
                               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]

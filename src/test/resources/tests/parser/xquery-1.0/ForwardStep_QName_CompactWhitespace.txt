@@ -14,4 +14,3 @@ XQueryModuleImpl[FILE(0:13)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:8)]('xh')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(9:13)]('body')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]

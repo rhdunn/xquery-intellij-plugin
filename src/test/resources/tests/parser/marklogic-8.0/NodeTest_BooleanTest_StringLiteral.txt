@@ -15,4 +15,3 @@ XQueryModuleImpl[FILE(0:19)]
                                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:17)]('key')
                                  LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(17:18)]('"')
                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(19:19)]

@@ -15,7 +15,6 @@ XQueryModuleImpl[FILE(0:20)]
                                     XPathNCNameImpl[XQUERY_NCNAME(3:8)]
                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('test')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(8:9)]('/')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(10:20)]

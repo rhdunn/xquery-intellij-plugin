@@ -23,7 +23,6 @@ XQueryModuleImpl[FILE(0:26)]
                                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(11:12)](':')
                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('p')
                      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                     XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
                   LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(14:15)]('/')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(16:26)]

@@ -11,4 +11,3 @@ XQueryModuleImpl[FILE(0:14)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]

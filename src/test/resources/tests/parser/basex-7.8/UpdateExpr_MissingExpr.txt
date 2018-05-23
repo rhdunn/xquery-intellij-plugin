@@ -14,6 +14,5 @@ XQueryModuleImpl[FILE(0:13)]
                                     XPathNCNameImpl[XQUERY_NCNAME(2:7)]
                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(2:6)]('item')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(7:13)]('update')
                   PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Missing expression.')

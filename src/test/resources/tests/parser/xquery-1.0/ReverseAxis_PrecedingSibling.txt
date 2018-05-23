@@ -14,4 +14,3 @@ XQueryModuleImpl[FILE(0:25)]
                         XPathNameTestImpl[XQUERY_NAME_TEST(21:25)]
                            XPathNCNameImpl[XQUERY_NCNAME(21:25)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(21:25)]('para')
-                  XPathPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
