@@ -6320,7 +6320,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Grammar :: TypeDeclaration :: KindTest
 
     private fun parseKindTest(): Boolean {
-        return (parseDocumentTest()
+        return parseDocumentTest()
                 || parseElementTest()
                 || parseAttributeTest()
                 || parseSchemaElementTest()
@@ -6331,7 +6331,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 || parseNamespaceNodeTest()
                 || parseAnyKindTest()
                 || parseBinaryTest()
-                || parseSchemaOrJsonKindTest() != ParseStatus.NOT_MATCHED)
+                || parseSchemaOrJsonKindTest() != ParseStatus.NOT_MATCHED
     }
 
     private fun parseAnyKindTest(): Boolean {
@@ -6597,8 +6597,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseElementNameOrWildcard(): Boolean {
         val elementNameOrWildcardMarker = mark()
-        if (matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)) {
+        if (matchTokenType(XQueryTokenType.STAR)) {
             elementNameOrWildcardMarker.done(XQueryElementType.ELEMENT_NAME_OR_WILDCARD)
+            return true
+        } else if (parseEQName(XQueryElementType.ELEMENT_NAME)) {
+            elementNameOrWildcardMarker.drop()
             return true
         }
         elementNameOrWildcardMarker.drop()
