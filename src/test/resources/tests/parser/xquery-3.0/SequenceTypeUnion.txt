@@ -34,13 +34,12 @@ XQueryModuleImpl[FILE(0:69)]
                      LeafPsiElement[XQUERY_UNION_TOKEN(33:34)]('|')
                      PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                      XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(35:44)]
-                        XPathItemTypeImpl[XQUERY_ITEM_TYPE(35:43)]
-                           XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(35:43)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(35:39)]('node')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(42:43)](')')
+                        XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(35:43)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(35:39)]('node')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(42:43)](')')
                         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(44:50)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')

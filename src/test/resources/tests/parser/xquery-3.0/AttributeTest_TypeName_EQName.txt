@@ -17,29 +17,28 @@ XQueryModuleImpl[FILE(0:99)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:89)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:88)]
-                        XPathAttributeTestImpl[XQUERY_ATTRIBUTE_TEST(26:88)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(26:35)]('attribute')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                           XPathAttributeNameImpl[XQUERY_ATTRIBUTE_NAME(38:48)]
-                              XPathQNameImpl[XQUERY_QNAME(38:48)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:40)]('ns')
-                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(40:41)](':')
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:48)]('enabled')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                           LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                           XPathTypeNameImpl[XQUERY_TYPE_NAME(51:86)]
-                              XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(51:86)]
-                                 XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(51:82)]
-                                    LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(51:53)]('Q{')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(53:81)]('http://www.example.com/test#')
-                                    LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(81:82)]('}')
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(82:86)]('name')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(86:87)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(87:88)](')')
+                     XPathAttributeTestImpl[XQUERY_ATTRIBUTE_TEST(26:88)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(26:35)]('attribute')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                        XPathAttributeNameImpl[XQUERY_ATTRIBUTE_NAME(38:48)]
+                           XPathQNameImpl[XQUERY_QNAME(38:48)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:40)]('ns')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(40:41)](':')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:48)]('enabled')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                        LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
+                        XPathTypeNameImpl[XQUERY_TYPE_NAME(51:86)]
+                           XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(51:86)]
+                              XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(51:82)]
+                                 LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(51:53)]('Q{')
+                                 LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(53:81)]('http://www.example.com/test#')
+                                 LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(81:82)]('}')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(82:86)]('name')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(86:87)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(87:88)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(88:89)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(89:97)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')

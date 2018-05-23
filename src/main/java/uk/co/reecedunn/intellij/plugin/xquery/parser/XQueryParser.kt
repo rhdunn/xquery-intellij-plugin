@@ -6008,7 +6008,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 parseUnionType() ||
                 parseAtomicOrUnionType() ||
                 parseParenthesizedItemType()) {
-            itemTypeMarker.done(XQueryElementType.ITEM_TYPE)
+            itemTypeMarker.drop()
             return true
         }
 

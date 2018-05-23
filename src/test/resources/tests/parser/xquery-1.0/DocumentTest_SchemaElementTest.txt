@@ -17,26 +17,25 @@ XQueryModuleImpl[FILE(0:84)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:74)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:73)]
-                        XPathDocumentTestImpl[XQUERY_DOCUMENT_TEST(26:73)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE(26:39)]('document-node')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                           XPathSchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(42:71)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(42:56)]('schema-element')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(57:58)]('(')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                              XPathElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(59:69)]
-                                 XPathQNameImpl[XQUERY_QNAME(59:69)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(59:61)]('xs')
-                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(61:62)](':')
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(62:69)]('integer')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(70:71)](')')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(72:73)](')')
+                     XPathDocumentTestImpl[XQUERY_DOCUMENT_TEST(26:73)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE(26:39)]('document-node')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+                        XPathSchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(42:71)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(42:56)]('schema-element')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(57:58)]('(')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+                           XPathElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(59:69)]
+                              XPathQNameImpl[XQUERY_QNAME(59:69)]
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(59:61)]('xs')
+                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(61:62)](':')
+                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(62:69)]('integer')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(70:71)](')')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(72:73)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(73:74)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(74:82)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')

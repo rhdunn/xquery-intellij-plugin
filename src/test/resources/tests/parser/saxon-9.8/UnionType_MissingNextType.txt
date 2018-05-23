@@ -17,21 +17,20 @@ XQueryModuleImpl[FILE(0:53)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:47)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:46)]
-                        SaxonUnionTypeImpl[XQUERY_UNION_TYPE(24:46)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(24:29)]('union')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                           XPathQNameImpl[XQUERY_QNAME(32:42)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:34)]('xs')
-                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(35:42)]('integer')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-                           LeafPsiElement[XQUERY_COMMA_TOKEN(43:44)](',')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected 'QName'.')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
+                     SaxonUnionTypeImpl[XQUERY_UNION_TYPE(24:46)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(24:29)]('union')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                        XPathQNameImpl[XQUERY_QNAME(32:42)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:34)]('xs')
+                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(35:42)]('integer')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
+                        LeafPsiElement[XQUERY_COMMA_TOKEN(43:44)](',')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected 'QName'.')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(47:49)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')

@@ -15,12 +15,11 @@ XQueryModuleImpl[FILE(0:33)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:29)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(22:29)]
-                        SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(22:29)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                           PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'NCName'.')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
+                     SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(22:29)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
+                        PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'NCName'.')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(29:31)](':=')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(31:32)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(31:32)]

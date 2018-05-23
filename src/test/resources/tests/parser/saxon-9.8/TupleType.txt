@@ -17,14 +17,13 @@ XQueryModuleImpl[FILE(0:40)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:34)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:33)]
-                        SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(24:33)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected 'NCName'.')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
+                     SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(24:33)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected 'NCName'.')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(34:36)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')

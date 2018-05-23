@@ -14,22 +14,21 @@ XQueryModuleImpl[FILE(0:57)]
                XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:48)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(23:48)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(23:48)]
-                        XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(23:48)]
-                           XQueryAnnotationImpl[XQUERY_ANNOTATION(23:31)]
-                              LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(23:24)]('%')
-                              XPathNCNameImpl[XQUERY_NCNAME(24:31)]
-                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRIVATE(24:31)]('private')
-                           XQueryAnnotationImpl[XQUERY_ANNOTATION(31:37)]
-                              LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(31:32)]('%')
-                              XPathNCNameImpl[XQUERY_NCNAME(32:37)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:36)]('test')
-                                 PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                           XPathAnyFunctionTestImpl[XQUERY_ANY_FUNCTION_TEST(37:48)]
-                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(37:45)]('function')
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(45:46)]('(')
-                              LeafPsiElement[XQUERY_STAR_TOKEN(46:47)]('*')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(47:48)](')')
+                     XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(23:48)]
+                        XQueryAnnotationImpl[XQUERY_ANNOTATION(23:31)]
+                           LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(23:24)]('%')
+                           XPathNCNameImpl[XQUERY_NCNAME(24:31)]
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRIVATE(24:31)]('private')
+                        XQueryAnnotationImpl[XQUERY_ANNOTATION(31:37)]
+                           LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(31:32)]('%')
+                           XPathNCNameImpl[XQUERY_NCNAME(32:37)]
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:36)]('test')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                        XPathAnyFunctionTestImpl[XQUERY_ANY_FUNCTION_TEST(37:48)]
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(37:45)]('function')
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(45:46)]('(')
+                           LeafPsiElement[XQUERY_STAR_TOKEN(46:47)]('*')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(47:48)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(48:56)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(56:57)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(57:57)]('XPST0003: Missing query body.')

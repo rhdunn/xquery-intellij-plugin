@@ -35,12 +35,11 @@ XQueryModuleImpl[FILE(0:69)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(48:50)]('as')
                               PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                               XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(51:62)]
-                                 XPathItemTypeImpl[XQUERY_ITEM_TYPE(51:61)]
-                                    XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(51:61)]
-                                       XPathQNameImpl[XQUERY_QNAME(51:61)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(51:53)]('xs')
-                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(53:54)](':')
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(54:61)]('integer')
+                                 XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(51:61)]
+                                    XPathQNameImpl[XQUERY_QNAME(51:61)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(51:53)]('xs')
+                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(53:54)](':')
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(54:61)]('integer')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(62:62)]('XPST0003: Missing ':=' variable assignment, ',' or ';'.')
                            XPathOrExprImpl[XQUERY_OR_EXPR(62:66)]

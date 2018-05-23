@@ -11,9 +11,8 @@ XQueryModuleImpl[FILE(0:21)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(9:11)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(12:21)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(12:21)]
-                        XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(12:21)]
-                           XPathQNameImpl[XQUERY_QNAME(12:21)]
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
-                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
-                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('double')
+                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(12:21)]
+                        XPathQNameImpl[XQUERY_QNAME(12:21)]
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
+                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('double')

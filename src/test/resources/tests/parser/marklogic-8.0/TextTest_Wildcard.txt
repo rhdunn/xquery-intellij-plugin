@@ -17,16 +17,15 @@ XQueryModuleImpl[FILE(0:47)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:37)]
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:36)]
-                        XPathTextTestImpl[XQUERY_TEXT_TEST(26:36)]
-                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(26:30)]('text')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(33:34)]('XPST0003: Expected 'StringLiteral' or ')'.')
-                              LeafPsiElement[XQUERY_STAR_TOKEN(33:34)]('*')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(35:36)](')')
+                     XPathTextTestImpl[XQUERY_TEXT_TEST(26:36)]
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(26:30)]('text')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(33:34)]('XPST0003: Expected 'StringLiteral' or ')'.')
+                           LeafPsiElement[XQUERY_STAR_TOKEN(33:34)]('*')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(35:36)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(37:45)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
