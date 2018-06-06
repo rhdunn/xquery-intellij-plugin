@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  * Copyright 2000-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,7 +75,6 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
 
     private val mDefinitions: Array<out ParserDefinition> = definitions
 
-    @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
 

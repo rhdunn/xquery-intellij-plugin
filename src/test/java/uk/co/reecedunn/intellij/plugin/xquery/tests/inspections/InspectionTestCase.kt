@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,28 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
+import com.intellij.lang.LanguageASTFactory
 import com.intellij.psi.SmartPointerManager
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-abstract class InspectionTestCase : ParserTestCase() {
+abstract class InspectionTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
     private val inspectionManager get(): InspectionManager = InspectionManager.getInstance(myProject)
 
-    @Throws(Exception::class)
+    protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
+
     override fun setUp() {
         super.setUp()
+
+        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         registerApplicationService(SmartPointerManager::class.java, MockSmartPointerManager())
         registerApplicationService(InspectionManager::class.java, InspectionManagerEx(myProject))
+
+        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
     }
 
     fun inspect(file: XQueryModule, inspection: LocalInspectionTool): Array<ProblemDescriptor>? {

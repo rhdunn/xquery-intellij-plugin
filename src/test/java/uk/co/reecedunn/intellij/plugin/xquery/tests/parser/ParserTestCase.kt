@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
-    @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())

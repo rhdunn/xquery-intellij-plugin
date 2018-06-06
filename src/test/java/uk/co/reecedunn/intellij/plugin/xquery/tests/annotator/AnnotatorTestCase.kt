@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator
 
 import com.intellij.lang.ASTNode
+import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.annotation.Annotation
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-abstract class AnnotatorTestCase : ParserTestCase() {
+abstract class AnnotatorTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
+    override fun setUp() {
+        super.setUp()
+        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
+    }
+
     private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {
         if (node is CompositeElement) {
             annotator.annotate(node.psi, annotationHolder)
