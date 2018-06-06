@@ -55,6 +55,7 @@ import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -254,6 +255,10 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
     fun parseResource(resource: String): File {
         val file = ResourceVirtualFile.create(ParsingTestCase::class.java, resource)
         return PsiManager.getInstance(myProject).findFile(file)!! as File
+    }
+
+    protected inline fun <reified T> parse(xquery: String): List<T> {
+        return parseText(xquery).walkTree().filterIsInstance<T>().toList()
     }
 
     fun getDocument(file: PsiFile): Document {

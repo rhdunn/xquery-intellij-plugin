@@ -32,8 +32,4 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParse
     }
 
     protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
-
-    protected inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery).walkTree().filterIsInstance<T>().toList()
-    }
 }
