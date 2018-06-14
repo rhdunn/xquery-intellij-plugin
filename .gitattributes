@@ -31,3 +31,5 @@ src/test/resources/tests/parser/xquery-update-1.0/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-update-1.0/*.xq text eol=lf
 src/test/resources/tests/parser/xquery-update-3.0/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-update-3.0/*.xq text eol=lf
+src/test/resources/tests/parser/xquery-update-3.1/*.txt text eol=lf
+src/test/resources/tests/parser/xquery-update-3.1/*.xq text eol=lf

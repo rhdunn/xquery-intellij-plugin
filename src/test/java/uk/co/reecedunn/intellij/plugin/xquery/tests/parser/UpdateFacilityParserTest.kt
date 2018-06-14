@@ -558,4 +558,14 @@ class UpdateFacilityParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region Update Facility 3.1 :: TransformWithExpr
+
+    @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
+    fun TransformWithExpr_ArrowExpr() {
+        val expected = loadResource("tests/parser/xquery-update-3.1/TransformWithExpr_ArrowExpr.txt")
+        val actual = parseResource("tests/parser/xquery-update-3.1/TransformWithExpr_ArrowExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
 }

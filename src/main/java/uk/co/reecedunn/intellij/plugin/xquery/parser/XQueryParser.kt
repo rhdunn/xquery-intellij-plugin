@@ -3546,7 +3546,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseCastExpr(type: IElementType?): Boolean {
         val castExprMarker = mark()
-        if (parseArrowTransformUpdateExpr(type)) {
+        if (parseTransformWithExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XQueryTokenType.K_CAST)) {
                 var haveErrors = false
@@ -3571,14 +3571,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseArrowTransformUpdateExpr(type: IElementType?): Boolean {
+    private fun parseArrowUpdateExpr(type: IElementType?): Boolean {
         val exprMarker = mark()
         if (parseUnaryExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             if (parseArrowExpr()) {
                 exprMarker.done(XQueryElementType.ARROW_EXPR)
-            } else if (parseTransformWithExpr()) {
-                exprMarker.done(XQueryElementType.TRANSFORM_WITH_EXPR)
             } else if (parseUpdateExpr()) {
                 exprMarker.done(XQueryElementType.UPDATE_EXPR)
             } else {
@@ -3616,16 +3614,25 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return haveArrowExpr
     }
 
-    private fun parseTransformWithExpr(): Boolean {
-        if (matchTokenType(XQueryTokenType.K_TRANSFORM)) {
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_WITH)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "with"))
-            }
+    private fun parseTransformWithExpr(type: IElementType?): Boolean {
+        val exprMarker = mark()
+        if (parseArrowUpdateExpr(type)) {
+            if (matchTokenType(XQueryTokenType.K_TRANSFORM)) {
+                parseWhiteSpaceAndCommentTokens()
+                if (!matchTokenType(XQueryTokenType.K_WITH)) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "with"))
+                }
 
-            parseWhiteSpaceAndCommentTokens()
-            return parseEnclosedExprOrBlock(null, BlockOpen.OPTIONAL, BlockExpr.REQUIRED)
+                parseWhiteSpaceAndCommentTokens()
+                parseEnclosedExprOrBlock(null, BlockOpen.OPTIONAL, BlockExpr.REQUIRED)
+
+                exprMarker.done(XQueryElementType.TRANSFORM_WITH_EXPR)
+            } else {
+                exprMarker.drop()
+            }
+            return true
         }
+        exprMarker.drop()
         return false
     }
 
