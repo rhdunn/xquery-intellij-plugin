@@ -3239,7 +3239,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
                 parseWhiteSpaceAndCommentTokens()
                 if (getTokenType() === XQueryTokenType.BLOCK_OPEN) {
-                    parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
+                    parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
                 } else if (!parseExpr(XQueryElementType.EXPR)) {
                     error(XQueryBundle.message("parser.error.expected-expression"))
                 }
