@@ -18,13 +18,17 @@
     <ol>
       <li>Support BaseX 8.4 `non-deterministic` function calls.</li>
       <li>Support mixing arrow and transform with expressions, allowed in BaseX.</li>
-      <li>Improved performance by not creating PSI (AST) nodes for EBNF symbols that are just forwarding to a sub-expression.</li>
+      <li>
+        Improved performance by not creating PSI (AST) nodes for EBNF symbols that are just
+        forwarding to a sub-expression.
+      </li>
     </ol>
-    <p>Syntax Highlighting:</p>
+    <p>Bug Fixes:</p>
     <ol>
-    </ol>
-    <p>References and Resolving:</p>
-    <ol>
+      <li>
+        <code>TransformWithExpr</code> containing an empty expression body should not report
+        a parser error as it is allowed by the Update Facility 3.0 specification.
+      </li>
     </ol>
     <p>Inspections:</p>
     <ol>

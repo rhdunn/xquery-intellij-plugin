@@ -9,6 +9,11 @@ Language Support:
 1.  Improved performance by not creating PSI (AST) nodes for EBNF symbols that
     are just forwarding to a sub-expression.
 
+Bug Fixes:
+
+1.  `TransformWithExpr` containing an empty expression body should not report
+    a parser error as it is allowed by the Update Facility 3.0 specification.
+
 ## 1.1 - 2018-04-10
 
 Language Support:

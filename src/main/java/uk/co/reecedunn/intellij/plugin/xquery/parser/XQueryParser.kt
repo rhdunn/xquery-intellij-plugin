@@ -3624,7 +3624,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                parseEnclosedExprOrBlock(null, BlockOpen.OPTIONAL, BlockExpr.REQUIRED)
+                parseEnclosedExprOrBlock(null, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
 
                 exprMarker.done(XQueryElementType.TRANSFORM_WITH_EXPR)
             } else {
