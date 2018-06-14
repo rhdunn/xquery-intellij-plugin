@@ -13,6 +13,7 @@ Bug Fixes:
 
 1.  `TransformWithExpr` containing an empty expression body should not report
     a parser error as it is allowed by the Update Facility 3.0 specification.
+1.  Parse `UpdateExpr` correctly, according to how it is handled in BaseX.
 
 ## 1.1 - 2018-04-10
 

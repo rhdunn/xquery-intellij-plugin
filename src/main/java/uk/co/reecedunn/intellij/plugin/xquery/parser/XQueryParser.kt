@@ -3209,7 +3209,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseAndExpr(type: IElementType?): Boolean {
         val andExprMarker = mark()
-        if (parseComparisonExpr(type)) {
+        if (parseUpdateExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveAndExpr = false
             while (matchTokenType(XQueryTokenType.K_AND)) {
@@ -3227,6 +3227,32 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             return true
         }
         andExprMarker.drop()
+        return false
+    }
+
+    private fun parseUpdateExpr(type: IElementType?): Boolean {
+        val exprMarker = mark()
+        if (parseComparisonExpr(type)) {
+            var haveUpdateExpr = false
+            while (matchTokenType(XQueryTokenType.K_UPDATE)) {
+                haveUpdateExpr = true
+
+                parseWhiteSpaceAndCommentTokens()
+                if (getTokenType() === XQueryTokenType.BLOCK_OPEN) {
+                    parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
+                } else if (!parseExpr(XQueryElementType.EXPR)) {
+                    error(XQueryBundle.message("parser.error.expected-expression"))
+                }
+                parseWhiteSpaceAndCommentTokens()
+            }
+
+            if (haveUpdateExpr)
+                exprMarker.done(XQueryElementType.UPDATE_EXPR)
+            else
+                exprMarker.drop()
+            return true
+        }
+        exprMarker.drop()
         return false
     }
 
@@ -3571,52 +3597,9 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseArrowUpdateExpr(type: IElementType?): Boolean {
-        val exprMarker = mark()
-        if (parseUnaryExpr(type)) {
-            parseWhiteSpaceAndCommentTokens()
-            if (parseArrowExpr()) {
-                exprMarker.done(XQueryElementType.ARROW_EXPR)
-            } else if (parseUpdateExpr()) {
-                exprMarker.done(XQueryElementType.UPDATE_EXPR)
-            } else {
-                exprMarker.drop()
-            }
-            return true
-        }
-        exprMarker.drop()
-        return false
-    }
-
-    private fun parseArrowExpr(): Boolean {
-        var haveErrors = false
-        var haveArrowExpr = false
-
-        parseWhiteSpaceAndCommentTokens()
-        while (matchTokenType(XQueryTokenType.ARROW)) {
-            haveArrowExpr = true
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!parseArrowFunctionSpecifier() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "ArrowFunctionSpecifier"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!parseArgumentList() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "ArgumentList"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-        }
-
-        return haveArrowExpr
-    }
-
     private fun parseTransformWithExpr(type: IElementType?): Boolean {
         val exprMarker = mark()
-        if (parseArrowUpdateExpr(type)) {
+        if (parseArrowExpr(type)) {
             if (matchTokenType(XQueryTokenType.K_TRANSFORM)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!matchTokenType(XQueryTokenType.K_WITH)) {
@@ -3636,20 +3619,39 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseUpdateExpr(): Boolean {
-        var haveUpdateExpr = false
-        while (matchTokenType(XQueryTokenType.K_UPDATE)) {
-            haveUpdateExpr = true
+    private fun parseArrowExpr(type: IElementType?): Boolean {
+        val exprMarker = mark()
+        if (parseUnaryExpr(type)) {
+            var haveErrors = false
+            var haveArrowExpr = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() === XQueryTokenType.BLOCK_OPEN) {
-                parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
-            } else if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+            while (matchTokenType(XQueryTokenType.ARROW)) {
+                haveArrowExpr = true
+
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseArrowFunctionSpecifier() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "ArrowFunctionSpecifier"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseArgumentList() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "ArgumentList"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens()
             }
-            parseWhiteSpaceAndCommentTokens()
+
+            if (haveArrowExpr)
+                exprMarker.done(XQueryElementType.ARROW_EXPR)
+            else
+                exprMarker.drop()
+            return true
         }
-        return haveUpdateExpr
+        exprMarker.drop()
+        return false
     }
 
     private fun parseArrowFunctionSpecifier(): Boolean {

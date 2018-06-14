@@ -29,6 +29,7 @@
         <code>TransformWithExpr</code> containing an empty expression body should not report
         a parser error as it is allowed by the Update Facility 3.0 specification.
       </li>
+      <li>Parse `UpdateExpr` correctly, according to how it is handled in BaseX.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
