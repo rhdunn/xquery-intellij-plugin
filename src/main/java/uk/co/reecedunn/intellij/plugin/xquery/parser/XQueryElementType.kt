@@ -132,7 +132,6 @@ object XQueryElementType {
     val TEXT_TEST: IElementType = ICompositeElementType("XQUERY_TEXT_TEST", XPathTextTestPsiImpl::class.java, XQuery)
     val ANY_KIND_TEST: IElementType = ICompositeElementType("XQUERY_ANY_KIND_TEST", XPathAnyKindTestPsiImpl::class.java, XQuery)
     val ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE", XPathItemTypePsiImpl::class.java, XQuery)
-    val TYPE_DECLARATION: IElementType = ICompositeElementType("XQUERY_TYPE_DECLARATION", XPathTypeDeclarationPsiImpl::class.java, XQuery)
     val SEQUENCE_TYPE: IElementType = ICompositeElementType("XQUERY_SEQUENCE_TYPE", XPathSequenceTypePsiImpl::class.java, XQuery)
 
     val PARAM: IElementType = ICompositeElementType("XQUERY_PARAM", XPathParamPsiImpl::class.java, XQuery)

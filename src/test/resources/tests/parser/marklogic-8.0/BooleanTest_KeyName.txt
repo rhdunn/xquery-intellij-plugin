@@ -13,21 +13,20 @@ XQueryModuleImpl[FILE(0:59)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:23)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:22)]('one')
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-               XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:49)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(26:48)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(26:38)]('boolean-node')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(39:40)]('(')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(41:46)]
-                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(41:42)]('"')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(42:45)]('key')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(45:46)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(47:48)](')')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
+               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+               MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(26:48)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(26:38)]('boolean-node')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(39:40)]('(')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
+                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(41:46)]
+                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(41:42)]('"')
+                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(42:45)]('key')
+                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(45:46)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(47:48)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(49:57)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(58:59)](';')

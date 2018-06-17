@@ -11,17 +11,16 @@ XQueryModuleImpl[FILE(0:51)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:21)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:42)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  MarkLogicMapTestImpl[XQUERY_MAP_TEST(24:42)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(24:35)]('object-node')
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(36:41)]
-                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(36:37)]('"')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(37:40)]('key')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(40:41)]('"')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(41:42)](')')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               MarkLogicMapTestImpl[XQUERY_MAP_TEST(24:42)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(24:35)]('object-node')
+                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
+                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(36:41)]
+                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(36:37)]('"')
+                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(37:40)]('key')
+                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(40:41)]('"')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(41:42)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(42:50)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(50:51)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(51:51)]('XPST0003: Missing query body.')

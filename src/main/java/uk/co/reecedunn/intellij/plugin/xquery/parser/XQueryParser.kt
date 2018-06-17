@@ -5941,14 +5941,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Grammar :: TypeDeclaration
 
     private fun parseTypeDeclaration(): Boolean {
-        val typeDeclarationMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AS)
-        if (typeDeclarationMarker != null) {
+        if (matchTokenType(XQueryTokenType.K_AS)) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseSequenceType()) {
                 error(XQueryBundle.message("parser.error.expected", "SequenceType"))
             }
-
-            typeDeclarationMarker.done(XQueryElementType.TYPE_DECLARATION)
             return true
         }
         return false

@@ -11,18 +11,17 @@ XQueryModuleImpl[FILE(0:49)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:21)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:40)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  XPathTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(24:40)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(24:32)]('function')
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
-                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(33:39)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(33:37)]('item')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
-                     PsiErrorElementImpl[ERROR_ELEMENT(40:40)]('XPST0003: Expected 'as'.')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               XPathTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(24:40)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(24:32)]('function')
+                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
+                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(33:39)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(33:37)]('item')
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
+                  PsiErrorElementImpl[ERROR_ELEMENT(40:40)]('XPST0003: Expected 'as'.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(40:48)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(48:49)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Missing query body.')

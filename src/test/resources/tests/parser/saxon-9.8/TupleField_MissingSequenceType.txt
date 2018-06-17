@@ -13,23 +13,22 @@ XQueryModuleImpl[FILE(0:44)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:21)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:38)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(24:37)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                     SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(32:36)]
-                        XPathNCNameImpl[XQUERY_NCNAME(32:33)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:33)]('a')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                        PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected 'SequenceType'.')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(36:37)](')')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(24:37)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                  SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(32:36)]
+                     XPathNCNameImpl[XQUERY_NCNAME(32:33)]
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:33)]('a')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected 'SequenceType'.')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(36:37)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(38:40)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(41:43)]

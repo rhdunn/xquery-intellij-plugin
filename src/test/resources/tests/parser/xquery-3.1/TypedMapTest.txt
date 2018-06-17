@@ -13,30 +13,29 @@ XQueryModuleImpl[FILE(0:64)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:21)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XPathTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:54)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  XPathTypedMapTestImpl[XQUERY_TYPED_MAP_TEST(24:53)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(24:27)]('map')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(30:39)]
-                        XPathQNameImpl[XQUERY_QNAME(30:39)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(30:32)]('xs')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(32:33)](':')
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(33:39)]('string')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-                     LeafPsiElement[XQUERY_COMMA_TOKEN(40:41)](',')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(42:51)]
-                        XPathQNameImpl[XQUERY_QNAME(42:51)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(42:44)]('xs')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(44:45)](':')
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(45:51)]('string')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(52:53)](')')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               XPathTypedMapTestImpl[XQUERY_TYPED_MAP_TEST(24:53)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(24:27)]('map')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                  XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(30:39)]
+                     XPathQNameImpl[XQUERY_QNAME(30:39)]
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(30:32)]('xs')
+                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(32:33)](':')
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(33:39)]('string')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
+                  LeafPsiElement[XQUERY_COMMA_TOKEN(40:41)](',')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+                  XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(42:51)]
+                     XPathQNameImpl[XQUERY_QNAME(42:51)]
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(42:44)]('xs')
+                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(44:45)](':')
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(45:51)]('string')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(52:53)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(54:62)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(63:64)](';')
