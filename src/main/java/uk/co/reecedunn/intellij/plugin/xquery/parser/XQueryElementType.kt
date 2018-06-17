@@ -117,7 +117,7 @@ object XQueryElementType {
     val PROLOG: IElementType = ICompositeElementType("XQUERY_PROLOG", XQueryPrologPsiImpl::class.java, XQuery)
 
     val TYPE_NAME: IElementType = ICompositeElementType("XQUERY_TYPE_NAME", XPathTypeNamePsiImpl::class.java, XQuery)
-    val ELEMENT_NAME: IElementType = ICompositeElementType("XQUERY_ELEMENT_NAME", XPathElementNamePsiImpl::class.java, XQuery)
+    val ELEMENT_NAME: IElementType = QNAME
     val ELEMENT_DECLARATION: IElementType = QNAME
     val ATTRIBUTE_NAME: IElementType = QNAME
     val ATTRIBUTE_DECLARATION: IElementType = QNAME
