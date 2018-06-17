@@ -120,7 +120,7 @@ object XQueryElementType {
     val ELEMENT_NAME: IElementType = ICompositeElementType("XQUERY_ELEMENT_NAME", XPathElementNamePsiImpl::class.java, XQuery)
     val ELEMENT_DECLARATION: IElementType = ICompositeElementType("XQUERY_ELEMENT_DECLARATION", XPathElementDeclarationPsiImpl::class.java, XQuery)
     val ATTRIBUTE_NAME: IElementType = QNAME
-    val ATTRIBUTE_DECLARATION: IElementType = ICompositeElementType("XQUERY_ATTRIBUTE_DECLARATION", XPathAttributeDeclarationPsiImpl::class.java, XQuery)
+    val ATTRIBUTE_DECLARATION: IElementType = QNAME
 
     val DOCUMENT_TEST: IElementType = ICompositeElementType("XQUERY_DOCUMENT_TEST", XPathDocumentTestPsiImpl::class.java, XQuery)
     val ELEMENT_TEST: IElementType = ICompositeElementType("XQUERY_ELEMENT_TEST", XPathElementTestPsiImpl::class.java, XQuery)
