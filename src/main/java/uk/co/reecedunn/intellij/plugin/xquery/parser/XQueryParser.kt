@@ -6511,7 +6511,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 } else if (getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE && getTokenType() !== XQueryTokenType.K_EXTERNAL) {
                     error(XQueryBundle.message("parser.error.expected", ","))
                     haveErrors = true
-                    parseQName(XQueryElementType.QNAME)
+                    parseEQName(XQueryElementType.TYPE_NAME)
                 }
             }
 
