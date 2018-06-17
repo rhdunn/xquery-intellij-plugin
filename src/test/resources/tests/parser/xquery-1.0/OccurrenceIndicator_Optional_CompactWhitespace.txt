@@ -20,8 +20,7 @@ XQueryModuleImpl[FILE(0:44)]
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(24:26)]('xs')
                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(26:27)](':')
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(27:34)]('integer')
-                     XPathOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(34:35)]
-                        LeafPsiElement[XQUERY_OPTIONAL_TOKEN(34:35)]('?')
+                     LeafPsiElement[XQUERY_OPTIONAL_TOKEN(34:35)]('?')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(35:43)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(43:44)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(44:44)]('XPST0003: Missing query body.')

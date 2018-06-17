@@ -5984,14 +5984,9 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseOccurrenceIndicator(): Boolean {
-        val occurrenceIndicatorMarker = mark()
-        if (matchTokenType(XQueryTokenType.OPTIONAL) || matchTokenType(XQueryTokenType.STAR) || matchTokenType(XQueryTokenType.PLUS)) {
-            occurrenceIndicatorMarker.done(XQueryElementType.OCCURRENCE_INDICATOR)
-            return true
-        }
-
-        occurrenceIndicatorMarker.drop()
-        return false
+        return matchTokenType(XQueryTokenType.OPTIONAL) ||
+                matchTokenType(XQueryTokenType.STAR) ||
+                matchTokenType(XQueryTokenType.PLUS)
     }
 
     private fun parseItemType(): Boolean {
