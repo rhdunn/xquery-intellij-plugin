@@ -119,7 +119,6 @@ object XQueryElementType {
     val TYPE_NAME: IElementType = ICompositeElementType("XQUERY_TYPE_NAME", XPathTypeNamePsiImpl::class.java, XQuery)
     val ELEMENT_NAME: IElementType = ICompositeElementType("XQUERY_ELEMENT_NAME", XPathElementNamePsiImpl::class.java, XQuery)
     val ELEMENT_DECLARATION: IElementType = ICompositeElementType("XQUERY_ELEMENT_DECLARATION", XPathElementDeclarationPsiImpl::class.java, XQuery)
-    val ATTRIB_NAME_OR_WILDCARD: IElementType = ICompositeElementType("XQUERY_ATTRIB_NAME_OR_WILDCARD", XPathAttribNameOrWildcardPsiImpl::class.java, XQuery)
     val ATTRIBUTE_NAME: IElementType = ICompositeElementType("XQUERY_ATTRIBUTE_NAME", XPathAttributeNamePsiImpl::class.java, XQuery)
     val ATTRIBUTE_DECLARATION: IElementType = ICompositeElementType("XQUERY_ATTRIBUTE_DECLARATION", XPathAttributeDeclarationPsiImpl::class.java, XQuery)
 
