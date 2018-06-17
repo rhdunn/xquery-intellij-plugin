@@ -6609,16 +6609,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseElementNameOrWildcard(): Boolean {
-        val elementNameOrWildcardMarker = mark()
-        if (matchTokenType(XQueryTokenType.STAR)) {
-            elementNameOrWildcardMarker.done(XQueryElementType.ELEMENT_NAME_OR_WILDCARD)
-            return true
-        } else if (parseEQName(XQueryElementType.ELEMENT_NAME)) {
-            elementNameOrWildcardMarker.drop()
-            return true
-        }
-        elementNameOrWildcardMarker.drop()
-        return false
+        return matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)
     }
 
     private fun parseSchemaElementTest(): Boolean {
