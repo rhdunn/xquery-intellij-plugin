@@ -23,6 +23,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
+private enum class KindTest {
+    ANY_TEST,
+    TYPED_TEST,
+}
+
 /**
  * A unified XQuery parser for different XQuery dialects.
  *
@@ -6147,7 +6152,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseAnyOrTypedFunctionTest(): Boolean {
         val functionTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FUNCTION)
         if (functionTestMarker != null) {
-            var type: IElementType? = null
+            var type: KindTest = KindTest.ANY_TEST
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -6160,7 +6165,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (matchTokenType(XQueryTokenType.STAR)) {
                 //
             } else if (parseSequenceType()) {
-                type = XQueryElementType.TYPED_FUNCTION_TEST
+                type = KindTest.TYPED_TEST
 
                 parseWhiteSpaceAndCommentTokens()
                 while (matchTokenType(XQueryTokenType.COMMA)) {
@@ -6172,7 +6177,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     parseWhiteSpaceAndCommentTokens()
                 }
             } else {
-                type = XQueryElementType.TYPED_FUNCTION_TEST
+                type = KindTest.TYPED_TEST
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6183,7 +6188,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (getTokenType() === XQueryTokenType.K_AS) {
-                if (type == null && !haveErrors) {
+                if (type === KindTest.ANY_TEST && !haveErrors) {
                     val errorMarker = mark()
                     advanceLexer()
                     errorMarker.error(XQueryBundle.message("parser.error.as-not-supported-in-test", "AnyFunctionTest"))
@@ -6196,14 +6201,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!parseSequenceType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 }
-            } else if (type === XQueryElementType.TYPED_FUNCTION_TEST) {
+            } else if (type === KindTest.TYPED_TEST) {
                 error(XQueryBundle.message("parser.error.expected", "as"))
             }
 
-            if (type == null)
-                functionTestMarker.drop()
-            else
-                functionTestMarker.done(type)
+            functionTestMarker.drop()
             return true
         }
         return false

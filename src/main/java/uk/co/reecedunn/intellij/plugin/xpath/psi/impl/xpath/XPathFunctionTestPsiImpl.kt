@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 val NO_ANNOTATIONS = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -36,13 +37,13 @@ class XPathFunctionTestPsiImpl(node: ASTNode) :
 
     override val requiresConformance
         get(): List<Version> {
-            return if (conformanceElement.node.elementType === XQueryTokenType.ANNOTATION_INDICATOR)
+            return if (conformanceElement.node.elementType === XQueryElementType.ANNOTATION)
                 ANNOTATIONS
             else
                 NO_ANNOTATIONS
         }
 
-    override val conformanceElement get(): PsiElement = firstChild.firstChild ?: firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 
     // endregion
 }

@@ -176,7 +176,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryElementType.ANNOTATION))
     }
 
     // endregion
@@ -1866,7 +1866,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryElementType.ANNOTATION))
     }
 
     // endregion
