@@ -1,0 +1,1 @@
+declare variable $ one as % private function ( xs:integer ) as item ( ) external ;

@@ -153,10 +153,10 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region AnyFunctionTest
 
-    fun testAnyFunctionTest() {
+    fun testAnyFunctionTest_NoAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq")
 
-        val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathAnyFunctionTest>().first()
+        val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
         val versioned = anyFunctionTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -164,8 +164,19 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+        assertThat(versioned.conformanceElement.node.elementType, `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+    }
+
+    fun testAnyFunctionTest_WithAnnotations() {
+        val file = parseResource("tests/parser/xquery-3.0/FunctionTest.xq")
+
+        val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
+        val versioned = anyFunctionTestPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
     }
 
     // endregion
@@ -1832,10 +1843,10 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TypedFunctionTest
 
-    fun testTypedFunctionTest() {
+    fun testTypedFunctionTest_NoAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
 
-        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathTypedFunctionTest>().first()
+        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
         val versioned = typedFunctionTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1843,8 +1854,19 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+        assertThat(versioned.conformanceElement.node.elementType, `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+    }
+
+    fun testTypedFunctionTest_WithAnnotations() {
+        val file = parseResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.xq")
+
+        val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
+        val versioned = typedFunctionTestPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
     }
 
     // endregion
