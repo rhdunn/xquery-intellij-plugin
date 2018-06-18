@@ -187,7 +187,6 @@ object XQueryElementType {
     val SEQUENCE_TYPE_UNION: IElementType = ICompositeElementType("XQUERY_SEQUENCE_TYPE_UNION", XQuerySequenceTypeUnionPsiImpl::class.java, XQuery)
 
     val FUNCTION_TEST: IElementType = ICompositeElementType("XQUERY_FUNCTION_TEST", XPathFunctionTestPsiImpl::class.java, XQuery)
-    val ANY_FUNCTION_TEST: IElementType = ICompositeElementType("XQUERY_ANY_FUNCTION_TEST", XPathAnyFunctionTestPsiImpl::class.java, XQuery)
     val TYPED_FUNCTION_TEST: IElementType = ICompositeElementType("XQUERY_TYPED_FUNCTION_TEST", XPathTypedFunctionTestPsiImpl::class.java, XQuery)
     val PARENTHESIZED_ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_PARENTHESIZED_ITEM_TYPE", XPathParenthesizedItemTypePsiImpl::class.java, XQuery)
 

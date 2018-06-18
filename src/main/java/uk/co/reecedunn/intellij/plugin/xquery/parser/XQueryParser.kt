@@ -6147,7 +6147,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseAnyOrTypedFunctionTest(): Boolean {
         val functionTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FUNCTION)
         if (functionTestMarker != null) {
-            var type = XQueryElementType.ANY_FUNCTION_TEST
+            var type: IElementType? = null
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -6183,7 +6183,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (getTokenType() === XQueryTokenType.K_AS) {
-                if (type === XQueryElementType.ANY_FUNCTION_TEST && !haveErrors) {
+                if (type == null && !haveErrors) {
                     val errorMarker = mark()
                     advanceLexer()
                     errorMarker.error(XQueryBundle.message("parser.error.as-not-supported-in-test", "AnyFunctionTest"))
@@ -6200,7 +6200,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", "as"))
             }
 
-            functionTestMarker.done(type)
+            if (type == null)
+                functionTestMarker.drop()
+            else
+                functionTestMarker.done(type)
             return true
         }
         return false

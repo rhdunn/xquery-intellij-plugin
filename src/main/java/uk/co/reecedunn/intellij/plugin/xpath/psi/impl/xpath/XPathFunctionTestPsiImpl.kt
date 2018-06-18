@@ -42,7 +42,7 @@ class XPathFunctionTestPsiImpl(node: ASTNode) :
                 NO_ANNOTATIONS
         }
 
-    override val conformanceElement get(): PsiElement = firstChild.firstChild
+    override val conformanceElement get(): PsiElement = firstChild.firstChild ?: firstChild
 
     // endregion
 }
