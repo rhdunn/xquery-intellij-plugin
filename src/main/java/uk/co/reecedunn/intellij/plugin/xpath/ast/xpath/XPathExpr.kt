@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 
 /**
  * An XPath 2.0 and XQuery 1.0 `Expr` node in the XQuery AST.

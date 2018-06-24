@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -31,15 +31,22 @@ private val XQUERY = listOf<Version>()
 
 private val SEPARATOR_TOKENS = TokenSet.create(XQueryTokenType.SEPARATOR, XQueryElementType.TRANSACTION_SEPARATOR)
 
-open class ScriptingApplyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingApplyExpr, XQueryConformance {
-    override val requiresConformance get(): List<Version> {
-        val element = conformanceElement
-        if (element === firstChild || element.node.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
-            return XQUERY
-        }
-        return SCRIPTING10
-    }
+open class ScriptingApplyExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    ScriptingApplyExpr,
+    XQueryConformance {
+    // region XQueryConformance
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(SEPARATOR_TOKENS) ?: firstChild
+    override val requiresConformance
+        get(): List<Version> {
+            val element = conformanceElement
+            if (element === firstChild || element.node.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
+                return XQUERY
+            }
+            return SCRIPTING10
+        }
+
+    override val conformanceElement get(): PsiElement = findChildByType(SEPARATOR_TOKENS) ?: firstChild
+
+    // endregion
 }

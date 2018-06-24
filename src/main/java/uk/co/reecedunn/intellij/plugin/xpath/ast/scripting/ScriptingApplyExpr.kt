@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
+package uk.co.reecedunn.intellij.plugin.xpath.ast.scripting
 
 import com.intellij.psi.PsiElement
 
