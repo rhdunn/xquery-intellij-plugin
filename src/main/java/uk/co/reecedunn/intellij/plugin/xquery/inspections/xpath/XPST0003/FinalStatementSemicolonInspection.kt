@@ -25,17 +25,15 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-class FinalStatementSemicolonInspection : LocalInspectionTool() {
+class FinalStatementSemicolonInspection : Inspection("ijst/IJST0005.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XPST0003.final-statement-semicolon.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

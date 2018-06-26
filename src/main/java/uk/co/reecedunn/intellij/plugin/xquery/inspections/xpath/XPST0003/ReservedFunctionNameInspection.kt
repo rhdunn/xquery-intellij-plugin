@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -36,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-class ReservedFunctionNameInspection : LocalInspectionTool() {
+class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
     private fun getLocalName(name: XPathEQName?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
         if (name != null && name.node.elementType === XQueryElementType.NCNAME) {
             val localname = name.firstChild
@@ -50,9 +51,6 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
 
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XPST0003.reserved-function-name.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

@@ -16,22 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This tests the Markdown generation to ensure that it is consistent.
 class MarkdownTest {
     @Test
     fun onelineParagraph() {
-        assertThat(Markdown.parse("Lorem ipsum dolor."), `is`("<p>Lorem ipsum dolor.</p>\n"))
+        assertThat(
+            Markdown.parse("Lorem ipsum dolor."),
+            `is`("<html><body>\n<p>Lorem ipsum dolor.</p>\n</body></html>")
+        )
     }
 
     @Test
     fun multilineParagraph() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor sit amet,\r\nconsectetur adipiscing elit."),
-            `is`("<p>Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.</p>\n")
+            `is`("<html><body>\n<p>Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.</p>\n</body></html>")
         )
     }
 
@@ -39,7 +42,7 @@ class MarkdownTest {
     fun multipleParagraphs() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor sit amet,\r\n\r\nconsectetur adipiscing elit."),
-            `is`("<p>Lorem ipsum dolor sit amet,</p>\n\n<p>consectetur adipiscing elit.</p>\n")
+            `is`("<html><body>\n<p>Lorem ipsum dolor sit amet,</p>\n\n<p>consectetur adipiscing elit.</p>\n</body></html>")
         )
     }
 
@@ -47,7 +50,7 @@ class MarkdownTest {
     fun code() {
         assertThat(
             Markdown.parse("Lorem `ipsum` dolor sit amet."),
-            `is`("<p>Lorem <code>ipsum</code> dolor sit amet.</p>\n")
+            `is`("<html><body>\n<p>Lorem <code>ipsum</code> dolor sit amet.</p>\n</body></html>")
         )
     }
 
@@ -55,7 +58,7 @@ class MarkdownTest {
     fun emphasis() {
         assertThat(
             Markdown.parse("Lorem *ipsum* dolor sit amet."),
-            `is`("<p>Lorem <em>ipsum</em> dolor sit amet.</p>\n")
+            `is`("<html><body>\n<p>Lorem <em>ipsum</em> dolor sit amet.</p>\n</body></html>")
         )
     }
 
@@ -63,7 +66,7 @@ class MarkdownTest {
     fun strong() {
         assertThat(
             Markdown.parse("Lorem __ipsum__ dolor sit amet."),
-            `is`("<p>Lorem <strong>ipsum</strong> dolor sit amet.</p>\n")
+            `is`("<html><body>\n<p>Lorem <strong>ipsum</strong> dolor sit amet.</p>\n</body></html>")
         )
     }
 
@@ -71,7 +74,7 @@ class MarkdownTest {
     fun onelinePre() {
         assertThat(
             Markdown.parse("    Lorem ipsum dolor sit amet."),
-            `is`("<pre><code>    Lorem ipsum dolor sit amet.\n</code></pre>\n")
+            `is`("<html><body>\n<pre><code>    Lorem ipsum dolor sit amet.\n</code></pre>\n</body></html>")
         )
     }
 
@@ -79,7 +82,10 @@ class MarkdownTest {
     fun multilinePre() {
         assertThat(
             Markdown.parse("    Lorem ipsum dolor sit amet,\r\n    consectetur adipiscing elit."),
-            `is`("<pre><code>    Lorem ipsum dolor sit amet,\n    consectetur adipiscing elit.\n</code></pre>\n")
+            `is`(
+                "<html><body>\n<pre><code>    Lorem ipsum dolor sit amet,\n" +
+                        "    consectetur adipiscing elit.\n</code></pre>\n</body></html>"
+            )
         )
     }
 }

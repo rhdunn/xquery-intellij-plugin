@@ -24,6 +24,7 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 /** XQST0118 error condition
@@ -31,12 +32,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * It is a *static error* if a direct element constructor has a close tag that
  * does not match the open tag (prefix and local name).
  */
-class MismatchedDirElemTagNameInspection : LocalInspectionTool() {
+class MismatchedDirElemTagNameInspection : Inspection("xqst/XQST0118.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

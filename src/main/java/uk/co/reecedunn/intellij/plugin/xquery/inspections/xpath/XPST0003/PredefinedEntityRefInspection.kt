@@ -24,16 +24,14 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEntityRefType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class PredefinedEntityRefInspection : LocalInspectionTool() {
+class PredefinedEntityRefInspection : Inspection("ijst/IJST0003.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XPST0003.predefined-entity.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

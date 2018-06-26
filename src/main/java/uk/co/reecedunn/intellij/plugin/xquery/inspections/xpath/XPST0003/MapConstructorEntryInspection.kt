@@ -23,13 +23,14 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-class MapConstructorEntryInspection : LocalInspectionTool() {
+class MapConstructorEntryInspection : Inspection("ijst/IJST0004.md") {
     private fun conformsTo(element: XPathMapConstructorEntry, productVersion: Version?): Boolean {
         val conformanceElement = element.separator
         if (conformanceElement === element.firstChild) {
@@ -42,9 +43,6 @@ class MapConstructorEntryInspection : LocalInspectionTool() {
 
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XPST0003.map-constructor-entry.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

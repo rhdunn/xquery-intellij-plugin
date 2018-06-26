@@ -21,6 +21,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -31,12 +32,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
  * It is a *static error* if a VersionDecl specifies a version that is
  * not supported by the implementation.
  */
-class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
+class UnsupportedXQueryVersionInspection : Inspection("xqst/XQST0081.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XQST0031.unsupported-version.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

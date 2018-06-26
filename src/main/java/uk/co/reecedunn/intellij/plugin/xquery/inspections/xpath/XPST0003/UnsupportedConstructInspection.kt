@@ -22,6 +22,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
@@ -33,12 +34,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
  * interface to determine if the construct is valid for the given XQuery
  * implementation and associated dialect.
  */
-class UnsupportedConstructInspection : LocalInspectionTool() {
+class UnsupportedConstructInspection : Inspection("ijst/IJST0001.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XPST0003.unsupported-construct.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

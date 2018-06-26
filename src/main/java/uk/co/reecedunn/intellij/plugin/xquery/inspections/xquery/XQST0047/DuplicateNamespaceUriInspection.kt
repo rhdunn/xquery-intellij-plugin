@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -33,12 +34,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * It is a *static error* if the prolog contains multiple references to the
  * same namespace URI.
  */
-class DuplicateNamespaceUriInspection : LocalInspectionTool() {
+class DuplicateNamespaceUriInspection : Inspection("xqst/XQST0047.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

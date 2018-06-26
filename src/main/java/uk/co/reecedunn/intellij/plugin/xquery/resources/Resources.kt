@@ -15,10 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.resources
 
+import org.apache.xmlbeans.impl.common.IOUtil
+import java.io.IOException
 import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.StringWriter
 
 object Resources {
-    fun load(resource: String): InputStream {
+    @Throws(IOException::class)
+    fun streamToString(stream: InputStream): String {
+        val writer = StringWriter()
+        IOUtil.copyCompletely(InputStreamReader(stream), writer)
+        return writer.toString()
+    }
+
+    fun load(resource: String): InputStream? {
         val loader = Resources::class.java.classLoader
         return loader.getResourceAsStream(resource)
     }

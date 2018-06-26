@@ -25,17 +25,17 @@ import java.io.StringWriter
  * Convert Markdown text to HTML.
  *
  * This provides a consistent API that can be used in the plugin, allowing the
- * Markdown processor to be switched out.
- *
- * NOTE: Markdown4jProcessor adds `<br/>` elements for each newline, instead of
- * joining them when used as part of a paragraph.
+ * Markdown processor to be switched out. It also wraps the generated markdown
+ * in `html` and `body` tags, as the IntelliJ inspection description rendering
+ * code looks for that to signify HTML content (otherwise, it assumes plain
+ * text and replaces all newlines with `<br/>` tags).
  */
 object Markdown {
     val md = MarkdownProcessor()
 
-    fun parse(text: String): String = md.markdown(text)
+    fun parse(text: String): String = "<html><body>\n${md.markdown(text)}</body></html>"
 
-    fun parse(text: InputStream): String = md.markdown(streamToString(text))
+    fun parse(text: InputStream): String = parse(streamToString(text))
 
     private fun streamToString(stream: InputStream): String {
         val writer = StringWriter()

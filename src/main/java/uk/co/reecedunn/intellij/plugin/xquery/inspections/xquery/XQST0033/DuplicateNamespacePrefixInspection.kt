@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -35,12 +36,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * prefix names in namespace declarations, including the module
  * declaration namespace.
  */
-class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
+class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null

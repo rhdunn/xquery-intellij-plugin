@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 /** XPST0081 error condition
@@ -33,12 +34,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * It is a *static error* if a QName used in a query contains a
  * namespace prefix that is not in the *statically known namespaces*.
  */
-class UnboundQNamePrefixInspection : LocalInspectionTool() {
+class UnboundQNamePrefixInspection : Inspection("xpst/XPST0081.md") {
     override fun getDisplayName(): String =
         XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.display-name")
-
-    override fun getDescriptionFileName(): String? =
-            "$id.html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
