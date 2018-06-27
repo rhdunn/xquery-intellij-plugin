@@ -26,7 +26,7 @@ class MarkdownTest {
     fun onelineParagraph() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor."),
-            `is`("<html><body>\n<p>Lorem ipsum dolor.</p>\n</body></html>")
+            `is`("<html><body>\nLorem ipsum dolor.\n</body></html>")
         )
     }
 
@@ -34,7 +34,7 @@ class MarkdownTest {
     fun multilineParagraph() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor sit amet,\r\nconsectetur adipiscing elit."),
-            `is`("<html><body>\n<p>Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.</p>\n</body></html>")
+            `is`("<html><body>\nLorem ipsum dolor sit amet,\nconsectetur adipiscing elit.\n</body></html>")
         )
     }
 
@@ -42,7 +42,7 @@ class MarkdownTest {
     fun multipleParagraphs() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor sit amet,\r\n\r\nconsectetur adipiscing elit."),
-            `is`("<html><body>\n<p>Lorem ipsum dolor sit amet,</p>\n\n<p>consectetur adipiscing elit.</p>\n</body></html>")
+            `is`("<html><body>\nLorem ipsum dolor sit amet,\n\n<p>consectetur adipiscing elit.</p>\n</body></html>")
         )
     }
 
@@ -50,7 +50,7 @@ class MarkdownTest {
     fun code() {
         assertThat(
             Markdown.parse("Lorem `ipsum` dolor sit amet."),
-            `is`("<html><body>\n<p>Lorem <code>ipsum</code> dolor sit amet.</p>\n</body></html>")
+            `is`("<html><body>\nLorem <code>ipsum</code> dolor sit amet.\n</body></html>")
         )
     }
 
@@ -58,7 +58,7 @@ class MarkdownTest {
     fun emphasis() {
         assertThat(
             Markdown.parse("Lorem *ipsum* dolor sit amet."),
-            `is`("<html><body>\n<p>Lorem <em>ipsum</em> dolor sit amet.</p>\n</body></html>")
+            `is`("<html><body>\nLorem <em>ipsum</em> dolor sit amet.\n</body></html>")
         )
     }
 
@@ -66,7 +66,7 @@ class MarkdownTest {
     fun strong() {
         assertThat(
             Markdown.parse("Lorem __ipsum__ dolor sit amet."),
-            `is`("<html><body>\n<p>Lorem <strong>ipsum</strong> dolor sit amet.</p>\n</body></html>")
+            `is`("<html><body>\nLorem <strong>ipsum</strong> dolor sit amet.\n</body></html>")
         )
     }
 
