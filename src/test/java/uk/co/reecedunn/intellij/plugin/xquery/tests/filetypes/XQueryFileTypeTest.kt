@@ -47,7 +47,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         val fileType = XQueryFileType.INSTANCE
 
         assertThat(fileType.name, `is`("XQuery"))
-        assertThat(fileType.description, `is`("XQuery Language Support"))
+        assertThat(fileType.description, `is`("XML Query Language"))
         assertThat(fileType.defaultExtension, `is`("xqy"))
     }
 
