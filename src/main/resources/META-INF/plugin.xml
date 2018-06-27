@@ -65,60 +65,58 @@
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.StringLiteralAnnotator"/>
 
-    <!-- XPST0003 -->
-    <localInspection language="XQuery" shortName="FinalStatementSemicolon" bundle="messages.XQueryBundle"
-                     key="inspection.XPST0003.final-statement-semicolon.display-name" hasStaticDescription="true"
-                     groupName="Vendor extensions" groupPath="XPath and XQuery"
-                     enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.FinalStatementSemicolonInspection"/>
-    <localInspection language="XQuery" shortName="MapConstructorEntry" bundle="messages.XQueryBundle"
-                     key="inspection.XPST0003.map-constructor-entry.display-name" hasStaticDescription="true"
-                     groupName="Vendor extensions" groupPath="XPath and XQuery"
-                     enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.MapConstructorEntryInspection"/>
-    <localInspection language="XQuery" shortName="PredefinedEntityRef" bundle="messages.XQueryBundle"
-                     key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
-                     groupName="Vendor extensions" groupPath="XPath and XQuery"
-                     enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection"/>
-    <localInspection language="XQuery" shortName="ReservedFunctionName" bundle="messages.XQueryBundle"
-                     key="inspection.XPST0003.reserved-function-name.display-name" hasStaticDescription="true"
-                     groupName="Vendor extensions" groupPath="XPath and XQuery"
-                     enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.ReservedFunctionNameInspection"/>
-    <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="IJST0001" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
                      groupName="Vendor extensions" groupPath="XPath and XQuery"
                      enabledByDefault="true" level="WARNING"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.UnsupportedConstructInspection"/>
-    <localInspection language="XQuery" shortName="UndefinedFunction" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="IJST0002" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.reserved-function-name.display-name" hasStaticDescription="true"
+                     groupName="Vendor extensions" groupPath="XPath and XQuery"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.ReservedFunctionNameInspection"/>
+    <localInspection language="XQuery" shortName="IJST0003" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
+                     groupName="Vendor extensions" groupPath="XPath and XQuery"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection"/>
+    <localInspection language="XQuery" shortName="IJST0004" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.map-constructor-entry.display-name" hasStaticDescription="true"
+                     groupName="Vendor extensions" groupPath="XPath and XQuery"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.MapConstructorEntryInspection"/>
+    <localInspection language="XQuery" shortName="IJST0005" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.final-statement-semicolon.display-name" hasStaticDescription="true"
+                     groupName="Vendor extensions" groupPath="XPath and XQuery"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.FinalStatementSemicolonInspection"/>
+
+    <localInspection language="XQuery" shortName="XPST0017" bundle="messages.XQueryBundle"
                      key="inspection.XPST0017.undefined-function.display-name" hasStaticDescription="true"
                      groupName="XQuery static errors" groupPath="XPath and XQuery"
                      enabledByDefault="false" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0017.UndefinedFunctionInspection"/>
-
-    <!-- XQST0031 -->
-    <localInspection language="XQuery" shortName="UnsupportedXQueryVersion" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="XQST0031" bundle="messages.XQueryBundle"
                      key="inspection.XQST0031.unsupported-version.display-name" hasStaticDescription="true"
                      groupName="XQuery static errors" groupPath="XPath and XQuery"
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031.UnsupportedXQueryVersionInspection"/>
-    <localInspection language="XQuery" shortName="DuplicateNamespacePrefix" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="XQST0033" bundle="messages.XQueryBundle"
                      key="inspection.XQST0033.duplicate-namespace-prefix.display-name" hasStaticDescription="true"
                      groupName="XQuery static errors" groupPath="XPath and XQuery"
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection"/>
-    <localInspection language="XQuery" shortName="DuplicateNamespaceUri" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="XQST0047" bundle="messages.XQueryBundle"
                      key="inspection.XQST0047.duplicate-namespace-uri.display-name" hasStaticDescription="true"
                      groupName="XQuery static errors" groupPath="XPath and XQuery"
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0047.DuplicateNamespaceUriInspection"/>
-    <localInspection language="XQuery" shortName="UnboundQNamePrefix" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="XPST0081" bundle="messages.XQueryBundle"
                      key="inspection.XPST0081.unbound-qname-prefix.display-name" hasStaticDescription="true"
                      groupName="XPath static errors" groupPath="XPath and XQuery"
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection"/>
-    <localInspection language="XQuery" shortName="MismatchedDirElemTagName" bundle="messages.XQueryBundle"
+    <localInspection language="XQuery" shortName="XQST0118" bundle="messages.XQueryBundle"
                      key="inspection.XQST0118.mismatched-dir-elem-tag-name.display-name" hasStaticDescription="true"
                      groupName="XQuery static errors" groupPath="XPath and XQuery"
                      enabledByDefault="true" level="ERROR"
