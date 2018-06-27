@@ -38,9 +38,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * namespace prefix that is not in the *statically known namespaces*.
  */
 class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XPST0017.undefined-function.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

@@ -29,11 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = ReservedFunctionNameInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = ReservedFunctionNameInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

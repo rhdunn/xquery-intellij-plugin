@@ -35,9 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * namespace prefix that is not in the *statically known namespaces*.
  */
 class UnboundQNamePrefixInspection : Inspection("xpst/XPST0081.md") {
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

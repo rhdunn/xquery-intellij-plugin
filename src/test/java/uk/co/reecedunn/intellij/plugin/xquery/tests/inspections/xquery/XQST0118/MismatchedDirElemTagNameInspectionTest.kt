@@ -28,11 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = MismatchedDirElemTagNameInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = MismatchedDirElemTagNameInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

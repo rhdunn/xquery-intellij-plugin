@@ -33,9 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * does not match the open tag (prefix and local name).
  */
 class MismatchedDirElemTagNameInspection : Inspection("xqst/XQST0118.md") {
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

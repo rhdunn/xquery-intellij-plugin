@@ -35,9 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
  * implementation and associated dialect.
  */
 class UnsupportedConstructInspection : Inspection("ijst/IJST0001.md") {
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XPST0003.unsupported-construct.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

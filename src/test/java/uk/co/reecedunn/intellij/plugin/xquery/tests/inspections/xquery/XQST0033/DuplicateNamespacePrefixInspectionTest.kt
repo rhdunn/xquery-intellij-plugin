@@ -28,11 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = DuplicateNamespacePrefixInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = DuplicateNamespacePrefixInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

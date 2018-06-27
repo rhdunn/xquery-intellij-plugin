@@ -41,9 +41,6 @@ class MapConstructorEntryInspection : Inspection("ijst/IJST0004.md") {
         return conformanceElement.node.elementType === XQueryTokenType.ASSIGN_EQUAL == isSaxonExtension
     }
 
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XPST0003.map-constructor-entry.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

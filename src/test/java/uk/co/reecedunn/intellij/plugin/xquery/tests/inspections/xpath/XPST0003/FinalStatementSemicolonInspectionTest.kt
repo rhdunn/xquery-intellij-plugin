@@ -29,11 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class FinalStatementSemicolonInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = FinalStatementSemicolonInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = FinalStatementSemicolonInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

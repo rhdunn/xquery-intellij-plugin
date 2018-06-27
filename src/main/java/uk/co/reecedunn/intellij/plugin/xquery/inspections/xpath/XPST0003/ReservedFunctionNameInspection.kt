@@ -49,9 +49,6 @@ class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
         return null
     }
 
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XPST0003.reserved-function-name.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

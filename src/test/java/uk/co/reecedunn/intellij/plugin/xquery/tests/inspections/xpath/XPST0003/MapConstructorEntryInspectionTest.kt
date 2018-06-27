@@ -29,11 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class MapConstructorEntryInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = MapConstructorEntryInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = MapConstructorEntryInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

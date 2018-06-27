@@ -28,11 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = UnsupportedXQueryVersionInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = UnsupportedXQueryVersionInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

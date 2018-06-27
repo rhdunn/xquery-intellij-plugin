@@ -30,11 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = UnsupportedConstructInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = UnsupportedConstructInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

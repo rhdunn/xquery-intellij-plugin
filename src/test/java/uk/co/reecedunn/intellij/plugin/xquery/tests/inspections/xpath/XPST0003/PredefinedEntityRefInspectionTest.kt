@@ -2172,11 +2172,6 @@ private val HTML5_ENTITIES = listOf("\"",
 class PredefinedEntityRefInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = PredefinedEntityRefInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = PredefinedEntityRefInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))

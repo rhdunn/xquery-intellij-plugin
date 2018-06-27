@@ -35,9 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * same namespace URI.
  */
 class DuplicateNamespaceUriInspection : Inspection("xqst/XQST0047.md") {
-    override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.display-name")
-
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

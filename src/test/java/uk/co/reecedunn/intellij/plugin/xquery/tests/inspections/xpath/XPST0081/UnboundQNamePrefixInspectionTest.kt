@@ -29,11 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCa
 class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
-    fun testDisplayName() {
-        val inspection = UnboundQNamePrefixInspection()
-        assertThat(inspection.displayName, `is`(notNullValue()))
-    }
-
     fun testDescription() {
         val inspection = UnboundQNamePrefixInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
