@@ -127,6 +127,8 @@ declare %a:since("xpath-functions", "1.0-20070123") function fn:local-name() as 
 declare %a:since("xpath-functions", "1.0-20070123") function fn:local-name($arg as node()?) as xs:string external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:local-name-from-QName($arg as xs:QName?) as xs:NCName? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:lower-case($arg as xs:string?) as xs:string external;
+declare %a:since("xpath-functions", "3.0-20111213") %a:until("xpath-functions", "3.0-20130108", "fn:for-each#2") function fn:map($f as function(item()) as item()*, $seq as item()*) as item()* external;
+declare %a:since("xpath-functions", "3.0-20111213") %a:until("xpath-functions", "3.0-20130108", "fn:for-each-pair#3") function fn:map-pairs($seq1 as item()*, $seq2 as item()*, $f as function(item(), item()) as item()*) as item()* external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:matches($input as xs:string?, $pattern as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:matches($input as xs:string?, $pattern as xs:string, $flags as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:max($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
