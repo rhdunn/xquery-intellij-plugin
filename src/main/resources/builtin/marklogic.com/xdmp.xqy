@@ -37,8 +37,7 @@ declare %a:since("marklogic", "5.0") function xdmp:amp($namespace as xs:string, 
 declare %a:since("marklogic", "5.0") function xdmp:amp-roles($namespace-uri as xs:string, $localname as xs:string, $document-uri as xs:string, $database-id as xs:unsignedLong) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function xdmp:and64($x as xs:unsignedLong, $y as xs:unsignedLong) as xs:unsignedLong external;
 declare %a:since("marklogic", "6.0") function xdmp:annotation($function as function(*), $name as xs:QName) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:apply($function as xdmp:function) as item()* external;
-declare %a:since("marklogic", "5.0") function xdmp:apply($function as xdmp:function, $params-1-to-N as item()*) as item()* external;
+declare %a:since("marklogic", "5.0") %a:variadic("item()*") function xdmp:apply($function as xdmp:function) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:architecture() as xs:string external;
 declare %a:since("marklogic", "8.0") function xdmp:atomizable() as xs:boolean external;
 declare %a:since("marklogic", "7.0") function xdmp:atomizable($item as item()) as xs:boolean external;
