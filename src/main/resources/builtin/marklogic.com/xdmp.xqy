@@ -418,6 +418,8 @@ declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript a
 declare %a:since("marklogic", "5.0") function xdmp:key-from-QName($name as xs:QName) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-export($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-import($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
+declare %a:since("marklogic", "9.0") function xdmp:keystore-set-current-host() as xs:boolean external;
+declare %a:since("marklogic", "9.0") function xdmp:keystore-set-current-host($hostname as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-status() as element(keystore-status) external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-validate-exported($passphrase as xs:string, $filepath as xs:string) as element(keystore-export) external;
 declare %a:since("marklogic", "6.0") function xdmp:lazy($arg as item()*) as item()* external;
@@ -470,7 +472,7 @@ declare %a:since("marklogic", "5.0") function xdmp:node-insert-after($sibling as
 declare %a:since("marklogic", "5.0") function xdmp:node-insert-before($sibling as node(), $new as node()) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:node-insert-child($parent as node(), $new as node()) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:node-kind($node (: as [5.0]node()? [8.0]node() :)) as xs:string external;
-declare %a:since("marklogic", "9.0") function xdmp:node-metadata($node as xs:string) as map:map? external;
+declare %a:since("marklogic", "9.0") function xdmp:node-metadata($node as node()) as map:map? external;
 declare %a:since("marklogic", "9.0") function xdmp:node-metadata-value($uri as xs:string, $keyName as xs:string) as xs:string? external;
 declare %a:since("marklogic", "8.0") function xdmp:node-permissions($node as node()) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:node-permissions($node as node(), $output-kind as xs:string) as item()* external;
