@@ -5,6 +5,8 @@
 Language Support:
 
 1.  Support BaseX 8.4 `non-deterministic` function calls.
+1.  Improved performance by not creating PSI (AST) nodes for EBNF symbols that
+    are just forwarding to a sub-expression.
 
 ## 1.1 - 2018-04-10
 

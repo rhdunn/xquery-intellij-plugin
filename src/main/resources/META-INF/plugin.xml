@@ -17,6 +17,10 @@
     <p>Language Support:</p>
     <ol>
       <li>Support BaseX 8.4 `non-deterministic` function calls.</li>
+      <li>
+        Improved performance by not creating PSI (AST) nodes for EBNF symbols that are
+        just forwarding to a sub-expression.
+      </li>
     </ol>
     <p>Syntax Highlighting:</p>
     <ol>
