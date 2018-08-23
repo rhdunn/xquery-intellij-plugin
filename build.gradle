@@ -50,11 +50,11 @@ allprojects {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
     testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
-    // See: http://junit.org/junit5/docs/snapshot/user-guide/#running-tests-ide-intellij-idea
+
     testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
-    testRuntime("org.junit.vintage:junit-vintage-engine:4.12.0$junit_milestone")
 }
 
 intellij {
@@ -96,4 +96,8 @@ compileTestKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+test {
+    useJUnitPlatform()
 }
