@@ -50,10 +50,10 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             start = start!!.nextSibling
         if (start!!.node.elementType === XQueryElementType.NCNAME || start!!.node.elementType === XQueryElementType.QNAME)
             start = start!!.nextSibling
-        if (start!!.node.elementType === XQueryTokenType.XML_WHITE_SPACE)
-            start = start!!.nextSibling
-        if (start!!.node.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
-            hasMultiLineAttributes = start!!.textContains('\n')
+        if (start?.node?.elementType === XQueryTokenType.XML_WHITE_SPACE)
+            start = start.nextSibling
+        if (start?.node?.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
+            hasMultiLineAttributes = start.textContains('\n')
             if (!hasMultiLineAttributes) {
                 start = start.nextSibling
             }

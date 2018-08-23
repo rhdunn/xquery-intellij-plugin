@@ -30,6 +30,7 @@
         a parser error as it is allowed by the Update Facility 3.0 specification.
       </li>
       <li>Parse `UpdateExpr` correctly, according to how it is handled in BaseX.</li>
+      <li>Don't crash when computing folding for a partial direct element node inside an outer direct element node.</li>
     </ol>
     <p>Inspections:</p>
     <ol>

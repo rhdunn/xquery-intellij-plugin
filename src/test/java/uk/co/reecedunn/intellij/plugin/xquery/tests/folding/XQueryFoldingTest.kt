@@ -149,6 +149,26 @@ class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors.size, `is`(0))
     }
 
+    fun testDirElemConstructor_Inner_IncompleteNamespace() {
+        val file = parseResource("tests/folding/DirElemConstructor_Inner_IncompleteNamespace.xq")
+        val builder = XQueryFoldingBuilder()
+
+        val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+        assertThat(descriptors, `is`(notNullValue()))
+        assertThat(descriptors.size, `is`(1))
+
+        assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+        assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+        assertThat(descriptors[0].dependencies.size, `is`(0))
+        assertThat(descriptors[0].group, `is`(nullValue()))
+        assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+        assertThat(descriptors[0].range.startOffset, `is`(2))
+        assertThat(descriptors[0].range.endOffset, `is`(9))
+
+        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+        assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+    }
+
     fun testDirElemConstructor_MultiLine() {
         val file = parseResource("tests/folding/DirElemConstructor_MultiLine.xq")
         val builder = XQueryFoldingBuilder()
