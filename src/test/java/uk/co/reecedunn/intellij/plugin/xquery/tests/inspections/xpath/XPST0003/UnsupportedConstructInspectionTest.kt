@@ -89,7 +89,7 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE))
     }
 
     @Test
@@ -117,7 +117,7 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Saxon 9.5 does not support XQuery Update Facility 3.0 constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_INVOKE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_INVOKE))
     }
 
     @Test
@@ -145,7 +145,7 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Saxon 9.5 does not support XQuery Update Facility 3.0, or BaseX 8.5 constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_TRANSFORM as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_TRANSFORM))
     }
 
     // endregion
@@ -176,7 +176,7 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: MarkLogic 7.0 does not support XQuery Scripting Extension 1.0 constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BLOCK as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BLOCK))
     }
 
     // endregion
@@ -207,11 +207,11 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: MarkLogic 7.0 does not support BaseX 7.8 constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_UPDATE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_UPDATE))
 
         assertThat(problems[1].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[1].descriptionTemplate, `is`("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs."))
-        assertThat(problems[1].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE as IElementType))
+        assertThat(problems[1].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE))
     }
 
     // endregion
@@ -242,7 +242,7 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Saxon 9.5 does not support MarkLogic 4.0, or XQuery 0.9-ml constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BINARY as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BINARY))
     }
 
     @Test
@@ -270,7 +270,7 @@ private class UnsupportedConstructInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Saxon 9.5 does not support MarkLogic 7.0 constructs."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
     }
 
     // endregion

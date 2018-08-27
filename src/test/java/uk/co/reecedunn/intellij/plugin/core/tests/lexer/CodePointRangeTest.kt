@@ -27,7 +27,7 @@ class CodePointRangeTest {
 
         val sequence = ""
         range.start(sequence, 0, 0)
-        assertThat(range.bufferSequence, `is`(sequence as CharSequence))
+        assertThat(range.bufferSequence, `is`(sequence))
         assertThat(range.bufferEnd, `is`(0))
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(0))

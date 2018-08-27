@@ -72,7 +72,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion
@@ -99,7 +99,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
     }
 
     // endregion
@@ -138,7 +138,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion
@@ -165,7 +165,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
     }
 
     // endregion
@@ -184,7 +184,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved XQuery 1.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_IF as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_IF))
     }
 
     // endregion
@@ -201,7 +201,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved XQuery 3.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
     }
 
     // endregion
@@ -228,7 +228,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
 
         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
         assertThat(problems[0].descriptionTemplate, `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name."))
-        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE as IElementType))
+        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
     }
 
     // endregion

@@ -37,7 +37,7 @@ class XQueryProjectSettingsTest {
         assertThat(settings.XQuery31Dialect, `is`(XQuery.id))
 
         assertThat(settings.product, `is`(W3C.SPECIFICATIONS))
-        assertThat(settings.productVersion, `is`(W3C.FIRST_EDITION as Version))
+        assertThat(settings.productVersion, `is`(W3C.FIRST_EDITION))
     }
 
     @Test

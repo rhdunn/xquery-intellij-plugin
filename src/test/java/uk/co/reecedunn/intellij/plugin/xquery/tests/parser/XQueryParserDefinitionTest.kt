@@ -95,7 +95,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val file = createVirtualFile("test.xqy", "")
         val psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false))
         assertThat(psiFile.javaClass.name, `is`(XQueryModuleImpl::class.java.name))
-        assertThat(psiFile.fileType, `is`(XQueryFileType.INSTANCE as FileType))
+        assertThat(psiFile.fileType, `is`(XQueryFileType.INSTANCE))
     }
 
     @Test

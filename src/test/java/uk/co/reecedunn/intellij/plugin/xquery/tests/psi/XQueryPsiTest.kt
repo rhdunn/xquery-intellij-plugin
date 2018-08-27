@@ -2156,7 +2156,7 @@ private class XQueryPsiTest : ParserTestCase() {
         val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
 
         assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
-        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
         assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
     }
 
@@ -2166,7 +2166,7 @@ private class XQueryPsiTest : ParserTestCase() {
         val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
 
         assertThat(decl.type, `is`(XQueryDefaultNamespaceType.Function))
-        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
         assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
     }
 

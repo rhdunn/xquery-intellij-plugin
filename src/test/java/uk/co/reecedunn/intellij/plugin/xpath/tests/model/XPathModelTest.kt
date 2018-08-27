@@ -44,7 +44,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("http://www.example.com\uFFFF"))
-        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -55,7 +55,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("http://www.example.com"))
-        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -69,7 +69,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as BigDecimal, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
-        assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsDecimal))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -83,7 +83,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as Double, `is`(1e3))
-        assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsDouble))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -97,7 +97,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as BigInteger, `is`(BigInteger.valueOf(123)))
-        assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsInteger))
         assertThat(literal.toInt(), `is`(123))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -112,7 +112,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -123,7 +123,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("Lorem ipsum."))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -134,7 +134,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("'\"\""))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -145,7 +145,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticValue as String, `is`("''\""))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -161,7 +161,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
@@ -169,7 +169,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(qname.toString(), `is`("test"))
@@ -183,7 +183,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
@@ -191,7 +191,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("option"))
 
         assertThat(qname.toString(), `is`("option"))
@@ -205,7 +205,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(nullValue()))
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsUntyped))
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
 
@@ -218,17 +218,17 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("fn"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("true"))
 
         assertThat(qname.toString(), `is`("fn:true"))
@@ -242,17 +242,17 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("option"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(qname.toString(), `is`("option:test"))
@@ -266,17 +266,17 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("test"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("case"))
 
         assertThat(qname.toString(), `is`("test:case"))
@@ -290,7 +290,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         assertThat(expr.staticValue, `is`(nullValue()))
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsUntyped))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -304,17 +304,17 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(qname.toString(), `is`("Q{http://www.example.com}test"))
@@ -328,17 +328,17 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`(""))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(qname.toString(), `is`("Q{}test"))
@@ -352,17 +352,17 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsQName))
 
         val qname = expr.staticValue as QName
         assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("option"))
 
         assertThat(qname.toString(), `is`("Q{http://www.example.com}option"))
@@ -376,7 +376,7 @@ private class XPathModelTest : ParserTestCase() {
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(expr.staticValue, `is`(nullValue()))
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+        assertThat(expr.staticType, `is`(XsUntyped))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -396,17 +396,17 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -422,19 +422,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("type"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -450,19 +450,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -478,19 +478,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsBoolean))
+        assertThat(type.baseType, `is`(XsAnyAtomicType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("boolean"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -506,19 +506,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNumeric))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("numeric"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -537,19 +537,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNMTOKENS))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("NMTOKENS"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -567,19 +567,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsAnyType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("anyType"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -598,17 +598,17 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -624,19 +624,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("type"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -652,19 +652,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -680,19 +680,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsBoolean))
+        assertThat(type.baseType, `is`(XsAnyAtomicType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("boolean"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -708,19 +708,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNumeric))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("numeric"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -739,19 +739,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNMTOKENS))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("NMTOKENS"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -767,19 +767,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsAnyType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("anyType"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -896,7 +896,7 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathCommentTest>("\$x instance of comment()")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.declaredType, `is`(XdmComment as XdmSequenceType))
+        assertThat(expr.declaredType, `is`(XdmComment))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -909,7 +909,7 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathTextTest>("\$x instance of text()")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.declaredType, `is`(XdmText as XdmSequenceType))
+        assertThat(expr.declaredType, `is`(XdmText))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -922,7 +922,7 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathNamespaceNodeTest>("\$x instance of namespace-node()")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.declaredType, `is`(XdmNamespace as XdmSequenceType))
+        assertThat(expr.declaredType, `is`(XdmNamespace))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -935,7 +935,7 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathAnyKindTest>("\$x instance of node()")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(expr.declaredType, `is`(XdmNode as XdmSequenceType))
+        assertThat(expr.declaredType, `is`(XdmNode))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -955,17 +955,17 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -981,19 +981,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("type"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -1009,19 +1009,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1037,19 +1037,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsBoolean))
+        assertThat(type.baseType, `is`(XsAnyAtomicType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("boolean"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1065,19 +1065,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNumeric))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("numeric"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1096,19 +1096,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNMTOKENS))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("NMTOKENS"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1124,19 +1124,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsAnyType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("anyType"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1155,17 +1155,17 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -1181,19 +1181,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("type"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
@@ -1209,19 +1209,19 @@ private class XPathModelTest : ParserTestCase() {
 
         val type = expr.declaredType as XdmSimpleType
         assertThat(type.typeName, `is`(notNullValue()))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
-        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
+        assertThat(type.itemType, `is`(type))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("test"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1237,19 +1237,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsBoolean))
+        assertThat(type.baseType, `is`(XsAnyAtomicType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("boolean"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1265,19 +1265,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNumeric))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("numeric"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1296,19 +1296,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsNMTOKENS))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("NMTOKENS"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1324,19 +1324,19 @@ private class XPathModelTest : ParserTestCase() {
 
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmSimpleType
-        assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
-        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(XsAnyType))
+        assertThat(type.baseType, `is`(XsAnySimpleType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
 
         val qname = type.typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("anyType"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1353,19 +1353,19 @@ private class XPathModelTest : ParserTestCase() {
         // NOTE: itemType is not `this`, but is the mapped builtin type object.
         val type = expr.declaredType as XdmOptional
         assertThat(type.itemType, `is`(instanceOf(XdmSimpleType::class.java)))
-        assertThat(type.itemType.itemType, `is`(XsBoolean as XdmSequenceType))
-        assertThat((type.itemType as XdmSimpleType).baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.itemType.itemType, `is`(XsBoolean))
+        assertThat((type.itemType as XdmSimpleType).baseType, `is`(XsAnyAtomicType))
         assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
         assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
 
         val qname = (type.itemType as XdmSimpleType).typeName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("boolean"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1389,9 +1389,9 @@ private class XPathModelTest : ParserTestCase() {
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1409,12 +1409,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1433,12 +1433,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1472,9 +1472,9 @@ private class XPathModelTest : ParserTestCase() {
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1493,12 +1493,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1518,12 +1518,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1554,9 +1554,9 @@ private class XPathModelTest : ParserTestCase() {
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1572,12 +1572,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1593,12 +1593,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1619,9 +1619,9 @@ private class XPathModelTest : ParserTestCase() {
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1638,12 +1638,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.staticType, `is`(XsNCName))
         assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
@@ -1660,12 +1660,12 @@ private class XPathModelTest : ParserTestCase() {
 
         val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
+        assertThat(qname.declaration?.get(), `is`(name))
 
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
         assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
-        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.staticType, `is`(XsNCName))
         assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
