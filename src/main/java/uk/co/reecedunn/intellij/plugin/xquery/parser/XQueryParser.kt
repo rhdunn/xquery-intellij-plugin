@@ -44,9 +44,12 @@ private enum class KindTest {
  * -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014)
  *
  * Supported vendor extensions:
- * -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0, 7.0 and 8.0
- * -  Saxon 9.4 `map`, and 9.8 `tuple`, `union`, and `declare type` extensions
- * -  BaseX 7.8 and 8.5 UpdateExpr extension; Full Text `fuzzy` option
+ * -  BaseX
+ * -  MarkLogic 1.0-ml
+ * -  Saxon
+ *
+ * See the *EBNF for XQuery 3.1* section of `docs/XQuery IntelliJ Plugin.md`
+ * for details of the grammar implemented by this parser.
  */
 @Suppress("FunctionName")
 internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
