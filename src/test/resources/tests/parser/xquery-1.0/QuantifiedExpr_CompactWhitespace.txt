@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:60)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:60)]
             XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(0:29)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SOME(0:4)]('some')
-               XPathQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(4:12)]
+               PluginQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(4:12)]
                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                   XPathVarNameImpl[XQUERY_VAR_NAME(5:7)]
                      XPathNCNameImpl[XQUERY_NCNAME(5:7)]
@@ -33,7 +33,7 @@ XQueryModuleImpl[FILE(0:60)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(29:30)](',')
             XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(30:60)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EVERY(30:35)]('every')
-               XPathQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(35:43)]
+               PluginQuantifiedExprBindingImpl[XQUERY_QUANTIFIED_EXPR_BINDING(35:43)]
                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(35:36)]('$')
                   XPathVarNameImpl[XQUERY_VAR_NAME(36:38)]
                      XPathNCNameImpl[XQUERY_NCNAME(36:38)]

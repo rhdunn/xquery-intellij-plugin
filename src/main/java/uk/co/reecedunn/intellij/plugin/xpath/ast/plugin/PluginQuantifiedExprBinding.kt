@@ -13,17 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
+
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 
 /**
  * A `QuantifiedExprBinding` node in the XQuery AST.
- *
- * This is not part of the XPath/XQuery grammar. It is defined as:
- *
- *     QuantifiedExpr        := ("some" | "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle
- *     QuantifiedExprBinding := "$" VarName TypeDeclaration? "in" ExprSingle
- *
- * This is to mirror the change made to the `for` and `let` statements with
- * `ForBinding` and `LetBinding` respectively.
  */
-interface XPathQuantifiedExprBinding : XPathExprSingle
+interface PluginQuantifiedExprBinding : XPathExprSingle

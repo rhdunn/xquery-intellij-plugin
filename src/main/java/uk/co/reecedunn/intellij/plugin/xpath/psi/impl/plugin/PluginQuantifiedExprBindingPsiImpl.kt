@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -22,15 +22,15 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 
-class XPathQuantifiedExprBindingPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathQuantifiedExprBinding,
-        XPathVariableBinding {
+class PluginQuantifiedExprBindingPsiImpl(node: ASTNode):
+    ASTWrapperPsiElement(node),
+    PluginQuantifiedExprBinding,
+    XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
         children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName

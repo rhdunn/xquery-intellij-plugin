@@ -4,6 +4,7 @@
 - [2 Basics](#2-basics)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
+  - [3.2 Quantified Expressions](#32-quantified-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -48,6 +49,16 @@ This follows the grammar production pattern used in other constructs like
 `ParamList`, making it easier to support namespace declaration lookup on
 `xmlns` attributes.
 
+### 3.2 Quantified Expressions
+
+| Ref   | Symbol                  |     | Expression                          | Options              |
+|-------|-------------------------|-----|-------------------------------------|----------------------|
+| \[3\] | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
+| \[4\] | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` | |
+
+This follows the grammar production pattern used in other constructs like
+`LetClause` and `ForClause`, making it easier to support variable bindings.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -69,6 +80,11 @@ numbers are for symbols that only apply to XQuery.
 
 These changes include support for:
 1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
+
+| Ref     | Symbol                  |     | Expression                          | Options              |
+|---------|-------------------------|-----|-------------------------------------|----------------------|
+| \[3\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
+| \[4\]   | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |          |
 
 ### A.2 EBNF for XQuery 3.1
 
@@ -95,6 +111,8 @@ These changes include support for:
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[1\]    | `DirAttributeList`             | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/  |
 | \[2\]    | `DirAttribute`                 | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/  |
+| \[3\]    | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
+| \[4\]    | `QuantifiedExprBinding`        | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |            |
 
 ## B References
 

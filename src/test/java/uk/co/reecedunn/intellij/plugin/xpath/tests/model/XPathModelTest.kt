@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
@@ -1460,7 +1461,7 @@ private class XPathModelTest : ParserTestCase() {
 
     @Test
     fun testQuantifiedExprBinding_NCName() {
-        val expr = parse<XPathQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
+        val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1482,7 +1483,7 @@ private class XPathModelTest : ParserTestCase() {
 
     @Test
     fun testQuantifiedExprBinding_QName() {
-        val expr = parse<XPathQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
+        val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -1506,7 +1507,7 @@ private class XPathModelTest : ParserTestCase() {
 
     @Test
     fun testQuantifiedExprBinding_URIQualifiedName() {
-        val expr = parse<XPathQuantifiedExprBinding>(
+        val expr = parse<PluginQuantifiedExprBinding>(
                 "some \$Q{http://www.example.com}x in  \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
@@ -1531,7 +1532,7 @@ private class XPathModelTest : ParserTestCase() {
 
     @Test
     fun testQuantifiedExprBinding_MissingVarName() {
-        val expr = parse<XPathQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
+        val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
         assertThat(expr.variableType, `is`(nullValue()))

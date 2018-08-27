@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
@@ -185,7 +185,7 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XQueryWindowClause -> node.windowClauseVariables(context)
         is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
-        is XPathQuantifiedExprBinding -> {
+        is PluginQuantifiedExprBinding -> {
             if (context.visitedQuantifiedBinding) {
                 context.visitedQuantifiedBinding = false
                 emptySequence()
@@ -207,7 +207,7 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
                         context.visitedFlworClauseAsIntermediateClause = true
                     }
                 }
-                is XPathQuantifiedExprBinding -> {
+                is PluginQuantifiedExprBinding -> {
                     context.visitedQuantifiedBinding = true
                 }
                 is ScriptingBlockVarDeclEntry -> {
