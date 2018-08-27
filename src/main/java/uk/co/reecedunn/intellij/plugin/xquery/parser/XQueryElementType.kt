@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiI
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDirAttributePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDefaultCaseClausePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTypeDeclImpl
@@ -105,7 +106,7 @@ object XQueryElementType {
     val QUANTIFIED_EXPR: IElementType = ICompositeElementType("XQUERY_QUANTIFIED_EXPR", XPathQuantifiedExprPsiImpl::class.java, XQuery)
     val TYPESWITCH_EXPR: IElementType = ICompositeElementType("XQUERY_TYPESWITCH_EXPR", XQueryTypeswitchExprPsiImpl::class.java, XQuery)
     val CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_CASE_CLAUSE", XQueryCaseClausePsiImpl::class.java, XQuery)
-    val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_DEFAULT_CASE_CLAUSE", XQueryDefaultCaseClausePsiImpl::class.java, XQuery)
+    val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_DEFAULT_CASE_CLAUSE", PluginDefaultCaseClausePsiImpl::class.java, XQuery)
     val IF_EXPR: IElementType = ICompositeElementType("XQUERY_IF_EXPR", XPathIfExprPsiImpl::class.java, XQuery)
 
     val QUERY_BODY: IElementType = ICompositeElementType("XQUERY_QUERY_BODY", XQueryQueryBodyPsiImpl::class.java, XQuery)

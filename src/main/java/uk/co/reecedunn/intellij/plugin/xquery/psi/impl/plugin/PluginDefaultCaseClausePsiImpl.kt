@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCaseClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 
-class XQueryDefaultCaseClausePsiImpl(node: ASTNode):
+class PluginDefaultCaseClausePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
-        XQueryDefaultCaseClause,
+    PluginDefaultCaseClause,
         XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =

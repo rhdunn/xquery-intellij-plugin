@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -864,7 +865,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDefaultCaseClause_NCName() {
-        val expr = parse<XQueryDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
+        val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -886,7 +887,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDefaultCaseClause_QName() {
-        val expr = parse<XQueryDefaultCaseClause>("typeswitch (\$a:x) default \$a:y return \$a:z")[0] as XPathVariableBinding
+        val expr = parse<PluginDefaultCaseClause>("typeswitch (\$a:x) default \$a:y return \$a:z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -910,7 +911,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDefaultCaseClause_URIQualifiedName() {
-        val expr = parse<XQueryDefaultCaseClause>(
+        val expr = parse<PluginDefaultCaseClause>(
                 "typeswitch (\$Q{http://www.example.com}x) " +
                 "default \$Q{http://www.example.com}y " +
                 "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
@@ -937,7 +938,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDefaultCaseClause_NoVarName() {
-        val expr = parse<XQueryDefaultCaseClause>("typeswitch (\$x) default return \$z")[0] as XPathVariableBinding
+        val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default return \$z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
         assertThat(expr.variableType, `is`(nullValue()))

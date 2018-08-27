@@ -5,6 +5,8 @@
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
+  - [3.3 Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
+    - [3.3.1 Typeswitch](#331-typeswitch)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -58,6 +60,19 @@ This follows the grammar production pattern used in other constructs like
 
 This follows the grammar production pattern used in other constructs like
 `LetClause` and `ForClause`, making it easier to support variable bindings.
+
+### 3.3 Expressions on SequenceTypes
+
+#### 3.3.1 Typeswitch
+
+| Ref   | Symbol                  |     | Expression                          | Options               |
+|-------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[5\] | `TypeswitchExpr`        | ::= | `"typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause` | |
+| \[6\] | `DefaultCaseClause`     | ::= | `"default" ("$" VarName)? "return" ExprSingle` |            |
+
+The default case expression is factored out here into a separate grammar
+production similar to the `CaseClause` expression, making it easier to
+support variable bindings.
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -113,6 +128,8 @@ These changes include support for:
 | \[2\]    | `DirAttribute`                 | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/  |
 | \[3\]    | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
 | \[4\]    | `QuantifiedExprBinding`        | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |            |
+| \[5\]    | `TypeswitchExpr`               | ::= | `"typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause` | |
+| \[6\]    | `DefaultCaseClause`            | ::= | `"default" ("$" VarName)? "return" ExprSingle` |            |
 
 ## B References
 

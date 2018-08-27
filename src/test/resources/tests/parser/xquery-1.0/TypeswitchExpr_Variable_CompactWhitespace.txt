@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:53)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(33:35)]
                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('1')
                      PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-               XQueryDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(35:53)]
+               PluginDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(35:53)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(42:43)]('$')
                   XPathVarNameImpl[XQUERY_VAR_NAME(43:45)]

@@ -51,7 +51,7 @@ XQueryModuleImpl[FILE(0:81)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(63:65)]
                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(63:64)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-               XQueryDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(65:81)]
+               PluginDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(65:81)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(65:72)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(73:79)]('return')

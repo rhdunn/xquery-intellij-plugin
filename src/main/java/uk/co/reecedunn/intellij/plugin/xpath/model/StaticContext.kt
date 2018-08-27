@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
@@ -220,7 +221,7 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
             emptySequence()
         }
         is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
-        is XQueryCaseClause, is XQueryDefaultCaseClause -> {
+        is XQueryCaseClause, is PluginDefaultCaseClause -> {
             // Only the `case`/`default` clause variable of the return expression is in scope.
             if (!context.visitedTypeswitch) {
                 context.visitedTypeswitch = true
