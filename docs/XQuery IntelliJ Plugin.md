@@ -7,11 +7,14 @@
   - [3.2 Quantified Expressions](#32-quantified-expressions)
   - [3.3 Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
     - [3.3.1 Typeswitch](#331-typeswitch)
+    - [3.3.2 Cast](#332-cast)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
+- [C Vendor Extensions](#c-vendor-extensions)
+  - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
 
 ## 1 Introduction
 The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
@@ -74,6 +77,29 @@ The default case expression is factored out here into a separate grammar
 production similar to the `CaseClause` expression, making it easier to
 support variable bindings.
 
+#### 3.3.2 Cast
+
+| Ref   | Symbol                  |     | Expression                          | Options               |
+|-------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[7\] | `CastExpr`              | ::= | `TransformWithExpr ( "cast" "as" SingleType )?` |           |
+| \[8\] | `TransformWithExpr`     | ::= | `ArrowExpr ("transform" "with" "{" Expr? "}")?` |           |
+
+The XQuery 3.1 and Update Facility 3.0 specifications both define constructs
+for use between `CastExpr` and `UnaryExpr`. These are `ArrowExpr` for XQuery
+3.1 and `TransformWithExpr` for Update Facility 3.0.
+
+This plugin follows the precedence of `CastExpr`, `TransformWithExpr`, and
+`ArrowExpr` described in the
+[proposed official resolution](https://www.w3.org/Bugs/Public/show_bug.cgi?id=30015).
+While XQuery 3.1 with UpdateFacility 3.0 is not an official W3C combination,
+it is supported by BaseX.
+
+This allows arrow expressions to be combined with transform with expressions
+like in the following example:
+
+    <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
+    (: returns: <test>ipsum</test> :)
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -130,6 +156,8 @@ These changes include support for:
 | \[4\]    | `QuantifiedExprBinding`        | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |            |
 | \[5\]    | `TypeswitchExpr`               | ::= | `"typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause` | |
 | \[6\]    | `DefaultCaseClause`            | ::= | `"default" ("$" VarName)? "return" ExprSingle` |            |
+| \[7\]    | `CastExpr`                     | ::= | `TransformWithExpr ( "cast" "as" SingleType )?` |           |
+| \[8\]    | `TransformWithExpr`            | ::= | `ArrowExpr ("transform" "with" "{" Expr? "}")?` |           |
 
 ## B References
 
@@ -162,3 +190,10 @@ __XML Schema__
 *  W3C. *W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes*. W3C
    Recommendation 5 April 2012. See
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
+
+## C Vendor Extensions
+
+### C.1 BaseX Vendor Extensions
+The BaseX XQuery Processor supports the following vendor extensions described
+in this document:
+1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
