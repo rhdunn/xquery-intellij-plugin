@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
 
 import com.intellij.lang.HelpID
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase

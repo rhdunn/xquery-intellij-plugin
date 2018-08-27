@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class SaxonParserTest : ParserTestCase() {

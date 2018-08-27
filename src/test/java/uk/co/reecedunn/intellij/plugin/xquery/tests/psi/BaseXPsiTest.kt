@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXNonDeterministicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr

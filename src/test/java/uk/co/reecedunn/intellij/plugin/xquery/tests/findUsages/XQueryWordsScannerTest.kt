@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryWordsScanner
 
 class XQueryWordsScannerTest {

@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FOCA0002
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001

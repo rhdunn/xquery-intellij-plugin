@@ -17,9 +17,9 @@ package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
 import org.apache.xmlbeans.impl.common.IOUtil
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import java.io.IOException

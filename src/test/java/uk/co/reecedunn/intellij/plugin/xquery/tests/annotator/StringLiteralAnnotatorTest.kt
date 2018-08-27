@@ -20,8 +20,8 @@ import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.markup.TextAttributes
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.StringLiteralAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 

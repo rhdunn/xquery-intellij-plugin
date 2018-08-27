@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 import com.intellij.lexer.Lexer
 import com.intellij.psi.tree.IElementType
 
-import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 abstract class LexerTestCase {
     protected fun matchToken(lexer: Lexer, text: String, state: Int, start: Int, end: Int, type: IElementType?) {

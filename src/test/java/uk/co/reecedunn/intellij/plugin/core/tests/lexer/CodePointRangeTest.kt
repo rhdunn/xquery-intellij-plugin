@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 class CodePointRangeTest {
     @Test

@@ -17,9 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
 
 import com.intellij.util.xmlb.XmlSerializer
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
 import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C
