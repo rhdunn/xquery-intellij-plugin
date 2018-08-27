@@ -62,6 +62,37 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region BaseX 8.4 :: NonDeterministicFunctionCall
+
+    @Test
+    fun testNonDeterministicFunctionCall() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNonDeterministicFunctionCall_CompactWhitespace() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNonDeterministicFunctionCall_MissingVariableIndicator() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNonDeterministicFunctionCall_MissingArgumentList() {
+        val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.txt")
+        val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region BaseX 8.5 :: UpdateExpr
 
     @Test

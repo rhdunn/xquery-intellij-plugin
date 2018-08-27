@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.basex
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
 
 /**
  * A BaseX 8.4 `NonDeterministicFunctionCall` node in the XQuery AST.
  */
-interface BaseXNonDeterministicFunctionCall : PsiElement
+interface PluginNonDeterministicFunctionCall : PsiElement

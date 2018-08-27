@@ -30,7 +30,7 @@ XQueryModuleImpl[FILE(0:55)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(23:29)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   XPathOrExprImpl[XQUERY_OR_EXPR(30:55)]
-                     BaseXNonDeterministicFunctionCallImpl[NON_DETERMINISTIC_FUNCTION_CALL(30:55)]
+                     PluginNonDeterministicFunctionCallImpl[NON_DETERMINISTIC_FUNCTION_CALL(30:55)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(30:47)]('non-deterministic')
                         PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                         XPathVarRefImpl[XQUERY_VAR_REF(48:52)]

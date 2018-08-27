@@ -13,6 +13,7 @@
   - [3.6 Full Text Selections](#36-full-text-selections)
     - [3.6.1 Match Options](#361-match-options)
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
+  - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -48,6 +49,13 @@ not normative.
 *  `err = http://www.w3.org/2005/xqt-errors`
 
 ## 3 Expressions
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
+
+The `NonDeterministicFunctionCall` is a new expression that is supported by
+BaseX 8.4.
 
 ### 3.1 Node Constructors
 
@@ -190,6 +198,20 @@ Levenshtein distance algorithm.\]
 
 This is a BaseX Full Text extension.
 
+### 3.7 Non-Deterministic Function Calls
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[16\] | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |         |
+
+\[Definition: A *non-deterministic* function call is a function that has side
+effects.\] This is used to disable various query optimizations that would be
+applied if the function call is deterministic.
+
+This is a BaseX 8.4 extension to help the query compiler identify
+non-deterministic function calls, where the non-deterministic property cannot
+be determined statically.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -254,6 +276,8 @@ These changes include support for:
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
+| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
+| \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 
 ## B References
 
@@ -288,6 +312,8 @@ __XML Schema__
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
 
 ### B.2 BaseX References
+*  BaseX. *XQuery Extensions: Non-determinism*. See
+   [http://docs.basex.org/wiki/XQuery_Extensions#Non-determinism](). 
 *  BaseX. *Full-Text: Fuzzy Querying*. See
    [http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying]().
 *  BaseX. *Updates: update*. See [http://docs.basex.org/wiki/Updates#update]().
@@ -300,3 +326,4 @@ in this document:
 1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
 1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
+1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]

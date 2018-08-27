@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXNonDeterministicFunctionCall
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNonDeterministicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class BaseXNonDeterministicFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), BaseXNonDeterministicFunctionCall, XQueryConformance {
+class PluginNonDeterministicFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginNonDeterministicFunctionCall, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(BaseX.VERSION_8_4)
 
     override val conformanceElement get(): PsiElement = firstChild
