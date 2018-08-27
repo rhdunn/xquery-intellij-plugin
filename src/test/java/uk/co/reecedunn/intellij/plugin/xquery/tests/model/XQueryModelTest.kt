@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -509,7 +509,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testBlockVarDeclEntry_NCName() {
-        val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
+        val expr = parse<PluginBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -531,7 +531,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testBlockVarDeclEntry_QName() {
-        val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
+        val expr = parse<PluginBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -555,7 +555,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testBlockVarDeclEntry_URIQualifiedName() {
-        val expr = parse<ScriptingBlockVarDeclEntry>(
+        val expr = parse<PluginBlockVarDeclEntry>(
                 "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
@@ -580,7 +580,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testBlockVarDeclEntry_MissingVarName() {
-        val expr = parse<ScriptingBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
+        val expr = parse<PluginBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
         assertThat(expr.variableType, `is`(nullValue()))
@@ -591,7 +591,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testBlockVarDeclEntry_Multiple_NCName() {
-        val decls = parse<ScriptingBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
+        val decls = parse<PluginBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
         assertThat(decls.size, `is`(2))
 
         val expr = decls[1] as XPathVariableDeclaration

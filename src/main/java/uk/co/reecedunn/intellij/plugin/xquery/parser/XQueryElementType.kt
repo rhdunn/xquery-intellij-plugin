@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDirAttributePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDefaultCaseClausePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginBlockVarDeclEntryPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTypeDeclImpl
@@ -368,7 +369,7 @@ object XQueryElementType {
 
     val BLOCK_DECLS: IElementType = ICompositeElementType("XQUERY_BLOCK_DECLS", ScriptingBlockDeclsPsiImpl::class.java, XQuery)
     val BLOCK_VAR_DECL: IElementType = ICompositeElementType("XQUERY_BLOCK_VAR_DECL", ScriptingBlockVarDeclPsiImpl::class.java, XQuery)
-    val BLOCK_VAR_DECL_ENTRY: IElementType = ICompositeElementType("XQUERY_BLOCK_VAR_DECL_ENTRY", ScriptingBlockVarDeclEntryPsiImpl::class.java, XQuery)
+    val BLOCK_VAR_DECL_ENTRY: IElementType = ICompositeElementType("XQUERY_BLOCK_VAR_DECL_ENTRY", PluginBlockVarDeclEntryPsiImpl::class.java, XQuery)
 
     val BLOCK_EXPR: IElementType = ICompositeElementType("XQUERY_BLOCK_EXPR", ScriptingBlockExprPsiImpl::class.java, XQuery)
     val ASSIGNMENT_EXPR: IElementType = ICompositeElementType("XQUERY_ASSIGNMENT_EXPR", ScriptingAssignmentExprPsiImpl::class.java, XQuery)

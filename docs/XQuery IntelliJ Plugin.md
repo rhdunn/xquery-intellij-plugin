@@ -8,6 +8,7 @@
   - [3.3 Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
     - [3.3.1 Typeswitch](#331-typeswitch)
     - [3.3.2 Cast](#332-cast)
+  - [3.4 Block Expressions](#34-block-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -100,6 +101,16 @@ like in the following example:
     <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
     (: returns: <test>ipsum</test> :)
 
+### 3.4 Block Expressions
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[9\]  | `BlockVarDecl`          | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
+| \[10\] | `BlockVarDeclEntry`     | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
+
+This follows the grammar production pattern used in other constructs like
+`LetClause` and `ForClause`, making it easier to support variable declarations.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -158,6 +169,8 @@ These changes include support for:
 | \[6\]    | `DefaultCaseClause`            | ::= | `"default" ("$" VarName)? "return" ExprSingle` |            |
 | \[7\]    | `CastExpr`                     | ::= | `TransformWithExpr ( "cast" "as" SingleType )?` |           |
 | \[8\]    | `TransformWithExpr`            | ::= | `ArrowExpr ("transform" "with" "{" Expr? "}")?` |           |
+| \[9\]    | `BlockVarDecl`                 | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
+| \[10\]   | `BlockVarDeclEntry`            | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
 
 ## B References
 

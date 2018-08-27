@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
@@ -159,7 +159,7 @@ private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<X
         context.visitedBlockVarDecl = false
         emptySequence()
     } else {
-        return children().filterIsInstance<ScriptingBlockVarDeclEntry>().flatMap { entry ->
+        return children().filterIsInstance<PluginBlockVarDeclEntry>().flatMap { entry ->
             entry.blockVarDeclEntry(context)
         }
     }
@@ -211,7 +211,7 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
                 is PluginQuantifiedExprBinding -> {
                     context.visitedQuantifiedBinding = true
                 }
-                is ScriptingBlockVarDeclEntry -> {
+                is PluginBlockVarDeclEntry -> {
                     context.visitedBlockVarDeclEntry = true
                     context.visitedBlockVarDecl = true
                     context.visitedBlockDecls = true
@@ -234,7 +234,7 @@ fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
             emptySequence()
         }
         is XPathParamList -> node.children().filterIsInstance<XPathVariableBinding>()
-        is ScriptingBlockVarDeclEntry -> node.blockVarDeclEntry(context)
+        is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
         is ScriptingBlockVarDecl -> node.blockVarDecl(context)
         is ScriptingBlockDecls -> node.blockDecls(context)
         else -> emptySequence()

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
-class ScriptingBlockVarDeclEntryPsiImpl(node: ASTNode):
+class PluginBlockVarDeclEntryPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
-        ScriptingBlockVarDeclEntry,
+    PluginBlockVarDeclEntry,
         XPathVariableDeclaration {
 
     private val varName get(): XPathVariableName? =
