@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.tree.IElementType
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -49,7 +49,7 @@ private class SaxonPsiTest : ParserTestCase() {
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
 
-        assertThat(conformance.conformanceElement, `is`(CoreMatchers.notNullValue()))
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_TUPLE))
     }
@@ -67,7 +67,7 @@ private class SaxonPsiTest : ParserTestCase() {
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
 
-        assertThat(conformance.conformanceElement, `is`(CoreMatchers.notNullValue()))
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_TYPE))
     }
@@ -85,7 +85,7 @@ private class SaxonPsiTest : ParserTestCase() {
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
 
-        assertThat(conformance.conformanceElement, `is`(CoreMatchers.notNullValue()))
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_UNION))
     }
