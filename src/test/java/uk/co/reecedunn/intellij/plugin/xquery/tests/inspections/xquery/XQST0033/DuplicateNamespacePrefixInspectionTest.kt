@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,16 @@ import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = DuplicateNamespacePrefixInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -36,6 +39,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     // endregion
     // region XQuery 1.0
 
+    @Test
     fun testNoDuplicates() {
         val file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq")
 
@@ -44,6 +48,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testModuleDecl_ModuleImport() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq")
 
@@ -57,6 +62,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("test"))
     }
 
+    @Test
     fun testModuleDecl_NoUri() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-no-uri.xq")
 
@@ -65,6 +71,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testModuleImport_NamespaceDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq")
 
@@ -78,6 +85,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("one"))
     }
 
+    @Test
     fun testNamespaceDecl_SchemaImport() {
         val file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq")
 
@@ -91,6 +99,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("one"))
     }
 
+    @Test
     fun testSchemaImport_ModuleImport() {
         val file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq")
 
@@ -107,6 +116,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
     // endregion
     // region MarkLogic 6.0
 
+    @Test
     fun testOtherTransaction_NoDuplicates() {
         val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq")
 
@@ -115,6 +125,7 @@ class DuplicateNamespacePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testOtherTransaction_Duplicates() {
         val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq")
 

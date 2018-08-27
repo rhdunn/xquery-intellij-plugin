@@ -20,6 +20,7 @@ import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.PsiReference
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -28,9 +29,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class XQueryReferenceTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class XQueryReferenceTest : ParserTestCase() {
     // region PsiNameIdentifierOwner
 
+    @Test
     fun testPsiNameIdentifierOwner_NCName() {
         val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
 
@@ -41,6 +44,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(name.nameIdentifier?.text, `is`("test"))
     }
 
+    @Test
     fun testPsiNameIdentifierOwner_QName() {
         val name = parse<XPathQName>("(: :) a:test")[0] as PsiNameIdentifierOwner
 
@@ -51,6 +55,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(name.nameIdentifier?.text, `is`("test"))
     }
 
+    @Test
     fun testPsiNameIdentifierOwner_URIQualifiedName() {
         val name = parse<XPathURIQualifiedName>("(: :) Q{http://www.example.com}test")[0] as PsiNameIdentifierOwner
 
@@ -65,6 +70,7 @@ class XQueryReferenceTest : ParserTestCase() {
     // region Files
     // region URILiteral
 
+    @Test
     fun testURILiteral_HttpUri() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
 
@@ -84,6 +90,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat<PsiElement>(resolved, `is`(nullValue()))
     }
 
+    @Test
     fun testURILiteral_SameDirectory() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
 
@@ -105,6 +112,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved!!.containingFile.name, `is`("test.xq"))
     }
 
+    @Test
     fun testURILiteral_ParentDirectory() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
 
@@ -126,6 +134,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved!!.containingFile.name, `is`("ModuleDecl.xq"))
     }
 
+    @Test
     fun testURILiteral_BuiltinResource() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
 
@@ -147,6 +156,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved!!.containingFile.name, `is`("array.xqy"))
     }
 
+    @Test
     fun testURILiteral_BuiltinResource_NotFound() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")
 
@@ -166,6 +176,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat<PsiElement>(resolved, `is`(nullValue()))
     }
 
+    @Test
     fun testURILiteral_Empty() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
 
@@ -190,6 +201,7 @@ class XQueryReferenceTest : ParserTestCase() {
     // region Namespaces
     // region QName
 
+    @Test
     fun testQName() {
         val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")
 
@@ -230,6 +242,7 @@ class XQueryReferenceTest : ParserTestCase() {
     // endregion
     // region EQName
 
+    @Test
     fun testEQName_NCName() {
         val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithNCNameReturnType.xq")
 
@@ -243,6 +256,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs.size, `is`(0))
     }
 
+    @Test
     fun testEQName_QName() {
         val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithQNameReturnType.xq")
 
@@ -274,6 +288,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
     }
 
+    @Test
     fun testEQName_URIQualifiedName() {
         val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
 
@@ -291,6 +306,7 @@ class XQueryReferenceTest : ParserTestCase() {
     // endregion
     // region Variables
 
+    @Test
     fun testForBinding() {
         val file = parseResource("tests/parser/xquery-1.0/ForClause.xq")
 
@@ -326,6 +342,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(varQNamePsi))
     }
 
+    @Test
     fun testIntermediateClause() {
         val file = parseResource("tests/resolve/variables/IntermediateClause_ReturnInnerForVariable.xq")
 
@@ -362,6 +379,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(varQNamePsi))
     }
 
+    @Test
     fun testLetBinding() {
         val file = parseResource("tests/parser/xquery-1.0/LetClause.xq")
 
@@ -397,6 +415,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(varQNamePsi))
     }
 
+    @Test
     fun testParam() {
         val file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq")
 
@@ -432,6 +451,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(paramNamePsi))
     }
 
+    @Test
     fun testPositionalVar() {
         val file = parseResource("tests/resolve/variables/PositionalVar_ReturnThePosition.xq")
 
@@ -468,6 +488,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(varQNamePsi))
     }
 
+    @Test
     fun testSlidingWindowClause() {
         val file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq")
 
@@ -503,6 +524,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(varQNamePsi))
     }
 
+    @Test
     fun testTumblingWindowClause() {
         val file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
 
@@ -538,6 +560,7 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved, `is`<PsiElement>(varQNamePsi))
     }
 
+    @Test
     fun testVarDecl() {
         val file = parseResource("tests/resolve/variables/VarDecl_VarRef_NCName.xq")
 

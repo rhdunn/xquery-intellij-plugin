@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
-class UpdateFacilityParserTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class UpdateFacilityParserTest : ParserTestCase() {
     // region Update Facility 1.0 :: FunctionDecl
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
     fun testFunctionDecl_Updating() {
         val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt")
@@ -29,6 +32,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
     fun testFunctionDecl_Updating_EnclosedExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
@@ -36,6 +40,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
     fun testFunctionDecl_Updating_MissingFunctionKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt")
@@ -46,6 +51,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: RevalidationDecl
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl.txt")
@@ -53,6 +59,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_CompactWhitespace.txt")
@@ -60,6 +67,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl_MissingRevalidationMode() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationMode.txt")
@@ -67,6 +75,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl_MissingRevalidationKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationKeyword.txt")
@@ -74,6 +83,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl_MissingSemicolon() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingSemicolon.txt")
@@ -81,6 +91,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl_PrologBodyStatementsBefore() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_PrologBodyStatementsBefore.txt")
@@ -88,6 +99,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl_PrologBodyStatementsAfter() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_PrologBodyStatementsAfter.txt")
@@ -98,6 +110,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: InsertExprTargetChoice
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_Into() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Node.txt")
@@ -105,6 +118,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_First() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_First.txt")
@@ -112,6 +126,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_Last() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_Last.txt")
@@ -119,6 +134,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_FirstLast_MissingAsKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingAsKeyword.txt")
@@ -126,6 +142,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_FirstLast_MissingFirstLastKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingFirstLastKeyword.txt")
@@ -133,6 +150,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_FirstLast_MissingIntoKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingIntoKeyword.txt")
@@ -140,6 +158,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_Before() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_Before.txt")
@@ -147,6 +166,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice_After() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_After.txt")
@@ -157,6 +177,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: InsertExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_Node() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Node.txt")
@@ -164,6 +185,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_Node_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Node_CompactWhitespace.txt")
@@ -171,6 +193,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_Nodes() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Nodes.txt")
@@ -178,6 +201,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_Nodes_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Nodes_CompactWhitespace.txt")
@@ -185,6 +209,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_MissingSourceExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_MissingSourceExpr.txt")
@@ -192,6 +217,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_MissingInsertExprTargetChoice() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_MissingInsertExprTargetChoice.txt")
@@ -199,6 +225,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr_MissingTargetExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_MissingTargetExpr.txt")
@@ -209,6 +236,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: DeleteExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
     fun testDeleteExpr_Node() {
         val expected = loadResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.txt")
@@ -216,6 +244,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
     fun testDeleteExpr_Nodes() {
         val expected = loadResource("tests/parser/xquery-update-1.0/DeleteExpr_Nodes.txt")
@@ -223,6 +252,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
     fun testDeleteExpr_MissingTargetExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/DeleteExpr_MissingTargetExpr.txt")
@@ -233,6 +263,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: ReplaceExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr.txt")
@@ -240,6 +271,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr_MissingTargetExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingTargetExpr.txt")
@@ -247,6 +279,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr_MissingWithKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingWithKeyword.txt")
@@ -254,6 +287,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr_MissingReplaceExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingReplaceExpr.txt")
@@ -261,6 +295,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr_ValueOf() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf.txt")
@@ -268,6 +303,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr_ValueOf_MissingNodeKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_MissingNodeKeyword.txt")
@@ -275,6 +311,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr_ValueOf_MissingOfKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_MissingOfKeyword.txt")
@@ -285,6 +322,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: RenameExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     fun testRenameExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr.txt")
@@ -292,6 +330,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     fun testRenameExpr_MissingTargetExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr_MissingTargetExpr.txt")
@@ -299,6 +338,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     fun testRenameExpr_MissingAsKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr_MissingAsKeyword.txt")
@@ -306,6 +346,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     fun testRenameExpr_MissingNewNameExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr_MissingNewNameExpr.txt")
@@ -316,6 +357,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 1.0 :: TransformExpr (CopyModifyExpr)
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr.txt")
@@ -323,6 +365,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_CompactWhitespace.txt")
@@ -330,6 +373,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_Equal() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_Equal.txt")
@@ -337,6 +381,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingVarName() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarName.txt")
@@ -344,6 +389,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingVarAssignOperator() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarAssignOperator.txt")
@@ -351,6 +397,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingVarAssignExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarAssignExpr.txt")
@@ -358,6 +405,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingModifyKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingModifyKeyword.txt")
@@ -365,6 +413,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingModifyExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingModifyExpr.txt")
@@ -372,6 +421,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingReturnKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingReturnKeyword.txt")
@@ -379,6 +429,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MissingReturnExpr() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingReturnExpr.txt")
@@ -386,6 +437,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MultipleVarName() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName.txt")
@@ -393,6 +445,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MultipleVarName_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.txt")
@@ -400,6 +453,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr_MultipleVarName_MissingVarIndicator() {
         val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.txt")
@@ -407,6 +461,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VarName")
     fun testTransformExpr_EQName() {
@@ -418,6 +473,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 3.0 :: CompatibilityAnnotation
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     fun testCompatibilityAnnotation_FunctionDecl() {
         val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt")
@@ -425,6 +481,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     fun testCompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword() {
         val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt")
@@ -432,6 +489,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     fun testCompatibilityAnnotation_VarDecl() {
         val expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.txt")
@@ -439,6 +497,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     fun testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
         val expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt")
@@ -449,6 +508,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 3.0 :: TransformWithExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr() {
         val expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr.txt")
@@ -456,6 +516,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_CompactWhitespace.txt")
@@ -463,6 +524,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr_MissingWithKeyword() {
         val expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingWithKeyword.txt")
@@ -470,6 +532,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr_MissingOpeningBrace() {
         val expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingOpeningBrace.txt")
@@ -477,6 +540,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr_MissingExpr() {
         val expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingExpr.txt")
@@ -484,6 +548,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr_MissingClosingBrace() {
         val expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingClosingBrace.txt")
@@ -494,6 +559,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 3.0 :: UpdatingFunctionCall
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.txt")
@@ -501,6 +567,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_CompactWhitespace.txt")
@@ -508,6 +575,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_MissingUpdatingKeyword() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingUpdatingKeyword.txt")
@@ -515,6 +583,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_MissingOpeningParenthesis() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingOpeningParenthesis.txt")
@@ -522,6 +591,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_MissingPrimaryExpr() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingPrimaryExpr.txt")
@@ -529,6 +599,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_MissingClosingParenthesis() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingClosingParenthesis.txt")
@@ -536,6 +607,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_Arguments_Single() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Single.txt")
@@ -543,6 +615,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_Arguments_Multiple() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Multiple.txt")
@@ -550,6 +623,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall_Arguments_Multiple_CompactWhitespace() {
         val expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Multiple_CompactWhitespace.txt")
@@ -560,6 +634,7 @@ class UpdateFacilityParserTest : ParserTestCase() {
     // endregion
     // region Update Facility 3.1 :: TransformWithExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun TransformWithExpr_ArrowExpr() {
         val expected = loadResource("tests/parser/xquery-update-3.1/TransformWithExpr_ArrowExpr.txt")

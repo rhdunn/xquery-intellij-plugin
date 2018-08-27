@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003
 import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
@@ -2169,9 +2170,11 @@ private val HTML5_ENTITIES = listOf("\"",
 
 // endregion
 
-class PredefinedEntityRefInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class PredefinedEntityRefInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = PredefinedEntityRefInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -2216,22 +2219,27 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
         }
     }
 
+    @Test
     fun testXMLEntities_XQuery_0_9_ML() {
         checkSupportedEntities(XQuery.MARKLOGIC_0_9, XML_ENTITIES)
     }
 
+    @Test
     fun testXMLEntities_XQuery_1_0() {
         checkSupportedEntities(XQuery.REC_1_0_20070123, XML_ENTITIES)
     }
 
+    @Test
     fun testXMLEntities_XQuery_1_0_ML() {
         checkSupportedEntities(XQuery.MARKLOGIC_1_0, XML_ENTITIES)
     }
 
+    @Test
     fun testXMLEntities_XQuery_3_0() {
         checkSupportedEntities(XQuery.REC_3_0_20140408, XML_ENTITIES)
     }
 
+    @Test
     fun testXMLEntities_XQuery_3_1() {
         checkSupportedEntities(XQuery.REC_3_1_20170321, XML_ENTITIES)
     }
@@ -2239,6 +2247,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
     // endregion
     // region HTML 4 Entities
 
+    @Test
     @Specification(name = "HTML Latin 1 DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name = "HTML Symbols DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name = "HTML Special DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
@@ -2246,6 +2255,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
         checkSupportedEntities(XQuery.MARKLOGIC_0_9, HTML4_ENTITIES)
     }
 
+    @Test
     @Specification(name = "HTML Latin 1 DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name = "HTML Symbols DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name = "HTML Special DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
@@ -2253,6 +2263,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
         checkUnsupportedEntities(XQuery.REC_1_0_20070123, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.")
     }
 
+    @Test
     @Specification(name = "HTML Latin 1 DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name = "HTML Symbols DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name = "HTML Special DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
@@ -2260,6 +2271,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
         checkSupportedEntities(XQuery.MARKLOGIC_1_0, HTML4_ENTITIES)
     }
 
+    @Test
     @Specification(name = "HTML Latin 1 DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name = "HTML Symbols DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name = "HTML Special DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
@@ -2267,6 +2279,7 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
         checkUnsupportedEntities(XQuery.REC_3_0_20140408, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.")
     }
 
+    @Test
     @Specification(name = "HTML Latin 1 DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name = "HTML Symbols DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name = "HTML Special DTD", reference = "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
@@ -2277,26 +2290,31 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
     // endregion
     // region HTML 5 Entities
 
+    @Test
     @Specification(name = "HTML 5", reference = "https://www.w3.org/TR/html5/syntax.html#named-character-references")
     fun testHTML5Entities_XQuery_0_9_ML() {
         checkSupportedEntities(XQuery.MARKLOGIC_0_9, HTML5_ENTITIES)
     }
 
+    @Test
     @Specification(name = "HTML 5", reference = "https://www.w3.org/TR/html5/syntax.html#named-character-references")
     fun testHTML5Entities_XQuery_1_0() {
         checkUnsupportedEntities(XQuery.REC_1_0_20070123, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.")
     }
 
+    @Test
     @Specification(name = "HTML 5", reference = "https://www.w3.org/TR/html5/syntax.html#named-character-references")
     fun testHTML5Entities_XQuery_1_0_ML() {
         checkSupportedEntities(XQuery.MARKLOGIC_1_0, HTML5_ENTITIES)
     }
 
+    @Test
     @Specification(name = "HTML 5", reference = "https://www.w3.org/TR/html5/syntax.html#named-character-references")
     fun testHTML5Entities_XQuery_3_0() {
         checkUnsupportedEntities(XQuery.REC_3_0_20140408, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.")
     }
 
+    @Test
     @Specification(name = "HTML 5", reference = "https://www.w3.org/TR/html5/syntax.html#named-character-references")
     fun testHTML5Entities_XQuery_3_1() {
         checkUnsupportedEntities(XQuery.REC_3_1_20170321, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.")
@@ -2305,22 +2323,27 @@ class PredefinedEntityRefInspectionTest : InspectionTestCase() {
     // endregion
     // region Unknown Entities
 
+    @Test
     fun testUnknownEntities_XQuery_0_9_ML() {
         checkUnsupportedEntities(XQuery.MARKLOGIC_0_9, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR)
     }
 
+    @Test
     fun testUnknownEntities_XQuery_1_0() {
         checkUnsupportedEntities(XQuery.REC_1_0_20070123, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR)
     }
 
+    @Test
     fun testUnknownEntities_XQuery_1_0_ML() {
         checkUnsupportedEntities(XQuery.MARKLOGIC_1_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR)
     }
 
+    @Test
     fun testUnknownEntities_XQuery_3_0() {
         checkUnsupportedEntities(XQuery.REC_3_0_20140408, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR)
     }
 
+    @Test
     fun testUnknownEntities_XQuery_3_1() {
         checkUnsupportedEntities(XQuery.REC_3_1_20170321, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR)
     }

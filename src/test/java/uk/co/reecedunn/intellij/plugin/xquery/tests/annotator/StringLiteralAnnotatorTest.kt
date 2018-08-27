@@ -21,18 +21,22 @@ import com.intellij.openapi.editor.markup.TextAttributes
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.StringLiteralAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 
-class StringLiteralAnnotatorTest : AnnotatorTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class StringLiteralAnnotatorTest : AnnotatorTestCase() {
     // region PITest
 
+    @Test
     fun testPITest_NCName() {
         val file = parseText("processing-instruction(xml-stylesheet)")
         val annotations = annotateTree(file, StringLiteralAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
+    @Test
     fun testPITest_StringLiteral_NCName() {
         val file = parseText("processing-instruction(\"xml-stylesheet\")")
         val annotations = annotateTree(file, StringLiteralAnnotator())
@@ -53,6 +57,7 @@ class StringLiteralAnnotatorTest : AnnotatorTestCase() {
         assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
     }
 
+    @Test
     fun testPITest_StringLiteral_NCName_WithWhitespace() {
         val file = parseText("processing-instruction(\" \t xml-stylesheet\t  \")")
         val annotations = annotateTree(file, StringLiteralAnnotator())
@@ -73,6 +78,7 @@ class StringLiteralAnnotatorTest : AnnotatorTestCase() {
         assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
     }
 
+    @Test
     fun testPITest_StringLiteral_NCName_InvalidCharacter() {
         val file = parseText("processing-instruction(\"xml~stylesheet\")")
         val annotations = annotateTree(file, StringLiteralAnnotator())

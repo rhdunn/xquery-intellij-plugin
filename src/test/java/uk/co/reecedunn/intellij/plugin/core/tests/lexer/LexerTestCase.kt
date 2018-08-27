@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,11 @@ package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import com.intellij.lexer.Lexer
 import com.intellij.psi.tree.IElementType
-import junit.framework.TestCase
 
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 
-abstract class LexerTestCase : TestCase() {
-    // region Lexer Test Helpers
-
+abstract class LexerTestCase {
     protected fun matchToken(lexer: Lexer, text: String, state: Int, start: Int, end: Int, type: IElementType?) {
         assertThat(lexer.tokenText, `is`(text))
         assertThat(lexer.state, `is`(state))
@@ -50,6 +47,4 @@ abstract class LexerTestCase : TestCase() {
     protected fun matchSingleToken(lexer: Lexer, text: String, type: IElementType) {
         matchSingleToken(lexer, text, 0, type)
     }
-
-    // endregion
 }

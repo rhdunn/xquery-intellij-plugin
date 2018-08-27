@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,17 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.UnsupportedConstructInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class UnsupportedConstructInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = UnsupportedConstructInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -38,6 +41,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // endregion
     // region XQuery Conformance
 
+    @Test
     fun testXQuery30VersionDeclInXQuery10() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
@@ -47,6 +51,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testXQuery30VersionDecl() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
@@ -59,6 +64,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // endregion
     // region Update Facility Conformance
 
+    @Test
     fun testUpdateFacility10_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         settings.implementationVersion = "w3c/spec/v1ed"
@@ -70,6 +76,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testUpdateFacility10_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         settings.implementationVersion = "marklogic/v7.0"
@@ -85,6 +92,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_DELETE as IElementType))
     }
 
+    @Test
     fun testUpdateFacility30_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         settings.implementationVersion = "w3c/spec/v1ed"
@@ -96,6 +104,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testUpdateFacility30_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         settings.implementationVersion = "saxon/EE/v9.5" // Supports Update Facility 1.0, not 3.0
@@ -111,6 +120,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_INVOKE as IElementType))
     }
 
+    @Test
     fun testUpdateFacilityBaseX_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         settings.implementationVersion = "basex/v8.6"
@@ -122,6 +132,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testUpdateFacilityBaseX_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         settings.implementationVersion = "saxon/EE/v9.5" // Supports Update Facility 1.0, not 3.0
@@ -140,6 +151,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // endregion
     // region Scripting Conformance
 
+    @Test
     fun testScripting10_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         settings.implementationVersion = "w3c/spec/v1ed"
@@ -151,6 +163,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testScripting10_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         settings.implementationVersion = "marklogic/v7.0"
@@ -169,6 +182,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // endregion
     // region BaseX Conformance
 
+    @Test
     fun testBaseX_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         settings.implementationVersion = "basex/v8.5"
@@ -180,6 +194,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testBaseX_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.REC_1_0_20070123.label
         settings.implementationVersion = "marklogic/v7.0"
@@ -202,6 +217,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
     // endregion
     // region MarkLogic Conformance
 
+    @Test
     fun testMarkLogic09ml_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.MARKLOGIC_0_9.label
         settings.implementationVersion = "marklogic/v7.0"
@@ -213,6 +229,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testMarkLogic09ml_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.MARKLOGIC_0_9.label
         settings.implementationVersion = "saxon/EE/v9.5"
@@ -228,6 +245,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BINARY as IElementType))
     }
 
+    @Test
     fun testMarkLogic10ml_ProductConformsToSpecification() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         settings.implementationVersion = "marklogic/v7.0"
@@ -239,6 +257,7 @@ class UnsupportedConstructInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testMarkLogic10ml_ProductDoesNotConformToSpecification() {
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
         settings.implementationVersion = "saxon/EE/v9.5"

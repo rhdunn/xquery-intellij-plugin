@@ -16,24 +16,46 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
 
 import com.intellij.ide.ui.UISettings
+import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class XQueryProjectSettingsConfigurableTest : ParserTestCase() {
-    @Throws(Exception::class)
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
+    @BeforeAll
     override fun setUp() {
         super.setUp()
+
+        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         registerApplicationService(UISettings::class.java, UISettings())
+
+        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
     }
 
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
+    @Test
     fun testDisplayName() {
         val configurable = XQueryProjectSettingsConfigurable(myProject)
         assertThat(configurable.displayName, `is`("XQuery"))
     }
 
+    @Test
     fun testHelpTopic() {
         val configurable = XQueryProjectSettingsConfigurable(myProject)
         assertThat(configurable.helpTopic, `is`(nullValue()))

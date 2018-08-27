@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
@@ -30,10 +31,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class UpdateFacilityPsiTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class UpdateFacilityPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region CompatibilityAnnotation
 
+    @Test
     fun testCompatibilityAnnotation_FunctionDecl() {
         val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
@@ -49,6 +52,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_UPDATING))
     }
 
+    @Test
     fun testCompatibilityAnnotation_VarDecl() {
         val file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq")
 
@@ -67,6 +71,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region DeleteExpr
 
+    @Test
     fun testDeleteExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
 
@@ -84,6 +89,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region FunctionDecl
 
+    @Test
     fun testFunctionDecl_Updating() {
         val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
@@ -102,6 +108,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region InsertExpr
 
+    @Test
     fun testInsertExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq")
 
@@ -119,6 +126,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region RenameExpr
 
+    @Test
     fun testRenameExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq")
 
@@ -136,6 +144,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region ReplaceExpr
 
+    @Test
     fun testReplaceExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq")
 
@@ -153,6 +162,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region RevalidationDecl
 
+    @Test
     fun testRevalidationDecl() {
         val file = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq")
 
@@ -170,6 +180,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region TransformExpr (CopyModifyExpr)
 
+    @Test
     fun testTransformExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq")
 
@@ -187,6 +198,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region TransformWithExpr
 
+    @Test
     fun testTransformWithExpr() {
         val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
 
@@ -205,6 +217,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
     // endregion
     // region UpdatingFunctionCall
 
+    @Test
     fun testUpdatingFunctionCall() {
         val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
 

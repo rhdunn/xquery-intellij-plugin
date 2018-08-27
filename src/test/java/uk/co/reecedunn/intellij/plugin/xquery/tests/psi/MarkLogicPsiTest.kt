@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -34,10 +35,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class MarkLogicPsiTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class MarkLogicPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region AnyKindTest
 
+    @Test
     fun testAnyKindTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
 
@@ -52,6 +55,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.STRING_LITERAL))
     }
 
+    @Test
     fun testAnyKindTest_Wildcard() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
 
@@ -69,6 +73,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region ArrayConstructor
 
+    @Test
     fun testArrayConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
 
@@ -86,6 +91,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region ArrayTest
 
+    @Test
     fun testArrayTest() {
         val file = parseResource("tests/parser/marklogic-8.0/ArrayTest.xq")
 
@@ -103,6 +109,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region AttributeDeclTest
 
+    @Test
     fun testAttributeDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
 
@@ -120,6 +127,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region BinaryConstructor
 
+    @Test
     fun testBinaryConstructor() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
@@ -138,6 +146,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region BinaryTest
 
+    @Test
     fun testBinaryTest() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
 
@@ -156,6 +165,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region BooleanConstructor
 
+    @Test
     fun testBooleanConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
 
@@ -173,6 +183,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region BooleanTest
 
+    @Test
     fun testBooleanTest() {
         val file = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq")
 
@@ -190,6 +201,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region CatchClause
 
+    @Test
     fun testCatchClause() {
         val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
 
@@ -208,6 +220,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region CompatibilityAnnotation
 
+    @Test
     fun testCompatibilityAnnotation_FunctionDecl() {
         val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
 
@@ -223,6 +236,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_PRIVATE))
     }
 
+    @Test
     fun testCompatibilityAnnotation_VarDecl() {
         val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
 
@@ -241,6 +255,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region ComplexTypeTest
 
+    @Test
     fun testComplexTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
 
@@ -258,6 +273,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region ElementDeclTest
 
+    @Test
     fun testElementDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
 
@@ -275,6 +291,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CatchClause)
 
+    @Test
     fun testEnclosedExpr_CatchClause() {
         val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
 
@@ -290,6 +307,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CatchClause_NoExpr() {
         val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
 
@@ -310,6 +328,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region ForwardAxis
 
+    @Test
     fun testForwardAxis_Namespace() {
         val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
 
@@ -324,6 +343,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_NAMESPACE))
     }
 
+    @Test
     fun testForwardAxis_Property() {
         val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
 
@@ -341,6 +361,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region MapConstructor
 
+    @Test
     fun testMapConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
 
@@ -358,6 +379,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region MapTest
 
+    @Test
     fun testMapTest() {
         val file = parseResource("tests/parser/marklogic-8.0/MapTest.xq")
 
@@ -375,6 +397,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region NullConstructor
 
+    @Test
     fun testNullConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
 
@@ -392,6 +415,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region NullTest
 
+    @Test
     fun testNullTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NullTest.xq")
 
@@ -409,6 +433,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region NumberConstructor
 
+    @Test
     fun testNumberConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
 
@@ -426,6 +451,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region NumberTest
 
+    @Test
     fun testNumberTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq")
 
@@ -443,6 +469,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region SchemaComponentTest
 
+    @Test
     fun testSchemaComponentTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
 
@@ -460,6 +487,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region SchemaFacetTest
 
+    @Test
     fun testSchemaFacetTest() {
         val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
 
@@ -477,6 +505,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region SchemaParticleTest
 
+    @Test
     fun testSchemaParticleTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
 
@@ -494,6 +523,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region SchemaRootTest
 
+    @Test
     fun testSchemaRootTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
@@ -511,6 +541,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region SchemaTypeTest
 
+    @Test
     fun testSchemaTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
 
@@ -528,6 +559,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region SimpleTypeTest
 
+    @Test
     fun testSimpleTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
 
@@ -545,6 +577,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region StylesheetImport
 
+    @Test
     fun testStylesheetImport() {
         val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
 
@@ -562,6 +595,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region TextTest
 
+    @Test
     fun testTextTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")
 
@@ -579,6 +613,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region Transactions + TransactionSeparator
 
+    @Test
     fun testTransactions_Single_NoSemicolon() {
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
@@ -588,6 +623,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         assertThat(transactionSeparatorPsi, `is`(nullValue()))
     }
 
+    @Test
     fun testTransactions_Single_Semicolon() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
@@ -602,6 +638,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
+    @Test
     fun testTransactions_Multiple_First() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
@@ -619,6 +656,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
+    @Test
     fun testTransactions_Multiple_Last() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
@@ -633,6 +671,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
+    @Test
     fun testTransactions_Multiple_NoSemicolonAtEnd_Last() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
@@ -647,6 +686,7 @@ class MarkLogicPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
+    @Test
     fun testTransactions_Multiple_WithProlog() {
         val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
@@ -665,6 +705,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region ValidateExpr
 
+    @Test
     fun testValidateExpr_ValidateAs() {
         val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
 
@@ -683,6 +724,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region XPathMapConstructorEntry
 
+    @Test
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
 

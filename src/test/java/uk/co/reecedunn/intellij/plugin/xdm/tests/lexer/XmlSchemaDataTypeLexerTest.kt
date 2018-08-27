@@ -19,6 +19,7 @@ import com.intellij.lexer.Lexer
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.lexer.STATE_NCNAME
 import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeLexer
@@ -29,6 +30,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
 
     // region Lexer :: Invalid State
 
+    @Test
     fun testInvalidState() {
         val lexer = createLexer()
 
@@ -39,6 +41,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
     // endregion
     // region NCName
 
+    @Test
     fun testNCName_EmptyBuffer() {
         val lexer = createLexer()
 
@@ -46,6 +49,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "", STATE_NCNAME, 0, 0, null)
     }
 
+    @Test
     fun testNCName_WhiteSpace() {
         val lexer = createLexer()
 
@@ -53,6 +57,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, " \t\r\n", STATE_NCNAME, 0, 4, XmlSchemaDataTypeTokenType.WHITE_SPACE)
     }
 
+    @Test
     fun testNCName_PredefinedEntityRef() {
         val lexer = createLexer()
 
@@ -90,6 +95,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "", STATE_NCNAME, 2, 2, null)
     }
 
+    @Test
     fun testNCName_CharRef_Octal() {
         val lexer = createLexer()
 
@@ -117,6 +123,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "", STATE_NCNAME, 3, 3, null)
     }
 
+    @Test
     fun testNCName_CharRef_Hexadecimal() {
         val lexer = createLexer()
 
@@ -155,6 +162,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "", 3, 22, 22, null)
     }
 
+    @Test
     fun testNCName_NCNames() {
         val lexer = createLexer()
 
@@ -173,6 +181,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "", STATE_NCNAME, 22, 22, null)
     }
 
+    @Test
     fun testNCName_NCNameContinuationAfterNamedOrCharRef() {
         val lexer = createLexer()
 
@@ -191,6 +200,7 @@ class XmlSchemaDataTypeLexerTest : LexerTestCase() {
         matchToken(lexer, "", STATE_NCNAME, 31, 31, null)
     }
 
+    @Test
     fun testNCName_InvalidCharacter() {
         val lexer = createLexer()
 

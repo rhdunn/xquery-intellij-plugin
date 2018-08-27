@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,18 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
 
 import com.intellij.util.xmlb.XmlSerializer
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.jdom.output.XMLOutputter
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-class XQueryProjectSettingsTest : TestCase() {
+class XQueryProjectSettingsTest {
+    @Test
     fun testDefaultValues() {
         val settings = XQueryProjectSettings()
         assertThat(settings.implementationVersion, `is`("w3c/spec/v1ed"))
@@ -39,11 +40,13 @@ class XQueryProjectSettingsTest : TestCase() {
         assertThat(settings.productVersion, `is`(W3C.FIRST_EDITION as Version))
     }
 
+    @Test
     fun testGetState() {
         val settings = XQueryProjectSettings()
         assertThat(settings.state, `is`(settings))
     }
 
+    @Test
     fun testLoadState() {
         val other = XQueryProjectSettings()
         other.implementationVersion = "marklogic/v6"
@@ -64,6 +67,7 @@ class XQueryProjectSettingsTest : TestCase() {
         assertThat(settings.productVersion, `is`(MarkLogic.VERSION_6_0))
     }
 
+    @Test
     fun testTransientProperties() {
         val settings = XQueryProjectSettings()
         settings.implementationVersion = "marklogic/v6"
@@ -78,6 +82,7 @@ class XQueryProjectSettingsTest : TestCase() {
         assertThat(settings.XQuery31Dialect, `is`("xquery"))
     }
 
+    @Test
     fun testDefaultXQueryDialectForUnsupportedXQueryVersions() {
         val settings = XQueryProjectSettings()
         settings.implementationVersion = "marklogic/v7"
@@ -91,6 +96,7 @@ class XQueryProjectSettingsTest : TestCase() {
         settings.XQuery31Dialect = "w3c/3.1"
     }
 
+    @Test
     fun testSerialization() {
         val settings = XQueryProjectSettings()
         val outputter = XMLOutputter()

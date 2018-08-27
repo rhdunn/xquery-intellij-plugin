@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 
 @Suppress("JoinDeclarationAndAssignment")
-class ModelTest : TestCase() {
+class ModelTest {
     // region Version :: Display Name (toString)
 
+    @Test
     fun testSpecification_DisplayName() {
         assertThat(XmlSchema.REC_1_0_20041028.toString(), `is`("XML Schema Definition 1.0"))
         assertThat(XmlSchema.REC_1_1_20120405.toString(), `is`("XML Schema Definition 1.1"))
@@ -41,6 +42,7 @@ class ModelTest : TestCase() {
         assertThat(UpdateFacility.REC_1_0_20110317.toString(), `is`("XQuery Update Facility 1.0"))
     }
 
+    @Test
     fun testProductVersion_DisplayName() {
         assertThat(BaseX.VERSION_8_5.toString(), `is`("BaseX 8.5"))
 
@@ -49,6 +51,7 @@ class ModelTest : TestCase() {
         assertThat(Saxon.VERSION_9_7.toString(), `is`("Saxon 9.7"))
     }
 
+    @Test
     fun testNamedVersion_DisplayName() {
         assertThat(W3C.FIRST_EDITION.toString(), `is`("W3C First Edition"))
     }
@@ -56,6 +59,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Versioned :: Supports Dialect
 
+    @Test
     fun testXmlSchema_SupportsDialect() {
         val versioned = XmlSchema
         assertThat(versioned.supportsDialect(XmlSchema), `is`(true))
@@ -71,6 +75,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testXQuery_SupportsDialect() {
         val versioned = XQuery
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -86,6 +91,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testFullText_SupportsDialect() {
         val versioned = FullText
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -101,6 +107,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testFunctionsAndOperators_SupportsDialect() {
         val versioned = FunctionsAndOperators
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -116,6 +123,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testScripting_SupportsDialect() {
         val versioned = Scripting
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -131,6 +139,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testUpdateFacility_SupportsDialect() {
         val versioned = UpdateFacility
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -146,6 +155,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testBaseX_SupportsDialect() {
         val versioned = BaseX
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -161,6 +171,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testMarkLogic_SupportsDialect() {
         val versioned = MarkLogic
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -176,6 +187,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testSaxon_SupportsDialect() {
         val versioned = Saxon
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -191,6 +203,7 @@ class ModelTest : TestCase() {
         assertThat(versioned.supportsDialect(W3C), `is`(false))
     }
 
+    @Test
     fun testW3C_SupportsDialect() {
         val versioned = W3C
         assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
@@ -209,6 +222,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Product :: Display Name (toString)
 
+    @Test
     fun testProduct_DisplayName() {
         assertThat(BaseX.BASEX.toString(), `is`("BaseX"))
         assertThat(MarkLogic.MARKLOGIC.toString(), `is`("MarkLogic"))
@@ -226,6 +240,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Product :: XQuery Conformance (Minimal Conformance; Optional Features)
 
+    @Test
     fun testBaseXProduct_OptionalFeatureSupport() {
         val product = BaseX.products[0]
         assertThat(product.id, `is`("basex"))
@@ -244,6 +259,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testMarkLogicProduct_OptionalFeatureSupport() {
         val product = MarkLogic.products[0]
         assertThat(product.id, `is`("marklogic"))
@@ -262,6 +278,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxonProduct_HE_OptionalFeatureSupport() {
         val product = Saxon.products[0]
         assertThat(product.id, `is`("HE"))
@@ -284,6 +301,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxonProduct_PE_OptionalFeatureSupport() {
         val product = Saxon.products[1]
         assertThat(product.id, `is`("PE"))
@@ -306,6 +324,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxonProduct_EE_OptionalFeatureSupport() {
         val product = Saxon.products[2]
         assertThat(product.id, `is`("EE"))
@@ -328,6 +347,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxonProduct_EE_T_OptionalFeatureSupport() {
         val product = Saxon.products[3]
         assertThat(product.id, `is`("EE-T"))
@@ -350,6 +370,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxonProduct_EE_Q_OptionalFeatureSupport() {
         val product = Saxon.products[4]
         assertThat(product.id, `is`("EE-Q"))
@@ -372,6 +393,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxonProduct_EE_V_OptionalFeatureSupport() {
         val product = Saxon.products[5]
         assertThat(product.id, `is`("EE-V"))
@@ -394,6 +416,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testW3CProduct_SPECIFICATIONS_OptionalFeatureSupport() {
         val product = W3C.products[0]
         assertThat(product.id, `is`("spec"))
@@ -415,6 +438,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Product :: Conforms To (Specification, Vendor Extension/Implementation)
 
+    @Test
     fun testBaseX_ConformsTo() {
         for (product in BaseX.products) {
             for (version in BaseX.versions) {
@@ -493,6 +517,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testMarkLogic_ConformsTo() {
         for (product in MarkLogic.products) {
             for (version in MarkLogic.versions) {
@@ -571,6 +596,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxon_ConformsTo() {
         for (product in Saxon.products) {
             for (version in Saxon.versions) {
@@ -661,6 +687,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testW3C_ConformsTo() {
         for (product in W3C.products) {
             for (version in W3C.versions) {
@@ -742,6 +769,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Product :: XQuery Versions
 
+    @Test
     fun testBaseX_XQueryVersions() {
         var xquery: List<Version>
         for (product in BaseX.products) {
@@ -758,6 +786,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testMarkLogic_XQueryVersions() {
         var xquery: List<Version>
         for (product in MarkLogic.products) {
@@ -771,6 +800,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxon_XQueryVersions() {
         var xquery: List<Version>
         for (product in Saxon.products) {
@@ -803,6 +833,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testW3C_XQueryVersions() {
         var xquery: List<Version>
         for (product in W3C.products) {
@@ -821,6 +852,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Product :: Flavours For XQuery Version
 
+    @Test
     fun testBaseX_FlavoursForXQueryVersion() {
         var flavours: List<Versioned>
         for (product in BaseX.products) {
@@ -851,6 +883,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testMarkLogic_FlavoursForXQueryVersion() {
         var flavours: List<Versioned>
         for (product in MarkLogic.products) {
@@ -876,6 +909,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testSaxon_FlavoursForXQueryVersion() {
         var flavours: List<Versioned>
         for (product in Saxon.products) {
@@ -934,6 +968,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testW3C_FlavoursForXQueryVersion() {
         var flavours: List<Versioned>
         for (product in W3C.products) {
@@ -977,6 +1012,7 @@ class ModelTest : TestCase() {
     // endregion
     // region XQuery :: Version For XQuery
 
+    @Test
     fun testBaseX_VersionForXQuery() {
         for (product in BaseX.products) {
             for (version in BaseX.versions) {
@@ -998,6 +1034,7 @@ class ModelTest : TestCase() {
         }
     }
 
+    @Test
     fun testMarkLogic_VersionsForXQuery() {
         for (product in MarkLogic.products) {
             for (version in MarkLogic.versions) {
@@ -1022,6 +1059,7 @@ class ModelTest : TestCase() {
     // endregion
     // region Item ID
 
+    @Test
     fun testItemId_VendorOnly() {
         var id: VersionedProductId
 
@@ -1056,6 +1094,7 @@ class ModelTest : TestCase() {
         assertThat<Version>(id.productVersion, `is`(nullValue()))
     }
 
+    @Test
     fun testItemId_BaseX_Versions() {
         var id: VersionedProductId
 
@@ -1078,6 +1117,7 @@ class ModelTest : TestCase() {
         assertThat<Version>(id.productVersion, `is`(nullValue()))
     }
 
+    @Test
     fun testItemId_MarkLogic_Versions() {
         var id: VersionedProductId
 
@@ -1107,6 +1147,7 @@ class ModelTest : TestCase() {
         assertThat<Version>(id.productVersion, `is`(nullValue()))
     }
 
+    @Test
     fun testItemId_Saxon_Products() {
         var id: VersionedProductId
 
@@ -1153,6 +1194,7 @@ class ModelTest : TestCase() {
         assertThat<Version>(id.productVersion, `is`(nullValue()))
     }
 
+    @Test
     fun testItemId_Saxon_Versions() {
         var id: VersionedProductId
 
@@ -1175,6 +1217,7 @@ class ModelTest : TestCase() {
         assertThat<Version>(id.productVersion, `is`(nullValue()))
     }
 
+    @Test
     fun testItemId_W3C_Products() {
         var id: VersionedProductId
 
@@ -1191,6 +1234,7 @@ class ModelTest : TestCase() {
         assertThat<Version>(id.productVersion, `is`(nullValue()))
     }
 
+    @Test
     fun testItemId_W3C_Versions() {
         var id: VersionedProductId
 

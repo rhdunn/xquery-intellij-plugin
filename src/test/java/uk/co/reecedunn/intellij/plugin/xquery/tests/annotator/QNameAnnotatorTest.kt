@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,22 @@ import com.intellij.openapi.editor.markup.TextAttributes
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 
-class QNameAnnotatorTest : AnnotatorTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class QNameAnnotatorTest : AnnotatorTestCase() {
     // region NCName
 
+    @Test
     fun testNCName() {
         val file = parseResource("tests/parser/xquery-1.0/OptionDecl.xq")
         val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
+    @Test
     fun testNCName_Keyword() {
         val file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -56,6 +60,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
     // endregion
     // region QName
 
+    @Test
     fun testQName() {
         val file = parseResource("tests/parser/xquery-1.0/QName.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -76,6 +81,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
         assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
     }
 
+    @Test
     fun testQName_KeywordPrefixPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -96,12 +102,14 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
         assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
     }
 
+    @Test
     fun testQName_MissingPrefixPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq")
         val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
+    @Test
     fun testQName_KeywordLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -136,6 +144,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
         assertThat(annotations[3].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
     }
 
+    @Test
     fun testQName_MissingLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -145,12 +154,14 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
     // endregion
     // region URIQualifiedName
 
+    @Test
     fun testURIQualifiedName() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
         val annotations = annotateTree(file, QNameAnnotator())
         assertThat(annotations.size, `is`(0))
     }
 
+    @Test
     fun testURIQualifiedName_Keyword() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -174,6 +185,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
     // endregion
     // region DirAttributeList
 
+    @Test
     fun testDirAttributeList_XmlnsAttribute() {
         val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -225,6 +237,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
     // endregion
     // region Annotation
 
+    @Test
     fun testAnnotation() {
         val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
         val annotations = annotateTree(file, QNameAnnotator())
@@ -245,6 +258,7 @@ class QNameAnnotatorTest : AnnotatorTestCase() {
         assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.ANNOTATION))
     }
 
+    @Test
     fun testAnnotation_QName() {
         val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
         val annotations = annotateTree(file, QNameAnnotator())

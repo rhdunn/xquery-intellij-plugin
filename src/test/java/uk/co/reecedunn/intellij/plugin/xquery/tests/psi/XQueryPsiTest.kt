@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -37,9 +38,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class XQueryPsiTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class XQueryPsiTest : ParserTestCase() {
     // region XPathArgumentList
 
+    @Test
     fun testArgumentList() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")
 
@@ -49,6 +52,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(argumentListPsi.arity, `is`(2))
     }
 
+    @Test
     fun testArgumentList_Empty() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
 
@@ -58,6 +62,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(argumentListPsi.arity, `is`(0))
     }
 
+    @Test
     fun testArgumentList_ArgumentPlaceholder() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
 
@@ -70,6 +75,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XPathArrowFunctionSpecifier
 
+    @Test
     fun testArrowFunctionSpecifier() {
         val file = parseResource("tests/psi/xquery-3.1/ArrowExpr_MultipleArguments.xq")
 
@@ -78,6 +84,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(arrowFunctionSpecifierPsi.arity, `is`(4))
     }
 
+    @Test
     fun testArrowFunctionSpecifier_Empty() {
         val file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
 
@@ -86,6 +93,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(arrowFunctionSpecifierPsi.arity, `is`(1))
     }
 
+    @Test
     fun testArrowFunctionSpecifier_MissingArgumentList() {
         val file = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq")
 
@@ -98,6 +106,7 @@ class XQueryPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region AllowingEmpty
 
+    @Test
     fun testAllowingEmpty() {
         val file = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq")
 
@@ -117,6 +126,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region Annotation
 
+    @Test
     fun testAnnotation() {
         val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
 
@@ -136,6 +146,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region AnyArrayTest
 
+    @Test
     fun testAnyArrayTest() {
         val file = parseResource("tests/parser/xquery-3.1/AnyArrayTest.xq")
 
@@ -153,6 +164,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region AnyFunctionTest
 
+    @Test
     fun testAnyFunctionTest_NoAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq")
 
@@ -167,6 +179,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(versioned.conformanceElement.node.elementType, `is`<IElementType>(XQueryTokenType.K_FUNCTION))
     }
 
+    @Test
     fun testAnyFunctionTest_WithAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/FunctionTest.xq")
 
@@ -182,6 +195,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region AnyKindTest
 
+    @Test
     fun testAnyKindTest() {
         val file = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq")
 
@@ -198,6 +212,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region AnyMapTest
 
+    @Test
     fun testAnyMapTest() {
         val file = parseResource("tests/parser/xquery-3.1/AnyMapTest.xq")
 
@@ -216,6 +231,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ArgumentList
 
+    @Test
     fun testArgumentList_FunctionCall() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
 
@@ -230,6 +246,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.PARENTHESIS_OPEN))
     }
 
+    @Test
     fun testArgumentList_PostfixExpr() {
         val file = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq")
 
@@ -249,6 +266,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ArgumentPlaceholder
 
+    @Test
     fun testArgumentPlaceholder() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
 
@@ -270,6 +288,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ArrowExpr
 
+    @Test
     fun testArrowExpr() {
         val file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
 
@@ -288,6 +307,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region BracedURILiteral
 
+    @Test
     fun testBracedURILiteral() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
 
@@ -308,6 +328,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region CatchClause
 
+    @Test
     fun testCatchClause() {
         val file = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
 
@@ -325,6 +346,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region CompNamespaceConstructor
 
+    @Test
     fun testCompNamespaceConstructor() {
         val file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
 
@@ -343,6 +365,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ContextItemDecl
 
+    @Test
     fun testContextItemDecl() {
         val file = parseResource("tests/parser/xquery-3.0/ContextItemDecl.xq")
 
@@ -360,6 +383,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region SquareArrayConstructor
 
+    @Test
     fun testSquareArrayConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor.xq")
 
@@ -377,6 +401,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region CurlyArrayConstructor
 
+    @Test
     fun testCurlyArrayConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")
 
@@ -394,6 +419,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region DecimalFormatDecl
 
+    @Test
     fun testDecimalFormatDecl() {
         val file = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl.xq")
 
@@ -408,6 +434,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_DECIMAL_FORMAT))
     }
 
+    @Test
     fun testDecimalFormatDecl_XQuery30Properties() {
         val file = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.xq")
 
@@ -422,6 +449,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_DECIMAL_FORMAT))
     }
 
+    @Test
     fun testDecimalFormatDecl_XQuery31Properties() {
         val file = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq")
 
@@ -441,6 +469,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CatchClause)
 
+    @Test
     fun testEnclosedExpr_CatchClause() {
         val file = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
 
@@ -456,6 +485,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CatchClause_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.xq")
 
@@ -476,6 +506,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompAttrConstructor)
 
+    @Test
     fun testEnclosedExpr_CompAttrConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/CompAttrConstructor.xq")
 
@@ -490,6 +521,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompAttrConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-1.0/CompAttrConstructor_NoExpr.xq")
 
@@ -507,6 +539,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompCommentConstructor)
 
+    @Test
     fun testEnclosedExpr_CompCommentConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/CompCommentConstructor.xq")
 
@@ -521,6 +554,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompCommentConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.xq")
 
@@ -539,6 +573,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompDocConstructor)
 
+    @Test
     fun testEnclosedExpr_CompDocConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/CompDocConstructor.xq")
 
@@ -553,6 +588,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompDocConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq")
 
@@ -571,6 +607,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompElemConstructor)
 
+    @Test
     fun testEnclosedExpr_CompElemConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/CompElemConstructor.xq")
 
@@ -585,6 +622,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompElemConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-1.0/CompElemConstructor_NoExpr.xq")
 
@@ -602,6 +640,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompNamespaceConstructor + EnclosedPrefixExpr)
 
+    @Test
     fun testEnclosedExpr_CompNamespaceConstructor_PrefixExpr() {
         val file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.xq")
 
@@ -616,6 +655,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompNamespaceConstructor_NoPrefixExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.xq")
 
@@ -634,6 +674,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompNamespaceConstructor + EnclosedURIExpr)
 
+    @Test
     fun testEnclosedExpr_CompNamespaceConstructor_UriExpr() {
         val file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
 
@@ -648,6 +689,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompNamespaceConstructor_NoUriExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.xq")
 
@@ -666,6 +708,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompPIConstructor)
 
+    @Test
     fun testEnclosedExpr_CompPIConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/CompPIConstructor.xq")
 
@@ -680,6 +723,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompPIConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-1.0/CompPIConstructor_NoExpr.xq")
 
@@ -697,6 +741,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CompTextConstructor)
 
+    @Test
     fun testEnclosedExpr_CompTextConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/CompTextConstructor.xq")
 
@@ -711,6 +756,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CompTextConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq")
 
@@ -730,6 +776,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (CurlyArrayConstructor)
 
+    @Test
     fun testEnclosedExpr_CurlyArrayConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")
 
@@ -744,6 +791,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_CurlyArrayConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingExpr.xq")
 
@@ -761,6 +809,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (DirAttributeValue)
 
+    @Test
     fun testEnclosedExpr_DirAttributeValue() {
         val file = parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_EnclosedExpr.xq")
 
@@ -778,6 +827,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_DirAttributeValue_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.xq")
 
@@ -800,6 +850,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (DirElemContent)
 
+    @Test
     fun testEnclosedExpr_DirElemContent() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemContent_CommonContent_EnclosedExpr.xq")
 
@@ -815,6 +866,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_DirElemContent_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.xq")
 
@@ -835,6 +887,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (FunctionDecl)
 
+    @Test
     fun testEnclosedExpr_FunctionDecl() {
         val file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq")
 
@@ -850,6 +903,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_FunctionDecl_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq")
 
@@ -869,6 +923,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (OrderedExpr)
 
+    @Test
     fun testEnclosedExpr_OrderedExpr() {
         val file = parseResource("tests/parser/xquery-1.0/OrderedExpr.xq")
 
@@ -883,6 +938,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_OrderedExpr_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.xq")
 
@@ -901,6 +957,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (TryClause)
 
+    @Test
     fun testEnclosedExpr_TryClause() {
         val file = parseResource("tests/parser/xquery-3.0/TryClause.xq")
 
@@ -916,6 +973,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_TryClause_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/TryClause_MissingExpr.xq")
 
@@ -935,6 +993,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region EnclosedExpr (UnorderedExpr)
 
+    @Test
     fun testEnclosedExpr_UnorderedExpr() {
         val file = parseResource("tests/parser/xquery-1.0/UnorderedExpr.xq")
 
@@ -949,6 +1008,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.EXPR))
     }
 
+    @Test
     fun testEnclosedExpr_UnorderedExpr_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.xq")
 
@@ -967,6 +1027,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ForwardAxis
 
+    @Test
     fun testForwardAxis_Attribute() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq")
 
@@ -980,6 +1041,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_ATTRIBUTE))
     }
 
+    @Test
     fun testForwardAxis_Child() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq")
 
@@ -993,6 +1055,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_CHILD))
     }
 
+    @Test
     fun testForwardAxis_Descendant() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq")
 
@@ -1006,6 +1069,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_DESCENDANT))
     }
 
+    @Test
     fun testForwardAxis_DescendantOrSelf() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq")
 
@@ -1019,6 +1083,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_DESCENDANT_OR_SELF))
     }
 
+    @Test
     fun testForwardAxis_Following() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq")
 
@@ -1032,6 +1097,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FOLLOWING))
     }
 
+    @Test
     fun testForwardAxis_FollowingSibling() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq")
 
@@ -1045,6 +1111,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FOLLOWING_SIBLING))
     }
 
+    @Test
     fun testForwardAxis_Self() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq")
 
@@ -1061,6 +1128,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region InlineFunctionExpr
 
+    @Test
     fun testInlineFunctionExpr() {
         val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq")
 
@@ -1076,6 +1144,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FUNCTION))
     }
 
+    @Test
     fun testInlineFunctionExpr_AnnotationOnly() {
         val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq")
 
@@ -1092,6 +1161,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TumblingWindowClause
 
+    @Test
     fun testTumblingWindowClause() {
         val file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
 
@@ -1110,6 +1180,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region SlidingWindowClause
 
+    @Test
     fun testSlidingWindowClause() {
         val file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq")
 
@@ -1128,6 +1199,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region IntermediateClause (ForClause)
 
+    @Test
     fun testForClause_FirstIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq")
 
@@ -1146,6 +1218,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FOR))
     }
 
+    @Test
     fun testForClause_AfterForIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq")
 
@@ -1165,6 +1238,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FOR))
     }
 
+    @Test
     fun testForClause_AfterLetIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq")
 
@@ -1184,6 +1258,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FOR))
     }
 
+    @Test
     fun testForClause_AfterWhereIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq")
 
@@ -1204,6 +1279,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_FOR))
     }
 
+    @Test
     fun testForClause_AfterOrderByIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq")
 
@@ -1227,6 +1303,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region IntermediateClause (LetClause)
 
+    @Test
     fun testLetClause_FirstIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq")
 
@@ -1245,6 +1322,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_LET))
     }
 
+    @Test
     fun testLetClause_AfterForIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq")
 
@@ -1264,6 +1342,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_LET))
     }
 
+    @Test
     fun testLetClause_AfterLetIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq")
 
@@ -1283,6 +1362,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_LET))
     }
 
+    @Test
     fun testLetClause_AfterWhereIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq")
 
@@ -1303,6 +1383,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_LET))
     }
 
+    @Test
     fun testLetClause_AfterOrderByIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq")
 
@@ -1326,6 +1407,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region IntermediateClause (OrderByClause)
 
+    @Test
     fun testOrderByClause_FirstIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/OrderByClause_ForClause.xq")
 
@@ -1344,6 +1426,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_ORDER))
     }
 
+    @Test
     fun testOrderByClause_AfterForIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq")
 
@@ -1363,6 +1446,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_ORDER))
     }
 
+    @Test
     fun testOrderByClause_AfterLetIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq")
 
@@ -1382,6 +1466,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_ORDER))
     }
 
+    @Test
     fun testOrderByClause_AfterWhereIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq")
 
@@ -1401,6 +1486,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_ORDER))
     }
 
+    @Test
     fun testOrderByClause_AfterOrderByIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq")
 
@@ -1424,6 +1510,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region IntermediateClause (WhereClause)
 
+    @Test
     fun testWhereClause_FirstIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/WhereClause_ForClause.xq")
 
@@ -1442,6 +1529,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_WHERE))
     }
 
+    @Test
     fun testWhereClause_AfterForIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq")
 
@@ -1461,6 +1549,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_WHERE))
     }
 
+    @Test
     fun testWhereClause_AfterLetIntermediateClause() {
         val file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq")
 
@@ -1480,6 +1569,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_WHERE))
     }
 
+    @Test
     fun testWhereClause_AfterWhereIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq")
 
@@ -1500,6 +1590,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_WHERE))
     }
 
+    @Test
     fun testWhereClause_AfterOrderByIntermediateClause() {
         val file = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq")
 
@@ -1523,6 +1614,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region IntermediateClause (CountClause)
 
+    @Test
     fun testCountClause() {
         val file = parseResource("tests/parser/xquery-3.0/CountClause.xq")
 
@@ -1545,6 +1637,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region IntermediateClause (GroupByClause)
 
+    @Test
     fun testGroupByClause() {
         val file = parseResource("tests/parser/xquery-3.0/GroupByClause.xq")
 
@@ -1567,6 +1660,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region UnaryLookup
 
+    @Test
     fun testLookup() {
         val file = parseResource("tests/parser/xquery-3.1/Lookup.xq")
 
@@ -1585,6 +1679,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region MapConstructor
 
+    @Test
     fun testMapConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructor.xq")
 
@@ -1603,6 +1698,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region NamedFunctionRef
 
+    @Test
     fun testNamedFunctionRef_QName() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq")
 
@@ -1618,6 +1714,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.FUNCTION_REF_OPERATOR))
     }
 
+    @Test
     fun testNamedFunctionRef_NCName() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
 
@@ -1633,6 +1730,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.FUNCTION_REF_OPERATOR))
     }
 
+    @Test
     fun testNamedFunctionRef_Keyword() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq")
 
@@ -1651,6 +1749,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region NamespaceNodeTest
 
+    @Test
     fun testNamespaceNodeTest() {
         val file = parseResource("tests/parser/xquery-3.0/NamespaceNodeTest.xq")
 
@@ -1668,6 +1767,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ParenthesizedItemType
 
+    @Test
     fun testParenthesizedItemType() {
         val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
 
@@ -1686,6 +1786,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region SequenceTypeUnion
 
+    @Test
     fun testSequenceTypeUnion() {
         val file = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq")
 
@@ -1703,6 +1804,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.UNION))
     }
 
+    @Test
     fun testSequenceTypeUnion_NoUnion() {
         val file = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq")
 
@@ -1721,6 +1823,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region SimpleMapExpr
 
+    @Test
     fun testSimpleMapExpr() {
         val file = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq")
 
@@ -1739,6 +1842,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region StringConcatExpr
 
+    @Test
     fun testStringConcatExpr() {
         val file = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq")
 
@@ -1757,6 +1861,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region StringConstructor
 
+    @Test
     fun testStringConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/StringConstructor.xq")
 
@@ -1774,6 +1879,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region SwitchExpr
 
+    @Test
     fun testSwitchExpr() {
         val file = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
 
@@ -1792,6 +1898,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TextTest
 
+    @Test
     fun testTextTest() {
         val file = parseResource("tests/parser/xquery-1.0/TextTest.xq")
 
@@ -1808,6 +1915,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TryClause
 
+    @Test
     fun testTryClause() {
         val file = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
 
@@ -1826,6 +1934,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TypedArrayTest
 
+    @Test
     fun testTypedArrayTest() {
         val file = parseResource("tests/parser/xquery-3.1/TypedArrayTest.xq")
 
@@ -1843,6 +1952,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TypedFunctionTest
 
+    @Test
     fun testTypedFunctionTest_NoAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
 
@@ -1857,6 +1967,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(versioned.conformanceElement.node.elementType, `is`<IElementType>(XQueryTokenType.K_FUNCTION))
     }
 
+    @Test
     fun testTypedFunctionTest_WithAnnotations() {
         val file = parseResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.xq")
 
@@ -1872,6 +1983,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region TypedMapTest
 
+    @Test
     fun testTypedMapTest() {
         val file = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq")
 
@@ -1890,6 +2002,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region UnaryLookup
 
+    @Test
     fun testUnaryLookup() {
         val file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq")
 
@@ -1907,6 +2020,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ValidateExpr
 
+    @Test
     fun testValidateExpr() {
         val file = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq")
 
@@ -1920,6 +2034,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_VALIDATE))
     }
 
+    @Test
     fun testValidateExpr_Type() {
         val file = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq")
 
@@ -1938,6 +2053,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region VarDecl
 
+    @Test
     fun testVarDecl() {
         val file = parseResource("tests/parser/xquery-1.0/VarDecl.xq")
 
@@ -1952,6 +2068,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_VARIABLE))
     }
 
+    @Test
     fun testVarDecl_External() {
         val file = parseResource("tests/parser/xquery-1.0/VarDecl_External.xq")
 
@@ -1966,6 +2083,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_VARIABLE))
     }
 
+    @Test
     fun testVarDecl_External_DefaultValue() {
         val file = parseResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.xq")
 
@@ -1985,6 +2103,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region VersionDecl
 
+    @Test
     fun testVersionDecl_Conformance() {
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
 
@@ -1998,6 +2117,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
+    @Test
     fun testVersionDecl_WithEncoding_Conformance() {
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
 
@@ -2011,6 +2131,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
+    @Test
     fun testVersionDecl_EncodingOnly_Conformance() {
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
 
@@ -2029,6 +2150,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XQueryDefaultNamespaceDecl
 
+    @Test
     fun testDefaultNamespaceDecl_Element() {
         val file = parseText("declare default element namespace 'http://www.w3.org/1999/xhtml';")
         val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
@@ -2038,6 +2160,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
     }
 
+    @Test
     fun testDefaultNamespaceDecl_Function() {
         val file = parseText("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';")
         val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
@@ -2047,6 +2170,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
     }
 
+    @Test
     fun testDefaultNamespaceDecl_EmptyNamespace() {
         val file = parseText("declare default element namespace '';")
         val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
@@ -2055,6 +2179,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(decl.defaultValue, `is`(nullValue()))
     }
 
+    @Test
     fun testDefaultNamespaceDecl_MissingNamespace() {
         val file = parseText("declare default element namespace;")
         val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
@@ -2066,6 +2191,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XQueryDirElemConstructor
 
+    @Test
     fun testDirElemConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq")
 
@@ -2088,6 +2214,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(close.localName.staticValue as String, `is`("b"))
     }
 
+    @Test
     fun testDirElemConstructor_SelfClosing() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.xq")
 
@@ -2106,6 +2233,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(close, `is`(nullValue()))
     }
 
+    @Test
     fun testDirElemConstructor_MissingClosingTag() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq")
 
@@ -2124,6 +2252,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(close, `is`(nullValue()))
     }
 
+    @Test
     fun testDirElemConstructor_IncompleteOpenTag() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTagQName.xq")
 
@@ -2142,6 +2271,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(close.localName.staticValue as String, `is`("b"))
     }
 
+    @Test
     fun testDirElemConstructor_IncompleteCloseTag() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq")
 
@@ -2164,6 +2294,7 @@ class XQueryPsiTest : ParserTestCase() {
     // region XPathEQName
     // region EQName
 
+    @Test
     fun testEQName_QName() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq")
 
@@ -2181,6 +2312,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
+    @Test
     fun testEQName_KeywordLocalPart() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq")
 
@@ -2198,6 +2330,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("least"))
     }
 
+    @Test
     fun testEQName_MissingLocalPart() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq")
 
@@ -2210,6 +2343,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName, `is`(nullValue()))
     }
 
+    @Test
     fun testEQName_KeywordPrefixPart() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq")
 
@@ -2227,6 +2361,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("column"))
     }
 
+    @Test
     fun testEQName_NCName() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq")
 
@@ -2242,6 +2377,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
+    @Test
     fun testEQName_URIQualifiedName() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq")
 
@@ -2262,6 +2398,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region NCName
 
+    @Test
     fun testNCName() {
         val file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
 
@@ -2278,6 +2415,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region QName
 
+    @Test
     fun testQName() {
         val file = parseResource("tests/parser/xquery-1.0/QName.xq")
 
@@ -2293,6 +2431,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("two"))
     }
 
+    @Test
     fun testQName_KeywordLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq")
 
@@ -2308,6 +2447,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("least"))
     }
 
+    @Test
     fun testQName_MissingLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
 
@@ -2318,6 +2458,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName, `is`(nullValue()))
     }
 
+    @Test
     fun testQName_KeywordPrefixPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq")
 
@@ -2333,6 +2474,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("two"))
     }
 
+    @Test
     fun testQName_DirElemConstructor() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq")
 
@@ -2348,6 +2490,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.localName!!.text, `is`("b"))
     }
 
+    @Test
     fun testQName_DirAttributeList() {
         val file = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq")
 
@@ -2368,6 +2511,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region Type :: Function :: FunctionCall
 
+    @Test
     fun testEQNameType_FunctionCall_NCName() {
         val file = parseResource("tests/resolve/functions/FunctionCall_NCName.xq")
 
@@ -2382,6 +2526,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
+    @Test
     fun testEQNameType_FunctionCall_QName() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")
 
@@ -2398,6 +2543,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
+    @Test
     fun testEQNameType_FunctionCall_EQName() {
         val file = parseResource("tests/resolve/functions/FunctionCall_EQName.xq")
 
@@ -2417,6 +2563,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region Type :: Function :: NamedFunctionRef
 
+    @Test
     fun testEQNameType_NamedFunctionRef_NCName() {
         val file = parseResource("tests/resolve/functions/NamedFunctionRef_NCName.xq")
 
@@ -2431,6 +2578,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
+    @Test
     fun testEQNameType_NamedFunctionRef_QName() {
         val file = parseResource("tests/resolve/functions/NamedFunctionRef_QName.xq")
 
@@ -2447,6 +2595,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
+    @Test
     fun testEQNameType_NamedFunctionRef_EQName() {
         val file = parseResource("tests/resolve/functions/NamedFunctionRef_EQName.xq")
 
@@ -2466,6 +2615,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region Type :: Function :: ArrowFunctionSpecifier
 
+    @Test
     fun testEQNameType_ArrowFunctionSpecifier_NCName() {
         val file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_NCName.xq")
 
@@ -2482,6 +2632,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
+    @Test
     fun testEQNameType_ArrowFunctionSpecifier_QName() {
         val file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_QName.xq")
 
@@ -2500,6 +2651,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
+    @Test
     fun testEQNameType_ArrowFunctionSpecifier_EQName() {
         val file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_EQName.xq")
 
@@ -2521,6 +2673,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region Type :: Variable :: VarDecl
 
+    @Test
     fun testEQNameType_VarDecl_NCName() {
         val file = parseResource("tests/resolve/variables/VarDecl_VarRef_NCName.xq")
 
@@ -2538,6 +2691,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
     }
 
+    @Test
     fun testEQNameType_VarDecl_QName() {
         val file = parseResource("tests/resolve/variables/VarDecl_VarRef_QName.xq")
 
@@ -2557,6 +2711,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
     }
 
+    @Test
     fun testEQNameType_VarDecl_EQName() {
         val file = parseResource("tests/resolve/variables/VarDecl_VarRef_EQName.xq")
 
@@ -2579,6 +2734,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region resolveFunctionDecls
 
+    @Test
     fun testQName_resolveFunctionDecls_SingleDeclMatch() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")
 
@@ -2593,6 +2749,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(decls[0].arity, `is`(0))
     }
 
+    @Test
     fun testQName_resolveFunctionDecls_MultipleDeclMatch() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName_Arity.xq")
 
@@ -2615,6 +2772,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XQueryModule
 
+    @Test
     fun testFile_Empty() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseText("")
@@ -2628,6 +2786,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
     }
 
+    @Test
     fun testFile() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
@@ -2644,6 +2803,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XPathFunctionCall
 
+    @Test
     fun testFunctionCall() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")
 
@@ -2658,6 +2818,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("pow"))
     }
 
+    @Test
     fun testFunctionCall_Empty() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
 
@@ -2672,6 +2833,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
+    @Test
     fun testFunctionCall_ArgumentPlaceholder() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
 
@@ -2686,6 +2848,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("sin"))
     }
 
+    @Test
     fun testFunctionCall_NoFunctionEQName() {
         val file = parseResource("tests/psi/xquery-1.0/FunctionCall_NoFunctionEQName.xq")
 
@@ -2699,6 +2862,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XQueryFunctionDecl
 
+    @Test
     fun testFunctionDecl() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq")
 
@@ -2714,6 +2878,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
+    @Test
     fun testFunctionDecl_ParamList() {
         val file = parseResource("tests/parser/xquery-1.0/ParamList.xq")
 
@@ -2728,6 +2893,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("test"))
     }
 
+    @Test
     fun testFunctionDecl_NoFunctionEQName() {
         val file = parseResource("tests/psi/xquery-1.0/FunctionDecl_NoFunctionEQName.xq")
 
@@ -2742,6 +2908,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XPathMapConstructorEntry
 
+    @Test
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
 
@@ -2752,6 +2919,7 @@ class XQueryPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
     }
 
+    @Test
     fun testMapConstructorEntry_NoValueAssignmentOperator() {
         val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
 
@@ -2766,6 +2934,7 @@ class XQueryPsiTest : ParserTestCase() {
     // region XQueryPrologResolver
     // region Module
 
+    @Test
     fun testModule_PrologResolver_NoProlog() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")
 
@@ -2776,6 +2945,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
+    @Test
     fun testModule_PrologResolver() {
         val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")
 
@@ -2794,6 +2964,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ModuleDecl
 
+    @Test
     fun testModuleDecl_PrologResolver_NoProlog() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")
 
@@ -2801,6 +2972,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
+    @Test
     fun testModuleDecl_PrologResolver() {
         val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")
 
@@ -2816,6 +2988,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region ModuleImport
 
+    @Test
     fun testModuleImport_EmptyUri() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
 
@@ -2823,6 +2996,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
+    @Test
     fun testModuleImport_LocalPath_NoModule() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
 
@@ -2830,6 +3004,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
+    @Test
     fun testModuleImport_LocalPath_Module() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
 
@@ -2842,6 +3017,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(functionName?.text, `is`("test:func"))
     }
 
+    @Test
     fun testModuleImport_ResourceFile() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
 
@@ -2858,6 +3034,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XPathNamedFunctionRef
 
+    @Test
     fun testNamedFunctionRef() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
 
@@ -2871,6 +3048,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
+    @Test
     fun testNamedFunctionRef_MissingArity() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq")
 
@@ -2884,6 +3062,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
+    @Test
     fun testNamedFunctionRef_NoFunctionEQName() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_NoFunctionEQName.xq")
 
@@ -2897,6 +3076,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XPathURIQualifiedName
 
+    @Test
     fun testURIQualifiedName() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
 
@@ -2915,6 +3095,7 @@ class XQueryPsiTest : ParserTestCase() {
     // endregion
     // region XQueryVersionDecl
 
+    @Test
     fun testVersionDecl() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
@@ -2929,6 +3110,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_CommentBeforeDecl() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq")
@@ -2943,6 +3125,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_EmptyVersion() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq")
@@ -2957,6 +3140,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_WithEncoding() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
@@ -2972,6 +3156,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_WithEncoding_CommentsAsWhitespace() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq")
@@ -2987,6 +3172,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_WithEmptyEncoding() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq")
@@ -3002,6 +3188,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_NoVersion() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq")
@@ -3015,6 +3202,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
     }
 
+    @Test
     fun testVersionDecl_UnsupportedVersion() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_UnsupportedVersion.xq")
@@ -3029,6 +3217,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
+    @Test
     fun testVersionDecl_EncodingOnly() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
@@ -3043,6 +3232,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
     }
 
+    @Test
     fun testVersionDecl_EncodingOnly_EmptyEncoding() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq")

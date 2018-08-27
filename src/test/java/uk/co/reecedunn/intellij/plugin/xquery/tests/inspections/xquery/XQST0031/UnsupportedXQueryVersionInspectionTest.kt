@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,16 @@ import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031.UnsupportedXQueryVersionInspection
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = UnsupportedXQueryVersionInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -36,6 +39,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     // endregion
     // region Invalid XQuery Versions
 
+    @Test
     fun testNoVersionDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0031/no-versiondecl.xq")
 
@@ -44,6 +48,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testEmptyVersionDecl() {
         val file = parseResource("tests/inspections/xquery/XQST0031/empty-version.xq")
 
@@ -57,6 +62,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("\"\""))
     }
 
+    @Test
     fun testXQueryVersion_UNSUPPORTED() {
         // XQueryVersion.parse("3.99") returns XQueryVersion.UNSUPPORTED
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.99.xq")
@@ -71,6 +77,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("\"3.99\""))
     }
 
+    @Test
     fun testUnsupportedVersion() {
         // XQueryVersion.parse("9.7") returns XQueryVersion.VERSION_9_7, but that is not a valid XQuery version.
         val file = parseResource("tests/inspections/xquery/XQST0031/xquery-9.7.xq")
@@ -88,6 +95,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     // endregion
     // region MarkLogic
 
+    @Test
     fun testSupportedVersion_MarkLogic() {
         settings.implementationVersion = "marklogic/v8"
 
@@ -98,6 +106,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testUnsupportedVersion_MarkLogic() {
         settings.implementationVersion = "marklogic/v8"
 
@@ -116,6 +125,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     // endregion
     // region W3C
 
+    @Test
     fun testSupportedVersion_W3C() {
         settings.implementationVersion = "w3c/spec"
 
@@ -126,6 +136,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testUnsupportedVersion_W3C() {
         settings.implementationVersion = "w3c/spec"
 
@@ -144,6 +155,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
     // endregion
     // region MarkLogic Transactions
 
+    @Test
     fun testTransactions_SameVersion_MarkLogic() {
         settings.implementationVersion = "marklogic/v8"
 
@@ -154,6 +166,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testTransactions_SameVersion_W3C() {
         settings.implementationVersion = "w3c/spec"
 
@@ -174,6 +187,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems[1].psiElement.text, `is`("\"1.0-ml\""))
     }
 
+    @Test
     fun testTransactions_UnsupportedOtherVersion() {
         settings.implementationVersion = "marklogic/v8"
 
@@ -189,6 +203,7 @@ class UnsupportedXQueryVersionInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("\"0.2\""))
     }
 
+    @Test
     fun testTransactions_DifferentVersions() {
         settings.implementationVersion = "marklogic/v8"
 

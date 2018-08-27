@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
 import com.intellij.lexer.Lexer
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
@@ -31,6 +32,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
         return lexer
     }
 
+    @Test
     fun testXQueryTokens() {
         val lexer = createLexer()
 
@@ -39,6 +41,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
         matchSingleToken(lexer, "encoding", XQueryTokenType.K_ENCODING)
     }
 
+    @Test
     fun testXQueryComment() {
         val lexer = createLexer()
 
@@ -49,6 +52,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
         matchToken(lexer, "", 0x00000000 or 0, 10, 10, null)
     }
 
+    @Test
     fun testXQDocComment() {
         val lexer = createLexer()
 
@@ -64,6 +68,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
         matchToken(lexer, "", 0x00000000 or 0, 20, 20, null)
     }
 
+    @Test
     fun testXQueryStateRestore() {
         val lexer = createLexer()
 
@@ -73,6 +78,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
         matchToken(lexer, "", 0, 14, 14, null)
     }
 
+    @Test
     fun testXQDocStateRestore() {
         val lexer = createLexer()
 

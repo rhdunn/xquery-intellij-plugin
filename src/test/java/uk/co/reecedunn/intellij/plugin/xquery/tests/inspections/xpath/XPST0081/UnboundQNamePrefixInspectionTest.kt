@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,17 @@ import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = UnboundQNamePrefixInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -38,6 +41,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // region Predefined Namespaces
     // region xmlns
 
+    @Test
     fun testXmlns() {
         val file = parseResource("tests/inspections/xpath/XPST0081/xmlns.xq")
 
@@ -49,6 +53,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // endregion
     // region XQuery
 
+    @Test
     fun testBuiltinXQuery() {
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery.xq")
 
@@ -57,6 +62,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testBuiltinXQuery31() {
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery-3.1.xq")
 
@@ -68,6 +74,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // endregion
     // region MarkLogic
 
+    @Test
     fun testBuiltinMarkLogic() {
         settings.implementationVersion = "marklogic/v8"
         settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
@@ -78,6 +85,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testBuiltinMarkLogicNotTargettingMarkLogic() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
@@ -96,6 +104,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // endregion
     // region Inspection Sources
 
+    @Test
     fun testQName() {
         val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq")
 
@@ -113,6 +122,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
     // region Namespace Providers
     // region ModuleDecl
 
+    @Test
     fun testModuleDecl_BoundPrefix() {
         val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName.xq")
 
@@ -121,6 +131,7 @@ class UnboundQNamePrefixInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testModuleDecl_UnboundPrefix() {
         val file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq")
 

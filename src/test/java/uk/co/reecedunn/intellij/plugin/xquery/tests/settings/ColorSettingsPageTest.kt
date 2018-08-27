@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +16,29 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage
 import java.util.*
 
-class ColorSettingsPageTest : TestCase() {
+class ColorSettingsPageTest {
+    @Test
     fun testIcon() {
         val settings = ColorSettingsPage()
         assertThat(settings.icon, `is`(nullValue()))
     }
 
+    @Test
     fun testHighlighter() {
         val settings = ColorSettingsPage()
         val highlighter = settings.highlighter
         assertThat(highlighter.javaClass.name, `is`(SyntaxHighlighter::class.java.name))
     }
 
+    @Test
     fun testDemoText() {
         val settings = ColorSettingsPage()
         val highlighter = settings.highlighter
@@ -74,11 +77,13 @@ class ColorSettingsPageTest : TestCase() {
         assertThat(keys.contains(SyntaxHighlighter.XQDOC_MARKUP), `is`(true))
     }
 
+    @Test
     fun testAdditionalHighlightingTagToDescriptorMap() {
         val settings = ColorSettingsPage()
         assertThat<Map<String, TextAttributesKey>>(settings.additionalHighlightingTagToDescriptorMap, `is`(nullValue()))
     }
 
+    @Test
     fun testAttributeDescriptors() {
         val settings = ColorSettingsPage()
         assertThat(settings.attributeDescriptors.size, `is`(18))
@@ -120,11 +125,13 @@ class ColorSettingsPageTest : TestCase() {
         assertThat(settings.attributeDescriptors[17].key, `is`(SyntaxHighlighter.XQDOC_MARKUP))
     }
 
+    @Test
     fun testColorDescriptors() {
         val settings = ColorSettingsPage()
         assertThat(settings.colorDescriptors.size, `is`(0))
     }
 
+    @Test
     fun testDisplayName() {
         val settings = ColorSettingsPage()
         assertThat(settings.displayName, `is`("XQuery"))

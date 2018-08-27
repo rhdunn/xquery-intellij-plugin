@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
 
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryWordsScanner
 
-class XQueryWordsScannerTest : TestCase() {
+class XQueryWordsScannerTest {
     // region Test Helpers
 
     private fun scanWords(text: CharSequence): List<Pair<WordOccurrence.Kind, CharSequence>> {
@@ -40,6 +40,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Code :: IntegerLiteral
 
+    @Test
     fun testIntegerLiteral() {
         val testCase = "1234 56789"
         val occurrences = scanWords(testCase)
@@ -51,6 +52,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Code :: DecimalLiteral
 
+    @Test
     fun testDecimalLiteral() {
         val testCase = "1.25 2.4"
         val occurrences = scanWords(testCase)
@@ -62,6 +64,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Code :: DoubleLiteral
 
+    @Test
     fun testDoubleLiteral() {
         val testCase = "3e5 2e8"
         val occurrences = scanWords(testCase)
@@ -73,6 +76,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Code :: Keywords
 
+    @Test
     fun testKeywords() {
         val testCase = "for \$item in \$nodes return \$item"
         val occurrences = scanWords(testCase)
@@ -88,6 +92,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Code :: NCName
 
+    @Test
     fun testNCName() {
         val testCase = "Lorem ipsum dolor"
         val occurrences = scanWords(testCase)
@@ -97,6 +102,7 @@ class XQueryWordsScannerTest : TestCase() {
         match(occurrences[2], WordOccurrence.Kind.CODE, "dolor")
     }
 
+    @Test
     fun testNCName_SpecialCharacters() {
         val testCase = "a2b a-b a.b a\u00B7b"
         val occurrences = scanWords(testCase)
@@ -107,6 +113,7 @@ class XQueryWordsScannerTest : TestCase() {
         match(occurrences[3], WordOccurrence.Kind.CODE, "a\u00B7b")
     }
 
+    @Test
     fun testNCName_SpecialCharactersAtStart() {
         val testCase = "2ab -ab .ab \u00B7ab"
         val occurrences = scanWords(testCase)
@@ -121,6 +128,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Comments :: XQuery Comment
 
+    @Test
     fun testXQueryComment() {
         val testCase = "(: Lorem ipsum dolor :)"
         val occurrences = scanWords(testCase)
@@ -133,6 +141,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Comments :: XML Comment
 
+    @Test
     fun testXmlComment() {
         val testCase = "<!-- Lorem ipsum dolor -->"
         val occurrences = scanWords(testCase)
@@ -145,6 +154,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Literals :: StringLiteral
 
+    @Test
     fun testStringLiteral() {
         val testCase = "\"Lorem ipsum dolor\""
         val occurrences = scanWords(testCase)
@@ -157,6 +167,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Literals :: DirAttributeValue
 
+    @Test
     fun testDirAttributeValue() {
         val testCase = "<test value=\"Lorem ipsum dolor\"/>"
         val occurrences = scanWords(testCase)
@@ -171,6 +182,7 @@ class XQueryWordsScannerTest : TestCase() {
     // endregion
     // region Literals :: DirElemContent
 
+    @Test
     fun testDirElemContent() {
         val testCase = "<test>Lorem ipsum dolor</test>"
         val occurrences = scanWords(testCase)

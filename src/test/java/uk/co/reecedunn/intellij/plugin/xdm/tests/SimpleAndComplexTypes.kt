@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
-class SimpleAndComplexTypes : TestCase() {
+class SimpleAndComplexTypes {
+    @Test
     fun testXsAnyType() {
         assertThat(XsAnyType.typeName?.declaration, `is`(nullValue()))
 
@@ -45,6 +46,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsAnyType as XdmSequenceType))
     }
 
+    @Test
     fun testXsUntyped() {
         assertThat(XsUntyped.typeName?.declaration, `is`(nullValue()))
 
@@ -65,6 +67,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsUntyped as XdmSequenceType))
     }
 
+    @Test
     fun testXsAnySimpleType() {
         assertThat(XsAnySimpleType.typeName?.declaration, `is`(nullValue()))
 
@@ -85,6 +88,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsAnySimpleType as XdmSequenceType))
     }
 
+    @Test
     fun testXsAnyAtomicType() {
         assertThat(XsAnyAtomicType.typeName?.declaration, `is`(nullValue()))
 
@@ -105,6 +109,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsAnyAtomicType as XdmSequenceType))
     }
 
+    @Test
     fun testXsNumeric() {
         assertThat(XsNumeric.typeName?.declaration, `is`(nullValue()))
 
@@ -130,6 +135,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsNumeric as XdmSequenceType))
     }
 
+    @Test
     fun testXsIDREFS() {
         assertThat(XsIDREFS.typeName?.declaration, `is`(nullValue()))
 
@@ -152,6 +158,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsIDREFS as XdmSequenceType))
     }
 
+    @Test
     fun testXsNMTOKENS() {
         assertThat(XsNMTOKENS.typeName?.declaration, `is`(nullValue()))
 
@@ -174,6 +181,7 @@ class SimpleAndComplexTypes : TestCase() {
                 `is`(XsNMTOKENS as XdmSequenceType))
     }
 
+    @Test
     fun testXsENTITIES() {
         assertThat(XsENTITIES.typeName?.declaration, `is`(nullValue()))
 

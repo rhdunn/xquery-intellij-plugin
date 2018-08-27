@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -35,10 +36,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class BaseXPsiTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class BaseXPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region FTFuzzyOption
 
+    @Test
     fun testFTFuzzyOption() {
         val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
 
@@ -60,6 +63,7 @@ class BaseXPsiTest : ParserTestCase() {
     // endregion
     // region NonDeterministicFunctionCall
 
+    @Test
     fun testNonDeterministicFunctionCall() {
         val file = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
 
@@ -77,6 +81,7 @@ class BaseXPsiTest : ParserTestCase() {
     // endregion
     // region UpdateExpr
 
+    @Test
     fun testUpdateExpr() {
         val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
 
@@ -91,6 +96,7 @@ class BaseXPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_UPDATE))
     }
 
+    @Test
     fun testUpdateExpr_Block() {
         val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
 

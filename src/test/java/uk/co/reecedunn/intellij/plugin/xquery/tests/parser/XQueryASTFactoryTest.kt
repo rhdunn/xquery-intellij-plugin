@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 
-class XQueryASTFactoryTest : TestCase() {
+class XQueryASTFactoryTest {
+    @Test
     fun testCreateElement() {
         val factory = XQueryASTFactory()
         assertThat(factory.createComposite(XQueryTokenType.INTEGER_LITERAL)!!.javaClass.name, `is`(CompositeElement::class.java.name))
     }
 
+    @Test
     fun testCreateLeaf() {
         val factory = XQueryASTFactory()
         assertThat(factory.createLeaf(XQueryTokenType.COMMA, ",")!!.javaClass.name, `is`(LeafPsiElement::class.java.name))

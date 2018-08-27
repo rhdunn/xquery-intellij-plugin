@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.lexer.Lexer
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
@@ -41,6 +42,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     // region Lexer :: Invalid State
 
+    @Test
     fun testInvalidState() {
         val lexer = createLexer()
 
@@ -51,6 +53,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Lexer :: Empty Stack In Advance
 
+    @Test
     fun testEmptyStackInAdvance() {
         val lexer = createLexer()
 
@@ -69,6 +72,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Lexer :: Empty Stack In Pop State
 
+    @Test
     fun testEmptyStackInPopState() {
         val lexer = createLexer()
 
@@ -83,6 +87,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Lexer :: Empty Buffer
 
+    @Test
     fun testEmptyBuffer() {
         val lexer = createLexer()
 
@@ -93,6 +98,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Lexer :: Bad Characters
 
+    @Test
     fun testBadCharacters() {
         val lexer = createLexer()
 
@@ -107,6 +113,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: VersionDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
     fun testVersionDecl() {
         val lexer = createLexer()
@@ -119,6 +126,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ModuleDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleDecl")
     fun testModuleDecl() {
         val lexer = createLexer()
@@ -131,6 +139,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Separator
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Separator")
     fun testSeparator() {
         val lexer = createLexer()
@@ -141,6 +150,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: NamespaceDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NamespaceDecl")
     fun testNamespaceDecl() {
         val lexer = createLexer()
@@ -153,6 +163,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: BoundarySpaceDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BoundarySpaceDecl")
     fun testBoundarySpaceDecl() {
         val lexer = createLexer()
@@ -166,6 +177,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DefaultNamespaceDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DefaultNamespaceDecl")
     fun testDefaultNamespaceDecl() {
         val lexer = createLexer()
@@ -181,6 +193,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OptionDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OptionDecl")
     fun testOptionDecl() {
         val lexer = createLexer()
@@ -192,6 +205,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OrderingModeDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderingModeDecl")
     fun testOrderingModeDecl() {
         val lexer = createLexer()
@@ -205,6 +219,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: EmptyOrderDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EmptyOrderDecl")
     fun testEmptyOrderDecl() {
         val lexer = createLexer()
@@ -220,6 +235,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CopyNamespacesDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CopyNamespacesDecl")
     fun testCopyNamespacesDecl() {
         val lexer = createLexer()
@@ -232,6 +248,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: PreserveMode
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PreserveMode")
     fun testPreserveMode() {
         val lexer = createLexer()
@@ -243,6 +260,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: InheritMode
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InheritMode")
     fun testInheritMode() {
         val lexer = createLexer()
@@ -254,6 +272,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DefaultCollationDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DefaultCollationDecl")
     fun testDefaultCollationDecl() {
         val lexer = createLexer()
@@ -266,6 +285,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: BaseURIDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BaseURIDecl")
     fun testBaseURIDecl() {
         val lexer = createLexer()
@@ -277,6 +297,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: SchemaImport
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")
     fun testSchemaImport() {
         val lexer = createLexer()
@@ -290,6 +311,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: SchemaPrefix
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaPrefix")
     fun testSchemaPrefix() {
         val lexer = createLexer()
@@ -305,6 +327,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ModuleImport
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
     fun testModuleImport() {
         val lexer = createLexer()
@@ -321,6 +344,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: VarDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarDecl")
     fun testVarDecl() {
         val lexer = createLexer()
@@ -335,6 +359,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ConstructionDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ConstructionDecl")
     fun testConstructionDecl() {
         val lexer = createLexer()
@@ -348,6 +373,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: FunctionDecl
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionDecl")
     fun testFunctionDecl() {
         val lexer = createLexer()
@@ -363,6 +389,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ParamList
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ParamList")
     fun testParamList() {
         val lexer = createLexer()
@@ -373,6 +400,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Param
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Param")
     fun testParam() {
         val lexer = createLexer()
@@ -383,6 +411,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: EnclosedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EnclosedExpr")
     fun testEnclosedExpr() {
         val lexer = createLexer()
@@ -394,6 +423,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Expr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Expr")
     fun testExpr() {
         val lexer = createLexer()
@@ -404,6 +434,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: FLWORExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FLWORExpr")
     fun testFLWORExpr() {
         val lexer = createLexer()
@@ -414,6 +445,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ForClause
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForClause")
     fun testForClause() {
         val lexer = createLexer()
@@ -427,6 +459,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: PositionalVar
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PositionalVar")
     fun testPositionalVar() {
         val lexer = createLexer()
@@ -438,6 +471,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: LetClause
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-LetClause")
     fun testLetClause() {
         val lexer = createLexer()
@@ -451,6 +485,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: WhereClause
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-WhereClause")
     fun testWhereClause() {
         val lexer = createLexer()
@@ -461,6 +496,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OrderByClause
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderByClause")
     fun testOrderByClause() {
         val lexer = createLexer()
@@ -473,6 +509,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OrderSpecList
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderSpecList")
     fun testOrderSpecList() {
         val lexer = createLexer()
@@ -483,6 +520,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OrderModifier
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderModifier")
     fun testOrderModifier() {
         val lexer = createLexer()
@@ -500,6 +538,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: QuantifiedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-QuantifiedExpr")
     fun testQuantifiedExpr() {
         val lexer = createLexer()
@@ -515,6 +554,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: TypeswitchExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeswitchExpr")
     fun testTypeswitchExpr() {
         val lexer = createLexer()
@@ -530,6 +570,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CaseClause
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CaseClause")
     fun testCaseClause() {
         val lexer = createLexer()
@@ -543,6 +584,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: IfExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IfExpr")
     fun testIfExpr() {
         val lexer = createLexer()
@@ -557,6 +599,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OrExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrExpr")
     fun testOrExpr() {
         val lexer = createLexer()
@@ -567,6 +610,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AndExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AndExpr")
     fun testAndExpr() {
         val lexer = createLexer()
@@ -577,6 +621,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: RangeExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RangeExpr")
     fun testRangeExpr() {
         val lexer = createLexer()
@@ -587,6 +632,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AdditiveExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AdditiveExpr")
     fun testAdditiveExpr() {
         val lexer = createLexer()
@@ -598,6 +644,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: MultiplicativeExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-MultiplicativeExpr")
     fun testMultiplicativeExpr() {
         val lexer = createLexer()
@@ -611,6 +658,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: UnionExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnionExpr")
     fun testUnionExpr() {
         val lexer = createLexer()
@@ -622,6 +670,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: IntersectExceptExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IntersectExceptExpr")
     fun testIntersectExceptExpr() {
         val lexer = createLexer()
@@ -633,6 +682,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: InstanceofExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InstanceofExpr")
     fun testInstanceofExpr() {
         val lexer = createLexer()
@@ -644,6 +694,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: TreatExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TreatExpr")
     fun testTreatExpr() {
         val lexer = createLexer()
@@ -655,6 +706,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CastableExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastableExpr")
     fun testCastableExpr() {
         val lexer = createLexer()
@@ -666,6 +718,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CastExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastExpr")
     fun testCastExpr() {
         val lexer = createLexer()
@@ -677,6 +730,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: UnaryExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnaryExpr")
     fun testUnaryExpr() {
         val lexer = createLexer()
@@ -698,6 +752,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: GeneralComp
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-GeneralComp")
     fun testGeneralComp() {
         val lexer = createLexer()
@@ -713,6 +768,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ValueComp
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValueComp")
     fun testValueComp() {
         val lexer = createLexer()
@@ -728,6 +784,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: NodeComp
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NodeComp")
     fun testNodeComp() {
         val lexer = createLexer()
@@ -740,6 +797,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ValidateExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
     fun testValidateExpr() {
         val lexer = createLexer()
@@ -752,6 +810,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ValidationMode
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidationMode")
     fun testValidationMode() {
         val lexer = createLexer()
@@ -763,6 +822,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ExtensionExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ExtensionExpr")
     fun testExtensionExpr() {
         val lexer = createLexer()
@@ -774,6 +834,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Pragma + PragmaContents
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Pragma")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PragmaContents")
     fun testPragma() {
@@ -857,6 +918,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: PathExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PathExpr")
     fun testPathExpr() {
         val lexer = createLexer()
@@ -868,6 +930,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: RelativePathExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RelativePathExpr")
     fun testRelativePathExpr() {
         val lexer = createLexer()
@@ -879,6 +942,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ForwardAxis
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForwardAxis")
     fun testForwardAxis() {
         val lexer = createLexer()
@@ -896,6 +960,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AbbrevForwardStep
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevForwardStep")
     fun testAbbrevForwardStep() {
         val lexer = createLexer()
@@ -906,6 +971,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ReverseAxis
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ReverseAxis")
     fun testReverseAxis() {
         val lexer = createLexer()
@@ -921,6 +987,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AbbrevReverseStep
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevReverseStep")
     fun testAbbrevReverseStep() {
         val lexer = createLexer()
@@ -931,6 +998,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Wildcard
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Wildcard")
     fun testWildcard() {
         val lexer = createLexer()
@@ -942,6 +1010,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Predicate
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Predicate")
     fun testPredicate() {
         val lexer = createLexer()
@@ -953,6 +1022,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: VarRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
     fun testVarRef() {
         val lexer = createLexer()
@@ -963,6 +1033,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ParenthesizedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ParenthesizedExpr")
     fun testParenthesizedExpr() {
         val lexer = createLexer()
@@ -974,6 +1045,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ContextItemExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
     fun testContextItemExpr() {
         val lexer = createLexer()
@@ -984,6 +1056,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OrderedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderedExpr")
     fun testOrderedExpr() {
         val lexer = createLexer()
@@ -996,6 +1069,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: UnorderedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnorderedExpr")
     fun testUnorderedExpr() {
         val lexer = createLexer()
@@ -1008,6 +1082,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: FunctionCall
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionCall")
     fun testFunctionCall() {
         val lexer = createLexer()
@@ -1020,6 +1095,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemConstructor_OpenXmlTagAsSingleToken() {
         val lexer = createXQueryLexer()
@@ -1104,6 +1180,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 5, 5, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemConstructor_OpenXmlTagAsSingleToken_AddingXmlElement() {
         val lexer = createXQueryLexer()
@@ -1129,6 +1206,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 7, 7, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemConstructor_MaybeDirElem() {
         val lexer = createLexer()
@@ -1159,6 +1237,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 29, 12, 12, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemConstructor_StartDirElem() {
         val lexer = createLexer()
@@ -1189,6 +1268,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 25, 12, 12, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemConstructor() {
         val lexer = createLexer()
@@ -1292,6 +1372,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 11, 11, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemConstructor_AddingXmlElement() {
         val lexer = createLexer()
@@ -1329,6 +1410,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeList + DirAttributeValue
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     fun testDirAttributeList_OpenXmlTagAsSingleToken() {
@@ -1362,6 +1444,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 42, 42, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     fun testDirAttributeList() {
@@ -1399,6 +1482,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 42, 42, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     fun testDirAttributeList_IncompleteClosingTag() {
@@ -1416,6 +1500,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + QuotAttrValueContent + EnclosedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuotAttrValueContent")
     fun testDirAttributeValue_QuotAttrValueContent() {
@@ -1437,6 +1522,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + AposAttrValueContent + EnclosedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AposAttrValueContent")
     fun testDirAttributeValue_AposAttrValueContent() {
@@ -1459,6 +1545,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + CommonContent
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
     fun testDirAttributeValue_CommonContent() {
@@ -1482,6 +1569,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + PredefinedEntityRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     fun testDirAttributeValue_PredefinedEntityRef() {
@@ -1557,6 +1645,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + EscapeQuot
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     fun testDirAttributeValue_EscapeQuot() {
@@ -1574,6 +1663,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + EscapeApos
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
     fun testDirAttributeValue_EscapeApos() {
@@ -1591,6 +1681,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirAttributeValue + CharRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -1643,6 +1734,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 11, 5, 5, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -1708,6 +1800,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + ElementContentChar + EnclosedExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementContentChar")
     fun testDirElemContent_ElementContentChar() {
@@ -1734,6 +1827,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + DirElemConstructor (DirectConstructor)
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     fun testDirElemContent_DirElemConstructor() {
@@ -1761,6 +1855,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + DirCommentConstructor (DirectConstructor)
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirCommentConstructor")
     fun testDirElemContent_DirCommentConstructor() {
@@ -1789,6 +1884,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + CDataSection (DirectConstructor)
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CDataSection")
     fun testDirElemContent_CDataSection() {
@@ -1822,6 +1918,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + DirPIConstructor (DirectConstructor)
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
     fun testDirElemContent_DirPIConstructor() {
@@ -1885,6 +1982,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + CommonContent
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
     fun testDirElemContent_CommonContent() {
@@ -1905,6 +2003,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + PredefinedEntityRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PredefinedEntityRef")
     fun testDirElemContent_PredefinedEntityRef() {
@@ -1980,6 +2079,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirElemContent + CharRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -2044,6 +2144,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 10, 10, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -2119,6 +2220,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirCommentConstructor + DirCommentContents
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
     fun testDirCommentConstructor() {
@@ -2174,6 +2276,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 6, 6, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
     fun testDirCommentConstructor_InitialState() {
@@ -2193,6 +2296,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DirPIConstructor + DirPIContents
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIContents")
     fun testDirPIConstructor() {
@@ -2242,6 +2346,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CDataSection + CDataSectionContents
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
     fun testCDataSection() {
@@ -2303,6 +2408,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 11, 11, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
     fun testCDataSection_InitialState() {
@@ -2322,6 +2428,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CompDocConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompDocConstructor")
     fun testCompDocConstructor() {
         val lexer = createLexer()
@@ -2334,6 +2441,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CompElemConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompElemConstructor")
     fun testCompElemConstructor() {
         val lexer = createLexer()
@@ -2346,6 +2454,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CompAttrConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompAttrConstructor")
     fun testCompAttrConstructor() {
         val lexer = createLexer()
@@ -2358,6 +2467,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CompTextConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompTextConstructor")
     fun testCompTextConstructor() {
         val lexer = createLexer()
@@ -2370,6 +2480,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CompCommentConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompCommentConstructor")
     fun testCompCommentConstructor() {
         val lexer = createLexer()
@@ -2382,6 +2493,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CompPIConstructor
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompPIConstructor")
     fun testCompPIConstructor() {
         val lexer = createLexer()
@@ -2394,6 +2506,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: TypeDeclaration
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeDeclaration")
     fun testTypeDeclaration() {
         val lexer = createLexer()
@@ -2404,6 +2517,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: SequenceType
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SequenceType")
     fun testSequenceType() {
         val lexer = createLexer()
@@ -2416,6 +2530,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: OccurrenceIndicator
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OccurrenceIndicator")
     fun testOccurrenceIndicator() {
         val lexer = createLexer()
@@ -2428,6 +2543,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ItemType
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ItemType")
     fun testItemType() {
         val lexer = createLexer()
@@ -2440,6 +2556,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AnyKindTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AnyKindTest")
     fun testAnyKindTest() {
         val lexer = createLexer()
@@ -2452,6 +2569,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DocumentTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DocumentTest")
     fun testDocumentTest() {
         val lexer = createLexer()
@@ -2464,6 +2582,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: TextTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TextTest")
     fun testTextTest() {
         val lexer = createLexer()
@@ -2476,6 +2595,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: CommentTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CommentTest")
     fun testCommentTest() {
         val lexer = createLexer()
@@ -2488,6 +2608,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: PITest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PITest")
     fun testPITest() {
         val lexer = createLexer()
@@ -2500,6 +2621,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AttributeTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AttributeTest")
     fun testAttributeTest() {
         val lexer = createLexer()
@@ -2512,6 +2634,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: AttribNameOrWildcard
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AttribNameOrWildcard")
     fun testAttribNameOrWildcard() {
         val lexer = createLexer()
@@ -2522,6 +2645,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: SchemaAttributeTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaAttributeTest")
     fun testSchemaAttributeTest() {
         val lexer = createLexer()
@@ -2534,6 +2658,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ElementTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementTest")
     fun testElementTest() {
         val lexer = createLexer()
@@ -2547,6 +2672,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: ElementNameOrWildcard
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementNameOrWildcard")
     fun testElementNameOrWildcard() {
         val lexer = createLexer()
@@ -2557,6 +2683,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: SchemaElementTest
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaElementTest")
     fun testSchemaElementTest() {
         val lexer = createLexer()
@@ -2569,6 +2696,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: IntegerLiteral
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     fun testIntegerLiteral() {
         val lexer = createLexer()
@@ -2581,6 +2709,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DecimalLiteral
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     fun testDecimalLiteral() {
         val lexer = createLexer()
@@ -2606,6 +2735,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: DoubleLiteral
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     fun testDoubleLiteral() {
         val lexer = createLexer()
@@ -2725,6 +2855,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 13, 13, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     fun testDoubleLiteral_InitialState() {
         val lexer = createLexer()
@@ -2737,6 +2868,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: StringLiteral
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     fun testStringLiteral() {
         val lexer = createLexer()
@@ -2762,6 +2894,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 13, 13, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     fun testStringLiteral_InitialState() {
         val lexer = createLexer()
@@ -2777,6 +2910,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 13, 13, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     fun testStringLiteral_OpenBrace() {
         val lexer = createLexer()
@@ -2799,6 +2933,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: StringLiteral + PredefinedEntityRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     fun testStringLiteral_PredefinedEntityRef() {
@@ -2878,6 +3013,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: StringLiteral + EscapeQuot
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     fun testStringLiteral_EscapeQuot() {
@@ -2895,6 +3031,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: StringLiteral + EscapeApos
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
     fun testStringLiteral_EscapeApos() {
@@ -2912,6 +3049,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: StringLiteral + CharRef
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -2964,6 +3102,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 5, 5, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -3029,6 +3168,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: Comment + CommentContents
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
     fun testComment() {
@@ -3078,6 +3218,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 30, 30, null)
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
     fun testComment_InitialState() {
@@ -3097,6 +3238,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: QName
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name = "Namespaces in XML 1.0 3ed", reference = "https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     fun testQName() {
@@ -3112,6 +3254,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: NCName
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
     @Specification(name = "Namespaces in XML 1.0 3ed", reference = "https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
     fun testNCName() {
@@ -3135,6 +3278,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 1.0 :: S
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
     fun testS() {
@@ -3164,6 +3308,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: DecimalFormatDecl
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-DecimalFormatDecl")
     fun testDecimalFormatDecl() {
         val lexer = createLexer()
@@ -3177,6 +3322,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: DFPropertyName
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-DFPropertyName")
     fun testDFPropertyName() {
         val lexer = createLexer()
@@ -3196,6 +3342,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: AnnotationDecl
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-AnnotationDecl")
     fun testAnnotationDecl() {
         val lexer = createLexer()
@@ -3206,6 +3353,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: Annotation
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-Annotation")
     fun testAnnotation() {
         val lexer = createLexer()
@@ -3222,6 +3370,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: ContextItemDecl
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-ContextItemDecl")
     fun testContextItemDecl() {
         val lexer = createLexer()
@@ -3237,6 +3386,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: AllowingEmpty
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-AllowingEmpty")
     fun testAllowingEmpty() {
         val lexer = createLexer()
@@ -3248,6 +3398,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: WindowClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowClause")
     fun testWindowClause() {
         val lexer = createLexer()
@@ -3258,6 +3409,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: TumblingWindowClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-TumblingWindowClause")
     fun testTumblingWindowClause() {
         val lexer = createLexer()
@@ -3271,6 +3423,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: SlidingWindowClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-SlidingWindowClause")
     fun testSlidingWindowClause() {
         val lexer = createLexer()
@@ -3284,6 +3437,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: WindowStartCondition
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowStartCondition")
     fun testWindowStartCondition() {
         val lexer = createLexer()
@@ -3295,6 +3449,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: WindowEndCondition
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowEndCondition")
     fun testWindowEndCondition() {
         val lexer = createLexer()
@@ -3307,6 +3462,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: WindowVars
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowVars")
     fun testWindowVars() {
         val lexer = createLexer()
@@ -3319,6 +3475,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: CountClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-CountClause")
     fun testCountClause() {
         val lexer = createLexer()
@@ -3330,6 +3487,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: GroupByClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupByClause")
     fun testGroupByClause() {
         val lexer = createLexer()
@@ -3341,6 +3499,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: GroupingSpecList
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingSpecList")
     fun testGroupingSpecList() {
         val lexer = createLexer()
@@ -3351,6 +3510,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: GroupingSpec
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingSpec")
     fun testGroupingSpec() {
         val lexer = createLexer()
@@ -3362,6 +3522,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: GroupingVariable
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingVariable")
     fun testGroupingVariable() {
         val lexer = createLexer()
@@ -3372,6 +3533,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: ReturnClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-ReturnClause")
     fun testReturnClause() {
         val lexer = createLexer()
@@ -3382,6 +3544,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: SwitchExpr
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-SwitchExpr")
     fun testSwitchExpr() {
         val lexer = createLexer()
@@ -3396,6 +3559,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: SwitchCaseClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-SwitchCaseClause")
     fun testSwitchCaseClause() {
         val lexer = createLexer()
@@ -3407,6 +3571,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: SequenceTypeUnion
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-SequenceTypeUnion")
     fun testSequenceTypeUnion() {
         val lexer = createLexer()
@@ -3417,6 +3582,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: TryClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-TryClause")
     fun testTryClause() {
         val lexer = createLexer()
@@ -3429,6 +3595,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: CatchClause
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-CatchClause")
     fun testCatchClause() {
         val lexer = createLexer()
@@ -3441,6 +3608,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: CatchErrorList
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-CatchErrorList")
     fun testCatchErrorList() {
         val lexer = createLexer()
@@ -3451,6 +3619,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: StringConcatExpr
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-StringConcatExpr")
     fun testStringConcatExpr() {
         val lexer = createLexer()
@@ -3461,6 +3630,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: ValidateExpr
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
     fun testValidateExpr_Type() {
         val lexer = createLexer()
@@ -3474,6 +3644,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: SimpleMapExpr
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-SimpleMapExpr")
     fun testSimpleMapExpr() {
         val lexer = createLexer()
@@ -3484,6 +3655,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: ArgumentList
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-ArgumentList")
     fun testArgumentList() {
         val lexer = createLexer()
@@ -3496,6 +3668,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: ArgumentPlaceholder
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-ArgumentPlaceholder")
     fun testArgumentPlaceholder() {
         val lexer = createLexer()
@@ -3506,6 +3679,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: CompNamespaceConstructor
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-CompNamespaceConstructor")
     fun testCompNamespaceConstructor() {
         val lexer = createLexer()
@@ -3518,6 +3692,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: NamedFunctionRef
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
     fun testNamedFunctionRef() {
         val lexer = createLexer()
@@ -3528,6 +3703,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: InlineFunctionExpr
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-InlineFunctionExpr")
     fun testInlineFunctionExpr() {
         val lexer = createLexer()
@@ -3541,6 +3717,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: NamespaceNodeTest
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-NamespaceNodeTest")
     fun testNamespaceNodeTest() {
         val lexer = createLexer()
@@ -3553,6 +3730,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: AnyFunctionTest
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-AnyFunctionTest")
     fun testAnyFunctionTest() {
         val lexer = createLexer()
@@ -3566,6 +3744,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: TypedFunctionTest
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-TypedFunctionTest")
     fun testTypedFunctionTest() {
         val lexer = createLexer()
@@ -3580,6 +3759,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: ParenthesizedItemType
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-ParenthesizedItemType")
     fun testParenthesizedItemType() {
         val lexer = createLexer()
@@ -3591,6 +3771,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: BracedURILiteral
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     fun testBracedURILiteral() {
         val lexer = createLexer()
@@ -3621,6 +3802,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 16, 16, null)
     }
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     fun testBracedURILiteral_Pragma() {
         val lexer = createLexer()
@@ -3655,6 +3837,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: BracedURILiteral + PredefinedEntityRef
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     fun testBracedURILiteral_PredefinedEntityRef() {
@@ -3717,6 +3900,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.0 :: BracedURILiteral + CharRef
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -3761,6 +3945,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 6, 6, null)
     }
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
@@ -3816,6 +4001,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: DFPropertyName
 
+    @Test
     @Specification(name = "XQuery 3.0", reference = "https://www.w3.org/TR/xquery-30/#doc-xquery30-DFPropertyName")
     fun testDFPropertyName_XQuery31() {
         val lexer = createLexer()
@@ -3836,6 +4022,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: ArrowExpr
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     fun testArrowExpr() {
         val lexer = createLexer()
@@ -3846,6 +4033,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: Lookup
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-Lookup")
     fun testLookup() {
         val lexer = createLexer()
@@ -3856,6 +4044,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: KeySpecifier
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-KeySpecifier")
     fun testKeySpecifier() {
         val lexer = createLexer()
@@ -3866,6 +4055,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: MapConstructor
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-MapConstructor")
     fun testMapConstructor() {
         val lexer = createLexer()
@@ -3879,6 +4069,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: MapConstructorEntry
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-MapConstructorEntry")
     fun testMapConstructorEntry() {
         val lexer = createLexer()
@@ -3889,6 +4080,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: SquareArrayConstructor
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-SquareArrayConstructor")
     fun testSquareArrayConstructor() {
         val lexer = createLexer()
@@ -3901,6 +4093,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: CurlyArrayConstructor
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CurlyArrayConstructor")
     fun testCurlyArrayConstructor() {
         val lexer = createLexer()
@@ -3913,6 +4106,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: StringConstructor + StringConstructorContent
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructor")
     fun testStringConstructor() {
         val lexer = createLexer()
@@ -3952,6 +4146,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: StringConstructorInterpolation
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
     fun testStringConstructorInterpolation_InDirElemContent() {
         val lexer = createLexer()
@@ -3971,6 +4166,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 12, 12, null)
     }
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
     fun testStringConstructorInterpolation_InterpolationMarkersOutsideStringConstructor() {
         val lexer = createLexer()
@@ -3988,6 +4184,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "", 0, 2, 2, null)
     }
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
     fun testStringConstructorInterpolation() {
         val lexer = createLexer()
@@ -4006,6 +4203,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: UnaryLookup
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-UnaryLookup")
     fun testUnaryLookup() {
         val lexer = createLexer()
@@ -4016,6 +4214,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: AnyMapTest
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-AnyMapTest")
     fun testAnyMapTest() {
         val lexer = createLexer()
@@ -4029,6 +4228,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: TypedMapTest
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-TypedMapTest")
     fun testTypedMapTest() {
         val lexer = createLexer()
@@ -4042,6 +4242,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: AnyArrayTest
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-AnyArrayTest")
     fun testAnyArrayTest() {
         val lexer = createLexer()
@@ -4055,6 +4256,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region XQuery 3.1 :: TypedArrayTest
 
+    @Test
     @Specification(name = "XQuery 3.1", reference = "https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-TypedArrayTest")
     fun testTypedArrayTest() {
         val lexer = createLexer()
@@ -4067,6 +4269,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: FunctionDecl
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
     fun testFunctionDecl_UpdateFacility10() {
         val lexer = createLexer()
@@ -4083,6 +4286,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: RevalidationDecl
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     fun testRevalidationDecl() {
         val lexer = createLexer()
@@ -4097,6 +4301,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: InsertExprTargetChoice
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     fun testInsertExprTargetChoice() {
         val lexer = createLexer()
@@ -4112,6 +4317,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: InsertExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     fun testInsertExpr() {
         val lexer = createLexer()
@@ -4124,6 +4330,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: DeleteExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
     fun testDeleteExpr() {
         val lexer = createLexer()
@@ -4136,6 +4343,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: ReplaceExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     fun testReplaceExpr() {
         val lexer = createLexer()
@@ -4150,6 +4358,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: RenameExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     fun testRenameExpr() {
         val lexer = createLexer()
@@ -4162,6 +4371,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 1.0 :: TransformExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 1.0", reference = "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     fun testTransformExpr() {
         val lexer = createLexer()
@@ -4177,6 +4387,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 3.0 :: CompatibilityAnnotation
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     fun testCompatibilityAnnotation() {
         val lexer = createLexer()
@@ -4187,6 +4398,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 3.0 :: TransformWithExpr
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     fun testTransformWithExpr() {
         val lexer = createLexer()
@@ -4200,6 +4412,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Update Facility 3.0 :: UpdatingFunctionCall
 
+    @Test
     @Specification(name = "XQuery Update Facility 3.0", reference = "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     fun testUpdatingFunctionCall() {
         val lexer = createLexer()
@@ -4214,6 +4427,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: VarDecl
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
     fun testVarDecl_Scripting10() {
         val lexer = createLexer()
@@ -4230,6 +4444,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: FunctionDecl
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     fun testFunctionDecl_Scripting10() {
         val lexer = createLexer()
@@ -4249,6 +4464,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: ApplyExpr
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ApplyExpr")
     fun testApplyExpr() {
         val lexer = createLexer()
@@ -4259,6 +4475,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: ConcatExpr
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ConcatExpr")
     fun testConcatExpr() {
         val lexer = createLexer()
@@ -4269,6 +4486,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: BlockExpr
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     fun testBlockExpr() {
         val lexer = createLexer()
@@ -4279,6 +4497,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: Block
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-Block")
     fun testBlock() {
         val lexer = createLexer()
@@ -4290,6 +4509,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: BlockDecls
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     fun testBlockDecls() {
         val lexer = createLexer()
@@ -4300,6 +4520,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: BlockVarDecl
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     fun testBlockVarDecl() {
         val lexer = createLexer()
@@ -4313,6 +4534,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: AssignmentExpr
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     fun testAssignmentExpr() {
         val lexer = createLexer()
@@ -4324,6 +4546,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: ExitExpr
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
     fun testExitExpr() {
         val lexer = createLexer()
@@ -4335,6 +4558,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Scripting Extension 1.0 :: WhileExpr
 
+    @Test
     @Specification(name = "XQuery Scripting Extension 1.0", reference = "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     fun testWhileExpr() {
         val lexer = createLexer()
@@ -4347,6 +4571,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTOptionDecl
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTOptionDecl")
     fun testFTOptionDecl() {
         val lexer = createLexer()
@@ -4358,6 +4583,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTScoreVar
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTScoreVar")
     fun testFTScoreVar() {
         val lexer = createLexer()
@@ -4369,6 +4595,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTContainsExpr
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTContainsExpr")
     fun testFTContainsExpr() {
         val lexer = createLexer()
@@ -4380,6 +4607,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTWeight
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWeight")
     fun testFTWeight() {
         val lexer = createLexer()
@@ -4392,6 +4620,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTOr
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTOr")
     fun testFTOr() {
         val lexer = createLexer()
@@ -4402,6 +4631,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTAnd
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTAnd")
     fun testFTAnd() {
         val lexer = createLexer()
@@ -4412,6 +4642,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTMildNot
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTMildNot")
     fun testFTMildNot() {
         val lexer = createLexer()
@@ -4423,6 +4654,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTUnaryNot
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTUnaryNot")
     fun testFTUnaryNot() {
         val lexer = createLexer()
@@ -4433,6 +4665,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTPrimary
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTPrimary")
     fun testFTPrimary() {
         val lexer = createLexer()
@@ -4444,6 +4677,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTWordsValue
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWordsValue")
     fun testFTWordsValue() {
         val lexer = createLexer()
@@ -4455,6 +4689,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTExtensionSelection
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTExtensionSelection")
     fun testFTExtensionSelection() {
         val lexer = createLexer()
@@ -4466,6 +4701,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTAnyallOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTAnyallOption")
     fun testFTAnyallOption() {
         val lexer = createLexer()
@@ -4481,6 +4717,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTTimes
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTTimes")
     fun testFTTimes() {
         val lexer = createLexer()
@@ -4492,6 +4729,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTRange
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTRange")
     fun testFTRange() {
         val lexer = createLexer()
@@ -4507,6 +4745,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTOrder
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTOrder")
     fun testFTOrder() {
         val lexer = createLexer()
@@ -4517,6 +4756,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTWindow
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWindow")
     fun testFTWindow() {
         val lexer = createLexer()
@@ -4527,6 +4767,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTDistance
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDistance")
     fun testFTDistance() {
         val lexer = createLexer()
@@ -4537,6 +4778,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTUnit
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTUnit")
     fun testFTUnit() {
         val lexer = createLexer()
@@ -4549,6 +4791,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTScope
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTScope")
     fun testFTScope() {
         val lexer = createLexer()
@@ -4560,6 +4803,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTBigUnit
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTBigUnit")
     fun testFTBigUnit() {
         val lexer = createLexer()
@@ -4571,6 +4815,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTContent
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTContent")
     fun testFTContent() {
         val lexer = createLexer()
@@ -4586,6 +4831,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTMatchOptions
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTMatchOptions")
     fun testFTMatchOptions() {
         val lexer = createLexer()
@@ -4596,6 +4842,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTCaseOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTCaseOption")
     fun testFTCaseOption() {
         val lexer = createLexer()
@@ -4611,6 +4858,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTDiacriticsOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDiacriticsOption")
     fun testFTDiacriticsOption() {
         val lexer = createLexer()
@@ -4623,6 +4871,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTStemOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStemOption")
     fun testFTStemOption() {
         val lexer = createLexer()
@@ -4634,6 +4883,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTThesaurusOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTThesaurusOption")
     fun testFTThesaurusOption() {
         val lexer = createLexer()
@@ -4650,6 +4900,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTThesaurusID
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTThesaurusID")
     fun testFTThesaurusID() {
         val lexer = createLexer()
@@ -4662,6 +4913,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTLiteralRange
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTLiteralRange")
     fun testFTLiteralRange() {
         val lexer = createLexer()
@@ -4679,6 +4931,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTStopWordOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWordOption")
     fun testFTStopWordOption() {
         val lexer = createLexer()
@@ -4692,6 +4945,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTStopWords
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWords")
     fun testFTStopWords() {
         val lexer = createLexer()
@@ -4706,6 +4960,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTStopWordsInclExcl
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWordsInclExcl")
     fun testFTStopWordsInclExcl() {
         val lexer = createLexer()
@@ -4717,6 +4972,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTLanguageOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTLanguageOption")
     fun testFTLanguageOption() {
         val lexer = createLexer()
@@ -4727,6 +4983,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTWildCardOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWildCardOption")
     fun testFTWildCardOption() {
         val lexer = createLexer()
@@ -4738,6 +4995,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTExtensionOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTExtensionOption")
     fun testFTExtensionOption() {
         val lexer = createLexer()
@@ -4748,6 +5006,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Full Text 1.0 :: FTIgnoreOption
 
+    @Test
     @Specification(name = "XQuery Full Text 1.0", reference = "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTIgnoreOption")
     fun testFTIgnoreOption() {
         val lexer = createLexer()
@@ -4759,6 +5018,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
+    @Test
     fun testTransactionSeparator() {
         val lexer = createLexer()
 
@@ -4768,6 +5028,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
+    @Test
     fun testCompatibilityAnnotation_MarkLogic() {
         val lexer = createLexer()
 
@@ -4777,6 +5038,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 6.0 :: StylesheetImport
 
+    @Test
     fun testStylesheetImport() {
         val lexer = createLexer()
 
@@ -4788,6 +5050,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 6.0 :: ValidateExpr
 
+    @Test
     fun testValidateExpr_ValidateAs() {
         val lexer = createLexer()
 
@@ -4800,6 +5063,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
+    @Test
     fun testForwardAxis_MarkLogic() {
         val lexer = createLexer()
 
@@ -4811,6 +5075,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 6.0 :: BinaryConstructor
 
+    @Test
     fun testBinaryConstructor() {
         val lexer = createLexer()
 
@@ -4822,6 +5087,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: AttributeDeclTest
 
+    @Test
     fun testAttributeDeclTest() {
         val lexer = createLexer()
 
@@ -4833,6 +5099,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: ComplexTypeTest
 
+    @Test
     fun testComplexTypeTest() {
         val lexer = createLexer()
 
@@ -4844,6 +5111,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: ElementDeclTest
 
+    @Test
     fun testElementDeclTest() {
         val lexer = createLexer()
 
@@ -4855,6 +5123,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: SchemaComponentTest
 
+    @Test
     fun testSchemaComponentTest() {
         val lexer = createLexer()
 
@@ -4866,6 +5135,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: SchemaParticleTest
 
+    @Test
     fun testSchemaParticleTest() {
         val lexer = createLexer()
 
@@ -4877,6 +5147,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: SchemaRootTest
 
+    @Test
     fun testSchemaRootTest() {
         val lexer = createLexer()
 
@@ -4888,6 +5159,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: SchemaTypeTest
 
+    @Test
     fun testSchemaTypeTest() {
         val lexer = createLexer()
 
@@ -4899,6 +5171,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 7.0 :: SimpleTypeTest
 
+    @Test
     fun testSimpleTypeTest() {
         val lexer = createLexer()
 
@@ -4910,6 +5183,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: SchemaFacetTest
 
+    @Test
     fun testSchemaFacetTest() {
         val lexer = createLexer()
 
@@ -4921,6 +5195,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: ArrayConstructor
 
+    @Test
     fun testArrayConstructor() {
         val lexer = createLexer()
 
@@ -4933,6 +5208,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: BooleanConstructor
 
+    @Test
     fun testBooleanConstructor() {
         val lexer = createLexer()
 
@@ -4944,6 +5220,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: NullConstructor
 
+    @Test
     fun testNullConstructor() {
         val lexer = createLexer()
 
@@ -4955,6 +5232,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: NumberConstructor
 
+    @Test
     fun testNumberConstructor() {
         val lexer = createLexer()
 
@@ -4966,6 +5244,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: MapConstructor
 
+    @Test
     fun testMapConstructor_MarkLogic() {
         val lexer = createLexer()
 
@@ -4979,6 +5258,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
+    @Test
     fun testAnyKindTest_MarkLogic() {
         val lexer = createLexer()
 
@@ -4991,6 +5271,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: ArrayTest
 
+    @Test
     fun testArrayTest() {
         val lexer = createLexer()
 
@@ -5002,6 +5283,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: BooleanTest
 
+    @Test
     fun testBooleanTest() {
         val lexer = createLexer()
 
@@ -5013,6 +5295,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: NullTest
 
+    @Test
     fun testNullTest() {
         val lexer = createLexer()
 
@@ -5024,6 +5307,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: NumberTest
 
+    @Test
     fun testNumberTest() {
         val lexer = createLexer()
 
@@ -5035,6 +5319,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region MarkLogic 8.0 :: MapTest
 
+    @Test
     fun testMapTest() {
         val lexer = createLexer()
 
@@ -5046,6 +5331,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region BaseX 6.1 :: FTFuzzyOption
 
+    @Test
     @Specification(name = "BaseX Full-Text", reference = "http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying")
     fun testFTFuzzyOption() {
         val lexer = createLexer()
@@ -5056,6 +5342,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region BaseX 7.8 :: UpdateExpr
 
+    @Test
     fun testUpdateExpr() {
         val lexer = createLexer()
 
@@ -5065,6 +5352,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region BaseX 8.4 :: NonDeterministicFunctionCall
 
+    @Test
     fun testNonDeterministicFunctionCall() {
         val lexer = createLexer()
 
@@ -5077,6 +5365,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region BaseX 8.5 :: UpdateExpr
 
+    @Test
     fun testUpdateExpr_BaseX85() {
         val lexer = createLexer()
 
@@ -5088,6 +5377,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Saxon 9.8 :: UnionType
 
+    @Test
     @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types")
     fun testUnionType() {
         val lexer = createLexer()
@@ -5101,6 +5391,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Saxon 9.8 :: TupleType
 
+    @Test
     @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
     fun testTupleType() {
         val lexer = createLexer()
@@ -5114,6 +5405,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Saxon 9.8 :: TupleTypeField
 
+    @Test
     @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
     fun testTupleTypeField() {
         val lexer = createLexer()
@@ -5124,6 +5416,7 @@ class XQueryLexerTest : LexerTestCase() {
     // endregion
     // region Saxon 9.8 :: TypeDecl
 
+    @Test
     @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
     fun testTypeDecl() {
         val lexer = createLexer()

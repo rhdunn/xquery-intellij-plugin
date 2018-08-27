@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,16 @@ import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118.MismatchedDirElemTagNameInspection
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = MismatchedDirElemTagNameInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -36,6 +39,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
     // endregion
     // region DirElemConstructor :: NCName
 
+    @Test
     fun testNCName_MatchedTags() {
         val file = parseResource("tests/inspections/xquery/XQST0118/NCName_MatchedTags.xq")
 
@@ -44,6 +48,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testNCName_SelfClosing() {
         val file = parseResource("tests/inspections/xquery/XQST0118/NCName_SelfClosing.xq")
 
@@ -52,6 +57,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testNCName_MismatchedTags() {
         val file = parseResource("tests/inspections/xquery/XQST0118/NCName_MismatchedTags.xq")
 
@@ -68,6 +74,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
     // endregion
     // region DirElemConstructor :: QName
 
+    @Test
     fun testQName_MatchedPrefixAndLocalName() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq")
 
@@ -76,6 +83,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testQName_SelfClosing() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.xq")
 
@@ -84,6 +92,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testQName_MissingClosingTag() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq")
 
@@ -92,6 +101,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testQName_InvalidOpeningTag() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTagQName.xq")
 
@@ -100,6 +110,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testQName_InvalidClosingTag() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq")
 
@@ -108,6 +119,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testQName_MismatchedPrefix() {
         val file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedPrefix.xq")
 
@@ -121,6 +133,7 @@ class MismatchedDirElemTagNameInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.text, `is`("c:b"))
     }
 
+    @Test
     fun testQName_MismatchedLocalName() {
         val file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedLocalName.xq")
 

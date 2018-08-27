@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,16 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.ReservedFunctionNameInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class ReservedFunctionNameInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = ReservedFunctionNameInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -38,6 +41,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // region FunctionCall
     // region MarkLogic 8.0 Reserved Function Names
 
+    @Test
     fun testFunctionCall_MarkLogic80ReservedFunctionName_XQuery10() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
@@ -47,6 +51,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic70() {
         settings.implementationVersion = "marklogic/v7"
         val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
@@ -56,6 +61,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic80() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
@@ -72,6 +78,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // endregion
     // region Scripting 1.0 Reserved Function Names
 
+    @Test
     fun testFunctionCall_Scripting10ReservedFunctionName_XQuery10() {
         settings.implementationVersion = "saxon/HE/v9.5"
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
@@ -81,6 +88,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testFunctionCall_Scripting10ReservedFunctionName_W3C() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
@@ -99,6 +107,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // region FunctionDecl
     // region MarkLogic 8.0 Reserved Function Names
 
+    @Test
     fun testFunctionDecl_MarkLogic80ReservedFunctionName_XQuery10() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
@@ -108,6 +117,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic70() {
         settings.implementationVersion = "marklogic/v7"
         val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
@@ -117,6 +127,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic80() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
@@ -133,6 +144,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // endregion
     // region Scripting 1.0 Reserved Function Names
 
+    @Test
     fun testFunctionDecl_Scripting10ReservedFunctionName_XQuery10() {
         settings.implementationVersion = "saxon/HE/v9.5"
         val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
@@ -142,6 +154,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testFunctionDecl_Scripting10ReservedFunctionName_W3C() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
@@ -160,6 +173,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // region NamedFunctionRef
     // region XQuery 1.0 Reserved Function Names
 
+    @Test
     fun testNamedFunctionRef_XQuery10ReservedFunctionName() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq")
@@ -176,6 +190,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // endregion
     // region XQuery 3.0 Reserved Function Names
 
+    @Test
     fun testNamedFunctionRef_XQuery30ReservedFunctionName() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq")
@@ -192,6 +207,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     // endregion
     // region Scripting 1.0 Reserved Function Names
 
+    @Test
     fun testNamedFunctionRef_Scripting10ReservedFunctionName_XQuery10() {
         settings.implementationVersion = "saxon/HE/v9.5"
         val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
@@ -201,6 +217,7 @@ class ReservedFunctionNameInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testNamedFunctionRef_Scripting10ReservedFunctionName_W3C() {
         settings.implementationVersion = "w3c/spec/v1ed"
         val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")

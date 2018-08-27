@@ -22,17 +22,27 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
+    @BeforeAll
     override fun setUp() {
         super.setUp()
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
+    }
+
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
     }
 
     private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {

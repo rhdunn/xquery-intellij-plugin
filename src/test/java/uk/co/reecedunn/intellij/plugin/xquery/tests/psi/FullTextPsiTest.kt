@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
@@ -29,14 +30,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.FullText
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class FullTextPsiTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class FullTextPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region FTContainsExpr
 
+    @Test
     fun testFTContainsExpr() {
         val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 
@@ -54,6 +56,7 @@ class FullTextPsiTest : ParserTestCase() {
     // endregion
     // region FTScoreVar
 
+    @Test
     fun testFTScoreVar() {
         val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
 
@@ -73,6 +76,7 @@ class FullTextPsiTest : ParserTestCase() {
     // endregion
     // region FTOptionDecl
 
+    @Test
     fun testFTOptionDecl() {
         val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
 

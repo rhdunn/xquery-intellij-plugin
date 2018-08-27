@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.intellij.openapi.fileTypes.FileType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
@@ -30,28 +31,34 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 
-class XQueryParserDefinitionTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class XQueryParserDefinitionTest : ParserTestCase() {
+    @Test
     fun testLexer() {
         val parserDefinition = XQueryParserDefinition()
         assertThat(parserDefinition.createLexer(myProject).javaClass.name, `is`(CombinedLexer::class.java.name))
     }
 
+    @Test
     fun testParser() {
         val parserDefinition = XQueryParserDefinition()
         assertThat(parserDefinition.createParser(myProject).javaClass.name, `is`(XQueryPsiParser::class.java.name))
     }
 
+    @Test
     fun testFileNodeType() {
         val parserDefinition = XQueryParserDefinition()
         assertThat(parserDefinition.fileNodeType, `is`(XQueryElementType.FILE))
     }
 
+    @Test
     fun testWhitespaceTokens() {
         val parserDefinition = XQueryParserDefinition()
         val tokens = parserDefinition.whitespaceTokens
         assertThat(tokens.types.size, `is`(0))
     }
 
+    @Test
     fun testCommentTokens() {
         val parserDefinition = XQueryParserDefinition()
         val tokens = parserDefinition.commentTokens
@@ -62,6 +69,7 @@ class XQueryParserDefinitionTest : ParserTestCase() {
         assertThat(tokens.contains(XQueryTokenType.XML_COMMENT), `is`(true))
     }
 
+    @Test
     fun testStringLiteralElements() {
         val parserDefinition = XQueryParserDefinition()
         val tokens = parserDefinition.stringLiteralElements
@@ -72,6 +80,7 @@ class XQueryParserDefinitionTest : ParserTestCase() {
         assertThat(tokens.contains(XQueryTokenType.XML_ELEMENT_CONTENTS), `is`(true))
     }
 
+    @Test
     fun testCreateElement() {
         val parserDefinition = XQueryParserDefinition()
 
@@ -80,6 +89,7 @@ class XQueryParserDefinitionTest : ParserTestCase() {
         assertThat(e.message, `is`("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."))
     }
 
+    @Test
     fun testCreateFile() {
         val parserDefinition = XQueryParserDefinition()
         val file = createVirtualFile("test.xqy", "")
@@ -88,6 +98,7 @@ class XQueryParserDefinitionTest : ParserTestCase() {
         assertThat(psiFile.fileType, `is`(XQueryFileType.INSTANCE as FileType))
     }
 
+    @Test
     fun testSpaceExistanceTypeBetweenTokens() {
         val parserDefinition = XQueryParserDefinition()
         assertThat(parserDefinition.spaceExistanceTypeBetweenTokens(null, null), `is`(ParserDefinition.SpaceRequirements.MAY))

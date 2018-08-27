@@ -15,13 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 
-class ByteSequenceTest : TestCase() {
+class ByteSequenceTest {
+    @Test
     fun testConstruction() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -33,6 +34,7 @@ class ByteSequenceTest : TestCase() {
         assertThat(b[9], `is`('9'))
     }
 
+    @Test
     fun testSubSequence() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -48,6 +50,7 @@ class ByteSequenceTest : TestCase() {
         assertThat(b.subSequence(10, 10).toString(), `is`(""))
     }
 
+    @Test
     fun testSubSubSequence() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -61,6 +64,7 @@ class ByteSequenceTest : TestCase() {
         assertThat(d[2], `is`('6'))
     }
 
+    @Test
     fun testSubSequence_OutOfBounds() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -81,6 +85,7 @@ class ByteSequenceTest : TestCase() {
         assertThat<String>(e4.message, `is`("-2"))
     }
 
+    @Test
     fun testCharAt_OutOfBounds() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -92,6 +97,7 @@ class ByteSequenceTest : TestCase() {
         assertThat<String>(e2.message, `is`("10"))
     }
 
+    @Test
     fun testCharAt_SubSequence_OutOfBounds() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)

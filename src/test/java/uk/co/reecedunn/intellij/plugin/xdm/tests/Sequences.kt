@@ -15,13 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 
-class Sequences : TestCase() {
+class Sequences {
+    @Test
     fun testXdmEmptySequence() {
         assertThat(XdmEmptySequence.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmEmptySequence.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
@@ -29,6 +30,7 @@ class Sequences : TestCase() {
         assertThat(XdmEmptySequence.toString(), `is`("empty-sequence()"))
     }
 
+    @Test
     fun testXdmOptional() {
         val seq = XdmOptional(XsString)
         assertThat(seq.itemType, `is`(XsString as XdmSequenceType))
@@ -37,6 +39,7 @@ class Sequences : TestCase() {
         assertThat(seq.toString(), `is`("xs:string?"))
     }
 
+    @Test
     fun testXdmOptionalSequence() {
         val seq = XdmOptionalSequence(XsString)
         assertThat(seq.itemType, `is`(XsString as XdmSequenceType))
@@ -45,6 +48,7 @@ class Sequences : TestCase() {
         assertThat(seq.toString(), `is`("xs:string*"))
     }
 
+    @Test
     fun testXdmSequence() {
         val seq = XdmSequence(XsString)
         assertThat(seq.itemType, `is`(XsString as XdmSequenceType))
@@ -53,6 +57,7 @@ class Sequences : TestCase() {
         assertThat(seq.toString(), `is`("xs:string+"))
     }
 
+    @Test
     fun testXdmOptionalItem() {
         assertThat(XdmItemSequence.itemType, `is`(XdmItem as XdmSequenceType))
         assertThat(XdmItemSequence.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))

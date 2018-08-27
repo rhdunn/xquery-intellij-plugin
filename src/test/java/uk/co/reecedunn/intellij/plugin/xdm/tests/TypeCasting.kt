@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FOCA0002
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
@@ -30,12 +30,13 @@ import java.math.BigInteger
 import java.util.*
 
 @Suppress("JoinDeclarationAndAssignment", "CanBeVal")
-class TypeCasting : TestCase() {
+class TypeCasting {
     // region Primitive Types :: xs:float
     //
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
     // Reference: https://www.w3.org/TR/xmlschema11-2/#float
 
+    @Test
     fun testXsFloat_FromXsFloat() {
         var result: XdmTypeCastResult
 
@@ -45,6 +46,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(1.23f))
     }
 
+    @Test
     fun testXsFloat_FromXsDouble() {
         var result: XdmTypeCastResult
 
@@ -54,6 +56,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(1.23f))
     }
 
+    @Test
     fun testXsFloat_FromXsDecimal() {
         var result: XdmTypeCastResult
 
@@ -63,6 +66,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(1.23f))
     }
 
+    @Test
     fun testXsFloat_FromXsInteger() {
         var result: XdmTypeCastResult
 
@@ -72,6 +76,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(123.0f))
     }
 
+    @Test
     fun testXsFloat_FromXsBoolean() {
         var result: XdmTypeCastResult
 
@@ -86,6 +91,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(0.0f))
     }
 
+    @Test
     fun testXsFloat_FromXsString() {
         var result: XdmTypeCastResult
 
@@ -105,6 +111,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(2.3e8f))
     }
 
+    @Test
     fun testXsFloat_FromXsString_Zero() {
         var result: XdmTypeCastResult
 
@@ -124,6 +131,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(0.0f))
     }
 
+    @Test
     fun testXsFloat_FromXsString_Infinity() {
         var result: XdmTypeCastResult
 
@@ -144,6 +152,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(Float.POSITIVE_INFINITY))
     }
 
+    @Test
     fun testXsFloat_FromXsString_NaN() {
         var result: XdmTypeCastResult
 
@@ -153,6 +162,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(Float.NaN))
     }
 
+    @Test
     fun testXsFloat_FromXsString_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -173,6 +183,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:float'."))
     }
 
+    @Test
     fun testXsFloat_FromXsUntypedAtomic() {
         var result: XdmTypeCastResult
 
@@ -192,6 +203,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(2.3e8f))
     }
 
+    @Test
     fun testXsFloat_FromXsUntypedAtomic_Zero() {
         var result: XdmTypeCastResult
 
@@ -211,6 +223,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(0.0f))
     }
 
+    @Test
     fun testXsFloat_FromXsUntypedAtomic_Infinity() {
         var result: XdmTypeCastResult
 
@@ -231,6 +244,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(Float.POSITIVE_INFINITY))
     }
 
+    @Test
     fun testXsFloat_FromXsUntypedAtomic_NaN() {
         var result: XdmTypeCastResult
 
@@ -240,6 +254,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Float, `is`(Float.NaN))
     }
 
+    @Test
     fun testXsFloat_FromXsUntypedAtomic_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -260,6 +275,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:float'."))
     }
 
+    @Test
     fun testXsFloat_FromIncompatiblePrimitiveType() {
         var result: XdmTypeCastResult
 
@@ -278,6 +294,7 @@ class TypeCasting : TestCase() {
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
     // Reference: https://www.w3.org/TR/xmlschema11-2/#double
 
+    @Test
     fun testXsDouble_FromXsDouble() {
         var result: XdmTypeCastResult
 
@@ -287,6 +304,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(1.23))
     }
 
+    @Test
     fun testXsDouble_FromXsFloat() {
         var result: XdmTypeCastResult
 
@@ -296,6 +314,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(1.2300000190734863))
     }
 
+    @Test
     fun testXsDouble_FromXsDecimal() {
         var result: XdmTypeCastResult
 
@@ -305,6 +324,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(1.23))
     }
 
+    @Test
     fun testXsDouble_FromXsInteger() {
         var result: XdmTypeCastResult
 
@@ -314,6 +334,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(123.0))
     }
 
+    @Test
     fun testXsDouble_FromXsBoolean() {
         var result: XdmTypeCastResult
 
@@ -328,6 +349,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(0.0))
     }
 
+    @Test
     fun testXsDouble_FromXsString() {
         var result: XdmTypeCastResult
 
@@ -347,6 +369,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(2.3e8))
     }
 
+    @Test
     fun testXsDouble_FromXsString_Zero() {
         var result: XdmTypeCastResult
 
@@ -366,6 +389,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(0.0))
     }
 
+    @Test
     fun testXsDouble_FromXsString_Infinity() {
         var result: XdmTypeCastResult
 
@@ -386,6 +410,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(Double.POSITIVE_INFINITY))
     }
 
+    @Test
     fun testXsDouble_FromXsString_NaN() {
         var result: XdmTypeCastResult
 
@@ -395,6 +420,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(Double.NaN))
     }
 
+    @Test
     fun testXsDouble_FromXsString_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -415,6 +441,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:double'."))
     }
 
+    @Test
     fun testXsDouble_FromXsUntypedAtomic() {
         var result: XdmTypeCastResult
 
@@ -434,6 +461,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(2.3e8))
     }
 
+    @Test
     fun testXsDouble_FromXsUntypedAtomic_Zero() {
         var result: XdmTypeCastResult
 
@@ -453,6 +481,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(0.0))
     }
 
+    @Test
     fun testXsDouble_FromXsUntypedAtomic_Infinity() {
         var result: XdmTypeCastResult
 
@@ -473,6 +502,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(Double.POSITIVE_INFINITY))
     }
 
+    @Test
     fun testXsDouble_FromXsUntypedAtomic_NaN() {
         var result: XdmTypeCastResult
 
@@ -482,6 +512,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Double, `is`(Double.NaN))
     }
 
+    @Test
     fun testXsDouble_FromXsUntypedAtomic_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -502,6 +533,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:double'."))
     }
 
+    @Test
     fun testXsDouble_FromIncompatiblePrimitiveType() {
         var result: XdmTypeCastResult
 
@@ -520,6 +552,7 @@ class TypeCasting : TestCase() {
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
     // Reference: https://www.w3.org/TR/xmlschema11-2/#decimal
 
+    @Test
     fun testXsDecimal_FromXsDecimal() {
         var result: XdmTypeCastResult
 
@@ -529,6 +562,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigDecimal, `is`(BigDecimal("1.23")))
     }
 
+    @Test
     fun testXsDecimal_FromXsInteger() {
         var result: XdmTypeCastResult
 
@@ -538,6 +572,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigDecimal, `is`(BigDecimal(BigInteger("123"))))
     }
 
+    @Test
     fun testXsDecimal_FromXsFloat() {
         var result: XdmTypeCastResult
 
@@ -572,6 +607,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:decimal'."))
     }
 
+    @Test
     fun testXsDecimal_FromXsDouble() {
         var result: XdmTypeCastResult
 
@@ -606,6 +642,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:decimal'."))
     }
 
+    @Test
     fun testXsDecimal_FromXsBoolean() {
         var result: XdmTypeCastResult
 
@@ -620,6 +657,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigDecimal, `is`(BigDecimal.ZERO))
     }
 
+    @Test
     fun testXsDecimal_FromXsString() {
         var result: XdmTypeCastResult
 
@@ -634,6 +672,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigDecimal, `is`(BigDecimal.valueOf(-1.23)))
     }
 
+    @Test
     fun testXsDecimal_FromXsString_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -662,6 +701,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:decimal'."))
     }
 
+    @Test
     fun testXsDecimal_FromXsUntypedAtomic() {
         var result: XdmTypeCastResult
 
@@ -676,6 +716,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigDecimal, `is`(BigDecimal.valueOf(-1.23)))
     }
 
+    @Test
     fun testXsDecimal_FromXsUntypedAtomic_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -704,6 +745,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:decimal'."))
     }
 
+    @Test
     fun testXsDecimal_FromIncompatiblePrimitiveType() {
         var result: XdmTypeCastResult
 
@@ -722,6 +764,7 @@ class TypeCasting : TestCase() {
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-to-numerics
     // Reference: https://www.w3.org/TR/xmlschema11-2/#integer
 
+    @Test
     fun testXsInteger_FromXsInteger() {
         var result: XdmTypeCastResult
 
@@ -731,6 +774,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigInteger, `is`(BigInteger("123")))
     }
 
+    @Test
     fun testXsInteger_FromXsDecimal() {
         var result: XdmTypeCastResult
 
@@ -740,6 +784,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigInteger, `is`(BigInteger("1")))
     }
 
+    @Test
     fun testXsInteger_FromXsFloat() {
         var result: XdmTypeCastResult
 
@@ -774,6 +819,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:integer'."))
     }
 
+    @Test
     fun testXsInteger_FromXsDouble() {
         var result: XdmTypeCastResult
 
@@ -808,6 +854,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:integer'."))
     }
 
+    @Test
     fun testXsInteger_FromXsBoolean() {
         var result: XdmTypeCastResult
 
@@ -822,6 +869,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigInteger, `is`(BigInteger.ZERO))
     }
 
+    @Test
     fun testXsInteger_FromXsString() {
         var result: XdmTypeCastResult
 
@@ -831,6 +879,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigInteger, `is`(BigInteger.valueOf(12)))
     }
 
+    @Test
     fun testXsInteger_FromXsString_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -867,6 +916,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:integer'."))
     }
 
+    @Test
     fun testXsInteger_FromXsUntypedAtomic() {
         var result: XdmTypeCastResult
 
@@ -876,6 +926,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as BigInteger, `is`(BigInteger.valueOf(12)))
     }
 
+    @Test
     fun testXsInteger_FromXsUntypedAtomic_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -912,6 +963,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:integer'."))
     }
 
+    @Test
     fun testXsInteger_FromIncompatiblePrimitiveType() {
         var result: XdmTypeCastResult
 
@@ -930,6 +982,7 @@ class TypeCasting : TestCase() {
     // Reference: https://www.w3.org/TR/xpath-functions/#casting-boolean
     // Reference: https://www.w3.org/TR/xmlschema11-2/#boolean
 
+    @Test
     fun testXsBoolean_FromXsBoolean() {
         var result: XdmTypeCastResult
 
@@ -944,6 +997,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(true))
     }
 
+    @Test
     fun testXsBoolean_FromXsFloat() {
         var result: XdmTypeCastResult
 
@@ -968,6 +1022,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(false))
     }
 
+    @Test
     fun testXsBoolean_FromXsDouble() {
         var result: XdmTypeCastResult
 
@@ -992,6 +1047,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(false))
     }
 
+    @Test
     fun testXsBoolean_FromXsDecimal() {
         var result: XdmTypeCastResult
 
@@ -1011,6 +1067,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(true))
     }
 
+    @Test
     fun testXsBoolean_FromXsInteger() {
         var result: XdmTypeCastResult
 
@@ -1030,6 +1087,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(true))
     }
 
+    @Test
     fun testXsBoolean_FromXsString() {
         var result: XdmTypeCastResult
 
@@ -1054,6 +1112,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(true))
     }
 
+    @Test
     fun testXsBoolean_FromXsString_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -1082,6 +1141,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:boolean'."))
     }
 
+    @Test
     fun testXsBoolean_FromXsUntypedAtomic() {
         var result: XdmTypeCastResult
 
@@ -1106,6 +1166,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(true))
     }
 
+    @Test
     fun testXsBoolean_FromXsUntypedAtomic_InvalidPattern() {
         var result: XdmTypeCastResult
 
@@ -1134,6 +1195,7 @@ class TypeCasting : TestCase() {
                 `is`("The value does not match the lexical representation for 'xs:boolean'."))
     }
 
+    @Test
     fun testXsBoolean_FromIncompatiblePrimitiveType() {
         var result: XdmTypeCastResult
 
@@ -1149,6 +1211,7 @@ class TypeCasting : TestCase() {
     // endregion
     // region itemType? [XdmOptional]
 
+    @Test
     fun testXdmOptional_FromEmptySequence() {
         var result: XdmTypeCastResult
 
@@ -1157,6 +1220,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value, `is`(nullValue()))
     }
 
+    @Test
     fun testXdmOptional_FromUntyped() {
         var result: XdmTypeCastResult
 
@@ -1166,6 +1230,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as String, `is`("true"))
     }
 
+    @Test
     fun testXdmOptional_FromType() {
         var result: XdmTypeCastResult
 
@@ -1175,6 +1240,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(false))
     }
 
+    @Test
     fun testXdmOptional_FromCastableType() {
         var result: XdmTypeCastResult
 
@@ -1184,6 +1250,7 @@ class TypeCasting : TestCase() {
         assertThat(result.value as Boolean, `is`(true))
     }
 
+    @Test
     fun testXdmOptional_FromCastableType_InvalidPattern() {
         var result: XdmTypeCastResult
 

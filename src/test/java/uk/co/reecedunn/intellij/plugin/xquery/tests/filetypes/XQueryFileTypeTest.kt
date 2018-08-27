@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,37 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.filetypes
 
-import com.intellij.openapi.vfs.CharsetToolkit
-import com.intellij.testFramework.LightVirtualFile
-import com.intellij.testFramework.ParsingTestCase
+import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.jetbrains.annotations.NonNls
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition()) {
-    private fun createVirtualFile(@NonNls name: String, text: String): LightVirtualFile {
-        val file = LightVirtualFile(name, myLanguage, text)
-        file.charset = CharsetToolkit.UTF8_CHARSET
-        return file
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryParserDefinition()) {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
     }
 
+    @AfterAll
+    override fun tearDown() {
+        super.tearDown()
+    }
+
+    @Test
     fun testFactory() {
         val factory = FileTypeFactory()
         val consumer = FileTypeToArrayConsumer()
@@ -43,6 +57,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat(consumer.fileMatchers.size, `is`(0))
     }
 
+    @Test
     fun testProperties() {
         val fileType = XQueryFileType.INSTANCE
 
@@ -51,6 +66,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat(fileType.defaultExtension, `is`("xqy"))
     }
 
+    @Test
     fun testDefaultEncoding() {
         val fileType = XQueryFileType.INSTANCE
         val file = createVirtualFile("encoding.xqy", "")
@@ -72,6 +88,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat<String>(fileType.getCharset(file, "xquery version \"1.0\" encoding+\"latin1\"".toByteArray()), `is`("UTF-8"))
     }
 
+    @Test
     fun testFileEncoding() {
         val fileType = XQueryFileType.INSTANCE
         val file = createVirtualFile("encoding.xqy", "")
@@ -94,6 +111,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat<String>(fileType.getCharset(file, "\n(::)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
     }
 
+    @Test
     fun testUnsupportedFileEncoding() {
         val fileType = XQueryFileType.INSTANCE
         val file = createVirtualFile("encoding.xqy", "")
@@ -101,6 +119,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat<String>(fileType.getCharset(file, "xquery version \"1.0\" encoding \"utf\"".toByteArray()), `is`("UTF-8"))
     }
 
+    @Test
     fun testDefaultEncodingFromContents() {
         val fileType = XQueryFileType.INSTANCE
         val file = createVirtualFile("encoding.xqy", "")
@@ -122,6 +141,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\" encoding+\"latin1\"" as CharSequence).name(), `is`("UTF-8"))
     }
 
+    @Test
     fun testFileEncodingFromContents() {
         val fileType = XQueryFileType.INSTANCE
         val file = createVirtualFile("encoding.xqy", "")
@@ -144,6 +164,7 @@ class XQueryFileTypeTest : ParsingTestCase("", ".xqy", XQueryParserDefinition())
         assertThat(fileType.extractCharsetFromFileContent(null, file, "\n(::)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
     }
 
+    @Test
     fun testUnsupportedFileEncodingFromContents() {
         val fileType = XQueryFileType.INSTANCE
         val file = createVirtualFile("encoding.xqy", "")

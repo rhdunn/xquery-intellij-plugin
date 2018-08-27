@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
-import junit.framework.TestCase
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
-class CharacterClassTest : TestCase() {
+class CharacterClassTest {
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Char")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-Char")
     fun testChar() {
@@ -58,6 +59,7 @@ class CharacterClassTest : TestCase() {
         assertThat(CharacterClass.getCharClass(0xFFFFFF), `is`(CharacterClass.INVALID))
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
     fun testWhitespace() {
@@ -67,6 +69,7 @@ class CharacterClassTest : TestCase() {
         assertThat(CharacterClass.getCharClass(' '.toInt()), `is`(CharacterClass.WHITESPACE))
     }
 
+    @Test
     @Specification(name = "XQuery 1.0 2ed", reference = "https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Digits")
     fun testDigit() {
         assertThat(CharacterClass.getCharClass('0'.toInt()), `is`(CharacterClass.DIGIT))
@@ -81,6 +84,7 @@ class CharacterClassTest : TestCase() {
         assertThat(CharacterClass.getCharClass('9'.toInt()), `is`(CharacterClass.DIGIT))
     }
 
+    @Test
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-NameStartChar")
     fun testNameStartChar() {
         // [a-z]
@@ -230,6 +234,7 @@ class CharacterClassTest : TestCase() {
         assertThat(CharacterClass.getCharClass(0x0F0000), `is`(CharacterClass.CHAR))
     }
 
+    @Test
     @Specification(name = "XML 1.0 5ed", reference = "https://www.w3.org/TR/2008/REC-xml-20081126/#NT-NameChar")
     fun testNameChar() {
         // [#xB7]
@@ -245,114 +250,142 @@ class CharacterClassTest : TestCase() {
         assertThat(CharacterClass.getCharClass(0x000370), `is`(CharacterClass.NAME_START_CHAR))
     }
 
+    @Test
     fun testDot() {
         assertThat(CharacterClass.getCharClass('.'.toInt()), `is`(CharacterClass.DOT))
     }
 
+    @Test
     fun testQuote() {
         assertThat(CharacterClass.getCharClass('"'.toInt()), `is`(CharacterClass.QUOTE))
     }
 
+    @Test
     fun testApostrophe() {
         assertThat(CharacterClass.getCharClass('\''.toInt()), `is`(CharacterClass.APOSTROPHE))
     }
 
+    @Test
     fun testSemicolon() {
         assertThat(CharacterClass.getCharClass(';'.toInt()), `is`(CharacterClass.SEMICOLON))
     }
 
+    @Test
     fun testColon() {
         assertThat(CharacterClass.getCharClass(':'.toInt()), `is`(CharacterClass.COLON))
     }
 
+    @Test
     fun testHash() {
         assertThat(CharacterClass.getCharClass('#'.toInt()), `is`(CharacterClass.HASH))
     }
 
+    @Test
     fun testHyphenMinus() {
         assertThat(CharacterClass.getCharClass('-'.toInt()), `is`(CharacterClass.HYPHEN_MINUS))
     }
 
+    @Test
     fun testParenthesisOpen() {
         assertThat(CharacterClass.getCharClass('('.toInt()), `is`(CharacterClass.PARENTHESIS_OPEN))
     }
 
+    @Test
     fun testParenthesisClose() {
         assertThat(CharacterClass.getCharClass(')'.toInt()), `is`(CharacterClass.PARENTHESIS_CLOSE))
     }
 
+    @Test
     fun testExclamationMark() {
         assertThat(CharacterClass.getCharClass('!'.toInt()), `is`(CharacterClass.EXCLAMATION_MARK))
     }
 
+    @Test
     fun testEqual() {
         assertThat(CharacterClass.getCharClass('='.toInt()), `is`(CharacterClass.EQUAL))
     }
 
+    @Test
     fun testDollar() {
         assertThat(CharacterClass.getCharClass('$'.toInt()), `is`(CharacterClass.DOLLAR))
     }
 
+    @Test
     fun testAsterisk() {
         assertThat(CharacterClass.getCharClass('*'.toInt()), `is`(CharacterClass.ASTERISK))
     }
 
+    @Test
     fun testPlus() {
         assertThat(CharacterClass.getCharClass('+'.toInt()), `is`(CharacterClass.PLUS))
     }
 
+    @Test
     fun testLessThan() {
         assertThat(CharacterClass.getCharClass('<'.toInt()), `is`(CharacterClass.LESS_THAN))
     }
 
+    @Test
     fun testGreaterThan() {
         assertThat(CharacterClass.getCharClass('>'.toInt()), `is`(CharacterClass.GREATER_THAN))
     }
 
+    @Test
     fun testComma() {
         assertThat(CharacterClass.getCharClass(','.toInt()), `is`(CharacterClass.COMMA))
     }
 
+    @Test
     fun testCurlyBraceOpen() {
         assertThat(CharacterClass.getCharClass('{'.toInt()), `is`(CharacterClass.CURLY_BRACE_OPEN))
     }
 
+    @Test
     fun testCurlyBraceClose() {
         assertThat(CharacterClass.getCharClass('}'.toInt()), `is`(CharacterClass.CURLY_BRACE_CLOSE))
     }
 
+    @Test
     fun testQuestionMark() {
         assertThat(CharacterClass.getCharClass('?'.toInt()), `is`(CharacterClass.QUESTION_MARK))
     }
 
+    @Test
     fun testForwardSlash() {
         assertThat(CharacterClass.getCharClass('/'.toInt()), `is`(CharacterClass.FORWARD_SLASH))
     }
 
+    @Test
     fun testAtSign() {
         assertThat(CharacterClass.getCharClass('@'.toInt()), `is`(CharacterClass.AT_SIGN))
     }
 
+    @Test
     fun testSquareBraceOpen() {
         assertThat(CharacterClass.getCharClass('['.toInt()), `is`(CharacterClass.SQUARE_BRACE_OPEN))
     }
 
+    @Test
     fun testSquareBraceClose() {
         assertThat(CharacterClass.getCharClass(']'.toInt()), `is`(CharacterClass.SQUARE_BRACE_CLOSE))
     }
 
+    @Test
     fun testVerticalBar() {
         assertThat(CharacterClass.getCharClass('|'.toInt()), `is`(CharacterClass.VERTICAL_BAR))
     }
 
+    @Test
     fun testPercent() {
         assertThat(CharacterClass.getCharClass('%'.toInt()), `is`(CharacterClass.PERCENT))
     }
 
+    @Test
     fun testAmpersand() {
         assertThat(CharacterClass.getCharClass('&'.toInt()), `is`(CharacterClass.AMPERSAND))
     }
 
+    @Test
     fun testBackTick() {
         assertThat(CharacterClass.getCharClass('`'.toInt()), `is`(CharacterClass.BACK_TICK))
     }

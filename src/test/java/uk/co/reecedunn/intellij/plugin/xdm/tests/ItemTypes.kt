@@ -15,15 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmProcessingInstruction
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 
-class ItemTypes : TestCase() {
+class ItemTypes {
+    @Test
     fun testXdmItem() {
         assertThat(XdmItem.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmItem.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -31,6 +32,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmItem.toString(), `is`("item()"))
     }
 
+    @Test
     fun testXdmAnyFunction() {
         assertThat(XdmAnyFunction.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyFunction.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -38,6 +40,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyFunction.toString(), `is`("function(*)"))
     }
 
+    @Test
     fun testXdmAnyMap() {
         assertThat(XdmAnyMap.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyMap.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -45,6 +48,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyMap.toString(), `is`("map(*)"))
     }
 
+    @Test
     fun testXdmAnyArray() {
         assertThat(XdmAnyArray.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyArray.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -52,6 +56,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyArray.toString(), `is`("array(*)"))
     }
 
+    @Test
     fun testXdmNode() {
         assertThat(XdmNode.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmNode.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -59,6 +64,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmNode.toString(), `is`("node()"))
     }
 
+    @Test
     fun testXdmAnyAttribute() {
         assertThat(XdmAnyAttribute.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyAttribute.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -66,6 +72,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyAttribute.toString(), `is`("attribute()"))
     }
 
+    @Test
     fun testXdmComment() {
         assertThat(XdmComment.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmComment.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -73,6 +80,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmComment.toString(), `is`("comment()"))
     }
 
+    @Test
     fun testXdmAnyDocument() {
         assertThat(XdmAnyDocument.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyDocument.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -80,6 +88,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyDocument.toString(), `is`("document-node()"))
     }
 
+    @Test
     fun testXdmAnyElement() {
         assertThat(XdmAnyElement.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmAnyElement.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -87,6 +96,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmAnyElement.toString(), `is`("element()"))
     }
 
+    @Test
     fun testXdmNamespace() {
         assertThat(XdmNamespace.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmNamespace.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
@@ -94,6 +104,7 @@ class ItemTypes : TestCase() {
         assertThat(XdmNamespace.toString(), `is`("namespace-node()"))
     }
 
+    @Test
     fun testXdmAnyProcessingInstruction() {
         val type = XdmProcessingInstruction(null)
         assertThat(type.nodeName, `is`(nullValue()))
@@ -103,6 +114,7 @@ class ItemTypes : TestCase() {
         assertThat(type.toString(), `is`("processing-instruction()"))
     }
 
+    @Test
     fun testXdmProcessingInstruction() {
         val type = XdmProcessingInstruction(createLexicalQName(null, "xml-stylesheet"))
         assertThat(type.nodeName?.declaration, `is`(nullValue()))
@@ -116,6 +128,7 @@ class ItemTypes : TestCase() {
         assertThat(type.toString(), `is`("processing-instruction(xml-stylesheet)"))
     }
 
+    @Test
     fun testXdmText() {
         assertThat(XdmText.itemType, `is`(XsUntyped as XdmSequenceType))
         assertThat(XdmText.lowerBound, `is`(XdmSequenceType.Occurs.ONE))

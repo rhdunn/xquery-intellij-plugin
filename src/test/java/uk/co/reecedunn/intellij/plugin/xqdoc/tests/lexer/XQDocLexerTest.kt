@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.tests.lexer
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
@@ -25,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 class XQDocLexerTest : LexerTestCase() {
     // region Lexer :: Invalid State
 
+    @Test
     fun testInvalidState() {
         val lexer = XQDocLexer()
 
@@ -35,6 +37,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region Lexer :: Empty Buffer
 
+    @Test
     fun testEmptyBuffer() {
         val lexer = XQDocLexer()
 
@@ -45,6 +48,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: CommentContents + Comment
 
+    @Test
     fun testCommentContents() {
         val lexer = XQDocLexer()
 
@@ -56,6 +60,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: Contents + XQDocComment
 
+    @Test
     fun testContents() {
         val lexer = XQDocLexer()
 
@@ -68,6 +73,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: Contents + PredefinedEntityRef
 
+    @Test
     fun testContents_PredefinedEntityRef() {
         val lexer = XQDocLexer()
 
@@ -103,6 +109,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: Contents + CharRef
 
+    @Test
     fun testContents_CharRef_Octal() {
         val lexer = XQDocLexer()
 
@@ -135,6 +142,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 1, 4, 4, null)
     }
 
+    @Test
     fun testContents_CharRef_Hexadecimal() {
         val lexer = XQDocLexer()
 
@@ -178,6 +186,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: DirAttrConstructor + DirAttributeValue
 
+    @Test
     fun testDirAttrConstructor_Quot() {
         val lexer = XQDocLexer()
 
@@ -213,6 +222,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 6, 23, 23, null)
     }
 
+    @Test
     fun testDirAttrConstructor_Apos() {
         val lexer = XQDocLexer()
 
@@ -251,6 +261,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: DirElemConstructor
 
+    @Test
     fun testDirElemConstructor() {
         val lexer = XQDocLexer()
 
@@ -295,6 +306,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 1, 28, 28, null)
     }
 
+    @Test
     fun testDirElemConstructor_SelfClosing() {
         val lexer = XQDocLexer()
 
@@ -327,6 +339,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 1, 10, 10, null)
     }
 
+    @Test
     fun testDirElemConstructor_Nested() {
         val lexer = XQDocLexer()
 
@@ -355,6 +368,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: DirElemConstructor (DirElemContents) + PredefinedEntityRef
 
+    @Test
     fun testDirElemConstructor_PredefinedEntityRef() {
         val lexer = XQDocLexer()
 
@@ -420,6 +434,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: DirElemConstructor (DirElemContents) + CharRef
 
+    @Test
     fun testDirElemConstructor_CharRef_Octal() {
         val lexer = XQDocLexer()
 
@@ -447,6 +462,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 4, 3, 3, null)
     }
 
+    @Test
     fun testDirElemConstructor_CharRef_Hexadecimal() {
         val lexer = XQDocLexer()
 
@@ -485,6 +501,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents
 
+    @Test
     fun testTaggedContents() {
         val lexer = XQDocLexer()
 
@@ -542,6 +559,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 1, 15, 15, null)
     }
 
+    @Test
     fun testTaggedContents_AtSignInContents() {
         val lexer = XQDocLexer()
 
@@ -559,6 +577,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @author
 
+    @Test
     fun testTaggedContents_Author() {
         val lexer = XQDocLexer()
 
@@ -575,6 +594,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @deprecated
 
+    @Test
     fun testTaggedContents_Deprecated() {
         val lexer = XQDocLexer()
 
@@ -591,6 +611,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @error
 
+    @Test
     fun testTaggedContents_Error() {
         val lexer = XQDocLexer()
 
@@ -607,6 +628,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @param
 
+    @Test
     fun testTaggedContents_Param_VarRef() {
         val lexer = XQDocLexer()
 
@@ -623,6 +645,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 1, 26, 26, null)
     }
 
+    @Test
     fun testTaggedContents_Param_ContentsOnly() {
         val lexer = XQDocLexer()
 
@@ -639,6 +662,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @return
 
+    @Test
     fun testTaggedContents_Return() {
         val lexer = XQDocLexer()
 
@@ -655,6 +679,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @see
 
+    @Test
     fun testTaggedContents_See() {
         val lexer = XQDocLexer()
 
@@ -671,6 +696,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @since
 
+    @Test
     fun testTaggedContents_Since() {
         val lexer = XQDocLexer()
 
@@ -687,6 +713,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: TaggedContents :: @version
 
+    @Test
     fun testTaggedContents_Version() {
         val lexer = XQDocLexer()
 
@@ -703,6 +730,7 @@ class XQDocLexerTest : LexerTestCase() {
     // endregion
     // region xqDoc :: Trim
 
+    @Test
     fun testTrim_Linux() {
         val lexer = XQDocLexer()
 
@@ -731,6 +759,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 8, 3, 3, null)
     }
 
+    @Test
     fun testTrim_Mac() {
         val lexer = XQDocLexer()
 
@@ -762,6 +791,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 8, 3, 3, null)
     }
 
+    @Test
     fun testTrim_Windows() {
         val lexer = XQDocLexer()
 
@@ -793,6 +823,7 @@ class XQDocLexerTest : LexerTestCase() {
         matchToken(lexer, "", 8, 5, 5, null)
     }
 
+    @Test
     fun testTrim_WhitespaceAfterTrim() {
         val lexer = XQDocLexer()
 

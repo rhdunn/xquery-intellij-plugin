@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
@@ -33,10 +34,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class ScriptingPsiTest : ParserTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class ScriptingPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region ApplyExpr
 
+    @Test
     fun testApplyExpr_Single_NoSemicolon() {
         val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")
 
@@ -51,6 +54,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
     }
 
+    @Test
     fun testApplyExpr_Single_Semicolon() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
 
@@ -66,6 +70,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
+    @Test
     fun testApplyExpr_Multiple() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")
 
@@ -81,6 +86,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
+    @Test
     fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")
 
@@ -99,6 +105,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region AssignmentExpr
 
+    @Test
     fun testAssignmentExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
 
@@ -116,6 +123,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region BlockExpr
 
+    @Test
     fun testBlockExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
@@ -133,6 +141,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region BlockVarDecl
 
+    @Test
     fun testBlockVarDecl() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
 
@@ -154,6 +163,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region ExitExpr
 
+    @Test
     fun testExitExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
 
@@ -171,6 +181,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region FunctionDecl
 
+    @Test
     fun testFunctionDecl_Simple() {
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")
 
@@ -186,6 +197,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_SIMPLE))
     }
 
+    @Test
     fun testFunctionDecl_Sequential() {
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")
 
@@ -204,6 +216,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region QueryBody (ApplyExpr)
 
+    @Test
     fun testQueryBody_Single_NoSemicolon() {
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
@@ -217,6 +230,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
     }
 
+    @Test
     fun testQueryBody_Single_Semicolon() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
@@ -230,6 +244,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
+    @Test
     fun testQueryBody_Multiple() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
@@ -243,6 +258,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
+    @Test
     fun testQueryBody_Multiple_NoSemicolonAtEnd() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
@@ -259,6 +275,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region VarDecl
 
+    @Test
     fun testVarDecl_Assignable() {
         val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")
 
@@ -274,6 +291,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.K_ASSIGNABLE))
     }
 
+    @Test
     fun testVarDecl_Unassignable() {
         val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")
 
@@ -292,6 +310,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // endregion
     // region WhileExpr
 
+    @Test
     fun testWhileExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 

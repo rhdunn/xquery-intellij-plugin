@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
-import junit.framework.TestCase
 import org.apache.xmlbeans.impl.common.IOUtil
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import java.io.IOException
@@ -27,7 +27,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringWriter
 
-class ResourceVirtualFileTest : TestCase() {
+class ResourceVirtualFileTest {
     @Throws(IOException::class)
     private fun streamToString(stream: InputStream): String {
         val writer = StringWriter()
@@ -37,6 +37,7 @@ class ResourceVirtualFileTest : TestCase() {
 
     // region File System
 
+    @Test
     @Throws(IOException::class)
     fun testFileSystem_CreatingFile() {
         val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs/test.xq")
@@ -66,6 +67,7 @@ class ResourceVirtualFileTest : TestCase() {
         assertThat(children, `is`(nullValue()))
     }
 
+    @Test
     @Throws(IOException::class)
     fun testFileSystem_InvalidFilePath() {
         val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs/test.xqy")
@@ -94,6 +96,7 @@ class ResourceVirtualFileTest : TestCase() {
         assertThat(children, `is`(nullValue()))
     }
 
+    @Test
     @Throws(IOException::class)
     fun testFileSystem_Directory() {
         val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs")

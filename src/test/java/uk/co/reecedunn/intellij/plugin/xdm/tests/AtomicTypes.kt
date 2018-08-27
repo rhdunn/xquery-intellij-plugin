@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
-class AtomicTypes : TestCase() {
+class AtomicTypes {
+    @Test
     fun testXsUntypedAtomic() {
         assertThat(XsUntypedAtomic.typeName?.declaration, `is`(nullValue()))
 
@@ -44,6 +45,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsUntypedAtomic as XdmSequenceType))
     }
 
+    @Test
     fun testXsDateTime() {
         assertThat(XsDateTime.typeName?.declaration, `is`(nullValue()))
 
@@ -64,6 +66,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDateTime as XdmSequenceType))
     }
 
+    @Test
     fun testXsDateTimeStamp() {
         assertThat(XsDateTimeStamp.typeName?.declaration, `is`(nullValue()))
 
@@ -84,6 +87,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDateTimeStamp as XdmSequenceType))
     }
 
+    @Test
     fun testXsDate() {
         assertThat(XsDate.typeName?.declaration, `is`(nullValue()))
 
@@ -104,6 +108,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDate as XdmSequenceType))
     }
 
+    @Test
     fun testXsTime() {
         assertThat(XsTime.typeName?.declaration, `is`(nullValue()))
 
@@ -124,6 +129,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsTime as XdmSequenceType))
     }
 
+    @Test
     fun testXsDuration() {
         assertThat(XsDuration.typeName?.declaration, `is`(nullValue()))
 
@@ -144,6 +150,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDuration as XdmSequenceType))
     }
 
+    @Test
     fun testXsYearMonthDuration() {
         assertThat(XsYearMonthDuration.typeName?.declaration, `is`(nullValue()))
 
@@ -164,6 +171,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsYearMonthDuration as XdmSequenceType))
     }
 
+    @Test
     fun testXsDayTimeDuration() {
         assertThat(XsDayTimeDuration.typeName?.declaration, `is`(nullValue()))
 
@@ -184,6 +192,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDayTimeDuration as XdmSequenceType))
     }
 
+    @Test
     fun testXsFloat() {
         assertThat(XsFloat.typeName?.declaration, `is`(nullValue()))
 
@@ -204,6 +213,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsFloat as XdmSequenceType))
     }
 
+    @Test
     fun testXsDouble() {
         assertThat(XsDouble.typeName?.declaration, `is`(nullValue()))
 
@@ -224,6 +234,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDouble as XdmSequenceType))
     }
 
+    @Test
     fun testXsDecimal() {
         assertThat(XsDecimal.typeName?.declaration, `is`(nullValue()))
 
@@ -244,6 +255,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsDecimal as XdmSequenceType))
     }
 
+    @Test
     fun testXsInteger() {
         assertThat(XsInteger.typeName?.declaration, `is`(nullValue()))
 
@@ -264,6 +276,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsInteger as XdmSequenceType))
     }
 
+    @Test
     fun testXsNonPositiveInteger() {
         assertThat(XsNonPositiveInteger.typeName?.declaration, `is`(nullValue()))
 
@@ -284,6 +297,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsNonPositiveInteger as XdmSequenceType))
     }
 
+    @Test
     fun testXsNegativeInteger() {
         assertThat(XsNegativeInteger.typeName?.declaration, `is`(nullValue()))
 
@@ -304,6 +318,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsNegativeInteger as XdmSequenceType))
     }
 
+    @Test
     fun testXsLong() {
         assertThat(XsLong.typeName?.declaration, `is`(nullValue()))
 
@@ -324,6 +339,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsLong as XdmSequenceType))
     }
 
+    @Test
     fun testXsInt() {
         assertThat(XsInt.typeName?.declaration, `is`(nullValue()))
 
@@ -344,6 +360,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsInt as XdmSequenceType))
     }
 
+    @Test
     fun testXsShort() {
         assertThat(XsShort.typeName?.declaration, `is`(nullValue()))
 
@@ -364,6 +381,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsShort as XdmSequenceType))
     }
 
+    @Test
     fun testXsByte() {
         assertThat(XsByte.typeName?.declaration, `is`(nullValue()))
 
@@ -384,6 +402,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsByte as XdmSequenceType))
     }
 
+    @Test
     fun testXsNonNegativeInteger() {
         assertThat(XsNonNegativeInteger.typeName?.declaration, `is`(nullValue()))
 
@@ -404,6 +423,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsNonNegativeInteger as XdmSequenceType))
     }
 
+    @Test
     fun testXsUnsignedLong() {
         assertThat(XsUnsignedLong.typeName?.declaration, `is`(nullValue()))
 
@@ -424,6 +444,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsUnsignedLong as XdmSequenceType))
     }
 
+    @Test
     fun testXsUnsignedInt() {
         assertThat(XsUnsignedInt.typeName?.declaration, `is`(nullValue()))
 
@@ -444,6 +465,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsUnsignedInt as XdmSequenceType))
     }
 
+    @Test
     fun testXsUnsignedShort() {
         assertThat(XsUnsignedShort.typeName?.declaration, `is`(nullValue()))
 
@@ -464,6 +486,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsUnsignedShort as XdmSequenceType))
     }
 
+    @Test
     fun testXsUnsignedByte() {
         assertThat(XsUnsignedByte.typeName?.declaration, `is`(nullValue()))
 
@@ -484,6 +507,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsUnsignedByte as XdmSequenceType))
     }
 
+    @Test
     fun testXsPositiveInteger() {
         assertThat(XsPositiveInteger.typeName?.declaration, `is`(nullValue()))
 
@@ -504,6 +528,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsPositiveInteger as XdmSequenceType))
     }
 
+    @Test
     fun testXsGYearMonth() {
         assertThat(XsGYearMonth.typeName?.declaration, `is`(nullValue()))
 
@@ -524,6 +549,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsGYearMonth as XdmSequenceType))
     }
 
+    @Test
     fun testXsGYear() {
         assertThat(XsGYear.typeName?.declaration, `is`(nullValue()))
 
@@ -544,6 +570,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsGYear as XdmSequenceType))
     }
 
+    @Test
     fun testXsGMonthDay() {
         assertThat(XsGMonthDay.typeName?.declaration, `is`(nullValue()))
 
@@ -564,6 +591,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsGMonthDay as XdmSequenceType))
     }
 
+    @Test
     fun testXsGDay() {
         assertThat(XsGDay.typeName?.declaration, `is`(nullValue()))
 
@@ -584,6 +612,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsGDay as XdmSequenceType))
     }
 
+    @Test
     fun testXsGMonth() {
         assertThat(XsGMonth.typeName?.declaration, `is`(nullValue()))
 
@@ -604,6 +633,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsGMonth as XdmSequenceType))
     }
 
+    @Test
     fun testXsString() {
         assertThat(XsString.typeName?.declaration, `is`(nullValue()))
 
@@ -624,6 +654,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsString as XdmSequenceType))
     }
 
+    @Test
     fun testXsNormalizedString() {
         assertThat(XsNormalizedString.typeName?.declaration, `is`(nullValue()))
 
@@ -644,6 +675,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsNormalizedString as XdmSequenceType))
     }
 
+    @Test
     fun testXsToken() {
         assertThat(XsToken.typeName?.declaration, `is`(nullValue()))
 
@@ -664,6 +696,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsToken as XdmSequenceType))
     }
 
+    @Test
     fun testXsLanguage() {
         assertThat(XsLanguage.typeName?.declaration, `is`(nullValue()))
 
@@ -684,6 +717,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsLanguage as XdmSequenceType))
     }
 
+    @Test
     fun testXsNMTOKEN() {
         assertThat(XsNMTOKEN.typeName?.declaration, `is`(nullValue()))
 
@@ -704,6 +738,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsNMTOKEN as XdmSequenceType))
     }
 
+    @Test
     fun testXsName() {
         assertThat(XsName.typeName?.declaration, `is`(nullValue()))
 
@@ -724,6 +759,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsName as XdmSequenceType))
     }
 
+    @Test
     fun testXsNCName() {
         assertThat(XsNCName.typeName?.declaration, `is`(nullValue()))
 
@@ -744,6 +780,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsNCName as XdmSequenceType))
     }
 
+    @Test
     fun testXsID() {
         assertThat(XsID.typeName?.declaration, `is`(nullValue()))
 
@@ -764,6 +801,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsID as XdmSequenceType))
     }
 
+    @Test
     fun testXsIDREF() {
         assertThat(XsIDREF.typeName?.declaration, `is`(nullValue()))
 
@@ -784,6 +822,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsIDREF as XdmSequenceType))
     }
 
+    @Test
     fun testXsENTITY() {
         assertThat(XsENTITY.typeName?.declaration, `is`(nullValue()))
 
@@ -804,6 +843,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsENTITY as XdmSequenceType))
     }
 
+    @Test
     fun testXsBoolean() {
         assertThat(XsBoolean.typeName?.declaration, `is`(nullValue()))
 
@@ -824,6 +864,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsBoolean as XdmSequenceType))
     }
 
+    @Test
     fun testXsBase64Binary() {
         assertThat(XsBase64Binary.typeName?.declaration, `is`(nullValue()))
 
@@ -844,6 +885,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsBase64Binary as XdmSequenceType))
     }
 
+    @Test
     fun testXsHexBinary() {
         assertThat(XsHexBinary.typeName?.declaration, `is`(nullValue()))
 
@@ -864,6 +906,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsHexBinary as XdmSequenceType))
     }
 
+    @Test
     fun testXsAnyURI() {
         assertThat(XsAnyURI.typeName?.declaration, `is`(nullValue()))
 
@@ -884,6 +927,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsAnyURI as XdmSequenceType))
     }
 
+    @Test
     fun testXsQName() {
         assertThat(XsQName.typeName?.declaration, `is`(nullValue()))
 
@@ -904,6 +948,7 @@ class AtomicTypes : TestCase() {
                 `is`(XsQName as XdmSequenceType))
     }
 
+    @Test
     fun testXsNOTATION() {
         assertThat(XsNOTATION.typeName?.declaration, `is`(nullValue()))
 

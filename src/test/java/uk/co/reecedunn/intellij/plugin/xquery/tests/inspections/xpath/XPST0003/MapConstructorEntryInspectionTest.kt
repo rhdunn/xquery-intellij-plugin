@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,17 @@ import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.MapConstructorEntryInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
-class MapConstructorEntryInspectionTest : InspectionTestCase() {
+// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+private class MapConstructorEntryInspectionTest : InspectionTestCase() {
     // region Inspection Details
 
+    @Test
     fun testDescription() {
         val inspection = MapConstructorEntryInspection()
         assertThat(inspection.loadDescription(), `is`(notNullValue()))
@@ -37,6 +40,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
     // endregion
     // region XQuery 3.1
 
+    @Test
     fun testXQuery31_Map_XQuerySeparator() {
         settings.implementationVersion = "w3c/spec/v1ed"
         settings.XQueryVersion = XQuery.REC_3_1_20170321.label
@@ -47,6 +51,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testXQuery31_Map_SaxonSeparator() {
         settings.implementationVersion = "w3c/spec/v1ed"
         settings.XQueryVersion = XQuery.REC_3_1_20170321.label
@@ -61,6 +66,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
     }
 
+    @Test
     fun testXQuery31_Map_NoValueAssignmentOperator() {
         settings.implementationVersion = "w3c/spec/v1ed"
         settings.XQueryVersion = XQuery.REC_3_1_20170321.label
@@ -74,6 +80,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
     // endregion
     // region Saxon 9.4
 
+    @Test
     fun testSaxon94_Map_SaxonSeparator() {
         settings.implementationVersion = "saxon/EE/v9.5"
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
@@ -84,6 +91,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testSaxon94_Map_XQuerySeparator() {
         settings.implementationVersion = "saxon/EE/v9.5"
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
@@ -98,6 +106,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
     }
 
+    @Test
     fun testSaxon94_Map_NoValueAssignmentOperator() {
         settings.implementationVersion = "saxon/EE/v9.5"
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
@@ -111,6 +120,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
     // endregion
     // region MarkLogic 8.0
 
+    @Test
     fun testMarkLogic80_ObjectNode_MarkLogicSeparator() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
@@ -120,6 +130,7 @@ class MapConstructorEntryInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
+    @Test
     fun testMarkLogic80_ObjectNode_SaxonSeparator() {
         settings.implementationVersion = "marklogic/v8"
         val file = parseResource("tests/psi/marklogic-8.0/MapConstructorEntry_SaxonSeparator.xq")

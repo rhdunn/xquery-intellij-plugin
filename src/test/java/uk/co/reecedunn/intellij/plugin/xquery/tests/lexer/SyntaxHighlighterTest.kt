@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
-import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
@@ -25,18 +25,21 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class SyntaxHighlighterTest : TestCase() {
+class SyntaxHighlighterTest {
+    @Test
     fun testFactory() {
         val factory = SyntaxHighlighterFactory()
         val highlighter = factory.getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(SyntaxHighlighter::class.java.name))
     }
 
+    @Test
     fun testHighlightingLexer() {
         val lexer = SyntaxHighlighter().highlightingLexer
         assertThat(lexer.javaClass.name, `is`(CombinedLexer::class.java.name))
     }
 
+    @Test
     fun testTokenHighlights_BadCharacter() {
         val highlighter = SyntaxHighlighter()
 
@@ -44,6 +47,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER)[0], `is`(SyntaxHighlighter.BAD_CHARACTER))
     }
 
+    @Test
     fun testTokenHighlights_Comment() {
         val highlighter = SyntaxHighlighter()
 
@@ -81,6 +85,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.XML_ELEMENT_CONTENTS)[0], `is`(SyntaxHighlighter.COMMENT))
     }
 
+    @Test
     fun testTokenHighlights_Number() {
         val highlighter = SyntaxHighlighter()
 
@@ -98,6 +103,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)[0], `is`(SyntaxHighlighter.NUMBER))
     }
 
+    @Test
     fun testTokenHighlights_String() {
         val highlighter = SyntaxHighlighter()
 
@@ -126,6 +132,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_END)[0], `is`(SyntaxHighlighter.STRING))
     }
 
+    @Test
     fun testTokenHighlights_EscapedCharacter() {
         val highlighter = SyntaxHighlighter()
 
@@ -133,6 +140,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ESCAPED_CHARACTER)[0], `is`(SyntaxHighlighter.ESCAPED_CHARACTER))
     }
 
+    @Test
     fun testTokenHighlights_EntityReference() {
         val highlighter = SyntaxHighlighter()
 
@@ -154,6 +162,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.EMPTY_ENTITY_REFERENCE)[0], `is`(SyntaxHighlighter.ENTITY_REFERENCE))
     }
 
+    @Test
     fun testTokenHighlights_Identifier() {
         val highlighter = SyntaxHighlighter()
 
@@ -164,6 +173,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.NCNAME)[0], `is`(SyntaxHighlighter.IDENTIFIER))
     }
 
+    @Test
     fun testTokenHighlights_Keywords() {
         val highlighter = SyntaxHighlighter()
 
@@ -804,6 +814,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ZERO_DIGIT)[0], `is`(SyntaxHighlighter.KEYWORD))
     }
 
+    @Test
     fun testTokenHighlights_Annotation() {
         val highlighter = SyntaxHighlighter()
 
@@ -826,6 +837,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], `is`(SyntaxHighlighter.ANNOTATION))
     }
 
+    @Test
     fun testTokenHighlights_XmlTag() {
         val highlighter = SyntaxHighlighter()
 
@@ -845,6 +857,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_WHITE_SPACE)[0], `is`(SyntaxHighlighter.XML_TAG))
     }
 
+    @Test
     fun testTokenHighlights_XmlTagName() {
         val highlighter = SyntaxHighlighter()
 
@@ -857,6 +870,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)[1], `is`(SyntaxHighlighter.XML_TAG_NAME))
     }
 
+    @Test
     fun testTokenHighlights_XmlAttributeName() {
         val highlighter = SyntaxHighlighter()
 
@@ -873,6 +887,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[1], `is`(SyntaxHighlighter.XML_ATTRIBUTE_NAME))
     }
 
+    @Test
     fun testTokenHighlights_XmlAttributeValue() {
         val highlighter = SyntaxHighlighter()
 
@@ -897,6 +912,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)[1], `is`(SyntaxHighlighter.XML_ATTRIBUTE_VALUE))
     }
 
+    @Test
     fun testTokenHighlights_XmlEscapedCharacter() {
         val highlighter = SyntaxHighlighter()
 
@@ -905,6 +921,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER)[1], `is`(SyntaxHighlighter.XML_ESCAPED_CHARACTER))
     }
 
+    @Test
     fun testTokenHighlights_XmlEntityReference() {
         val highlighter = SyntaxHighlighter()
 
@@ -917,6 +934,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_CHARACTER_REFERENCE)[1], `is`(SyntaxHighlighter.XML_ENTITY_REFERENCE))
     }
 
+    @Test
     fun testTokenHighlights_OtherToken() {
         val highlighter = SyntaxHighlighter()
 
@@ -984,6 +1002,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE).size, `is`(0))
     }
 
+    @Test
     fun testTokenHighlights_XQDocTag() {
         val highlighter = SyntaxHighlighter()
 
@@ -1028,6 +1047,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_VERSION)[1], `is`(SyntaxHighlighter.XQDOC_TAG))
     }
 
+    @Test
     fun testTokenHighlights_XQDocTagValue() {
         val highlighter = SyntaxHighlighter()
 
@@ -1040,6 +1060,7 @@ class SyntaxHighlighterTest : TestCase() {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.NCNAME)[1], `is`(SyntaxHighlighter.XQDOC_TAG_VALUE))
     }
 
+    @Test
     fun testTokenHighlights_XQDocMarkup() {
         val highlighter = SyntaxHighlighter()
 
