@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:17)]
                         XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                         XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(2:3)](' ')
                      XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(3:15)]
-                        XQueryDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(3:14)]
+                        PluginDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(3:14)]
                            XPathNCNameImpl[XQUERY_NCNAME(3:6)]
                               XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:5)]('id')
                               XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(5:6)](' ')

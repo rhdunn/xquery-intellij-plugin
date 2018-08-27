@@ -2,6 +2,8 @@
 
 - [1 Introduction](#1-introduction)
 - [2 Basics](#2-basics)
+- [3 Expressions](#3-expressions)
+  - [3.1 Node Constructors](#31-node-constructors)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -32,6 +34,19 @@ These namespace prefixes are not predeclared and their use in this document is
 not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
+
+## 3 Expressions
+
+### 3.1 Node Constructors
+
+| Ref   | Symbol             |     | Expression                          | Options              |
+|-------|--------------------|-----|-------------------------------------|----------------------|
+| \[1\] | `DirAttributeList` | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/ |
+| \[2\] | `DirAttribute`     | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/ |
+
+This follows the grammar production pattern used in other constructs like
+`ParamList`, making it easier to support namespace declaration lookup on
+`xmlns` attributes.
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -75,6 +90,11 @@ The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
 1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
+
+| Ref      | Symbol                         |     | Expression                          | Options               |
+|----------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[1\]    | `DirAttributeList`             | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/  |
+| \[2\]    | `DirAttribute`                 | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/  |
 
 ## B References
 

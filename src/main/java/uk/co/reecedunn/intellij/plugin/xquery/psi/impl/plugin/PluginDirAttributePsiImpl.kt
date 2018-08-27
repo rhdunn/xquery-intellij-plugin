@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -25,13 +25,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
-class XQueryDirAttributePsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryDirAttribute,
-        XPathNamespaceDeclaration {
+class PluginDirAttributePsiImpl(node: ASTNode):
+    ASTWrapperPsiElement(node),
+    PluginDirAttribute,
+    XPathNamespaceDeclaration {
 
     override fun subtreeChanged() {
         super.subtreeChanged()

@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXNonDeterminist
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDirAttributePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTypeDeclImpl
@@ -157,7 +158,7 @@ object XQueryElementType {
 
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_DIR_ELEM_CONSTRUCTOR", XQueryDirElemConstructorPsiImpl::class.java, XQuery)
     val DIR_ATTRIBUTE_LIST: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE_LIST", XQueryDirAttributeListPsiImpl::class.java, XQuery)
-    val DIR_ATTRIBUTE: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE", XQueryDirAttributePsiImpl::class.java, XQuery)
+    val DIR_ATTRIBUTE: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE", PluginDirAttributePsiImpl::class.java, XQuery)
     val DIR_ATTRIBUTE_VALUE: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE_VALUE", XQueryDirAttributeValuePsiImpl::class.java, XQuery)
     val DIR_COMMENT_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQueryDirCommentConstructorPsiImpl::class.java, XQuery)
     val DIR_PI_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_DIR_PI_CONSTRUCTOR", XQueryDirPIConstructorPsiImpl::class.java, XQuery)

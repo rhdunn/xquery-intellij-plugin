@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
@@ -41,7 +42,7 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> 
             sequenceOf(node as XPathNamespaceDeclaration)
         is XQueryDirElemConstructor ->
             node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                ?.children()?.filterIsInstance<XQueryDirAttribute>()?.map { attr -> attr as XPathNamespaceDeclaration }
+                ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { attr -> attr as XPathNamespaceDeclaration }
                 ?: emptySequence()
         is XQueryProlog ->
             node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()

@@ -23,11 +23,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -296,7 +296,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDirAttribute_Xmlns() {
-        val expr = parse<XQueryDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
+        val expr = parse<PluginDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -311,7 +311,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDirAttribute_Xmlns_NoNamespaceUri() {
-        val expr = parse<XQueryDirAttribute>("<a xmlns:b=>")[0] as XPathNamespaceDeclaration
+        val expr = parse<PluginDirAttribute>("<a xmlns:b=>")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
@@ -323,7 +323,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testDirAttribute() {
-        val expr = parse<XQueryDirAttribute>("<a b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
+        val expr = parse<PluginDirAttribute>("<a b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
 
         assertThat(expr.namespacePrefix, `is`(nullValue()))
 
