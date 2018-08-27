@@ -116,11 +116,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = allowingEmptyPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ALLOWING))
+                `is`(XQueryTokenType.K_ALLOWING))
     }
 
     // endregion
@@ -135,12 +135,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = annotationPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.ANNOTATION_INDICATOR))
+                `is`(XQueryTokenType.ANNOTATION_INDICATOR))
     }
 
     // endregion
@@ -154,11 +154,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = anyArrayTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ARRAY))
+                `is`(XQueryTokenType.K_ARRAY))
     }
 
     // endregion
@@ -172,11 +172,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = anyFunctionTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
     }
 
     @Test
@@ -206,7 +206,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NODE))
+                `is`(XQueryTokenType.K_NODE))
     }
 
     // endregion
@@ -220,12 +220,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = anyMapTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(Saxon.VERSION_9_4))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(Saxon.VERSION_9_4))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_MAP))
+                `is`(XQueryTokenType.K_MAP))
     }
 
     // endregion
@@ -243,7 +243,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.PARENTHESIS_OPEN))
+                `is`(XQueryTokenType.PARENTHESIS_OPEN))
     }
 
     @Test
@@ -255,12 +255,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = argumentListPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.PARENTHESIS_OPEN))
+                `is`(XQueryTokenType.PARENTHESIS_OPEN))
     }
 
     // endregion
@@ -277,12 +277,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = argumentPlaceholderPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.OPTIONAL))
+                `is`(XQueryTokenType.OPTIONAL))
     }
 
     // endregion
@@ -296,12 +296,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = arrowExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_9_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_9_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.ARROW))
+                `is`(XQueryTokenType.ARROW))
     }
 
     // endregion
@@ -317,12 +317,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = bracedURILiteralPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BRACED_URI_LITERAL_START))
+                `is`(XQueryTokenType.BRACED_URI_LITERAL_START))
     }
 
     // endregion
@@ -340,7 +340,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_CATCH))
+                `is`(XQueryTokenType.K_CATCH))
     }
 
     // endregion
@@ -354,12 +354,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = compNamespaceConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NAMESPACE))
+                `is`(XQueryTokenType.K_NAMESPACE))
     }
 
     // endregion
@@ -373,11 +373,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = contextItemDeclPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_CONTEXT))
+                `is`(XQueryTokenType.K_CONTEXT))
     }
 
     // endregion
@@ -391,11 +391,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = squareArrayConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SQUARE_OPEN))
+                `is`(XQueryTokenType.SQUARE_OPEN))
     }
 
     // endregion
@@ -409,11 +409,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = curlyArrayConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ARRAY))
+                `is`(XQueryTokenType.K_ARRAY))
     }
 
     // endregion
@@ -427,11 +427,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = decimalFormatDeclPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DECIMAL_FORMAT))
+                `is`(XQueryTokenType.K_DECIMAL_FORMAT))
     }
 
     @Test
@@ -442,11 +442,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = decimalFormatDeclPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DECIMAL_FORMAT))
+                `is`(XQueryTokenType.K_DECIMAL_FORMAT))
     }
 
     @Test
@@ -457,13 +457,13 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = decimalFormatDeclPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.DF_PROPERTY_NAME))
+                `is`(XQueryElementType.DF_PROPERTY_NAME))
         assertThat(versioned.conformanceElement.firstChild.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_EXPONENT_SEPARATOR))
+                `is`(XQueryTokenType.K_EXPONENT_SEPARATOR))
     }
 
     // endregion
@@ -482,7 +482,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -495,12 +495,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -518,7 +518,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -533,7 +533,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -551,7 +551,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -563,11 +563,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -585,7 +585,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -597,11 +597,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -619,7 +619,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -634,7 +634,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -652,7 +652,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -664,11 +664,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -686,7 +686,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -698,11 +698,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -720,7 +720,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -735,7 +735,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -753,7 +753,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -765,12 +765,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -788,7 +788,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -803,7 +803,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -824,7 +824,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -839,12 +839,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -863,7 +863,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -876,12 +876,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -900,7 +900,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -913,11 +913,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -935,7 +935,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -947,11 +947,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -970,7 +970,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -983,11 +983,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -1005,7 +1005,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -1017,11 +1017,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -1038,7 +1038,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ATTRIBUTE))
+                `is`(XQueryTokenType.K_ATTRIBUTE))
     }
 
     @Test
@@ -1052,7 +1052,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_CHILD))
+                `is`(XQueryTokenType.K_CHILD))
     }
 
     @Test
@@ -1066,7 +1066,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DESCENDANT))
+                `is`(XQueryTokenType.K_DESCENDANT))
     }
 
     @Test
@@ -1080,7 +1080,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DESCENDANT_OR_SELF))
+                `is`(XQueryTokenType.K_DESCENDANT_OR_SELF))
     }
 
     @Test
@@ -1094,7 +1094,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOLLOWING))
+                `is`(XQueryTokenType.K_FOLLOWING))
     }
 
     @Test
@@ -1108,7 +1108,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOLLOWING_SIBLING))
+                `is`(XQueryTokenType.K_FOLLOWING_SIBLING))
     }
 
     @Test
@@ -1122,7 +1122,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SELF))
+                `is`(XQueryTokenType.K_SELF))
     }
 
     // endregion
@@ -1136,12 +1136,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = inlineFunctionExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+                `is`(XQueryTokenType.K_FUNCTION))
     }
 
     @Test
@@ -1155,7 +1155,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.ANNOTATION))
+                `is`(XQueryElementType.ANNOTATION))
     }
 
     // endregion
@@ -1170,11 +1170,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = tumblingWindowClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TUMBLING))
+                `is`(XQueryTokenType.K_TUMBLING))
     }
 
     // endregion
@@ -1189,11 +1189,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = slidingWindowClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SLIDING))
+                `is`(XQueryTokenType.K_SLIDING))
     }
 
     // endregion
@@ -1215,7 +1215,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOR))
+                `is`(XQueryTokenType.K_FOR))
     }
 
     @Test
@@ -1235,7 +1235,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOR))
+                `is`(XQueryTokenType.K_FOR))
     }
 
     @Test
@@ -1255,7 +1255,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOR))
+                `is`(XQueryTokenType.K_FOR))
     }
 
     @Test
@@ -1272,11 +1272,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOR))
+                `is`(XQueryTokenType.K_FOR))
     }
 
     @Test
@@ -1293,11 +1293,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FOR))
+                `is`(XQueryTokenType.K_FOR))
     }
 
     // endregion
@@ -1319,7 +1319,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_LET))
+                `is`(XQueryTokenType.K_LET))
     }
 
     @Test
@@ -1339,7 +1339,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_LET))
+                `is`(XQueryTokenType.K_LET))
     }
 
     @Test
@@ -1359,7 +1359,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_LET))
+                `is`(XQueryTokenType.K_LET))
     }
 
     @Test
@@ -1376,11 +1376,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_LET))
+                `is`(XQueryTokenType.K_LET))
     }
 
     @Test
@@ -1397,11 +1397,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_LET))
+                `is`(XQueryTokenType.K_LET))
     }
 
     // endregion
@@ -1423,7 +1423,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ORDER))
+                `is`(XQueryTokenType.K_ORDER))
     }
 
     @Test
@@ -1443,7 +1443,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ORDER))
+                `is`(XQueryTokenType.K_ORDER))
     }
 
     @Test
@@ -1463,7 +1463,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ORDER))
+                `is`(XQueryTokenType.K_ORDER))
     }
 
     @Test
@@ -1483,7 +1483,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ORDER))
+                `is`(XQueryTokenType.K_ORDER))
     }
 
     @Test
@@ -1500,11 +1500,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ORDER))
+                `is`(XQueryTokenType.K_ORDER))
     }
 
     // endregion
@@ -1526,7 +1526,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHERE))
+                `is`(XQueryTokenType.K_WHERE))
     }
 
     @Test
@@ -1546,7 +1546,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHERE))
+                `is`(XQueryTokenType.K_WHERE))
     }
 
     @Test
@@ -1566,7 +1566,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHERE))
+                `is`(XQueryTokenType.K_WHERE))
     }
 
     @Test
@@ -1583,11 +1583,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHERE))
+                `is`(XQueryTokenType.K_WHERE))
     }
 
     @Test
@@ -1604,11 +1604,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHERE))
+                `is`(XQueryTokenType.K_WHERE))
     }
 
     // endregion
@@ -1627,11 +1627,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_COUNT))
+                `is`(XQueryTokenType.K_COUNT))
     }
 
     // endregion
@@ -1650,11 +1650,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = intermediateClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_GROUP))
+                `is`(XQueryTokenType.K_GROUP))
     }
 
     // endregion
@@ -1669,11 +1669,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = lookupPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.OPTIONAL))
+                `is`(XQueryTokenType.OPTIONAL))
     }
 
     // endregion
@@ -1687,12 +1687,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = objectConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(Saxon.VERSION_9_4))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(Saxon.VERSION_9_4))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_MAP))
+                `is`(XQueryTokenType.K_MAP))
     }
 
     // endregion
@@ -1706,12 +1706,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = namedFunctionRefPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.FUNCTION_REF_OPERATOR))
+                `is`(XQueryTokenType.FUNCTION_REF_OPERATOR))
     }
 
     @Test
@@ -1722,12 +1722,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = namedFunctionRefPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.FUNCTION_REF_OPERATOR))
+                `is`(XQueryTokenType.FUNCTION_REF_OPERATOR))
     }
 
     @Test
@@ -1738,12 +1738,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = namedFunctionRefPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.FUNCTION_REF_OPERATOR))
+                `is`(XQueryTokenType.FUNCTION_REF_OPERATOR))
     }
 
     // endregion
@@ -1757,11 +1757,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = namespaceNodeTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NAMESPACE_NODE))
+                `is`(XQueryTokenType.K_NAMESPACE_NODE))
     }
 
     // endregion
@@ -1775,12 +1775,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = parenthesizedItemTypePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.PARENTHESIS_OPEN))
+                `is`(XQueryTokenType.PARENTHESIS_OPEN))
     }
 
     // endregion
@@ -1796,12 +1796,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = sequenceTypeUnionPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.UNION))
+                `is`(XQueryTokenType.UNION))
     }
 
     @Test
@@ -1817,7 +1817,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.ITEM_TYPE))
+                `is`(XQueryElementType.ITEM_TYPE))
     }
 
     // endregion
@@ -1831,12 +1831,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = simpleMapExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.MAP_OPERATOR))
+                `is`(XQueryTokenType.MAP_OPERATOR))
     }
 
     // endregion
@@ -1850,12 +1850,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = stringConcatExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.CONCATENATION))
+                `is`(XQueryTokenType.CONCATENATION))
     }
 
     // endregion
@@ -1869,11 +1869,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = stringConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.STRING_CONSTRUCTOR_START))
+                `is`(XQueryTokenType.STRING_CONSTRUCTOR_START))
     }
 
     // endregion
@@ -1887,12 +1887,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = switchExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SWITCH))
+                `is`(XQueryTokenType.K_SWITCH))
     }
 
     // endregion
@@ -1909,7 +1909,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TEXT))
+                `is`(XQueryTokenType.K_TEXT))
     }
 
     // endregion
@@ -1923,12 +1923,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = tryClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TRY))
+                `is`(XQueryTokenType.K_TRY))
     }
 
     // endregion
@@ -1942,11 +1942,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = typedArrayTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ARRAY))
+                `is`(XQueryTokenType.K_ARRAY))
     }
 
     // endregion
@@ -1960,11 +1960,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = typedFunctionTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`<IElementType>(XQueryTokenType.K_FUNCTION))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
     }
 
     @Test
@@ -1991,12 +1991,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = typedMapTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(Saxon.VERSION_9_4))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(Saxon.VERSION_9_4))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_MAP))
+                `is`(XQueryTokenType.K_MAP))
     }
 
     // endregion
@@ -2010,11 +2010,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = unaryLookupPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.OPTIONAL))
+                `is`(XQueryTokenType.OPTIONAL))
     }
 
     // endregion
@@ -2031,7 +2031,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_VALIDATE))
+                `is`(XQueryTokenType.K_VALIDATE))
     }
 
     @Test
@@ -2042,12 +2042,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = validateExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TYPE))
+                `is`(XQueryTokenType.K_TYPE))
     }
 
     // endregion
@@ -2065,7 +2065,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_VARIABLE))
+                `is`(XQueryTokenType.K_VARIABLE))
     }
 
     @Test
@@ -2080,7 +2080,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_VARIABLE))
+                `is`(XQueryTokenType.K_VARIABLE))
     }
 
     @Test
@@ -2092,12 +2092,12 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = varDeclPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.ASSIGN_EQUAL))
+                `is`(XQueryTokenType.ASSIGN_EQUAL))
     }
 
     // endregion
@@ -2114,7 +2114,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
+                `is`(XQueryTokenType.K_XQUERY))
     }
 
     @Test
@@ -2128,7 +2128,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
+                `is`(XQueryTokenType.K_XQUERY))
     }
 
     @Test
@@ -2139,11 +2139,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val versioned = versionDeclPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ENCODING))
+                `is`(XQueryTokenType.K_ENCODING))
     }
 
     // endregion
@@ -2304,11 +2304,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("xs"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
@@ -2322,11 +2322,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("sort"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_LEAST))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.K_LEAST))
         assertThat(eqnamePsi.localName!!.text, `is`("least"))
     }
 
@@ -2353,11 +2353,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_ORDER))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.K_ORDER))
         assertThat(eqnamePsi.prefix!!.text, `is`("order"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("column"))
     }
 
@@ -2373,7 +2373,7 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix, `is`(nullValue()))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
@@ -2387,11 +2387,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryElementType.BRACED_URI_LITERAL))
         assertThat(eqnamePsi.prefix!!.text, `is`("Q{http://www.w3.org/2001/XMLSchema}"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
@@ -2408,7 +2408,7 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(eqnamePsi.prefix, `is`(nullValue()))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_COLLATION))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.K_COLLATION))
         assertThat(eqnamePsi.localName!!.text, `is`("collation"))
     }
 
@@ -2423,11 +2423,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("one"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("two"))
     }
 
@@ -2439,11 +2439,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("sort"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_LEAST))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.K_LEAST))
         assertThat(eqnamePsi.localName!!.text, `is`("least"))
     }
 
@@ -2466,11 +2466,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_ORDER))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.K_ORDER))
         assertThat(eqnamePsi.prefix!!.text, `is`("order"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("two"))
     }
 
@@ -2482,11 +2482,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = dirElemConstructorPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_TAG_NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.XML_TAG_NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("a"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_TAG_NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.XML_TAG_NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("b"))
     }
 
@@ -2500,11 +2500,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val eqnamePsi = dirAttributePsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
-        assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
+        assertThat(eqnamePsi.prefix!!.node.elementType, `is`(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
         assertThat(eqnamePsi.prefix!!.text, `is`("xml"))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("id"))
     }
 
@@ -2520,7 +2520,7 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix, `is`(nullValue()))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2533,11 +2533,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2550,11 +2550,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryElementType.BRACED_URI_LITERAL))
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xpath-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2572,7 +2572,7 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix, `is`(nullValue()))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2585,11 +2585,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2602,11 +2602,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryElementType.BRACED_URI_LITERAL))
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xpath-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2626,7 +2626,7 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix, `is`(nullValue()))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2641,11 +2641,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("fn"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2660,11 +2660,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryElementType.BRACED_URI_LITERAL))
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xpath-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
@@ -2685,7 +2685,7 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(name.prefix, `is`(nullValue()))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_VALUE))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.K_VALUE))
         assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
@@ -2701,11 +2701,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(name.prefix!!.text, `is`("local"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_VALUE))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.K_VALUE))
         assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
@@ -2721,11 +2721,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
-        assertThat(name.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
+        assertThat(name.prefix!!.node.elementType, `is`(XQueryElementType.BRACED_URI_LITERAL))
         assertThat(name.prefix!!.text, `is`("Q{http://www.w3.org/2005/xquery-local-functions}"))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.K_VALUE))
+        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.K_VALUE))
         assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
@@ -2916,7 +2916,7 @@ private class XQueryPsiTest : ParserTestCase() {
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
+                `is`(XQueryTokenType.QNAME_SEPARATOR))
     }
 
     @Test
@@ -2927,7 +2927,7 @@ private class XQueryPsiTest : ParserTestCase() {
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`<IElementType>(XQueryElementType.MAP_KEY_EXPR))
+                `is`(XQueryElementType.MAP_KEY_EXPR))
     }
 
     // endregion
@@ -3084,11 +3084,11 @@ private class XQueryPsiTest : ParserTestCase() {
         val qnamePsi = optionDeclPsi.children().filterIsInstance<XPathURIQualifiedName>().first()
 
         assertThat(qnamePsi.prefix, `is`(notNullValue()))
-        assertThat(qnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
+        assertThat(qnamePsi.prefix!!.node.elementType, `is`(XQueryElementType.BRACED_URI_LITERAL))
         assertThat(qnamePsi.prefix!!.text, `is`("Q{one{two}"))
 
         assertThat(qnamePsi.localName, `is`(notNullValue()))
-        assertThat(qnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
+        assertThat(qnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(qnamePsi.localName!!.text, `is`("three"))
     }
 
@@ -3107,7 +3107,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test
@@ -3122,7 +3122,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test
@@ -3137,7 +3137,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test
@@ -3153,7 +3153,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test
@@ -3169,7 +3169,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test
@@ -3185,7 +3185,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test
@@ -3214,7 +3214,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
+        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
     }
 
     @Test

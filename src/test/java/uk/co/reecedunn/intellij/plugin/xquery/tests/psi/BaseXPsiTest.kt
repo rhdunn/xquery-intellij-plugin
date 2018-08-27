@@ -53,11 +53,11 @@ private class BaseXPsiTest : ParserTestCase() {
         val conformance = fuzzyOption as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(BaseX.VERSION_6_1))
+        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_6_1))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUZZY))
+                `is`(XQueryTokenType.K_FUZZY))
     }
 
     // endregion
@@ -71,11 +71,11 @@ private class BaseXPsiTest : ParserTestCase() {
         val conformance = nonDeterministicFunctionCall as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(BaseX.VERSION_8_4))
+        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_4))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-            `is`<IElementType>(XQueryTokenType.K_NON_DETERMINISTIC))
+            `is`(XQueryTokenType.K_NON_DETERMINISTIC))
     }
 
     // endregion
@@ -89,11 +89,11 @@ private class BaseXPsiTest : ParserTestCase() {
         val conformance = updateExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(BaseX.VERSION_7_8))
+        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_UPDATE))
+                `is`(XQueryTokenType.K_UPDATE))
     }
 
     @Test
@@ -104,11 +104,11 @@ private class BaseXPsiTest : ParserTestCase() {
         val conformance = updateExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(BaseX.VERSION_8_5))
+        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_5))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion

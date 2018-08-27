@@ -776,11 +776,11 @@ class ModelTest {
             for (version in BaseX.versions) {
                 xquery = XQuery.versionsFor(product, version)
                 assertThat(xquery.size, `is`(2))
-                assertThat(xquery[0], `is`<Version>(XQuery.REC_3_0_20140408))
+                assertThat(xquery[0], `is`(XQuery.REC_3_0_20140408))
                 if (version.value <= 8.5) {
-                    assertThat(xquery[1], `is`<Version>(XQuery.CR_3_1_20151217))
+                    assertThat(xquery[1], `is`(XQuery.CR_3_1_20151217))
                 } else {
-                    assertThat(xquery[1], `is`<Version>(XQuery.REC_3_1_20170321))
+                    assertThat(xquery[1], `is`(XQuery.REC_3_1_20170321))
                 }
             }
         }
@@ -793,9 +793,9 @@ class ModelTest {
             for (version in MarkLogic.versions) {
                 xquery = XQuery.versionsFor(product, version)
                 assertThat(xquery.size, `is`(3))
-                assertThat(xquery[0], `is`<Version>(XQuery.MARKLOGIC_0_9))
-                assertThat(xquery[1], `is`<Version>(XQuery.REC_1_0_20070123))
-                assertThat(xquery[2], `is`<Version>(XQuery.MARKLOGIC_1_0))
+                assertThat(xquery[0], `is`(XQuery.MARKLOGIC_0_9))
+                assertThat(xquery[1], `is`(XQuery.REC_1_0_20070123))
+                assertThat(xquery[2], `is`(XQuery.MARKLOGIC_1_0))
             }
         }
     }
@@ -807,29 +807,29 @@ class ModelTest {
             xquery = XQuery.versionsFor(product, Saxon.VERSION_9_5)
             if (product.id == "HE") {
                 assertThat(xquery.size, `is`(1))
-                assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20070123))
+                assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
             } else {
                 assertThat(xquery.size, `is`(2))
-                assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20070123))
-                assertThat(xquery[1], `is`<Version>(XQuery.REC_3_0_20140408))
+                assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+                assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
             }
 
             xquery = XQuery.versionsFor(product, Saxon.VERSION_9_6)
             assertThat(xquery.size, `is`(2))
-            assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20070123))
-            assertThat(xquery[1], `is`<Version>(XQuery.REC_3_0_20140408))
+            assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+            assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
 
             xquery = XQuery.versionsFor(product, Saxon.VERSION_9_7)
             assertThat(xquery.size, `is`(3))
-            assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20070123))
-            assertThat(xquery[1], `is`<Version>(XQuery.REC_3_0_20140408))
-            assertThat(xquery[2], `is`<Version>(XQuery.CR_3_1_20151217))
+            assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+            assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+            assertThat(xquery[2], `is`(XQuery.CR_3_1_20151217))
 
             xquery = XQuery.versionsFor(product, Saxon.VERSION_9_8)
             assertThat(xquery.size, `is`(3))
-            assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20070123))
-            assertThat(xquery[1], `is`<Version>(XQuery.REC_3_0_20140408))
-            assertThat(xquery[2], `is`<Version>(XQuery.REC_3_1_20170321))
+            assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+            assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+            assertThat(xquery[2], `is`(XQuery.REC_3_1_20170321))
         }
     }
 
@@ -839,13 +839,13 @@ class ModelTest {
         for (product in W3C.products) {
             xquery = XQuery.versionsFor(product, W3C.FIRST_EDITION)
             assertThat(xquery.size, `is`(3))
-            assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20070123))
-            assertThat(xquery[1], `is`<Version>(XQuery.REC_3_0_20140408))
-            assertThat(xquery[2], `is`<Version>(XQuery.REC_3_1_20170321))
+            assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+            assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+            assertThat(xquery[2], `is`(XQuery.REC_3_1_20170321))
 
             xquery = XQuery.versionsFor(product, W3C.SECOND_EDITION)
             assertThat(xquery.size, `is`(1))
-            assertThat(xquery[0], `is`<Version>(XQuery.REC_1_0_20101214))
+            assertThat(xquery[0], `is`(XQuery.REC_1_0_20101214))
         }
     }
 
@@ -862,17 +862,17 @@ class ModelTest {
 
                 flavours = product.flavoursForXQueryVersion(version, "3.0")
                 assertThat(flavours.size, `is`(4))
-                assertThat(flavours[0], `is`<Versioned>(BaseX))
-                assertThat(flavours[1], `is`<Versioned>(XQuery))
-                assertThat(flavours[2], `is`<Versioned>(FullText))
-                assertThat(flavours[3], `is`<Versioned>(UpdateFacility))
+                assertThat(flavours[0], `is`(BaseX))
+                assertThat(flavours[1], `is`(XQuery))
+                assertThat(flavours[2], `is`(FullText))
+                assertThat(flavours[3], `is`(UpdateFacility))
 
                 flavours = product.flavoursForXQueryVersion(version, "3.1")
                 assertThat(flavours.size, `is`(4))
-                assertThat(flavours[0], `is`<Versioned>(BaseX))
-                assertThat(flavours[1], `is`<Versioned>(XQuery))
-                assertThat(flavours[2], `is`<Versioned>(FullText))
-                assertThat(flavours[3], `is`<Versioned>(UpdateFacility))
+                assertThat(flavours[0], `is`(BaseX))
+                assertThat(flavours[1], `is`(XQuery))
+                assertThat(flavours[2], `is`(FullText))
+                assertThat(flavours[3], `is`(UpdateFacility))
 
                 flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
                 assertThat(flavours.size, `is`(0))
@@ -890,7 +890,7 @@ class ModelTest {
             for (version in MarkLogic.versions) {
                 flavours = product.flavoursForXQueryVersion(version, "1.0")
                 assertThat(flavours.size, `is`(1))
-                assertThat(flavours[0], `is`<Versioned>(XQuery))
+                assertThat(flavours[0], `is`(XQuery))
 
                 flavours = product.flavoursForXQueryVersion(version, "3.0")
                 assertThat(flavours.size, `is`(0))
@@ -900,11 +900,11 @@ class ModelTest {
 
                 flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
                 assertThat(flavours.size, `is`(1))
-                assertThat(flavours[0], `is`<Versioned>(MarkLogic))
+                assertThat(flavours[0], `is`(MarkLogic))
 
                 flavours = product.flavoursForXQueryVersion(version, "1.0-ml")
                 assertThat(flavours.size, `is`(1))
-                assertThat(flavours[0], `is`<Versioned>(MarkLogic))
+                assertThat(flavours[0], `is`(MarkLogic))
             }
         }
     }
@@ -917,46 +917,46 @@ class ModelTest {
                 flavours = product.flavoursForXQueryVersion(version, "1.0")
                 if (product.id == "HE") {
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(XQuery))
                 } else if (product.id == "PE") {
                     assertThat(flavours.size, `is`(2))
-                    assertThat(flavours[0], `is`<Versioned>(Saxon))
-                    assertThat(flavours[1], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(Saxon))
+                    assertThat(flavours[1], `is`(XQuery))
                 } else {
                     assertThat(flavours.size, `is`(3))
-                    assertThat(flavours[0], `is`<Versioned>(Saxon))
-                    assertThat(flavours[1], `is`<Versioned>(XQuery))
-                    assertThat(flavours[2], `is`<Versioned>(UpdateFacility))
+                    assertThat(flavours[0], `is`(Saxon))
+                    assertThat(flavours[1], `is`(XQuery))
+                    assertThat(flavours[2], `is`(UpdateFacility))
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "3.0")
                 if (product.id == "HE") {
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(XQuery))
                 } else if (product.id == "PE") {
                     assertThat(flavours.size, `is`(2))
-                    assertThat(flavours[0], `is`<Versioned>(Saxon))
-                    assertThat(flavours[1], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(Saxon))
+                    assertThat(flavours[1], `is`(XQuery))
                 } else {
                     assertThat(flavours.size, `is`(3))
-                    assertThat(flavours[0], `is`<Versioned>(Saxon))
-                    assertThat(flavours[1], `is`<Versioned>(XQuery))
-                    assertThat(flavours[2], `is`<Versioned>(UpdateFacility))
+                    assertThat(flavours[0], `is`(Saxon))
+                    assertThat(flavours[1], `is`(XQuery))
+                    assertThat(flavours[2], `is`(UpdateFacility))
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "3.1")
                 if (product.id == "HE") {
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(XQuery))
                 } else if (product.id == "PE") {
                     assertThat(flavours.size, `is`(2))
-                    assertThat(flavours[0], `is`<Versioned>(Saxon))
-                    assertThat(flavours[1], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(Saxon))
+                    assertThat(flavours[1], `is`(XQuery))
                 } else {
                     assertThat(flavours.size, `is`(3))
-                    assertThat(flavours[0], `is`<Versioned>(Saxon))
-                    assertThat(flavours[1], `is`<Versioned>(XQuery))
-                    assertThat(flavours[2], `is`<Versioned>(UpdateFacility))
+                    assertThat(flavours[0], `is`(Saxon))
+                    assertThat(flavours[1], `is`(XQuery))
+                    assertThat(flavours[2], `is`(UpdateFacility))
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
@@ -976,29 +976,29 @@ class ModelTest {
                 flavours = product.flavoursForXQueryVersion(version, "1.0")
                 if (version.value == 1.0) {
                     assertThat(flavours.size, `is`(4))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
-                    assertThat(flavours[1], `is`<Versioned>(FullText))
-                    assertThat(flavours[2], `is`<Versioned>(UpdateFacility))
-                    assertThat(flavours[3], `is`<Versioned>(Scripting))
+                    assertThat(flavours[0], `is`(XQuery))
+                    assertThat(flavours[1], `is`(FullText))
+                    assertThat(flavours[2], `is`(UpdateFacility))
+                    assertThat(flavours[3], `is`(Scripting))
                 } else {
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(XQuery))
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "3.0")
                 if (version.value == 1.0) {
                     assertThat(flavours.size, `is`(3))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
-                    assertThat(flavours[1], `is`<Versioned>(FullText))
-                    assertThat(flavours[2], `is`<Versioned>(UpdateFacility))
+                    assertThat(flavours[0], `is`(XQuery))
+                    assertThat(flavours[1], `is`(FullText))
+                    assertThat(flavours[2], `is`(UpdateFacility))
                 } else {
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`<Versioned>(XQuery))
+                    assertThat(flavours[0], `is`(XQuery))
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "3.1")
                 assertThat(flavours.size, `is`(1))
-                assertThat(flavours[0], `is`<Versioned>(XQuery))
+                assertThat(flavours[0], `is`(XQuery))
 
                 flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
                 assertThat(flavours.size, `is`(0))
@@ -1065,25 +1065,25 @@ class ModelTest {
 
         id = VersionedProductId("basex")
         assertThat(id.id, `is`("basex"))
-        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.vendor, `is`(BaseX))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("marklogic")
         assertThat(id.id, `is`("marklogic"))
-        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.vendor, `is`(MarkLogic))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon")
         assertThat(id.id, `is`("saxon"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("w3c")
         assertThat(id.id, `is`("w3c"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
 
@@ -1100,19 +1100,19 @@ class ModelTest {
 
         id = VersionedProductId("basex/v8.4")
         assertThat(id.id, `is`("basex/v8.4"))
-        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.vendor, `is`(BaseX))
         assertThat(id.product, `is`(BaseX.BASEX))
         assertThat(id.productVersion, `is`(BaseX.VERSION_8_4))
 
         id = VersionedProductId("basex/v0.5")
         assertThat(id.id, `is`("basex"))
-        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.vendor, `is`(BaseX))
         assertThat(id.product, `is`(BaseX.BASEX))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("basex/8.4")
         assertThat(id.id, `is`("basex"))
-        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.vendor, `is`(BaseX))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
     }
@@ -1123,26 +1123,26 @@ class ModelTest {
 
         id = VersionedProductId("marklogic/v8.0")
         assertThat(id.id, `is`("marklogic/v8"))
-        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.vendor, `is`(MarkLogic))
         assertThat(id.product, `is`(MarkLogic.MARKLOGIC))
         assertThat(id.productVersion, `is`(MarkLogic.VERSION_8_0))
 
         // Compatibility ID
         id = VersionedProductId("marklogic/v8")
         assertThat(id.id, `is`("marklogic/v8"))
-        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.vendor, `is`(MarkLogic))
         assertThat(id.product, `is`(MarkLogic.MARKLOGIC))
         assertThat(id.productVersion, `is`(MarkLogic.VERSION_8_0))
 
         id = VersionedProductId("marklogic/v0.8")
         assertThat(id.id, `is`("marklogic"))
-        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.vendor, `is`(MarkLogic))
         assertThat(id.product, `is`(MarkLogic.MARKLOGIC))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("marklogic/8.0")
         assertThat(id.id, `is`("marklogic"))
-        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.vendor, `is`(MarkLogic))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
     }
@@ -1153,43 +1153,43 @@ class ModelTest {
 
         id = VersionedProductId("saxon/HE")
         assertThat(id.id, `is`("saxon/HE"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.HE))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/PE")
         assertThat(id.id, `is`("saxon/PE"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.PE))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE")
         assertThat(id.id, `is`("saxon/EE"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.EE))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE-T")
         assertThat(id.id, `is`("saxon/EE-T"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.EE_T))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE-Q")
         assertThat(id.id, `is`("saxon/EE-Q"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.EE_Q))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE-V")
         assertThat(id.id, `is`("saxon/EE-V"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.EE_V))
         assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/he")
         assertThat(id.id, `is`("saxon"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
     }
@@ -1200,19 +1200,19 @@ class ModelTest {
 
         id = VersionedProductId("saxon/HE/v9.6")
         assertThat(id.id, `is`("saxon/HE/v9.6"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.HE))
         assertThat(id.productVersion, `is`(Saxon.VERSION_9_6))
 
         id = VersionedProductId("saxon/EE-T/v9.5")
         assertThat(id.id, `is`("saxon/EE-T/v9.5"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.EE_T))
         assertThat(id.productVersion, `is`(Saxon.VERSION_9_5))
 
         id = VersionedProductId("saxon/HE/9.6")
         assertThat(id.id, `is`("saxon/HE"))
-        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.vendor, `is`(Saxon))
         assertThat(id.product, `is`(Saxon.HE))
         assertThat(id.productVersion, `is`(nullValue()))
     }
@@ -1223,13 +1223,13 @@ class ModelTest {
 
         id = VersionedProductId("w3c/spec")
         assertThat(id.id, `is`("w3c/spec/v1ed"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.productVersion, `is`(W3C.FIRST_EDITION))
 
         id = VersionedProductId("w3c/SPEC")
         assertThat(id.id, `is`("w3c"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(nullValue()))
         assertThat(id.productVersion, `is`(nullValue()))
     }
@@ -1240,27 +1240,27 @@ class ModelTest {
 
         id = VersionedProductId("w3c/spec/v1ed")
         assertThat(id.id, `is`("w3c/spec/v1ed"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.productVersion, `is`(W3C.FIRST_EDITION))
 
         id = VersionedProductId("w3c/spec/v2ed")
         assertThat(id.id, `is`("w3c/spec/v2ed"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat(id.productVersion, `is`<Version>(W3C.SECOND_EDITION))
+        assertThat(id.productVersion, `is`(W3C.SECOND_EDITION))
 
         id = VersionedProductId("w3c/spec/v2.0")
         assertThat(id.id, `is`("w3c/spec/v1ed"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.productVersion, `is`(W3C.FIRST_EDITION))
 
         id = VersionedProductId("w3c/spec/2.0")
         assertThat(id.id, `is`("w3c/spec/v1ed"))
-        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.vendor, `is`(W3C))
         assertThat(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.productVersion, `is`(W3C.FIRST_EDITION))
     }
 
     // endregion

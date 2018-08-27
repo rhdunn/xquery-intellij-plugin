@@ -51,7 +51,7 @@ private class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
+                `is`(XQueryElementType.CONCAT_EXPR))
     }
 
     @Test
@@ -63,11 +63,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = applyExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     @Test
@@ -79,11 +79,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = applyExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     @Test
@@ -95,11 +95,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = applyExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     // endregion
@@ -113,7 +113,7 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = assignmentExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -131,11 +131,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = blockExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_BLOCK))
+                `is`(XQueryTokenType.K_BLOCK))
     }
 
     // endregion
@@ -153,11 +153,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = blockVarDeclPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DECLARE))
+                `is`(XQueryTokenType.K_DECLARE))
     }
 
     // endregion
@@ -171,11 +171,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = exitExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_EXIT))
+                `is`(XQueryTokenType.K_EXIT))
     }
 
     // endregion
@@ -190,11 +190,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SIMPLE))
+                `is`(XQueryTokenType.K_SIMPLE))
     }
 
     @Test
@@ -206,11 +206,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SEQUENTIAL))
+                `is`(XQueryTokenType.K_SEQUENTIAL))
     }
 
     // endregion
@@ -227,7 +227,7 @@ private class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
+                `is`(XQueryElementType.CONCAT_EXPR))
     }
 
     @Test
@@ -241,7 +241,7 @@ private class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     @Test
@@ -255,7 +255,7 @@ private class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     @Test
@@ -269,7 +269,7 @@ private class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     // endregion
@@ -284,11 +284,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ASSIGNABLE))
+                `is`(XQueryTokenType.K_ASSIGNABLE))
     }
 
     @Test
@@ -300,11 +300,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_UNASSIGNABLE))
+                `is`(XQueryTokenType.K_UNASSIGNABLE))
     }
 
     // endregion
@@ -318,11 +318,11 @@ private class ScriptingPsiTest : ParserTestCase() {
         val conformance = whileExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHILE))
+                `is`(XQueryTokenType.K_WHILE))
     }
 
     // endregion

@@ -46,11 +46,11 @@ private class FullTextPsiTest : ParserTestCase() {
         val conformance = ftcontainsExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(FullText.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_CONTAINS))
+                `is`(XQueryTokenType.K_CONTAINS))
     }
 
     // endregion
@@ -66,11 +66,11 @@ private class FullTextPsiTest : ParserTestCase() {
         val conformance = scoreVarPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(FullText.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SCORE))
+                `is`(XQueryTokenType.K_SCORE))
     }
 
     // endregion
@@ -84,11 +84,11 @@ private class FullTextPsiTest : ParserTestCase() {
         val conformance = ftoptionDeclPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(FullText.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FT_OPTION))
+                `is`(XQueryTokenType.K_FT_OPTION))
     }
 
     // endregion

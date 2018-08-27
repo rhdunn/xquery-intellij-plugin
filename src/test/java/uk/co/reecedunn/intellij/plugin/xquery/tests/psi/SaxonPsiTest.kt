@@ -47,11 +47,11 @@ private class SaxonPsiTest : ParserTestCase() {
         val conformance = tupleTypePsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TUPLE))
+                `is`(XQueryTokenType.K_TUPLE))
     }
 
     // endregion
@@ -65,11 +65,11 @@ private class SaxonPsiTest : ParserTestCase() {
         val conformance = typeDeclPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TYPE))
+                `is`(XQueryTokenType.K_TYPE))
     }
 
     // endregion
@@ -83,11 +83,11 @@ private class SaxonPsiTest : ParserTestCase() {
         val conformance = unionTypePsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_UNION))
+                `is`(XQueryTokenType.K_UNION))
     }
 
     // endregion
@@ -102,7 +102,7 @@ private class SaxonPsiTest : ParserTestCase() {
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`<IElementType>(XQueryTokenType.ASSIGN_EQUAL))
+                `is`(XQueryTokenType.ASSIGN_EQUAL))
     }
 
     // endregion

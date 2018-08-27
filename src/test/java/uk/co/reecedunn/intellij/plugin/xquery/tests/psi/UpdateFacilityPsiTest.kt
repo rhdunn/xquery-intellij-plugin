@@ -45,11 +45,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_UPDATING))
+                `is`(XQueryTokenType.K_UPDATING))
     }
 
     @Test
@@ -61,11 +61,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.NOTE_3_0_20170124))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_UPDATING))
+                `is`(XQueryTokenType.K_UPDATING))
     }
 
     // endregion
@@ -79,11 +79,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = deleteExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DELETE))
+                `is`(XQueryTokenType.K_DELETE))
     }
 
     // endregion
@@ -98,11 +98,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_UPDATING))
+                `is`(XQueryTokenType.K_UPDATING))
     }
 
     // endregion
@@ -116,11 +116,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = insertExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_INSERT))
+                `is`(XQueryTokenType.K_INSERT))
     }
 
     // endregion
@@ -134,11 +134,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = renameExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_RENAME))
+                `is`(XQueryTokenType.K_RENAME))
     }
 
     // endregion
@@ -152,11 +152,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = replaceExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_REPLACE))
+                `is`(XQueryTokenType.K_REPLACE))
     }
 
     // endregion
@@ -170,11 +170,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = revalidationDeclPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_REVALIDATION))
+                `is`(XQueryTokenType.K_REVALIDATION))
     }
 
     // endregion
@@ -188,11 +188,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = transformExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_COPY))
+                `is`(XQueryTokenType.K_COPY))
     }
 
     // endregion
@@ -206,12 +206,12 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = transformWithExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.NOTE_3_0_20170124))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(BaseX.VERSION_8_5))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
+        assertThat(conformance.requiresConformance[1], `is`(BaseX.VERSION_8_5))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_TRANSFORM))
+                `is`(XQueryTokenType.K_TRANSFORM))
     }
 
     // endregion
@@ -225,11 +225,11 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
         val conformance = updatingFunctionCallPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.NOTE_3_0_20170124))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_INVOKE))
+                `is`(XQueryTokenType.K_INVOKE))
     }
 
     // endregion

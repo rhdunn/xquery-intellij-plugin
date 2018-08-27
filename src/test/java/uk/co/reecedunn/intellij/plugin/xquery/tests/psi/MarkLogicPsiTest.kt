@@ -48,11 +48,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.STRING_LITERAL))
+                `is`(XQueryElementType.STRING_LITERAL))
     }
 
     @Test
@@ -63,11 +63,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.STAR))
+                `is`(XQueryTokenType.STAR))
     }
 
     // endregion
@@ -81,11 +81,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = arrayConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ARRAY_NODE))
+                `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion
@@ -99,11 +99,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = arrayTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ARRAY_NODE))
+                `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion
@@ -117,11 +117,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = attributeDeclTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ATTRIBUTE_DECL))
+                `is`(XQueryTokenType.K_ATTRIBUTE_DECL))
     }
 
     // endregion
@@ -135,12 +135,12 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = binaryKindTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_BINARY))
+                `is`(XQueryTokenType.K_BINARY))
     }
 
     // endregion
@@ -154,12 +154,12 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = binaryKindTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_BINARY))
+                `is`(XQueryTokenType.K_BINARY))
     }
 
     // endregion
@@ -173,11 +173,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = booleanConstructorPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_BOOLEAN_NODE))
+                `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
     // endregion
@@ -191,11 +191,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = booleanTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_BOOLEAN_NODE))
+                `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
     // endregion
@@ -210,11 +210,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = catchClausePsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_CATCH))
+                `is`(XQueryTokenType.K_CATCH))
     }
 
     // endregion
@@ -229,11 +229,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_PRIVATE))
+                `is`(XQueryTokenType.K_PRIVATE))
     }
 
     @Test
@@ -245,11 +245,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_PRIVATE))
+                `is`(XQueryTokenType.K_PRIVATE))
     }
 
     // endregion
@@ -263,11 +263,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = complexTypeTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_COMPLEX_TYPE))
+                `is`(XQueryTokenType.K_COMPLEX_TYPE))
     }
 
     // endregion
@@ -281,11 +281,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = elementDeclTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ELEMENT_DECL))
+                `is`(XQueryTokenType.K_ELEMENT_DECL))
     }
 
     // endregion
@@ -304,7 +304,7 @@ private class MarkLogicPsiTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.EXPR))
+                `is`(XQueryElementType.EXPR))
     }
 
     @Test
@@ -317,12 +317,12 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.BLOCK_OPEN))
+                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -336,11 +336,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = forwardAxisPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NAMESPACE))
+                `is`(XQueryTokenType.K_NAMESPACE))
     }
 
     @Test
@@ -351,11 +351,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = forwardAxisPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_PROPERTY))
+                `is`(XQueryTokenType.K_PROPERTY))
     }
 
     // endregion
@@ -369,11 +369,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = objectConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_OBJECT_NODE))
+                `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
     // endregion
@@ -387,11 +387,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = objectTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_OBJECT_NODE))
+                `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
     // endregion
@@ -405,11 +405,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = nullKindTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NULL_NODE))
+                `is`(XQueryTokenType.K_NULL_NODE))
     }
 
     // endregion
@@ -423,11 +423,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = nullTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NULL_NODE))
+                `is`(XQueryTokenType.K_NULL_NODE))
     }
 
     // endregion
@@ -441,11 +441,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = numberConstructorPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NUMBER_NODE))
+                `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
     // endregion
@@ -459,11 +459,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = numberTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NUMBER_NODE))
+                `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
     // endregion
@@ -477,11 +477,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = schemaComponentTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SCHEMA_COMPONENT))
+                `is`(XQueryTokenType.K_SCHEMA_COMPONENT))
     }
 
     // endregion
@@ -495,11 +495,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = schemaFacetTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SCHEMA_FACET))
+                `is`(XQueryTokenType.K_SCHEMA_FACET))
     }
 
     // endregion
@@ -513,11 +513,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = schemaParticleTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SCHEMA_PARTICLE))
+                `is`(XQueryTokenType.K_SCHEMA_PARTICLE))
     }
 
     // endregion
@@ -531,11 +531,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = schemaRootTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SCHEMA_ROOT))
+                `is`(XQueryTokenType.K_SCHEMA_ROOT))
     }
 
     // endregion
@@ -549,11 +549,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = schemaTypeTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SCHEMA_TYPE))
+                `is`(XQueryTokenType.K_SCHEMA_TYPE))
     }
 
     // endregion
@@ -567,11 +567,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = simpleTypeTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_7_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SIMPLE_TYPE))
+                `is`(XQueryTokenType.K_SIMPLE_TYPE))
     }
 
     // endregion
@@ -585,11 +585,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = stylesheetImportPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_IMPORT))
+                `is`(XQueryTokenType.K_IMPORT))
     }
 
     // endregion
@@ -603,11 +603,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = textTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_8_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.STRING_LITERAL))
+                `is`(XQueryElementType.STRING_LITERAL))
     }
 
     // endregion
@@ -635,7 +635,7 @@ private class MarkLogicPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     @Test
@@ -647,13 +647,13 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = transactionSeparatorPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(3))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
-        assertThat(conformance.requiresConformance[2], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[2], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     @Test
@@ -668,7 +668,7 @@ private class MarkLogicPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     @Test
@@ -683,7 +683,7 @@ private class MarkLogicPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     @Test
@@ -694,12 +694,12 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val conformance = transactionSeparatorPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`(XQueryTokenType.SEPARATOR))
     }
 
     // endregion
@@ -713,11 +713,11 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val versioned = validateExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_AS))
+                `is`(XQueryTokenType.K_AS))
     }
 
     // endregion
@@ -732,7 +732,7 @@ private class MarkLogicPsiTest : ParserTestCase() {
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
+                `is`(XQueryTokenType.QNAME_SEPARATOR))
     }
 
     // endregion
