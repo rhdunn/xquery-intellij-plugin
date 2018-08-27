@@ -87,7 +87,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(httpUriRef.variants.size, `is`(0))
 
         val resolved = httpUriRef.resolve()
-        assertThat<PsiElement>(resolved, `is`(nullValue()))
+        assertThat(resolved, `is`(nullValue()))
     }
 
     @Test
@@ -107,8 +107,8 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
-        assertThat<PsiElement>(resolved, `is`(notNullValue()))
-        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
+        assertThat(resolved, `is`(notNullValue()))
+        assertThat(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
         assertThat(resolved!!.containingFile.name, `is`("test.xq"))
     }
 
@@ -129,8 +129,8 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
-        assertThat<PsiElement>(resolved, `is`(notNullValue()))
-        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
+        assertThat(resolved, `is`(notNullValue()))
+        assertThat(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
         assertThat(resolved!!.containingFile.name, `is`("ModuleDecl.xq"))
     }
 
@@ -151,8 +151,8 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
-        assertThat<PsiElement>(resolved, `is`(notNullValue()))
-        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
+        assertThat(resolved, `is`(notNullValue()))
+        assertThat(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
         assertThat(resolved!!.containingFile.name, `is`("array.xqy"))
     }
 
@@ -173,7 +173,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
-        assertThat<PsiElement>(resolved, `is`(nullValue()))
+        assertThat(resolved, `is`(nullValue()))
     }
 
     @Test
@@ -193,7 +193,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
-        assertThat<PsiElement>(resolved, `is`(nullValue()))
+        assertThat(resolved, `is`(nullValue()))
     }
 
     // endregion

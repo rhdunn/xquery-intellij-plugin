@@ -70,19 +70,19 @@ class ByteSequenceTest {
         val b = ByteSequence(data)
 
         val e1 = assertThrows(IndexOutOfBoundsException::class.java) { b.subSequence(-1, 0) }
-        assertThat<String>(e1.message, `is`("-1"))
+        assertThat(e1.message, `is`("-1"))
 
         val e2 = assertThrows(IndexOutOfBoundsException::class.java) { b.subSequence(11, 11) }
-        assertThat<String>(e2.message, `is`("11"))
+        assertThat(e2.message, `is`("11"))
 
         val e3 = assertThrows(IndexOutOfBoundsException::class.java) { b.subSequence(0, 11) }
-        assertThat<String>(e3.message, `is`("11"))
+        assertThat(e3.message, `is`("11"))
 
         val e5 = assertThrows(IndexOutOfBoundsException::class.java) { b.subSequence(1, 11) }
-        assertThat<String>(e5.message, `is`("11"))
+        assertThat(e5.message, `is`("11"))
 
         val e4 = assertThrows(IndexOutOfBoundsException::class.java) { b.subSequence(6, 4) }
-        assertThat<String>(e4.message, `is`("-2"))
+        assertThat(e4.message, `is`("-2"))
     }
 
     @Test
@@ -91,10 +91,10 @@ class ByteSequenceTest {
         val b = ByteSequence(data)
 
         val e1 = assertThrows(IndexOutOfBoundsException::class.java) { b[-1] }
-        assertThat<String>(e1.message, `is`("-1"))
+        assertThat(e1.message, `is`("-1"))
 
         val e2 = assertThrows(IndexOutOfBoundsException::class.java) { b[10] }
-        assertThat<String>(e2.message, `is`("10"))
+        assertThat(e2.message, `is`("10"))
     }
 
     @Test
@@ -104,9 +104,9 @@ class ByteSequenceTest {
         val c = b.subSequence(2, 8)
 
         val e1 = assertThrows(IndexOutOfBoundsException::class.java) { c[-1] }
-        assertThat<String>(e1.message, `is`("-1"))
+        assertThat(e1.message, `is`("-1"))
 
         val e2 = assertThrows(IndexOutOfBoundsException::class.java) { c[6] }
-        assertThat<String>(e2.message, `is`("6"))
+        assertThat(e2.message, `is`("6"))
     }
 }

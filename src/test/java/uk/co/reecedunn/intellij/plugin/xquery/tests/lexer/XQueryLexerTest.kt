@@ -47,7 +47,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         val e = assertThrows(AssertionError::class.java ){ lexer.start("123", 0, 3, 4096) }
-        assertThat<String>(e.message, `is`("Invalid state: 4096"))
+        assertThat(e.message, `is`("Invalid state: 4096"))
     }
 
     // endregion

@@ -1016,19 +1016,19 @@ class ModelTest {
     fun testBaseX_VersionForXQuery() {
         for (product in BaseX.products) {
             for (version in BaseX.versions) {
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "1.0"),
+                assertThat(XQuery.versionForXQuery(product, version, "1.0"),
                         `is`(nullValue()))
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "3.0"),
+                assertThat(XQuery.versionForXQuery(product, version, "3.0"),
                         `is`(XQuery.REC_3_0_20140408))
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "3.1"),
+                assertThat(XQuery.versionForXQuery(product, version, "3.1"),
                         `is`(if (version.value <= 8.5) XQuery.CR_3_1_20151217 else XQuery.REC_3_1_20170321))
 
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "0.9-ml"),
+                assertThat(XQuery.versionForXQuery(product, version, "0.9-ml"),
                         `is`(nullValue()))
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "1.0-ml"),
+                assertThat(XQuery.versionForXQuery(product, version, "1.0-ml"),
                         `is`(nullValue()))
 
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "3"),
+                assertThat(XQuery.versionForXQuery(product, version, "3"),
                         `is`(nullValue()))
             }
         }
@@ -1038,19 +1038,19 @@ class ModelTest {
     fun testMarkLogic_VersionsForXQuery() {
         for (product in MarkLogic.products) {
             for (version in MarkLogic.versions) {
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "1.0"),
+                assertThat(XQuery.versionForXQuery(product, version, "1.0"),
                         `is`(XQuery.REC_1_0_20070123))
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "3.0"),
+                assertThat(XQuery.versionForXQuery(product, version, "3.0"),
                         `is`(nullValue()))
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "3.1"),
+                assertThat(XQuery.versionForXQuery(product, version, "3.1"),
                         `is`(nullValue()))
 
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "0.9-ml"),
+                assertThat(XQuery.versionForXQuery(product, version, "0.9-ml"),
                         `is`(XQuery.MARKLOGIC_0_9))
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "1.0-ml"),
+                assertThat(XQuery.versionForXQuery(product, version, "1.0-ml"),
                         `is`(XQuery.MARKLOGIC_1_0))
 
-                assertThat<Specification>(XQuery.versionForXQuery(product, version, "3"),
+                assertThat(XQuery.versionForXQuery(product, version, "3"),
                         `is`(nullValue()))
             }
         }
@@ -1064,34 +1064,34 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("basex")
-        assertThat<String>(id.id, `is`("basex"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(BaseX))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("basex"))
+        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("marklogic")
-        assertThat<String>(id.id, `is`("marklogic"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(MarkLogic))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("marklogic"))
+        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon")
-        assertThat<String>(id.id, `is`("saxon"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("w3c")
-        assertThat<String>(id.id, `is`("w3c"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("w3c"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("loremipsum")
-        assertThat<String>(id.id, `is`(nullValue()))
-        assertThat<Implementation>(id.vendor, `is`(nullValue()))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`(nullValue()))
+        assertThat(id.vendor, `is`(nullValue()))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
     }
 
     @Test
@@ -1099,22 +1099,22 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("basex/v8.4")
-        assertThat<String>(id.id, `is`("basex/v8.4"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(BaseX))
-        assertThat<Product>(id.product, `is`(BaseX.BASEX))
-        assertThat<Version>(id.productVersion, `is`(BaseX.VERSION_8_4))
+        assertThat(id.id, `is`("basex/v8.4"))
+        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.product, `is`(BaseX.BASEX))
+        assertThat(id.productVersion, `is`(BaseX.VERSION_8_4))
 
         id = VersionedProductId("basex/v0.5")
-        assertThat<String>(id.id, `is`("basex"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(BaseX))
-        assertThat<Product>(id.product, `is`(BaseX.BASEX))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("basex"))
+        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.product, `is`(BaseX.BASEX))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("basex/8.4")
-        assertThat<String>(id.id, `is`("basex"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(BaseX))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("basex"))
+        assertThat(id.vendor, `is`<Implementation>(BaseX))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
     }
 
     @Test
@@ -1122,29 +1122,29 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("marklogic/v8.0")
-        assertThat<String>(id.id, `is`("marklogic/v8"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(MarkLogic))
-        assertThat<Product>(id.product, `is`(MarkLogic.MARKLOGIC))
-        assertThat<Version>(id.productVersion, `is`(MarkLogic.VERSION_8_0))
+        assertThat(id.id, `is`("marklogic/v8"))
+        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.product, `is`(MarkLogic.MARKLOGIC))
+        assertThat(id.productVersion, `is`(MarkLogic.VERSION_8_0))
 
         // Compatibility ID
         id = VersionedProductId("marklogic/v8")
-        assertThat<String>(id.id, `is`("marklogic/v8"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(MarkLogic))
-        assertThat<Product>(id.product, `is`(MarkLogic.MARKLOGIC))
-        assertThat<Version>(id.productVersion, `is`(MarkLogic.VERSION_8_0))
+        assertThat(id.id, `is`("marklogic/v8"))
+        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.product, `is`(MarkLogic.MARKLOGIC))
+        assertThat(id.productVersion, `is`(MarkLogic.VERSION_8_0))
 
         id = VersionedProductId("marklogic/v0.8")
-        assertThat<String>(id.id, `is`("marklogic"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(MarkLogic))
-        assertThat<Product>(id.product, `is`(MarkLogic.MARKLOGIC))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("marklogic"))
+        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.product, `is`(MarkLogic.MARKLOGIC))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("marklogic/8.0")
-        assertThat<String>(id.id, `is`("marklogic"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(MarkLogic))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("marklogic"))
+        assertThat(id.vendor, `is`<Implementation>(MarkLogic))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
     }
 
     @Test
@@ -1152,46 +1152,46 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("saxon/HE")
-        assertThat<String>(id.id, `is`("saxon/HE"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.HE))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/HE"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.HE))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/PE")
-        assertThat<String>(id.id, `is`("saxon/PE"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.PE))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/PE"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.PE))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE")
-        assertThat<String>(id.id, `is`("saxon/EE"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.EE))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/EE"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.EE))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE-T")
-        assertThat<String>(id.id, `is`("saxon/EE-T"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.EE_T))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/EE-T"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.EE_T))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE-Q")
-        assertThat<String>(id.id, `is`("saxon/EE-Q"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.EE_Q))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/EE-Q"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.EE_Q))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/EE-V")
-        assertThat<String>(id.id, `is`("saxon/EE-V"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.EE_V))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/EE-V"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.EE_V))
+        assertThat(id.productVersion, `is`(nullValue()))
 
         id = VersionedProductId("saxon/he")
-        assertThat<String>(id.id, `is`("saxon"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
     }
 
     @Test
@@ -1199,22 +1199,22 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("saxon/HE/v9.6")
-        assertThat<String>(id.id, `is`("saxon/HE/v9.6"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.HE))
-        assertThat<Version>(id.productVersion, `is`(Saxon.VERSION_9_6))
+        assertThat(id.id, `is`("saxon/HE/v9.6"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.HE))
+        assertThat(id.productVersion, `is`(Saxon.VERSION_9_6))
 
         id = VersionedProductId("saxon/EE-T/v9.5")
-        assertThat<String>(id.id, `is`("saxon/EE-T/v9.5"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.EE_T))
-        assertThat<Version>(id.productVersion, `is`(Saxon.VERSION_9_5))
+        assertThat(id.id, `is`("saxon/EE-T/v9.5"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.EE_T))
+        assertThat(id.productVersion, `is`(Saxon.VERSION_9_5))
 
         id = VersionedProductId("saxon/HE/9.6")
-        assertThat<String>(id.id, `is`("saxon/HE"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(Saxon))
-        assertThat<Product>(id.product, `is`(Saxon.HE))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("saxon/HE"))
+        assertThat(id.vendor, `is`<Implementation>(Saxon))
+        assertThat(id.product, `is`(Saxon.HE))
+        assertThat(id.productVersion, `is`(nullValue()))
     }
 
     @Test
@@ -1222,16 +1222,16 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("w3c/spec")
-        assertThat<String>(id.id, `is`("w3c/spec/v1ed"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat<Version>(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.id, `is`("w3c/spec/v1ed"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(W3C.SPECIFICATIONS))
+        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
 
         id = VersionedProductId("w3c/SPEC")
-        assertThat<String>(id.id, `is`("w3c"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(nullValue()))
-        assertThat<Version>(id.productVersion, `is`(nullValue()))
+        assertThat(id.id, `is`("w3c"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(nullValue()))
+        assertThat(id.productVersion, `is`(nullValue()))
     }
 
     @Test
@@ -1239,28 +1239,28 @@ class ModelTest {
         var id: VersionedProductId
 
         id = VersionedProductId("w3c/spec/v1ed")
-        assertThat<String>(id.id, `is`("w3c/spec/v1ed"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat<Version>(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.id, `is`("w3c/spec/v1ed"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(W3C.SPECIFICATIONS))
+        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
 
         id = VersionedProductId("w3c/spec/v2ed")
-        assertThat<String>(id.id, `is`("w3c/spec/v2ed"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat<Version>(id.productVersion, `is`<Version>(W3C.SECOND_EDITION))
+        assertThat(id.id, `is`("w3c/spec/v2ed"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(W3C.SPECIFICATIONS))
+        assertThat(id.productVersion, `is`<Version>(W3C.SECOND_EDITION))
 
         id = VersionedProductId("w3c/spec/v2.0")
-        assertThat<String>(id.id, `is`("w3c/spec/v1ed"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat<Version>(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.id, `is`("w3c/spec/v1ed"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(W3C.SPECIFICATIONS))
+        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
 
         id = VersionedProductId("w3c/spec/2.0")
-        assertThat<String>(id.id, `is`("w3c/spec/v1ed"))
-        assertThat<Implementation>(id.vendor, `is`<Implementation>(W3C))
-        assertThat<Product>(id.product, `is`(W3C.SPECIFICATIONS))
-        assertThat<Version>(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
+        assertThat(id.id, `is`("w3c/spec/v1ed"))
+        assertThat(id.vendor, `is`<Implementation>(W3C))
+        assertThat(id.product, `is`(W3C.SPECIFICATIONS))
+        assertThat(id.productVersion, `is`<Version>(W3C.FIRST_EDITION))
     }
 
     // endregion

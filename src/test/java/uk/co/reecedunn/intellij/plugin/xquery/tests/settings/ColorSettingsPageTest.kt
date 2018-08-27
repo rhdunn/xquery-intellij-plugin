@@ -80,7 +80,7 @@ class ColorSettingsPageTest {
     @Test
     fun testAdditionalHighlightingTagToDescriptorMap() {
         val settings = ColorSettingsPage()
-        assertThat<Map<String, TextAttributesKey>>(settings.additionalHighlightingTagToDescriptorMap, `is`(nullValue()))
+        assertThat(settings.additionalHighlightingTagToDescriptorMap, `is`(nullValue()))
     }
 
     @Test

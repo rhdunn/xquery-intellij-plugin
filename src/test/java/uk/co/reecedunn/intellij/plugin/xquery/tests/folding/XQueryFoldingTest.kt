@@ -35,7 +35,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors, `is`(notNullValue()))
         assertThat(descriptors.size, `is`(0))
 
-        assertThat<String>(builder.getPlaceholderText(file.node), `is`("..."))
+        assertThat(builder.getPlaceholderText(file.node), `is`("..."))
         assertThat(builder.isCollapsedByDefault(file.node), `is`(false))
     }
 
@@ -69,7 +69,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(27))
         assertThat(descriptors[0].range.endOffset, `is`(39))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
     }
 
@@ -90,7 +90,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(3))
         assertThat(descriptors[0].range.endOffset, `is`(10))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
     }
 
@@ -111,7 +111,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(3))
         assertThat(descriptors[0].range.endOffset, `is`(32))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
 
         assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
@@ -122,7 +122,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[1].range.startOffset, `is`(22))
         assertThat(descriptors[1].range.endOffset, `is`(29))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[1].element), `is`("{...}"))
+        assertThat(builder.getPlaceholderText(descriptors[1].element), `is`("{...}"))
         assertThat(builder.isCollapsedByDefault(descriptors[1].element), `is`(false))
     }
 
@@ -176,7 +176,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(2))
         assertThat(descriptors[0].range.endOffset, `is`(9))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
     }
 
@@ -197,7 +197,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(4))
         assertThat(descriptors[0].range.endOffset, `is`(21))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
     }
 
@@ -218,7 +218,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(20))
         assertThat(descriptors[0].range.endOffset, `is`(37))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
     }
 
@@ -252,7 +252,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors[0].range.startOffset, `is`(0))
         assertThat(descriptors[0].range.endOffset, `is`(18))
 
-        assertThat<String>(builder.getPlaceholderText(descriptors[0].element), `is`("(...)"))
+        assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(...)"))
         assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
     }
 
