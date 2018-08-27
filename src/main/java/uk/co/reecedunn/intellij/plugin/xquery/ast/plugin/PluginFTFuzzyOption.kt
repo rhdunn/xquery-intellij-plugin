@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.basex
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOption
 
 /**
  * A BaseX 6.1 `FTFuzzyOption` node in the XQuery AST.
  */
-interface BaseXFTFuzzyOption : FTMatchOption
+interface PluginFTFuzzyOption : FTMatchOption

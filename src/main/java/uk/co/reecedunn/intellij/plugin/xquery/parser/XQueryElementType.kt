@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatE
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginFTFuzzyOptionPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXNonDeterministicFunctionCallPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginUpdateExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
@@ -422,7 +422,7 @@ object XQueryElementType {
     // endregion
     // region BaseX
 
-    val FT_FUZZY_OPTION: IElementType = ICompositeElementType("XQUERY_FT_FUZZY_OPTION", BaseXFTFuzzyOptionPsiImpl::class.java, XQuery)
+    val FT_FUZZY_OPTION: IElementType = ICompositeElementType("XQUERY_FT_FUZZY_OPTION", PluginFTFuzzyOptionPsiImpl::class.java, XQuery)
 
     val UPDATE_EXPR: IElementType = ICompositeElementType("XQUERY_UPDATE_EXPR", PluginUpdateExprPsiImpl::class.java, XQuery)
 

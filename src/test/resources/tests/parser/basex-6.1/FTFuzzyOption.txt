@@ -30,5 +30,5 @@ XQueryModuleImpl[FILE(0:39)]
                                     FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(28:39)]
                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                                       BaseXFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(34:39)]
+                                       PluginFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(34:39)]
                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUZZY(34:39)]('fuzzy')

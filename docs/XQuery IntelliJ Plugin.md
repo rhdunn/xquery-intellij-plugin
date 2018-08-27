@@ -10,6 +10,9 @@
     - [3.3.2 Cast](#332-cast)
   - [3.4 Block Expressions](#34-block-expressions)
   - [3.5 Update Expressions](#35-update-expressions)
+  - [3.6 Full Text Selections](#36-full-text-selections)
+    - [3.6.1 Match Options](#361-match-options)
+      - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -166,6 +169,27 @@ are equivalent to the `TransformWithExpr`:
 
     N transform with { U }
 
+### 3.6 Full Text Selections
+
+#### 3.6.1 Match Options
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[13\] | `FTMatchOption`         | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
+
+The `FTFuzzyOption` is a new option that is supported by BaseX.
+
+##### 3.6.1.1 Fuzzy Option
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[14\] | `FTFuzzyOption`         | ::= | `fuzzy`                             |                       |
+
+\[Definition: A *fuzzy option* enables approximate text matching using the
+Levenshtein distance algorithm.\]
+
+This is a BaseX Full Text extension.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -228,6 +252,8 @@ These changes include support for:
 | \[10\]   | `BlockVarDeclEntry`            | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
 | \[11\]   | `AndExpr`                      | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
+| \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
+| \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
 
 ## B References
 
@@ -262,6 +288,8 @@ __XML Schema__
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
 
 ### B.2 BaseX References
+*  BaseX. *Full-Text: Fuzzy Querying*. See
+   [http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying]().
 *  BaseX. *Updates: update*. See [http://docs.basex.org/wiki/Updates#update]().
 
 ## C Vendor Extensions
@@ -270,4 +298,5 @@ __XML Schema__
 The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
+1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]

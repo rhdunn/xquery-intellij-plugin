@@ -21,23 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class BaseXParserTest : ParserTestCase() {
-    // region BaseX 6.1 :: FTFuzzyOption
-
-    @Test
-    fun testFTFuzzyOption() {
-        val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption.txt")
-        val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFTFuzzyOption_MissingUsingKeyword() {
-        val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.txt")
-        val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region BaseX 8.4 :: NonDeterministicFunctionCall
 
     @Test

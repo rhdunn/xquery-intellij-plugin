@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXFTFuzzyOption
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class BaseXFTFuzzyOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), BaseXFTFuzzyOption, XQueryConformance {
+class PluginFTFuzzyOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginFTFuzzyOption, XQueryConformance {
     override val requiresConformance get(): List<Version> =
         listOf(BaseX.VERSION_6_1)
 

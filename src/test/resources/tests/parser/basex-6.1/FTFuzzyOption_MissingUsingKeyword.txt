@@ -29,5 +29,5 @@ XQueryModuleImpl[FILE(0:33)]
                                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                     FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(28:33)]
                                        PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected keyword: using.')
-                                       BaseXFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(28:33)]
+                                       PluginFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(28:33)]
                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUZZY(28:33)]('fuzzy')
