@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:48)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:48)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:48)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:48)]
-               BaseXUpdateExprImpl[XQUERY_UPDATE_EXPR(0:48)]
+               PluginUpdateExprImpl[XQUERY_UPDATE_EXPR(0:48)]
                   XPathPathExprImpl[XQUERY_PATH_EXPR(0:7)]
                      LeafPsiElement[XQUERY_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
                      XPathNodeTestImpl[XQUERY_NODE_TEST(2:7)]
@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:48)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                            UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(26:48)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(26:48)]
-                                 BaseXUpdateExprImpl[XQUERY_UPDATE_EXPR(26:48)]
+                                 PluginUpdateExprImpl[XQUERY_UPDATE_EXPR(26:48)]
                                     XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(26:27)]
                                        LeafPsiElement[XQUERY_DOT_TOKEN(26:27)]('.')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')

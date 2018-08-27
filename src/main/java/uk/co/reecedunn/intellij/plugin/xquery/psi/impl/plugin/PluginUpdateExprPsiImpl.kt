@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -27,7 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 private val BASEX78: List<Version> = listOf(BaseX.VERSION_7_8)
 private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
 
-class BaseXUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), BaseXUpdateExpr, XQueryConformance {
+class PluginUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginUpdateExpr, XQueryConformance {
     override val requiresConformance get(): List<Version> {
         if (findChildByType<PsiElement>(XQueryTokenType.BLOCK_OPEN) != null) {
             return BASEX85

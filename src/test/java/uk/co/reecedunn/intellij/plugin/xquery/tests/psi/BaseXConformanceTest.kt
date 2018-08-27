@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXNonDeterministicFunctionCall
-import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
@@ -73,39 +72,6 @@ private class BaseXConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_NON_DETERMINISTIC))
-    }
-
-    // endregion
-    // region UpdateExpr
-
-    @Test
-    fun testUpdateExpr() {
-        val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
-
-        val updateExpr = file.descendants().filterIsInstance<BaseXUpdateExpr>().first()
-        val conformance = updateExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UPDATE))
-    }
-
-    @Test
-    fun testUpdateExpr_Block() {
-        val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
-
-        val updateExpr = file.descendants().filterIsInstance<BaseXUpdateExpr>().first()
-        val conformance = updateExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_5))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion

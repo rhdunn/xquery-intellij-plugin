@@ -9,11 +9,13 @@
     - [3.3.1 Typeswitch](#331-typeswitch)
     - [3.3.2 Cast](#332-cast)
   - [3.4 Block Expressions](#34-block-expressions)
+  - [3.5 Update Expressions](#35-update-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
+  - [B.2 BaseX References](#b2-basex-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
 
@@ -111,6 +113,59 @@ like in the following example:
 This follows the grammar production pattern used in other constructs like
 `LetClause` and `ForClause`, making it easier to support variable declarations.
 
+### 3.5 Update Expressions
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[11\] | `AndExpr`               | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
+| \[12\] | `UpdateExpr`            | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
+
+BaseX 7.8 supports update expressions with a single inline expression. For
+example:
+
+    <text>hello</text> update rename node . as "test"
+    (: returns: <test>hello</test> :)
+
+BaseX 8.5 extends this to support multiple update operations in a block
+expression. For example:
+
+    <text>hello</text> update { rename node . as "test" }
+    (: returns: <test>hello</test> :)
+
+> __Note__
+>
+> While both forms can be chained, the single inline expression form will apply
+> the updates from right to left instead of left to right. That is, given the
+> chained single inline expression form of `UpdateExpr`:
+>
+> ```N update A update B```
+>
+> that expression is equivalent to:
+>
+> ```N update (A update B)```
+
+The update expression is optional. If it is missing, the update expression has
+no effect:
+
+    <text>hello</text> update (), <text>hello</text> update {}
+    (: returns: ( <text>hello</text>, <text>hello</text> ) :)
+
+The expressions on the right hand side of the update expression must either be
+an `empty-sequence()`, or an updating expression. If this is not the case, an
+`err:XUST0002` error is raised.
+
+If N and U are arbitrary expressions, then the following inline `UpdateExpr`:
+
+    N update U
+
+and the following block `UpdateExpr`:
+
+    N update { U }
+
+are equivalent to the `TransformWithExpr`:
+
+    N transform with { U }
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -171,6 +226,8 @@ These changes include support for:
 | \[8\]    | `TransformWithExpr`            | ::= | `ArrowExpr ("transform" "with" "{" Expr? "}")?` |           |
 | \[9\]    | `BlockVarDecl`                 | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
 | \[10\]   | `BlockVarDeclEntry`            | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
+| \[11\]   | `AndExpr`                      | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
+| \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 
 ## B References
 
@@ -204,9 +261,13 @@ __XML Schema__
    Recommendation 5 April 2012. See
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
 
+### B.2 BaseX References
+*  BaseX. *Updates: update*. See [http://docs.basex.org/wiki/Updates#update]().
+
 ## C Vendor Extensions
 
 ### C.1 BaseX Vendor Extensions
 The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
+1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
