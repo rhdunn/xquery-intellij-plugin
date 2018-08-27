@@ -13,28 +13,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.2:</h3>
-    <p>Language Support:</p>
-    <ol>
-      <li>Support BaseX 8.4 `non-deterministic` function calls.</li>
-      <li>Support mixing arrow and transform with expressions, allowed in BaseX.</li>
-      <li>
-        Improved performance by not creating PSI (AST) nodes for EBNF symbols that are just
-        forwarding to a sub-expression.
-      </li>
-    </ol>
-    <p>Bug Fixes:</p>
-    <ol>
-      <li>
-        <code>TransformWithExpr</code> containing an empty expression body should not report
-        a parser error as it is allowed by the Update Facility 3.0 specification.
-      </li>
-      <li>Parse `UpdateExpr` correctly, according to how it is handled in BaseX.</li>
-      <li>Don't crash when computing folding for a partial direct element node inside an outer direct element node.</li>
-    </ol>
-    <p>Inspections:</p>
-    <ol>
-    </ol>
+    <h3>Release 1.3-dev:</h3>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
