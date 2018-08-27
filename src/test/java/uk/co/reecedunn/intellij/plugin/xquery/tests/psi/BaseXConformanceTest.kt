@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
@@ -31,14 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-private class BaseXPsiTest : ParserTestCase() {
-    // region XQueryConformance
+private class BaseXConformanceTest : ParserTestCase() {
     // region FTFuzzyOption
 
     @Test
@@ -111,6 +108,5 @@ private class BaseXPsiTest : ParserTestCase() {
                 `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
-    // endregion
     // endregion
 }

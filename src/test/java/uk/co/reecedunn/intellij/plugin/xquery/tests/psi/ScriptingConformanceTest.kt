@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
@@ -28,15 +27,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-private class ScriptingPsiTest : ParserTestCase() {
-    // region XQueryConformance
+private class ScriptingConformanceTest : ParserTestCase() {
     // region ApplyExpr
 
     @Test
@@ -325,6 +322,5 @@ private class ScriptingPsiTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_WHILE))
     }
 
-    // endregion
     // endregion
 }

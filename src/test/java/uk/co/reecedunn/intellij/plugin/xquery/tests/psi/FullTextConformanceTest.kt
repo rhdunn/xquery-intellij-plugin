@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
@@ -28,14 +27,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.FullText
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-private class FullTextPsiTest : ParserTestCase() {
-    // region XQueryConformance
+private class FullTextConformanceTest : ParserTestCase() {
     // region FTContainsExpr
 
     @Test
@@ -91,6 +88,5 @@ private class FullTextPsiTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_FT_OPTION))
     }
 
-    // endregion
     // endregion
 }

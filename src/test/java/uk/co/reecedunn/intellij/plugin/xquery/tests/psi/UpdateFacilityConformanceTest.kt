@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
@@ -26,14 +25,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-private class UpdateFacilityPsiTest : ParserTestCase() {
-    // region XQueryConformance
+private class UpdateFacilityConformanceTest : ParserTestCase() {
     // region CompatibilityAnnotation
 
     @Test
@@ -232,6 +229,5 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_INVOKE))
     }
 
-    // endregion
     // endregion
 }
