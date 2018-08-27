@@ -13,7 +13,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.2-dev:</h3>
+    <h3>Release 1.2:</h3>
     <p>Language Support:</p>
     <ol>
       <li>Support BaseX 8.4 `non-deterministic` function calls.</li>
