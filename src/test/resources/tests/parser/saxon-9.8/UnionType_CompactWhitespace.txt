@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:53)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-               SaxonUnionTypeImpl[XQUERY_UNION_TYPE(22:49)]
+               PluginUnionTypeImpl[XQUERY_UNION_TYPE(22:49)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(22:27)]('union')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
                   XPathQNameImpl[XQUERY_QNAME(28:38)]

@@ -21,59 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class SaxonParserTest : ParserTestCase() {
-    // region Saxon 9.8 :: UnionType
-
-    @Test
-    fun testUnionType() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionType_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionType_MissingFirstType() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionType_MissingNextType() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionType_Multiple() {
-        // This is testing handling of whitespace before parsing the next comma.
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionType_InTypedMapTest() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Saxon 9.8 :: TupleType
 
     @Test

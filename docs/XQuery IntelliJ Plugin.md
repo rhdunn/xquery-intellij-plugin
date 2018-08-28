@@ -2,6 +2,10 @@
 
 - [1 Introduction](#1-introduction)
 - [2 Basics](#2-basics)
+  - [2.1 Types](#21-types)
+    - [2.1.1 SequenceType Syntax](#211-sequencetype-syntax)
+    - [2.1.2 SequenceType Matching](#212-sequencetype-matching)
+      - [2.1.2.1 Union Type](#2121-union-type)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -53,14 +57,41 @@ not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
 
+## 2.1 Types
+
+### 2.1.1 SequenceType Syntax
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+
+### 2.1.2 SequenceType Matching
+
+#### 2.1.2.1 Union Type
+
+| Ref    | Symbol                  |     | Expression                          | Options               |
+|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| \[22\] | `UnionType`             | ::= | `"union" "(" QName ("," QName)* ")"` |                     |
+
+The `UnionType` is a new sequence type supported by Saxon 9.8.
+
+A `UnionType` defines a union type whose members are the `QName` types listed
+in the type definition. These types are restricted to being atomic types (that
+is, they cannot be list, union, or other complex types).
+
+For example, `xs:numeric` can be defined as:
+
+    declare type xs:numeric = union(xs:float, xs:double, xs:decimal);
+
 ## 3 Expressions
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
 
-The `NonDeterministicFunctionCall` is a new expression that is supported by
-BaseX 8.4.
+The `NonDeterministicFunctionCall` expression is a new expression that is
+supported by BaseX 8.4.
 
 ### 3.1 Node Constructors
 
@@ -318,6 +349,9 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[22\]   | `UnionType`                    | ::= | `"union" "(" QName ("," QName)* ")"` |                     |
 
 ## B References
 
@@ -377,3 +411,4 @@ The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Maps](#38-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
+1.  [Union Type](#2121-union-type) \[Saxon 9.8\]

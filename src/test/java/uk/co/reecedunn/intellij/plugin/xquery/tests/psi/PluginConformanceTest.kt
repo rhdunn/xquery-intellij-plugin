@@ -22,14 +22,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNonDeterministicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -93,6 +90,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_TYPE))
+    }
+
+    // endregion
+    // region UnionType
+
+    @Test
+    fun testUnionType() {
+        val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")
+
+        val unionTypePsi = file.walkTree().filterIsInstance<PluginUnionType>().first()
+        val conformance = unionTypePsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_UNION))
     }
 
     // endregion

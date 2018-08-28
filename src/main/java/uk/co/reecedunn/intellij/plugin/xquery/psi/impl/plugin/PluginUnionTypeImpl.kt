@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonUnionType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class SaxonUnionTypeImpl(node: ASTNode) : ASTWrapperPsiElement(node), SaxonUnionType, XQueryConformance {
+class PluginUnionTypeImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUnionType, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
 
     override val conformanceElement get(): PsiElement =
