@@ -2,6 +2,10 @@
 
 ## 1.3 - (In Development)
 
+Language Support:
+
+1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
+
 ## 1.2 - 2018-08-27
 
 Language Support:

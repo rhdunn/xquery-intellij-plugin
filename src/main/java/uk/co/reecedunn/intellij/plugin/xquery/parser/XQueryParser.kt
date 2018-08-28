@@ -6260,7 +6260,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XQueryTokenType.STAR)) {
                 type = XQueryElementType.ANY_MAP_TEST
-            } else if (parseAtomicOrUnionType()) {
+            } else if (parseUnionType() || parseAtomicOrUnionType()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!matchTokenType(XQueryTokenType.COMMA)) {
                     error(XQueryBundle.message("parser.error.expected", ","))
@@ -6275,7 +6275,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
                 type = XQueryElementType.TYPED_MAP_TEST
             } else if (getTokenType() === XQueryTokenType.COMMA) {
-                error(XQueryBundle.message("parser.error.expected", "AtomicOrUnionType"))
+                error(XQueryBundle.message("parser.error.expected-either", "UnionType", "AtomicOrUnionType"))
                 haveError = true
 
                 matchTokenType(XQueryTokenType.COMMA)

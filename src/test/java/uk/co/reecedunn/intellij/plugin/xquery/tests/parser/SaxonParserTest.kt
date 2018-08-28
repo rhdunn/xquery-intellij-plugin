@@ -66,6 +66,13 @@ private class SaxonParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
+    fun testUnionType_InTypedMapTest() {
+        val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     // endregion
     // region Saxon 9.8 :: TupleType
 
