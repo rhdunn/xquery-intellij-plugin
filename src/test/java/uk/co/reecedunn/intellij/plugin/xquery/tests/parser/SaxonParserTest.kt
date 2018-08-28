@@ -21,58 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class SaxonParserTest : ParserTestCase() {
-    // region Saxon 9.4 :: MapConstructorEntry + MapConstructor
-
-    @Test
-    fun testMapConstructorEntry() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructorEntry_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructorEntry_MissingSeparator() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructorEntry_MissingValueExpr() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructorEntry_Multiple() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructorEntry_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMapConstructorEntry_Multiple_MissingEntry() {
-        val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.txt")
-        val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Saxon 9.8 :: TypeDecl
 
     @Test

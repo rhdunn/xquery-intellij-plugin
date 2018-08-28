@@ -14,6 +14,7 @@
     - [3.6.1 Match Options](#361-match-options)
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
   - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
+  - [3.8 Maps](#38-maps)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -22,6 +23,7 @@
   - [B.2 BaseX References](#b2-basex-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
+  - [C.2 Saxon Vendor Extensions](#c2-saxon-vendor-extensions)
 
 ## 1 Introduction
 The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
@@ -212,6 +214,15 @@ This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
 
+### 3.8 Maps
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[17\] | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr`   |         |
+
+Saxon versions 9.4 to 9.6 used `:=` to separate the key and value in a map entry.
+From 9.7, the XQuery 3.1 syntax (`:`) is used.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -278,6 +289,7 @@ These changes include support for:
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
 | \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
+| \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 
 ## B References
 
@@ -327,3 +339,8 @@ in this document:
 1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
+
+## C.2 Saxon Vendor Extensions
+The Saxon XQuery Processor supports the following vendor extensions described
+in this document:
+1.  [Maps](#38-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
