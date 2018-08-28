@@ -176,4 +176,49 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region Saxon 9.8 :: TypeDecl
+
+    @Test
+    fun testTypeDecl() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_CompactWhitespace() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_MissingQName() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_MissingEquals() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_MissingItemType() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_AssignEquals() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
 }

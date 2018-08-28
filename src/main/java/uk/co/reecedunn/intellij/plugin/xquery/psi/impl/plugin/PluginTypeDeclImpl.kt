@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTypeDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class SaxonTypeDeclImpl(node: ASTNode) : ASTWrapperPsiElement(node), SaxonTypeDecl, XQueryConformance {
+class PluginTypeDeclImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginTypeDecl, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
 
     override val conformanceElement get(): PsiElement =

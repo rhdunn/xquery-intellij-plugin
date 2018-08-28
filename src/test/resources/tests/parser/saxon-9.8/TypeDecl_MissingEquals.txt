@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:31)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
       XQueryPrologImpl[XQUERY_PROLOG(0:31)]
-         SaxonTypeDeclImpl[XQUERY_TYPE_DECL(0:30)]
+         PluginTypeDeclImpl[XQUERY_TYPE_DECL(0:30)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')

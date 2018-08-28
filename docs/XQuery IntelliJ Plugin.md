@@ -15,12 +15,15 @@
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
   - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
   - [3.8 Maps](#38-maps)
+- [4 Modules and Prologs](#4-modules-and-prologs)
+  - [4.1 Type Declaration](#41-type-declaration)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
   - [B.2 BaseX References](#b2-basex-references)
+  - [B.3 Saxon References](#b3-saxon-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
   - [C.2 Saxon Vendor Extensions](#c2-saxon-vendor-extensions)
@@ -223,6 +226,29 @@ be determined statically.
 Saxon versions 9.4 to 9.6 used `:=` to separate the key and value in a map entry.
 From 9.7, the XQuery 3.1 syntax (`:`) is used.
 
+## 4 Modules and Prologs
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[18\] | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
+
+### 4.1 Type Declaration
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[19\] | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType`     |         |
+
+\[Definition: A *type declaration* declares a type alias name and associates
+it with an item type, adding the (name, type) pair to the
+[in-scope schema types](https://www.w3.org/TR/xquery-31/#dt-is-types).\] The
+type declaration is in scope throughout the query in which it is declared.
+
+If the type name in a type declaration has a namespace prefix, the namespace
+prefix is resolved to a namespace URI using the
+[statically known namespaces](https://www.w3.org/TR/xquery-31/#dt-static-namespaces)<sup><em>XQ31</em></sup>.
+If the type name has no namespace prefix, it is implicitly qualified by the
+[default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -290,6 +316,8 @@ These changes include support for:
 | \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
+| \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
+| \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
 
 ## B References
 
@@ -330,6 +358,10 @@ __XML Schema__
    [http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying]().
 *  BaseX. *Updates: update*. See [http://docs.basex.org/wiki/Updates#update]().
 
+### B.3 Saxon References
+*  Saxonica. *Type aliases*. See
+   [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/type-aliases]().
+
 ## C Vendor Extensions
 
 ### C.1 BaseX Vendor Extensions
@@ -344,3 +376,4 @@ in this document:
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Maps](#38-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
+1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]

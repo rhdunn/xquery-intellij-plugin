@@ -29,7 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -73,6 +75,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_NON_DETERMINISTIC))
+    }
+
+    // endregion
+    // region TypeDecl
+
+    @Test
+    fun testTypeDecl() {
+        val file = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
+
+        val typeDeclPsi = file.descendants().filterIsInstance<PluginTypeDecl>().first()
+        val conformance = typeDeclPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_TYPE))
     }
 
     // endregion

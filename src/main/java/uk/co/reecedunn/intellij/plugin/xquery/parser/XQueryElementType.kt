@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDefaultCaseC
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginBlockVarDeclEntryPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTypeDeclImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginTypeDeclImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonUnionTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
@@ -431,7 +431,7 @@ object XQueryElementType {
     // endregion
     // region Saxon
 
-    val TYPE_DECL: IElementType = ICompositeElementType("XQUERY_TYPE_DECL", SaxonTypeDeclImpl::class.java, XQuery)
+    val TYPE_DECL: IElementType = ICompositeElementType("XQUERY_TYPE_DECL", PluginTypeDeclImpl::class.java, XQuery)
 
     val TUPLE_TYPE: IElementType = ICompositeElementType("XQUERY_TUPLE_TYPE", SaxonTupleTypeImpl::class.java, XQuery)
     val TUPLE_FIELD: IElementType = ICompositeElementType("XQUERY_TUPLE_FIELD", SaxonTupleFieldImpl::class.java, XQuery)
