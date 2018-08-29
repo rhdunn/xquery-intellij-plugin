@@ -374,7 +374,6 @@ object XQueryElementType {
 
     val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType("XQUERY_TRANSACTION_SEPARATOR", MarkLogicTransactionSeparatorPsiImpl::class.java, XQuery)
 
-    val COMPATIBILITY_ANNOTATION_MARKLOGIC: IElementType = ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION_MARKLOGIC", MarkLogicCompatibilityAnnotationPsiImpl::class.java, XQuery)
     val STYLESHEET_IMPORT: IElementType = ICompositeElementType("XQUERY_STYLESHEET_IMPORT", MarkLogicStylesheetImportPsiImpl::class.java, XQuery)
 
     val BINARY_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_BINARY_CONSTRUCTOR", MarkLogicBinaryConstructorPsiImpl::class.java, XQuery)

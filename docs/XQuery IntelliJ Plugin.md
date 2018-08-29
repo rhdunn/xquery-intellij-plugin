@@ -22,6 +22,7 @@
   - [3.8 Maps](#38-maps)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
+  - [4.2 Annotations](#42-annotations)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -320,6 +321,20 @@ prefix is resolved to a namespace URI using the
 If the type name has no namespace prefix, it is implicitly qualified by the
 [default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
 
+### 4.2 Annotations
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[26\] | `CompatibilityAnnotaion`       | ::= | `"updating" \| "private"`                 |         |
+
+The bare keyword `private` is a MarkLogic extension that is allowed on a
+function or variable declared in the prolog for backwards compatibility with
+XQuery 1.0, and behaves exactly as if the `%private` annotation was specified
+instead.
+
+__NOTE:__ The `updating` compatibility annotation is defined in XQuery Update
+Facility 3.0.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -395,6 +410,7 @@ These changes include support for:
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
 | \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
+| \[26\]   | `CompatibilityAnnotaion`       | ::= | `"updating" \| "private"`           |                       |
 
 ## B References
 
@@ -461,6 +477,7 @@ in this document:
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
+1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 
 ## C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described

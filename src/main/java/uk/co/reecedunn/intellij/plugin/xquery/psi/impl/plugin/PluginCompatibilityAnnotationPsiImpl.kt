@@ -19,18 +19,25 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val UPDATE_10 = listOf(UpdateFacility.REC_1_0_20110317)
 private val UPDATE_30 = listOf(UpdateFacility.NOTE_3_0_20170124)
+private val MARKLOGIC_60 = listOf(MarkLogic.VERSION_6_0)
 
 class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginCompatibilityAnnotation, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-        return if (varDecl == null) UPDATE_10 else UPDATE_30
+        return if (conformanceElement.node.elementType === XQueryTokenType.K_PRIVATE)
+            MARKLOGIC_60
+        else {
+            val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
+            if (varDecl == null) UPDATE_10 else UPDATE_30
+        }
     }
 
     override val conformanceElement get(): PsiElement =

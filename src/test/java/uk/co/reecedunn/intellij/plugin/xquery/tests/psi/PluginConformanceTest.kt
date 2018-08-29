@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -37,6 +38,41 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region CompatibilityAnnotation
+
+    @Test
+    fun testCompatibilityAnnotation_FunctionDecl() {
+        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
+
+        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+        val conformance = compatibilityAnnotationPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_PRIVATE))
+    }
+
+    @Test
+    fun testCompatibilityAnnotation_VarDecl() {
+        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
+
+        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+        val conformance = compatibilityAnnotationPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_PRIVATE))
+    }
+
+    // endregion
     // region ForwardAxis
 
     @Test

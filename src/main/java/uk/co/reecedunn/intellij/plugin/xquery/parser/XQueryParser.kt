@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
@@ -27,6 +28,11 @@ private enum class KindTest {
     ANY_TEST,
     TYPED_TEST,
 }
+
+private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
+    XQueryTokenType.K_UPDATING,
+    XQueryTokenType.K_PRIVATE
+)
 
 /**
  * A unified XQuery parser for different XQuery dialects.
@@ -1031,13 +1037,9 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseCompatibilityAnnotationDecl(): IElementType? {
         val compatibilityAnnotationMarker = mark()
         val type = getTokenType()
-        if (type === XQueryTokenType.K_UPDATING) {
+        if (COMPATIBILITY_ANNOTATION_TOKENS.contains(type)) {
             advanceLexer()
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION)
-            return type
-        } else if (type === XQueryTokenType.K_PRIVATE) {
-            advanceLexer()
-            compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION_MARKLOGIC)
             return type
         } else if (type === XQueryTokenType.K_UNASSIGNABLE ||
                 type === XQueryTokenType.K_ASSIGNABLE ||
