@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:90)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(32:47)]
+                  PluginTupleFieldImpl[XQUERY_TUPLE_FIELD(32:47)]
                      XPathNCNameImpl[XQUERY_NCNAME(32:33)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:33)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:90)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                   LeafPsiElement[XQUERY_COMMA_TOKEN(48:49)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-                  SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(50:66)]
+                  PluginTupleFieldImpl[XQUERY_TUPLE_FIELD(50:66)]
                      XPathNCNameImpl[XQUERY_NCNAME(50:51)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(50:51)]('y')
                      PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
@@ -54,7 +54,7 @@ XQueryModuleImpl[FILE(0:90)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
                   LeafPsiElement[XQUERY_COMMA_TOKEN(67:68)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(68:69)](' ')
-                  SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(69:81)]
+                  PluginTupleFieldImpl[XQUERY_TUPLE_FIELD(69:81)]
                      XPathNCNameImpl[XQUERY_NCNAME(69:70)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(69:70)]('z')
                      PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')

@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDirAttributePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDefaultCaseClausePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginBlockVarDeclEntryPsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginTupleFieldImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginTypeDeclImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginUnionTypeImpl
@@ -434,7 +434,7 @@ object XQueryElementType {
     val TYPE_DECL: IElementType = ICompositeElementType("XQUERY_TYPE_DECL", PluginTypeDeclImpl::class.java, XQuery)
 
     val TUPLE_TYPE: IElementType = ICompositeElementType("XQUERY_TUPLE_TYPE", SaxonTupleTypeImpl::class.java, XQuery)
-    val TUPLE_FIELD: IElementType = ICompositeElementType("XQUERY_TUPLE_FIELD", SaxonTupleFieldImpl::class.java, XQuery)
+    val TUPLE_FIELD: IElementType = ICompositeElementType("XQUERY_TUPLE_FIELD", PluginTupleFieldImpl::class.java, XQuery)
 
     val UNION_TYPE: IElementType = ICompositeElementType("XQUERY_UNION_TYPE", PluginUnionTypeImpl::class.java, XQuery)
 
