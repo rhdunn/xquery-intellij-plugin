@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -230,6 +231,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.BLOCK_OPEN))
+    }
+
+    // endregion
+    // region ValidateExpr
+
+    @Test
+    fun testValidateExpr_ValidateAs() {
+        val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
+
+        val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
+        val versioned = validateExprPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_AS))
     }
 
     // endregion

@@ -20,6 +20,9 @@
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
   - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
   - [3.8 Maps](#38-maps)
+  - [3.9 Path Expressions](#39-path-expressions)
+    - [3.9.1 Axes](#391-axes)
+  - [3.10 Validate Expressions](#310-validate-expressions)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -298,6 +301,15 @@ The *principal node kind* is determined as per the XPath specification. Thus:
 __NOTE:__ This means that the `property` axis uses the default element
 namespace to resolve an unprefixed QName into an expanded QName.
 
+### 3.10 Validate Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[27\] | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
+
+MarkLogic uses the `at` keyword instead of the XQuery 3.0 `type` keyword for
+typed validation expressions.
+
 ## 4 Modules and Prologs
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -412,6 +424,7 @@ These changes include support for:
 | \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
+| \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
 
 ## B References
 
@@ -479,6 +492,7 @@ The MarkLogic XQuery Processor supports the following vendor extensions describe
 in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
+1.  [Validate Expressions](#310-validate-expressions)
 
 ## C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
