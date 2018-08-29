@@ -124,6 +124,37 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: ForwardAxis
+
+    @Test
+    fun testForwardAxis_Namespace() {
+        val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testForwardAxis_Namespace_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testForwardAxis_Property() {
+        val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Property.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testForwardAxis_Property_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Property_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region Saxon 9.4 :: MapConstructorEntry + MapConstructor
 
     @Test

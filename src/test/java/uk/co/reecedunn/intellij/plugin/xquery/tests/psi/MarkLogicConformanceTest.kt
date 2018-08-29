@@ -323,39 +323,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region ForwardAxis
-
-    @Test
-    fun testForwardAxis_Namespace() {
-        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
-
-        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NAMESPACE))
-    }
-
-    @Test
-    fun testForwardAxis_Property() {
-        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
-
-        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_PROPERTY))
-    }
-
-    // endregion
     // region MapConstructor
 
     @Test

@@ -22,12 +22,14 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -35,6 +37,39 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region ForwardAxis
+
+    @Test
+    fun testForwardAxis_Namespace() {
+        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
+
+        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
+        val versioned = forwardAxisPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_NAMESPACE))
+    }
+
+    @Test
+    fun testForwardAxis_Property() {
+        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
+
+        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
+        val versioned = forwardAxisPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_PROPERTY))
+    }
+
+    // endregion
     // region FTFuzzyOption
 
     @Test

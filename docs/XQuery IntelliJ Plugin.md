@@ -28,10 +28,12 @@
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
   - [B.2 BaseX References](#b2-basex-references)
-  - [B.3 Saxon References](#b3-saxon-references)
+  - [B.3 MarkLogic References](#b3-marklogic-references)
+  - [B.4 Saxon References](#b4-saxon-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
-  - [C.2 Saxon Vendor Extensions](#c2-saxon-vendor-extensions)
+  - [C.2 MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
+  - [C.3 Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
 
 ## 1 Introduction
 The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
@@ -267,6 +269,34 @@ be determined statically.
 Saxon versions 9.4 to 9.6 used `:=` to separate the key and value in a map entry.
 From 9.7, the XQuery 3.1 syntax (`:`) is used.
 
+### 3.9 Path Expressions
+
+#### 3.9.1 Axes
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[25\] | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
+
+XQuery IntelliJ Plugin supports the axes from XQuery and XPath. This includes
+support for the `namespace` axis as part of XQuery, as MarkLogic supports
+that axis within XQuery expressions. The following additional axes are
+supported:
+
+*  The `property` axis is a MarkLogic specific axis that contains all the
+   element nodes of the properties XML file associated with the document
+   the context node belongs to. The `property::node` expression is equivalent
+   to `. ! xdmp:document-properties(base-uri(.))/prop:properties/node`.
+
+The *principal node kind* is determined as per the XPath specification. Thus:
+
+*  For the `attribute` axis, the principal node kind is *attribute*.
+*  For the `namespace` axis, the principal node kind is *namespace*.
+*  For all other axes (including the MarkLogic `property` axis), the principal
+   node kind is *element*.
+
+__NOTE:__ This means that the `property` axis uses the default element
+namespace to resolve an unprefixed QName into an expanded QName.
+
 ## 4 Modules and Prologs
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -364,6 +394,7 @@ These changes include support for:
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" QName ("," QName)* ")"` |                      |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
 | \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
+| \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 
 ## B References
 
@@ -404,7 +435,11 @@ __XML Schema__
    [http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying]().
 *  BaseX. *Updates: update*. See [http://docs.basex.org/wiki/Updates#update]().
 
-### B.3 Saxon References
+### B.3 MarkLogic References
+*  MarkLogic. *MarkLogic Server Enhanced XQuery Language*. See
+   [https://docs.marklogic.com/guide/xquery/enhanced]().
+
+### B.4 Saxon References
 *  Saxonica. *Union types*. See
    [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types]().
 *  Saxonica. *Tuple types*. See
@@ -422,7 +457,12 @@ in this document:
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
 
-## C.2 Saxon Vendor Extensions
+## C.2 MarkLogic Vendor Extensions
+The MarkLogic XQuery Processor supports the following vendor extensions described
+in this document:
+1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
+
+## C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Maps](#38-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
