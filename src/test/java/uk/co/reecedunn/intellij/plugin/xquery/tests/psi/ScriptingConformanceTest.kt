@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
@@ -183,7 +184,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
+        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -199,7 +200,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
+        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -277,7 +278,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
+        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
@@ -293,7 +294,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
+        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
         val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))

@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:37)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:36)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            ScriptingCompatibilityAnnotationImpl[XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING(8:14)]
+            PluginCompatibilityAnnotationImpl[XQUERY_COMPATIBILITY_ANNOTATION(8:14)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SIMPLE(8:14)]('simple')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(15:36)]

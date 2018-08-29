@@ -353,8 +353,6 @@ object XQueryElementType {
 
     val CONCAT_EXPR: IElementType = ICompositeElementType("XQUERY_CONCAT_EXPR", ScriptingConcatExprPsiImpl::class.java, XQuery)
 
-    val COMPATBILITY_ANNOTATION_SCRIPTING: IElementType = ICompositeElementType("XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING", ScriptingCompatibilityAnnotationPsiImpl::class.java, XQuery)
-
     val BLOCK: IElementType = ICompositeElementType("XQUERY_BLOCK", ScriptingBlockPsiImpl::class.java, XQuery)
     val BLOCK_BODY: IElementType = ICompositeElementType("XQUERY_BLOCK_BODY", ScriptingBlockBodyPsiImpl::class.java, XQuery)
 

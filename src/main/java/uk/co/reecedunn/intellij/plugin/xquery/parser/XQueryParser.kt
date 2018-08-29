@@ -30,8 +30,12 @@ private enum class KindTest {
 }
 
 private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
-    XQueryTokenType.K_UPDATING,
-    XQueryTokenType.K_PRIVATE
+    XQueryTokenType.K_ASSIGNABLE,
+    XQueryTokenType.K_PRIVATE,
+    XQueryTokenType.K_SEQUENTIAL,
+    XQueryTokenType.K_SIMPLE,
+    XQueryTokenType.K_UNASSIGNABLE,
+    XQueryTokenType.K_UPDATING
 )
 
 /**
@@ -1040,13 +1044,6 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (COMPATIBILITY_ANNOTATION_TOKENS.contains(type)) {
             advanceLexer()
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION)
-            return type
-        } else if (type === XQueryTokenType.K_UNASSIGNABLE ||
-                type === XQueryTokenType.K_ASSIGNABLE ||
-                type === XQueryTokenType.K_SIMPLE ||
-                type === XQueryTokenType.K_SEQUENTIAL) {
-            advanceLexer()
-            compatibilityAnnotationMarker.done(XQueryElementType.COMPATBILITY_ANNOTATION_SCRIPTING)
             return type
         }
         compatibilityAnnotationMarker.drop()

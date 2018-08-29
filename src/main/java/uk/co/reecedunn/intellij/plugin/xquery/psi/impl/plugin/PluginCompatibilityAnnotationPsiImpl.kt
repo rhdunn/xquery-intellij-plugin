@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,27 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
+private val MARKLOGIC_60 = listOf(MarkLogic.VERSION_6_0)
+private val SCRIPTING_10 = listOf(Scripting.NOTE_1_0_20140918)
 private val UPDATE_10 = listOf(UpdateFacility.REC_1_0_20110317)
 private val UPDATE_30 = listOf(UpdateFacility.NOTE_3_0_20170124)
-private val MARKLOGIC_60 = listOf(MarkLogic.VERSION_6_0)
 
 class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginCompatibilityAnnotation, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        return if (conformanceElement.node.elementType === XQueryTokenType.K_PRIVATE)
-            MARKLOGIC_60
-        else {
-            val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-            if (varDecl == null) UPDATE_10 else UPDATE_30
+        return when (conformanceElement.node.elementType) {
+            XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
+            XQueryTokenType.K_UPDATING -> {
+                val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
+                if (varDecl == null) UPDATE_10 else UPDATE_30
+            }
+            else -> SCRIPTING_10
         }
     }
 

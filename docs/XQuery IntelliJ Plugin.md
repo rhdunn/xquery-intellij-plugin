@@ -325,15 +325,16 @@ If the type name has no namespace prefix, it is implicitly qualified by the
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[26\] | `CompatibilityAnnotaion`       | ::= | `"updating" \| "private"`                 |         |
+| \[26\] | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 
 The bare keyword `private` is a MarkLogic extension that is allowed on a
 function or variable declared in the prolog for backwards compatibility with
 XQuery 1.0, and behaves exactly as if the `%private` annotation was specified
 instead.
 
-__NOTE:__ The `updating` compatibility annotation is defined in XQuery Update
-Facility 3.0.
+The `updating` compatibility annotation is defined in XQuery Update Facility 3.0.
+
+The other compatibility annotations are defined in Scripting Extension 1.0.
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -410,7 +411,7 @@ These changes include support for:
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
 | \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
-| \[26\]   | `CompatibilityAnnotaion`       | ::= | `"updating" \| "private"`           |                       |
+| \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 
 ## B References
 
