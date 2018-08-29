@@ -33,12 +33,32 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region BinaryTest
+
+    @Test
+    fun testBinaryTest() {
+        val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
+
+        val binaryKindTestPsi = file.walkTree().filterIsInstance<PluginBinaryTest>().first()
+        val conformance = binaryKindTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(2))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_BINARY))
+    }
+
+    // endregion
     // region CompatibilityAnnotation
 
     @Test

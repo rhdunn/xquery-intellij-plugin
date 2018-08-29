@@ -124,6 +124,30 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: BinaryTest
+
+    @Test
+    fun testBinaryTest() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testBinaryTest_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testBinaryTest_MissingClosingParenthesis() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     @Test

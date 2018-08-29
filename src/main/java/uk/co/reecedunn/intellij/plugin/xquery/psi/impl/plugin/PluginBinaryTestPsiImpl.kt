@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class MarkLogicBinaryTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicBinaryTest, XQueryConformance {
+class PluginBinaryTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginBinaryTest, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
 
     override val conformanceElement get(): PsiElement =

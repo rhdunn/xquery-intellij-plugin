@@ -375,7 +375,7 @@ object XQueryElementType {
     val STYLESHEET_IMPORT: IElementType = ICompositeElementType("XQUERY_STYLESHEET_IMPORT", MarkLogicStylesheetImportPsiImpl::class.java, XQuery)
 
     val BINARY_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_BINARY_CONSTRUCTOR", MarkLogicBinaryConstructorPsiImpl::class.java, XQuery)
-    val BINARY_TEST: IElementType = ICompositeElementType("XQUERY_BINARY_TEST", MarkLogicBinaryTestPsiImpl::class.java, XQuery)
+    val BINARY_TEST: IElementType = ICompositeElementType("XQUERY_BINARY_TEST", PluginBinaryTestPsiImpl::class.java, XQuery)
 
     // endregion
     // region MarkLogic 7.0

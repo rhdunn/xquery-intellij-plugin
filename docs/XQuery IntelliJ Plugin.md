@@ -7,6 +7,7 @@
     - [2.1.2 SequenceType Matching](#212-sequencetype-matching)
       - [2.1.2.1 Union Type](#2121-union-type)
       - [2.1.2.2 Tuple Type](#2122-tuple-type)
+      - [2.1.2.3 Binary Test](#2123-binary-test)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -72,6 +73,7 @@ not normative.
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest` | |
 
 ### 2.1.2 SequenceType Matching
 
@@ -99,6 +101,21 @@ For example, `xs:numeric` can be defined as:
 | \[24\] | `TupleField`            | ::= | `NCName (":" SequenceType)?`        |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8.
+
+#### 2.1.2.3 Binary Test
+
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[29\]  | `BinaryTest`            | ::= | `"binary" "(" ")"`                  |         |
+
+This is a MarkLogic vendor extension to select or check for a binary data
+object.
+
+> __Note:__
+>
+> This does not select the binary XML schema types `xs:hexBinary` or
+> `xs:base64Binary`. They need to be wrapped in a binary node constructor
+> as a type convertible to `xs:hexBinary`.
 
 ## 3 Expressions
 
@@ -425,6 +442,8 @@ These changes include support for:
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
+| \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest` | |
+| \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 
 ## B References
 
@@ -492,6 +511,7 @@ The MarkLogic XQuery Processor supports the following vendor extensions describe
 in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
+1.  [Binary Test](#2123-binary-test)
 1.  [Validate Expressions](#310-validate-expressions)
 
 ## C.3 Saxon Vendor Extensions
