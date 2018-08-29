@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:71)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(24:64)]
+               PluginTupleTypeImpl[XQUERY_TUPLE_TYPE(24:64)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')

@@ -176,6 +176,83 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region Saxon 9.8 :: TupleType
+
+    @Test
+    fun testTupleType() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleType.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleType.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleType_CompactWhitespace() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleType_MissingClosingParenthesis() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
+    // region Saxon 9.8 :: TupleType :: TupleField
+
+    @Test
+    fun testTupleField() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleField_CompactWhitespace() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleField_Multiple() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleField_Multiple_CompactWhitespace() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleField_MultipleWithOccurrenceIndicator() {
+        // This is testing handling of whitespace before parsing the next comma.
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleField_MissingColon() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTupleField_MissingSequenceType() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region Saxon 9.8 :: TypeDecl
 
     @Test

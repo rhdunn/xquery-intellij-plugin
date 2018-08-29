@@ -75,6 +75,24 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
+    // region TupleType
+
+    @Test
+    fun testTupleType() {
+        val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
+
+        val tupleTypePsi = file.walkTree().filterIsInstance<PluginTupleType>().first()
+        val conformance = tupleTypePsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_TUPLE))
+    }
+
+    // endregion
     // region TypeDecl
 
     @Test
