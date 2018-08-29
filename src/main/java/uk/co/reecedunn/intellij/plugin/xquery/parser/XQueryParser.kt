@@ -6084,6 +6084,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+                if (getTokenType() === XQueryTokenType.COMMA || getTokenType() === XQueryTokenType.PARENTHESIS_CLOSE) {
+                    tupleFieldMarker.done(XQueryElementType.TUPLE_FIELD)
+                    return true
+                }
                 error(XQueryBundle.message("parser.error.expected", ":"))
                 haveError = true
             }

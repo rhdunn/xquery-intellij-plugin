@@ -252,6 +252,13 @@ private class PluginParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
+    fun testTupleField_NoSequenceType() {
+        val expected = loadResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     // endregion
     // region Saxon 9.8 :: TypeDecl
 
