@@ -24,18 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatE
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginFTFuzzyOptionPsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginNonDeterministicFunctionCallPsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginUpdateExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDirAttributePsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginDefaultCaseClausePsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginBlockVarDeclEntryPsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginTupleFieldImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginTupleTypeImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginTypeDeclImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginUnionTypeImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
@@ -300,7 +291,7 @@ object XQueryElementType {
     // endregion
     // region Update Facility 3.0
 
-    val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", UpdateFacilityCompatibilityAnnotationPsiImpl::class.java, XQuery)
+    val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", PluginCompatibilityAnnotationPsiImpl::class.java, XQuery)
 
     val COPY_MODIFY_EXPR: IElementType = ICompositeElementType("XQUERY_COPY_MODIFY_EXPR", UpdateFacilityCopyModifyExprPsiImpl::class.java, XQuery)
     val UPDATING_FUNCTION_CALL: IElementType = ICompositeElementType("XQUERY_UPDATING_FUNCTION_CALL", UpdateFacilityUpdatingFunctionCallPsiImpl::class.java, XQuery)

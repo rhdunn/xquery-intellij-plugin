@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery Update Facility 3.0 `CompatibilityAnnotation` node in the XQuery AST.
+ * A `CompatibilityAnnotation` node in the XQuery AST.
  */
-interface UpdateFacilityCompatibilityAnnotation : PsiElement
+interface PluginCompatibilityAnnotation : PsiElement
