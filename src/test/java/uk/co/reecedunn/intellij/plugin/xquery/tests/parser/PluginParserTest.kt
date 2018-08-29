@@ -124,6 +124,37 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: BinaryConstructor
+
+    @Test
+    fun testBinaryConstructor() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testBinaryConstructor_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testBinaryConstructor_NoExpr() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_NoExpr.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_NoExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testBinaryConstructor_MissingClosingBrace() {
+        val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_MissingClosingBrace.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_MissingClosingBrace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: BinaryTest
 
     @Test

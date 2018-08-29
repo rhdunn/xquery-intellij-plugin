@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
@@ -120,25 +120,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_ATTRIBUTE_DECL))
-    }
-
-    // endregion
-    // region BinaryConstructor
-
-    @Test
-    fun testBinaryConstructor() {
-        val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
-
-        val binaryKindTestPsi = file.descendants().filterIsInstance<MarkLogicBinaryConstructor>().first()
-        val conformance = binaryKindTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_BINARY))
     }
 
     // endregion

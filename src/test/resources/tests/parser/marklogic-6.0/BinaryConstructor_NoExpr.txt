@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:10)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:10)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:10)]
-               MarkLogicBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:10)]
+               PluginBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:10)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')

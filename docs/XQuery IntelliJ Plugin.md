@@ -10,6 +10,7 @@
       - [2.1.2.3 Binary Test](#2123-binary-test)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
+    - [3.1.1 Binary Constructors](#311-binary-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
   - [3.3 Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
     - [3.3.1 Typeswitch](#331-typeswitch)
@@ -121,10 +122,7 @@ object.
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
-
-The `NonDeterministicFunctionCall` expression is a new expression that is
-supported by BaseX 8.4.
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 
 ### 3.1 Node Constructors
 
@@ -136,6 +134,35 @@ supported by BaseX 8.4.
 This follows the grammar production pattern used in other constructs like
 `ParamList`, making it easier to support namespace declaration lookup on
 `xmlns` attributes.
+
+### 3.1.1 Binary Constructors
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[30\] | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`                   |         |
+
+This is a MarkLogic extension for working with `xs:hexBinary` encoded binary
+data. Specifically, MarkLogic only stores `node()` types in the database and
+this is used when storing binary data in the database. Other XQuery processors
+use `xs:hexBinary` and/or `xs:base64Binary` directly.
+
+A binary constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  If the expression is an `xs:hexBinary`, the result is a binary node with
+    the expression as its content.
+1.  If the expression is an `xs:untypedAtomic`, `xs:string`, or a type derived,
+    from `xs:string`, the result is a binary node with the expression cast to
+    `xs:hexBinary` as its content.
+1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
+
+__NOTE:__ This does not follow the standard casting rules for `xs:hexBinary`
+in that `xs:base64Binary` content cannot be assigned to a binary constructor
+without an explicit cast.
+
+If a binary constructor is assigned to a variable that has the type
+`xs:hexBinary` the result is the `xs:hexBinary` content of the binary
+constructor. However, `binary { "AB" } instance of xs:hexBinary` returns false.
 
 ### 3.2 Quantified Expressions
 
@@ -429,7 +456,7 @@ These changes include support for:
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
-| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
@@ -444,6 +471,7 @@ These changes include support for:
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
 | \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest` | |
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
+| \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
 
 ## B References
 
@@ -511,7 +539,7 @@ The MarkLogic XQuery Processor supports the following vendor extensions describe
 in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
-1.  [Binary Test](#2123-binary-test)
+1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
 1.  [Validate Expressions](#310-validate-expressions)
 
 ## C.3 Saxon Vendor Extensions

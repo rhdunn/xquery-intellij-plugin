@@ -40,6 +40,25 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region BinaryConstructor
+
+    @Test
+    fun testBinaryConstructor() {
+        val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
+
+        val binaryKindTestPsi = file.descendants().filterIsInstance<PluginBinaryConstructor>().first()
+        val conformance = binaryKindTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(2))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_BINARY))
+    }
+
+    // endregion
     // region BinaryTest
 
     @Test
