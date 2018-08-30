@@ -29,6 +29,7 @@
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
+  - [4.3 Stylesheet Import](#43-stylesheet-import)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -407,6 +408,15 @@ The `updating` compatibility annotation is defined in XQuery Update Facility 3.0
 
 The other compatibility annotations are defined in Scripting Extension 1.0.
 
+### 4.3 Stylesheet Import
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[32\] | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` | |
+| \[33\] | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |         |
+
+MarkLogic supports importing the functions and variables from an XLST stylesheet.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -488,6 +498,8 @@ These changes include support for:
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
 | \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
+| \[32\]   | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` |         |
+| \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 
 ## B References
 
@@ -556,6 +568,7 @@ in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
+1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
 

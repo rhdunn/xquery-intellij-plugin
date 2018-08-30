@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:31)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
       XQueryPrologImpl[XQUERY_PROLOG(0:31)]
-         MarkLogicStylesheetImportImpl[XQUERY_STYLESHEET_IMPORT(0:30)]
+         PluginStylesheetImportImpl[XQUERY_STYLESHEET_IMPORT(0:30)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STYLESHEET(7:17)]('stylesheet')

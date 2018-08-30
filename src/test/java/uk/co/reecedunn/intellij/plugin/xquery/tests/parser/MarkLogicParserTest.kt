@@ -59,37 +59,6 @@ private class MarkLogicParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: StylesheetImport
-
-    @Test
-    fun testStylesheetImport() {
-        val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStylesheetImport_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStylesheetImport_MissingAtKeyword() {
-        val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_MissingAtKeyword.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_MissingAtKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStylesheetImport_MissingUriLiteral() {
-        val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_MissingUriLiteral.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_MissingUriLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 7.0 :: AttributeDeclTest
 
     @Test

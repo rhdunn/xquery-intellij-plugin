@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicStylesheetImport
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class MarkLogicStylesheetImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicStylesheetImport, XQueryConformance {
+class PluginStylesheetImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginStylesheetImport, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_6_0)
 
     override val conformanceElement get(): PsiElement =

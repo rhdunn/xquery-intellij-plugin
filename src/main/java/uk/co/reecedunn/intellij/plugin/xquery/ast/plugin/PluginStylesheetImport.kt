@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryImport
 
 /**
  * An XQuery 1.0 `StylesheetImport` node in the XQuery AST.
  */
-interface MarkLogicStylesheetImport : XQueryImport
+interface PluginStylesheetImport : XQueryImport

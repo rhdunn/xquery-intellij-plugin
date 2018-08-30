@@ -246,6 +246,24 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
+    // region StylesheetImport
+
+    @Test
+    fun testStylesheetImport() {
+        val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
+
+        val stylesheetImportPsi = file.descendants().filterIsInstance<PluginStylesheetImport>().first()
+        val conformance = stylesheetImportPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_IMPORT))
+    }
+
+    // endregion
     // region TupleType
 
     @Test
