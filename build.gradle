@@ -16,14 +16,11 @@ buildscript {
 
         // (3) Named Snapshots -- LATEST-EAP-SNAPSHOT, LATEST-TRUNK-SNAPSHOT
 
-        def buildDir = new File("build")
-        if (!buildDir.exists()) {
-            buildDir.mkdir()
-        }
-
-        def repositoryPath = "https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/BUILD/"
-        def build = new File("build/BUILD-${version}.txt")
+        def repositoryPath = "https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/BUILD"
+        def build = new File("$projectDir/build/BUILD-${version}.txt")
         if (!build.exists()) {
+            build.parentFile.mkdirs()
+            println "Downloading build version file '$repositoryPath/$version/BUILD-${version}.txt' to '${build.absolutePath}'"
             new URL("$repositoryPath/$version/BUILD-${version}.txt").withInputStream { input ->
                 build.withOutputStream { output -> (output << input).close() }
             }
