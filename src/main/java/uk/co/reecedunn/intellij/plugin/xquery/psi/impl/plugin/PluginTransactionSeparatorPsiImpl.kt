@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicTransactionSeparator
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
@@ -32,7 +32,8 @@ private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
 private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9, Scripting.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
 
-class MarkLogicTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicTransactionSeparator, XQueryConformance {
+class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
+    PluginTransactionSeparator, XQueryConformance {
     override val requiresConformance get(): List<Version> {
         return if (parent.node.elementType === XQueryElementType.FILE) {
             // File-level TransactionSeparators are created when the following QueryBody has a Prolog.

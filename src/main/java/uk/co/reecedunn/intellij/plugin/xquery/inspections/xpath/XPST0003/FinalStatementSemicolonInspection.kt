@@ -22,7 +22,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicTransactionSeparator
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
@@ -41,7 +41,7 @@ class FinalStatementSemicolonInspection : Inspection("ijst/IJST0005.md") {
         val requiresSemicolon = product.conformsTo(productVersion, Scripting.NOTE_1_0_20140918)
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<MarkLogicTransactionSeparator>().forEach(fun (element) {
+        file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun (element) {
             if (element.parent.node.elementType === XQueryElementType.FILE)
                 return
 

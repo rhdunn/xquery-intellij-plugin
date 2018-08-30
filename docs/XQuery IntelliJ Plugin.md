@@ -30,6 +30,7 @@
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
   - [4.3 Stylesheet Import](#43-stylesheet-import)
+  - [4.4 Transactions](#44-transactions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -417,6 +418,26 @@ The other compatibility annotations are defined in Scripting Extension 1.0.
 
 MarkLogic supports importing the functions and variables from an XLST stylesheet.
 
+### 4.4 Transactions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[34\] | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
+| \[35\] | `TransactionSeparator`         | ::= | `";"`                                     |         |
+
+MarkLogic supports transactions. These are `MainModule` expressions that are
+separated by a semicolon.
+
+If specified, the `VersionDecl` must be the same in all transactions; if missing,
+the current `MainModule` uses the version from the first `MainModule`. If the
+version is different, an `XDMP-XQUERYVERSIONSWITCH` error is raised. __NOTE:__
+Only version values `0.9-ml` and `1.0-ml` support transactions.
+
+Unlike Scripting Extensions, MarkLogic transactions have a separate prolog for
+each transaction. Due to the way the syntax is constructed, MarkLogic
+transactions without a prolog will be parsed according to the Scripting Extension
+syntax.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1
@@ -500,6 +521,8 @@ These changes include support for:
 | \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
 | \[32\]   | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` |         |
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
+| \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
+| \[35\]   | `TransactionSeparator`         | ::= | `";"`                                     |                 |
 
 ## B References
 
@@ -569,6 +592,7 @@ in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
 1.  [Stylesheet Import](#43-stylesheet-import)
+1.  [Transactions](#44-transactions)
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
 

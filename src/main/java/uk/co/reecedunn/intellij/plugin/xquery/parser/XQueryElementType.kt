@@ -370,7 +370,7 @@ object XQueryElementType {
     // endregion
     // region MarkLogic 6.0
 
-    val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType("XQUERY_TRANSACTION_SEPARATOR", MarkLogicTransactionSeparatorPsiImpl::class.java, XQuery)
+    val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType("XQUERY_TRANSACTION_SEPARATOR", PluginTransactionSeparatorPsiImpl::class.java, XQuery)
 
     val STYLESHEET_IMPORT: IElementType = ICompositeElementType("XQUERY_STYLESHEET_IMPORT", PluginStylesheetImportPsiImpl::class.java, XQuery)
 

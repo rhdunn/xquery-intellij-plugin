@@ -324,6 +324,44 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: Transactions + TransactionSeparator
+
+    @Test
+    fun testTransactions_WithVersionDecl() {
+        val expected = loadResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTransactions_LibraryModule() {
+        val expected = loadResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTransactions_Prolog_ImportStatement() {
+        val expected = loadResource("tests/parser/marklogic-6.0/Transactions_Prolog_ImportStatement.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/Transactions_Prolog_ImportStatement.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTransactions_Prolog_DeclareStatement() {
+        val expected = loadResource("tests/parser/marklogic-6.0/Transactions_Prolog_DeclareStatement.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/Transactions_Prolog_DeclareStatement.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTransactions_AfterApplyExpr() {
+        val expected = loadResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.txt")
+        val actual = parseResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ValidateExpr
 
     @Test

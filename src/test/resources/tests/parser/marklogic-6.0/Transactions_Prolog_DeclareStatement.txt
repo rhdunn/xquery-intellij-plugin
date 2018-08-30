@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:31)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:2)]
                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)]('\n')
-   MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
+   PluginTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
       PsiWhiteSpaceImpl[WHITE_SPACE(3:4)]('\n')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(4:31)]

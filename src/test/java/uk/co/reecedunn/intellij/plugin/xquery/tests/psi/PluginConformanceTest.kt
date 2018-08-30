@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
@@ -22,21 +23,20 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryCatchExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -261,6 +261,98 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_IMPORT))
+    }
+
+    // endregion
+    // region Transactions + TransactionSeparator
+
+    @Test
+    fun testTransactions_Single_NoSemicolon() {
+        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().firstOrNull()
+
+        assertThat(transactionSeparatorPsi, `is`(CoreMatchers.nullValue()))
+    }
+
+    @Test
+    fun testTransactions_Single_Semicolon() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
+        val conformance = transactionSeparatorPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.SEPARATOR))
+    }
+
+    @Test
+    fun testTransactions_Multiple_First() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
+        val conformance = transactionSeparatorPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(3))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[2], `is`(Scripting.NOTE_1_0_20140918))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.SEPARATOR))
+    }
+
+    @Test
+    fun testTransactions_Multiple_Last() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
+        val conformance = transactionSeparatorPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.SEPARATOR))
+    }
+
+    @Test
+    fun testTransactions_Multiple_NoSemicolonAtEnd_Last() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
+        val conformance = transactionSeparatorPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryElementType.TRANSACTION_SEPARATOR))
+    }
+
+    @Test
+    fun testTransactions_Multiple_WithProlog() {
+        val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+
+        val transactionSeparatorPsi = file.children().filterIsInstance<PluginTransactionSeparator>().first()
+        val conformance = transactionSeparatorPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(2))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.SEPARATOR))
     }
 
     // endregion
