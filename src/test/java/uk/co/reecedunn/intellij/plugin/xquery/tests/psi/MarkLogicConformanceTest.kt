@@ -159,25 +159,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region CatchClause
-
-    @Test
-    fun testCatchClause() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val versioned = catchClausePsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_CATCH))
-    }
-
-    // endregion
     // region ComplexTypeTest
 
     @Test
@@ -211,43 +192,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_ELEMENT_DECL))
-    }
-
-    // endregion
-    // region EnclosedExpr (CatchClause)
-
-    @Test
-    fun testEnclosedExpr_CatchClause() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType.EXPR))
-    }
-
-    @Test
-    fun testEnclosedExpr_CatchClause_NoExpr() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
     }
 
     // endregion

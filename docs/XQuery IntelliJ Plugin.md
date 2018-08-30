@@ -25,6 +25,7 @@
   - [3.9 Path Expressions](#39-path-expressions)
     - [3.9.1 Axes](#391-axes)
   - [3.10 Validate Expressions](#310-validate-expressions)
+  - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -65,6 +66,7 @@ These namespace prefixes are not predeclared and their use in this document is
 not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
+*  `error = http://marklogic.com/xdmp/error`
 
 ## 2.1 Types
 
@@ -354,6 +356,19 @@ namespace to resolve an unprefixed QName into an expanded QName.
 MarkLogic uses the `at` keyword instead of the XQuery 3.0 `type` keyword for
 typed validation expressions.
 
+### 3.11 Try/Catch Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[31\] | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
+
+MarkLogic only allows a single `CatchClause` for a given try/catch expression,
+using the parenthesis style catch clause. It does not support the XQuery 3.0
+style catch clauses using a `CatchErrorList`.
+
+The variable name in the MarkLogic style catch clause has the type
+`element(error:error)`, which contains the details of the error.
+
 ## 4 Modules and Prologs
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -472,6 +487,7 @@ These changes include support for:
 | \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest` | |
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
+| \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
 
 ## B References
 
@@ -540,6 +556,7 @@ in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
+1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
 
 ## C.3 Saxon Vendor Extensions

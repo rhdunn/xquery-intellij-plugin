@@ -90,58 +90,6 @@ private class MarkLogicParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: CatchClause + TryCatchExpr
-
-    @Test
-    fun testCatchClause() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_MissingVariableIndicator() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingVariableIndicator.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingVariableIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_MissingVarName() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingVarName.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_EmptyExpr() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCatchClause_Multiple() {
-        val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_Multiple.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 7.0 :: AttributeDeclTest
 
     @Test
