@@ -9,6 +9,7 @@
       - [2.1.2.2 Tuple Type](#2122-tuple-type)
       - [2.1.2.3 Binary Test](#2123-binary-test)
       - [2.1.2.4 Schema Kind Tests](#2124-schema-kind-tests)
+      - [2.1.2.5 Boolean Test](#2125-boolean-test)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
     - [3.1.1 Binary Constructors](#311-binary-constructors)
@@ -79,7 +80,8 @@ not normative.
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest` | |
+| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
+| \[46\] | `JsonKindTest`          | ::= | `BooleanTest`                       |                       |
 
 ### 2.1.2 SequenceType Matching
 
@@ -141,6 +143,15 @@ object.
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
 support for `SchemaFacetTest`.
+
+#### 2.1.2.5 Boolean Test
+
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[47\]  | `BooleanTest`           | ::= | `"boolean-node" "(" StringLiteral? ")"` |     |
+
+MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
+`false`) JSON values.
 
 ## 3 Expressions
 
@@ -535,7 +546,7 @@ These changes include support for:
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
-| \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest` | |
+| \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
 | \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
@@ -553,6 +564,8 @@ These changes include support for:
 | \[43\]   | `SchemaTypeTest`               | ::= | `"schema-type" "(" ")"`                   |                 |
 | \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
 | \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ")"`                  |                 |
+| \[46\]   | `JsonKindTest`                 | ::= | `BooleanTest`                             |                 |
+| \[47\]   | `BooleanTest`                  | ::= | `"boolean-node" "(" StringLiteral? ")"`   |                 |
 
 ## B References
 
@@ -597,6 +610,8 @@ __XML Schema__
 *  MarkLogic. *MarkLogic Server Enhanced XQuery Language*. See
    [https://docs.marklogic.com/guide/xquery/enhanced]().
 *  MarkLogic. *Schema Components*. See [https://docs.marklogic.com/sc]().
+*  MarkLogic. *Working With JSON (Application Developer's Guide)*. See
+   [https://docs.marklogic.com/guide/app-dev/json]().
 
 ### B.4 Saxon References
 *  Saxonica. *Union types*. See
@@ -613,15 +628,16 @@ The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
 1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
-1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
+1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 
 ## C.2 MarkLogic Vendor Extensions
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
-1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
+1.  [Boolean Test](#2125-boolean-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\]
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)
@@ -632,6 +648,6 @@ in this document:
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Maps](#38-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
+1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]

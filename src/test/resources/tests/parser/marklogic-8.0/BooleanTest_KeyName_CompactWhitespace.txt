@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:52)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(24:43)]
+               PluginBooleanTestImpl[XQUERY_BOOLEAN_TEST(24:43)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(24:36)]('boolean-node')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(37:42)]
