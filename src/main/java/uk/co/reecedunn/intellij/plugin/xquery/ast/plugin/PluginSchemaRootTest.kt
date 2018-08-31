@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 
 /**
  * A MarkLogic 7.0 `SchemaRootTest` node in the XQuery AST.
  */
-interface MarkLogicSchemaRootTest : XPathKindTest
+interface PluginSchemaRootTest : XPathKindTest
