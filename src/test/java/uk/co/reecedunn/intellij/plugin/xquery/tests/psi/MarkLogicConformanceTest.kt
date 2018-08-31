@@ -136,24 +136,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region ElementDeclTest
-
-    @Test
-    fun testElementDeclTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
-
-        val elementDeclTestPsi = file.walkTree().filterIsInstance<MarkLogicElementDeclTest>().first()
-        val conformance = elementDeclTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ELEMENT_DECL))
-    }
-
-    // endregion
     // region MapConstructor
 
     @Test

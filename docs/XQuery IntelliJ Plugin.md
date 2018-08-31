@@ -127,9 +127,10 @@ object.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest` |      |
+| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest` | |
 | \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" ")"`          |         |
 | \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" ")"`            |         |
+| \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ")"`            |         |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions.
@@ -535,9 +536,10 @@ These changes include support for:
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
 | \[35\]   | `TransactionSeparator`         | ::= | `";"`                                     |                 |
-| \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest`    |                 |
+| \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest` | |
 | \[37\]   | `AttributeDeclTest`            | ::= | `"attribute-decl" "(" ")"`                |                 |
 | \[38\]   | `ComplexTypeTest`              | ::= | `"complex-type" "(" ")"`                  |                 |
+| \[39\]   | `ElementDeclTest`              | ::= | `"element-decl" "(" ")"`                  |                 |
 
 ## B References
 

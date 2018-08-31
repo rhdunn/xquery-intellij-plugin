@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginElementDeclTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginComplexTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
@@ -170,6 +171,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_COMPLEX_TYPE))
+    }
+
+    // endregion
+    // region ElementDeclTest
+
+    @Test
+    fun testElementDeclTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
+
+        val elementDeclTestPsi = file.walkTree().filterIsInstance<PluginElementDeclTest>().first()
+        val conformance = elementDeclTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ELEMENT_DECL))
     }
 
     // endregion
