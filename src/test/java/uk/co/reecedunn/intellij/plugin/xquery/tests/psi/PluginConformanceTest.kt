@@ -44,6 +44,24 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region AttributeDeclTest
+
+    @Test
+    fun testAttributeDeclTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
+
+        val attributeDeclTestPsi = file.walkTree().filterIsInstance<PluginAttributeDeclTest>().first()
+        val conformance = attributeDeclTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ATTRIBUTE_DECL))
+    }
+
+    // endregion
     // region BinaryConstructor
 
     @Test

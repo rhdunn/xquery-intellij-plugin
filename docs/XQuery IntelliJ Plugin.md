@@ -8,6 +8,7 @@
       - [2.1.2.1 Union Type](#2121-union-type)
       - [2.1.2.2 Tuple Type](#2122-tuple-type)
       - [2.1.2.3 Binary Test](#2123-binary-test)
+      - [2.1.2.4 Schema Kind Tests](#2124-schema-kind-tests)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
     - [3.1.1 Binary Constructors](#311-binary-constructors)
@@ -78,7 +79,7 @@ not normative.
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest` | |
+| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest` | |
 
 ### 2.1.2 SequenceType Matching
 
@@ -121,6 +122,16 @@ object.
 > This does not select the binary XML schema types `xs:hexBinary` or
 > `xs:base64Binary`. They need to be wrapped in a binary node constructor
 > as a type convertible to `xs:hexBinary`.
+
+#### 2.1.2.4 Schema Kind Tests
+
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest`                 |         |
+| \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" ")"`          |         |
+
+MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
+types as part of its schema components built-in functions.
 
 ## 3 Expressions
 
@@ -566,6 +577,7 @@ __XML Schema__
 ### B.3 MarkLogic References
 *  MarkLogic. *MarkLogic Server Enhanced XQuery Language*. See
    [https://docs.marklogic.com/guide/xquery/enhanced]().
+*  MarkLogic. *Schema Components*. See [https://docs.marklogic.com/sc]().
 
 ### B.4 Saxon References
 *  Saxonica. *Union types*. See
@@ -591,6 +603,7 @@ in this document:
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
+1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\]
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)
 1.  [Try/Catch Expressions](#311-trycatch-expressions)

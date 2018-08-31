@@ -380,7 +380,7 @@ object XQueryElementType {
     // endregion
     // region MarkLogic 7.0
 
-    val ATTRIBUTE_DECL_TEST: IElementType = ICompositeElementType("XQUERY_ATTRIBUTE_DECL_TEST", MarkLogicAttributeDeclTestPsiImpl::class.java, XQuery)
+    val ATTRIBUTE_DECL_TEST: IElementType = ICompositeElementType("XQUERY_ATTRIBUTE_DECL_TEST", PluginAttributeDeclTestPsiImpl::class.java, XQuery)
     val COMPLEX_TYPE_TEST: IElementType = ICompositeElementType("XQUERY_COMPLEX_TYPE_TEST", MarkLogicComplexTypeTestPsiImpl::class.java, XQuery)
     val ELEMENT_DECL_TEST: IElementType = ICompositeElementType("XQUERY_ELEMENT_DECL_TEST", MarkLogicElementDeclTestPsiImpl::class.java, XQuery)
     val SCHEMA_COMPONENT_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_COMPONENT_TEST", MarkLogicSchemaComponentTestPsiImpl::class.java, XQuery)
