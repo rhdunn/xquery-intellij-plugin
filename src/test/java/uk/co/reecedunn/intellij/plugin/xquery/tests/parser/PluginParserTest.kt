@@ -592,6 +592,30 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: SchemaFacetTest
+
+    @Test
+    fun testSchemaFacetTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testSchemaFacetTest_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testSchemaFacetTest_MissingClosingParenthesis() {
+        val expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region Saxon 9.4 :: MapConstructorEntry + MapConstructor
 
     @Test

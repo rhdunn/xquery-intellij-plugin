@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaFacetTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSimpleTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaRootTest
@@ -322,6 +323,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_SCHEMA_COMPONENT))
+    }
+
+    // endregion
+    // region SchemaFacetTest
+
+    @Test
+    fun testSchemaFacetTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
+
+        val schemaFacetTestPsi = file.walkTree().filterIsInstance<PluginSchemaFacetTest>().first()
+        val conformance = schemaFacetTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_SCHEMA_FACET))
     }
 
     // endregion

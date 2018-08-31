@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:51)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               MarkLogicSchemaFacetTestImpl[XQUERY_SCHEMA_FACET_TEST(26:41)]
+               PluginSchemaFacetTestImpl[XQUERY_SCHEMA_FACET_TEST(26:41)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_FACET_NODE(26:38)]('schema-facet')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(39:40)]('(')

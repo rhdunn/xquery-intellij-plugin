@@ -392,7 +392,7 @@ object XQueryElementType {
     // endregion
     // region MarkLogic 8.0
 
-    val SCHEMA_FACET_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_FACET_TEST", MarkLogicSchemaFacetTestPsiImpl::class.java, XQuery)
+    val SCHEMA_FACET_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_FACET_TEST", PluginSchemaFacetTestPsiImpl::class.java, XQuery)
 
     val ARRAY_TEST: IElementType = ICompositeElementType("XQUERY_ARRAY_TEST", MarkLogicArrayTestPsiImpl::class.java, XQuery)
 
