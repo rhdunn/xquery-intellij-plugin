@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaParticleTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaComponentTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginElementDeclTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginComplexTypeTest
@@ -318,6 +319,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_SCHEMA_COMPONENT))
+    }
+
+    // endregion
+    // region SchemaParticleTest
+
+    @Test
+    fun testSchemaParticleTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
+
+        val schemaParticleTestPsi = file.walkTree().filterIsInstance<PluginSchemaParticleTest>().first()
+        val conformance = schemaParticleTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_SCHEMA_PARTICLE))
     }
 
     // endregion

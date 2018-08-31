@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicSchemaParticleTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaParticleTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class MarkLogicSchemaParticleTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicSchemaParticleTest, XQueryConformance {
+class PluginSchemaParticleTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginSchemaParticleTest, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
 
     override val conformanceElement get(): PsiElement =
