@@ -21,30 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class MarkLogicParserTest : ParserTestCase() {
-    // region MarkLogic 7.0 :: SchemaComponentTest
-
-    @Test
-    fun testSchemaComponentTest() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaComponentTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaComponentTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 7.0 :: SchemaParticleTest
 
     @Test

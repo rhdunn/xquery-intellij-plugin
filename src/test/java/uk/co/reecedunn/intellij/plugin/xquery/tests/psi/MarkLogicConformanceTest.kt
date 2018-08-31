@@ -244,24 +244,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region SchemaComponentTest
-
-    @Test
-    fun testSchemaComponentTest() {
-        val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
-
-        val schemaComponentTestPsi = file.walkTree().filterIsInstance<MarkLogicSchemaComponentTest>().first()
-        val conformance = schemaComponentTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SCHEMA_COMPONENT))
-    }
-
-    // endregion
     // region SchemaFacetTest
 
     @Test
