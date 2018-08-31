@@ -127,7 +127,7 @@ object.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest` | |
+| \[36\]  | `SchemaKindTest`        | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest` | |
 | \[37\]  | `AttributeDeclTest`     | ::= | `"attribute-decl" "(" ")"`          |         |
 | \[38\]  | `ComplexTypeTest`       | ::= | `"complex-type" "(" ")"`            |         |
 | \[39\]  | `ElementDeclTest`       | ::= | `"element-decl" "(" ")"`            |         |
@@ -135,6 +135,7 @@ object.
 | \[41\]  | `SchemaParticleTest`    | ::= | `"schema-particle" "(" ")"`         |         |
 | \[42\]  | `SchemaRootTest`        | ::= | `"schema-root" "(" ")"`             |         |
 | \[43\]  | `SchemaTypeTest`        | ::= | `"schema-type" "(" ")"`             |         |
+| \[44\]  | `SimpleTypeTest`        | ::= | `"simple-type" "(" ")"`             |         |
 
 MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema defined
 types as part of its schema components built-in functions.
@@ -540,7 +541,7 @@ These changes include support for:
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
 | \[35\]   | `TransactionSeparator`         | ::= | `";"`                                     |                 |
-| \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest` | |
+| \[36\]   | `SchemaKindTest`               | ::= | `AttributeDeclTest \| ComplexTypeTest \| ElementDeclTest \| SchemaComponentTest \| SchemaParticleTest \| SchemaRootTest \| SchemaTypeTest \| SimpleTypeTest` | |
 | \[37\]   | `AttributeDeclTest`            | ::= | `"attribute-decl" "(" ")"`                |                 |
 | \[38\]   | `ComplexTypeTest`              | ::= | `"complex-type" "(" ")"`                  |                 |
 | \[39\]   | `ElementDeclTest`              | ::= | `"element-decl" "(" ")"`                  |                 |
@@ -548,6 +549,7 @@ These changes include support for:
 | \[41\]   | `SchemaParticleTest`           | ::= | `"schema-particle" "(" ")"`               |                 |
 | \[42\]   | `SchemaRootTest`               | ::= | `"schema-root" "(" ")"`                   |                 |
 | \[43\]   | `SchemaTypeTest`               | ::= | `"schema-type" "(" ")"`                   |                 |
+| \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
 
 ## B References
 

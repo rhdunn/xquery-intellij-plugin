@@ -568,6 +568,30 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 7.0 :: SimpleTypeTest
+
+    @Test
+    fun testSimpleTypeTest() {
+        val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest.txt")
+        val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testSimpleTypeTest_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testSimpleTypeTest_MissingClosingParenthesis() {
+        val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.txt")
+        val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region Saxon 9.4 :: MapConstructorEntry + MapConstructor
 
     @Test

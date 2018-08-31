@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSimpleTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaRootTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaParticleTest
@@ -375,6 +376,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_SCHEMA_TYPE))
+    }
+
+    // endregion
+    // region SimpleTypeTest
+
+    @Test
+    fun testSimpleTypeTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
+
+        val simpleTypeTestPsi = file.walkTree().filterIsInstance<PluginSimpleTypeTest>().first()
+        val conformance = simpleTypeTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_SIMPLE_TYPE))
     }
 
     // endregion
