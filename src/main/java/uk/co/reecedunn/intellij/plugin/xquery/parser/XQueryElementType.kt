@@ -386,7 +386,7 @@ object XQueryElementType {
     val SCHEMA_COMPONENT_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_COMPONENT_TEST", PluginSchemaComponentTestPsiImpl::class.java, XQuery)
     val SCHEMA_PARTICLE_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_PARTICLE_TEST", PluginSchemaParticleTestPsiImpl::class.java, XQuery)
     val SCHEMA_ROOT_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_ROOT_TEST", PluginSchemaRootTestPsiImpl::class.java, XQuery)
-    val SCHEMA_TYPE_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_TYPE_TEST", MarkLogicSchemaTypeTestPsiImpl::class.java, XQuery)
+    val SCHEMA_TYPE_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_TYPE_TEST", PluginSchemaTypeTestPsiImpl::class.java, XQuery)
     val SIMPLE_TYPE_TEST: IElementType = ICompositeElementType("XQUERY_SIMPLE_TYPE_TEST", MarkLogicSimpleTypeTestPsiImpl::class.java, XQuery)
 
     // endregion
