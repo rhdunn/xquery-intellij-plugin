@@ -4240,7 +4240,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     // Don't keep the MarkLogic Schema/JSON parseTree here as KindTest is not anchored to the correct parent
                     // at this point.
                     val testMarker = mark()
-                    val status = parseSchemaOrJsonKindTest()
+                    var status = parseSchemaKindTest()
+                    if (status == ParseStatus.NOT_MATCHED) {
+                        status = parseJsonKindTest()
+                    }
                     testMarker.rollbackTo()
 
                     // If this is a valid MarkLogic Schema/JSON KindTest, return false here to parse it as a KindTest.
@@ -6353,7 +6356,8 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 || parseNamespaceNodeTest()
                 || parseAnyKindTest()
                 || parseBinaryTest()
-                || parseSchemaOrJsonKindTest() != ParseStatus.NOT_MATCHED
+                || parseSchemaKindTest() != ParseStatus.NOT_MATCHED
+                || parseJsonKindTest() != ParseStatus.NOT_MATCHED
     }
 
     private fun parseAnyKindTest(): Boolean {
@@ -6640,9 +6644,6 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    // endregion
-    // region Grammar :: TypeDeclaration :: KindTest :: MarkLogic
-
     private fun parseBinaryTest(): Boolean {
         val binaryTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY)
         if (binaryTestMarker != null) {
@@ -6663,10 +6664,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseSchemaOrJsonKindTest(): ParseStatus {
-        var status = parseArrayTest_MarkLogic()
-        if (status == ParseStatus.NOT_MATCHED) status = parseAttributeDeclTest()
-        if (status == ParseStatus.NOT_MATCHED) status = parseBooleanNodeTest()
+    // endregion
+    // region Grammar :: TypeDeclaration :: KindTest :: SchemaKindTest
+
+    private fun parseSchemaKindTest(): ParseStatus {
+        var status = parseAttributeDeclTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseComplexTypeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseElementDeclTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaComponentTest()
@@ -6675,52 +6677,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaRootTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaTypeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseSimpleTypeTest()
-        if (status == ParseStatus.NOT_MATCHED) status = parseNullNodeTest()
-        if (status == ParseStatus.NOT_MATCHED) status = parseNumberNodeTest()
-        if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic()
         return status
-    }
-
-    private fun parseSimpleArrayTest_MarkLogic(): ParseStatus {
-        return parseArrayTest_MarkLogic(true)
-    }
-
-    private fun parseArrayTest_MarkLogic(isSimple: Boolean = false): ParseStatus {
-        val arrayTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE)
-        if (arrayTestMarker != null) {
-            var status = ParseStatus.MATCHED
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                arrayTestMarker.rollbackTo()
-                return ParseStatus.NOT_MATCHED
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (isSimple && getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
-                error(XQueryBundle.message("parser.error.expected", ")"))
-                status = ParseStatus.MATCHED_WITH_ERRORS
-
-                // array-node() tests in a document-node test do not allow `StringLiteral` or `*`
-                // tokens, but accept them here to recover when used incorrectly.
-                parseStringLiteral(XQueryElementType.STRING_LITERAL)
-                matchTokenType(XQueryTokenType.STAR)
-            } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                //
-            } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
-                status = ParseStatus.MATCHED_WITH_ERRORS
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
-                error(XQueryBundle.message("parser.error.expected", ")"))
-                status = ParseStatus.MATCHED_WITH_ERRORS
-            }
-
-            arrayTestMarker.done(XQueryElementType.ARRAY_TEST)
-            return status
-        }
-        return ParseStatus.NOT_MATCHED
     }
 
     private fun parseAttributeDeclTest(): ParseStatus {
@@ -6741,41 +6698,6 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             attributeDeclTestMarker.done(XQueryElementType.ATTRIBUTE_DECL_TEST)
-            return status
-        }
-        return ParseStatus.NOT_MATCHED
-    }
-
-    private fun parseBooleanNodeTest(): ParseStatus {
-        val booleanNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE)
-        if (booleanNodeTestMarker != null) {
-            var status = ParseStatus.MATCHED
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                booleanNodeTestMarker.rollbackTo()
-                return ParseStatus.NOT_MATCHED
-            }
-
-            val type: IElementType
-            parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                type = XQueryElementType.NAMED_BOOLEAN_NODE_TEST
-            } else if (getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
-                type = XQueryElementType.ANY_BOOLEAN_NODE_TEST
-                status = ParseStatus.MATCHED_WITH_ERRORS
-            } else {
-                type = XQueryElementType.ANY_BOOLEAN_NODE_TEST
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
-                error(XQueryBundle.message("parser.error.expected", ")"))
-                status = ParseStatus.MATCHED_WITH_ERRORS
-            }
-
-            booleanNodeTestMarker.done(type)
             return status
         }
         return ParseStatus.NOT_MATCHED
@@ -6960,6 +6882,95 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             simpleTypeTestMarker.done(XQueryElementType.SIMPLE_TYPE_TEST)
+            return status
+        }
+        return ParseStatus.NOT_MATCHED
+    }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: KindTest :: JsonKindTest
+
+    private fun parseJsonKindTest(): ParseStatus {
+        var status = parseArrayTest_MarkLogic()
+        if (status == ParseStatus.NOT_MATCHED) status = parseBooleanNodeTest()
+        if (status == ParseStatus.NOT_MATCHED) status = parseNullNodeTest()
+        if (status == ParseStatus.NOT_MATCHED) status = parseNumberNodeTest()
+        if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic()
+        return status
+    }
+
+    private fun parseSimpleArrayTest_MarkLogic(): ParseStatus {
+        return parseArrayTest_MarkLogic(true)
+    }
+
+    private fun parseArrayTest_MarkLogic(isSimple: Boolean = false): ParseStatus {
+        val arrayTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE)
+        if (arrayTestMarker != null) {
+            var status = ParseStatus.MATCHED
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                arrayTestMarker.rollbackTo()
+                return ParseStatus.NOT_MATCHED
+            }
+
+            parseWhiteSpaceAndCommentTokens()
+            if (isSimple && getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
+                error(XQueryBundle.message("parser.error.expected", ")"))
+                status = ParseStatus.MATCHED_WITH_ERRORS
+
+                // array-node() tests in a document-node test do not allow `StringLiteral` or `*`
+                // tokens, but accept them here to recover when used incorrectly.
+                parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                matchTokenType(XQueryTokenType.STAR)
+            } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                //
+            } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+                status = ParseStatus.MATCHED_WITH_ERRORS
+            }
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"))
+                status = ParseStatus.MATCHED_WITH_ERRORS
+            }
+
+            arrayTestMarker.done(XQueryElementType.ARRAY_TEST)
+            return status
+        }
+        return ParseStatus.NOT_MATCHED
+    }
+
+    private fun parseBooleanNodeTest(): ParseStatus {
+        val booleanNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE)
+        if (booleanNodeTestMarker != null) {
+            var status = ParseStatus.MATCHED
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                booleanNodeTestMarker.rollbackTo()
+                return ParseStatus.NOT_MATCHED
+            }
+
+            val type: IElementType
+            parseWhiteSpaceAndCommentTokens()
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                type = XQueryElementType.NAMED_BOOLEAN_NODE_TEST
+            } else if (getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
+                type = XQueryElementType.ANY_BOOLEAN_NODE_TEST
+                status = ParseStatus.MATCHED_WITH_ERRORS
+            } else {
+                type = XQueryElementType.ANY_BOOLEAN_NODE_TEST
+            }
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"))
+                status = ParseStatus.MATCHED_WITH_ERRORS
+            }
+
+            booleanNodeTestMarker.done(type)
             return status
         }
         return ParseStatus.NOT_MATCHED
