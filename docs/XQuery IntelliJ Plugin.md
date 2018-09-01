@@ -12,7 +12,6 @@
       - [2.1.2.5 Boolean Node Test](#2125-boolean-node-test)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
-    - [3.1.1 Binary Constructors](#311-binary-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
   - [3.3 Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
     - [3.3.1 Typeswitch](#331-typeswitch)
@@ -28,6 +27,8 @@
     - [3.9.1 Axes](#391-axes)
   - [3.10 Validate Expressions](#310-validate-expressions)
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
+  - [3.12 Binary Constructors](#312-binary-constructors)
+  - [3.13 Boolean Constructors](#313-boolean-constructors)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -159,7 +160,7 @@ and `false`) JSON values.
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 
 ### 3.1 Node Constructors
 
@@ -171,35 +172,6 @@ and `false`) JSON values.
 This follows the grammar production pattern used in other constructs like
 `ParamList`, making it easier to support namespace declaration lookup on
 `xmlns` attributes.
-
-### 3.1.1 Binary Constructors
-
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[30\] | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`                   |         |
-
-This is a MarkLogic extension for working with `xs:hexBinary` encoded binary
-data. Specifically, MarkLogic only stores `node()` types in the database and
-this is used when storing binary data in the database. Other XQuery processors
-use `xs:hexBinary` and/or `xs:base64Binary` directly.
-
-A binary constructor is evaluated using the supplied content expression as
-follows:
-1.  If the expression is an empty sequence, the result is an empty sequence.
-1.  If the expression is an `xs:hexBinary`, the result is a binary node with
-    the expression as its content.
-1.  If the expression is an `xs:untypedAtomic`, `xs:string`, or a type derived,
-    from `xs:string`, the result is a binary node with the expression cast to
-    `xs:hexBinary` as its content.
-1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
-
-__NOTE:__ This does not follow the standard casting rules for `xs:hexBinary`
-in that `xs:base64Binary` content cannot be assigned to a binary constructor
-without an explicit cast.
-
-If a binary constructor is assigned to a variable that has the type
-`xs:hexBinary` the result is the `xs:hexBinary` content of the binary
-constructor. However, `binary { "AB" } instance of xs:hexBinary` returns false.
 
 ### 3.2 Quantified Expressions
 
@@ -379,8 +351,10 @@ The *principal node kind* is determined as per the XPath specification. Thus:
 *  For all other axes (including the MarkLogic `property` axis), the principal
    node kind is *element*.
 
-__NOTE:__ This means that the `property` axis uses the default element
-namespace to resolve an unprefixed QName into an expanded QName.
+> __Note__
+>
+> This means that the `property` axis uses the default element namespace to
+> resolve an unprefixed QName into an expanded QName.
 
 ### 3.10 Validate Expressions
 
@@ -403,6 +377,61 @@ style catch clauses using a `CatchErrorList`.
 
 The variable name in the MarkLogic style catch clause has the type
 `element(error:error)`, which contains the details of the error.
+
+### 3.12 Binary Constructors
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[30\] | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`                   |         |
+
+This is a MarkLogic extension for working with `xs:hexBinary` encoded binary
+data. Specifically, MarkLogic only stores `node()` types in the database and
+this is used when storing binary data in the database. Other XQuery processors
+use `xs:hexBinary` and/or `xs:base64Binary` directly.
+
+A binary constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  If the expression is an `xs:hexBinary`, the result is a binary node with
+    the expression as its content.
+1.  If the expression is an `xs:untypedAtomic`, `xs:string`, or a type derived,
+    from `xs:string`, the result is a binary node with the expression cast to
+    `xs:hexBinary` as its content.
+1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
+
+> __Note__
+>
+> A binary constructor expression does not follow the standard casting rules for
+> `xs:hexBinary` in that `xs:base64Binary` content cannot be assigned to a binary
+> constructor without an explicit cast.
+
+Casting from a binary node to a target type is performed as follows:
+1.  If the target type is castable from `xs:hexBinary`, the content of the
+    binary node is cast to the target type.
+1.  If the target type is `xs:boolean`, the result is `false()`.
+1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
+
+A binary node is not an instance of `xs:boolean`.
+
+### 3.13 Boolean Constructors
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[48\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
+
+MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
+`false`) JSON values.
+
+A boolean constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  Otherwise, the result is a boolean node with the expression cast to
+    `xs:boolean` as its content. If the cast fails, an `err:FORG0001` (invalid
+    cast) error is raised.
+
+A boolean node follows the rules for casting from an `xs:boolean` type, using
+the content of the boolean node in the cast. However, a boolean node is not an
+instance of `xs:boolean`.
 
 ## 4 Modules and Prologs
 
@@ -463,8 +492,11 @@ separated by a semicolon.
 
 If specified, the `VersionDecl` must be the same in all transactions; if missing,
 the current `MainModule` uses the version from the first `MainModule`. If the
-version is different, an `XDMP-XQUERYVERSIONSWITCH` error is raised. __NOTE:__
-Only version values `0.9-ml` and `1.0-ml` support transactions.
+version is different, an `XDMP-XQUERYVERSIONSWITCH` error is raised.
+
+> __Note__
+>
+> Only version values `0.9-ml` and `1.0-ml` support transactions.
 
 Unlike Scripting Extensions, MarkLogic transactions have a separate prolog for
 each transaction. Due to the way the syntax is constructed, MarkLogic
@@ -535,7 +567,7 @@ These changes include support for:
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
-| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
@@ -570,6 +602,7 @@ These changes include support for:
 | \[47\]   | `BooleanNodeTest`              | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` |              |
 | \[48\]   | `AnyBooleanNodeTest`           | ::= | `"boolean-node" "(" ")"`                  |                 |
 | \[49\]   | `NamedBooleanNodeTest`         | ::= | `"boolean-node" "(" StringLiteral ")"`    |                 |
+| \[50\]   | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |                 |
 
 ## B References
 
@@ -639,8 +672,8 @@ in this document:
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
-1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
-1.  [Boolean Node Test](#2125-boolean-node-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
+1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\]
 1.  [Stylesheet Import](#43-stylesheet-import)

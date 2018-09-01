@@ -73,37 +73,6 @@ private class MarkLogicParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: BooleanConstructor
-
-    @Test
-    fun testBooleanConstructor() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBooleanConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBooleanConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testBooleanConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 8.0 :: NullConstructor
 
     @Test

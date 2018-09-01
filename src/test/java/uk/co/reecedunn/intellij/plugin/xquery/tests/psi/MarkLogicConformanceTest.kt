@@ -100,24 +100,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region BooleanConstructor
-
-    @Test
-    fun testBooleanConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
-
-        val booleanConstructorPsi = file.descendants().filterIsInstance<MarkLogicBooleanConstructor>().first()
-        val conformance = booleanConstructorPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_BOOLEAN_NODE))
-    }
-
-    // endregion
     // region MapConstructor
 
     @Test

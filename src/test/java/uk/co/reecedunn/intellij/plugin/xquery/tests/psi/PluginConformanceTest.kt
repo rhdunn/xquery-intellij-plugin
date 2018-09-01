@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanNodeTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaFacetTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSimpleTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaTypeTest
@@ -123,6 +123,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_BINARY))
+    }
+
+    // endregion
+    // region BooleanConstructor
+
+    @Test
+    fun testBooleanConstructor() {
+        val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
+
+        val booleanConstructorPsi = file.descendants().filterIsInstance<PluginBooleanConstructor>().first()
+        val conformance = booleanConstructorPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
     // endregion
