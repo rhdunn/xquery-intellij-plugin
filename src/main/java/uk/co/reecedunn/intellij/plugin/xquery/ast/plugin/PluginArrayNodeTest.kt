@@ -20,4 +20,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 /**
  * A MarkLogic 8.0 `ArrayTest` node in the XQuery AST.
  */
-interface PluginArrayTest : XPathKindTest
+interface PluginArrayNodeTest : XPathKindTest

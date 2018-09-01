@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginArrayTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType

@@ -18,7 +18,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003
 
 import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
@@ -44,7 +43,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     @Test
     fun testFunctionCall_MarkLogic80ReservedFunctionName_XQuery10() {
         settings.implementationVersion = "w3c/spec/v1ed"
-        val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
+        val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayNodeTest_FunctionCallLike.xq")
 
         val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
@@ -54,7 +53,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     @Test
     fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic70() {
         settings.implementationVersion = "marklogic/v7"
-        val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
+        val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayNodeTest_FunctionCallLike.xq")
 
         val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
@@ -64,7 +63,7 @@ private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
     @Test
     fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic80() {
         settings.implementationVersion = "marklogic/v8"
-        val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq")
+        val file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayNodeTest_FunctionCallLike.xq")
 
         val problems = inspect(file, ReservedFunctionNameInspection())
         assertThat(problems, `is`(notNullValue()))
