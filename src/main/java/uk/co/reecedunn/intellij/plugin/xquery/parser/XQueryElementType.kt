@@ -401,7 +401,7 @@ object XQueryElementType {
     val NAMED_BOOLEAN_NODE_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_BOOLEAN_NODE_TEST", PluginNamedBooleanNodeTestPsiImpl::class.java, XQuery)
 
     val NULL_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_NULL_CONSTRUCTOR", MarkLogicNullConstructorPsiImpl::class.java, XQuery)
-    val NULL_TEST: IElementType = ICompositeElementType("XQUERY_NULL_TEST", MarkLogicNullTestPsiImpl::class.java, XQuery)
+    val NULL_TEST: IElementType = ICompositeElementType("XQUERY_NULL_TEST", PluginNullTestPsiImpl::class.java, XQuery)
 
     val NUMBER_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_NUMBER_CONSTRUCTOR", PluginNumberConstructorPsiImpl::class.java, XQuery)
     val ANY_NUMBER_NODE_TEST: IElementType = ICompositeElementType("XQUERY_ANY_NUMBER_NODE_TEST", PluginAnyNumberNodeTestPsiImpl::class.java, XQuery)

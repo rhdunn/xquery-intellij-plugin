@@ -727,6 +727,82 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: NullTest
+
+    @Test
+    fun testNullTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNullTest_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNullTest_MissingClosingParenthesis() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest_MissingClosingParenthesis.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest_MissingClosingParenthesis.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNullTest_KeyName() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest_KeyName.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest_KeyName.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNullTest_KeyName_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest_KeyName_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest_KeyName_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNullTest_Wildcard() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest_Wildcard.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest_Wildcard.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNullTest_Wildcard_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NullTest_Wildcard_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NullTest_Wildcard_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
+    // region MarkLogic 8.0 :: NullTest (KindTest)
+
+    @Test
+    fun testKindTest_NullTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NullTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testKindTest_NullTest_StringLiteral() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NullTest_StringLiteral.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest_StringLiteral.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testKindTest_NullTest_FunctionCallLike() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NullTest_FunctionCallLike.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest_FunctionCallLike.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: NumberConstructor
 
     @Test
