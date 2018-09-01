@@ -6666,7 +6666,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseSchemaOrJsonKindTest(): ParseStatus {
         var status = parseArrayTest_MarkLogic()
         if (status == ParseStatus.NOT_MATCHED) status = parseAttributeDeclTest()
-        if (status == ParseStatus.NOT_MATCHED) status = parseBooleanTest()
+        if (status == ParseStatus.NOT_MATCHED) status = parseBooleanNodeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseComplexTypeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseElementDeclTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaComponentTest()
@@ -6746,14 +6746,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return ParseStatus.NOT_MATCHED
     }
 
-    private fun parseBooleanTest(): ParseStatus {
-        val booleanTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE)
-        if (booleanTestMarker != null) {
+    private fun parseBooleanNodeTest(): ParseStatus {
+        val booleanNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE)
+        if (booleanNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
 
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                booleanTestMarker.rollbackTo()
+                booleanNodeTestMarker.rollbackTo()
                 return ParseStatus.NOT_MATCHED
             }
 
@@ -6771,7 +6771,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 status = ParseStatus.MATCHED_WITH_ERRORS
             }
 
-            booleanTestMarker.done(XQueryElementType.BOOLEAN_TEST)
+            booleanNodeTestMarker.done(XQueryElementType.BOOLEAN_NODE_TEST)
             return status
         }
         return ParseStatus.NOT_MATCHED

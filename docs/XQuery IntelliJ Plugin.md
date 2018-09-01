@@ -9,7 +9,7 @@
       - [2.1.2.2 Tuple Type](#2122-tuple-type)
       - [2.1.2.3 Binary Test](#2123-binary-test)
       - [2.1.2.4 Schema Kind Tests](#2124-schema-kind-tests)
-      - [2.1.2.5 Boolean Test](#2125-boolean-test)
+      - [2.1.2.5 Boolean Node Test](#2125-boolean-node-test)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
     - [3.1.1 Binary Constructors](#311-binary-constructors)
@@ -81,7 +81,7 @@ not normative.
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
-| \[46\] | `JsonKindTest`          | ::= | `BooleanTest`                       |                       |
+| \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest`                   |                       |
 
 ### 2.1.2 SequenceType Matching
 
@@ -144,14 +144,14 @@ MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema define
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
 support for `SchemaFacetTest`.
 
-#### 2.1.2.5 Boolean Test
+#### 2.1.2.5 Boolean Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[47\]  | `BooleanTest`           | ::= | `"boolean-node" "(" StringLiteral? ")"` |     |
+| \[47\]  | `BooleanNodeTest`       | ::= | `"boolean-node" "(" StringLiteral? ")"` |     |
 
-MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
-`false`) JSON values.
+MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
+and `false`) JSON values.
 
 ## 3 Expressions
 
@@ -564,8 +564,8 @@ These changes include support for:
 | \[43\]   | `SchemaTypeTest`               | ::= | `"schema-type" "(" ")"`                   |                 |
 | \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
 | \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ")"`                  |                 |
-| \[46\]   | `JsonKindTest`                 | ::= | `BooleanTest`                             |                 |
-| \[47\]   | `BooleanTest`                  | ::= | `"boolean-node" "(" StringLiteral? ")"`   |                 |
+| \[46\]   | `JsonKindTest`                 | ::= | `BooleanNodeTest`                         |                 |
+| \[47\]   | `BooleanNodeTest`              | ::= | `"boolean-node" "(" StringLiteral? ")"`   |                 |
 
 ## B References
 
@@ -636,7 +636,7 @@ The MarkLogic XQuery Processor supports the following vendor extensions describe
 in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#311-binary-constructors)
-1.  [Boolean Test](#2125-boolean-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Boolean Node Test](#2125-boolean-node-test) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\]
 1.  [Stylesheet Import](#43-stylesheet-import)

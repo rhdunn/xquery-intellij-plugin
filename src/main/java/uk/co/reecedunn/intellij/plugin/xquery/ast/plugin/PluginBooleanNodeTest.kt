@@ -18,6 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 
 /**
- * A MarkLogic 8.0 `BooleanTest` node in the XQuery AST.
+ * A MarkLogic 8.0 `BooleanNodeTest` node in the XQuery AST.
  */
-interface PluginBooleanTest : XPathKindTest
+interface PluginBooleanNodeTest : XPathKindTest

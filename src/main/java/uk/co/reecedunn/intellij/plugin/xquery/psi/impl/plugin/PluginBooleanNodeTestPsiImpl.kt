@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class PluginBooleanTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginBooleanTest, XQueryConformance {
+class PluginBooleanNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginBooleanNodeTest, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
     override val conformanceElement get(): PsiElement =

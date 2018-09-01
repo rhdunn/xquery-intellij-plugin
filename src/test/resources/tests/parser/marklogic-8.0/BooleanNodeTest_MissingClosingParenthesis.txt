@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:51)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               PluginBooleanTestImpl[XQUERY_BOOLEAN_TEST(26:41)]
+               PluginBooleanNodeTestImpl[XQUERY_BOOLEAN_NODE_TEST(26:41)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(26:38)]('boolean-node')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(39:40)]('(')

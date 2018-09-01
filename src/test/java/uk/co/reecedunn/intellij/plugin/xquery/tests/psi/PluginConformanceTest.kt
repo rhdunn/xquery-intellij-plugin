@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaFacetTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSimpleTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaTypeTest
@@ -113,9 +113,9 @@ private class PluginConformanceTest : ParserTestCase() {
 
     @Test
     fun testBooleanTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq")
+        val file = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest.xq")
 
-        val booleanTestPsi = file.walkTree().filterIsInstance<PluginBooleanTest>().first()
+        val booleanTestPsi = file.walkTree().filterIsInstance<PluginBooleanNodeTest>().first()
         val conformance = booleanTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))

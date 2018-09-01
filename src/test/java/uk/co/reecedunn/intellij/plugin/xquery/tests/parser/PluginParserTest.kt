@@ -592,78 +592,78 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: BooleanTest
+    // region MarkLogic 8.0 :: BooleanNodeTest
 
     @Test
-    fun testBooleanTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq")
+    fun testBooleanNodeTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testBooleanTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest_CompactWhitespace.xq")
+    fun testBooleanNodeTest_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testBooleanTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest_MissingClosingParenthesis.xq")
+    fun testBooleanNodeTest_MissingClosingParenthesis() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest_MissingClosingParenthesis.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest_MissingClosingParenthesis.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testBooleanTest_KeyName() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest_KeyName.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest_KeyName.xq")
+    fun testBooleanNodeTest_KeyName() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest_KeyName.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest_KeyName.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testBooleanTest_KeyName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest_KeyName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest_KeyName_CompactWhitespace.xq")
+    fun testBooleanNodeTest_KeyName_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest_KeyName_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest_KeyName_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testBooleanTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest_Wildcard.xq")
+    fun testBooleanNodeTest_Wildcard() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest_Wildcard.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest_Wildcard.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testBooleanTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/BooleanTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/BooleanTest_Wildcard_CompactWhitespace.xq")
+    fun testBooleanNodeTest_Wildcard_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/BooleanNodeTest_Wildcard_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest_Wildcard_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     // endregion
-    // region MarkLogic 8.0 :: NodeTest + KindTest
+    // region MarkLogic 8.0 :: BooleanNodeTest (KindTest)
 
     @Test
-    fun testKindTest_BooleanTest() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest.xq")
+    fun testKindTest_BooleanNodeTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanNodeTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanNodeTest.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testKindTest_BooleanTest_StringLiteral() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_StringLiteral.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_StringLiteral.xq")
+    fun testKindTest_BooleanNodeTest_StringLiteral() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanNodeTest_StringLiteral.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanNodeTest_StringLiteral.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testKindTest_BooleanTest_FunctionCallLike() {
-        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_FunctionCallLike.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_FunctionCallLike.xq")
+    fun testKindTest_BooleanNodeTest_FunctionCallLike() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanNodeTest_FunctionCallLike.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanNodeTest_FunctionCallLike.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
