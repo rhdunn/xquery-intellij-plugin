@@ -96,6 +96,24 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
+    // region ArrayTest
+
+    @Test
+    fun testArrayTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/ArrayTest.xq")
+
+        val arrayTestPsi = file.walkTree().filterIsInstance<PluginArrayTest>().first()
+        val conformance = arrayTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ARRAY_NODE))
+    }
+
+    // endregion
     // region AttributeDeclTest
 
     @Test

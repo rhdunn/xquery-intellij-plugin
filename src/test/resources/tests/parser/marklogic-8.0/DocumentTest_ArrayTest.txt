@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:69)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                  MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(42:56)]
+                  PluginArrayTestImpl[XQUERY_ARRAY_TEST(42:56)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(42:52)]('array-node')
                      PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(53:54)]('(')

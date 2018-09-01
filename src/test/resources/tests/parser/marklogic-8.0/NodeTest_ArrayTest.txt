@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:12)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(0:12)]
-                  MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(0:12)]
+                  PluginArrayTestImpl[XQUERY_ARRAY_TEST(0:12)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
