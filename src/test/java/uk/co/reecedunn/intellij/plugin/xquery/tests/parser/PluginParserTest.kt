@@ -727,6 +727,37 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: NumberConstructor
+
+    @Test
+    fun testNumberConstructor() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNumberConstructor_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNumberConstructor_MissingExpr() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNumberConstructor_MissingClosingBrace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: NamedBooleanNodeTest
 
     @Test

@@ -30,6 +30,7 @@
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
   - [3.12 Binary Constructors](#312-binary-constructors)
   - [3.13 Boolean Constructors](#313-boolean-constructors)
+  - [3.14 Number Constructors](#314-number-constructors)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -172,7 +173,7 @@ values.
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 
 ### 3.1 Node Constructors
 
@@ -429,7 +430,7 @@ A binary node is not an instance of `xs:boolean`.
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[48\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
+| \[50\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
 
 MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
 `false`) JSON values.
@@ -444,6 +445,25 @@ follows:
 A boolean node follows the rules for casting from an `xs:boolean` type, using
 the content of the boolean node in the cast. However, a boolean node is not an
 instance of `xs:boolean`.
+
+### 3.14 Number Constructors
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[54\] | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |         |
+
+MarkLogic 8.0 provides `NumberTest` types for working with numeric JSON values.
+
+A numeric constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  Otherwise, the result is a number node with the expression cast to
+    `xs:double` as its content. If the cast fails, an `err:FORG0001` (invalid
+    cast) error is raised.
+
+A number node follows the rules for casting from an `xs:double` type, using
+the content of the number node in the cast. However, a number node is not an
+instance of `xs:double`.
 
 ## 4 Modules and Prologs
 
@@ -579,7 +599,7 @@ These changes include support for:
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
-| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
@@ -618,6 +638,7 @@ These changes include support for:
 | \[51\]   | `NumberNodeTest`               | ::= | `AnyNumberNodeTest \| NamedNumberNodeTest` |                |
 | \[52\]   | `AnyNumberNodeTest`            | ::= | `"number-node" "(" ")"`                   |                 |
 | \[53\]   | `NamedNumberNodeTest`          | ::= | `"number-node" "(" StringLiteral ")"`     |                 |
+| \[54\]   | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |                 |
 
 ## B References
 
@@ -690,7 +711,7 @@ in this document:
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
-1.  [Number Node Test](#2126-number-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\]
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)

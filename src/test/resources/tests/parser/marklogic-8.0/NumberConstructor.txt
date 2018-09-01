@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:17)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:17)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:17)]
-               MarkLogicNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:17)]
+               PluginNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:17)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
