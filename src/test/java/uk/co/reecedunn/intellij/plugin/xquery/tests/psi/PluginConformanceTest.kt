@@ -30,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNumberNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaFacetTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSimpleTypeTest
@@ -54,10 +53,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
-    // region AnyBooleanTest
+    // region AnyBooleanNodeTest
 
     @Test
-    fun testAnyBooleanTest() {
+    fun testAnyBooleanNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
 
         val booleanTestPsi = file.walkTree().filterIsInstance<PluginAnyBooleanNodeTest>().first()
@@ -68,6 +67,24 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+    }
+
+    // endregion
+    // region AnyNumberNodeTest
+
+    @Test
+    fun testAnyNumberNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.xq")
+
+        val numberTestPsi = file.walkTree().filterIsInstance<PluginAnyNumberNodeTest>().first()
+        val conformance = numberTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
     // endregion
@@ -327,10 +344,10 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NamedBooleanTest
+    // region NamedBooleanNodeTest
 
     @Test
-    fun testNamedBooleanTest() {
+    fun testNamedBooleanNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
 
         val booleanTestPsi = file.walkTree().filterIsInstance<PluginNamedBooleanNodeTest>().first()
@@ -341,6 +358,24 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+    }
+
+    // endregion
+    // region NamedNumberNodeTest
+
+    @Test
+    fun testNamedNumberNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
+
+        val numberTestPsi = file.walkTree().filterIsInstance<PluginNamedNumberNodeTest>().first()
+        val conformance = numberTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
     // endregion
@@ -359,24 +394,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_NON_DETERMINISTIC))
-    }
-
-    // endregion
-    // region NumberNodeTest
-
-    @Test
-    fun testNumberNodeTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NumberNodeTest.xq")
-
-        val numberTestPsi = file.walkTree().filterIsInstance<PluginNumberNodeTest>().first()
-        val conformance = numberTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
     // endregion

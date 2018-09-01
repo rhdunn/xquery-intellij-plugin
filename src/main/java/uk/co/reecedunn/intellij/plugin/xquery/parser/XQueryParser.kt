@@ -7049,12 +7049,16 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return ParseStatus.NOT_MATCHED
             }
 
+            val type: IElementType
             parseWhiteSpaceAndCommentTokens()
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                //
+                type = XQueryElementType.NAMED_NUMBER_NODE_TEST
             } else if (getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
                 errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
+                type = XQueryElementType.ANY_NUMBER_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
+            } else {
+                type = XQueryElementType.ANY_NUMBER_NODE_TEST
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -7063,7 +7067,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 status = ParseStatus.MATCHED_WITH_ERRORS
             }
 
-            numberNodeTestMarker.done(XQueryElementType.NUMBER_NODE_TEST)
+            numberNodeTestMarker.done(type)
             return status
         }
         return ParseStatus.NOT_MATCHED

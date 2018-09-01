@@ -161,7 +161,9 @@ and `false`) JSON values.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[51\]  | `NumberNodeTest`        | ::= | `"number-node" "(" StringLiteral? ")"` |      |
+| \[51\]  | `NumberNodeTest`        | ::= | `AnyNumberNodeTest \| NamedNumberNodeTest` |  |
+| \[52\]  | `AnyNumberNodeTest`     | ::= | `"number-node" "(" ")"`             |         |
+| \[53\]  | `NamedNumberNodeTest`   | ::= | `"number-node" "(" StringLiteral ")"` |       |
 
 MarkLogic 8.0 provides `NumberNodeTest` types for working with numeric JSON
 values.
@@ -613,7 +615,9 @@ These changes include support for:
 | \[48\]   | `AnyBooleanNodeTest`           | ::= | `"boolean-node" "(" ")"`                  |                 |
 | \[49\]   | `NamedBooleanNodeTest`         | ::= | `"boolean-node" "(" StringLiteral ")"`    |                 |
 | \[50\]   | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |                 |
-| \[51\]   | `NumberNodeTest`               | ::= | `"number-node" "(" StringLiteral? ")"`    |                 |
+| \[51\]   | `NumberNodeTest`               | ::= | `AnyNumberNodeTest \| NamedNumberNodeTest` |                |
+| \[52\]   | `AnyNumberNodeTest`            | ::= | `"number-node" "(" ")"`                   |                 |
+| \[53\]   | `NamedNumberNodeTest`          | ::= | `"number-node" "(" StringLiteral ")"`     |                 |
 
 ## B References
 
