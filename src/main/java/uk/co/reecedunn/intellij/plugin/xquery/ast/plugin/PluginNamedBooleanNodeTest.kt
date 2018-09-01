@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
-
 /**
- * A MarkLogic 8.0 `BooleanNodeTest` node in the XQuery AST.
- *
- * Because the child nodes of an `BooleanNodeTest` are only referenced
- * from the `BooleanNodeTest` node in the grammar, the
- * `BooleanNodeTest` nodes are stored as instances of the child nodes
- * instead of as distinct nodes themselves.
+ * A MarkLogic 8.0 `NamedBooleanNodeTest` node in the XQuery AST.
  */
-interface PluginBooleanNodeTest : XPathKindTest
+interface PluginNamedBooleanNodeTest : PluginBooleanNodeTest

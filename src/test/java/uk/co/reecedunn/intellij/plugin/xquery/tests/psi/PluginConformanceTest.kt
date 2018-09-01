@@ -53,6 +53,23 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region AnyBooleanTest
+
+    @Test
+    fun testAnyBooleanTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
+
+        val booleanTestPsi = file.walkTree().filterIsInstance<PluginAnyBooleanNodeTest>().first()
+        val conformance = booleanTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+    }
+
+    // endregion
     // region AttributeDeclTest
 
     @Test
@@ -106,24 +123,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_BINARY))
-    }
-
-    // endregion
-    // region BooleanTest
-
-    @Test
-    fun testBooleanTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/BooleanNodeTest.xq")
-
-        val booleanTestPsi = file.walkTree().filterIsInstance<PluginBooleanNodeTest>().first()
-        val conformance = booleanTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
     // endregion
@@ -306,6 +305,23 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_FUZZY))
+    }
+
+    // endregion
+    // region NamedBooleanTest
+
+    @Test
+    fun testNamedBooleanTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
+
+        val booleanTestPsi = file.walkTree().filterIsInstance<PluginNamedBooleanNodeTest>().first()
+        val conformance = booleanTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
     // endregion

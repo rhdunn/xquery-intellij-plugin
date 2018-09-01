@@ -148,7 +148,9 @@ support for `SchemaFacetTest`.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[47\]  | `BooleanNodeTest`       | ::= | `"boolean-node" "(" StringLiteral? ")"` |     |
+| \[47\]  | `BooleanNodeTest`       | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` | |
+| \[48\]  | `AnyBooleanNodeTest`    | ::= | `"boolean-node" "(" ")"`            |         |
+| \[49\]  | `NamedBooleanNodeTest`  | ::= | `"boolean-node" "(" StringLiteral ")"` |      |
 
 MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
 and `false`) JSON values.
@@ -565,7 +567,9 @@ These changes include support for:
 | \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
 | \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ")"`                  |                 |
 | \[46\]   | `JsonKindTest`                 | ::= | `BooleanNodeTest`                         |                 |
-| \[47\]   | `BooleanNodeTest`              | ::= | `"boolean-node" "(" StringLiteral? ")"`   |                 |
+| \[47\]   | `BooleanNodeTest`              | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` |              |
+| \[48\]   | `AnyBooleanNodeTest`           | ::= | `"boolean-node" "(" ")"`                  |                 |
+| \[49\]   | `NamedBooleanNodeTest`         | ::= | `"boolean-node" "(" StringLiteral ")"`    |                 |
 
 ## B References
 

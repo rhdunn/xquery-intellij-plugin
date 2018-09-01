@@ -1,10 +1,10 @@
-XQueryModuleImpl[FILE(0:48)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:48)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:48)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:47)]
+XQueryModuleImpl[FILE(0:47)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:47)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:47)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:46)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:47)]
+            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:46)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
                XPathVarNameImpl[XQUERY_VAR_NAME(17:21)]
@@ -13,12 +13,10 @@ XQueryModuleImpl[FILE(0:48)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginBooleanNodeTestImpl[XQUERY_BOOLEAN_NODE_TEST(24:39)]
+               PluginAnyBooleanNodeTestImpl[XQUERY_ANY_BOOLEAN_NODE_TEST(24:38)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(24:36)]('boolean-node')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
-                  PsiErrorElementImpl[ERROR_ELEMENT(37:38)]('XPST0003: Expected 'StringLiteral' or ')'.')
-                     LeafPsiElement[XQUERY_STAR_TOKEN(37:38)]('*')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(39:47)]('external')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(47:48)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Missing query body.')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(37:38)](')')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(38:46)]('external')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(46:47)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Missing query body.')
