@@ -136,24 +136,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NullConstructor
-
-    @Test
-    fun testNullConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
-
-        val nullKindTestPsi = file.descendants().filterIsInstance<MarkLogicNullConstructor>().first()
-        val conformance = nullKindTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NULL_NODE))
-    }
-
-    // endregion
     // region TextTest
 
     @Test

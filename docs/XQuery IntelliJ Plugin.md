@@ -32,6 +32,7 @@
   - [3.12 Binary Constructors](#312-binary-constructors)
   - [3.13 Boolean Constructors](#313-boolean-constructors)
   - [3.14 Number Constructors](#314-number-constructors)
+  - [3.15 Null Constructors](#315-null-constructors)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -184,7 +185,7 @@ MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 
 ### 3.1 Node Constructors
 
@@ -476,6 +477,16 @@ A number node follows the rules for casting from an `xs:double` type, using
 the content of the number node in the cast. However, a number node is not an
 instance of `xs:double`.
 
+### 3.15 Null Constructors
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[58\] | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |         |
+
+MarkLogic 8.0 provides `NullTest` types for working with `null` JSON values.
+
+Null nodes are not removed from sequences, such as when used in arrays and maps.
+
 ## 4 Modules and Prologs
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -610,7 +621,7 @@ These changes include support for:
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
-| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
@@ -653,6 +664,7 @@ These changes include support for:
 | \[55\]   | `NullNodeTest`                 | ::= | `AnyNullNodeTest \| NamedNullNodeTest`    |                 |
 | \[56\]   | `AnyNullNodeTest`              | ::= | `"null-node" "(" ")"`                     |                 |
 | \[57\]   | `NamedNullNodeTest`            | ::= | `"null-node" "(" StringLiteral ")"`       |                 |
+| \[58\]   | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |                 |
 
 ## B References
 
@@ -725,7 +737,7 @@ in this document:
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
-1.  [Null Node Test](#2127-null-node-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#315-null-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
