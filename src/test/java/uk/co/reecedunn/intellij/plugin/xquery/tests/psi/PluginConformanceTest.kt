@@ -369,24 +369,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NullTest
-
-    @Test
-    fun testNullTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NullTest.xq")
-
-        val nullTestPsi = file.walkTree().filterIsInstance<PluginNullTest>().first()
-        val conformance = nullTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_NULL_NODE))
-    }
-
-    // endregion
     // region NonDeterministicFunctionCall
 
     @Test
@@ -402,6 +384,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_NON_DETERMINISTIC))
+    }
+
+    // endregion
+    // region NullNodeTest
+
+    @Test
+    fun testNullNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/NullNodeTest.xq")
+
+        val nullTestPsi = file.walkTree().filterIsInstance<PluginNullNodeTest>().first()
+        val conformance = nullTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_NULL_NODE))
     }
 
     // endregion

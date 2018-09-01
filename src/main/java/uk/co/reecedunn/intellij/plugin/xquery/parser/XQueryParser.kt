@@ -6675,7 +6675,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaRootTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaTypeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseSimpleTypeTest()
-        if (status == ParseStatus.NOT_MATCHED) status = parseNullTest()
+        if (status == ParseStatus.NOT_MATCHED) status = parseNullNodeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberNodeTest()
         if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic()
         return status
@@ -7007,14 +7007,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return ParseStatus.NOT_MATCHED
     }
 
-    private fun parseNullTest(): ParseStatus {
-        val nullTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE)
-        if (nullTestMarker != null) {
+    private fun parseNullNodeTest(): ParseStatus {
+        val nullNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE)
+        if (nullNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
 
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                nullTestMarker.rollbackTo()
+                nullNodeTestMarker.rollbackTo()
                 return ParseStatus.NOT_MATCHED
             }
 
@@ -7032,7 +7032,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 status = ParseStatus.MATCHED_WITH_ERRORS
             }
 
-            nullTestMarker.done(XQueryElementType.NULL_TEST)
+            nullNodeTestMarker.done(XQueryElementType.NULL_NODE_TEST)
             return status
         }
         return ParseStatus.NOT_MATCHED

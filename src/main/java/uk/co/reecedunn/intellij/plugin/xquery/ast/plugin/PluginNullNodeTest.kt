@@ -20,4 +20,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 /**
  * A MarkLogic 8.0 `NullTest` node in the XQuery AST.
  */
-interface PluginNullTest : XPathKindTest
+interface PluginNullNodeTest : XPathKindTest
