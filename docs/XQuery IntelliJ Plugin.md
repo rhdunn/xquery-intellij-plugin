@@ -174,7 +174,9 @@ values.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[55\]  | `NullNodeTest`          | ::= | `"null-node" "(" StringLiteral? ")"` |        |
+| \[55\]  | `NullNodeTest`          | ::= | `AnyNullNodeTest \| NamedNullNodeTest` |      |
+| \[56\]  | `AnyNullNodeTest`       | ::= | `"null-node" "(" ")"`               |         |
+| \[57\]  | `NamedNullNodeTest`     | ::= | `"null-node" "(" StringLiteral ")"` |         |
 
 MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 
@@ -648,7 +650,9 @@ These changes include support for:
 | \[52\]   | `AnyNumberNodeTest`            | ::= | `"number-node" "(" ")"`                   |                 |
 | \[53\]   | `NamedNumberNodeTest`          | ::= | `"number-node" "(" StringLiteral ")"`     |                 |
 | \[54\]   | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |                 |
-| \[55\]   | `NullNodeTest`                 | ::= | `"null-node" "(" StringLiteral? ")"`      |                 |
+| \[55\]   | `NullNodeTest`                 | ::= | `AnyNullNodeTest \| NamedNullNodeTest`    |                 |
+| \[56\]   | `AnyNullNodeTest`              | ::= | `"null-node" "(" ")"`                     |                 |
+| \[57\]   | `NamedNullNodeTest`            | ::= | `"null-node" "(" StringLiteral ")"`       |                 |
 
 ## B References
 

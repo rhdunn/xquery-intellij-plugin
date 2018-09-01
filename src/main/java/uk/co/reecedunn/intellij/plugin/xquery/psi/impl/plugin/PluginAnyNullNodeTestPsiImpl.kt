@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNullNodeTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyNullNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class PluginNullNodeTestPsiImpl(node: ASTNode) :
+class PluginAnyNullNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    PluginNullNodeTest,
+    PluginAnyNullNodeTest,
     XQueryConformance {
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
