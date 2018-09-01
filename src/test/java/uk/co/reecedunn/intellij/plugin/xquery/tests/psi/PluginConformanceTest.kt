@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNumberTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNumberNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBooleanConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaFacetTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSimpleTypeTest
@@ -362,13 +362,13 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NumberTest
+    // region NumberNodeTest
 
     @Test
-    fun testNumberTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq")
+    fun testNumberNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/NumberNodeTest.xq")
 
-        val numberTestPsi = file.walkTree().filterIsInstance<PluginNumberTest>().first()
+        val numberTestPsi = file.walkTree().filterIsInstance<PluginNumberNodeTest>().first()
         val conformance = numberTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))

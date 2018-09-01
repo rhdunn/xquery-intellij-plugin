@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:51)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginNumberTestImpl[XQUERY_NUMBER_TEST(24:42)]
+               PluginNumberNodeTestImpl[XQUERY_NUMBER_NODE_TEST(24:42)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(24:35)]('number-node')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(36:41)]

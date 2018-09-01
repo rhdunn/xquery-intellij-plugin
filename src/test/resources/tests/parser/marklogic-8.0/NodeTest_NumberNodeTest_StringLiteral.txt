@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:18)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(0:18)]
-                  PluginNumberTestImpl[XQUERY_NUMBER_TEST(0:18)]
+                  PluginNumberNodeTestImpl[XQUERY_NUMBER_NODE_TEST(0:18)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
                      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:17)]
