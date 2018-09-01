@@ -190,24 +190,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NumberTest
-
-    @Test
-    fun testNumberTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq")
-
-        val numberTestPsi = file.walkTree().filterIsInstance<MarkLogicNumberTest>().first()
-        val conformance = numberTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NUMBER_NODE))
-    }
-
-    // endregion
     // region TextTest
 
     @Test
