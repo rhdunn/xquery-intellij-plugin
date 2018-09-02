@@ -222,9 +222,24 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 
 ## 3 Expressions
 
-| Ref    | Symbol                  |     | Expression                          | Options               |
-|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
 | \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[73\] | `Expr`                  | ::= | `ApplyExpr`                         |           |
+| \[74\] | `ApplyExpr`             | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?` |         |
+| \[75\] | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |           |
+
+The `Expr`, `ApplyExpr` and `ConcatExpr` definitions are identical to the
+W3C Scripting Extension. The XPath grammar has the following modifications:
+
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
+| \[74\] | `ApplyExpr`             | ::= | `ConcatExpr`                        |           |
+
+This is done to keep the XPath and XQuery grammars consistent in the presence
+of the W3C Scripting Extension. It does not alter XPath as multiple
+`ConcatExpr` constructs are not permitted, so it is equivalent to the original
+XPath `Expr` grammar definition.
 
 ### 3.1 Node Constructors
 
@@ -637,6 +652,9 @@ These changes include support for:
 |---------|-------------------------|-----|-------------------------------------|----------------------|
 | \[3\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
 | \[4\]   | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |          |
+| \[73\]  | `Expr`                  | ::= | `ApplyExpr`                         |                     |
+| \[74\]  | `ApplyExpr`             | ::= | `ConcatExpr`                        |                     |
+| \[75\]  | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |                     |
 
 ### A.2 EBNF for XQuery 3.1
 
@@ -733,6 +751,9 @@ These changes include support for:
 | \[70\]   | `AnyTextTest`                  | ::= | `"text" "(" ")"`                          |                 |
 | \[71\]   | `NamedTextTest`                | ::= | `"text" "(" StringLiteral ")"`            |                 |
 | \[72\]   | `DocumentTest`                 | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
+| \[73\]   | `Expr`                         | ::= | `ApplyExpr`                               |                 |
+| \[74\]   | `ApplyExpr`                    | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?`     |                 |
+| \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
 
 ## B References
 
