@@ -62,24 +62,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region MapConstructor
-
-    @Test
-    fun testMapConstructor() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
-
-        val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val versioned = objectConstructorPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_OBJECT_NODE))
-    }
-
-    // endregion
     // region TextTest
 
     @Test

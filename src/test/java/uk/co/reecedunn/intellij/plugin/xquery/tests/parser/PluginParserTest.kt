@@ -935,6 +935,131 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: MapConstructor
+
+    @Test
+    fun testMapConstructor() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMapConstructor_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMapConstructor_MissingClosingBrace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
+    // region MarkLogic 8.0 :: MapConstructorEntry + MapConstructor
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_MissingSeparator() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_MissingValueExpr() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_Multiple() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_Multiple_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_Multiple_MissingEntry() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_NCName() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_NCName_WhitespaceAfterColon() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_NCName_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_QName_KeyExpr() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_QName_ValueExpr() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_QName_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testMarkLogic_MapConstructorEntry_VarRef_NCName() {
+        val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: NamedArrayNodeTest
 
     @Test
@@ -1137,49 +1262,49 @@ private class PluginParserTest : ParserTestCase() {
     // region Saxon 9.4 :: MapConstructorEntry + MapConstructor
 
     @Test
-    fun testMapConstructorEntry() {
+    fun testSaxon_MapConstructorEntry() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testMapConstructorEntry_CompactWhitespace() {
+    fun testSaxon_MapConstructorEntry_CompactWhitespace() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testMapConstructorEntry_MissingSeparator() {
+    fun testSaxon_MapConstructorEntry_MissingSeparator() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testMapConstructorEntry_MissingValueExpr() {
+    fun testSaxon_MapConstructorEntry_MissingValueExpr() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testMapConstructorEntry_Multiple() {
+    fun testSaxon_MapConstructorEntry_Multiple() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testMapConstructorEntry_Multiple_CompactWhitespace() {
+    fun testSaxon_MapConstructorEntry_Multiple_CompactWhitespace() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
-    fun testMapConstructorEntry_Multiple_MissingEntry() {
+    fun testSaxon_MapConstructorEntry_Multiple_MissingEntry() {
         val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.txt")
         val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))

@@ -30,14 +30,23 @@ private class PluginPsiTest : ParserTestCase() {
     // region XPathMapConstructorEntry
 
     @Test
-    fun testMapConstructorEntry() {
+    fun testMarkLogic_MapConstructorEntry() {
+        val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
+
+        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
+
+        assertThat(mapConstructorEntryPsi.separator.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
+    }
+
+    @Test
+    fun testSaxon_MapConstructorEntry() {
         val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
-        assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`(XQueryTokenType.ASSIGN_EQUAL))
+        assertThat(mapConstructorEntryPsi.separator.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
     }
 
     // endregion

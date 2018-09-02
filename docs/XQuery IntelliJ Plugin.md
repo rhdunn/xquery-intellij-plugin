@@ -372,7 +372,11 @@ be determined statically.
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[66\] | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
 | \[17\] | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr`   |         |
+
+MarkLogic 8.0 uses the `object-node` keyword for defining JSON objects, and the
+XQuery 3.1 syntax (`:`) for map entries.
 
 Saxon versions 9.4 to 9.6 used `:=` to separate the key and value in a map entry.
 From 9.7, the XQuery 3.1 syntax (`:`) is used.
@@ -707,6 +711,7 @@ These changes include support for:
 | \[63\]   | `MapNodeTest`                  | ::= | `AnyMapNodeTest \| NamedMapNodeTest`      |                 |
 | \[64\]   | `AnyMapNodeTest`               | ::= | `"object-node" "(" ")"`                   |                 |
 | \[65\]   | `NamedMapNodeTest`             | ::= | `"object-node" "(" StringLiteral ")"`     |                 |
+| \[66\]   | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
 
 ## B References
 
@@ -780,7 +785,7 @@ in this document:
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
-1.  [Map Node Test](#2129-map-node-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps) \[MarkLogic 8.0\] -- JSON support
 1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#315-null-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
