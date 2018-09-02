@@ -6400,9 +6400,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (parseElementTest() ||
-                    parseSchemaElementTest() ||
-                    parseSimpleArrayTest_MarkLogic() != ParseStatus.NOT_MATCHED ||
-                    parseSimpleMapTest_MarkLogic() != ParseStatus.NOT_MATCHED) {
+                parseSchemaElementTest() ||
+                parseAnyArrayNodeTest() != ParseStatus.NOT_MATCHED ||
+                parseAnyMapNodeTest() != ParseStatus.NOT_MATCHED
+            ) {
+                //
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6907,7 +6909,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return status
     }
 
-    private fun parseSimpleArrayTest_MarkLogic(): ParseStatus {
+    private fun parseAnyArrayNodeTest(): ParseStatus {
         return parseArrayNodeTest(true)
     }
 
@@ -6989,7 +6991,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return ParseStatus.NOT_MATCHED
     }
 
-    private fun parseSimpleMapTest_MarkLogic(): ParseStatus {
+    private fun parseAnyMapNodeTest(): ParseStatus {
         return parseMapNodeTest(true)
     }
 

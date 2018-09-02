@@ -952,6 +952,51 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: DocumentTest
+
+    @Test
+    fun testDocumentTest_AnyArrayTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testDocumentTest_AnyArrayTest_Wildcard() {
+        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testDocumentTest_NamedArrayTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testDocumentTest_AnyMapTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testDocumentTest_AnyMapTest_Wildcard() {
+        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest_Wildcard.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_MapTest_Wildcard.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testDocumentTest_NamedMapTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: MapConstructor
 
     @Test

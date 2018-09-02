@@ -96,11 +96,16 @@ not normative.
 | \[69\] | `TextTest`              | ::= | `AnyTextTest \| NamedTextTest`      |         |
 | \[70\] | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
 | \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
+| \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes
 in objects.
 
 MarkLogic 8.0 supports `NamedTextTest` for selecting JSON nodes in objects.
+
+MarkLogic 8.0 supports `document-node(array-node())` for JSON documents with an
+array at the top level, and `document-node(object-node())` for JSON documents
+with an object (map) at the top level.
 
 ### 2.1.2 SequenceType Matching
 
@@ -727,6 +732,7 @@ These changes include support for:
 | \[69\]   | `TextTest`                     | ::= | `AnyTextTest \| NamedTextTest`            |                 |
 | \[70\]   | `AnyTextTest`                  | ::= | `"text" "(" ")"`                          |                 |
 | \[71\]   | `NamedTextTest`                | ::= | `"text" "(" StringLiteral ")"`            |                 |
+| \[72\]   | `DocumentTest`                 | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
 
 ## B References
 
@@ -799,6 +805,7 @@ in this document:
 1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays) \[MarkLogic 8.0\] -- JSON support
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
+1.  [Document Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps) \[MarkLogic 8.0\] -- JSON support
 1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
