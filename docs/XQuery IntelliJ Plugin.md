@@ -45,6 +45,7 @@
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
+  - [A.3 Reserved Function Names](#a3-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
   - [B.2 BaseX References](#b2-basex-references)
@@ -754,6 +755,43 @@ These changes include support for:
 | \[73\]   | `Expr`                         | ::= | `ApplyExpr`                               |                 |
 | \[74\]   | `ApplyExpr`                    | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?`     |                 |
 | \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
+
+## A.3 Reserved Function Names
+
+| keyword                  | XQuery                          |
+|--------------------------|---------------------------------|
+| `array-node`             | MarkLogic 8.0                   |
+| `attribute`              | XQuery 1.0                      |
+| `attribute-decl`         | MarkLogic 7.0                   |
+| `binary`                 | MarkLogic 6.0                   |
+| `boolean-node`           | MarkLogic 8.0                   |
+| `comment`                | XQuery 1.0                      |
+| `complex-type`           | MarkLogic 7.0                   |
+| `document-node`          | XQuery 1.0                      |
+| `element`                | XQuery 1.0                      |
+| `element-decl`           | MarkLogic 7.0                   |
+| `empty-sequence`         | XQuery 1.0                      |
+| `function`               | XQuery 3.0                      |
+| `if`                     | XQuery 1.0                      |
+| `item`                   | XQuery 1.0                      |
+| `namespace-node`         | XQuery 3.0                      |
+| `node`                   | XQuery 1.0                      |
+| `null-node`              | MarkLogic 8.0                   |
+| `number-node`            | MarkLogic 8.0                   |
+| `object-node`            | MarkLogic 8.0                   |
+| `processing-instruction` | XQuery 1.0                      |
+| `schema-attribute`       | XQuery 1.0                      |
+| `schema-component`       | MarkLogic 7.0                   |
+| `schema-element`         | XQuery 1.0                      |
+| `schema-facet`           | MarkLogic 8.0                   |
+| `schema-particle`        | MarkLogic 7.0                   |
+| `schema-root`            | MarkLogic 7.0                   |
+| `schema-type`            | MarkLogic 7.0                   |
+| `simple-type`            | MarkLogic 7.0                   |
+| `switch`                 | XQuery 3.0                      |
+| `text`                   | XQuery 1.0                      |
+| `typeswitch`             | XQuery 1.0                      |
+| `while`                  | XQuery Scripting Extension 1.0  |
 
 ## B References
 
