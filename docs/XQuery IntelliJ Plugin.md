@@ -199,7 +199,9 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[63\]  | `MapNodeTest`           | ::= | `"object-node" "(" StringLiteral ")"` |       |
+| \[63\]  | `MapNodeTest`           | ::= | `AnyMapNodeTest \| NamedMapNodeTest` |        |
+| \[64\]  | `AnyMapNodeTest`        | ::= | `"object-node" "(" ")"`             |         |
+| \[65\]  | `NamedMapNodeTest`      | ::= | `"object-node" "(" StringLiteral ")"` |       |
 
 MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 
@@ -702,7 +704,9 @@ These changes include support for:
 | \[60\]   | `AnyArrayNodeTest`             | ::= | `"array-node" "(" ")"`                    |                 |
 | \[61\]   | `NamedArrayNodeTest`           | ::= | `"array-node" "(" StringLiteral ")"`      |                 |
 | \[62\]   | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |                 |
-| \[63\]   | `MapNodeTest`                  | ::= | `"object-node" "(" StringLiteral ")"`     |                 |
+| \[63\]   | `MapNodeTest`                  | ::= | `AnyMapNodeTest \| NamedMapNodeTest`      |                 |
+| \[64\]   | `AnyMapNodeTest`               | ::= | `"object-node" "(" ")"`                   |                 |
+| \[65\]   | `NamedMapNodeTest`             | ::= | `"object-node" "(" StringLiteral ")"`     |                 |
 
 ## B References
 

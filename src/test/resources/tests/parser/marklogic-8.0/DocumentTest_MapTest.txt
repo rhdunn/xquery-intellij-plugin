@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:70)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                  PluginMapNodeTestImpl[XQUERY_MAP_NODE_TEST(42:57)]
+                  PluginAnyMapNodeTestImpl[XQUERY_ANY_MAP_NODE_TEST(42:57)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(42:53)]('object-node')
                      PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(54:55)]('(')

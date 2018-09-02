@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:47)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginMapNodeTestImpl[XQUERY_MAP_NODE_TEST(24:38)]
+               PluginAnyMapNodeTestImpl[XQUERY_ANY_MAP_NODE_TEST(24:38)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(24:35)]('object-node')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
                   PsiErrorElementImpl[ERROR_ELEMENT(36:37)]('XPST0003: Expected 'StringLiteral' or ')'.')

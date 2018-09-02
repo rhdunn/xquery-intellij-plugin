@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
-
 /**
- * A MarkLogic 8.0 `MapNodeTest` node in the XQuery AST.
- *
- * Because the child nodes of an `MapNodeTest` are only referenced
- * from the `MapNodeTest` node in the grammar, the
- * `MapNodeTest` nodes are stored as instances of the child nodes
- * instead of as distinct nodes themselves.
+ * A MarkLogic 8.0 `AnyMapNodeTest` node in the XQuery AST.
  */
-interface PluginMapNodeTest : XPathKindTest
+interface PluginAnyMapNodeTest : PluginMapNodeTest

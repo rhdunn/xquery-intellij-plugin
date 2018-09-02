@@ -79,6 +79,24 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
+    // region AnyMapNodeTest
+
+    @Test
+    fun testAnyMapNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
+
+        val objectTestPsi = file.walkTree().filterIsInstance<PluginAnyMapNodeTest>().first()
+        val conformance = objectTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_OBJECT_NODE))
+    }
+
+    // endregion
     // region AnyNullNodeTest
 
     @Test
@@ -389,24 +407,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region MapNodeTest
-
-    @Test
-    fun testMapNodeTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapNodeTest.xq")
-
-        val objectTestPsi = file.walkTree().filterIsInstance<PluginMapNodeTest>().first()
-        val conformance = objectTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_OBJECT_NODE))
-    }
-
-    // endregion
     // region NamedArrayNodeTest
 
     @Test
@@ -439,6 +439,24 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+    }
+
+    // endregion
+    // region NamedMapNodeTest
+
+    @Test
+    fun testNamedMapNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest.xq")
+
+        val objectTestPsi = file.walkTree().filterIsInstance<PluginNamedMapNodeTest>().first()
+        val conformance = objectTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
     // endregion
