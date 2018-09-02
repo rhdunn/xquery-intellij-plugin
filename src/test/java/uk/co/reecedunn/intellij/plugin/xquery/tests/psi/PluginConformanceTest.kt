@@ -389,13 +389,13 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region MapTest
+    // region MapNodeTest
 
     @Test
-    fun testMapTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapTest.xq")
+    fun testMapNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/MapNodeTest.xq")
 
-        val objectTestPsi = file.walkTree().filterIsInstance<PluginMapTest>().first()
+        val objectTestPsi = file.walkTree().filterIsInstance<PluginMapNodeTest>().first()
         val conformance = objectTestPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))

@@ -408,7 +408,7 @@ object XQueryElementType {
     val ANY_NUMBER_NODE_TEST: IElementType = ICompositeElementType("XQUERY_ANY_NUMBER_NODE_TEST", PluginAnyNumberNodeTestPsiImpl::class.java, XQuery)
     val NAMED_NUMBER_NODE_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_NUMBER_NODE_TEST", PluginNamedNumberNodeTestPsiImpl::class.java, XQuery)
 
-    val MAP_TEST: IElementType = ICompositeElementType("XQUERY_MAP_TEST", PluginMapTestPsiImpl::class.java, XQuery)
+    val MAP_NODE_TEST: IElementType = ICompositeElementType("XQUERY_MAP_NODE_TEST", PluginMapNodeTestPsiImpl::class.java, XQuery)
 
     // endregion
     // region BaseX
