@@ -394,7 +394,8 @@ object XQueryElementType {
 
     val SCHEMA_FACET_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_FACET_TEST", PluginSchemaFacetTestPsiImpl::class.java, XQuery)
 
-    val ARRAY_NODE_TEST: IElementType = ICompositeElementType("XQUERY_ARRAY_NODE_TEST", PluginArrayNodeTestPsiImpl::class.java, XQuery)
+    val ANY_ARRAY_NODE_TEST: IElementType = ICompositeElementType("XQUERY_ANY_ARRAY_NODE_TEST", PluginAnyArrayNodeTestPsiImpl::class.java, XQuery)
+    val NAMED_ARRAY_NODE_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_ARRAY_NODE_TEST", PluginNamedArrayNodeTestPsiImpl::class.java, XQuery)
 
     val BOOLEAN_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_BOOLEAN_CONSTRUCTOR", PluginBooleanConstructorPsiImpl::class.java, XQuery)
     val ANY_BOOLEAN_NODE_TEST: IElementType = ICompositeElementType("XQUERY_ANY_BOOLEAN_NODE_TEST", PluginAnyBooleanNodeTestPsiImpl::class.java, XQuery)

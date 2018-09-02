@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginArrayNodeTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyArrayNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class PluginArrayNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginArrayNodeTest, XQueryConformance {
+class PluginAnyArrayNodeTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PluginAnyArrayNodeTest,
+    XQueryConformance {
+
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

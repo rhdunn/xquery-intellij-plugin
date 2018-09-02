@@ -6903,7 +6903,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return parseArrayNodeTest(true)
     }
 
-    private fun parseArrayNodeTest(isSimple: Boolean = false): ParseStatus {
+    private fun parseArrayNodeTest(isAnyOnly: Boolean = false): ParseStatus {
         val arrayNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE)
         if (arrayNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
@@ -6914,9 +6914,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return ParseStatus.NOT_MATCHED
             }
 
+            val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (isSimple && getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
+            if (isAnyOnly && getTokenType() !== XQueryTokenType.PARENTHESIS_CLOSE) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
+                type = XQueryElementType.ANY_ARRAY_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
 
                 // array-node() tests in a document-node test do not allow `StringLiteral` or `*`
@@ -6924,9 +6926,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 parseStringLiteral(XQueryElementType.STRING_LITERAL)
                 matchTokenType(XQueryTokenType.STAR)
             } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                //
+                type = XQueryElementType.NAMED_ARRAY_NODE_TEST
             } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+                type = XQueryElementType.ANY_ARRAY_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
+            } else {
+                type = XQueryElementType.ANY_ARRAY_NODE_TEST
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6935,7 +6940,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 status = ParseStatus.MATCHED_WITH_ERRORS
             }
 
-            arrayNodeTestMarker.done(XQueryElementType.ARRAY_NODE_TEST)
+            arrayNodeTestMarker.done(type)
             return status
         }
         return ParseStatus.NOT_MATCHED

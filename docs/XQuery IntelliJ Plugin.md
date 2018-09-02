@@ -186,7 +186,9 @@ MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[59\]  | `ArrayNodeTest`         | ::= | `"array-node" "(" StringLiteral? ")"` |       |
+| \[59\]  | `ArrayNodeTest`         | ::= | `AnyArrayNodeTest | NamedArrayNodeTest` |     |
+| \[60\]  | `AnyArrayNodeTest`      | ::= | `"array-node" "(" ")"`              |         |
+| \[61\]  | `NamedArrayNodeTest`    | ::= | `"array-node" "(" StringLiteral ")"` |        |
 
 MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 
@@ -674,7 +676,9 @@ These changes include support for:
 | \[56\]   | `AnyNullNodeTest`              | ::= | `"null-node" "(" ")"`                     |                 |
 | \[57\]   | `NamedNullNodeTest`            | ::= | `"null-node" "(" StringLiteral ")"`       |                 |
 | \[58\]   | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |                 |
-| \[59\]   | `ArrayNodeTest`                | ::= | `"array-node" "(" StringLiteral? ")"`     |                 |
+| \[59\]   | `ArrayNodeTest`                | ::= | `AnyArrayNodeTest | NamedArrayNodeTest`   |                 |
+| \[60\]   | `AnyArrayNodeTest`             | ::= | `"array-node" "(" ")"`                    |                 |
+| \[61\]   | `NamedArrayNodeTest`           | ::= | `"array-node" "(" StringLiteral ")"`      |                 |
 
 ## B References
 

@@ -43,6 +43,24 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class PluginConformanceTest : ParserTestCase() {
+    // region AnyArrayNodeTest
+
+    @Test
+    fun testAnyArrayNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.xq")
+
+        val arrayTestPsi = file.walkTree().filterIsInstance<PluginAnyArrayNodeTest>().first()
+        val conformance = arrayTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ARRAY_NODE))
+    }
+
+    // endregion
     // region AnyBooleanNodeTest
 
     @Test
@@ -93,24 +111,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_NUMBER_NODE))
-    }
-
-    // endregion
-    // region ArrayNodeTest
-
-    @Test
-    fun testArrayNodeTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/ArrayNodeTest.xq")
-
-        val arrayTestPsi = file.walkTree().filterIsInstance<PluginArrayNodeTest>().first()
-        val conformance = arrayTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion
@@ -367,6 +367,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_FUZZY))
+    }
+
+    // endregion
+    // region NamedArrayNodeTest
+
+    @Test
+    fun testNamedArrayNodeTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")
+
+        val arrayTestPsi = file.walkTree().filterIsInstance<PluginNamedArrayNodeTest>().first()
+        val conformance = arrayTestPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion
