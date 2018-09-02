@@ -13,6 +13,7 @@
       - [2.1.2.6 Number Node Test](#2126-number-node-test)
       - [2.1.2.7 Null Node Test](#2127-null-node-test)
       - [2.1.2.8 Array Node Test](#2128-array-node-test)
+      - [2.1.2.9 Map Test](#2129-map-test)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -89,7 +90,7 @@ not normative.
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
-| \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest` | |
+| \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapTest` | |
 
 ### 2.1.2 SequenceType Matching
 
@@ -193,6 +194,14 @@ MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 | \[61\]  | `NamedArrayNodeTest`    | ::= | `"array-node" "(" StringLiteral ")"` |        |
 
 MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
+
+### 2.1.2.9 Map Test
+
+| Ref     | Symbol                  |     | Expression                          | Options |
+|---------|-------------------------|-----|-------------------------------------|---------|
+| \[63\]  | `MapTest`               | ::= | `"object-node" "(" StringLiteral ")"` |       |
+
+MarkLogic 8.0 provides `MapTest` types for working with JSON objects.
 
 ## 3 Expressions
 
@@ -676,7 +685,7 @@ These changes include support for:
 | \[43\]   | `SchemaTypeTest`               | ::= | `"schema-type" "(" ")"`                   |                 |
 | \[44\]   | `SimpleTypeTest`               | ::= | `"simple-type" "(" ")"`                   |                 |
 | \[45\]   | `SchemaFacetTest`              | ::= | `"schema-facet" "(" ")"`                  |                 |
-| \[46\]   | `JsonKindTest`                 | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest` | |
+| \[46\]   | `JsonKindTest`                 | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapTest` | |
 | \[47\]   | `BooleanNodeTest`              | ::= | `AnyBooleanNodeTest \| NamedBooleanNodeTest` |              |
 | \[48\]   | `AnyBooleanNodeTest`           | ::= | `"boolean-node" "(" ")"`                  |                 |
 | \[49\]   | `NamedBooleanNodeTest`         | ::= | `"boolean-node" "(" StringLiteral ")"`    |                 |
@@ -693,6 +702,7 @@ These changes include support for:
 | \[60\]   | `AnyArrayNodeTest`             | ::= | `"array-node" "(" ")"`                    |                 |
 | \[61\]   | `NamedArrayNodeTest`           | ::= | `"array-node" "(" StringLiteral ")"`      |                 |
 | \[62\]   | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |                 |
+| \[63\]   | `MapTest`                      | ::= | `"object-node" "(" StringLiteral ")"`     |                 |
 
 ## B References
 
@@ -766,6 +776,7 @@ in this document:
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
+1.  [Map Test](#2129-map-test) \[MarkLogic 8.0\] -- JSON support
 1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#315-null-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system

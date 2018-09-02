@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
@@ -409,7 +408,7 @@ object XQueryElementType {
     val ANY_NUMBER_NODE_TEST: IElementType = ICompositeElementType("XQUERY_ANY_NUMBER_NODE_TEST", PluginAnyNumberNodeTestPsiImpl::class.java, XQuery)
     val NAMED_NUMBER_NODE_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_NUMBER_NODE_TEST", PluginNamedNumberNodeTestPsiImpl::class.java, XQuery)
 
-    val MAP_TEST: IElementType = ICompositeElementType("XQUERY_MAP_TEST", MarkLogicMapTestPsiImpl::class.java, XQuery)
+    val MAP_TEST: IElementType = ICompositeElementType("XQUERY_MAP_TEST", PluginMapTestPsiImpl::class.java, XQuery)
 
     // endregion
     // region BaseX

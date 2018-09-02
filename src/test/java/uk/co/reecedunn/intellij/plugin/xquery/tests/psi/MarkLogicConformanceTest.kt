@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginMapTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -77,24 +77,6 @@ private class MarkLogicConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_OBJECT_NODE))
-    }
-
-    // endregion
-    // region MapTest
-
-    @Test
-    fun testMapTest() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapTest.xq")
-
-        val objectTestPsi = file.walkTree().filterIsInstance<MarkLogicMapTest>().first()
-        val conformance = objectTestPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
