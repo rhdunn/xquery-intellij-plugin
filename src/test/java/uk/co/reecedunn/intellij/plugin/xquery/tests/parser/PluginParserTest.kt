@@ -699,20 +699,6 @@ private class PluginParserTest : ParserTestCase() {
     // region MarkLogic 8.0 :: AnyKindTest
 
     @Test
-    fun testAnyKindTest_KeyName() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyKindTest_KeyName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testAnyKindTest_Wildcard() {
         val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.txt")
         val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
@@ -1135,6 +1121,23 @@ private class PluginParserTest : ParserTestCase() {
     fun testNodeTest_NamedBooleanNodeTest() {
         val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.txt")
         val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
+    // region MarkLogic 8.0 :: NamedKindTest
+
+    @Test
+    fun testNamedKindTest() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testNamedKindTest_CompactWhitespace() {
+        val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

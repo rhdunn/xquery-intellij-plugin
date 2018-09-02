@@ -80,21 +80,6 @@ private class PluginConformanceTest : ParserTestCase() {
     // region AnyKindTest
 
     @Test
-    fun testAnyKindTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
-
-        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-            `is`(XQueryElementType.STRING_LITERAL))
-    }
-
-    @Test
     fun testAnyKindTest_Wildcard() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
 
@@ -488,6 +473,24 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+    }
+
+    // endregion
+    // region NamedKindTest
+
+    @Test
+    fun testNamedKindTest_KeyName() {
+        val file = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
+
+        val namedKindTestPsi = file.walkTree().filterIsInstance<PluginNamedKindTest>().first()
+        val versioned = namedKindTestPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+            `is`(XQueryElementType.STRING_LITERAL))
     }
 
     // endregion

@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedKindTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -281,7 +282,7 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testAnyKindTest_MarkLogicJson_KeyName() {
-        val expr = parse<XPathAnyKindTest>("\$x instance of node(\"test\")")[0] as XPathTypeDeclaration
+        val expr = parse<PluginNamedKindTest>("\$x instance of node(\"test\")")[0] as XPathTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
 
         // TODO: Expose the MarkLogic JSON syntax to the XDM data model.

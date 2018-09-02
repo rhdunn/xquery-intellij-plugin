@@ -85,13 +85,16 @@ not normative.
 
 ### 2.1.1 SequenceType Syntax
 
-| Ref    | Symbol                  |     | Expression                          | Options               |
-|--------|-------------------------|-----|-------------------------------------|-----------------------|
+| Ref    | Symbol                  |     | Expression                          | Options |
+|--------|-------------------------|-----|-------------------------------------|---------|
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
+| \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
-| \[67\] | `AnyKindTest`           | ::= | `"node" "(" ("*" \| StringLiteral)? ")"`  |                 |
+| \[67\] | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
+| \[68\] | `NamedKindTest`         | ::= | `"node" "(" StringLiteral ")"`      |         |
+
+MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes.
 
 ### 2.1.2 SequenceType Matching
 
@@ -674,7 +677,7 @@ These changes include support for:
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
-| \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
+| \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
 | \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
@@ -713,7 +716,8 @@ These changes include support for:
 | \[64\]   | `AnyMapNodeTest`               | ::= | `"object-node" "(" ")"`                   |                 |
 | \[65\]   | `NamedMapNodeTest`             | ::= | `"object-node" "(" StringLiteral ")"`     |                 |
 | \[66\]   | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
-| \[67\]   | `AnyKindTest`                  | ::= | `"node" "(" ("*" \| StringLiteral)? ")"`  |                 |
+| \[67\]   | `AnyKindTest`                  | ::= | `"node" "(" ("*")? ")"`                   |                 |
+| \[68\]   | `NamedKindTest`                | ::= | `"node" "(" StringLiteral ")"`            |                 |
 
 ## B References
 

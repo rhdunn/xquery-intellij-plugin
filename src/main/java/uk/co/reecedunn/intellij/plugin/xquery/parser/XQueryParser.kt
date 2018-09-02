@@ -6369,9 +6369,13 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return false
             }
 
+            val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) || matchTokenType(XQueryTokenType.STAR)) { // MarkLogic 8.0
-                //
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // MarkLogic 8.0
+                type = XQueryElementType.NAMED_KIND_TEST
+            } else {
+                matchTokenType(XQueryTokenType.STAR) // MarkLogic 8.0
+                type = XQueryElementType.ANY_KIND_TEST
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6379,7 +6383,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            anyKindTestMarker.done(XQueryElementType.ANY_KIND_TEST)
+            anyKindTestMarker.done(type)
             return true
         }
         return false
