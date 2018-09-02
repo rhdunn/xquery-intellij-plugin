@@ -21,37 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class MarkLogicParserTest : ParserTestCase() {
-    // region MarkLogic 8.0 :: TextTest
-
-    @Test
-    fun testTextTest_KeyName() {
-        val expected = loadResource("tests/parser/marklogic-8.0/TextTest_KeyName.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTextTest_KeyName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/TextTest_KeyName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTextTest_Wildcard() {
-        val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTextTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region MarkLogic 8.0 :: DocumentTest + ArrayTest
 
     @Test

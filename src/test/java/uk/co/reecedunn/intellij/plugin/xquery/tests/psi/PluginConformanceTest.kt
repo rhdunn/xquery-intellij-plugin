@@ -728,6 +728,24 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     // endregion
+    // region TextTest
+
+    @Test
+    fun testTextTest_KeyName() {
+        val file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")
+
+        val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
+        val versioned = textTestPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+            `is`(XQueryElementType.STRING_LITERAL))
+    }
+
+    // endregion
     // region Transactions + TransactionSeparator
 
     @Test

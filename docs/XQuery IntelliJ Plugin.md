@@ -93,6 +93,7 @@ not normative.
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
 | \[67\] | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
 | \[68\] | `NamedKindTest`         | ::= | `"node" "(" StringLiteral ")"`      |         |
+| \[69\] | `TextTest`              | ::= | `"text" "(" ("*" \| StringLiteral)? ")"`  |   |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes.
 
@@ -718,6 +719,7 @@ These changes include support for:
 | \[66\]   | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
 | \[67\]   | `AnyKindTest`                  | ::= | `"node" "(" ("*")? ")"`                   |                 |
 | \[68\]   | `NamedKindTest`                | ::= | `"node" "(" StringLiteral ")"`            |                 |
+| \[69\]   | `TextTest`                     | ::= | `"text" "(" ("*" \| StringLiteral)? ")"`  |                 |
 
 ## B References
 
