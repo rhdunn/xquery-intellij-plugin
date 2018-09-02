@@ -91,6 +91,7 @@ not normative.
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
+| \[67\] | `AnyKindTest`           | ::= | `"node" "(" ("*" \| StringLiteral)? ")"`  |                 |
 
 ### 2.1.2 SequenceType Matching
 
@@ -712,6 +713,7 @@ These changes include support for:
 | \[64\]   | `AnyMapNodeTest`               | ::= | `"object-node" "(" ")"`                   |                 |
 | \[65\]   | `NamedMapNodeTest`             | ::= | `"object-node" "(" StringLiteral ")"`     |                 |
 | \[66\]   | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
+| \[67\]   | `AnyKindTest`                  | ::= | `"node" "(" ("*" \| StringLiteral)? ")"`  |                 |
 
 ## B References
 

@@ -24,10 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
@@ -77,6 +74,39 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+    }
+
+    // endregion
+    // region AnyKindTest
+
+    @Test
+    fun testAnyKindTest_KeyName() {
+        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
+
+        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
+        val versioned = anyKindTestPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+            `is`(XQueryElementType.STRING_LITERAL))
+    }
+
+    @Test
+    fun testAnyKindTest_Wildcard() {
+        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
+
+        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
+        val versioned = anyKindTestPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.STAR))
     }
 
     // endregion

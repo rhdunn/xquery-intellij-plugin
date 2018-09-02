@@ -29,39 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class MarkLogicConformanceTest : ParserTestCase() {
-    // region AnyKindTest
-
-    @Test
-    fun testAnyKindTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq")
-
-        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType.STRING_LITERAL))
-    }
-
-    @Test
-    fun testAnyKindTest_Wildcard() {
-        val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
-
-        val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.STAR))
-    }
-
-    // endregion
     // region TextTest
 
     @Test
