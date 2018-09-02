@@ -36,10 +36,9 @@ detection and error recovery. It supports the following W3C specifications:
 
 It supports the following XQuery syntax extensions:
 
-*  BaseX 7.8 and 8.5 `update` syntax, and Full Text `fuzzy` option;
-*  Saxon 9.4 `map`, and Saxon 9.8 `tuple`, `union`, and `declare type` vendor
-   extensions;
-*  MarkLogic 6.0, 7.0 (schema types) and 8.0 (json types) vendor extensions.
+*  [BaseX](docs/XQuery%20IntelliJ%20Plugin.md#c1-basex-vendor-extensions) 7.8 and 8.5;
+*  [MarkLogic](docs/XQuery%20IntelliJ%20Plugin.md#c2-marklogic-vendor-extensions) 6.0, 7.0, and 8.0;
+*  [Saxon](docs/XQuery%20IntelliJ%20Plugin.md#c3-saxon-vendor-extensions) 9.4, and 9.8.
 
 It has support for xqDoc documentation comments.
 
