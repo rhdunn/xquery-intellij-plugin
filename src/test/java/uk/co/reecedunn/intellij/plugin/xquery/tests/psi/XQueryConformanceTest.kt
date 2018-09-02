@@ -1827,23 +1827,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region TextTest
-
-    @Test
-    fun testTextTest() {
-        val file = parseResource("tests/parser/xquery-1.0/TextTest.xq")
-
-        val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
-        val versioned = textTestPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_TEXT))
-    }
-
-    // endregion
     // region TryClause
 
     @Test

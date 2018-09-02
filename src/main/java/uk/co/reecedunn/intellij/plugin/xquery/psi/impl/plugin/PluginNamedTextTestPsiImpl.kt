@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -21,32 +21,23 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XdmText
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTextTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedTextTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-private val XQUERY10: List<Version> = listOf()
-private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
-
-class XPathTextTestPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathTextTest,
-        XQueryConformance,
-        XPathTypeDeclaration {
+class PluginNamedTextTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PluginNamedTextTest,
+    XQueryConformance,
+    XPathTypeDeclaration {
     // region XQueryConformance
 
-    override val requiresConformance get(): List<Version> {
-        if (conformanceElement === firstChild) {
-            return XQUERY10
-        }
-        return MARKLOGIC80
-    }
+    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryElementType.STRING_LITERAL) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType.STRING_LITERAL)!!
 
     // endregion
     // region XPathTypeDeclaration

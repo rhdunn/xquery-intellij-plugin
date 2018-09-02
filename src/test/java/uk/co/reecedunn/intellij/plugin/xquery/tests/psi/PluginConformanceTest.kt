@@ -732,7 +732,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
     @Test
     fun testTextTest_KeyName() {
-        val file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq")
+        val file = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
 
         val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
         val versioned = textTestPsi as XQueryConformance

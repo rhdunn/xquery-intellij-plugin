@@ -6425,9 +6425,13 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return false
             }
 
+            val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) || errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) { // MarkLogic 8.0
-                //
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                type = XQueryElementType.NAMED_TEXT_TEST
+            } else {
+                type = XQueryElementType.ANY_TEXT_TEST
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6435,7 +6439,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            textTestMarker.done(XQueryElementType.TEXT_TEST)
+            textTestMarker.done(type)
             return true
         }
         return false

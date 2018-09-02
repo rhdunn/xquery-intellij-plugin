@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
+
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTextTest
 
 /**
- * An XPath 2.0 and XQuery 1.0 `TextTest` node in the XQuery AST.
- *
- * Because the child nodes of an `TextTest` are only referenced
- * from the `TextTest` node in the grammar, the
- * `TextTest` nodes are stored as instances of the child nodes
- * instead of as distinct nodes themselves.
+ * A MarkLogic 8.0 `NamedTextTest` node in the XQuery AST.
  */
-interface XPathTextTest : XPathKindTest
+interface PluginNamedTextTest : XPathTextTest

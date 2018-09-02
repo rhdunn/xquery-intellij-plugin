@@ -93,9 +93,14 @@ not normative.
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
 | \[67\] | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
 | \[68\] | `NamedKindTest`         | ::= | `"node" "(" StringLiteral ")"`      |         |
-| \[69\] | `TextTest`              | ::= | `"text" "(" ("*" \| StringLiteral)? ")"`  |   |
+| \[69\] | `TextTest`              | ::= | `AnyTextTest \| NamedTextTest`      |         |
+| \[70\] | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
+| \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 
-MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes.
+MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes
+in objects.
+
+MarkLogic 8.0 supports `NamedTextTest` for selecting JSON nodes in objects.
 
 ### 2.1.2 SequenceType Matching
 
@@ -719,7 +724,9 @@ These changes include support for:
 | \[66\]   | `MapConstructor`               | ::= | `("map" \| "object-node") "{" (MapConstructorEntry ("," MapConstructorEntry)*)? "}"` | |
 | \[67\]   | `AnyKindTest`                  | ::= | `"node" "(" ("*")? ")"`                   |                 |
 | \[68\]   | `NamedKindTest`                | ::= | `"node" "(" StringLiteral ")"`            |                 |
-| \[69\]   | `TextTest`                     | ::= | `"text" "(" ("*" \| StringLiteral)? ")"`  |                 |
+| \[69\]   | `TextTest`                     | ::= | `AnyTextTest \| NamedTextTest`            |                 |
+| \[70\]   | `AnyTextTest`                  | ::= | `"text" "(" ")"`                          |                 |
+| \[71\]   | `NamedTextTest`                | ::= | `"text" "(" StringLiteral ")"`            |                 |
 
 ## B References
 
@@ -794,10 +801,12 @@ in this document:
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps) \[MarkLogic 8.0\] -- JSON support
+1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#315-null-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
+1.  [Text Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Transactions](#44-transactions)
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
