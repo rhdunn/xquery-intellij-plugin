@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
@@ -111,6 +112,24 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
             `is`(XQueryTokenType.K_NUMBER_NODE))
+    }
+
+    // endregion
+    // region ArrayConstructor
+
+    @Test
+    fun testArrayConstructor() {
+        val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
+
+        val arrayConstructorPsi = file.descendants().filterIsInstance<XPathArrayConstructor>().first()
+        val versioned = arrayConstructorPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
     // endregion

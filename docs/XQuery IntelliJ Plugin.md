@@ -25,7 +25,9 @@
     - [3.6.1 Match Options](#361-match-options)
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
   - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
-  - [3.8 Maps](#38-maps)
+  - [3.8 Maps and Arrays](#38-maps-and-arrays)
+    - [3.8.1 Maps](#381-maps)
+    - [3.8.2 Arrays](#382-arrays)
   - [3.9 Path Expressions](#39-path-expressions)
     - [3.9.1 Axes](#391-axes)
   - [3.10 Validate Expressions](#310-validate-expressions)
@@ -353,7 +355,9 @@ This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
 
-### 3.8 Maps
+### 3.8 Maps and Arrays
+
+#### 3.8.1 Maps
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -361,6 +365,15 @@ be determined statically.
 
 Saxon versions 9.4 to 9.6 used `:=` to separate the key and value in a map entry.
 From 9.7, the XQuery 3.1 syntax (`:`) is used.
+
+#### 3.8.2 Arrays
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[62\] | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |         |
+
+MarkLogic 8.0 uses the `array-node` keyword for defining JSON arrays. It does
+not support the square array style constructors.
 
 ### 3.9 Path Expressions
 
@@ -679,6 +692,7 @@ These changes include support for:
 | \[59\]   | `ArrayNodeTest`                | ::= | `AnyArrayNodeTest | NamedArrayNodeTest`   |                 |
 | \[60\]   | `AnyArrayNodeTest`             | ::= | `"array-node" "(" ")"`                    |                 |
 | \[61\]   | `NamedArrayNodeTest`           | ::= | `"array-node" "(" StringLiteral ")"`      |                 |
+| \[62\]   | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |                 |
 
 ## B References
 
@@ -748,7 +762,7 @@ in this document:
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
-1.  [Array Node Test](#2128-array-node-test) \[MarkLogic 8.0\] -- JSON support
+1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays) \[MarkLogic 8.0\] -- JSON support
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
 1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
@@ -763,7 +777,7 @@ in this document:
 ## C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
-1.  [Maps](#38-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
+1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
