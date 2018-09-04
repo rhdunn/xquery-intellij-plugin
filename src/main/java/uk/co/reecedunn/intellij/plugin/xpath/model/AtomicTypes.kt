@@ -31,8 +31,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import java.math.BigDecimal
 import java.math.BigInteger
 
+// region XML Schema 1.1 Part 2 (3.3.3) xs:decimal
+
+interface XsDecimalValue : XsAnyAtomicType {
+    val data: BigDecimal
+}
+
+// endregion
 // region XML Schema 1.1 Part 2 (3.4.13) xs:integer
 
 interface XsIntegerValue : XsAnyAtomicType {

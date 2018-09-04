@@ -102,37 +102,7 @@ object XsDouble : XdmAtomicType(xs("double"), XsAnyAtomicType) {
     }
 }
 
-object XsDecimal : XdmAtomicType(xs("decimal"), XsAnyAtomicType) {
-    // @see https://www.w3.org/TR/xpath-functions/#casting-to-numerics
-    // @see https://www.w3.org/TR/xmlschema11-2/#decimal
-    override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return when (type) {
-            XsDecimal -> XdmTypeCastResult(value, type)
-            XsInteger -> XdmTypeCastResult(BigDecimal(value as BigInteger), XsDecimal)
-            XsDouble, XsFloat -> {
-                val v = if (type == XsDouble) value as Double else (value as Float).toDouble()
-                if (v.isInfinite() || v.isNaN())
-                    createCastError(FOCA0002, "fnerror.FORG0001.lexical-representation", this)
-                else
-                    XdmTypeCastResult(BigDecimal(v), XsDecimal)
-            }
-            XsBoolean ->
-                XdmTypeCastResult(if (value as Boolean) BigDecimal.ONE else BigDecimal.ZERO, XsDecimal)
-            XsString, XsUntypedAtomic -> {
-                val v = value as String
-                try {
-                    if (v.contains('e', true)) // XQuery/XMLSchema don't support exponential xs:decimals.
-                        createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
-                    else
-                        XdmTypeCastResult(BigDecimal(v), XsDecimal)
-                } catch (e: NumberFormatException) {
-                    createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
-                }
-            }
-            else -> createCastError(XPTY0004, "fnerror.XPTY0004.incompatible-types", type, this)
-        }
-    }
-}
+val XsDecimal = XdmAtomicType(xs("decimal"), XsAnyAtomicType)
 
 val XsInteger = XdmAtomicType(xs("integer"), XsDecimal)
 

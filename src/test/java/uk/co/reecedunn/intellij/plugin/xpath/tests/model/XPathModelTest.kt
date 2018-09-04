@@ -62,20 +62,6 @@ private class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region DecimalLiteral (XdmStaticValue)
-
-    @Test
-    fun testDecimalLiteral() {
-        val literal = parse<XPathDecimalLiteral>("12.34")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as BigDecimal, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
-        assertThat(literal.staticType, `is`(XsDecimal))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region DoubleLiteral (XdmStaticValue)
 
     @Test

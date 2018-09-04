@@ -17,26 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
-import uk.co.reecedunn.intellij.plugin.xdm.XsDecimal
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntypedAtomic
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimalValue
+import java.math.BigDecimal
 
-class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence):
-        LeafPsiElement(type, text),
-        XPathDecimalLiteral,
-        XdmStaticValue {
+class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence) :
+    LeafPsiElement(type, text),
+    XPathDecimalLiteral,
+    XsDecimalValue {
 
-    private val literal = CacheableProperty { XsDecimal.cast(text, XsUntypedAtomic) `is` Cacheable }
-
-    override val staticValue get(): Any? = literal.get()!!.value
-
-    override val staticType: XdmSequenceType = literal.get()!!.type
-
-    override val cacheable: CachingBehaviour = literal.cachingBehaviour
+    override val data: BigDecimal get() = text.toBigDecimal()
 }
