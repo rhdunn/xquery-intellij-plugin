@@ -21,8 +21,10 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimalValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDoubleValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsIntegerValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toInt
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -48,6 +50,13 @@ private class XPathPsiTest : ParserTestCase() {
         fun decimalLiteral() {
             val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
             assertThat(literal.data, CoreMatchers.`is`(BigDecimal(BigInteger.valueOf(1234), 2)))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 (115) DoubleLiteral")
+        fun doubleLiteral() {
+            val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
+            assertThat(literal.data, CoreMatchers.`is`(1e3))
         }
     }
 }

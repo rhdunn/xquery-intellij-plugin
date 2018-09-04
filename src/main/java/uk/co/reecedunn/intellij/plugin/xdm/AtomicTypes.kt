@@ -74,33 +74,7 @@ object XsFloat : XdmAtomicType(xs("float"), XsAnyAtomicType) {
     }
 }
 
-object XsDouble : XdmAtomicType(xs("double"), XsAnyAtomicType) {
-    // @see https://www.w3.org/TR/xpath-functions/#casting-to-numerics
-    // @see https://www.w3.org/TR/xmlschema11-2/#double
-    override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return when (type) {
-            XsDouble -> XdmTypeCastResult(value, type)
-            XsFloat -> XdmTypeCastResult((value as Float).toDouble(), XsDouble)
-            XsDecimal, XsInteger -> XdmTypeCastResult(value.toString().toDouble(), XsDouble)
-            XsBoolean -> XdmTypeCastResult(if (value as Boolean) 1.0 else 0.0, XsDouble)
-            XsString, XsUntypedAtomic -> {
-                val v = value as String
-                when (v) {
-                    // NOTE: `[+-]INF` results in NumberFormatException errors in `toDouble`.
-                    "-INF" -> XdmTypeCastResult(Double.NEGATIVE_INFINITY, XsDouble)
-                    "+INF", "INF" -> XdmTypeCastResult(Double.POSITIVE_INFINITY, XsDouble)
-                    else ->
-                        try {
-                            XdmTypeCastResult(v.toDouble(), XsDouble)
-                        } catch (e: NumberFormatException) {
-                            createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
-                        }
-                }
-            }
-            else -> createCastError(XPTY0004, "fnerror.XPTY0004.incompatible-types", type, this)
-        }
-    }
-}
+val XsDouble = XdmAtomicType(xs("double"), XsAnyAtomicType)
 
 val XsDecimal = XdmAtomicType(xs("decimal"), XsAnyAtomicType)
 

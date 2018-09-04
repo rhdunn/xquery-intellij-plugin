@@ -41,6 +41,13 @@ interface XsDecimalValue : XsAnyAtomicType {
 }
 
 // endregion
+// region XML Schema 1.1 Part 2 (3.3.5) xs:double
+
+interface XsDoubleValue : XsAnyAtomicType {
+    val data: Double
+}
+
+// endregion
 // region XML Schema 1.1 Part 2 (3.4.13) xs:integer
 
 interface XsIntegerValue : XsAnyAtomicType {

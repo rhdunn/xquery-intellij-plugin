@@ -62,20 +62,6 @@ private class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region DoubleLiteral (XdmStaticValue)
-
-    @Test
-    fun testDoubleLiteral() {
-        val literal = parse<XPathDoubleLiteral>("1e3")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as Double, `is`(1e3))
-        assertThat(literal.staticType, `is`(XsDouble))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region StringLiteral (XdmStaticValue)
 
     @Test
