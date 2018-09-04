@@ -63,32 +63,6 @@ private class XQueryModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringLiteral (XdmStaticValue)
-
-    @Test
-    fun testStringLiteral_PredefinedEntityReference() {
-        // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-        val literal = parse<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
-        assertThat(literal.staticType, `is`(XsString))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testStringLiteral_CharRef() {
-        val literal = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("\u00A0\u00A0\u0020"))
-        assertThat(literal.staticType, `is`(XsString))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region UriLiteral (XdmStaticValue)
 
     @Test

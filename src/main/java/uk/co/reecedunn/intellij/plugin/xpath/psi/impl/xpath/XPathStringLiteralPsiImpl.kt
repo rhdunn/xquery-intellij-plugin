@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,38 +27,44 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-open class XPathStringLiteralPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathStringLiteral,
-        XdmStaticValue {
+open class XPathStringLiteralPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathStringLiteral,
+    XdmStaticValue,
+    XsStringValue {
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedLexicalRepresentation.invalidate()
+        cachedContent.invalidate()
     }
 
     override val staticType: XdmSequenceType = XsString
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val staticValue get(): Any? = cachedLexicalRepresentation.get()!!
+    override val staticValue get(): Any? = data
 
-    private val cachedLexicalRepresentation = CacheableProperty {
-        children().map { child -> when (child.node.elementType) {
-            XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
-                null
-            XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
-                (child as XQueryPredefinedEntityRef).entityRef.value
-            XQueryTokenType.CHARACTER_REFERENCE ->
-                (child as XQueryCharRef).codepoint.toString()
-            XQueryTokenType.ESCAPED_CHARACTER ->
-                (child as XPathEscapeCharacter).unescapedValue
-            else ->
-                child.text
-        }}.filterNotNull().joinToString(separator = "") `is` Cacheable
+    override val data: String get() = cachedContent.get()!!
+
+    private val cachedContent = CacheableProperty {
+        children().map { child ->
+            when (child.node.elementType) {
+                XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
+                    null
+                XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
+                    (child as XQueryPredefinedEntityRef).entityRef.value
+                XQueryTokenType.CHARACTER_REFERENCE ->
+                    (child as XQueryCharRef).codepoint.toString()
+                XQueryTokenType.ESCAPED_CHARACTER ->
+                    (child as XPathEscapeCharacter).unescapedValue
+                else ->
+                    child.text
+            }
+        }.filterNotNull().joinToString(separator = "") `is` Cacheable
     }
 }

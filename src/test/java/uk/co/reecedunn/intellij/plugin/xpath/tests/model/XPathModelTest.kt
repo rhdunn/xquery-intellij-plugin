@@ -62,53 +62,6 @@ private class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringLiteral (XdmStaticValue)
-
-    @Test
-    fun testStringLiteral() {
-        val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-        assertThat(literal.staticType, `is`(XsString))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testStringLiteral_Unclosed() {
-        val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("Lorem ipsum."))
-        assertThat(literal.staticType, `is`(XsString))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testStringLiteral_EscapeApos() {
-        val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("'\"\""))
-        assertThat(literal.staticType, `is`(XsString))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testStringLiteral_EscapeQuot() {
-        val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("''\""))
-        assertThat(literal.staticType, `is`(XsString))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // endregion
     // region Lexical and Expanded QNames
     // region NCName (XdmStaticValue)
