@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -37,6 +38,75 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1")
 private class XQueryPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery 3.1 (2) Basics")
+    internal inner class Basics {
+        @Nested
+        @DisplayName("XQuery 3.1 (217) URILiteral")
+        internal inner class URILiteral {
+            @Test
+            @DisplayName("uri literal content")
+            fun uriLiteral() {
+                val psi = parse<XQueryUriLiteral>("module namespace test = \"Lorem ipsum.\uFFFF\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+            }
+
+            @Test
+            @DisplayName("unclosed uri literal content")
+            fun unclosedUriLiteral() {
+                val psi = parse<XQueryUriLiteral>("module namespace test = \"Lorem ipsum.")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("Lorem ipsum."))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val psi = parse<XQueryUriLiteral>("module namespace test = '''\"\"'")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("'\"\""))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val psi = parse<XQueryUriLiteral>("module namespace test = \"''\"\"\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("''\""))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+                val psi = parse<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val psi = parse<XQueryUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+            }
+        }
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 (3.1.1) Literals")
     internal inner class Literals {

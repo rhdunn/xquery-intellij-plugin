@@ -51,7 +51,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode) :
 
     override val value: XsAnyAtomicType get() = uk.co.reecedunn.intellij.plugin.xpath.model.XsString(cachedContent.get()!!)
 
-    private val cachedContent = CacheableProperty {
+    protected val cachedContent = CacheableProperty {
         children().map { child ->
             when (child.node.elementType) {
                 XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference
@@ -65,4 +66,6 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), X
     }
 
     override val staticType get(): XdmSequenceType = XsAnyURI
+
+    override val value: XsAnyAtomicType get() = uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri(cachedContent.get()!!)
 }

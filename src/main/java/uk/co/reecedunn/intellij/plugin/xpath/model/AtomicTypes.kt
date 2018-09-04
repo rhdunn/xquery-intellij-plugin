@@ -57,6 +57,15 @@ interface XsDoubleValue : XsAnyAtomicType {
 }
 
 // endregion
+// region XML Schema 1.1 Part 2 (3.3.17) xs:anyURI
+
+interface XsAnyUriValue : XsAnyAtomicType {
+    val data: String
+}
+
+data class XsAnyUri(override val data: String) : XsAnyUriValue
+
+// endregion
 // region XML Schema 1.1 Part 2 (3.4.13) xs:integer
 
 interface XsIntegerValue : XsAnyAtomicType {
