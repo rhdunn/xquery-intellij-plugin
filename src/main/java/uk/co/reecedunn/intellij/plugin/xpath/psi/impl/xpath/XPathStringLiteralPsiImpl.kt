@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
@@ -35,8 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 open class XPathStringLiteralPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathStringLiteral,
-    XdmStaticValue,
-    XsStringValue {
+    XdmStaticValue {
 
     override fun subtreeChanged() {
         super.subtreeChanged()
@@ -47,9 +47,9 @@ open class XPathStringLiteralPsiImpl(node: ASTNode) :
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val staticValue get(): Any? = data
+    override val staticValue get(): Any? = cachedContent.get()!!
 
-    override val data: String get() = cachedContent.get()!!
+    override val value: XsAnyAtomicType get() = uk.co.reecedunn.intellij.plugin.xpath.model.XsString(cachedContent.get()!!)
 
     private val cachedContent = CacheableProperty {
         children().map { child ->

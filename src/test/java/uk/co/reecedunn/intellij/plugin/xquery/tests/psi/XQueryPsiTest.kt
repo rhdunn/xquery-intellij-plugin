@@ -47,14 +47,20 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val literal = parse<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XsStringValue
+                val psi = parse<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
             }
 
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val literal = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0] as XsStringValue
+                val psi = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
             }
         }

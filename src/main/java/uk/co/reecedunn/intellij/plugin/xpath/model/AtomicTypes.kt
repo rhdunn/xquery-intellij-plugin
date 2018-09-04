@@ -40,6 +40,8 @@ interface XsStringValue : XsAnyAtomicType {
     val data: String
 }
 
+data class XsString(override val data: String) : XsStringValue
+
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.3) xs:decimal
 
