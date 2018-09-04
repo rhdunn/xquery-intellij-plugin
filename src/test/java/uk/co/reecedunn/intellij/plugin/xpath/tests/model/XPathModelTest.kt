@@ -90,21 +90,6 @@ private class XPathModelTest : ParserTestCase() {
     }
 
     // endregion
-    // region IntegerLiteral (XdmStaticValue)
-
-    @Test
-    fun testIntegerLiteral() {
-        val literal = parse<XPathIntegerLiteral>("123")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as BigInteger, `is`(BigInteger.valueOf(123)))
-        assertThat(literal.staticType, `is`(XsInteger))
-        assertThat(literal.toInt(), `is`(123))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region StringLiteral (XdmStaticValue)
 
     @Test

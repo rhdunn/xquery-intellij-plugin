@@ -25,7 +25,3 @@ interface XdmStaticValue {
 
     val staticValue: Any?
 }
-
-fun XdmStaticValue.toInt(): Int {
-    return (staticValue as BigInteger).toInt()
-}
