@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
-import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -50,6 +48,28 @@ private class XPathPsiTest : ParserTestCase() {
             fun unclosedBracedUriLiteral() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (121) NCName")
+        internal inner class NCName {
+            @Test
+            fun identifier() {
+                val qname = parse<XPathNCName>("test")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+            }
+
+            @Test
+            fun keyword() {
+                val qname = parse<XPathNCName>("order")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("order"))
             }
         }
 

@@ -66,6 +66,16 @@ interface XsAnyUriValue : XsAnyAtomicType {
 data class XsAnyUri(override val data: String) : XsAnyUriValue
 
 // endregion
+// region XML Schema 1.1 Part 2 (3.3.18) xs:QName
+
+interface XsQNameValue : XsAnyAtomicType {
+    val namespace: XsAnyUriValue?
+    val prefix: XsNCNameValue?
+    val localName: XsNCNameValue?
+    val isLexicalQName: Boolean
+}
+
+// endregion
 // region XML Schema 1.1 Part 2 (3.4.1) xs:normalizedString
 
 interface XsNormalizedStringValue : XsStringValue

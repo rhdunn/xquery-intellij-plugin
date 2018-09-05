@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -123,6 +124,19 @@ private class XQueryPsiTest : ParserTestCase() {
             fun charRef() {
                 val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 (235) NCName")
+        internal inner class NCName {
+            @Test
+            fun wildcard() {
+                val qname = parse<XPathNCName>("declare option * \"\";")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName, `is`(nullValue()))
             }
         }
     }

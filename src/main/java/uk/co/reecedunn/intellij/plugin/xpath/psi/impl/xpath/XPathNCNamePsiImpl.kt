@@ -27,8 +27,27 @@ import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
-open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, XdmStaticValue, PsiNameIdentifierOwner {
+open class XPathNCNamePsiImpl(node: ASTNode) :
+    XPathEQNamePsiImpl(node),
+    XPathNCName,
+    XdmStaticValue,
+    XsQNameValue,
+    PsiNameIdentifierOwner {
+    // region XsQNameValue
+
+    override val namespace: XsAnyUriValue? = null
+
+    override val prefix: XsNCNameValue? = null
+
+    override val localName get(): XsNCNameValue? = firstChild as? XsNCNameValue
+
+    override val isLexicalQName: Boolean = true
+
+    // endregion
     // region XdmStaticValue
 
     // This QName is expanded independently of its declaration, so does not rely

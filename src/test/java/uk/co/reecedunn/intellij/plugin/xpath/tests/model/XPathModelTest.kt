@@ -37,63 +37,6 @@ import java.math.BigInteger
 @Suppress("UNCHECKED_CAST")
 private class XPathModelTest : ParserTestCase() {
     // region Lexical and Expanded QNames
-    // region NCName (XdmStaticValue)
-
-    @Test
-    fun testNCName() {
-        val expr = parse<XPathNCName>("test")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName))
-
-        val qname = expr.staticValue as QName
-        assertThat(qname.isLexicalQName, `is`(true))
-        assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(expr))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("test"))
-
-        assertThat(qname.toString(), `is`("test"))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testNCName_Keyword() {
-        val expr = parse<XPathNCName>("option")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(expr.staticValue, `is`(instanceOf(QName::class.java)))
-        assertThat(expr.staticType, `is`(XsQName))
-
-        val qname = expr.staticValue as QName
-        assertThat(qname.isLexicalQName, `is`(true))
-        assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(expr))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("option"))
-
-        assertThat(qname.toString(), `is`("option"))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testNCName_Wildcard() {
-        val expr = parse<XPathNCName>("declare option * \"\";")[0] as XdmStaticValue
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(expr.staticValue, `is`(nullValue()))
-        assertThat(expr.staticType, `is`(XsUntyped))
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region QName (XdmStaticValue)
 
     @Test
