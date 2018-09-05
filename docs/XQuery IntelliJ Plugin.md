@@ -253,20 +253,42 @@ item
 
 <pre><code>
 xs:anyType
-├──── <em>complex types</em>
+├──── xdm:anyComplexType
 │    ├──── xs:untyped
 │    └──── <em>user-defined complex types</em>
 └──── xs:anySimpleType
      ├──── xs:anyAtomicType ────────────────────────────── See Part 3
-     ├──── <em>list types</em>
+     ├──── xdm:anyListType
      │    ├──── xs:IDREFS
      │    ├──── xs:NMTOKENS
      │    ├──── xs:ENTITIES
      │    └──── <em>user-defined list types</em>
-     └──── <em>union types</em>
+     └──── xdm:anyUnionType
           ├──── xs:numeric
           └──── <em>user-defined union types</em>
 </code></pre>
+
+The data model defines three additional simple and complex types:
+`xdm:anyComplexType`, `xdm:anyListType`, and `xdm:anyUnionType`. These types
+are defined in an XQuery IntelliJ Plugin specific namespace.
+
+__xdm:anyComplexType__
+> The datatype __xdm:anyComplexType__ is a complex type that includes all
+> complex types (and no values that are not complex). Its base type is
+> `xs:anyType` from which all schema types, including simple, and complex
+> types are derived.
+
+__xdm:anyListType__
+> The datatype __xdm:anyListType__ is a list type that includes all
+> list types (and no values that are not lists). Its base type is
+> `xs:anySimpleType` from which all simple types, including atomic, list,
+> and union types are derived.
+
+__xdm:anyUnionType__
+> The datatype __xdm:anyUnionType__ is a union type that includes all
+> union types (and no values that are not unions). Its base type is
+> `xs:anySimpleType` from which all simple types, including atomic, list,
+> and union types are derived.
 
 #### 2.2.3 Type System Part 3: Atomic Types
 
