@@ -36,33 +36,6 @@ import java.math.BigInteger
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("UNCHECKED_CAST")
 private class XPathModelTest : ParserTestCase() {
-    // region Lexical Values
-    // region BracedUriLiteral (XdmStaticValue)
-
-    @Test
-    fun testBracedUriLiteral() {
-        val literal = parse<XPathBracedURILiteral>("Q{http://www.example.com\uFFFF}")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("http://www.example.com\uFFFF"))
-        assertThat(literal.staticType, `is`(XsAnyURI))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testBracedUriLiteral_Unclosed() {
-        val literal = parse<XPathBracedURILiteral>("Q{http://www.example.com")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("http://www.example.com"))
-        assertThat(literal.staticType, `is`(XsAnyURI))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
-    // endregion
     // region Lexical and Expanded QNames
     // region NCName (XdmStaticValue)
 

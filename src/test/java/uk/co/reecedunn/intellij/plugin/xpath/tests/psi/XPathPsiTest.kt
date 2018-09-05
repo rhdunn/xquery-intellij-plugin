@@ -22,10 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
@@ -34,6 +31,28 @@ import java.math.BigInteger
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1")
 private class XPathPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XPath 3.1 (2) Basics")
+    internal inner class Basics {
+        @Nested
+        @DisplayName("XPath 3.1 (118) BracedURILiteral")
+        internal inner class BracedURILiteral {
+            @Test
+            @DisplayName("braced uri literal content")
+            fun bracedUriLiteral() {
+                val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+            }
+
+            @Test
+            @DisplayName("unclosed braced uri literal content")
+            fun unclosedBracedUriLiteral() {
+                val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("Lorem ipsum."))
+            }
+        }
+    }
+
     @Nested
     @DisplayName("XPath 3.1 (3.1.1) Literals")
     internal inner class Literals {

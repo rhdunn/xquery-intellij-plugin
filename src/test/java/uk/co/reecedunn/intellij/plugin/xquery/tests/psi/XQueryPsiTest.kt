@@ -105,6 +105,25 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 (224) BracedURILiteral")
+        internal inner class BracedURILiteral {
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+                val literal = parse<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+            }
+        }
     }
 
     @Nested

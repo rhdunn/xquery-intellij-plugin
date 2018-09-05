@@ -37,32 +37,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class XQueryModelTest : ParserTestCase() {
     // region Lexical Values
-    // region BracedUriLiteral (XdmStaticValue)
-
-    @Test
-    fun testBracedUriLiteral_PredefinedEntityReference() {
-        // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-        val literal = parse<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("<áā\uD835\uDD04≪̸&;&gt"))
-        assertThat(literal.staticType, `is`(XsAnyURI))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testBracedUriLiteral_CharRef() {
-        val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XdmStaticValue
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-
-        assertThat(literal.staticValue as String, `is`("\u00A0\u00A0\u0020"))
-        assertThat(literal.staticType, `is`(XsAnyURI))
-
-        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
     // region DirAttributeValue (XdmStaticValue)
 
     @Test
