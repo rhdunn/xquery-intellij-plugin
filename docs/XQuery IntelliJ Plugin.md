@@ -14,6 +14,10 @@
       - [2.1.2.7 Null Node Test](#2127-null-node-test)
       - [2.1.2.8 Array Node Test](#2128-array-node-test)
       - [2.1.2.9 Map Node Test](#2129-map-node-test)
+  - [2.2 Schema Information](#22-schema-information)
+    - [2.2.1 Type System Part 1: Items](#221-type-system-part-1-items)
+    - [2.2.2 Type System Part 2: Simple and Complex Types](#222-type-system-part-2-simple-and-complex-types)
+    - [2.2.3 Type System Part 3: Atomic Types](#223-type-system-part-3-atomic-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -221,6 +225,107 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 | \[65\]  | `NamedMapNodeTest`      | ::= | `"object-node" "(" StringLiteral ")"` |       |
 
 MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
+
+### 2.2 Schema Information
+
+#### 2.2.1 Type System Part 1: Items
+
+<pre><code>
+item
+├──── node
+│    ├──── attribute
+│    │    └──── <em>user-defined attribute types</em>
+│    ├──── document
+│    │    └──── <em>document types with more precise content type</em>
+│    ├──── element
+│    │    └──── <em>user-defined element types</em>
+│    ├──── comment
+│    ├──── namespace
+│    ├──── processing-instruction
+│    └──── text
+├──── function(*)
+│    ├──── map(*)
+│    └──── array(*)
+└──── xs:anyAtomicType ─────────────────────────────────── See Part 3
+</code></pre>
+
+#### 2.2.2 Type System Part 2: Simple and Complex Types
+
+<pre><code>
+xs:anyType
+├──── <em>complex types</em>
+│    ├──── xs:untyped
+│    └──── <em>user-defined complex types</em>
+└──── xs:anySimpleType
+     ├──── xs:anyAtomicType ────────────────────────────── See Part 3
+     ├──── <em>list types</em>
+     │    ├──── xs:IDREFS
+     │    ├──── xs:NMTOKENS
+     │    ├──── xs:ENTITIES
+     │    └──── <em>user-defined list types</em>
+     └──── <em>union types</em>
+          ├──── xs:numeric
+          └──── <em>user-defined union types</em>
+</code></pre>
+
+#### 2.2.3 Type System Part 3: Atomic Types
+
+<pre><code>
+xs:anyAtomicType<sup>1</sup>
+├──── xs:anyURI
+├──── xs:base64Binary
+├──── xs:boolean
+├──── xs:date
+├──── xs:dateTime
+│    └──── xs:dateTimeStamp<sup>2</sup>
+├──── xs:decimal
+│    └──── xs:integer
+│         ├──── xs:long
+│         │    └──── xs:int
+│         │         └──── xs:short
+│         │              └──── xs:byte
+│         ├──── xs:nonNegativeInteger
+│         │    ├──── xs:positiveInteger
+│         │    └──── xs:unsignedLong
+│         │         └──── xs:unsignedInt
+│         │              └──── xs:unsignedShort
+│         │                   └──── xs:unsignedByte
+│         └──── xs:nonPositiveInteger
+│              └──── xs:negativeInteger
+├──── xs:double
+├──── xs:duration
+│    ├──── xs:dayTimeDuration<sup>1</sup>
+│    └──── xs:yearMonthDuration<sup>1</sup>
+├──── xs:float
+├──── xs:gDay
+├──── xs:gMonth
+├──── xs:gMonthDay
+├──── xs:gYear
+├──── xs:gYearMonth
+├──── xs:hexBinary
+├──── xs:NOTATION
+├──── xs:QName
+├──── xs:string
+│    └──── xs:normalizedString
+│         ├──── xs:token
+│         │    ├──── xs:language
+│         │    └──── xs:Name
+│         │         └──── xs:NCName
+│         │              ├──── xs:ENTITY
+│         │              ├──── xs:ID
+│         │              └──── xs:IDREF
+│         └──── xs:NMTOKEN
+├──── xs:time
+└──── xs:untypedAtomic
+</code></pre>
+
+1.  `xs:anyAtomicType`, `xs:yearMonthDuration`, and `xs:dayTimeDuration` are
+    defined in XML Schema 1.1 Part 2, and in XQuery and XPath 3.1 Data Model.
+    Support for these types is available on any conforming implementation.
+
+1.  `xs:dateTimeStamp` is defined in XML Schema 1.1 Part 2, but not in XQuery
+    and XPath 3.1 Data Model. Support for this type is dependent on whether the
+    implementation supports XML Schema 1.1.
 
 ## 3 Expressions
 
