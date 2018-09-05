@@ -1,4 +1,4 @@
-# XPath and XQuery Grammar
+# XQuery IntelliJ Plugin
 
 - [1 Introduction](#1-introduction)
 - [2 Basics](#2-basics)
@@ -81,10 +81,11 @@ not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
 *  `error = http://marklogic.com/xdmp/error`
+*  `xdm = http://reecedunn.co.uk/xquery-datamodel`
 
-## 2.1 Types
+### 2.1 Types
 
-### 2.1.1 SequenceType Syntax
+#### 2.1.1 SequenceType Syntax
 
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
@@ -108,9 +109,9 @@ MarkLogic 8.0 supports `document-node(array-node())` for JSON documents with an
 array at the top level, and `document-node(object-node())` for JSON documents
 with an object (map) at the top level.
 
-### 2.1.2 SequenceType Matching
+#### 2.1.2 SequenceType Matching
 
-#### 2.1.2.1 Union Type
+##### 2.1.2.1 Union Type
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
@@ -126,7 +127,7 @@ For example, `xs:numeric` can be defined as:
 
     declare type xs:numeric = union(xs:float, xs:double, xs:decimal);
 
-#### 2.1.2.2 Tuple Type
+##### 2.1.2.2 Tuple Type
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
@@ -135,7 +136,7 @@ For example, `xs:numeric` can be defined as:
 
 The `TupleType` is a new sequence type supported by Saxon 9.8.
 
-#### 2.1.2.3 Binary Test
+##### 2.1.2.3 Binary Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -150,7 +151,7 @@ object.
 > `xs:base64Binary`. They need to be wrapped in a binary node constructor
 > as a type convertible to `xs:hexBinary`.
 
-#### 2.1.2.4 Schema Kind Tests
+##### 2.1.2.4 Schema Kind Tests
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -169,7 +170,7 @@ MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema define
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
 support for `SchemaFacetTest`.
 
-#### 2.1.2.5 Boolean Node Test
+##### 2.1.2.5 Boolean Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -180,7 +181,7 @@ support for `SchemaFacetTest`.
 MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
 and `false`) JSON values.
 
-#### 2.1.2.6 Number Node Test
+##### 2.1.2.6 Number Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -191,7 +192,7 @@ and `false`) JSON values.
 MarkLogic 8.0 provides `NumberNodeTest` types for working with numeric JSON
 values.
 
-#### 2.1.2.7 Null Node Test
+##### 2.1.2.7 Null Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -201,7 +202,7 @@ values.
 
 MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 
-### 2.1.2.8 Array Node Test
+##### 2.1.2.8 Array Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -211,7 +212,7 @@ MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 
 MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 
-### 2.1.2.9 Map Node Test
+##### 2.1.2.9 Map Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -756,7 +757,7 @@ These changes include support for:
 | \[74\]   | `ApplyExpr`                    | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?`     |                 |
 | \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
 
-## A.3 Reserved Function Names
+### A.3 Reserved Function Names
 
 | keyword                  | XQuery                          |
 |--------------------------|---------------------------------|
@@ -857,7 +858,7 @@ in this document:
 1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 
-## C.2 MarkLogic Vendor Extensions
+### C.2 MarkLogic Vendor Extensions
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
@@ -877,7 +878,7 @@ in this document:
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
 
-## C.3 Saxon Vendor Extensions
+### C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
