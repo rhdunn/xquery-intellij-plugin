@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
@@ -31,8 +32,10 @@ class XQueryModuleImportPsiImpl(node: ASTNode):
         XPathNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
-    override val namespacePrefix get(): XdmStaticValue? =
-        children().filterIsInstance<XPathNCName>().firstOrNull()?.localName as? XdmStaticValue
+    override val namespacePrefix get(): XdmStaticValue? {
+        val qname = (children().filterIsInstance<XPathNCName>().firstOrNull() as? XdmStaticValue)?.staticValue as? QName
+        return qname?.localName
+    }
 
     override val namespaceUri get(): XdmStaticValue? =
         children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmStaticValue

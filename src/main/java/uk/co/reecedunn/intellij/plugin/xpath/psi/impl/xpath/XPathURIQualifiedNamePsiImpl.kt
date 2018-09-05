@@ -43,10 +43,6 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
         PsiNameIdentifierOwner {
     // region XPathEQName
 
-    override val localName get(): PsiElement? {
-        return children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
-    }
-
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         return emptySequence()
     }

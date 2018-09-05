@@ -36,7 +36,9 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             return false
         }
 
-        if (localName?.text?.equals(other.localName?.text) == true) {
+        val lhsLocalName = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
+        val rhsLocalName = ((other as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
+        if (lhsLocalName?.text?.equals(rhsLocalName?.text) == true) {
             val lhsPrefix = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
             val rhsPrefix = ((other as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
             return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.text?.equals(rhsPrefix?.text) == true
@@ -51,7 +53,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
 
     override fun getReferences(): Array<PsiReference> {
         val eqnameStart = node.startOffset
-        val localName = localName
+        val localName = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
         val localNameRef: PsiReference? =
             if (localName != null) when (type) {
                 XPathEQName.Type.Function -> XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
@@ -74,8 +76,6 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
         }
     }
-
-    override val localName get(): PsiElement? = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
 
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         return when (this) {

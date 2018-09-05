@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
@@ -362,192 +363,12 @@ private class XQueryPsiTest : ParserTestCase() {
 
     // endregion
     // region XPathEQName
-    // region EQName
-
-    @Test
-    fun testEQName_QName() {
-        val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq")
-
-        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
-        val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("double"))
-    }
-
-    @Test
-    fun testEQName_KeywordLocalPart() {
-        val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq")
-
-        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
-        val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.K_LEAST))
-        assertThat(eqnamePsi.localName!!.text, `is`("least"))
-    }
-
-    @Test
-    fun testEQName_MissingLocalPart() {
-        val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq")
-
-        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
-        val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
-
-        assertThat(eqnamePsi.localName, `is`(nullValue()))
-    }
-
-    @Test
-    fun testEQName_KeywordPrefixPart() {
-        val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq")
-
-        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
-        val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("column"))
-    }
-
-    @Test
-    fun testEQName_NCName() {
-        val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq")
-
-        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
-        val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("double"))
-    }
-
-    @Test
-    fun testEQName_URIQualifiedName() {
-        val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq")
-
-        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
-        val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("double"))
-    }
-
-    // endregion
-    // region NCName
-
-    @Test
-    fun testNCName() {
-        val file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.K_COLLATION))
-        assertThat(eqnamePsi.localName!!.text, `is`("collation"))
-    }
-
-    // endregion
-    // region QName
-
-    @Test
-    fun testQName() {
-        val file = parseResource("tests/parser/xquery-1.0/QName.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("two"))
-    }
-
-    @Test
-    fun testQName_KeywordLocalPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.K_LEAST))
-        assertThat(eqnamePsi.localName!!.text, `is`("least"))
-    }
-
-    @Test
-    fun testQName_MissingLocalPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(nullValue()))
-    }
-
-    @Test
-    fun testQName_KeywordPrefixPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val eqnamePsi = optionDeclPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("two"))
-    }
-
-    @Test
-    fun testQName_DirElemConstructor() {
-        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-        val eqnamePsi = dirElemConstructorPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.XML_TAG_NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("b"))
-    }
-
-    @Test
-    fun testQName_DirAttributeList() {
-        val file = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-        val dirAttributeListPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirAttributeList>().first()
-        val dirAttributePsi = dirAttributeListPsi.children().filterIsInstance<PluginDirAttribute>().first()
-        val eqnamePsi = dirAttributePsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.XML_ATTRIBUTE_NCNAME))
-        assertThat(eqnamePsi.localName!!.text, `is`("id"))
-    }
-
-    // endregion
     // region Type :: Function :: FunctionCall
 
     @Test
     fun testEQNameType_FunctionCall_NCName() {
         val file = parseResource("tests/resolve/functions/FunctionCall_NCName.xq")
-
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -555,12 +376,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @Test
     fun testEQNameType_FunctionCall_QName() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")
-
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -568,12 +384,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @Test
     fun testEQNameType_FunctionCall_EQName() {
         val file = parseResource("tests/resolve/functions/FunctionCall_EQName.xq")
-
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -584,12 +395,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @Test
     fun testEQNameType_NamedFunctionRef_NCName() {
         val file = parseResource("tests/resolve/functions/NamedFunctionRef_NCName.xq")
-
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -597,12 +403,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @Test
     fun testEQNameType_NamedFunctionRef_QName() {
         val file = parseResource("tests/resolve/functions/NamedFunctionRef_QName.xq")
-
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -610,12 +411,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @Test
     fun testEQNameType_NamedFunctionRef_EQName() {
         val file = parseResource("tests/resolve/functions/NamedFunctionRef_EQName.xq")
-
         val name = file.descendants().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("true"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -631,10 +427,6 @@ private class XQueryPsiTest : ParserTestCase() {
         val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("upper-case"))
-
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
@@ -646,10 +438,6 @@ private class XQueryPsiTest : ParserTestCase() {
         val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("upper-case"))
-
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
 
@@ -660,10 +448,6 @@ private class XQueryPsiTest : ParserTestCase() {
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
         val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))
     }
@@ -680,10 +464,6 @@ private class XQueryPsiTest : ParserTestCase() {
         val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
         val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.K_VALUE))
-        assertThat(name.localName!!.text, `is`("value"))
-
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
     }
 
@@ -696,10 +476,6 @@ private class XQueryPsiTest : ParserTestCase() {
         val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
         val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
 
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.K_VALUE))
-        assertThat(name.localName!!.text, `is`("value"))
-
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
     }
 
@@ -711,10 +487,6 @@ private class XQueryPsiTest : ParserTestCase() {
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
         val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
         val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`(XQueryTokenType.K_VALUE))
-        assertThat(name.localName!!.text, `is`("value"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Variable))
     }
@@ -799,8 +571,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(2))
 
-        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("pow"))
+        val qname = (functionCallPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix?.staticValue, `is`("math"))
+        assertThat(qname?.localName?.staticValue, `is`("pow"))
     }
 
     @Test
@@ -811,8 +584,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(0))
 
-        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("true"))
+        val qname = (functionCallPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix?.staticValue, `is`("fn"))
+        assertThat(qname?.localName?.staticValue, `is`("true"))
     }
 
     @Test
@@ -823,8 +597,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(1))
 
-        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("sin"))
+        val qname = (functionCallPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix?.staticValue, `is`("math"))
+        assertThat(qname?.localName?.staticValue, `is`("sin"))
     }
 
     @Test
@@ -850,8 +625,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi, `is`(notNullValue()))
         assertThat(functionDeclPsi.arity, `is`(0))
 
-        assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("true"))
+        val qname = (functionDeclPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix?.staticValue, `is`("fn"))
+        assertThat(qname?.localName?.staticValue, `is`("true"))
     }
 
     @Test
@@ -863,8 +639,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi, `is`(notNullValue()))
         assertThat(functionDeclPsi.arity, `is`(2))
 
-        assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("test"))
+        val qname = (functionDeclPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix, `is`(nullValue()))
+        assertThat(qname?.localName?.staticValue, `is`("test"))
     }
 
     @Test
@@ -1016,8 +793,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(3))
 
-        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
+        val qname = (namedFunctionRefPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix, `is`(nullValue()))
+        assertThat(qname?.localName?.staticValue, `is`("true"))
     }
 
     @Test
@@ -1028,8 +806,9 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(0))
 
-        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
+        val qname = (namedFunctionRefPsi.functionName as? XdmStaticValue)?.staticValue as? QName
+        assertThat(qname?.prefix, `is`(nullValue()))
+        assertThat(qname?.localName?.staticValue, `is`("true"))
     }
 
     @Test
@@ -1041,21 +820,6 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(namedFunctionRefPsi.arity, `is`(0))
 
         assertThat(namedFunctionRefPsi.functionName, `is`(nullValue()))
-    }
-
-    // endregion
-    // region XPathURIQualifiedName
-
-    @Test
-    fun testURIQualifiedName() {
-        val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val qnamePsi = optionDeclPsi.children().filterIsInstance<XPathURIQualifiedName>().first()
-
-        assertThat(qnamePsi.localName, `is`(notNullValue()))
-        assertThat(qnamePsi.localName!!.node.elementType, `is`(XQueryTokenType.NCNAME))
-        assertThat(qnamePsi.localName!!.text, `is`("three"))
     }
 
     // endregion
