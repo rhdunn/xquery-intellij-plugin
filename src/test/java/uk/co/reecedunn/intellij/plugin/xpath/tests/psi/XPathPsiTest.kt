@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -50,6 +51,13 @@ private class XPathPsiTest : ParserTestCase() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
             }
+        }
+
+        @Test
+        @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : (4) NCName")
+        fun xmlNCName() {
+            val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
+            assertThat(literal.data, `is`("test"))
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,20 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 
-class XmlNCNameImpl(type: IElementType, text: CharSequence):
-        LeafPsiElement(type, text),
-        XdmStaticValue {
+class XmlNCNameImpl(type: IElementType, text: CharSequence) :
+    LeafPsiElement(type, text),
+    XdmStaticValue,
+    XsNCNameValue {
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
     override val staticType: XdmSequenceType = XsNCName
 
     override val staticValue get(): Any? = text
+
+    override val data: String get() = text
 
     override fun toString(): String = "XmlNCNameImpl"
 }
