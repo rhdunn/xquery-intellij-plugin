@@ -53,8 +53,6 @@ interface XPathEQName : PsiElement {
         return Type.Unknown
     }
 
-    val prefix: PsiElement?
-
     val localName: PsiElement?
 
     fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration>

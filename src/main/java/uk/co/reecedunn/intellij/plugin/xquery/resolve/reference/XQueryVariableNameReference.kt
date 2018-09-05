@@ -18,16 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
 
 class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
-        val name = element
-        val match = name.inScopeVariablesForFile().find { variable ->
+        val name = (element as XdmStaticValue).staticValue as QName
+        val match = element.inScopeVariablesForFile().find { variable ->
             val qname = variable.variableName!!
-            val matchPrefix = name.prefix?.text == (qname.prefix?.staticValue as? String)
-            val matchLocalName = name.localName?.text == (qname.localName.staticValue as? String)
+            val matchPrefix = name.prefix?.staticValue as? String == (qname.prefix?.staticValue as? String)
+            val matchLocalName = name.localName.staticValue as? String == (qname.localName.staticValue as? String)
             matchPrefix && matchLocalName
         }
         return match?.variableName?.declaration?.get() as? PsiElement

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
@@ -36,8 +37,8 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         }
 
         if (localName?.text?.equals(other.localName?.text) == true) {
-            val lhsPrefix = prefix
-            val rhsPrefix = other.prefix
+            val lhsPrefix = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
+            val rhsPrefix = ((other as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
             return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.text?.equals(rhsPrefix?.text) == true
         }
         return false
@@ -60,7 +61,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
                 null
             }
 
-        val prefix = prefix
+        val prefix = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
         if (prefix == null || prefix is XPathBracedURILiteral) { // local name only
             if (localNameRef != null) {
                 return arrayOf(localNameRef)
@@ -74,19 +75,15 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         }
     }
 
-    override val prefix get(): PsiElement? = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
-
     override val localName get(): PsiElement? = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
 
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
-        val prefix = prefix
-        return when (prefix) {
-            null -> emptySequence()
-            is XPathBracedURILiteral -> emptySequence()
-            else -> {
-                val text = prefix.text
+        return when (this) {
+            is XPathQName -> {
+                val text = (((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement)!!.text
                 return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.staticValue == text }
             }
+            else -> emptySequence()
         }
     }
 }
