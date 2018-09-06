@@ -11,9 +11,9 @@ XQueryModuleImpl[FILE(0:34)]
                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:24)]('one.two')
                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(24:25)]('}')
+               PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Wildcard local name after '}' in braced URI qualified name.')
                PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(25:26)]
                   LeafPsiElement[XQUERY_STAR_TOKEN(25:26)]('*')
-               PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Wildcard local name after '}' in braced URI qualified name.')
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(27:33)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(27:28)]('"')

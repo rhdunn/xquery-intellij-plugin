@@ -7350,10 +7350,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseBracedURILiteral()) {
             if (getTokenType() is INCNameType) {
                 advanceLexer()
-            } else if (parseWildcardIndicator()) {
-                if (type !== XQueryElementType.WILDCARD) {
-                    error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"))
+            } else if (getTokenType() === XQueryTokenType.STAR) {
+                if (type === XQueryElementType.WILDCARD) {
+                    parseWildcardIndicator()
+                    qnameMarker.done(XQueryElementType.WILDCARD)
+                    return true
                 }
+                error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"))
+                parseWildcardIndicator()
             } else {
                 error(XQueryBundle.message("parser.error.expected-ncname"))
             }

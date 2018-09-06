@@ -51,7 +51,7 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode) :
 
     override val prefix: XsNCNameValue? = null
 
-    override val localName get(): XsNCNameValue? = children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
+    override val localName get(): XsNCNameValue? = children().filterIsInstance<XsNCNameValue>().firstOrNull()
 
     override val isLexicalQName: Boolean = false
 

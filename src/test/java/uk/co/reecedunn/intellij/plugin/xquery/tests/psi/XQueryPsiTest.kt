@@ -30,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -140,7 +139,23 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                assertThat(qname.localName?.data, `is`("*"))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 (223) URIQualifiedName")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("wildcard")
+            fun wildcard() {
+                val qname = parse<XPathURIQualifiedName>("declare option Q{http://www.example.com}* \"\";")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
             }
         }
     }
