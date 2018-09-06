@@ -265,8 +265,13 @@ xs:anyType
      │    └──── <em>user-defined list types</em>
      └──── xdm:anyUnionType
           ├──── xs:numeric
+          ├──── xs:error<sup>1</sup>
           └──── <em>user-defined union types</em>
 </code></pre>
+
+1.  `xs:error` is defined in XML Schema 1.1 Part 2, but not in XQuery and XPath
+    3.1 Data Model. Support for this type is dependent on whether the
+    implementation supports XML Schema 1.1.
 
 The data model defines three additional simple and complex types:
 `xdm:anyComplexType`, `xdm:anyListType`, and `xdm:anyUnionType`. These types
