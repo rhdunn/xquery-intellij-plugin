@@ -132,6 +132,7 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 (235) NCName")
         internal inner class NCName {
             @Test
+            @DisplayName("wildcard")
             fun wildcard() {
                 val qname = parse<XPathNCName>("declare option * \"\";")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))

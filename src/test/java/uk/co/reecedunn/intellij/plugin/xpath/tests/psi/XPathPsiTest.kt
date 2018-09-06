@@ -52,9 +52,10 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (121) NCName")
+        @DisplayName("XPath 3.1 (123) NCName")
         internal inner class NCName {
             @Test
+            @DisplayName("identifier")
             fun identifier() {
                 val qname = parse<XPathNCName>("test")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))
@@ -64,12 +65,57 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("keyword")
             fun keyword() {
                 val qname = parse<XPathNCName>("order")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("order"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (122) QName")
+        internal inner class QName {
+            @Test
+            @DisplayName("non-keyword prefix; non-keyword local name")
+            fun identifier() {
+                val qname = parse<XPathQName>("fn:true")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName!!.data, `is`("true"))
+            }
+
+            @Test
+            @DisplayName("keyword prefix; non-keyword local name")
+            fun keywordPrefix() {
+                val qname = parse<XPathQName>("option:test")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("option"))
+                assertThat(qname.localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("non-keyword prefix; keyword local name")
+            fun keywordLocalName() {
+                val qname = parse<XPathQName>("test:case")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("test"))
+                assertThat(qname.localName!!.data, `is`("case"))
+            }
+
+            @Test
+            @DisplayName("missing local name")
+            fun noLocalName() {
+                val qname = parse<XPathQName>("xs:")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName, `is`(nullValue()))
             }
         }
 

@@ -32,13 +32,30 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
-class XPathQNamePsiImpl(node: ASTNode):
-        XPathEQNamePsiImpl(node),
-        XPathQName,
-        XdmStaticValue,
-        PsiNameIdentifierOwner {
+class XPathQNamePsiImpl(node: ASTNode) :
+    XPathEQNamePsiImpl(node),
+    XPathQName,
+    XdmStaticValue,
+    XsQNameValue,
+    PsiNameIdentifierOwner {
+    // region XsQNameValue
+
+    private val names get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
+
+    override val namespace: XsAnyUriValue? = null
+
+    override val prefix get(): XsNCNameValue? = names.first()
+
+    override val localName get(): XsNCNameValue? = names.toList().let { if (it.size == 2) it[1] else null }
+
+    override val isLexicalQName: Boolean = true
+
+    // endregion
     // region XdmStaticValue
 
     override val cacheable get(): CachingBehaviour = cachedConstantValue.cachingBehaviour
