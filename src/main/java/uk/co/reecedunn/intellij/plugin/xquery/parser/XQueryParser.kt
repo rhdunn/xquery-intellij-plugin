@@ -7243,17 +7243,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 } else if (getTokenType() === XQueryTokenType.STAR) {
                     if (type === XQueryElementType.WILDCARD) {
                         if (isWildcard) {
-                            val errorMarker = mark()
-                            parseWildcardIndicator()
-                            errorMarker.error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
-                        } else {
-                            parseWildcardIndicator()
+                            error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
                         }
                     } else {
-                        val errorMarker = mark()
-                        parseWildcardIndicator()
-                        errorMarker.error(XQueryBundle.message("parser.error.qname.wildcard-local-name"))
+                        error(XQueryBundle.message("parser.error.qname.wildcard-local-name"))
                     }
+                    parseWildcardIndicator()
                     isWildcard = true
                 } else if (getTokenType() === XQueryTokenType.INTEGER_LITERAL) {
                     // The user has started the local name with a number, so treat it as part of the QName.
