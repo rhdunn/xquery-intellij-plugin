@@ -267,7 +267,8 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
           └─── <em>user-defined union types</em>
 </code></pre>
 
-1.  `xs:error` is defined in XML Schema 1.1 Part 2, but not in XQuery and XPath
+1.  `xs:error` is defined in XML Schema 1.1 Part 2, and in the Types section of
+    the XPath 3.1 and XQuery 3.1 specifications, but not in XQuery and XPath
     3.1 Data Model. Support for this type is dependent on whether the
     implementation supports XML Schema 1.1.
 
