@@ -240,4 +240,91 @@ private class XPathPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
+    internal inner class NodeTests {
+        @Nested
+        @DisplayName("XPath 3.1 (48) Wildcard")
+        internal inner class Wildcard {
+            @Test
+            @DisplayName("wildcard prefix; wildcard local name")
+            fun bothWildcard() {
+                val qname = parse<XPathWildcard>("*:*")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+
+                assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.prefix!!.data, `is`("*"))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+
+            @Test
+            @DisplayName("wildcard prefix; non-wildcard local name")
+            fun wildcardPrefix() {
+                val qname = parse<XPathWildcard>("*:test")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+
+                assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.prefix!!.data, `is`("*"))
+
+                assertThat(qname.localName, `is`(not(instanceOf(XdmWildcardValue::class.java))))
+                assertThat(qname.localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("non-wildcard prefix; wildcard local name")
+            fun wildcardLocalName() {
+                val qname = parse<XPathWildcard>("test:*")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+
+                assertThat(qname.prefix, `is`(not(instanceOf(XdmWildcardValue::class.java))))
+                assertThat(qname.prefix!!.data, `is`("test"))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+
+            @Test
+            @DisplayName("missing local name")
+            fun noLocalName() {
+                val qname = parse<XPathWildcard>("*:")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+
+                assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.prefix!!.data, `is`("*"))
+
+                assertThat(qname.localName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun keyword() {
+                val qname = parse<XPathWildcard>("Q{http://www.example.com}*")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName with an empty namespace")
+            fun emptyNamespace() {
+                val qname = parse<XPathWildcard>("Q{}*")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`(""))
+                assertThat(qname.prefix, `is`(nullValue()))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName!!.data, `is`("*"))
+            }
+        }
+    }
 }
