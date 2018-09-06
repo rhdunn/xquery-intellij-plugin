@@ -21,6 +21,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -61,6 +62,7 @@ object XQueryElementType {
     val NODE_TEST: IElementType = ICompositeElementType("XQUERY_NODE_TEST", XPathNodeTestPsiImpl::class.java, XQuery)
     val NAME_TEST: IElementType = ICompositeElementType("XQUERY_NAME_TEST", XPathNameTestPsiImpl::class.java, XQuery)
     val WILDCARD: IElementType = ICompositeElementType("XQUERY_WILDCARD", XPathWildcardPsiImpl::class.java, XQuery)
+    val WILDCARD_INDICATOR: IElementType = ICompositeElementType("XQUERY_WILDCARD_INDICATOR", PluginWildcardIndicatorPsiImpl::class.java, XQuery)
     val PREDICATE_LIST: IElementType = ICompositeElementType("XQUERY_PREDICATE_LIST", XPathPredicateListPsiImpl::class.java, XQuery)
     val PREDICATE: IElementType = ICompositeElementType("XQUERY_PREDICATE", XPathPredicatePsiImpl::class.java, XQuery)
 

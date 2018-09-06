@@ -7161,7 +7161,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (type !== XQueryElementType.WILDCARD) {
                     error(XQueryBundle.message("parser.error.unexpected-wildcard"))
                 }
-                advanceLexer()
+                parseWildcardIndicator()
             } else {
                 advanceLexer()
             }
@@ -7244,14 +7244,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     if (type === XQueryElementType.WILDCARD) {
                         if (isWildcard) {
                             val errorMarker = mark()
-                            advanceLexer()
+                            parseWildcardIndicator()
                             errorMarker.error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
                         } else {
-                            advanceLexer()
+                            parseWildcardIndicator()
                         }
                     } else {
                         val errorMarker = mark()
-                        advanceLexer()
+                        parseWildcardIndicator()
                         errorMarker.error(XQueryBundle.message("parser.error.qname.wildcard-local-name"))
                     }
                     isWildcard = true
@@ -7317,6 +7317,16 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
+    private fun parseWildcardIndicator(): Boolean {
+        if (getTokenType() === XQueryTokenType.STAR) {
+            val marker = mark()
+            advanceLexer()
+            marker.done(XQueryElementType.WILDCARD_INDICATOR)
+            return true
+        }
+        return false
+    }
+
     private fun parseBracedURILiteral(): Boolean {
         val stringMarker = matchTokenTypeWithMarker(XQueryTokenType.BRACED_URI_LITERAL_START)
         while (stringMarker != null) {
@@ -7345,7 +7355,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseBracedURILiteral()) {
             if (getTokenType() is INCNameType) {
                 advanceLexer()
-            } else if (matchTokenType(XQueryTokenType.STAR)) {
+            } else if (parseWildcardIndicator()) {
                 if (type !== XQueryElementType.WILDCARD) {
                     error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"))
                 }

@@ -6,6 +6,7 @@ XQueryModuleImpl[FILE(0:6)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                      XPathWildcardImpl[XQUERY_WILDCARD(0:6)]
-                        LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
+                        PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(0:1)]
+                           LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:6)]('para')

@@ -13,5 +13,6 @@ XQueryModuleImpl[FILE(0:15)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(13:14)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(13:14)]
                                  XPathWildcardImpl[XQUERY_WILDCARD(13:14)]
-                                    LeafPsiElement[XQUERY_STAR_TOKEN(13:14)]('*')
+                                    PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(13:14)]
+                                       LeafPsiElement[XQUERY_STAR_TOKEN(13:14)]('*')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')

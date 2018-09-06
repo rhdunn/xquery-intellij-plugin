@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
@@ -136,7 +137,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName, `is`(nullValue()))
+
+                assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                assertThat(qname.localName?.data, `is`("*"))
             }
         }
     }

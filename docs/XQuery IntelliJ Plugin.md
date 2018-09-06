@@ -335,7 +335,8 @@ xs:anyAtomicType<sup>1</sup>
 │         │         └──── xs:NCName
 │         │              ├──── xs:ENTITY
 │         │              ├──── xs:ID
-│         │              └──── xs:IDREF
+│         │              ├──── xs:IDREF
+│         │              └──── xdm:wildcard
 │         └──── xs:NMTOKEN
 ├──── xs:time
 └──── xs:untypedAtomic
@@ -348,6 +349,17 @@ xs:anyAtomicType<sup>1</sup>
 1.  `xs:dateTimeStamp` is defined in XML Schema 1.1 Part 2, but not in XQuery
     and XPath 3.1 Data Model. Support for this type is dependent on whether the
     implementation supports XML Schema 1.1.
+
+The data model defines one additional atomic type: `xdm:wildcard`. This type is
+defined in an XQuery IntelliJ Plugin specific namespace.
+
+__xdm:wildcard__
+> The type `xdm:wildcard` is derived from `xs:NCName`. The lexical
+> representation of `xdm:wildcard` is `*`. The value space of `xdm:wildcard`
+> is the empty set.
+>
+> The unspecified prefix or local name of a `Wildcard` is an instance of
+> `xdm:wildcard`.
 
 ## 3 Expressions
 
@@ -579,6 +591,20 @@ The *principal node kind* is determined as per the XPath specification. Thus:
 > This means that the `property` axis uses the default element namespace to
 > resolve an unprefixed QName into an expanded QName.
 
+#### 3.9.2 Node Tests
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[76\] | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
+| \[77\] | `WildcardIndicator`            | ::= | `"*"`                                     |         |
+
+The changes to `Wildcard` are to make it work like the `EQName` grammar
+productions. This is such that `WildcardIndicator` is placed wherever an
+`NCName` can occur in an `EQName`. That is, either the prefix or local
+name (but not both) can be `WildcardIndicator`.
+
+A `WildcardIndicator` is an instance of `xdm:wildcard`.
+
 ### 3.10 Validate Expressions
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -784,6 +810,8 @@ These changes include support for:
 | \[73\]  | `Expr`                  | ::= | `ApplyExpr`                         |                     |
 | \[74\]  | `ApplyExpr`             | ::= | `ConcatExpr`                        |                     |
 | \[75\]  | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |                     |
+| \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
+| \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
 
 ### A.2 EBNF for XQuery 3.1
 
@@ -883,6 +911,8 @@ These changes include support for:
 | \[73\]   | `Expr`                         | ::= | `ApplyExpr`                               |                 |
 | \[74\]   | `ApplyExpr`                    | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?`     |                 |
 | \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
+| \[76\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
+| \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
 
 ### A.3 Reserved Function Names
 
