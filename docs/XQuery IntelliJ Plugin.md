@@ -230,43 +230,41 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 
 #### 2.2.1 Type System Part 1: Items
 
-<pre><code>
-item
-├──── node
-│    ├──── attribute
-│    │    └──── <em>user-defined attribute types</em>
-│    ├──── document
-│    │    └──── <em>document types with more precise content type</em>
-│    ├──── element
-│    │    └──── <em>user-defined element types</em>
-│    ├──── comment
-│    ├──── namespace
-│    ├──── processing-instruction
-│    └──── text
+<pre><code>item
+├─── node
+│    ├─── attribute
+│    │    └─── <em>user-defined attribute types</em>
+│    ├─── document
+│    │    └─── <em>document types with more precise content type</em>
+│    ├─── element
+│    │    └─── <em>user-defined element types</em>
+│    ├─── comment
+│    ├─── namespace
+│    ├─── processing-instruction
+│    └─── text
 ├──── function(*)
-│    ├──── map(*)
-│    └──── array(*)
-└──── xs:anyAtomicType ─────────────────────────────────── See Part 3
+│    ├─── map(*)
+│    └─── array(*)
+└─── xs:anyAtomicType ──────────────────────────────────── See Part 3
 </code></pre>
 
 #### 2.2.2 Type System Part 2: Simple and Complex Types
 
-<pre><code>
-xs:anyType
-├──── xdm:anyComplexType
-│    ├──── xs:untyped
-│    └──── <em>user-defined complex types</em>
-└──── xs:anySimpleType
-     ├──── xs:anyAtomicType ────────────────────────────── See Part 3
-     ├──── xdm:anyListType
-     │    ├──── xs:IDREFS
-     │    ├──── xs:NMTOKENS
-     │    ├──── xs:ENTITIES
-     │    └──── <em>user-defined list types</em>
-     └──── xdm:anyUnionType
-          ├──── xs:numeric
-          ├──── xs:error<sup>1</sup>
-          └──── <em>user-defined union types</em>
+<pre><code>xs:anyType
+├─── xdm:anyComplexType
+│    ├─── xs:untyped
+│    └─── <em>user-defined complex types</em>
+└─── xs:anySimpleType
+     ├─── xs:anyAtomicType ─────────────────────────────── See Part 3
+     ├─── xdm:anyListType
+     │    ├─── xs:IDREFS
+     │    ├─── xs:NMTOKENS
+     │    ├─── xs:ENTITIES
+     │    └─── <em>user-defined list types</em>
+     └─── xdm:anyUnionType
+          ├─── xs:numeric
+          ├─── xs:error<sup>1</sup>
+          └─── <em>user-defined union types</em>
 </code></pre>
 
 1.  `xs:error` is defined in XML Schema 1.1 Part 2, but not in XQuery and XPath
@@ -297,54 +295,53 @@ __xdm:anyUnionType__
 
 #### 2.2.3 Type System Part 3: Atomic Types
 
-<pre><code>
-xs:anyAtomicType<sup>1</sup>
-├──── xs:anyURI
-├──── xs:base64Binary
-├──── xs:boolean
-├──── xs:date
-├──── xs:dateTime
-│    └──── xs:dateTimeStamp<sup>2</sup>
-├──── xs:decimal
-│    └──── xs:integer
-│         ├──── xs:long
-│         │    └──── xs:int
-│         │         └──── xs:short
-│         │              └──── xs:byte
-│         ├──── xs:nonNegativeInteger
-│         │    ├──── xs:positiveInteger
-│         │    └──── xs:unsignedLong
-│         │         └──── xs:unsignedInt
-│         │              └──── xs:unsignedShort
-│         │                   └──── xs:unsignedByte
-│         └──── xs:nonPositiveInteger
-│              └──── xs:negativeInteger
-├──── xs:double
-├──── xs:duration
-│    ├──── xs:dayTimeDuration<sup>1</sup>
-│    └──── xs:yearMonthDuration<sup>1</sup>
-├──── xs:float
-├──── xs:gDay
-├──── xs:gMonth
-├──── xs:gMonthDay
-├──── xs:gYear
-├──── xs:gYearMonth
-├──── xs:hexBinary
-├──── xs:NOTATION
-├──── xs:QName
-├──── xs:string
-│    └──── xs:normalizedString
-│         ├──── xs:token
-│         │    ├──── xs:language
-│         │    └──── xs:Name
-│         │         └──── xs:NCName
-│         │              ├──── xs:ENTITY
-│         │              ├──── xs:ID
-│         │              ├──── xs:IDREF
-│         │              └──── xdm:wildcard
-│         └──── xs:NMTOKEN
-├──── xs:time
-└──── xs:untypedAtomic
+<pre><code>xs:anyAtomicType<sup>1</sup>
+├─── xs:anyURI
+├─── xs:base64Binary
+├─── xs:boolean
+├─── xs:date
+├─── xs:dateTime
+│    └─── xs:dateTimeStamp<sup>2</sup>
+├─── xs:decimal
+│    └─── xs:integer
+│         ├─── xs:long
+│         │    └─── xs:int
+│         │         └─── xs:short
+│         │              └─── xs:byte
+│         ├─── xs:nonNegativeInteger
+│         │    ├─── xs:positiveInteger
+│         │    └─── xs:unsignedLong
+│         │         └─── xs:unsignedInt
+│         │              └─── xs:unsignedShort
+│         │                   └─── xs:unsignedByte
+│         └─── xs:nonPositiveInteger
+│              └─── xs:negativeInteger
+├─── xs:double
+├─── xs:duration
+│    ├─── xs:dayTimeDuration<sup>1</sup>
+│    └─── xs:yearMonthDuration<sup>1</sup>
+├─── xs:float
+├─── xs:gDay
+├─── xs:gMonth
+├─── xs:gMonthDay
+├─── xs:gYear
+├─── xs:gYearMonth
+├─── xs:hexBinary
+├─── xs:NOTATION
+├─── xs:QName
+├─── xs:string
+│    └─── xs:normalizedString
+│         ├─── xs:token
+│         │    ├─── xs:language
+│         │    └─── xs:Name
+│         │         └─── xs:NCName
+│         │              ├─── xs:ENTITY
+│         │              ├─── xs:ID
+│         │              ├─── xs:IDREF
+│         │              └─── xdm:wildcard
+│         └─── xs:NMTOKEN
+├─── xs:time
+└─── xs:untypedAtomic
 </code></pre>
 
 1.  `xs:anyAtomicType`, `xs:yearMonthDuration`, and `xs:dayTimeDuration` are
