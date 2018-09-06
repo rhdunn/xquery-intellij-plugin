@@ -119,6 +119,50 @@ private class XPathPsiTest : ParserTestCase() {
             }
         }
 
+        @Nested
+        @DisplayName("XPath 3.1 (117) URIQualifiedName")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("non-keyword local name")
+            fun identifier() {
+                val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}test")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("keyword local name")
+            fun keyword() {
+                val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}option")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("option"))
+            }
+
+            @Test
+            @DisplayName("empty namespace")
+            fun emptyNamespace() {
+                val qname = parse<XPathURIQualifiedName>("Q{}test")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`(""))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("missing local name")
+            fun noLocalName() {
+                val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}")[0] as XsQNameValue
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName, `is`(nullValue()))
+            }
+        }
+
         @Test
         @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : (4) NCName")
         fun xmlNCName() {

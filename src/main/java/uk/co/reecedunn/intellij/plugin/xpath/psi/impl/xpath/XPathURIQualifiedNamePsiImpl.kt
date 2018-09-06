@@ -33,14 +33,29 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
-class XPathURIQualifiedNamePsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathURIQualifiedName,
-        XdmStaticValue,
-        PsiNameIdentifierOwner {
+class XPathURIQualifiedNamePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathURIQualifiedName,
+    XdmStaticValue,
+    XsQNameValue,
+    PsiNameIdentifierOwner {
+    // region XsQNameValue
+
+    override val namespace: XsAnyUriValue? = findChildByType<PsiElement>(XQueryElementType.BRACED_URI_LITERAL) as XsAnyUriValue
+
+    override val prefix: XsNCNameValue? = null
+
+    override val localName get(): XsNCNameValue? = children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
+
+    override val isLexicalQName: Boolean = false
+
+    // endregion
     // region XPathEQName
 
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
