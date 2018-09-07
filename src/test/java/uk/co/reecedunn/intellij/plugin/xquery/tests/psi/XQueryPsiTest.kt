@@ -44,7 +44,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (2) Basics")
     internal inner class Basics {
         @Nested
-        @DisplayName("XQuery 3.1 (217) URILiteral")
+        @DisplayName("XQuery 3.1 EBNF (217) URILiteral")
         internal inner class URILiteral {
             @Test
             @DisplayName("uri literal content")
@@ -109,7 +109,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (224) BracedURILiteral")
+        @DisplayName("XQuery 3.1 EBNF (224) BracedURILiteral")
         internal inner class BracedURILiteral {
             @Test
             @DisplayName("PredefinedEntityRef tokens")
@@ -128,7 +128,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (235) NCName")
+        @DisplayName("XQuery 3.1 EBNF (235) NCName")
         internal inner class NCName {
             @Test
             @DisplayName("wildcard")
@@ -144,7 +144,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (223) URIQualifiedName")
+        @DisplayName("XQuery 3.1 EBNF (223) URIQualifiedName")
         internal inner class URIQualifiedName {
             @Test
             @DisplayName("wildcard")
@@ -164,7 +164,7 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (3.1.1) Literals")
     internal inner class Literals {
         @Nested
-        @DisplayName("XQuery 3.1 (222) StringLiteral")
+        @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
             @Test
             @DisplayName("PredefinedEntityRef tokens")
@@ -190,7 +190,7 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (4.1) Version Declaration (2) VersionDecl")
+    @DisplayName("XQuery 3.1 (4.1) Version Declaration : EBNF (2) VersionDecl")
     internal inner class VersionDecl {
         @Test
         @DisplayName("no version, no encoding")

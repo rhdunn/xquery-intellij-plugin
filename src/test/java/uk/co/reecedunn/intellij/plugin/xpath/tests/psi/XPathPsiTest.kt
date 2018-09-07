@@ -34,7 +34,7 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (2) Basics")
     internal inner class Basics {
         @Nested
-        @DisplayName("XPath 3.1 (118) BracedURILiteral")
+        @DisplayName("XPath 3.1 EBNF (118) BracedURILiteral")
         internal inner class BracedURILiteral {
             @Test
             @DisplayName("braced uri literal content")
@@ -52,7 +52,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (123) NCName")
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
         internal inner class NCName {
             @Test
             @DisplayName("identifier")
@@ -76,7 +76,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (122) QName")
+        @DisplayName("XPath 3.1 EBNF (122) QName")
         internal inner class QName {
             @Test
             @DisplayName("non-keyword prefix; non-keyword local name")
@@ -120,7 +120,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (117) URIQualifiedName")
+        @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
         internal inner class URIQualifiedName {
             @Test
             @DisplayName("non-keyword local name")
@@ -164,7 +164,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : (4) NCName")
+        @DisplayName("Namespaces in XML 1.0 (3) Declaring Namespaces : EBNF (4) NCName")
         fun xmlNCName() {
             val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
             assertThat(literal.data, `is`("test"))
@@ -175,7 +175,7 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (3.1.1) Literals")
     internal inner class Literals {
         @Test
-        @DisplayName("XPath 3.1 (113) IntegerLiteral")
+        @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
         fun integerLiteral() {
             val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
             assertThat(literal.data, `is`(BigInteger.valueOf(123)))
@@ -183,21 +183,21 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("XPath 3.1 (114) DecimalLiteral")
+        @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
         fun decimalLiteral() {
             val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
             assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
         }
 
         @Test
-        @DisplayName("XPath 3.1 (115) DoubleLiteral")
+        @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
         fun doubleLiteral() {
             val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
             assertThat(literal.data, `is`(1e3))
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (116) StringLiteral")
+        @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
         internal inner class StringLiteral {
             @Test
             @DisplayName("string literal content")
@@ -245,7 +245,7 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
         @Nested
-        @DisplayName("XPath 3.1 (48) Wildcard")
+        @DisplayName("XPath 3.1 EBNF (48) Wildcard")
         internal inner class Wildcard {
             @Test
             @DisplayName("wildcard prefix; wildcard local name")
