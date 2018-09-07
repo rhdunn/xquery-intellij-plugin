@@ -189,6 +189,82 @@ private class XQueryPsiTest : ParserTestCase() {
         }
     }
 
+    @Nested
+    @DisplayName("XQuery 3.1 (4.1) Version Declaration (2) VersionDecl")
+    internal inner class VersionDecl {
+        @Test
+        @DisplayName("no version, no encoding")
+        fun noVersionOrEncoding() {
+            val decl = parse<XQueryVersionDecl>("xquery;")[0]
+            assertThat(decl.version, `is`(nullValue()))
+            assertThat(decl.encoding, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("version, no encoding")
+        fun versionOnly() {
+            val decl = parse<XQueryVersionDecl>("xquery version \"1.0\";")[0]
+            assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
+            assertThat(decl.encoding, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("no version, encoding")
+        fun encodingOnly() {
+            val decl = parse<XQueryVersionDecl>("xquery encoding \"latin1\";")[0]
+            assertThat(decl.version, `is`(nullValue()))
+            assertThat((decl.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
+        }
+
+        @Test
+        @DisplayName("empty version, no encoding")
+        fun emptyVersion() {
+            val decl = parse<XQueryVersionDecl>("xquery version \"\";")[0]
+            assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`(""))
+            assertThat(decl.encoding, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("no version, empty encoding")
+        fun emptyEncoding() {
+            val decl = parse<XQueryVersionDecl>("xquery encoding \"\";")[0]
+            assertThat(decl.version, `is`(nullValue()))
+            assertThat((decl.encoding!! as XdmStaticValue).staticValue as String, `is`(""))
+        }
+
+        @Test
+        @DisplayName("version, encoding")
+        fun versionAndEncoding() {
+            val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"latin1\";")[0]
+            assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
+            assertThat((decl.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
+        }
+
+        @Test
+        @DisplayName("version, empty encoding")
+        fun emptyEncodingWithVersion() {
+            val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"\";")[0]
+            assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
+            assertThat((decl.encoding!! as XdmStaticValue).staticValue as String, `is`(""))
+        }
+
+        @Test
+        @DisplayName("comment before declaration")
+        fun commentBefore() {
+            val decl = parse<XQueryVersionDecl>("(: test :)\nxquery version \"1.0\";")[0]
+            assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
+            assertThat(decl.encoding, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("comment as whitespace")
+        fun commentAsWhitespace() {
+            val decl = parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
+            assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
+            assertThat((decl.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
+        }
+    }
+
     // region XPathArgumentList
 
     @Test
