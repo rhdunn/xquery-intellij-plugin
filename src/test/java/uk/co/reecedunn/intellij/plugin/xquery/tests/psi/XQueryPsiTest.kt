@@ -190,6 +190,126 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (4) Modules and Prologs")
+    internal inner class ModulesAndPrologs {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (1) Module")
+        internal inner class Module {
+            @Test
+            @DisplayName("empty file")
+            fun emptyFile() {
+                settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+
+                val file = parse<XQueryModule>("")[0]
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
+
+                settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
+            }
+
+            @Test
+            @DisplayName("VersionDecl missing")
+            fun noVersionDecl() {
+                settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+
+                val file = parse<XQueryModule>("1234")[0]
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
+
+                settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
+            }
+
+            @Test
+            @DisplayName("VersionDecl with version")
+            fun versionDeclWithVersion() {
+                settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+
+                val file = parse<XQueryModule>("xquery version \"1.0\"; 1234")[0]
+                val decl = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+
+                assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
+                assertThat(file.XQueryVersion.declaration, `is`(decl.version))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
+
+                settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+
+                assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
+                assertThat(file.XQueryVersion.declaration, `is`(decl.version))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
+            }
+
+            @Test
+            @DisplayName("VersionDecl with unsupported version")
+            fun versionDeclWithUnsupportedVersion() {
+                settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+
+                val file = parse<XQueryModule>("xquery version \"9.4\"; 1234")[0]
+                val decl = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(decl.version))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
+
+                settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(decl.version))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
+            }
+
+            @Test
+            @DisplayName("VersionDecl with empty version")
+            fun versionDeclWithEmptyVersion() {
+                settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+
+                val file = parse<XQueryModule>("xquery version \"\"; 1234")[0]
+                val decl = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(decl.version))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
+
+                settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(decl.version))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
+            }
+
+            @Test
+            @DisplayName("VersionDecl with missing version")
+            fun versionDeclWithMissingVersion() {
+                settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+
+                val file = parse<XQueryModule>("xquery; 1234")[0]
+                val decl = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
+
+                settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+
+                assertThat(file.XQueryVersion.version, `is`(nullValue()))
+                assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
+                assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (4.1) Version Declaration : EBNF (2) VersionDecl")
     internal inner class VersionDecl {
         @Test
@@ -639,37 +759,6 @@ private class XQueryPsiTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region XQueryModule
-
-    @Test
-    fun testFile_Empty() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseText("")
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-
-        settings.XQueryVersion = XQuery.REC_3_1_20170321.label
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
-    }
-
-    @Test
-    fun testFile() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-
-        settings.XQueryVersion = XQuery.REC_3_1_20170321.label
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
-    }
-
-    // endregion
     // region XPathFunctionCall
 
     @Test
@@ -929,161 +1018,6 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(namedFunctionRefPsi.arity, `is`(0))
 
         assertThat(namedFunctionRefPsi.functionName, `is`(nullValue()))
-    }
-
-    // endregion
-    // region XQueryVersionDecl
-
-    @Test
-    fun testVersionDecl() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
-        assertThat(versionDeclPsi.encoding, `is`(nullValue()))
-
-        assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_CommentBeforeDecl() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq")
-
-        val versionDeclPsi = file.children().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
-        assertThat(versionDeclPsi.encoding, `is`(nullValue()))
-
-        assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_EmptyVersion() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`(""))
-        assertThat(versionDeclPsi.encoding, `is`(nullValue()))
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_WithEncoding() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
-        assertThat(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
-
-        assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_WithEncoding_CommentsAsWhitespace() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
-        assertThat(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
-
-        assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_WithEmptyEncoding() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
-        assertThat(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmStaticValue).staticValue as String, `is`(""))
-
-        assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_NoVersion() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(nullValue()))
-        assertThat(versionDeclPsi.encoding, `is`(nullValue()))
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
-    }
-
-    @Test
-    fun testVersionDecl_UnsupportedVersion() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-1.0/VersionDecl_UnsupportedVersion.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmStaticValue).staticValue as String, `is`("9.4"))
-        assertThat(versionDeclPsi.encoding, `is`(nullValue()))
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`(versionDeclPsi.version))
-    }
-
-    @Test
-    fun testVersionDecl_EncodingOnly() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(nullValue()))
-        assertThat(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
-    }
-
-    @Test
-    fun testVersionDecl_EncodingOnly_EmptyEncoding() {
-        settings.XQueryVersion = XQuery.REC_3_0_20140408.label
-        val file = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq")
-
-        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat(versionDeclPsi.version, `is`(nullValue()))
-        assertThat(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmStaticValue).staticValue as String, `is`(""))
-
-        assertThat(file.XQueryVersion.version, `is`(nullValue()))
-        assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
     }
 
     // endregion
