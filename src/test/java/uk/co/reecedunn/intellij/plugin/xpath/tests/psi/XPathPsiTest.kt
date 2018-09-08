@@ -19,6 +19,8 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -470,6 +472,61 @@ private class XPathPsiTest : ParserTestCase() {
             fun saxon() {
                 val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
                 assertThat(entry.separator.node.elementType, `is`(XQueryElementType.MAP_KEY_EXPR))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.20) Arrow Operator")
+    internal inner class ArrowOperator {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowFunctionSpecifier {
+            @Test
+            @DisplayName("EQName specifier, non-empty ArgumentList")
+            fun nonEmptyArgumentList() {
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => f(1, 2,  3)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(4))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("f"))
+            }
+
+            @Test
+            @DisplayName("EQName specifier, empty ArgumentList")
+            fun emptyArgumentList() {
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case()")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("upper-case"))
+            }
+
+            @Test
+            @DisplayName("EQName specifier, missing ArgumentList")
+            fun missingArgumentList() {
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("upper-case"))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+                assertThat(f.functionName, `is`(nullValue()))
             }
         }
     }

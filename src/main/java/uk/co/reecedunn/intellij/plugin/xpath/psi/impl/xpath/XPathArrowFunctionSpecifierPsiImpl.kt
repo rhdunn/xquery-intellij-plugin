@@ -20,10 +20,19 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
-class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowFunctionSpecifier {
-    override val arity get(): Int {
-        val args: XPathArgumentList? = siblings().firstOrNull { e -> e is XPathArgumentList } as? XPathArgumentList
-        return args?.arity?.plus(1) ?: 1
-    }
+class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathFunctionReference,
+    XPathArrowFunctionSpecifier {
+
+    override val arity
+        get(): Int {
+            val args: XPathArgumentList? = siblings().filterIsInstance<XPathArgumentList>().firstOrNull()
+            return args?.arity?.plus(1) ?: 1
+        }
+
+    override val functionName get(): XsQNameValue? = firstChild as? XsQNameValue
 }

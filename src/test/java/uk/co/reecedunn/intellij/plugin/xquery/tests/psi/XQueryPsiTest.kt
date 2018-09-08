@@ -380,36 +380,6 @@ private class XQueryPsiTest : ParserTestCase() {
         }
     }
 
-    // region XPathArrowFunctionSpecifier
-
-    @Test
-    fun testArrowFunctionSpecifier() {
-        val file = parseResource("tests/psi/xquery-3.1/ArrowExpr_MultipleArguments.xq")
-
-        val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
-        assertThat(arrowFunctionSpecifierPsi.arity, `is`(4))
-    }
-
-    @Test
-    fun testArrowFunctionSpecifier_Empty() {
-        val file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
-
-        val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
-        assertThat(arrowFunctionSpecifierPsi.arity, `is`(1))
-    }
-
-    @Test
-    fun testArrowFunctionSpecifier_MissingArgumentList() {
-        val file = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq")
-
-        val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
-        assertThat(arrowFunctionSpecifierPsi.arity, `is`(1))
-    }
-
-    // endregion
     // region XQueryDefaultNamespaceDecl
 
     @Test

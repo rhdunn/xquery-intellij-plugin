@@ -18,18 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
 class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
-        val parent = element.parent
-        val arity = when (parent) {
-            is XPathFunctionReference -> parent.arity
-            is XPathArrowFunctionSpecifier -> parent.arity
-            else -> -1
-        }
+        val arity = (element.parent as? XPathFunctionReference)?.arity ?: -1
         return element.resolveFunctionDecls().firstOrNull { f -> f.arity == arity }
     }
 

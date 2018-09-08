@@ -24,7 +24,6 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -55,12 +54,7 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
                 descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             } else {
                 // 2. The number of arguments does not match the arity of a function signature in the static context.
-                val parent = qname.parent
-                val arity = when (parent) {
-                    is XPathFunctionReference -> parent.arity
-                    is XPathArrowFunctionSpecifier -> parent.arity
-                    else -> -1
-                }
+                val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
                 if (declarations.firstOrNull { f -> f.arity == arity } == null) {
                     val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
                     val decl = context.declaration?.get()!! as PsiElement
