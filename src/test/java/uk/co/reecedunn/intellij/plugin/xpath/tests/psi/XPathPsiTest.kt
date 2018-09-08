@@ -324,6 +324,48 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.1.6) Named Function References")
+    internal inner class NamedFunctionReferences {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+        internal inner class NamedFunctionRef {
+            @Test
+            @DisplayName("named function reference")
+            fun namedFunctionRef() {
+                val f = parse<XPathNamedFunctionRef>("true#3")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(3))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("true"))
+            }
+
+            @Test
+            @DisplayName("missing arity")
+            fun missingArity() {
+                val f = parse<XPathNamedFunctionRef>("true#")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("true"))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+                assertThat(f.functionName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
         @Nested

@@ -24,7 +24,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
@@ -73,7 +72,6 @@ class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
             val localname = when (element) {
                 is XPathFunctionReference -> getLocalName(element.functionName)
                 is XQueryFunctionDecl -> getLocalName(element.functionName)
-                is XPathNamedFunctionRef -> getLocalName(element.functionName)
                 else -> null
             }
             when (localname?.second) {

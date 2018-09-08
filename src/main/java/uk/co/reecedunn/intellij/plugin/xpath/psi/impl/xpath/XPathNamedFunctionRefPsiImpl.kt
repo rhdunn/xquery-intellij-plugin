@@ -23,7 +23,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsIntegerValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toInt
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -31,15 +33,25 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XPathNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNamedFunctionRef, XQueryConformance {
+class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathFunctionReference,
+    XPathNamedFunctionRef,
+    XQueryConformance {
+    // region XQueryConformance
+
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR) ?: this
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR) ?: this
 
-    override val functionName: XPathEQName? =
-        findChildByClass(XPathEQName::class.java)
+    // endregion
+    // region XPathFunctionReference
 
-    override val arity get(): Int =
-        (children().filterIsInstance<XPathIntegerLiteral>().firstOrNull() as? XsIntegerValue)?.toInt() ?: 0
+    override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
+
+    override val arity
+        get(): Int =
+            (children().filterIsInstance<XPathIntegerLiteral>().firstOrNull() as? XsIntegerValue)?.toInt() ?: 0
+
+    // endregion
 }

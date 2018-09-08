@@ -826,44 +826,4 @@ private class XQueryPsiTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region XPathNamedFunctionRef
-
-    @Test
-    fun testNamedFunctionRef() {
-        val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        assertThat(namedFunctionRefPsi, `is`(notNullValue()))
-        assertThat(namedFunctionRefPsi.arity, `is`(3))
-
-        val qname = (namedFunctionRefPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix, `is`(nullValue()))
-        assertThat(qname?.localName?.staticValue, `is`("true"))
-    }
-
-    @Test
-    fun testNamedFunctionRef_MissingArity() {
-        val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq")
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        assertThat(namedFunctionRefPsi, `is`(notNullValue()))
-        assertThat(namedFunctionRefPsi.arity, `is`(0))
-
-        val qname = (namedFunctionRefPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix, `is`(nullValue()))
-        assertThat(qname?.localName?.staticValue, `is`("true"))
-    }
-
-    @Test
-    fun testNamedFunctionRef_NoFunctionEQName() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_NoFunctionEQName.xq")
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        assertThat(namedFunctionRefPsi, `is`(notNullValue()))
-        assertThat(namedFunctionRefPsi.arity, `is`(0))
-
-        assertThat(namedFunctionRefPsi.functionName, `is`(nullValue()))
-    }
-
-    // endregion
 }

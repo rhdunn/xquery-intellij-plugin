@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 
 class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
@@ -28,7 +27,6 @@ class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiR
         val parent = element.parent
         val arity = when (parent) {
             is XPathFunctionReference -> parent.arity
-            is XPathNamedFunctionRef -> parent.arity
             is XPathArrowFunctionSpecifier -> parent.arity
             else -> -1
         }

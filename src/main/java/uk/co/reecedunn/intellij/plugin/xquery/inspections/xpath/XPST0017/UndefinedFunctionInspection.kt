@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
@@ -59,7 +58,6 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
                 val parent = qname.parent
                 val arity = when (parent) {
                     is XPathFunctionReference -> parent.arity
-                    is XPathNamedFunctionRef -> parent.arity
                     is XPathArrowFunctionSpecifier -> parent.arity
                     else -> -1
                 }

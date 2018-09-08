@@ -18,8 +18,4 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 /**
  * An XPath 3.0 and XQuery 3.0 `NamedFunctionRef` node in the XQuery AST.
  */
-interface XPathNamedFunctionRef : XPathFunctionItemExpr {
-    val functionName: XPathEQName?
-
-    val arity: Int
-}
+interface XPathNamedFunctionRef : XPathFunctionItemExpr
