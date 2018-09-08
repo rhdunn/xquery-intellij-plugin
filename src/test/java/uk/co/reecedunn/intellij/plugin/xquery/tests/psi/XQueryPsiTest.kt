@@ -32,13 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery 3.1")
+@DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (2) Basics")
@@ -819,31 +817,6 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi.arity, `is`(0))
 
         assertThat(functionDeclPsi.functionName, `is`(nullValue()))
-    }
-
-    // endregion
-    // region XPathMapConstructorEntry
-
-    @Test
-    fun testMapConstructorEntry() {
-        val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
-
-        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
-
-        assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`(XQueryTokenType.QNAME_SEPARATOR))
-    }
-
-    @Test
-    fun testMapConstructorEntry_NoValueAssignmentOperator() {
-        val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
-
-        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
-
-        assertThat(mapConstructorEntryPsi.separator.node.elementType,
-                `is`(XQueryElementType.MAP_KEY_EXPR))
     }
 
     // endregion

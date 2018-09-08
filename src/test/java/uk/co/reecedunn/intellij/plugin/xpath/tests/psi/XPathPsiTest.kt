@@ -22,13 +22,15 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XPath 3.1")
+@DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.1 (2) Basics")
@@ -353,6 +355,28 @@ private class XPathPsiTest : ParserTestCase() {
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.11.1) Maps")
+    internal inner class Maps {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
+        internal inner class MapConstructorEntry {
+            @Test
+            @DisplayName("key, value")
+            fun keyValue() {
+                val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
+                assertThat(entry.separator.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
+            }
+
+            @Test
+            @DisplayName("key, no value")
+            fun saxon() {
+                val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
+                assertThat(entry.separator.node.elementType, `is`(XQueryElementType.MAP_KEY_EXPR))
             }
         }
     }
