@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
@@ -55,9 +56,11 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         val eqnameStart = node.startOffset
         val localName = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
         val localNameRef: PsiReference? =
-            if (localName != null) when (type) {
-                XPathEQName.Type.Function -> XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
-                XPathEQName.Type.Variable -> XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+            if (localName != null) when {
+                type === XPathEQName.Type.Function ->
+                    XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                parent is XPathVariableName ->
+                    XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
             } else {
                 null

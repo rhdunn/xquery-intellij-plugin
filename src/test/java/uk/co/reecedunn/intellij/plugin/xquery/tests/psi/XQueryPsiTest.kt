@@ -647,45 +647,6 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region Type :: Variable :: VarDecl
-
-    @Test
-    fun testEQNameType_VarDecl_NCName() {
-        val file = parseResource("tests/resolve/variables/VarDecl_VarRef_NCName.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
-        val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.type, `is`(XPathEQName.Type.Variable))
-    }
-
-    @Test
-    fun testEQNameType_VarDecl_QName() {
-        val file = parseResource("tests/resolve/variables/VarDecl_VarRef_QName.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
-        val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.type, `is`(XPathEQName.Type.Variable))
-    }
-
-    @Test
-    fun testEQNameType_VarDecl_EQName() {
-        val file = parseResource("tests/resolve/variables/VarDecl_VarRef_EQName.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val varDeclQName = varDeclPsi.children().filterIsInstance<XPathVarName>().first()
-        val name = varDeclQName.children().filterIsInstance<XPathEQName>().first()
-
-        assertThat(name.type, `is`(XPathEQName.Type.Variable))
-    }
-
-    // endregion
     // region resolveFunctionDecls
 
     @Test

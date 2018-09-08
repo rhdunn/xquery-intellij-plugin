@@ -37,7 +37,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 interface XPathEQName : PsiElement {
     enum class Type {
         Function,
-        Variable,
         Unknown,
     }
 
@@ -47,8 +46,6 @@ interface XPathEQName : PsiElement {
             parent === XQueryElementType.NAMED_FUNCTION_REF ||
             parent === XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
             return Type.Function
-        } else if (this.parent is XPathVariableName) {
-            return Type.Variable
         }
         return Type.Unknown
     }
