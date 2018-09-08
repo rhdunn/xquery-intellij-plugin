@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -58,7 +58,7 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
                 // 2. The number of arguments does not match the arity of a function signature in the static context.
                 val parent = qname.parent
                 val arity = when (parent) {
-                    is XPathFunctionCall -> parent.arity
+                    is XPathFunctionReference -> parent.arity
                     is XPathNamedFunctionRef -> parent.arity
                     is XPathArrowFunctionSpecifier -> parent.arity
                     else -> -1

@@ -18,16 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
+
+interface XPathFunctionReference {
+    val functionName: XsQNameValue?
+
+    val arity: Int
+}
 
 interface XPathFunctionName {
     val cacheable: CachingBehaviour
 
     val functionName: QName?
 }
-
-@Suppress("unused")
-const val VARIABLE_ARITY: Int = -1
 
 interface XPathFunctionArguments<out T> {
     val cacheable: CachingBehaviour
@@ -39,9 +41,4 @@ interface XPathFunctionArguments<out T> {
 
 interface XPathFunctionDeclaration : XPathFunctionName, XPathFunctionArguments<XPathVariableBinding> {
     val returnType: XdmSequenceType?
-}
-
-@Suppress("unused")
-interface XPathFunctionEvaluation : XPathFunctionName, XPathFunctionArguments<XdmStaticValue> {
-    val result: XdmStaticValue?
 }

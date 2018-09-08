@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,9 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
@@ -49,6 +50,17 @@ class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
         return null
     }
 
+    private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
+        if (name != null && name.isLexicalQName && name.prefix == null) {
+            val localname = name.localName
+            val type = (localname as PsiElement).node.elementType
+            if (type is IXQueryKeywordOrNCNameType) {
+                return Pair(localname, type.keywordType)
+            }
+        }
+        return null
+    }
+
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
@@ -59,7 +71,7 @@ class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().forEach { element ->
             val localname = when (element) {
-                is XPathFunctionCall -> getLocalName(element.functionName)
+                is XPathFunctionReference -> getLocalName(element.functionName)
                 is XQueryFunctionDecl -> getLocalName(element.functionName)
                 is XPathNamedFunctionRef -> getLocalName(element.functionName)
                 else -> null

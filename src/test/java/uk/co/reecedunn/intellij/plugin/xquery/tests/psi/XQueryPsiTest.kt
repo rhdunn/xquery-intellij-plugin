@@ -26,10 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xpath.model.XdmWildcardValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -684,59 +681,6 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // endregion
-    // region XPathFunctionCall
-
-    @Test
-    fun testFunctionCall() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        assertThat(functionCallPsi, `is`(notNullValue()))
-        assertThat(functionCallPsi.arity, `is`(2))
-
-        val qname = (functionCallPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix?.staticValue, `is`("math"))
-        assertThat(qname?.localName?.staticValue, `is`("pow"))
-    }
-
-    @Test
-    fun testFunctionCall_Empty() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        assertThat(functionCallPsi, `is`(notNullValue()))
-        assertThat(functionCallPsi.arity, `is`(0))
-
-        val qname = (functionCallPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix?.staticValue, `is`("fn"))
-        assertThat(qname?.localName?.staticValue, `is`("true"))
-    }
-
-    @Test
-    fun testFunctionCall_ArgumentPlaceholder() {
-        val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        assertThat(functionCallPsi, `is`(notNullValue()))
-        assertThat(functionCallPsi.arity, `is`(1))
-
-        val qname = (functionCallPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix?.staticValue, `is`("math"))
-        assertThat(qname?.localName?.staticValue, `is`("sin"))
-    }
-
-    @Test
-    fun testFunctionCall_NoFunctionEQName() {
-        val file = parseResource("tests/psi/xquery-1.0/FunctionCall_NoFunctionEQName.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        assertThat(functionCallPsi, `is`(notNullValue()))
-        assertThat(functionCallPsi.arity, `is`(0))
-
-        assertThat(functionCallPsi.functionName, `is`(nullValue()))
-    }
-
     // endregion
     // region XQueryFunctionDecl
 

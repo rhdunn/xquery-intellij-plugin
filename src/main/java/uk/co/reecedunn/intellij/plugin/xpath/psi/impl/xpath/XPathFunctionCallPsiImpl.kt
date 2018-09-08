@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,16 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
-class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionCall {
-    override val functionName get(): XPathEQName? =
-        firstChild as? XPathEQName
+class XPathFunctionCallPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathFunctionReference,
+    XPathFunctionCall {
 
-    override val arity get(): Int =
-        children().filterIsInstance<XPathArgumentList>().first().arity
+    override val functionName get(): XsQNameValue? = firstChild as? XsQNameValue
+
+    override val arity get(): Int = children().filterIsInstance<XPathArgumentList>().first().arity
 }

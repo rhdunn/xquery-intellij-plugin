@@ -247,6 +247,57 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (3.1.5) Static Function Calls")
     internal inner class StaticFunctionCalls {
         @Nested
+        @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+        internal inner class FunctionCall {
+            @Test
+            @DisplayName("non-empty ArgumentList")
+            fun nonEmptyArguments() {
+                val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(2))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("math"))
+                assertThat(qname.localName!!.data, `is`("pow"))
+            }
+
+            @Test
+            @DisplayName("empty ArgumentList")
+            fun emptyArguments() {
+                val f = parse<XPathFunctionCall>("fn:true()")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName!!.data, `is`("true"))
+            }
+
+            @Test
+            @DisplayName("ArgumentPlaceholder")
+            fun argumentPlaceholder() {
+                val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(1))
+
+                val qname = f.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("math"))
+                assertThat(qname.localName!!.data, `is`("sin"))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val f = parse<XPathFunctionCall>(":true()")[0] as XPathFunctionReference
+                assertThat(f.arity, `is`(0))
+                assertThat(f.functionName, `is`(nullValue()))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
         internal inner class ArgumentList {
             @Test
