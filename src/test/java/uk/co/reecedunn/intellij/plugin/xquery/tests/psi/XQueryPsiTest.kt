@@ -385,39 +385,6 @@ private class XQueryPsiTest : ParserTestCase() {
         }
     }
 
-    // region XPathArgumentList
-
-    @Test
-    fun testArgumentList() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        assertThat(argumentListPsi, `is`(notNullValue()))
-        assertThat(argumentListPsi.arity, `is`(2))
-    }
-
-    @Test
-    fun testArgumentList_Empty() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        assertThat(argumentListPsi, `is`(notNullValue()))
-        assertThat(argumentListPsi.arity, `is`(0))
-    }
-
-    @Test
-    fun testArgumentList_ArgumentPlaceholder() {
-        val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        assertThat(argumentListPsi, `is`(notNullValue()))
-        assertThat(argumentListPsi.arity, `is`(1))
-    }
-
-    // endregion
     // region XPathArrowFunctionSpecifier
 
     @Test

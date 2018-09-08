@@ -242,6 +242,35 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.1.5) Static Function Calls")
+    internal inner class StaticFunctionCalls {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
+        internal inner class ArgumentList {
+            @Test
+            @DisplayName("empty parameters")
+            fun empty() {
+                val args = parse<XPathArgumentList>("fn:true()")[0]
+                assertThat(args.arity, `is`(0))
+            }
+
+            @Test
+            @DisplayName("multiple ExprSingle parameters")
+            fun multiple() {
+                val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
+                assertThat(args.arity, `is`(2))
+            }
+
+            @Test
+            @DisplayName("ArgumentPlaceholder parameter")
+            fun argumentPlaceholder() {
+                val args = parse<XPathArgumentList>("math:sin(?)")[0]
+                assertThat(args.arity, `is`(1))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
         @Nested
