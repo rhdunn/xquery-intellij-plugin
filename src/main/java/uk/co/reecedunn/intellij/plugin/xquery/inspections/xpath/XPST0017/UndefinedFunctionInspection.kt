@@ -40,10 +40,10 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XPathEQName>()
-                       .filter { qname -> qname.type == XPathEQName.Type.Function }
-                       .forEach { qname ->
-            val declarations = qname.resolveFunctionDecls().toList()
+        file.walkTree().filterIsInstance<XPathFunctionReference>()
+                       .forEach { ref ->
+            val qname = ref.functionName
+            val declarations = (qname as XPathEQName).resolveFunctionDecls().toList()
             val context = (qname as? XdmStaticValue)?.staticValue as? QName
             if (context == null) {
                 // Missing local name -- do nothing.

@@ -18,10 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 /**
@@ -35,21 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
  * <code>URIQualifiedName</code>.
  */
 interface XPathEQName : PsiElement {
-    enum class Type {
-        Function,
-        Unknown,
-    }
-
-    val type get(): Type {
-        val parent = parent.node.elementType
-        if (parent === XQueryElementType.FUNCTION_CALL ||
-            parent === XQueryElementType.NAMED_FUNCTION_REF ||
-            parent === XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
-            return Type.Function
-        }
-        return Type.Unknown
-    }
-
     fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration>
 
     fun resolveFunctionDecls(): Sequence<XQueryFunctionDecl> {
