@@ -61,7 +61,11 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     override val value
         get(): XsAnyAtomicType? {
             return cachedContent.get()?.let {
-                uk.co.reecedunn.intellij.plugin.xpath.model.XsString(it)
+                if ((parent as XPathNamespaceDeclaration).namespacePrefix == null) {
+                    uk.co.reecedunn.intellij.plugin.xpath.model.XsString(it)
+                } else {
+                    uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri(it)
+                }
             }
         }
 

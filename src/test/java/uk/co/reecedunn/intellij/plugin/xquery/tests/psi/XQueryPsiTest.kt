@@ -344,6 +344,44 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(psi.value, `is`(nullValue()))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (3.9.1.2) Namespace Declaration Attributes")
+        internal inner class NamespaceDeclarationAttributes {
+            @Test
+            @DisplayName("namespace prefix")
+            fun namespacePrefix() {
+                val psi = parse<XQueryDirAttributeValue>("<a xmlns:b=\"http://www.example.com")[0]
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
+
+                val literal = psi.value as XsAnyUriValue
+                assertThat(literal.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("namespace prefix containing an EnclosedExpr")
+            fun namespacePrefixWithEnclosedExpr() {
+                val psi = parse<XQueryDirAttributeValue>("<a xmlns:b=\"http://www.{\"example\"}.com\"/>")[0]
+                assertThat(psi.value, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace")
+            fun defaultElementTypeNamespace() {
+                val psi = parse<XQueryDirAttributeValue>("<a xmlns=\"http://www.example.com")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace containing an EnclosedExpr")
+            fun defaultElementTypeNamespaceEnclosedExpr() {
+                val psi = parse<XQueryDirAttributeValue>("<a xmlns:b=\"http://www.{\"example\"}.com\"/>")[0]
+                assertThat(psi.value, `is`(nullValue()))
+            }
+        }
     }
 
     @Nested
