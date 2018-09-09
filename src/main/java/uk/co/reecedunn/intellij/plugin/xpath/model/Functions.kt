@@ -16,8 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 interface XPathFunctionReference {
     val functionName: XsQNameValue?
@@ -41,4 +46,22 @@ interface XPathFunctionArguments<out T> {
 
 interface XPathFunctionDeclaration : XPathFunctionName, XPathFunctionArguments<XPathVariableBinding> {
     val returnType: XdmSequenceType?
+}
+
+fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
+    val prologs = resolvePrefixNamespace().map { ns ->
+        (ns as? XQueryPrologResolver)?.prolog
+    }.filterNotNull()
+
+    return prologs.flatMap { prolog ->
+        prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
+            val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
+            val functionName = function?.children()?.filterIsInstance<XPathEQName>()?.firstOrNull()
+            if (functionName?.equals(this) == true) {
+                function
+            } else {
+                null
+            }
+        }
+    }.filterNotNull()
 }

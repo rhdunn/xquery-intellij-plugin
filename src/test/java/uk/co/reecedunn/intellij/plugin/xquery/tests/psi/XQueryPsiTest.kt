@@ -523,45 +523,6 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region XPathEQName
-    // region staticallyKnownFunctions
-
-    @Test
-    fun testQName_resolveFunctionDecls_SingleDeclMatch() {
-        val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")
-
-        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XPathQName>().first()
-
-        val decls = fnName.staticallyKnownFunctions().toList()
-        assertThat(decls.size, `is`(1))
-
-        val functionName = decls[0].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:true"))
-        assertThat(decls[0].arity, `is`(0))
-    }
-
-    @Test
-    fun testQName_resolveFunctionDecls_MultipleDeclMatch() {
-        val file = parseResource("tests/resolve/functions/FunctionCall_QName_Arity.xq")
-
-        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XPathQName>().first()
-
-        val decls = fnName.staticallyKnownFunctions().toList()
-        assertThat(decls.size, `is`(2))
-
-        var functionName = decls[0].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:data"))
-        assertThat(decls[0].arity, `is`(0))
-
-        functionName = decls[1].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:data"))
-        assertThat(decls[1].arity, `is`(1))
-    }
-
-    // endregion
-    // endregion
     // region XQueryFunctionDecl
 
     @Test
