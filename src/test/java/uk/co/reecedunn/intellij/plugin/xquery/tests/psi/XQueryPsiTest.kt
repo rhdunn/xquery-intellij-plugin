@@ -729,7 +729,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "declare default element namespace 'http://www.w3.org/1999/xhtml';"
                 )[0]
 
-                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+                assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
                 assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
                 assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
             }
@@ -741,7 +741,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';"
                 )[0]
 
-                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.Function))
+                assertThat(decl.type, `is`(XPathNamespaceType.DefaultFunction))
                 assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
                 assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
             }
@@ -751,7 +751,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun emptyNamespace() {
                 val decl = parse<XQueryDefaultNamespaceDecl>("declare default element namespace '';")[0]
 
-                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+                assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
                 assertThat(decl.defaultValue, `is`(nullValue()))
             }
 
@@ -760,7 +760,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun missingNamespace() {
                 val decl = parse<XQueryDefaultNamespaceDecl>("declare default element namespace;")[0]
 
-                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+                assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
                 assertThat(decl.defaultValue, `is`(nullValue()))
             }
         }
