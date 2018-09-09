@@ -15,12 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.psi.PsiElement
+import com.intellij.testFramework.LightVirtualFileBase
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
@@ -31,6 +34,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+
+private fun PsiElement.resourcePath(): String {
+    var file = containingFile.virtualFile
+    if (file is LightVirtualFileBase) {
+        file = file.originalFile
+    }
+    return file.path.replace('\\', '/')
+}
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
@@ -302,6 +313,55 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_1_20170321))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (3) MainModule")
+        internal inner class MainModule {
+            @Test
+            @DisplayName("no prolog")
+            fun noProlog() {
+                val module = parse<XQueryMainModule>("()")[0]
+
+                assertThat((module as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("prolog")
+            fun prolog() {
+                val module = parse<XQueryMainModule>("declare function local:func() {}; ()")[0]
+
+                val prolog = (module as XQueryPrologResolver).prolog!!
+                val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
+                assertThat(name.text, `is`("local:func"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (4) LibraryModule")
+        internal inner class LibraryModule {
+            @Test
+            @DisplayName("no prolog")
+            fun noProlog() {
+                val module = parse<XQueryLibraryModule>("module namespace test = \"http://www.example.com\";")[0]
+
+                assertThat((module as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("prolog")
+            fun prolog() {
+                val module = parse<XQueryLibraryModule>(
+                    """
+                        module namespace test = "http://www.example.com";
+                        declare function test:func() {};
+                    """
+                )[0]
+
+                val prolog = (module as XQueryPrologResolver).prolog!!
+                val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
+                assertThat(name.text, `is`("test:func"))
+            }
+        }
     }
 
     @Nested
@@ -377,6 +437,92 @@ private class XQueryPsiTest : ParserTestCase() {
             val decl = parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
             assertThat((decl.version!! as XdmStaticValue).staticValue as String, `is`("1.0"))
             assertThat((decl.encoding!! as XdmStaticValue).staticValue as String, `is`("latin1"))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (4.2) Module Declaration")
+    internal inner class ModuleDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 [4.2] Module Declaration : [5] ModuleDecl")
+        internal inner class ModuleDecl {
+            @Test
+            @DisplayName("no prolog")
+            fun noProlog() {
+                val module = parse<XQueryModuleDecl>("module namespace test = \"http://www.example.com\";")[0]
+
+                assertThat((module as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("prolog")
+            fun prolog() {
+                val module = parse<XQueryModuleDecl>(
+                    """
+                        module namespace test = "http://www.example.com";
+                        declare function test:func() {};
+                    """
+                )[0]
+
+                val prolog = (module as XQueryPrologResolver).prolog!!
+                val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
+                assertThat(name.text, `is`("test:func"))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (4.12) Module Import")
+    internal inner class ModuleImport {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
+        internal inner class ModuleImport {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
+                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("same directory")
+            fun sameDirectory() {
+                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
+                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("parent directory")
+            fun parentDirectory() {
+                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
+                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                val prolog = (psi as XQueryPrologResolver).prolog!!
+                assertThat(prolog.resourcePath(), endsWith("/tests/resolve/namespaces/ModuleDecl.xq"))
+            }
+
+            @Test
+            @DisplayName("res:// file matching")
+            fun resProtocol() {
+                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
+                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                val prolog = (psi as XQueryPrologResolver).prolog!!
+                assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+            }
+
+            @Test
+            @DisplayName("res:// file missing")
+            fun resProtocolMissing() {
+                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")
+                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
         }
     }
 
@@ -565,106 +711,5 @@ private class XQueryPsiTest : ParserTestCase() {
         assertThat(functionDeclPsi.functionName, `is`(nullValue()))
     }
 
-    // endregion
-    // region XQueryPrologResolver
-    // region Module
-
-    @Test
-    fun testModule_PrologResolver_NoProlog() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")
-
-        val modules = file.children().filterIsInstance<XQueryLibraryModule>().toList()
-        assertThat(modules.size, `is`(1))
-
-        val provider = modules[0] as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(nullValue()))
-    }
-
-    @Test
-    fun testModule_PrologResolver() {
-        val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")
-
-        val modules = file.children().filterIsInstance<XQueryLibraryModule>().toList()
-        assertThat(modules.size, `is`(1))
-
-        val provider = modules[0] as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(notNullValue()))
-
-        val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
-        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
-        assertThat(functionName?.text, `is`("test:func"))
-    }
-
-    // endregion
-    // region ModuleDecl
-
-    @Test
-    fun testModuleDecl_PrologResolver_NoProlog() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")
-
-        val provider = file.descendants().filterIsInstance<XQueryModuleDecl>().first() as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(nullValue()))
-    }
-
-    @Test
-    fun testModuleDecl_PrologResolver() {
-        val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")
-
-        val provider = file.descendants().filterIsInstance<XQueryModuleDecl>().first() as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(notNullValue()))
-
-        val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
-        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
-        assertThat(functionName?.text, `is`("test:func"))
-    }
-
-    // endregion
-    // region ModuleImport
-
-    @Test
-    fun testModuleImport_EmptyUri() {
-        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
-
-        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(nullValue()))
-    }
-
-    @Test
-    fun testModuleImport_LocalPath_NoModule() {
-        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
-
-        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(nullValue()))
-    }
-
-    @Test
-    fun testModuleImport_LocalPath_Module() {
-        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
-
-        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(notNullValue()))
-
-        val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
-        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
-        assertThat(functionName?.text, `is`("test:func"))
-    }
-
-    @Test
-    fun testModuleImport_ResourceFile() {
-        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
-
-        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
-        assertThat(provider.prolog, `is`(notNullValue()))
-
-        val annotation = provider.prolog?.children()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
-        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
-        assertThat(functionName?.text, `is`("array:append"))
-    }
-
-    // endregion
     // endregion
 }
