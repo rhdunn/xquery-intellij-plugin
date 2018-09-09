@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,45 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.filterNotToken
-import uk.co.reecedunn.intellij.plugin.core.sequences.withNext
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-class XPathPostfixExprPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathPostfixExpr,
-        XdmStaticValue {
-
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        staticEval.invalidate()
-    }
-
-    /**
-     * Perform static evaluation on the PostfixExpr to determine the static type and value.
-     */
-    private val staticEval: CacheableProperty<Pair<XdmSequenceType, Any?>?> = CacheableProperty {
-        val children = children().filterNotToken(XQueryElementType.WHITESPACE_OR_COMMENT).iterator()
-        children.withNext { value ->
-            if (value !is XdmStaticValue || children.hasNext())
-                null
-            else // Literal without a Predicate, ArgumentList, or Lookup expression.
-                Pair(value.staticType, value.staticValue)
-        } `is` Cacheable
-    }
-
-    override val cacheable get(): CachingBehaviour = staticEval.cachingBehaviour
-
-    override val staticType get(): XdmSequenceType = staticEval.get()?.first ?: XsUntyped
-
-    override val staticValue get(): Any? = staticEval.get()?.second
-}
+class XPathPostfixExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathPostfixExpr
