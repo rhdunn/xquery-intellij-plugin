@@ -20,4 +20,6 @@ import com.intellij.psi.PsiElement
 /**
  * An XPath 3.0 and XQuery 1.0 `ParamList` node in the XQuery AST.
  */
-interface XPathParamList : PsiElement
+interface XPathParamList : PsiElement {
+    val arity: Int
+}

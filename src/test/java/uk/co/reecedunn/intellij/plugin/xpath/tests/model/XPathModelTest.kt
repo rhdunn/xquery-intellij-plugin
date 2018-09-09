@@ -30,8 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-import java.math.BigDecimal
-import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("UNCHECKED_CAST")
@@ -1329,51 +1327,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XPathVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    // endregion
-    // endregion
-    // region Functions
-    // region ParamList (XPathFunctionArguments)
-
-    @Test
-    fun testParamList_SingleArguments() {
-        val expr = parse<XPathParamList>("function (\$x) {}")[0] as XPathFunctionArguments<XPathVariableBinding>
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
-
-        assertThat(expr.arity, `is`(1))
-        assertThat(expr.arguments.size, `is`(1))
-
-        assertThat(expr.arguments[0].variableType, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableValue, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableName!!.namespace, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableName!!.prefix, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableName!!.localName.staticValue as String, `is`("x"))
-
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-    }
-
-    @Test
-    fun testParamList_MultipleArguments() {
-        val expr = parse<XPathParamList>("function (\$x, \$y) {}")[0] as XPathFunctionArguments<XPathVariableBinding>
-        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
-
-        assertThat(expr.arity, `is`(2))
-        assertThat(expr.arguments.size, `is`(2))
-
-        assertThat(expr.arguments[0].variableType, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableValue, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableName!!.namespace, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableName!!.prefix, `is`(nullValue()))
-        assertThat(expr.arguments[0].variableName!!.localName.staticValue as String, `is`("x"))
-
-        assertThat(expr.arguments[1].variableType, `is`(nullValue()))
-        assertThat(expr.arguments[1].variableValue, `is`(nullValue()))
-        assertThat(expr.arguments[1].variableName!!.namespace, `is`(nullValue()))
-        assertThat(expr.arguments[1].variableName!!.prefix, `is`(nullValue()))
-        assertThat(expr.arguments[1].variableName!!.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }

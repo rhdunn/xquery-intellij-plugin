@@ -19,27 +19,21 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionArguments
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 
-class XPathParamListPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathParamList,
-        XPathFunctionArguments<XPathVariableBinding> {
+class XPathParamListPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathParamList {
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedArguments.invalidate()
     }
 
-    override val cacheable get(): CachingBehaviour = cachedArguments.cachingBehaviour
-
-    override val arguments get(): List<XPathVariableBinding> = cachedArguments.get()!!
     private val cachedArguments = CacheableProperty {
         children().filterIsInstance<XPathParam>().map { param -> param as XPathVariableBinding }.toList() `is` Cacheable
     }

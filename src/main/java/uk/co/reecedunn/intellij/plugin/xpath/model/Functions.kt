@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
@@ -28,14 +25,6 @@ interface XPathFunctionReference {
     val functionName: XsQNameValue?
 
     val arity: Int
-}
-
-interface XPathFunctionArguments<out T> {
-    val cacheable: CachingBehaviour
-
-    val arity: Int
-
-    val arguments: List<T>
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
