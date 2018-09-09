@@ -656,47 +656,41 @@ private class XQueryPsiTest : ParserTestCase() {
         }
     }
 
-    // region XQueryFunctionDecl
+    @Nested
+    @DisplayName("XQuery 3.1 (4.18) Function Declaration")
+    internal inner class FunctionDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+        internal inner class FunctionDecl {
+            @Test
+            @DisplayName("empty ParamList")
+            fun emptyParamList() {
+                val decl = parse<XQueryFunctionDecl>("declare function fn:true() external;")[0]
+                assertThat(decl.arity, `is`(0))
 
-    @Test
-    fun testFunctionDecl() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq")
+                val qname = (decl.functionName as XdmStaticValue).staticValue as QName
+                assertThat(qname.prefix!!.staticValue, `is`("fn"))
+                assertThat(qname.localName.staticValue, `is`("true"))
+            }
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        assertThat(functionDeclPsi, `is`(notNullValue()))
-        assertThat(functionDeclPsi.arity, `is`(0))
+            @Test
+            @DisplayName("non-empty ParamList")
+            fun nonEmptyParamList() {
+                val decl = parse<XQueryFunctionDecl>("declare function test(\$one, \$two) external;")[0]
+                assertThat(decl.arity, `is`(2))
 
-        val qname = (functionDeclPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix?.staticValue, `is`("fn"))
-        assertThat(qname?.localName?.staticValue, `is`("true"))
+                val qname = (decl.functionName as XdmStaticValue).staticValue as QName
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName.staticValue, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val decl = parse<XQueryFunctionDecl>("declare function :true() external;")[0]
+                assertThat(decl.arity, `is`(0))
+                assertThat(decl.functionName, `is`(nullValue()))
+            }
+        }
     }
-
-    @Test
-    fun testFunctionDecl_ParamList() {
-        val file = parseResource("tests/parser/xquery-1.0/ParamList.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        assertThat(functionDeclPsi, `is`(notNullValue()))
-        assertThat(functionDeclPsi.arity, `is`(2))
-
-        val qname = (functionDeclPsi.functionName as? XdmStaticValue)?.staticValue as? QName
-        assertThat(qname?.prefix, `is`(nullValue()))
-        assertThat(qname?.localName?.staticValue, `is`("test"))
-    }
-
-    @Test
-    fun testFunctionDecl_NoFunctionEQName() {
-        val file = parseResource("tests/psi/xquery-1.0/FunctionDecl_NoFunctionEQName.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        assertThat(functionDeclPsi, `is`(notNullValue()))
-        assertThat(functionDeclPsi.arity, `is`(0))
-
-        assertThat(functionDeclPsi.functionName, `is`(nullValue()))
-    }
-
-    // endregion
 }

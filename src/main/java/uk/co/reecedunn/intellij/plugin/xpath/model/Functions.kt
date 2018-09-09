@@ -30,22 +30,12 @@ interface XPathFunctionReference {
     val arity: Int
 }
 
-interface XPathFunctionName {
-    val cacheable: CachingBehaviour
-
-    val functionName: QName?
-}
-
 interface XPathFunctionArguments<out T> {
     val cacheable: CachingBehaviour
 
     val arity: Int
 
     val arguments: List<T>
-}
-
-interface XPathFunctionDeclaration : XPathFunctionName, XPathFunctionArguments<XPathVariableBinding> {
-    val returnType: XdmSequenceType?
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
