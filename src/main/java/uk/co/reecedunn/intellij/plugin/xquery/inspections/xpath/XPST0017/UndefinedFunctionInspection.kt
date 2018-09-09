@@ -43,7 +43,7 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
         file.walkTree().filterIsInstance<XPathFunctionReference>()
                        .forEach { ref ->
             val qname = ref.functionName
-            val declarations = (qname as XPathEQName).resolveFunctionDecls().toList()
+            val declarations = (qname as XPathEQName).staticallyKnownFunctions().toList()
             val context = (qname as? XdmStaticValue)?.staticValue as? QName
             if (context == null) {
                 // Missing local name -- do nothing.

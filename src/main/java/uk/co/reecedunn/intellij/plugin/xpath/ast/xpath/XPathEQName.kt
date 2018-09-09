@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 interface XPathEQName : PsiElement {
     fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration>
 
-    fun resolveFunctionDecls(): Sequence<XQueryFunctionDecl> {
+    fun staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
         val prologs = resolvePrefixNamespace().map { ns ->
             (ns as? XQueryPrologResolver)?.prolog
         }.filterNotNull()

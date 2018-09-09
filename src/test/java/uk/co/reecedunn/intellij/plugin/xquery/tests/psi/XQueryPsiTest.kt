@@ -524,7 +524,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
     // endregion
     // region XPathEQName
-    // region resolveFunctionDecls
+    // region staticallyKnownFunctions
 
     @Test
     fun testQName_resolveFunctionDecls_SingleDeclMatch() {
@@ -533,7 +533,7 @@ private class XQueryPsiTest : ParserTestCase() {
         val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val fnName = fn.children().filterIsInstance<XPathQName>().first()
 
-        val decls = fnName.resolveFunctionDecls().toList()
+        val decls = fnName.staticallyKnownFunctions().toList()
         assertThat(decls.size, `is`(1))
 
         val functionName = decls[0].children().filterIsInstance<XPathQName>().first()
@@ -548,7 +548,7 @@ private class XQueryPsiTest : ParserTestCase() {
         val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val fnName = fn.children().filterIsInstance<XPathQName>().first()
 
-        val decls = fnName.resolveFunctionDecls().toList()
+        val decls = fnName.staticallyKnownFunctions().toList()
         assertThat(decls.size, `is`(2))
 
         var functionName = decls[0].children().filterIsInstance<XPathQName>().first()
