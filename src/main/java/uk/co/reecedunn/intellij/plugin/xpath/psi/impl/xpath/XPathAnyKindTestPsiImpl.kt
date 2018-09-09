@@ -18,43 +18,30 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.XdmNode
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XPathAnyKindTestPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathAnyKindTest,
-        XQueryConformance,
-        XPathTypeDeclaration {
+class XPathAnyKindTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathAnyKindTest,
+    XQueryConformance {
     // region XQueryConformance
 
-    override val requiresConformance get(): List<Version> {
-        if (conformanceElement === firstChild) {
-            return XQUERY10
+    override val requiresConformance
+        get(): List<Version> {
+            if (conformanceElement === firstChild) {
+                return XQUERY10
+            }
+            return MARKLOGIC80
         }
-        return MARKLOGIC80
-    }
 
     override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.STAR) ?: firstChild
-
-    // endregion
-    // region XPathTypeDeclaration
-
-    override val cacheable get(): CachingBehaviour = CachingBehaviour.Cache
-
-    override val declaredType get(): XdmSequenceType = XdmNode
 
     // endregion
 }

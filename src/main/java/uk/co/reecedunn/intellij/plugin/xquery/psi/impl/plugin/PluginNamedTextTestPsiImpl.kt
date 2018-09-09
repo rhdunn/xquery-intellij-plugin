@@ -18,10 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.XdmText
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedTextTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -31,20 +27,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 class PluginNamedTextTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginNamedTextTest,
-    XQueryConformance,
-    XPathTypeDeclaration {
+    XQueryConformance {
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
     override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType.STRING_LITERAL)!!
-
-    // endregion
-    // region XPathTypeDeclaration
-
-    override val cacheable get(): CachingBehaviour = CachingBehaviour.Cache
-
-    override val declaredType get(): XdmSequenceType = XdmText
 
     // endregion
 }

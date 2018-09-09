@@ -17,21 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.XdmText
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 
-class PluginAnyTextTestPsiImpl(node: ASTNode):
+class PluginAnyTextTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    PluginAnyTextTest,
-    XPathTypeDeclaration {
-    // region XPathTypeDeclaration
-
-    override val cacheable get(): CachingBehaviour = CachingBehaviour.Cache
-
-    override val declaredType get(): XdmSequenceType = XdmText
-
-    // endregion
-}
+    PluginAnyTextTest

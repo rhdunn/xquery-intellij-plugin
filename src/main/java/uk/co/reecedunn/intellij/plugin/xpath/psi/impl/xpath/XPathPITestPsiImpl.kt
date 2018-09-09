@@ -17,34 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmProcessingInstruction
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 
-class XPathPITestPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathPITest,
-        XPathTypeDeclaration {
-    // region XPathTypeDeclaration
-
-    override val cacheable get(): CachingBehaviour = targetName?.cacheable ?: CachingBehaviour.Cache
-
-    override val declaredType get(): XdmSequenceType {
-        return XdmProcessingInstruction(targetName?.staticValue as? QName)
-    }
-
-    private val targetName get(): XdmStaticValue? {
-        return children().map { e -> when (e) {
-            is XPathNCName -> e as XdmStaticValue
-            else -> null
-        }}.filterNotNull().firstOrNull()
-    }
-
-    // endregion
-}
+class XPathPITestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathPITest

@@ -18,33 +18,20 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.XdmNamespace
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XPathNamespaceNodeTestPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathNamespaceNodeTest,
-        XQueryConformance,
-        XPathTypeDeclaration {
+class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathNamespaceNodeTest,
+    XQueryConformance {
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
-
-    // endregion
-    // region XPathTypeDeclaration
-
-    override val cacheable get(): CachingBehaviour = CachingBehaviour.Cache
-
-    override val declaredType get(): XdmSequenceType = XdmNamespace
+    override val conformanceElement get(): PsiElement = firstChild
 
     // endregion
 }
