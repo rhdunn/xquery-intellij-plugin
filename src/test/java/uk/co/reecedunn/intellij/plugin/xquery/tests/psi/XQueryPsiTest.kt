@@ -492,7 +492,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
                 val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                val prolog = (psi as XQueryPrologResolver).prolog!!
+                assertThat(prolog.resourcePath(), endsWith("/tests/resolve/files/test.xq"))
             }
 
             @Test
