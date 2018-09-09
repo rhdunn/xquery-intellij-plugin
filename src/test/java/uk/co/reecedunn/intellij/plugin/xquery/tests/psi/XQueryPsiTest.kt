@@ -272,6 +272,78 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(close, `is`(nullValue()))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
+        internal inner class DirAttributeValue {
+            @Test
+            @DisplayName("attribute value content")
+            fun attributeValue() {
+                val psi = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+            }
+
+            @Test
+            @DisplayName("unclosed attribute value content")
+            fun unclosedAttributeValue() {
+                val psi = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val psi = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("'\"\"{}"))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val psi = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("''\"{}"))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+                val psi = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val psi = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"")[0]
+                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+
+                val literal = psi.value as XsStringValue
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+            }
+
+            @Test
+            @DisplayName("EnclosedExpr tokens")
+            fun enclosedExpr() {
+                val psi = parse<XQueryDirAttributeValue>("<a b=\"x{\$y}z\"")[0]
+                assertThat(psi.value, `is`(nullValue()))
+            }
+        }
     }
 
     @Nested
