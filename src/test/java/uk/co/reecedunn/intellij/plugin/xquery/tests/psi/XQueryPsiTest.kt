@@ -196,6 +196,85 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.9.1) Direct Element Constructors")
+    internal inner class DirectElementConstructors {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+        internal inner class DirElemConstructor {
+            @Test
+            @DisplayName("open and close tags")
+            fun openAndCloseTags() {
+                val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0]
+                assertThat(element.isSelfClosing, `is`(false))
+
+                val open = element.openTag!!
+                assertThat(open.prefix!!.staticValue as String, `is`("a"))
+                assertThat(open.localName.staticValue as String, `is`("b"))
+
+                val close = element.closeTag!!
+                assertThat(close.prefix!!.staticValue as String, `is`("a"))
+                assertThat(close.localName.staticValue as String, `is`("b"))
+            }
+
+            @Test
+            @DisplayName("self-closing")
+            fun selfClosing() {
+                val element = parse<XQueryDirElemConstructor>("<h:br/>")[0]
+                assertThat(element.isSelfClosing, `is`(true))
+
+                val open = element.openTag!!
+                assertThat(open.prefix!!.staticValue as String, `is`("h"))
+                assertThat(open.localName.staticValue as String, `is`("br"))
+
+                val close = element.closeTag
+                assertThat(close, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("missing close tag")
+            fun missingClosingTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
+                assertThat(element.isSelfClosing, `is`(false))
+
+                val open = element.openTag!!
+                assertThat(open.prefix!!.staticValue as String, `is`("a"))
+                assertThat(open.localName.staticValue as String, `is`("b"))
+
+                val close = element.closeTag
+                assertThat(close, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("incomplete open tag")
+            fun incompleteOpenTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
+                assertThat(element.isSelfClosing, `is`(false))
+
+                val open = element.openTag
+                assertThat(open, `is`(nullValue()))
+
+                val close = element.closeTag!!
+                assertThat(close.prefix!!.staticValue as String, `is`("a"))
+                assertThat(close.localName.staticValue as String, `is`("b"))
+            }
+
+            @Test
+            @DisplayName("incomplete close tag")
+            fun incompleteCloseTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
+                assertThat(element.isSelfClosing, `is`(false))
+
+                val open = element.openTag!!
+                assertThat(open.prefix!!.staticValue as String, `is`("a"))
+                assertThat(open.localName.staticValue as String, `is`("b"))
+
+                val close = element.closeTag
+                assertThat(close, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (4) Modules and Prologs")
     internal inner class ModulesAndPrologs {
         @Nested
@@ -565,108 +644,6 @@ private class XQueryPsiTest : ParserTestCase() {
 
         assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
         assertThat(decl.defaultValue, `is`(nullValue()))
-    }
-
-    // endregion
-    // region XQueryDirElemConstructor
-
-    @Test
-    fun testDirElemConstructor() {
-        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-
-        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(false))
-
-        val open = dirElemConstructorPsi.openTag
-        assertThat(open, `is`(notNullValue()))
-        assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue as String, `is`("a"))
-        assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName.staticValue as String, `is`("b"))
-
-        val close = dirElemConstructorPsi.closeTag
-        assertThat(close, `is`(notNullValue()))
-        assertThat(close!!.prefix, `is`(notNullValue()))
-        assertThat(close.prefix!!.staticValue as String, `is`("a"))
-        assertThat(close.localName, `is`(notNullValue()))
-        assertThat(close.localName.staticValue as String, `is`("b"))
-    }
-
-    @Test
-    fun testDirElemConstructor_SelfClosing() {
-        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-
-        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(true))
-
-        val open = dirElemConstructorPsi.openTag
-        assertThat(open, `is`(notNullValue()))
-        assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue as String, `is`("h"))
-        assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName.staticValue as String, `is`("br"))
-
-        val close = dirElemConstructorPsi.closeTag
-        assertThat(close, `is`(nullValue()))
-    }
-
-    @Test
-    fun testDirElemConstructor_MissingClosingTag() {
-        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-
-        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(false))
-
-        val open = dirElemConstructorPsi.openTag
-        assertThat(open, `is`(notNullValue()))
-        assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue as String, `is`("a"))
-        assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName.staticValue as String, `is`("b"))
-
-        val close = dirElemConstructorPsi.closeTag
-        assertThat(close, `is`(nullValue()))
-    }
-
-    @Test
-    fun testDirElemConstructor_IncompleteOpenTag() {
-        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTagQName.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-
-        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(false))
-
-        val open = dirElemConstructorPsi.openTag
-        assertThat(open, `is`(nullValue()))
-
-        val close = dirElemConstructorPsi.closeTag
-        assertThat(close, `is`(notNullValue()))
-        assertThat(close!!.prefix, `is`(notNullValue()))
-        assertThat(close.prefix!!.staticValue as String, `is`("a"))
-        assertThat(close.localName, `is`(notNullValue()))
-        assertThat(close.localName.staticValue as String, `is`("b"))
-    }
-
-    @Test
-    fun testDirElemConstructor_IncompleteCloseTag() {
-        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-
-        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(false))
-
-        val open = dirElemConstructorPsi.openTag
-        assertThat(open, `is`(notNullValue()))
-        assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue as String, `is`("a"))
-        assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName.staticValue as String, `is`("b"))
-
-        val close = dirElemConstructorPsi.closeTag
-        assertThat(close, `is`(nullValue()))
     }
 
     // endregion
