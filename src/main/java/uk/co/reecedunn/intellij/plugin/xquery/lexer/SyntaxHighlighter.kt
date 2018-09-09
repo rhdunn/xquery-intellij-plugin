@@ -23,7 +23,6 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
-import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
@@ -60,8 +59,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             return ENTITY_REFERENCE_KEYS
         } else if (type === XQueryTokenType.BAD_CHARACTER) {
             return BAD_CHARACTER_KEYS
-        } else if (type === XQueryTokenType.NCNAME ||
-                type === XmlSchemaDataTypeTokenType.NCNAME) {
+        } else if (type === XQueryTokenType.NCNAME) {
             return IDENTIFIER_KEYS
         } else if (type === XQueryTokenType.COMMENT_START_TAG ||
                 type === XQueryTokenType.COMMENT ||

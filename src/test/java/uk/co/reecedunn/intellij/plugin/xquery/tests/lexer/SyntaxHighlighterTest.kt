@@ -19,7 +19,6 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.lexer.XmlSchemaDataTypeTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory
@@ -168,9 +167,6 @@ class SyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NCNAME).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NCNAME)[0], `is`(SyntaxHighlighter.IDENTIFIER))
-
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.NCNAME).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.NCNAME)[0], `is`(SyntaxHighlighter.IDENTIFIER))
     }
 
     @Test
@@ -992,14 +988,6 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ARROW).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_OPEN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_CLOSE).size, `is`(0))
-
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.WHITE_SPACE).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.UNKNOWN).size, `is`(0))
-
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.EMPTY_ENTITY_REFERENCE).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.PARTIAL_ENTITY_REFERENCE).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.PREDEFINED_ENTITY_REFERENCE).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XmlSchemaDataTypeTokenType.CHARACTER_REFERENCE).size, `is`(0))
     }
 
     @Test
