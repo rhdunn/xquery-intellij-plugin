@@ -606,47 +606,56 @@ private class XQueryPsiTest : ParserTestCase() {
         }
     }
 
-    // region XQueryDefaultNamespaceDecl
+    @Nested
+    @DisplayName("XQuery 3.1 (4.14) Default Namespace Declaration")
+    internal inner class DefaultNamespaceDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (25) DefaultNamespaceDecl")
+        internal inner class DefaultNamespaceDecl {
+            @Test
+            @DisplayName("default element/type namespace declaration")
+            fun element() {
+                val decl = parse<XQueryDefaultNamespaceDecl>(
+                    "declare default element namespace 'http://www.w3.org/1999/xhtml';"
+                )[0]
 
-    @Test
-    fun testDefaultNamespaceDecl_Element() {
-        val file = parseText("declare default element namespace 'http://www.w3.org/1999/xhtml';")
-        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
+                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+                assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
+                assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
+            }
 
-        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
-        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
-        assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
+            @Test
+            @DisplayName("default function namespace declaration")
+            fun function() {
+                val decl = parse<XQueryDefaultNamespaceDecl>(
+                    "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';"
+                )[0]
+
+                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.Function))
+                assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
+                assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
+            }
+
+            @Test
+            @DisplayName("empty namespace")
+            fun emptyNamespace() {
+                val decl = parse<XQueryDefaultNamespaceDecl>("declare default element namespace '';")[0]
+
+                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+                assertThat(decl.defaultValue, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("missing namespace")
+            fun missingNamespace() {
+                val decl = parse<XQueryDefaultNamespaceDecl>("declare default element namespace;")[0]
+
+                assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+                assertThat(decl.defaultValue, `is`(nullValue()))
+            }
+        }
     }
 
-    @Test
-    fun testDefaultNamespaceDecl_Function() {
-        val file = parseText("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';")
-        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
-
-        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.Function))
-        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
-        assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
-    }
-
-    @Test
-    fun testDefaultNamespaceDecl_EmptyNamespace() {
-        val file = parseText("declare default element namespace '';")
-        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
-
-        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
-        assertThat(decl.defaultValue, `is`(nullValue()))
-    }
-
-    @Test
-    fun testDefaultNamespaceDecl_MissingNamespace() {
-        val file = parseText("declare default element namespace;")
-        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
-
-        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
-        assertThat(decl.defaultValue, `is`(nullValue()))
-    }
-
-    // endregion
     // region XQueryFunctionDecl
 
     @Test
