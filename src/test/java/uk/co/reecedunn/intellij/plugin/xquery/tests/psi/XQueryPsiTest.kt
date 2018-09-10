@@ -636,26 +636,76 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 [4.2] Module Declaration : [5] ModuleDecl")
         internal inner class ModuleDecl {
             @Test
-            @DisplayName("no prolog")
-            fun noProlog() {
-                val module = parse<XQueryModuleDecl>("module namespace test = \"http://www.example.com\";")[0]
+            @DisplayName("without prolog")
+            fun withoutProlog() {
+                val decl = parse<XQueryModuleDecl>("module namespace test = \"http://www.example.com\";")[0] as XPathNamespaceDeclaration
+                assertThat(decl.namespacePrefix!!.data, `is`("test"))
+                assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
 
-                assertThat((module as XQueryPrologResolver).prolog, `is`(nullValue()))
+                assertThat((decl as XQueryPrologResolver).prolog, `is`(nullValue()))
             }
 
             @Test
-            @DisplayName("prolog")
-            fun prolog() {
-                val module = parse<XQueryModuleDecl>(
-                    """
-                        module namespace test = "http://www.example.com";
-                        declare function test:func() {};
-                    """
-                )[0]
+            @DisplayName("with prolog")
+            fun withProlog() {
+                val decl = parse<XQueryModuleDecl>("""
+                    module namespace test = "http://www.example.com";
+                    declare function test:func() {};
+                """)[0] as XPathNamespaceDeclaration
+                assertThat(decl.namespacePrefix!!.data, `is`("test"))
+                assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
 
-                val prolog = (module as XQueryPrologResolver).prolog!!
+                val prolog = (decl as XQueryPrologResolver).prolog!!
                 val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
                 assertThat(name.text, `is`("test:func"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun noNamespacePrefix() {
+                val decl = parse<XQueryModuleDecl>("module namespace = \"http://www.example.com\";")[0] as XPathNamespaceDeclaration
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun noNamespaceUri() {
+                val decl = parse<XQueryModuleDecl>("module namespace test = ;")[0] as XPathNamespaceDeclaration
+                assertThat(decl.namespacePrefix!!.data, `is`("test"))
+                assertThat(decl.namespaceUri, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (4.11) Schema Import")
+    internal inner class SchemaImport {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (21) SchemaImport")
+        internal inner class SchemaImport {
+            @Test
+            @DisplayName("specified namespace prefix and uri")
+            fun namespacePrefixAndUri() {
+                val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(expr.namespacePrefix!!.data, `is`("test"))
+                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun noNamespacePrefix() {
+                val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun noNamespaceUri() {
+                val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XPathNamespaceDeclaration
+                assertThat(expr.namespacePrefix!!.data, `is`("test"))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
             }
         }
     }
@@ -666,6 +716,38 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
         internal inner class ModuleImport {
+            @Test
+            @DisplayName("specified namespace prefix and uri")
+            fun namespacePrefixAndUri() {
+                val import = parse<XQueryModuleImport>("import module namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(import.namespacePrefix!!.data, `is`("test"))
+                assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix NCName")
+            fun noNamespacePrefixNCName() {
+                val import = parse<XQueryModuleImport>("import module namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(import.namespacePrefix, `is`(nullValue()))
+                assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun noNamespacePrefix() {
+                val import = parse<XQueryModuleImport>("import module 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(import.namespacePrefix, `is`(nullValue()))
+                assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun noNamespaceUri() {
+                val import = parse<XQueryModuleImport>("import module namespace test = ;")[0] as XPathNamespaceDeclaration
+                assertThat(import.namespacePrefix!!.data, `is`("test"))
+                assertThat(import.namespaceUri, `is`(nullValue()))
+            }
+
             @Test
             @DisplayName("empty")
             fun empty() {
@@ -712,6 +794,38 @@ private class XQueryPsiTest : ParserTestCase() {
                 val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
                 assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (4.13) Namespace Declaration")
+    internal inner class NamespaceDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (24) NamespaceDecl")
+        internal inner class NamespaceDecl {
+            @Test
+            @DisplayName("specified namespace prefix and uri")
+            fun namespacePrefixAndUri() {
+                val expr = parse<XQueryNamespaceDecl>("declare namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(expr.namespacePrefix!!.data, `is`("test"))
+                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun noNamespacePrefix() {
+                val expr = parse<XQueryNamespaceDecl>("declare namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun noNamespaceUri() {
+                val expr = parse<XQueryNamespaceDecl>("declare namespace test = ;")[0] as XPathNamespaceDeclaration
+                assertThat(expr.namespacePrefix!!.data, `is`("test"))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
             }
         }
     }
