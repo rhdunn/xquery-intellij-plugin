@@ -19,15 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
-import uk.co.reecedunn.intellij.plugin.xdm.XsString
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
@@ -39,24 +33,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    XQueryDirAttributeValue,
-    XdmStaticValue {
+    XQueryDirAttributeValue {
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedContent.invalidate()
     }
-
-    override val staticType
-        get(): XdmSequenceType {
-            return cachedContent.get()?.let {
-                (parent as XPathNamespaceDeclaration).namespacePrefix?.let { XsAnyURI } ?: XsString
-            } ?: XsUntyped
-        }
-
-    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
-
-    override val staticValue get(): Any? = cachedContent.get()
 
     override val value
         get(): XsAnyAtomicType? {
