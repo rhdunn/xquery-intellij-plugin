@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.lang.ParserDefinition
-import com.intellij.openapi.fileTypes.FileType
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

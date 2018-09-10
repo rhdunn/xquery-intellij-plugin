@@ -19,11 +19,9 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.FOCA0002
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
 import java.math.BigDecimal
 import java.math.BigInteger

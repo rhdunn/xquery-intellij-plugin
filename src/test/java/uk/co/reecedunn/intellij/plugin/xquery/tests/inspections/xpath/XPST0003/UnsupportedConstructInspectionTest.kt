@@ -18,7 +18,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003
 
 import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test

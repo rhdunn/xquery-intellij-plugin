@@ -21,12 +21,18 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.*
+import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
+import uk.co.reecedunn.intellij.plugin.xdm.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 

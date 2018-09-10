@@ -22,11 +22,14 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.*
+import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
+import uk.co.reecedunn.intellij.plugin.xdm.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

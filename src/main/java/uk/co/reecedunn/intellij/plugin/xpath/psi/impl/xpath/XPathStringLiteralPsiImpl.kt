@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType

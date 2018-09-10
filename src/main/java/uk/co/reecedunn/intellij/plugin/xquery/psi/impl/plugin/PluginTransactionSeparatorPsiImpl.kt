@@ -19,8 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version

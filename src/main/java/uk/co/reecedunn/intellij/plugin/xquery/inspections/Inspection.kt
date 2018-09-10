@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.inspections
 
-import com.intellij.codeInspection.*
+import com.intellij.codeInspection.LocalInspectionTool
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
 import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources
 
