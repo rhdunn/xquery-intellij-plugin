@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -888,9 +887,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryFunctionDecl>("declare function fn:true() external;")[0]
                 assertThat(decl.arity, `is`(0))
 
-                val qname = (decl.functionName as XdmStaticValue).staticValue as QName
-                assertThat(qname.prefix!!.staticValue, `is`("fn"))
-                assertThat(qname.localName.staticValue, `is`("true"))
+                val qname = decl.functionName!!
+                assertThat(qname.prefix!!.data, `is`("fn"))
+                assertThat(qname.localName!!.data, `is`("true"))
             }
 
             @Test
@@ -899,9 +898,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XQueryFunctionDecl>("declare function test(\$one, \$two) external;")[0]
                 assertThat(decl.arity, `is`(2))
 
-                val qname = (decl.functionName as XdmStaticValue).staticValue as QName
+                val qname = decl.functionName!!
                 assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName.staticValue, `is`("test"))
+                assertThat(qname.localName!!.data, `is`("test"))
             }
 
             @Test
