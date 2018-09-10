@@ -56,8 +56,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
         val element = ctx.defaultElementOrTypeNamespace.toList()
         assertThat(element.size, `is`(1))
-        assertThat(element[0].staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
-        assertThat(element[0].staticType, `is`(XsAnyURI))
+        assertThat(element[0].data, `is`("http://www.w3.org/1999/xhtml"))
 
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
@@ -78,8 +77,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
         val function = ctx.defaultFunctionNamespace.toList()
         assertThat(function.size, `is`(1))
-        assertThat(function[0].staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
-        assertThat(function[0].staticType, `is`(XsAnyURI))
+        assertThat(function[0].data, `is`("http://www.w3.org/2005/xpath-functions/math"))
     }
 
     @Test
@@ -107,8 +105,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
         val element = ctx.defaultElementOrTypeNamespace.toList()
         assertThat(element.size, `is`(1))
-        assertThat(element[0].staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
-        assertThat(element[0].staticType, `is`(XsAnyURI))
+        assertThat(element[0].data, `is`("http://www.w3.org/1999/xhtml"))
 
         assertThat(ctx.defaultFunctionNamespace.count(), `is`(0))
     }
@@ -129,8 +126,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
         val function = ctx.defaultFunctionNamespace.toList()
         assertThat(function.size, `is`(1))
-        assertThat(function[0].staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
-        assertThat(function[0].staticType, `is`(XsAnyURI))
+        assertThat(function[0].data, `is`("http://www.w3.org/2005/xpath-functions/math"))
     }
 
     @Test

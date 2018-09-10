@@ -21,10 +21,10 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -41,7 +41,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
         cachedVariables.invalidate()
     }
 
-    override val defaultElementOrTypeNamespace get(): Sequence<XdmStaticValue> =
+    override val defaultElementOrTypeNamespace get(): Sequence<XsAnyUriValue> =
         cachedDefaultElementOrTypeNamespace.get() ?: emptySequence()
 
     private val cachedDefaultElementOrTypeNamespace = CacheableProperty {
@@ -51,7 +51,7 @@ class XQueryPrologPsiImpl(node: ASTNode):
             .filterNotNull() `is` Cacheable
     }
 
-    override val defaultFunctionNamespace get(): Sequence<XdmStaticValue> =
+    override val defaultFunctionNamespace get(): Sequence<XsAnyUriValue> =
         cachedDefaultFunctionNamespace.get() ?: emptySequence()
 
     private val cachedDefaultFunctionNamespace = CacheableProperty {

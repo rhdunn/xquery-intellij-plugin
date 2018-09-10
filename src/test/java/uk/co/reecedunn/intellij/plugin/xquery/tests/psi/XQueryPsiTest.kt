@@ -843,8 +843,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0]
 
                 assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
-                assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
-                assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
+                assertThat(decl.defaultValue?.data, `is`("http://www.w3.org/1999/xhtml"))
             }
 
             @Test
@@ -855,8 +854,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 )[0]
 
                 assertThat(decl.type, `is`(XPathNamespaceType.DefaultFunction))
-                assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI))
-                assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(decl.defaultValue?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
             }
 
             @Test

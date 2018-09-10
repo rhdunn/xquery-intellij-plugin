@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
@@ -30,9 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
-    val defaultElementOrTypeNamespace: Sequence<XdmStaticValue>
+    val defaultElementOrTypeNamespace: Sequence<XsAnyUriValue>
 
-    val defaultFunctionNamespace: Sequence<XdmStaticValue>
+    val defaultFunctionNamespace: Sequence<XsAnyUriValue>
 
     val variables: Sequence<XPathVariableDeclaration>
 }
