@@ -25,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
@@ -41,16 +43,13 @@ class PluginDirAttributePsiImpl(node: ASTNode):
 
     // region XQueryNamespaceDeclaration
 
-    override val namespacePrefix get(): XdmStaticValue? = cachedNamespacePrefix.get()
+    override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()
     private val cachedNamespacePrefix = CacheableProperty {
-        children().filterIsInstance<XPathEQName>().map { eqname ->
-            val qname = (eqname as XdmStaticValue).staticValue as? QName
-            qname?.let {
-                if (it.prefix?.staticValue == "xmlns")
-                    it.localName
-                else
-                    null
-            }
+        children().filterIsInstance<XsQNameValue>().map { qname ->
+            if (qname.prefix?.data == "xmlns")
+                qname.localName
+            else
+                null
         }.firstOrNull() `is` Cacheable
     }
 

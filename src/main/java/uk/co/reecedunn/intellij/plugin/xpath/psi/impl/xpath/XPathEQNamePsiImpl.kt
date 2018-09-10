@@ -85,7 +85,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         return when (this) {
             is XPathQName -> {
                 val text = (((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement)!!.text
-                return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.staticValue == text }
+                return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.data == text }
             }
             else -> emptySequence()
         }

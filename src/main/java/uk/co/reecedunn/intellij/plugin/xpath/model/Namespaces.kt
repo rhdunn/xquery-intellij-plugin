@@ -23,7 +23,7 @@ enum class XPathNamespaceType {
 }
 
 interface XPathNamespaceDeclaration {
-    val namespacePrefix: XdmStaticValue?
+    val namespacePrefix: XsNCNameValue?
 
     val namespaceUri: XdmStaticValue?
 }

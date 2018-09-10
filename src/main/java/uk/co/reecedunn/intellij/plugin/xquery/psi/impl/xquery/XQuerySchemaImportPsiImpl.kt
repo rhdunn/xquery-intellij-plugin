@@ -22,6 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
@@ -32,10 +34,9 @@ class XQuerySchemaImportPsiImpl(node: ASTNode):
         XPathNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
-    override val namespacePrefix get(): XdmStaticValue? {
+    override val namespacePrefix get(): XsNCNameValue? {
         val schema = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull() ?: return null
-        val qname = (schema.children().filterIsInstance<XPathNCName>().firstOrNull() as? XdmStaticValue)?.staticValue as? QName
-        return qname?.localName
+        return schema.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
     }
 
     override val namespaceUri get(): XdmStaticValue? =

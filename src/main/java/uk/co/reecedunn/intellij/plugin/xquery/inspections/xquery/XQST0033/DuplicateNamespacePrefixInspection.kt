@@ -46,7 +46,7 @@ class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
 
             val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
             if (moduleDecl != null) {
-                val prefix = moduleDecl.namespacePrefix?.staticValue as? String
+                val prefix = moduleDecl.namespacePrefix?.data
                 val uri = moduleDecl.namespaceUri
                 if (prefix != null && uri != null) {
                     prefices[prefix] = uri as XQueryUriLiteral
@@ -56,7 +56,7 @@ class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.forEach(fun (child) {
                 val ns = child as? XPathNamespaceDeclaration
-                val prefix = ns?.namespacePrefix?.staticValue as? String
+                val prefix = ns?.namespacePrefix?.data
 
                 if (ns == null || prefix == null)
                     return
