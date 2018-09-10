@@ -148,7 +148,21 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     fun testQName_MissingLocalPart() {
         val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
         val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(0))
+        assertThat(annotations.size, `is`(2))
+
+        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+        assertThat(annotations[0].startOffset, `is`(15))
+        assertThat(annotations[0].endOffset, `is`(18))
+        assertThat(annotations[0].message, `is`(nullValue()))
+        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+        assertThat(annotations[1].startOffset, `is`(15))
+        assertThat(annotations[1].endOffset, `is`(18))
+        assertThat(annotations[1].message, `is`(nullValue()))
+        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
     }
 
     // endregion

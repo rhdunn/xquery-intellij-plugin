@@ -19,10 +19,9 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
@@ -33,10 +32,10 @@ class QNameAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XPathEQName) return
 
-        val qname = (element as XdmStaticValue).staticValue as? QName
+        val qname = element as XsQNameValue
         val xmlns: Boolean
-        if (qname?.prefix != null) {
-            if (qname.prefix.staticValue == "xmlns") {
+        if (qname.prefix != null) {
+            if (qname.prefix!!.data == "xmlns") {
                 xmlns = true
             } else {
                 xmlns = false
@@ -51,7 +50,7 @@ class QNameAnnotator : Annotator {
             xmlns = false
         }
 
-        if (qname?.localName != null) {
+        if (qname.localName != null) {
             val localName = qname.localName as PsiElement
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
