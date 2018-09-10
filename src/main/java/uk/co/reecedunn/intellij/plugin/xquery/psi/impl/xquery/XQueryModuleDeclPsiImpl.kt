@@ -19,10 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
@@ -41,8 +39,8 @@ class XQueryModuleDeclPsiImpl(node: ASTNode):
         return children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
     }
 
-    override val namespaceUri get(): XdmStaticValue? =
-        children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmStaticValue
+    override val namespaceUri get(): XsAnyUriValue? =
+        children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
     // region XQueryPrologResolver

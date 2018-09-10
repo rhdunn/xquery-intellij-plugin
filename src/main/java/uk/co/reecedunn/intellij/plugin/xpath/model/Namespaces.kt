@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-
 enum class XPathNamespaceType {
     DefaultElementOrType,
     DefaultFunction
@@ -25,5 +23,5 @@ enum class XPathNamespaceType {
 interface XPathNamespaceDeclaration {
     val namespacePrefix: XsNCNameValue?
 
-    val namespaceUri: XdmStaticValue?
+    val namespaceUri: XsAnyUriValue?
 }

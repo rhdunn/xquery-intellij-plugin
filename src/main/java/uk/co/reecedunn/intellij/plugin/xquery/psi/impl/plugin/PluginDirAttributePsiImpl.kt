@@ -21,10 +21,8 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
@@ -53,10 +51,10 @@ class PluginDirAttributePsiImpl(node: ASTNode):
         }.firstOrNull() `is` Cacheable
     }
 
-    override val namespaceUri get(): XdmStaticValue? = cachedNamespaceUri.get()
+    override val namespaceUri get(): XsAnyUriValue? = cachedNamespaceUri.get()
     private val cachedNamespaceUri = CacheableProperty {
-        children().filterIsInstance<XQueryDirAttributeValue>().map { value ->
-            value as XdmStaticValue
+        children().filterIsInstance<XQueryDirAttributeValue>().map { attr ->
+            attr.value as? XsAnyUriValue
         }.firstOrNull() `is` Cacheable
     }
 

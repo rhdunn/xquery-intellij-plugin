@@ -23,9 +23,9 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -42,14 +42,14 @@ class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.children().forEach { module ->
-            val prefices = HashMap<String, XQueryUriLiteral?>()
+            val prefices = HashMap<String, XsAnyUriValue?>()
 
             val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XPathNamespaceDeclaration
             if (moduleDecl != null) {
                 val prefix = moduleDecl.namespacePrefix?.data
                 val uri = moduleDecl.namespaceUri
                 if (prefix != null && uri != null) {
-                    prefices[prefix] = uri as XQueryUriLiteral
+                    prefices[prefix] = uri
                 }
             }
 
@@ -61,13 +61,13 @@ class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
                 if (ns == null || prefix == null)
                     return
 
-                val duplicate: XQueryUriLiteral? = prefices[prefix]
+                val duplicate = prefices[prefix]
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
                     descriptors.add(manager.createProblemDescriptor(ns.namespacePrefix as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
-                prefices[prefix] = ns.namespaceUri as? XQueryUriLiteral
+                prefices[prefix] = ns.namespaceUri
             })
         }
         return descriptors.toTypedArray()

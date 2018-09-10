@@ -157,24 +157,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("b"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -189,19 +189,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -216,19 +216,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     // endregion
@@ -244,24 +244,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -276,19 +276,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -303,19 +303,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     // endregion
@@ -331,24 +331,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -361,24 +361,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -393,19 +393,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -420,19 +420,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     // endregion
@@ -448,24 +448,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -478,24 +478,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -510,19 +510,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -537,19 +537,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     // endregion
@@ -565,24 +565,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -595,24 +595,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(6))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.example.com"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -627,19 +627,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -654,19 +654,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         // predefined XQuery 1.0 namespaces:
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     // endregion
@@ -683,19 +683,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(5))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
     }
 
     @Test
@@ -708,70 +708,70 @@ private class XQueryStaticContextTest : ParserTestCase() {
         assertThat(namespaces.size, `is`(22))
 
         assertThat(namespaces[0].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[0].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
 
         assertThat(namespaces[1].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[1].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(namespaces[2].namespacePrefix!!.data, `is`("xqterr"))
-        assertThat(namespaces[2].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xqt-error"))
+        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xqt-error"))
 
         assertThat(namespaces[3].namespacePrefix!!.data, `is`("xqe"))
-        assertThat(namespaces[3].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xqe"))
+        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://marklogic.com/xqe"))
 
         assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri?.staticValue as String, `is`("http://www.w3.org/XML/1998/namespace"))
+        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
 
         assertThat(namespaces[5].namespacePrefix!!.data, `is`("xdmp"))
-        assertThat(namespaces[5].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp"))
+        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://marklogic.com/xdmp"))
 
         assertThat(namespaces[6].namespacePrefix!!.data, `is`("spell"))
-        assertThat(namespaces[6].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/spell"))
+        assertThat(namespaces[6].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/spell"))
 
         assertThat(namespaces[7].namespacePrefix!!.data, `is`("sec"))
-        assertThat(namespaces[7].namespaceUri?.staticValue as String, `is`("http://marklogic.com/security"))
+        assertThat(namespaces[7].namespaceUri!!.data, `is`("http://marklogic.com/security"))
 
         assertThat(namespaces[8].namespacePrefix!!.data, `is`("prop"))
-        assertThat(namespaces[8].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/property"))
+        assertThat(namespaces[8].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/property"))
 
         assertThat(namespaces[9].namespacePrefix!!.data, `is`("prof"))
-        assertThat(namespaces[9].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/profile"))
+        assertThat(namespaces[9].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/profile"))
 
         assertThat(namespaces[10].namespacePrefix!!.data, `is`("math"))
-        assertThat(namespaces[10].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/math"))
+        assertThat(namespaces[10].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/math"))
 
         assertThat(namespaces[11].namespacePrefix!!.data, `is`("map"))
-        assertThat(namespaces[11].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/map"))
+        assertThat(namespaces[11].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/map"))
 
         assertThat(namespaces[12].namespacePrefix!!.data, `is`("lock"))
-        assertThat(namespaces[12].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/lock"))
+        assertThat(namespaces[12].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/lock"))
 
         assertThat(namespaces[13].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[13].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xquery-local-functions"))
+        assertThat(namespaces[13].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(namespaces[14].namespacePrefix!!.data, `is`("json"))
-        assertThat(namespaces[14].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/json"))
+        assertThat(namespaces[14].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/json"))
 
         assertThat(namespaces[15].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[15].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions"))
+        assertThat(namespaces[15].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
         assertThat(namespaces[16].namespacePrefix!!.data, `is`("error"))
-        assertThat(namespaces[16].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/error"))
+        assertThat(namespaces[16].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/error"))
 
         assertThat(namespaces[17].namespacePrefix!!.data, `is`("err"))
-        assertThat(namespaces[17].namespaceUri?.staticValue as String, `is`("http://www.w3.org/2005/xqt-error"))
+        assertThat(namespaces[17].namespaceUri!!.data, `is`("http://www.w3.org/2005/xqt-error"))
 
         assertThat(namespaces[18].namespacePrefix!!.data, `is`("dir"))
-        assertThat(namespaces[18].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/directory"))
+        assertThat(namespaces[18].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/directory"))
 
         assertThat(namespaces[19].namespacePrefix!!.data, `is`("dbg"))
-        assertThat(namespaces[19].namespaceUri?.staticValue as String, `is`("http://marklogic.com/xdmp/dbg"))
+        assertThat(namespaces[19].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/dbg"))
 
         assertThat(namespaces[20].namespacePrefix!!.data, `is`("dav"))
-        assertThat(namespaces[20].namespaceUri?.staticValue as String, `is`("DAV:"))
+        assertThat(namespaces[20].namespaceUri!!.data, `is`("DAV:"))
 
         assertThat(namespaces[21].namespacePrefix!!.data, `is`("cts"))
-        assertThat(namespaces[21].namespaceUri?.staticValue as String, `is`("http://marklogic.com/cts"))
+        assertThat(namespaces[21].namespaceUri!!.data, `is`("http://marklogic.com/cts"))
     }
 
     // endregion
