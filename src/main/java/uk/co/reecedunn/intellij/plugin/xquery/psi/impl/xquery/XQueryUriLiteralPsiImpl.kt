@@ -24,9 +24,9 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.PsiReference
 import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference
@@ -39,7 +39,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), X
 
     @Suppress("UNCHECKED_CAST")
     override fun <T: PsiFile> resolveUri(): T? {
-        val path = staticValue as String
+        val path = (value as XsAnyUriValue).data
         if (path.isEmpty() || path.contains("://")) {
             return ResourceVirtualFile.resolve(path, project) as? T
         }
@@ -65,7 +65,5 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), X
         return resolveFileByPath(parent.parent, project, path)
     }
 
-    override val staticType get(): XdmSequenceType = XsAnyURI
-
-    override val value: XsAnyAtomicType get() = uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri(cachedContent.get()!!)
+    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!)
 }
