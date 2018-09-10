@@ -20,28 +20,20 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
-class PluginBlockVarDeclEntryPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
+class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
     PluginBlockVarDeclEntry,
-        XPathVariableDeclaration {
+    XPathVariableDeclaration {
 
-    private val varName get(): XPathVariableName? =
-        children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
+    private val varName
+        get(): XPathVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
 
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
     override val variableName get(): QName? = varName?.variableName
-
-    // TODO: Locate and use the TypeDeclaration if present.
-    override val variableType: XdmSequenceType? = null
-
-    // TODO: Locate and use the ExprSingle if present.
-    override val variableValue: XdmStaticValue? = null
 }

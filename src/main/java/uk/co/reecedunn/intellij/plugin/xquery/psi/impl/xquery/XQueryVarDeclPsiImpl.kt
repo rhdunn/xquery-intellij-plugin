@@ -21,8 +21,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
@@ -37,11 +35,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XQueryVarDeclPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryVarDecl,
-        XQueryConformance,
-        XPathVariableDeclaration {
+class XQueryVarDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryVarDecl,
+    XQueryConformance,
+    XPathVariableDeclaration {
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> {
@@ -63,18 +61,12 @@ class XQueryVarDeclPsiImpl(node: ASTNode):
     // endregion
     // region XPathVariableDeclaration
 
-    private val varName get(): XPathVariableName? =
-        children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
+    private val varName
+        get(): XPathVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
 
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
     override val variableName get(): QName? = varName?.variableName
-
-    // TODO: Locate and use the TypeDeclaration if present.
-    override val variableType: XdmSequenceType? = null
-
-    // TODO: Locate and use the VarValue or VarDefaultValue if present.
-    override val variableValue: XdmStaticValue? = null
 
     // endregion
 }

@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -41,8 +40,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = parse<PluginBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathNCName
@@ -63,8 +60,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = parse<PluginBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathQName
@@ -88,8 +83,6 @@ private class XQueryModelTest : ParserTestCase() {
                 "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathURIQualifiedName
@@ -112,8 +105,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = parse<PluginBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -126,8 +117,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = decls[1] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathNCName
@@ -1227,8 +1216,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathNCName
@@ -1249,8 +1236,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = parse<XQueryVarDecl>("declare variable \$a:x := \$a:y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathQName
@@ -1274,8 +1259,6 @@ private class XQueryModelTest : ParserTestCase() {
                 "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathURIQualifiedName
@@ -1298,8 +1281,6 @@ private class XQueryModelTest : ParserTestCase() {
         val expr = parse<XQueryVarDecl>("declare variable \$ := \$y;")[0] as XPathVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
