@@ -21,8 +21,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
@@ -31,17 +29,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQuerySlidingWindowClausePsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQuerySlidingWindowClause,
-        XQueryConformance,
-        XPathVariableBinding {
+class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQuerySlidingWindowClause,
+    XQueryConformance,
+    XPathVariableBinding {
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 
     // endregion
     // region XPathVariableBinding
@@ -52,12 +49,6 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode):
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
     override val variableName get(): QName? = varName?.variableName
-
-    // TODO: Locate and use the TypeDeclaration if present.
-    override val variableType: XdmSequenceType? = null
-
-    // The bound variable result is dependent on the sequence, so cannot be determined statically.
-    override val variableValue: XdmStaticValue? = null
 
     // endregion
 }

@@ -20,17 +20,15 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLetBinding
 
-class XQueryLetBindingPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryLetBinding,
-        XPathVariableBinding {
+class XQueryLetBindingPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryLetBinding,
+    XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
         children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
@@ -38,10 +36,4 @@ class XQueryLetBindingPsiImpl(node: ASTNode):
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
     override val variableName get(): QName? = varName?.variableName
-
-    // TODO: Locate and use the TypeDeclaration if present.
-    override val variableType: XdmSequenceType? = null
-
-    // TODO: Locate the variable value.
-    override val variableValue: XdmStaticValue? = null
 }

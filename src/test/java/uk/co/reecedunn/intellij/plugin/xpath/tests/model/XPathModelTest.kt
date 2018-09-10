@@ -40,8 +40,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathParam>("function (\$x) {}")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val name = (expr as PsiElement).firstChild.nextSibling as XPathNCName
 
@@ -61,8 +59,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val name = (expr as PsiElement).firstChild.nextSibling as XPathQName
 
@@ -85,8 +81,6 @@ private class XPathModelTest : ParserTestCase() {
                 "function (\$Q{http://www.example.com}x) {}")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val name = (expr as PsiElement).firstChild.nextSibling as XPathURIQualifiedName
 
@@ -108,8 +102,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<XPathParam>("function (\$) {}")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -122,8 +114,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathNCName
@@ -144,8 +134,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathQName
@@ -169,8 +157,6 @@ private class XPathModelTest : ParserTestCase() {
                 "some \$Q{http://www.example.com}x in  \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathURIQualifiedName
@@ -193,8 +179,6 @@ private class XPathModelTest : ParserTestCase() {
         val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XPathVariableBinding
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(nullValue()))
-        assertThat(expr.variableType, `is`(nullValue()))
-        assertThat(expr.variableValue, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }

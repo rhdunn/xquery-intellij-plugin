@@ -19,18 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar
 
-class XQueryPositionalVarPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryPositionalVar,
-        XPathVariableBinding {
+class XQueryPositionalVarPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryPositionalVar,
+    XPathVariableBinding {
 
     private val varName get(): XPathVariableName? =
         children().filterIsInstance<XPathVariableName>().firstOrNull()
@@ -38,9 +35,4 @@ class XQueryPositionalVarPsiImpl(node: ASTNode):
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
 
     override val variableName get(): QName? = varName?.variableName
-
-    override val variableType: XdmSequenceType? = XsInteger
-
-    // PositionalVar is a conditional variable that is evaluated dynamically.
-    override val variableValue: XdmStaticValue? = null
 }
