@@ -15,12 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 
 interface XPathVariableName {
-    val cacheable: CachingBehaviour
-
     val variableName: QName?
 }
 

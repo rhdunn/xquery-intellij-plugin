@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
@@ -43,10 +42,8 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     // endregion
     // region XPathVariableBinding
 
-    private val varName get(): XPathVariableName? =
-        children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
-
-    override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
+    private val varName
+        get(): XPathVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XPathVariableName
 
     override val variableName get(): QName? = varName?.variableName
 

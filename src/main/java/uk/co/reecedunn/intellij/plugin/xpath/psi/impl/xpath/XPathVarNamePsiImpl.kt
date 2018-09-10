@@ -17,18 +17,15 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 
-class XPathVarNamePsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathVarName,
-        XPathVariableName {
-
-    override val cacheable get(): CachingBehaviour = (firstChild as XdmStaticValue).cacheable
+class XPathVarNamePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathVarName,
+    XPathVariableName {
 
     override val variableName get(): QName? = (firstChild as XdmStaticValue).staticValue as? QName
 }
