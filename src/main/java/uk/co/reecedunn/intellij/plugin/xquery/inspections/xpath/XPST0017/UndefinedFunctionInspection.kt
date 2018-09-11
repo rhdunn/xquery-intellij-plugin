@@ -25,8 +25,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
@@ -48,20 +46,19 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
                        .forEach { ref ->
             val qname = ref.functionName
             val declarations = (qname as XPathEQName).staticallyKnownFunctions().toList()
-            val context = (qname as? XdmStaticValue)?.staticValue as? QName
-            if (context == null) {
+            if (ref.functionName == null) {
                 // Missing local name -- do nothing.
             } else if (declarations.isEmpty()) {
                 // 1. The expanded QName does not match the name of a function signature in the static context.
                 val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
-                val decl = context.declaration?.get()!! as PsiElement
+                val decl = ref.functionName as PsiElement
                 descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             } else {
                 // 2. The number of arguments does not match the arity of a function signature in the static context.
                 val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
                 if (declarations.firstOrNull { f -> f.arity == arity } == null) {
                     val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
-                    val decl = context.declaration?.get()!! as PsiElement
+                    val decl = ref.functionName as PsiElement
                     descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
             }
