@@ -19,15 +19,10 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
-import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference
@@ -38,12 +33,12 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             return false
         }
 
-        val lhsLocalName = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
-        val rhsLocalName = ((other as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
-        if (lhsLocalName?.text?.equals(rhsLocalName?.text) == true) {
-            val lhsPrefix = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
-            val rhsPrefix = ((other as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
-            return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.text?.equals(rhsPrefix?.text) == true
+        val lhsLocalName = (this as XsQNameValue).localName
+        val rhsLocalName = (other as XsQNameValue).localName
+        if (lhsLocalName?.data?.equals(rhsLocalName?.data) == true) {
+            val lhsPrefix = (this as XsQNameValue).prefix
+            val rhsPrefix = (other as XsQNameValue).prefix
+            return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.data?.equals(rhsPrefix?.data) == true
         }
         return false
     }
@@ -55,7 +50,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
 
     override fun getReferences(): Array<PsiReference> {
         val eqnameStart = node.startOffset
-        val localName = ((this as XdmStaticValue).staticValue as? QName)?.localName as? PsiElement
+        val localName = (this as XsQNameValue).localName as? PsiElement
         val localNameRef: PsiReference? =
             if (localName != null) when {
                 parent is XPathFunctionReference ->
@@ -67,7 +62,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
                 null
             }
 
-        val prefix = ((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement
+        val prefix = (this as XsQNameValue).prefix as? PsiElement
         if (prefix == null || prefix is XPathBracedURILiteral) { // local name only
             if (localNameRef != null) {
                 return arrayOf(localNameRef)
@@ -84,8 +79,10 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
     override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
         return when (this) {
             is XPathQName -> {
-                val text = (((this as XdmStaticValue).staticValue as? QName)?.prefix as? PsiElement)!!.text
-                return staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.data == text }
+                val text = (this as XsQNameValue).prefix?.data
+                text?.let {
+                    staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.data == text }
+                } ?: emptySequence()
             }
             else -> emptySequence()
         }

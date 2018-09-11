@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
@@ -85,7 +84,7 @@ class XPathQNamePsiImpl(node: ASTNode) :
     // endregion
     // region PsiNameIdentifierOwner
 
-    override fun getNameIdentifier(): PsiElement? = (staticValue as? QName)?.localName as? PsiElement
+    override fun getNameIdentifier(): PsiElement? = localName as? PsiElement
 
     // endregion
     // region PsiNamedElement
