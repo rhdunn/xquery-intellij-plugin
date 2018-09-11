@@ -20,26 +20,15 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.XsQName
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
-import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
 class XPathQNamePsiImpl(node: ASTNode) :
     XPathEQNamePsiImpl(node),
     XPathQName,
-    XdmStaticValue,
     XsQNameValue,
     PsiNameIdentifierOwner {
     // region XsQNameValue
@@ -55,28 +44,10 @@ class XPathQNamePsiImpl(node: ASTNode) :
     override val isLexicalQName: Boolean = true
 
     // endregion
-    // region XdmStaticValue
-
-    override val cacheable get(): CachingBehaviour = cachedConstantValue.cachingBehaviour
-
-    override val staticType get(): XdmSequenceType = staticValue?.let { XsQName } ?: XsUntyped
-
-    override val staticValue get(): Any? = cachedConstantValue.get()
-
-    private val cachedConstantValue = CacheableProperty {
-        val names: List<PsiElement> = children().filterIsInstance<XmlNCNameImpl>().toList()
-        when (names.size) {
-            2 -> createLexicalQName(names[0] as XdmStaticValue, names[1] as XdmStaticValue, this)
-            else -> null
-        } `is` Cacheable
-    }
-
-    // endregion
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedConstantValue.invalidate()
     }
 
     override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()

@@ -17,22 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
-import uk.co.reecedunn.intellij.plugin.xdm.XsNCName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 
 class XmlNCNameImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text),
-    XdmStaticValue,
     XsNCNameValue {
-
-    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
-
-    override val staticType: XdmSequenceType = XsNCName
-
-    override val staticValue get(): Any? = text
 
     override val data: String get() = text
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,8 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
@@ -39,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 class XPathBracedURILiteralPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathBracedURILiteral,
-    XdmStaticValue,
     XsAnyUriValue,
     XQueryConformance {
 
@@ -47,12 +42,6 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) :
         super.subtreeChanged()
         cachedContent.invalidate()
     }
-
-    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
-
-    override val staticType: XdmSequenceType = XsAnyURI
-
-    override val staticValue get(): Any? = cachedContent.get()!!
 
     override val data: String get() = cachedContent.get()!!
 
