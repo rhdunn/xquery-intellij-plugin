@@ -205,12 +205,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.openTag!!
-                assertThat(open.prefix!!.staticValue as String, `is`("a"))
-                assertThat(open.localName.staticValue as String, `is`("b"))
+                assertThat(open.prefix!!.data, `is`("a"))
+                assertThat(open.localName!!.data, `is`("b"))
 
                 val close = element.closeTag!!
-                assertThat(close.prefix!!.staticValue as String, `is`("a"))
-                assertThat(close.localName.staticValue as String, `is`("b"))
+                assertThat(close.prefix!!.data, `is`("a"))
+                assertThat(close.localName!!.data, `is`("b"))
             }
 
             @Test
@@ -220,8 +220,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(element.isSelfClosing, `is`(true))
 
                 val open = element.openTag!!
-                assertThat(open.prefix!!.staticValue as String, `is`("h"))
-                assertThat(open.localName.staticValue as String, `is`("br"))
+                assertThat(open.prefix!!.data, `is`("h"))
+                assertThat(open.localName!!.data, `is`("br"))
 
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
@@ -234,8 +234,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.openTag!!
-                assertThat(open.prefix!!.staticValue as String, `is`("a"))
-                assertThat(open.localName.staticValue as String, `is`("b"))
+                assertThat(open.prefix!!.data, `is`("a"))
+                assertThat(open.localName!!.data, `is`("b"))
 
                 val close = element.closeTag
                 assertThat(close, `is`(nullValue()))
@@ -247,12 +247,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
                 assertThat(element.isSelfClosing, `is`(false))
 
-                val open = element.openTag
-                assertThat(open, `is`(nullValue()))
+                val open = element.openTag!!
+                assertThat(open.prefix!!.data, `is`("a"))
+                assertThat(open.localName, `is`(nullValue()))
 
                 val close = element.closeTag!!
-                assertThat(close.prefix!!.staticValue as String, `is`("a"))
-                assertThat(close.localName.staticValue as String, `is`("b"))
+                assertThat(close.prefix!!.data, `is`("a"))
+                assertThat(close.localName!!.data, `is`("b"))
             }
 
             @Test
@@ -262,11 +263,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(element.isSelfClosing, `is`(false))
 
                 val open = element.openTag!!
-                assertThat(open.prefix!!.staticValue as String, `is`("a"))
-                assertThat(open.localName.staticValue as String, `is`("b"))
+                assertThat(open.prefix!!.data, `is`("a"))
+                assertThat(open.localName!!.data, `is`("b"))
 
-                val close = element.closeTag
-                assertThat(close, `is`(nullValue()))
+                val close = element.closeTag!!
+                assertThat(close.prefix!!.data, `is`("a"))
+                assertThat(close.localName, `is`(nullValue()))
             }
         }
 

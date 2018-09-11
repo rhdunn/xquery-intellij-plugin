@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
@@ -36,17 +37,24 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * does not match the open tag (prefix and local name).
  */
 class MismatchedDirElemTagNameInspection : Inspection("xqst/XQST0118.md") {
+    private fun displayName(eqname: XsQNameValue): String {
+        if (eqname.prefix == null)
+            return eqname.localName!!.data
+        return "${eqname.prefix!!.data}:${eqname.localName!!.data}"
+    }
+
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryDirElemConstructor>().forEach { elem ->
-            val closeTag = elem.closeTag ?: return@forEach
-            val openTag = elem.openTag ?: return@forEach
-            if (openTag.prefix?.staticValue != closeTag.prefix?.staticValue ||
-                    openTag.localName.staticValue != closeTag.localName.staticValue) {
-                val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", closeTag, openTag)
-                val context = closeTag.declaration?.get()!! as PsiElement
+            val openTag = elem.openTag!!
+            val closeTag = elem.closeTag
+            if (openTag.localName == null || closeTag?.localName == null) return@forEach
+
+            if (openTag.prefix?.data != closeTag.prefix?.data || openTag.localName?.data != closeTag.localName?.data) {
+                val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", displayName(closeTag), displayName(openTag))
+                val context = closeTag as PsiElement
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }
         }
