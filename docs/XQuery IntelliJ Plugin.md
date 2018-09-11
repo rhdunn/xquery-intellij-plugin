@@ -14,10 +14,10 @@
       - [2.1.2.7 Null Node Test](#2127-null-node-test)
       - [2.1.2.8 Array Node Test](#2128-array-node-test)
       - [2.1.2.9 Map Node Test](#2129-map-node-test)
-  - [2.2 Schema Information](#22-schema-information)
-    - [2.2.1 Type System Part 1: Items](#221-type-system-part-1-items)
-    - [2.2.2 Type System Part 2: Simple and Complex Types](#222-type-system-part-2-simple-and-complex-types)
-    - [2.2.3 Type System Part 3: Atomic Types](#223-type-system-part-3-atomic-types)
+  - [2.2 Type System](#22-type-system)
+    - [2.2.1 Part 1: Items](#221-part-1-items)
+    - [2.2.2 Part 2: Simple and Complex Types](#222-part-2-simple-and-complex-types)
+    - [2.2.3 Part 3: Atomic Types](#223-part-3-atomic-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -226,9 +226,9 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 
 MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 
-### 2.2 Schema Information
+### 2.2 Type System
 
-#### 2.2.1 Type System Part 1: Items
+#### 2.2.1 Part 1: Items
 
 <pre><code>item
 ├─── node
@@ -248,7 +248,7 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 └─── xs:anyAtomicType ──────────────────────────────────── See Part 3
 </code></pre>
 
-#### 2.2.2 Type System Part 2: Simple and Complex Types
+#### 2.2.2 Part 2: Simple and Complex Types
 
 <pre><code>xs:anyType
 ├─── xdm:anyComplexType
@@ -294,7 +294,7 @@ __xdm:anyUnionType__
 > `xs:anySimpleType` from which all simple types, including atomic, list,
 > and union types are derived.
 
-#### 2.2.3 Type System Part 3: Atomic Types
+#### 2.2.3 Part 3: Atomic Types
 
 <pre><code>xs:anyAtomicType<sup>1</sup>
 ├─── xs:anyURI
