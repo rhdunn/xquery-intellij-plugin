@@ -15,14 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -39,25 +40,41 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("namespace prefix")
             fun namespacePrefix() {
-                val expr = parse<PluginDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XPathDefaultNamespaceDeclaration
+
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.Prefixed))
             }
 
             @Test
             @DisplayName("namespace prefix, missing DirAttributeValue")
             fun namespacePrefixMissingDirAttributeValue() {
-                val expr = parse<PluginDirAttribute>("<a xmlns:b=>")[0] as XPathNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>("<a xmlns:b=>")[0] as XPathDefaultNamespaceDeclaration
+
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
-                assertThat(expr.namespaceUri, `is`(CoreMatchers.nullValue()))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.Prefixed))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace")
+            fun defaultElementTypeNamespace() {
+                val expr = parse<PluginDirAttribute>("<a xmlns='http://www.example.com'/>")[0] as XPathDefaultNamespaceDeclaration
+
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
             }
 
             @Test
             @DisplayName("non-namespace declaration attribute")
             fun attribute() {
-                val expr = parse<PluginDirAttribute>("<a b='http://www.example.com'/>")[0] as XPathNamespaceDeclaration
-                assertThat(expr.namespacePrefix, `is`(CoreMatchers.nullValue()))
-                assertThat(expr.namespaceUri, `is`(CoreMatchers.nullValue()))
+                val expr = parse<PluginDirAttribute>("<a b='http://www.example.com'/>")[0] as XPathDefaultNamespaceDeclaration
+
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.None))
             }
         }
     }

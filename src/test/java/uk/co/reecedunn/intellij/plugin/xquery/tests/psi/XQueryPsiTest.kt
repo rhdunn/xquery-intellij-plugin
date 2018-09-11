@@ -367,9 +367,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("default element/type namespace")
             fun defaultElementTypeNamespace() {
                 val psi = parse<XQueryDirAttributeValue>("<a xmlns=\"http://www.example.com")[0]
-                assertThat(psi.value, `is`(instanceOf(XsStringValue::class.java)))
+                assertThat(psi.value, `is`(instanceOf(XsAnyUriValue::class.java)))
 
-                val literal = psi.value as XsStringValue
+                val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("http://www.example.com"))
             }
 

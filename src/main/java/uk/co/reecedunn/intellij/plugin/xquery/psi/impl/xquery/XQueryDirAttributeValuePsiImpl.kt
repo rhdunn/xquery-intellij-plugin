@@ -23,8 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
@@ -43,10 +42,10 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     override val value
         get(): XsAnyAtomicType? {
             return cachedContent.get()?.let {
-                if ((parent as XPathNamespaceDeclaration).namespacePrefix == null) {
-                    uk.co.reecedunn.intellij.plugin.xpath.model.XsString(it)
+                if ((parent as XPathDefaultNamespaceDeclaration).namespaceType == XPathNamespaceType.None) {
+                    XsString(it)
                 } else {
-                    uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri(it)
+                    XsAnyUri(it)
                 }
             }
         }

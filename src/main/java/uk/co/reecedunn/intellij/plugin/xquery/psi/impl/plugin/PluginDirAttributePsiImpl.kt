@@ -21,17 +21,14 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
 class PluginDirAttributePsiImpl(node: ASTNode):
     ASTWrapperPsiElement(node),
     PluginDirAttribute,
-    XPathNamespaceDeclaration {
+    XPathDefaultNamespaceDeclaration {
 
     override fun subtreeChanged() {
         super.subtreeChanged()
@@ -40,6 +37,18 @@ class PluginDirAttributePsiImpl(node: ASTNode):
     }
 
     // region XQueryNamespaceDeclaration
+
+    override val namespaceType
+        get(): XPathNamespaceType {
+            return children().filterIsInstance<XsQNameValue>().map { qname ->
+                if (qname.prefix?.data == "xmlns")
+                    XPathNamespaceType.Prefixed
+                else if (qname.localName?.data == "xmlns")
+                    XPathNamespaceType.DefaultElementOrType
+                else
+                    null
+            }.firstOrNull() ?: XPathNamespaceType.None
+        }
 
     override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()
     private val cachedNamespacePrefix = CacheableProperty {
