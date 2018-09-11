@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class XPathVarRefPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -31,5 +31,5 @@ class XPathVarRefPsiImpl(node: ASTNode) :
     private val varName
         get(): XPathVariableName? = children().filterIsInstance<XPathVariableName>().firstOrNull()
 
-    override val variableName get(): QName? = varName?.variableName
+    override val variableName get(): XsQNameValue? = varName?.variableName
 }

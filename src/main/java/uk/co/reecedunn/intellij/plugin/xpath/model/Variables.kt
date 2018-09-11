@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-
 interface XPathVariableName {
-    val variableName: QName?
+    val variableName: XsQNameValue?
 }
 
 interface XPathVariableDeclaration : XPathVariableName

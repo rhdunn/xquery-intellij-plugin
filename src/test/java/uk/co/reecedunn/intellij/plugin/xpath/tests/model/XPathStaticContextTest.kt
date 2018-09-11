@@ -82,7 +82,7 @@ private class XPathStaticContextTest : ParserTestCase() {
         val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
     }
@@ -93,11 +93,11 @@ private class XPathStaticContextTest : ParserTestCase() {
         val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
 
-        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
         assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
     }
@@ -125,7 +125,7 @@ private class XPathStaticContextTest : ParserTestCase() {
         val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
     }
@@ -143,7 +143,7 @@ private class XPathStaticContextTest : ParserTestCase() {
         val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(1))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
     }
@@ -154,11 +154,11 @@ private class XPathStaticContextTest : ParserTestCase() {
         val variables = element.inScopeVariablesForFile().toList()
         assertThat(variables.size, `is`(2))
 
-        assertThat(variables[0].variableName?.localName?.staticValue as String, `is`("y"))
+        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
         assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
 
-        assertThat(variables[1].variableName?.localName?.staticValue as String, `is`("x"))
+        assertThat(variables[1].variableName?.localName?.data, `is`("x"))
         assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
         assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
     }

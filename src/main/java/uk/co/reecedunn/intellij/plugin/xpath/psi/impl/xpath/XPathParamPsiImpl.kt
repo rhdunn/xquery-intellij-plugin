@@ -18,19 +18,16 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 class XPathParamPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParam,
     XPathVariableBinding {
 
-    private val varName
-        get(): XdmStaticValue? = children().filterIsInstance<XPathEQName>().firstOrNull() as? XdmStaticValue
-
-    override val variableName get(): QName? = varName?.staticValue as? QName
+    override val variableName
+        get(): XsQNameValue? = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
 }

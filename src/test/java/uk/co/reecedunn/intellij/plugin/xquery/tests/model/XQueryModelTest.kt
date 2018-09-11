@@ -44,57 +44,33 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testBlockVarDeclEntry_NCName() {
         val expr = parse<PluginBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testBlockVarDeclEntry_QName() {
         val expr = parse<PluginBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testBlockVarDeclEntry_URIQualifiedName() {
         val expr = parse<PluginBlockVarDeclEntry>(
-                "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }")[0] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }"
+        )[0] as XPathVariableDeclaration
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
@@ -109,18 +85,11 @@ private class XQueryModelTest : ParserTestCase() {
         assertThat(decls.size, `is`(2))
 
         val expr = decls[1] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     // endregion
@@ -128,60 +97,40 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testCaseClause_NCName() {
-        val expr = parse<XQueryCaseClause>("typeswitch (\$x) case \$y as xs:string return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryCaseClause>(
+            "typeswitch (\$x) case \$y as xs:string return \$z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
     fun testCaseClause_QName() {
-        val expr = parse<XQueryCaseClause>("typeswitch (\$a:x) case \$a:y as xs:string return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryCaseClause>(
+            "typeswitch (\$a:x) case \$a:y as xs:string return \$a:z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
     fun testCaseClause_URIQualifiedName() {
         val expr = parse<XQueryCaseClause>(
-                "typeswitch (\$Q{http://www.example.com}x) " +
-                "case \$Q{http://www.example.com}y as xs:string " +
-                "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "typeswitch (\$Q{http://www.example.com}x) " +
+            "case \$Q{http://www.example.com}y as xs:string " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
@@ -196,58 +145,34 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testCountClause_NCName() {
         val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
     fun testCountClause_QName() {
         val expr = parse<XQueryCountClause>("for \$a:x in \$a:y count \$a:z return \$a:w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
     fun testCountClause_URIQualifiedName() {
         val expr = parse<XQueryCountClause>(
-                "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y count \$Q{http://www.example.com}z " +
-                        "return \$Q{http://www.example.com}w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y count \$Q{http://www.example.com}z " +
+            "return \$Q{http://www.example.com}w"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
@@ -262,56 +187,37 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testCurrentItem_NCName() {
         val expr = parse<XQueryCurrentItem>("for sliding window \$x in \$y start \$w when true() return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val name = (expr as PsiElement).firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     @Test
     fun testCurrentItem_QName() {
         val expr = parse<XQueryCurrentItem>("for sliding window \$a:x in \$a:y start \$a:w when true() return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val name = (expr as PsiElement).firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     @Test
     fun testCurrentItem_URIQualifiedName() {
         val expr = parse<XQueryCurrentItem>(
-                "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                "start \$Q{http://www.example.com}w when true() " +
-                "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "start \$Q{http://www.example.com}w when true() " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
 
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     // endregion
@@ -320,59 +226,37 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testDefaultCaseClause_NCName() {
         val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
     fun testDefaultCaseClause_QName() {
-        val expr = parse<PluginDefaultCaseClause>("typeswitch (\$a:x) default \$a:y return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<PluginDefaultCaseClause>(
+            "typeswitch (\$a:x) default \$a:y return \$a:z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
     fun testDefaultCaseClause_URIQualifiedName() {
         val expr = parse<PluginDefaultCaseClause>(
-                "typeswitch (\$Q{http://www.example.com}x) " +
-                "default \$Q{http://www.example.com}y " +
-                "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "typeswitch (\$Q{http://www.example.com}x) " +
+            "default \$Q{http://www.example.com}y " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
@@ -387,58 +271,34 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testForBinding_NCName() {
         val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testForBinding_QName() {
         val expr = parse<XQueryForBinding>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testForBinding_URIQualifiedName() {
         val expr = parse<XQueryForBinding>(
             "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
-            "return \$Q{http://www.example.com}w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "return \$Q{http://www.example.com}w"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
@@ -453,62 +313,37 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testGroupingSpec_NCName() {
         val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val groupvar = (expr as PsiElement).children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varname = groupvar.children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
     fun testGroupingSpec_QName() {
-        val expr = parse<XQueryGroupingSpec>("for \$a:x in \$a:y group by \$a:z return \$a:w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryGroupingSpec>(
+            "for \$a:x in \$a:y group by \$a:z return \$a:w"
+        )[0] as XPathVariableBinding
 
-        val groupvar = (expr as PsiElement).children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varname = groupvar.children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
     fun testGroupingSpec_URIQualifiedName() {
         val expr = parse<XQueryGroupingSpec>(
-                "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                "group by \$Q{http://www.example.com}z " +
-                "return \$Q{http://www.example.com}w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "group by \$Q{http://www.example.com}z " +
+            "return \$Q{http://www.example.com}w"
+        )[0] as XPathVariableBinding
 
-        val groupvar = (expr as PsiElement).children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varname = groupvar.children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
@@ -523,56 +358,37 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testGroupingVariable_NCName() {
         val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableName
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val name = (expr as PsiElement).firstChild.nextSibling.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
     fun testGroupingVariable_QName() {
-        val expr = parse<XQueryGroupingVariable>("for \$a:x in \$a:y group by \$a:z return \$a:w")[0] as XPathVariableName
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryGroupingVariable>(
+            "for \$a:x in \$a:y group by \$a:z return \$a:w"
+        )[0] as XPathVariableName
 
-        val name = (expr as PsiElement).firstChild.nextSibling.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
     fun testGroupingVariable_URIQualifiedName() {
         val expr = parse<XQueryGroupingVariable>(
-                "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                "group by \$Q{http://www.example.com}z " +
-                "return \$Q{http://www.example.com}w")[0] as XPathVariableName
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "group by \$Q{http://www.example.com}z " +
+            "return \$Q{http://www.example.com}w"
+        )[0] as XPathVariableName
 
-        val name = (expr as PsiElement).firstChild.nextSibling.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("z"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("z"))
     }
 
     @Test
@@ -587,57 +403,33 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testLetBinding_NCName() {
         val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testLetBinding_QName() {
         val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testLetBinding_URIQualifiedName() {
         val expr = parse<XQueryLetBinding>(
-                "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}w"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
@@ -652,57 +444,37 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testNextItem_NCName() {
         val expr = parse<XQueryNextItem>("for sliding window \$x in \$y start \$v next \$w when true() return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val name = (expr as PsiElement).firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     @Test
     fun testNextItem_QName() {
         val expr = parse<XQueryNextItem>(
-                "for sliding window \$a:x in \$a:y start \$a:v next \$a:w when true() return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for sliding window \$a:x in \$a:y start \$a:v next \$a:w when true() return \$a:z"
+        )[0] as XPathVariableBinding
 
-        val name = (expr as PsiElement).firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     @Test
     fun testNextItem_URIQualifiedName() {
         val expr = parse<XQueryNextItem>(
-                "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                "start \$Q{http://www.example.com}v next \$Q{http://www.example.com}w when true() " +
-                "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "start \$Q{http://www.example.com}v next \$Q{http://www.example.com}w when true() " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
-        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     // endregion
@@ -711,58 +483,34 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testPositionalVar_NCName() {
         val expr = parse<XQueryPositionalVar>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
     fun testPositionalVar_QName() {
         val expr = parse<XQueryPositionalVar>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
     fun testPositionalVar_URIQualifiedName() {
         val expr = parse<XQueryPositionalVar>(
-                "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
-                        "return \$Q{http://www.example.com}w")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
+            "return \$Q{http://www.example.com}w"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("y"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("y"))
     }
 
     @Test
@@ -776,58 +524,40 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testPreviousItem_NCName() {
-        val expr = parse<XQueryPreviousItem>("for sliding window \$x in \$y start \$v previous \$w when true() return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryPreviousItem>(
+            "for sliding window \$x in \$y start \$v previous \$w when true() return \$z"
+        )[0] as XPathVariableBinding
 
-        val name = (expr as PsiElement).firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     @Test
     fun testPreviousItem_QName() {
         val expr = parse<XQueryPreviousItem>(
-                "for sliding window \$a:x in \$a:y start \$a:v previous \$a:w when true() return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for sliding window \$a:x in \$a:y start \$a:v previous \$a:w when true() return \$a:z"
+        )[0] as XPathVariableBinding
 
-        val name = (expr as PsiElement).firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     @Test
     fun testPreviousItem_URIQualifiedName() {
         val expr = parse<XQueryPreviousItem>(
-                "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                "start \$Q{http://www.example.com}v previous \$Q{http://www.example.com}w when true() " +
-                "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "start \$Q{http://www.example.com}v previous \$Q{http://www.example.com}w when true() " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
-        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("w"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("w"))
     }
 
     // endregion
@@ -835,59 +565,39 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testSlidingWindowClause_NCName() {
-        val expr = parse<XQuerySlidingWindowClause>("for sliding window \$x in \$y return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQuerySlidingWindowClause>(
+            "for sliding window \$x in \$y return \$z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testSlidingWindowClause_QName() {
-        val expr = parse<XQuerySlidingWindowClause>("for sliding window \$a:x in \$a:y return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQuerySlidingWindowClause>(
+            "for sliding window \$a:x in \$a:y return \$a:z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testSlidingWindowClause_URIQualifiedName() {
         val expr = parse<XQuerySlidingWindowClause>(
-                "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                        "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
@@ -901,59 +611,39 @@ private class XQueryModelTest : ParserTestCase() {
 
     @Test
     fun testTumblingWindowClause_NCName() {
-        val expr = parse<XQueryTumblingWindowClause>("for tumbling window \$x in \$y return \$z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryTumblingWindowClause>(
+            "for tumbling window \$x in \$y return \$z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testTumblingWindowClause_QName() {
-        val expr = parse<XQueryTumblingWindowClause>("for tumbling window \$a:x in \$a:y return \$a:z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+        val expr = parse<XQueryTumblingWindowClause>(
+            "for tumbling window \$a:x in \$a:y return \$a:z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testTumblingWindowClause_URIQualifiedName() {
         val expr = parse<XQueryTumblingWindowClause>(
-                "for tumbling window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                        "return \$Q{http://www.example.com}z")[0] as XPathVariableBinding
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "for tumbling window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+            "return \$Q{http://www.example.com}z"
+        )[0] as XPathVariableBinding
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
@@ -968,57 +658,33 @@ private class XQueryModelTest : ParserTestCase() {
     @Test
     fun testVarDecl_NCName() {
         val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathNCName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testVarDecl_QName() {
         val expr = parse<XQueryVarDecl>("declare variable \$a:x := \$a:y;")[0] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathQName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.namespace, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.prefix?.staticType, `is`(XsNCName))
-        assertThat(qname.prefix?.staticValue as String, `is`("a"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.prefix!!.data, `is`("a"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test
     fun testVarDecl_URIQualifiedName() {
         val expr = parse<XQueryVarDecl>(
-                "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;")[0] as XPathVariableDeclaration
-        assertThat(expr.variableName, `is`(notNullValue()))
+            "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;"
+        )[0] as XPathVariableDeclaration
 
-        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
-        val name = varname.firstChild as XPathURIQualifiedName
-
-        val qname = expr.variableName as QName
+        val qname = expr.variableName!!
         assertThat(qname.prefix, `is`(nullValue()))
-        assertThat(qname.declaration?.get(), `is`(name))
-
-        assertThat(qname.namespace?.staticType, `is`(XsAnyURI))
-        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
-
-        assertThat(qname.localName.staticType, `is`(XsNCName))
-        assertThat(qname.localName.staticValue as String, `is`("x"))
+        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+        assertThat(qname.localName!!.data, `is`("x"))
     }
 
     @Test

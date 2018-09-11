@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCountClause
 
 class XQueryCountClausePsiImpl(node: ASTNode) :
@@ -31,5 +32,5 @@ class XQueryCountClausePsiImpl(node: ASTNode) :
     private val varName
         get(): XPathVariableName? = children().filterIsInstance<XPathVariableName>().firstOrNull()
 
-    override val variableName get(): QName? = varName?.variableName
+    override val variableName get(): XsQNameValue? = varName?.variableName
 }
