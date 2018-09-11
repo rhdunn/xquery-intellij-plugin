@@ -17,15 +17,23 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.XmlChar
+import uk.co.reecedunn.intellij.plugin.xpath.model.XmlChar
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 
 class XQueryCharRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryCharRef {
     override val codepoint get(): XmlChar {
         val ref = text
         return if (ref.startsWith("&#x")) // `&#x...;` hexadecimal character reference
-            XmlChar(ref.subSequence(3, ref.length - 1).toString().toInt(radix = 16))
+            XmlChar(
+                ref.subSequence(3, ref.length - 1).toString().toInt(
+                    radix = 16
+                )
+            )
         else // `&#...;` decimal character reference
-            XmlChar(ref.subSequence(2, ref.length - 1).toString().toInt(radix = 10))
+            XmlChar(
+                ref.subSequence(2, ref.length - 1).toString().toInt(
+                    radix = 10
+                )
+            )
     }
 }

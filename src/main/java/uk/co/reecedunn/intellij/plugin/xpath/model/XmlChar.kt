@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.datatype
+package uk.co.reecedunn.intellij.plugin.xpath.model
 
 /**
  * Represents an XML [Char](https://www.w3.org/TR/REC-xml/#NT-Char).
