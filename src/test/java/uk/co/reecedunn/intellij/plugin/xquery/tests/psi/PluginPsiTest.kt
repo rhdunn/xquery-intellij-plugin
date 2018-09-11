@@ -22,8 +22,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
+import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -97,6 +100,22 @@ private class PluginPsiTest : ParserTestCase() {
             fun saxon() {
                 val entry = parse<XPathMapConstructorEntry>("map { \"1\" := \"one\" }")[0]
                 assertThat(entry.separator.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.9.1) Axes")
+    internal inner class PathExpressions {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin BNF (25) ForwardAxis")
+        internal inner class ForwardAxis {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>("property::one")
+                assertThat(steps.size, `is`(1))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // property
             }
         }
     }

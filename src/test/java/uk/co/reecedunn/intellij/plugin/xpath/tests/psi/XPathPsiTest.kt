@@ -366,6 +366,50 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.3.2.1) Axes")
+    internal inner class Axes {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (41) ForwardAxis")
+        internal inner class ForwardAxis {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>("""
+                    child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                    following-sibling::six, following::seven, namespace::eight
+                """)
+                assertThat(steps.size, `is`(8))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // child
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // descendant
+                assertThat(steps[2].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute)) // attribute
+                assertThat(steps[3].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // self
+                assertThat(steps[4].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // descendant-or-self
+                assertThat(steps[5].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // following-sibling
+                assertThat(steps[6].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // following
+                assertThat(steps[7].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Namespace)) // namespace
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (44) ReverseAxis")
+        internal inner class ReverseAxis {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>(
+                    "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
+                )
+                assertThat(steps.size, `is`(5))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // parent
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // ancestor
+                assertThat(steps[2].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // preceding-sibling
+                assertThat(steps[3].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // preceding
+                assertThat(steps[4].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // ancestor-or-self
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
         @Nested
@@ -448,6 +492,23 @@ private class XPathPsiTest : ParserTestCase() {
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.3.5) Abbreviated Syntax")
+    internal inner class AbbreviatedSyntax {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
+        internal inner class AbbrevForwardStep {
+            @Test
+            @DisplayName("principal node kind")
+            fun principalNodeKind() {
+                val steps = parse<XPathNodeTest>("one, @two")
+                assertThat(steps.size, `is`(2))
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element))
+                assertThat(steps[1].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Attribute))
             }
         }
     }
