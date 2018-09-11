@@ -17,7 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 enum class XPathNamespaceType {
     DefaultElementOrType,
-    DefaultFunction
+    DefaultFunction,
+    Prefixed
 }
 
 interface XPathNamespaceDeclaration {

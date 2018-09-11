@@ -685,25 +685,37 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("specified namespace prefix and uri")
             fun namespacePrefixAndUri() {
-                val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
                 assertThat(expr.namespacePrefix!!.data, `is`("test"))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.Prefixed))
             }
 
             @Test
             @DisplayName("missing namespace prefix")
             fun noNamespacePrefix() {
-                val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XPathNamespaceDeclaration
+                val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.Prefixed))
             }
 
             @Test
             @DisplayName("missing namespace uri")
             fun noNamespaceUri() {
-                val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XPathNamespaceDeclaration
+                val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XPathDefaultNamespaceDeclaration
                 assertThat(expr.namespacePrefix!!.data, `is`("test"))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.Prefixed))
+            }
+
+            @Test
+            @DisplayName("default element namespace")
+            fun defaultElementNamespace() {
+                val expr = parse<XQuerySchemaImport>("import schema default element namespace 'http://www.example.com';")[0] as XPathDefaultNamespaceDeclaration
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
             }
         }
     }

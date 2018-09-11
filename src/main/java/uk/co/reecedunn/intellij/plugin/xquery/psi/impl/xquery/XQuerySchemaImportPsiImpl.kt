@@ -18,27 +18,35 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQuerySchemaImportPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQuerySchemaImport,
-        XPathNamespaceDeclaration {
-    // region XPathNamespaceDeclaration
+class XQuerySchemaImportPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQuerySchemaImport,
+    XPathDefaultNamespaceDeclaration {
+    // region XPathDefaultNamespaceDeclaration
 
-    override val namespacePrefix get(): XsNCNameValue? {
-        val schema = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull() ?: return null
-        return schema.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
-    }
+    private val schemaPrefix get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 
-    override val namespaceUri get(): XsAnyUriValue? =
-        children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+    override val namespaceType
+        get(): XPathNamespaceType {
+            return when (schemaPrefix?.firstChild?.node?.elementType) {
+                XQueryTokenType.K_NAMESPACE -> XPathNamespaceType.Prefixed
+                else -> XPathNamespaceType.DefaultElementOrType
+            }
+        }
+
+    override val namespacePrefix
+        get(): XsNCNameValue? {
+            return schemaPrefix?.let { it.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName }
+        }
+
+    override val namespaceUri
+        get(): XsAnyUriValue? = children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
 }
