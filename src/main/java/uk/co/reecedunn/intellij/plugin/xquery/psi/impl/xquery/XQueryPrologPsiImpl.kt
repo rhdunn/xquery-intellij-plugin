@@ -21,10 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -46,8 +43,8 @@ class XQueryPrologPsiImpl(node: ASTNode):
 
     private val cachedDefaultElementOrTypeNamespace = CacheableProperty {
         children().reversed()
-            .filterIsInstance<XQueryDefaultNamespaceDecl>()
-            .map { decl -> if (decl.type == XPathNamespaceType.DefaultElementOrType) decl.defaultValue else null }
+            .filterIsInstance<XPathDefaultNamespaceDeclaration>()
+            .map { decl -> if (decl.namespaceType == XPathNamespaceType.DefaultElementOrType) decl.namespaceUri else null }
             .filterNotNull() `is` Cacheable
     }
 
@@ -56,8 +53,8 @@ class XQueryPrologPsiImpl(node: ASTNode):
 
     private val cachedDefaultFunctionNamespace = CacheableProperty {
         children().reversed()
-            .filterIsInstance<XQueryDefaultNamespaceDecl>()
-            .map { decl -> if (decl.type == XPathNamespaceType.DefaultFunction) decl.defaultValue else null }
+            .filterIsInstance<XPathDefaultNamespaceDeclaration>()
+            .map { decl -> if (decl.namespaceType == XPathNamespaceType.DefaultFunction) decl.namespaceUri else null }
             .filterNotNull() `is` Cacheable
     }
 

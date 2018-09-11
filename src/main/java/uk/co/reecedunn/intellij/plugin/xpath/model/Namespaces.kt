@@ -25,3 +25,7 @@ interface XPathNamespaceDeclaration {
 
     val namespaceUri: XsAnyUriValue?
 }
+
+interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
+    val namespaceType: XPathNamespaceType
+}

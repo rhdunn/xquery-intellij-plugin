@@ -16,14 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 
 /**
  * An XQuery 1.0 `DefaultNamespaceDecl` node in the XQuery AST.
  */
-interface XQueryDefaultNamespaceDecl : PsiElement {
-    val type: XPathNamespaceType
-
-    val defaultValue: XsAnyUriValue?
-}
+interface XQueryDefaultNamespaceDecl : PsiElement

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,30 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
+    XPathDefaultNamespaceDeclaration,
     XQueryDefaultNamespaceDecl {
 
-    override val type
+    override val namespacePrefix: XsNCNameValue? = null
+
+    override val namespaceUri
+        get(): XsAnyUriValue? {
+            return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
+                val value = uri.value as? XsAnyUriValue
+                if (value?.data.isNullOrEmpty()) null else value
+            }.filterNotNull().firstOrNull()
+        }
+
+    override val namespaceType
         get(): XPathNamespaceType {
             return children().map { child ->
                 when (child.node.elementType) {
@@ -37,13 +50,5 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
                     else -> null
                 }
             }.filterNotNull().first()
-        }
-
-    override val defaultValue
-        get(): XsAnyUriValue? {
-            return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
-                val value = uri.value as? XsAnyUriValue
-                if (value?.data.isNullOrEmpty()) null else value
-            }.filterNotNull().firstOrNull()
         }
 }

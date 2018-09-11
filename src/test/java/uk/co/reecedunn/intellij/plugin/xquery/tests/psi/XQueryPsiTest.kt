@@ -837,41 +837,45 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default element/type namespace declaration")
             fun element() {
-                val decl = parse<XQueryDefaultNamespaceDecl>(
+                val decl = parse<XPathDefaultNamespaceDeclaration>(
                     "declare default element namespace 'http://www.w3.org/1999/xhtml';"
                 )[0]
 
-                assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
-                assertThat(decl.defaultValue?.data, `is`("http://www.w3.org/1999/xhtml"))
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/1999/xhtml"))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
             }
 
             @Test
             @DisplayName("default function namespace declaration")
             fun function() {
-                val decl = parse<XQueryDefaultNamespaceDecl>(
+                val decl = parse<XPathDefaultNamespaceDeclaration>(
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';"
                 )[0]
 
-                assertThat(decl.type, `is`(XPathNamespaceType.DefaultFunction))
-                assertThat(decl.defaultValue?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultFunction))
             }
 
             @Test
             @DisplayName("empty namespace")
             fun emptyNamespace() {
-                val decl = parse<XQueryDefaultNamespaceDecl>("declare default element namespace '';")[0]
+                val decl = parse<XPathDefaultNamespaceDeclaration>("declare default element namespace '';")[0]
 
-                assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
-                assertThat(decl.defaultValue, `is`(nullValue()))
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri, `is`(nullValue()))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
             }
 
             @Test
             @DisplayName("missing namespace")
             fun missingNamespace() {
-                val decl = parse<XQueryDefaultNamespaceDecl>("declare default element namespace;")[0]
+                val decl = parse<XPathDefaultNamespaceDeclaration>("declare default element namespace;")[0]
 
-                assertThat(decl.type, `is`(XPathNamespaceType.DefaultElementOrType))
-                assertThat(decl.defaultValue, `is`(nullValue()))
+                assertThat(decl.namespacePrefix, `is`(nullValue()))
+                assertThat(decl.namespaceUri, `is`(nullValue()))
+                assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
             }
         }
     }
