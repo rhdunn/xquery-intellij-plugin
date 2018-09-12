@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
+private val EMPTY_NAMESPACE = XsAnyUri("")
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
 
 enum class XPathNamespaceType {
@@ -44,6 +45,7 @@ fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType
     return when {
         parentType === XQueryElementType.ANNOTATION -> XPathNamespaceType.XQuery
+        parentType === XQueryElementType.DECIMAL_FORMAT_DECL -> XPathNamespaceType.None
         else -> XPathNamespaceType.Undefined
     }
 }
@@ -52,6 +54,7 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null -> { // NCName
             when (this.getNamespaceType()) {
+                XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false))
                 else -> sequenceOf(this)
             }

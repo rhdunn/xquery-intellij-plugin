@@ -677,6 +677,34 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (4.10) Decimal Format Declaration")
+    internal inner class DecimalFormatDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (18) DecimalFormatDecl")
+        internal inner class DecimalFormatDecl {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("declare decimal-format test;")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (4.11) Schema Import")
     internal inner class SchemaImport {
         @Nested
