@@ -16,11 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val EMPTY_NAMESPACE = XsAnyUri("")
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
+
+private val EMPTY_NS_PARENTS = TokenSet.create(
+    XQueryElementType.DECIMAL_FORMAT_DECL,
+    XQueryElementType.PARAM
+)
 
 enum class XPathNamespaceType {
     DefaultElementOrType,
@@ -45,7 +50,7 @@ fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType
     return when {
         parentType === XQueryElementType.ANNOTATION -> XPathNamespaceType.XQuery
-        parentType === XQueryElementType.DECIMAL_FORMAT_DECL -> XPathNamespaceType.None
+        EMPTY_NS_PARENTS.contains(parentType) -> XPathNamespaceType.None
         else -> XPathNamespaceType.Undefined
     }
 }
