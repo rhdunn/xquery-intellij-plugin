@@ -77,7 +77,7 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
-                assertThat(expr.namespaceType, `is`(XPathNamespaceType.None))
+                assertThat(expr.namespaceType, `is`(XPathNamespaceType.Undefined))
             }
         }
     }

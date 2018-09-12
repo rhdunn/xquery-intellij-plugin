@@ -25,7 +25,7 @@ import org.hamcrest.MatcherAssert
  *     val s: CharSequence = "test"
  *     MatcherAssert.assertThat(s, CoreMatchers.`is`("test"))
  *                   ^^^^^^^^^^
- *                   > None of the following functions can be called with the arguments supplied.
+ *                   > Undefined of the following functions can be called with the arguments supplied.
  *
  * This is a Kotlin version of assertThat which does work in the above use
  * case. The fix is to specify the `matcher` template argument as an `out`

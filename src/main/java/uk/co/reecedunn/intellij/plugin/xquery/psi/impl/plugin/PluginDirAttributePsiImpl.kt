@@ -47,7 +47,7 @@ class PluginDirAttributePsiImpl(node: ASTNode):
                     XPathNamespaceType.DefaultElementOrType
                 else
                     null
-            }.firstOrNull() ?: XPathNamespaceType.None
+            }.firstOrNull() ?: XPathNamespaceType.Undefined
         }
 
     override val namespacePrefix get(): XsNCNameValue? = cachedNamespacePrefix.get()
