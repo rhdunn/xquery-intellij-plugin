@@ -15,11 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+
 enum class XPathNamespaceType {
     DefaultElementOrType,
     DefaultFunction,
+    None,
     Prefixed,
     Undefined,
+    XQuery,
 }
 
 interface XPathNamespaceDeclaration {
@@ -30,4 +36,12 @@ interface XPathNamespaceDeclaration {
 
 interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
     val namespaceType: XPathNamespaceType
+}
+
+fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
+    val parentType = (this as? PsiElement)?.parent?.node?.elementType
+    return when {
+        parentType === XQueryElementType.ANNOTATION -> XPathNamespaceType.XQuery
+        else -> XPathNamespaceType.Undefined
+    }
 }

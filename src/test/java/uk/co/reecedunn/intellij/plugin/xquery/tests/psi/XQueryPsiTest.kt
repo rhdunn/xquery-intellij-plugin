@@ -893,6 +893,26 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (4.15) Annotations")
+    internal inner class Annotations {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (27) Annotation")
+        internal inner class Annotation {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("declare function %test f() {};")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.XQuery))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (4.18) Function Declaration")
     internal inner class FunctionDeclaration {
         @Nested
