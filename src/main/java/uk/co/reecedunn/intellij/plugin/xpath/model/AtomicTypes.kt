@@ -75,6 +75,13 @@ interface XsQNameValue : XsAnyAtomicType {
     val isLexicalQName: Boolean
 }
 
+data class XsQName(
+    override val namespace: XsAnyUriValue?,
+    override val prefix: XsNCNameValue?,
+    override val localName: XsNCNameValue?,
+    override val isLexicalQName: Boolean
+) : XsQNameValue
+
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.1) xs:normalizedString
 

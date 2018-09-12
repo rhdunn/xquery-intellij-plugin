@@ -908,6 +908,14 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2012/xquery"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
             }
         }
     }
