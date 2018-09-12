@@ -985,4 +985,32 @@ private class XQueryPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (4.19) Option Declaration")
+    internal inner class OptionDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (37) OptionDecl")
+        internal inner class OptionDecl {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("declare option test \"lorem ipsum\";")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.XQuery))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2012/xquery"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+        }
+    }
 }

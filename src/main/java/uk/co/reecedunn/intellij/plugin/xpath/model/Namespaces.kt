@@ -27,6 +27,11 @@ private val EMPTY_NS_PARENTS = TokenSet.create(
     XQueryElementType.PARAM
 )
 
+private val XQUERY_NS_PARENTS = TokenSet.create(
+    XQueryElementType.ANNOTATION,
+    XQueryElementType.OPTION_DECL
+)
+
 enum class XPathNamespaceType {
     DefaultElementOrType,
     DefaultFunction,
@@ -49,7 +54,7 @@ interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType
     return when {
-        parentType === XQueryElementType.ANNOTATION -> XPathNamespaceType.XQuery
+        XQUERY_NS_PARENTS.contains(parentType) -> XPathNamespaceType.XQuery
         EMPTY_NS_PARENTS.contains(parentType) -> XPathNamespaceType.None
         else -> XPathNamespaceType.Undefined
     }
