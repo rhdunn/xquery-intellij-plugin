@@ -25,7 +25,8 @@ private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
 private val EMPTY_NS_PARENTS = TokenSet.create(
     XQueryElementType.DECIMAL_FORMAT_DECL,
     XQueryElementType.PARAM,
-    XQueryElementType.CURRENT_ITEM
+    XQueryElementType.CURRENT_ITEM,
+    XQueryElementType.PREVIOUS_ITEM
 )
 
 private val XQUERY_NS_PARENTS = TokenSet.create(
