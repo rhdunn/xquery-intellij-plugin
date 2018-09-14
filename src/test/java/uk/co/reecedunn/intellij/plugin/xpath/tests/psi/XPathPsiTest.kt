@@ -174,7 +174,7 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 (2.5.5.5) AttributeTest")
+    @DisplayName("XPath 3.1 (2.5.5.5) Attribute Test")
     internal inner class AttributeTest {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (98) AttributeName")
@@ -183,6 +183,34 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathNCName>("() instance of attribute(test)")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (2.5.5.6) Schema  Attribute Test")
+    internal inner class SchemaAttributeTest {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (93) AttributeDeclaration")
+        internal inner class AttributeDeclaration {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("() instance of schema-attribute(test)")[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
 
                 assertThat(qname.isLexicalQName, `is`(true))

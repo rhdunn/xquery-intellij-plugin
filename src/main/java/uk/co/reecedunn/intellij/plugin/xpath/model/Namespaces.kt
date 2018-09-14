@@ -31,6 +31,7 @@ private val EMPTY_NS_PARENTS = TokenSet.create(
     XQueryElementType.PARAM,
     XQueryElementType.PRAGMA,
     XQueryElementType.PREVIOUS_ITEM,
+    XQueryElementType.SCHEMA_ATTRIBUTE_TEST,
     XQueryElementType.VAR_NAME
 )
 
