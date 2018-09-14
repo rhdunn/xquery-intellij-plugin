@@ -383,6 +383,34 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.9.3.2) Computed Attribute Constructors")
+    internal inner class ComputedAttributeConstructors {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+        internal inner class CompAttrConstructor {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("attribute test {}")[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.12.4) Window Clause")
     internal inner class WindowClause {
         @Nested
