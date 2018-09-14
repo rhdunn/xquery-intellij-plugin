@@ -23,6 +23,7 @@ private val EMPTY_NAMESPACE = XsAnyUri("")
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
 
 private val EMPTY_NS_PARENTS = TokenSet.create(
+    XQueryElementType.ATTRIBUTE_TEST,
     XQueryElementType.COMP_ATTR_CONSTRUCTOR,
     XQueryElementType.CURRENT_ITEM,
     XQueryElementType.DECIMAL_FORMAT_DECL,
