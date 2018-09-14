@@ -27,6 +27,7 @@ private val EMPTY_NS_PARENTS = TokenSet.create(
     XQueryElementType.COMP_ATTR_CONSTRUCTOR,
     XQueryElementType.CURRENT_ITEM,
     XQueryElementType.DECIMAL_FORMAT_DECL,
+    XQueryElementType.DIR_ATTRIBUTE,
     XQueryElementType.NEXT_ITEM,
     XQueryElementType.PARAM,
     XQueryElementType.PRAGMA,

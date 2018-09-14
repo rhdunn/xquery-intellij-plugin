@@ -272,6 +272,30 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+        internal inner class DirAttributeList {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathNCName>("<elem test=\"\"/>")[1] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
         internal inner class DirAttributeValue {
             @Test
