@@ -1,5 +1,9 @@
 xquery version "1.0";
 
+(: https://www.w3.org/TR/xquery/#id-default-namespace :)
+declare default element namespace "";
+declare default function namespace "http://www.w3.org/2005/xpath-functions"; (: = 'fn:' :)
+
 (: http://docs.marklogic.com/7.0/guide/xquery/namespaces :)
 import module namespace cts = "http://marklogic.com/cts" at "res://marklogic.com/cts.xqy";
 declare namespace dav = "DAV:";

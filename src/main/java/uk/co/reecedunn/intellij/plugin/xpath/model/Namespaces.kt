@@ -17,7 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 private val EMPTY_NAMESPACE = XsAnyUri("")
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
@@ -58,6 +62,42 @@ interface XPathNamespaceDeclaration {
 
 interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
     val namespaceType: XPathNamespaceType
+}
+
+private fun PsiElement.defaultNamespace(
+    type: XPathNamespaceType,
+    resolveProlog: Boolean
+): Sequence<XPathDefaultNamespaceDeclaration> {
+    return walkTree().reversed().flatMap { node ->
+        when (node) {
+            is XQueryProlog ->
+                node.children().reversed().filterIsInstance<XPathDefaultNamespaceDeclaration>()
+            is XQueryModule -> {
+                if (resolveProlog)
+                    node.predefinedStaticContext?.children()?.reversed()
+                        ?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
+                else
+                    emptySequence()
+            }
+            is XQueryMainModule ->
+                if (resolveProlog)
+                    (node as XQueryPrologResolver).prolog?.defaultNamespace(type, false) ?: emptySequence()
+                else
+                    emptySequence()
+            is XQueryDirElemConstructor ->
+                node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
+                    ?.children()?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
+            else -> emptySequence()
+        }
+    }.filter { ns -> ns.namespaceType === type && ns.namespaceUri?.data != null }
+}
+
+fun PsiElement.defaultElementOrTypeNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+    return defaultNamespace(XPathNamespaceType.DefaultElementOrType, true)
+}
+
+fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+    return defaultNamespace(XPathNamespaceType.DefaultFunction, true)
 }
 
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {

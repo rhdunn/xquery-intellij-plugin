@@ -1066,7 +1066,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val decl = parse<XPathDefaultNamespaceDeclaration>("declare default element namespace '';")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
-                assertThat(decl.namespaceUri, `is`(nullValue()))
+                assertThat(decl.namespaceUri!!.data, `is`(""))
                 assertThat(decl.namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
             }
 
