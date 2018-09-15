@@ -38,16 +38,26 @@ interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
     val namespaceType: XPathNamespaceType
 }
 
-private fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPathDefaultNamespaceDeclaration> {
+private fun PsiElement.defaultNamespace(
+    type: XPathNamespaceType,
+    resolveProlog: Boolean
+): Sequence<XPathDefaultNamespaceDeclaration> {
     return walkTree().reversed().flatMap { node ->
         when (node) {
             is XQueryProlog ->
                 node.children().reversed().filterIsInstance<XPathDefaultNamespaceDeclaration>()
-            is XQueryMainModule ->
-                if (this is XQueryProlog)
-                    emptySequence()
+            is XQueryModule -> {
+                if (resolveProlog)
+                    node.predefinedStaticContext?.children()?.reversed()
+                        ?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
                 else
-                    (node as XQueryPrologResolver).prolog?.defaultNamespace(type) ?: emptySequence()
+                    emptySequence()
+            }
+            is XQueryMainModule ->
+                if (resolveProlog)
+                    (node as XQueryPrologResolver).prolog?.defaultNamespace(type, false) ?: emptySequence()
+                else
+                    emptySequence()
             is XQueryDirElemConstructor ->
                 node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
                     ?.children()?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
@@ -57,9 +67,9 @@ private fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPat
 }
 
 fun PsiElement.defaultElementOrTypeNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
-    return defaultNamespace(XPathNamespaceType.DefaultElementOrType)
+    return defaultNamespace(XPathNamespaceType.DefaultElementOrType, true)
 }
 
 fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
-    return defaultNamespace(XPathNamespaceType.DefaultFunction)
+    return defaultNamespace(XPathNamespaceType.DefaultFunction, true)
 }
