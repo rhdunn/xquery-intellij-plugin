@@ -64,6 +64,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (21) SchemaImport")
+        internal inner class SchemaImport {
+            @Test
+            @DisplayName("default")
+            fun default() {
+                val ctx = parse<XQueryMainModule>("import schema default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0]
+
+                val element = ctx.defaultElementOrTypeNamespace().toList()
+                assertThat(element.size, `is`(1))
+
+                assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
+            }
+
+            @Test
+            @DisplayName("default; missing namespace")
+            fun defaultMissingNamespace() {
+                val ctx = parse<XQueryMainModule>("import schema default element namespace; <br/>")[0]
+                assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("default; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XQueryMainModule>("import schema default element namespace ''; <br/>")[0]
+
+                val element = ctx.defaultElementOrTypeNamespace().toList()
+                assertThat(element.size, `is`(1))
+
+                assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (25) DefaultNamespaceDecl")
         internal inner class DefaultNamespaceDecl {
             @Test
@@ -187,6 +224,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
             @DisplayName("no default namespace declarations")
             fun noNamespaceDeclarations() {
                 val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (21) SchemaImport")
+        internal inner class SchemaImport {
+            @Test
+            @DisplayName("default")
+            fun default() {
+                val ctx = parse<XQueryMainModule>("import schema default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("default; missing namespace")
+            fun defaultMissingNamespace() {
+                val ctx = parse<XQueryMainModule>("import schema default element namespace; <br/>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("default; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XQueryMainModule>("import schema default element namespace ''; <br/>")[0]
                 assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
             }
         }
