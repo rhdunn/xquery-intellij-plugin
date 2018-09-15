@@ -32,6 +32,7 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
     XQueryElementType.DECIMAL_FORMAT_DECL to XPathNamespaceType.None,
     XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
+    XQueryElementType.FUNCTION_DECL to XPathNamespaceType.DefaultFunction,
     XQueryElementType.NEXT_ITEM to XPathNamespaceType.None,
     XQueryElementType.OPTION_DECL to XPathNamespaceType.XQuery,
     XQueryElementType.PARAM to XPathNamespaceType.None,
@@ -64,10 +65,13 @@ private fun PsiElement.defaultNamespace(
     type: XPathNamespaceType,
     resolveProlog: Boolean
 ): Sequence<XPathDefaultNamespaceDeclaration> {
+    var visitedProlog = false
     return walkTree().reversed().flatMap { node ->
         when (node) {
-            is XQueryProlog ->
+            is XQueryProlog -> {
+                visitedProlog = true
                 node.children().reversed().filterIsInstance<XPathDefaultNamespaceDeclaration>()
+            }
             is XQueryModule -> {
                 if (resolveProlog)
                     node.predefinedStaticContext?.children()?.reversed()
@@ -76,7 +80,7 @@ private fun PsiElement.defaultNamespace(
                     emptySequence()
             }
             is XQueryMainModule ->
-                if (resolveProlog)
+                if (resolveProlog && !visitedProlog)
                     (node as XQueryPrologResolver).prolog?.defaultNamespace(type, false) ?: emptySequence()
                 else
                     emptySequence()
@@ -105,6 +109,11 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null -> { // NCName
             when (this.getNamespaceType()) {
+                XPathNamespaceType.DefaultFunction -> {
+                    (this as PsiElement).defaultFunctionNamespace().map { decl ->
+                        XsQName(decl.namespaceUri, null, localName, false)
+                    }
+                }
                 XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false))
                 else -> sequenceOf(this)
