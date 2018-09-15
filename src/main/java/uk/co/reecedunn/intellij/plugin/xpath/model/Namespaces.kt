@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -26,23 +25,20 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 private val EMPTY_NAMESPACE = XsAnyUri("")
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
 
-private val EMPTY_NS_PARENTS = TokenSet.create(
-    XQueryElementType.ATTRIBUTE_TEST,
-    XQueryElementType.COMP_ATTR_CONSTRUCTOR,
-    XQueryElementType.CURRENT_ITEM,
-    XQueryElementType.DECIMAL_FORMAT_DECL,
-    XQueryElementType.DIR_ATTRIBUTE,
-    XQueryElementType.NEXT_ITEM,
-    XQueryElementType.PARAM,
-    XQueryElementType.PRAGMA,
-    XQueryElementType.PREVIOUS_ITEM,
-    XQueryElementType.SCHEMA_ATTRIBUTE_TEST,
-    XQueryElementType.VAR_NAME
-)
-
-private val XQUERY_NS_PARENTS = TokenSet.create(
-    XQueryElementType.ANNOTATION,
-    XQueryElementType.OPTION_DECL
+private val NAMESPACE_TYPE = mapOf(
+    XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
+    XQueryElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
+    XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,
+    XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
+    XQueryElementType.DECIMAL_FORMAT_DECL to XPathNamespaceType.None,
+    XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
+    XQueryElementType.NEXT_ITEM to XPathNamespaceType.None,
+    XQueryElementType.OPTION_DECL to XPathNamespaceType.XQuery,
+    XQueryElementType.PARAM to XPathNamespaceType.None,
+    XQueryElementType.PRAGMA to XPathNamespaceType.None,
+    XQueryElementType.PREVIOUS_ITEM to XPathNamespaceType.None,
+    XQueryElementType.SCHEMA_ATTRIBUTE_TEST to XPathNamespaceType.None,
+    XQueryElementType.VAR_NAME to XPathNamespaceType.None
 )
 
 enum class XPathNamespaceType {
@@ -102,11 +98,7 @@ fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclara
 
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType
-    return when {
-        XQUERY_NS_PARENTS.contains(parentType) -> XPathNamespaceType.XQuery
-        EMPTY_NS_PARENTS.contains(parentType) -> XPathNamespaceType.None
-        else -> XPathNamespaceType.Undefined
-    }
+    return NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
 }
 
 fun XsQNameValue.expand(): Sequence<XsQNameValue> {
