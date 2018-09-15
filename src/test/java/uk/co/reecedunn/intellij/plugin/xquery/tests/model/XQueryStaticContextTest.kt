@@ -100,6 +100,30 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+        internal inner class DirAttributeList {
+            @Test
+            @DisplayName("prefixed namespace declaration")
+            fun prefixed() {
+                val ctx = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{test()}</a>")[0]
+                assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration")
+            fun default() {
+                val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
+
+                val element = ctx.defaultElementOrTypeNamespace().toList()
+                assertThat(element.size, `is`(1))
+
+                assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+        }
     }
 
     @Nested
@@ -168,6 +192,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
             @DisplayName("function; empty namespace")
             fun functionEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace ''; <br/>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+        internal inner class DirAttributeList {
+            @Test
+            @DisplayName("prefixed namespace declaration")
+            fun prefixed() {
+                val ctx = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{test()}</a>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration")
+            fun default() {
+                val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
                 assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
             }
         }

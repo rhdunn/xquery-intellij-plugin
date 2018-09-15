@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 enum class XPathNamespaceType {
@@ -50,6 +48,9 @@ private fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPat
                     emptySequence()
                 else
                     (node as XQueryPrologResolver).prolog?.defaultNamespace(type) ?: emptySequence()
+            is XQueryDirElemConstructor ->
+                node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
+                    ?.children()?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
             else -> emptySequence()
         }
     }.filter { ns -> ns.namespaceType === type && !ns.namespaceUri?.data.isNullOrEmpty() }
