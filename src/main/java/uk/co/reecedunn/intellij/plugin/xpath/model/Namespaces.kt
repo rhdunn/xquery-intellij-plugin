@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -102,13 +103,24 @@ fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclara
 
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType
-    return NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
+    return if (parentType === XQueryElementType.NAME_TEST)
+        when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
+            XPathPrincipalNodeKind.Element -> XPathNamespaceType.DefaultElementOrType
+            else -> XPathNamespaceType.None
+        }
+    else
+        NAMESPACE_TYPE.getOrDefault(parentType, XPathNamespaceType.Undefined)
 }
 
 fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null -> { // NCName
             when (this.getNamespaceType()) {
+                XPathNamespaceType.DefaultElementOrType -> {
+                    (this as PsiElement).defaultElementOrTypeNamespace().map { decl ->
+                        XsQName(decl.namespaceUri, null, localName, false)
+                    }
+                }
                 XPathNamespaceType.DefaultFunction -> {
                     (this as PsiElement).defaultFunctionNamespace().map { decl ->
                         XsQName(decl.namespaceUri, null, localName, false)

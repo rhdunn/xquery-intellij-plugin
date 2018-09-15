@@ -525,6 +525,93 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
     internal inner class NodeTests {
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (47) NameTest")
+        internal inner class NameTest {
+            @Test
+            @DisplayName("NCName namespace resolution; element principal node kind")
+            fun elementNcname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    ancestor::test
+                    """
+                )[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(2))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+
+                assertThat(expanded[1].isLexicalQName, `is`(false))
+                assertThat(expanded[1].namespace!!.data, `is`(""))
+                assertThat(expanded[1].prefix, `is`(nullValue()))
+                assertThat(expanded[1].localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("NCName namespace resolution; attribute principal node kind")
+            fun attributeNcname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    attribute::test
+                    """
+                )[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("NCName namespace resolution; namespace principal node kind")
+            fun namespaceNcname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    namespace::test
+                    """
+                )[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.None))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (48) Wildcard")
         internal inner class Wildcard {
             @Test
