@@ -53,7 +53,7 @@ private fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPat
                     ?.children()?.filterIsInstance<XPathDefaultNamespaceDeclaration>() ?: emptySequence()
             else -> emptySequence()
         }
-    }.filter { ns -> ns.namespaceType === type && !ns.namespaceUri?.data.isNullOrEmpty() }
+    }.filter { ns -> ns.namespaceType === type && ns.namespaceUri?.data != null }
 }
 
 fun PsiElement.defaultElementOrTypeNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {

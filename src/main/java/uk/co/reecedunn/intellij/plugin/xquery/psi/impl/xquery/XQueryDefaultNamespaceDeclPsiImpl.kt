@@ -36,8 +36,7 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
     override val namespaceUri
         get(): XsAnyUriValue? {
             return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
-                val value = uri.value as? XsAnyUriValue
-                if (value?.data.isNullOrEmpty()) null else value
+                uri.value as? XsAnyUriValue
             }.filterNotNull().firstOrNull()
         }
 

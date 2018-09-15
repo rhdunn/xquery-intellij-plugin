@@ -80,16 +80,36 @@ private class XQueryStaticContextTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("element; missing namespace")
+            fun elementMissingNamespace() {
+                val ctx = parse<XQueryMainModule>("declare default element namespace; <br/>")[0]
+                assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
+            }
+
+            @Test
             @DisplayName("element; empty namespace")
             fun elementEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0]
-                assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
+
+                val element = ctx.defaultElementOrTypeNamespace().toList()
+                assertThat(element.size, `is`(1))
+
+                assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
             }
 
             @Test
             @DisplayName("function")
             fun function() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0]
+                assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("function; missing namespace")
+            fun functionMissingNamespace() {
+                val ctx = parse<XQueryMainModule>("declare default function namespace; <br/>")[0]
                 assertThat(ctx.defaultElementOrTypeNamespace().count(), `is`(0))
             }
 
@@ -122,6 +142,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XPathFunctionCall>("<a xmlns=''>{test()}</a>")[0]
+
+                val element = ctx.defaultElementOrTypeNamespace().toList()
+                assertThat(element.size, `is`(1))
+
+                assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultElementOrType))
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
             }
         }
     }
@@ -169,6 +202,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("element; missing namespace")
+            fun elementMissingNamespace() {
+                val ctx = parse<XQueryMainModule>("declare default element namespace; <br/>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+
+            @Test
             @DisplayName("element; empty namespace")
             fun elementEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0]
@@ -189,10 +229,23 @@ private class XQueryStaticContextTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("function; missing namespace")
+            fun functionMissingNamespace() {
+                val ctx = parse<XQueryMainModule>("declare default function namespace; <br/>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+
+            @Test
             @DisplayName("function; empty namespace")
             fun functionEmptyNamespace() {
                 val ctx = parse<XQueryMainModule>("declare default function namespace ''; <br/>")[0]
-                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+
+                val element = ctx.defaultFunctionNamespace().toList()
+                assertThat(element.size, `is`(1))
+
+                assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultFunction))
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
             }
         }
 
@@ -210,6 +263,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
             @DisplayName("default namespace declaration")
             fun default() {
                 val ctx = parse<XPathFunctionCall>("<a xmlns='http://www.example.com'>{test()}</a>")[0]
+                assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XPathFunctionCall>("<a xmlns=''>{test()}</a>")[0]
                 assertThat(ctx.defaultFunctionNamespace().count(), `is`(0))
             }
         }
