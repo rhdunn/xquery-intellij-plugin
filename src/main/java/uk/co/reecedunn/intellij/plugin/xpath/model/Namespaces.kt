@@ -15,6 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
+
 enum class XPathNamespaceType {
     DefaultElementOrType,
     DefaultFunction,
@@ -30,4 +38,27 @@ interface XPathNamespaceDeclaration {
 
 interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
     val namespaceType: XPathNamespaceType
+}
+
+private fun PsiElement.defaultNamespace(type: XPathNamespaceType): Sequence<XPathDefaultNamespaceDeclaration> {
+    return walkTree().reversed().flatMap { node ->
+        when (node) {
+            is XQueryProlog ->
+                node.children().reversed().filterIsInstance<XPathDefaultNamespaceDeclaration>()
+            is XQueryMainModule ->
+                if (this is XQueryProlog)
+                    emptySequence()
+                else
+                    (node as XQueryPrologResolver).prolog?.defaultNamespace(type) ?: emptySequence()
+            else -> emptySequence()
+        }
+    }.filter { ns -> ns.namespaceType === type && !ns.namespaceUri?.data.isNullOrEmpty() }
+}
+
+fun PsiElement.defaultElementOrTypeNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+    return defaultNamespace(XPathNamespaceType.DefaultElementOrType)
+}
+
+fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclaration> {
+    return defaultNamespace(XPathNamespaceType.DefaultFunction)
 }

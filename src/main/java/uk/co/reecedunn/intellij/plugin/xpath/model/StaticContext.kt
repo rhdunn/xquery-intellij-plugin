@@ -29,10 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 interface XPathStaticContext {
-    val defaultElementOrTypeNamespace: Sequence<XsAnyUriValue>
-
-    val defaultFunctionNamespace: Sequence<XsAnyUriValue>
-
     val variables: Sequence<XPathVariableDeclaration>
 }
 
