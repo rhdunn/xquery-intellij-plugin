@@ -27,6 +27,7 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -43,7 +44,7 @@ class UnboundQNamePrefixInspection : Inspection("xpst/XPST0081.md") {
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathEQName>().forEach { eqname ->
             val qname = eqname as XsQNameValue
-            if (qname.prefix != null && qname.prefix!!.data != "xmlns" && !eqname.resolvePrefixNamespace().iterator().hasNext()) {
+            if (qname.prefix != null && qname.prefix!!.data != "xmlns" && !eqname.expand().any()) {
                 val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 val context = qname.prefix?.element!!
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
