@@ -18,25 +18,32 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-class XQueryNamespaceDeclPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryNamespaceDecl,
-        XPathNamespaceDeclaration {
+class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryNamespaceDecl,
+    XQueryPrologResolver,
+    XPathNamespaceDeclaration {
+    // region XQueryPrologResolver
+
+    override val prolog
+        get(): XQueryProlog? {
+            val file = namespaceUri?.resolveUri<XQueryModule>(true)
+            val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+            return (library as? XQueryPrologResolver)?.prolog
+        }
+
+    // endregion
     // region XPathNamespaceDeclaration
 
-    override val namespacePrefix get(): XsNCNameValue? {
-        return children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
-    }
+    override val namespacePrefix
+        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
-    override val namespaceUri get(): XsAnyUriValue? =
-        children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+    override val namespaceUri
+        get(): XsAnyUriValue? = children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
 }

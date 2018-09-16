@@ -101,17 +101,17 @@ private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: Stri
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? {
+fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
     return when {
         path.isEmpty() -> null
-        path.startsWith("res://") -> {
+        path.startsWith("res://") && !httpOnly -> {
             ResourceVirtualFile.resolve(path, element!!.project) as? T
         }
         path.startsWith("http://") -> {
             ResourceVirtualFile.resolve("res://${path.substringAfter("http://")}.xqy", element!!.project) as? T
         }
-        else -> {
+        !path.contains("://") && !httpOnly -> {
             var file = element!!.containingFile.virtualFile
             if (file is LightVirtualFileBase) {
                 file = file.originalFile
@@ -119,6 +119,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? {
 
             return resolveFileByPath(file, element!!.project, path) as? T
         }
+        else -> null
     }
 }
 

@@ -7,6 +7,14 @@ Language Support:
 1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
 1.  Support `TupleType` constructs with names only, not associated sequence types.
 
+References and Resolving:
+
+1.  Expand `NCName`-based `EQName` nodes, using the default element or function
+    namespaces where appropriate.
+1.  Locate built-in definitions from `http://`-based `URILiteral` nodes.
+1.  Resolve `ModuleImport` declarations that don't specify `at` paths.
+1.  Resolve `NamespaceDecl` declarations.
+
 ## 1.2 - 2018-08-27
 
 Language Support:
