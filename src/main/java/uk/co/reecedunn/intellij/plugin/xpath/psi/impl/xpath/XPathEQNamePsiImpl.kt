@@ -75,16 +75,4 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
         }
     }
-
-    override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
-        return when (this) {
-            is XPathQName -> {
-                val text = (this as XsQNameValue).prefix?.data
-                text?.let {
-                    staticallyKnownNamespaces().filter { ns -> ns.namespacePrefix?.data == text }
-                } ?: emptySequence()
-            }
-            else -> emptySequence()
-        }
-    }
 }

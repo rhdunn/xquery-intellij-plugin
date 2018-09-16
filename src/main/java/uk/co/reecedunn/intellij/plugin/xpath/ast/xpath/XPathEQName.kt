@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 
 /**
  * An XPath 3.0 and XQuery 3.0 <code>EQName</code> node in the XQuery AST.
@@ -28,6 +27,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
  * This may be an instance of an <code>NCName</code>, <code>QName</code> or
  * <code>URIQualifiedName</code>.
  */
-interface XPathEQName : PsiElement {
-    fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration>
-}
+interface XPathEQName : PsiElement

@@ -48,18 +48,7 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode) :
     override val element get(): PsiElement? = this
 
     // endregion
-    // region XPathEQName
-
-    override fun resolvePrefixNamespace(): Sequence<XPathNamespaceDeclaration> {
-        return emptySequence()
-    }
-
-    // endregion
     // region PsiElement
-
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-    }
 
     override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
 
