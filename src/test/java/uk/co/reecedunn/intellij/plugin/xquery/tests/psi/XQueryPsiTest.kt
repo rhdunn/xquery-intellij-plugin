@@ -1127,6 +1127,25 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
                 }
+
+                @Test
+                @DisplayName("http:// (import namespace) file matching")
+                fun httpProtocolOnNamespace() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_NamespaceOnly.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                    val prolog = (psi as XQueryPrologResolver).prolog!!
+                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                }
+
+                @Test
+                @DisplayName("http:// (import namespace) file missing")
+                fun httpProtocolOnNamespaceMissing() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_NamespaceOnly_FileNotFound.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                }
             }
         }
     }
