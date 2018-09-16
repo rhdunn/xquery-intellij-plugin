@@ -31,7 +31,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiManager
+import com.intellij.testFramework.LightVirtualFileBase
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -79,6 +85,34 @@ data class XsAnyUri(
     constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
 
     override val element get(): PsiElement? = reference?.get()
+}
+
+private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: String): PsiFile? {
+    if (parent == null) {
+        return null
+    }
+
+    val file = parent.findFileByRelativePath(path)
+    if (file != null) {
+        return PsiManager.getInstance(project).findFile(file)
+    }
+
+    return resolveFileByPath(parent.parent, project, path)
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T : PsiFile> XsAnyUriValue.resolveUri(): T? {
+    val path = data
+    if (path.isEmpty() || path.contains("://")) {
+        return ResourceVirtualFile.resolve(path, element!!.project) as? T
+    }
+
+    var file = element!!.containingFile.virtualFile
+    if (file is LightVirtualFileBase) {
+        file = file.originalFile
+    }
+
+    return resolveFileByPath(file, element!!.project, path) as? T
 }
 
 // endregion

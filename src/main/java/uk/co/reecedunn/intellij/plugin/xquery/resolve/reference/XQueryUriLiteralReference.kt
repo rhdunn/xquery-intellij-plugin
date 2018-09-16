@@ -18,10 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl
 
 class XQueryUriLiteralReference(element: XQueryUriLiteralPsiImpl, range: TextRange) : PsiReferenceBase<XQueryUriLiteralPsiImpl>(element, range) {
-    override fun resolve(): PsiElement? = element.resolveUri()
+    override fun resolve(): PsiElement? = (element.value as XsAnyUriValue).resolveUri()
 
     override fun getVariants(): Array<Any> = arrayOf()
 }

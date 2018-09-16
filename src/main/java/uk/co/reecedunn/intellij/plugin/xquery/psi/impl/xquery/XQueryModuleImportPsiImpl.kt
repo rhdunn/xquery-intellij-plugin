@@ -18,10 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
@@ -44,7 +41,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode):
 
     override val prolog get(): XQueryProlog? {
         return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
-            val file = uri.resolveUri<XQueryModule>()
+            val file = (uri.value as XsAnyUriValue).resolveUri<XQueryModule>()
             val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
             (library as? XQueryPrologResolver)?.prolog
         }.filterNotNull().firstOrNull()

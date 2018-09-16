@@ -16,17 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
-import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiManager
 import com.intellij.psi.PsiReference
-import com.intellij.testFramework.LightVirtualFileBase
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference
@@ -35,34 +28,6 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), X
     override fun getReference(): PsiReference {
         val range = textRange
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T: PsiFile> resolveUri(): T? {
-        val path = (value as XsAnyUriValue).data
-        if (path.isEmpty() || path.contains("://")) {
-            return ResourceVirtualFile.resolve(path, project) as? T
-        }
-
-        var file = containingFile.virtualFile
-        if (file is LightVirtualFileBase) {
-            file = file.originalFile
-        }
-
-        return resolveFileByPath(file, project, path) as? T
-    }
-
-    private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: String): PsiFile? {
-        if (parent == null) {
-            return null
-        }
-
-        val file = parent.findFileByRelativePath(path)
-        if (file != null) {
-            return PsiManager.getInstance(project).findFile(file)
-        }
-
-        return resolveFileByPath(parent.parent, project, path)
     }
 
     override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!, this)
