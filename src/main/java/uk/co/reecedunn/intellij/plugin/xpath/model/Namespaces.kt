@@ -29,6 +29,7 @@ private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
 private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
     XQueryElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunction,
+    XQueryElementType.ATOMIC_OR_UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
     XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,
     XQueryElementType.COMP_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
