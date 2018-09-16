@@ -39,7 +39,7 @@ class QNameAnnotator : Annotator {
                 xmlns = true
             } else {
                 xmlns = false
-                val prefix = qname.prefix as PsiElement
+                val prefix = qname.prefix?.element!!
                 holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 if (element.getParent() is PluginDirAttribute || element.getParent() is XQueryDirElemConstructor) {
                     holder.createInfoAnnotation(prefix, null).textAttributes = SyntaxHighlighter.XML_TAG
@@ -51,7 +51,7 @@ class QNameAnnotator : Annotator {
         }
 
         if (qname.localName != null) {
-            val localName = qname.localName as PsiElement
+            val localName = qname.localName?.element!!
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 if (element.getParent() is PluginDirAttribute) {

@@ -51,14 +51,14 @@ class UndefinedFunctionInspection : Inspection("xpst/XPST0017.md") {
             } else if (declarations.isEmpty()) {
                 // 1. The expanded QName does not match the name of a function signature in the static context.
                 val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
-                val decl = ref.functionName as PsiElement
+                val decl = ref.functionName?.element!!
                 descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             } else {
                 // 2. The number of arguments does not match the arity of a function signature in the static context.
                 val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
                 if (declarations.firstOrNull { f -> f.arity == arity } == null) {
                     val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
-                    val decl = ref.functionName as PsiElement
+                    val decl = ref.functionName?.element!!
                     descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
             }

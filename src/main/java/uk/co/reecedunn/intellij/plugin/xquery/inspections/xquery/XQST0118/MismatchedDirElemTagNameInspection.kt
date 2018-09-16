@@ -54,7 +54,7 @@ class MismatchedDirElemTagNameInspection : Inspection("xqst/XQST0118.md") {
 
             if (openTag.prefix?.data != closeTag.prefix?.data || openTag.localName?.data != closeTag.localName?.data) {
                 val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", displayName(closeTag), displayName(openTag))
-                val context = closeTag as PsiElement
+                val context = closeTag.element!!
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }
         }

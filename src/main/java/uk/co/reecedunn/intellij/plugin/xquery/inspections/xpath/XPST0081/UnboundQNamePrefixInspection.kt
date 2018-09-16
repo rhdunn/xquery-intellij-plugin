@@ -45,7 +45,7 @@ class UnboundQNamePrefixInspection : Inspection("xpst/XPST0081.md") {
             val qname = eqname as XsQNameValue
             if (qname.prefix != null && qname.prefix!!.data != "xmlns" && !eqname.resolvePrefixNamespace().iterator().hasNext()) {
                 val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
-                val context = qname.prefix as PsiElement
+                val context = qname.prefix?.element!!
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }
         }

@@ -56,7 +56,7 @@ class DuplicateNamespaceUriInspection : Inspection("xqst/XQST0047.md") {
                 val duplicate: XPathNamespaceDeclaration? = uris[uri]
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
-                    descriptors.add(manager.createProblemDescriptor(ns.namespaceUri as PsiElement, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                    descriptors.add(manager.createProblemDescriptor(ns.namespaceUri?.element!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
                 uris[uri] = ns

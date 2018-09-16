@@ -128,12 +128,12 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
         isLexicalQName && prefix == null -> { // NCName
             when (getNamespaceType()) {
                 XPathNamespaceType.DefaultElementOrType -> {
-                    (this as PsiElement).defaultElementOrTypeNamespace().map { decl ->
+                    element!!.defaultElementOrTypeNamespace().map { decl ->
                         XsQName(decl.namespaceUri, null, localName, false, element)
                     }
                 }
                 XPathNamespaceType.DefaultFunction -> {
-                    (this as PsiElement).defaultFunctionNamespace().map { decl ->
+                    element!!.defaultFunctionNamespace().map { decl ->
                         XsQName(decl.namespaceUri, null, localName, false, element)
                     }
                 }
@@ -143,7 +143,7 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
             }
         }
         isLexicalQName -> { // QName
-            (this as PsiElement).staticallyKnownNamespaces().filter { ns ->
+            element!!.staticallyKnownNamespaces().filter { ns ->
                 ns.namespacePrefix?.data == prefix!!.data
             }.map { ns ->
                 XsQName(ns.namespaceUri, prefix, localName, false, element)
@@ -151,12 +151,12 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
         }
         else -> { // URIQualifiedName
             sequenceOf(
-                (this as PsiElement).staticallyKnownNamespaces().filter { ns ->
+                element!!.staticallyKnownNamespaces().filter { ns ->
                     ns.namespaceUri?.data == namespace!!.data
                 }.map { ns ->
                     XsQName(ns.namespaceUri, null, localName, false, element)
                 },
-                sequenceOf<XsQNameValue>(this)
+                sequenceOf(this)
             ).flatten()
         }
     }

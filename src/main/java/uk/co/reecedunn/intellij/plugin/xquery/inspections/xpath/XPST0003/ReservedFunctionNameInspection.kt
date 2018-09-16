@@ -54,8 +54,8 @@ class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
 
     private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
         if (name != null && name.isLexicalQName && name.prefix == null) {
-            val localname = name.localName
-            val type = (localname as PsiElement).node.elementType
+            val localname = name.localName?.element!!
+            val type = localname.node.elementType
             if (type is IXQueryKeywordOrNCNameType) {
                 return Pair(localname, type.keywordType)
             }
