@@ -31,6 +31,7 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunction,
     XQueryElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
     XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,
+    XQueryElementType.COMP_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
     XQueryElementType.DECIMAL_FORMAT_DECL to XPathNamespaceType.None,
     XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
