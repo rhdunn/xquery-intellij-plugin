@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.diff.comparison.expand
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
@@ -28,8 +29,8 @@ interface XPathFunctionReference {
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
-    val prologs = resolvePrefixNamespace().map { ns ->
-        (ns as? XQueryPrologResolver)?.prolog
+    val prologs = (this as XsQNameValue).expand().map { name ->
+        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog
     }.filterNotNull()
 
     return prologs.flatMap { prolog ->
