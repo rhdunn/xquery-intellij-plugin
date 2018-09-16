@@ -149,6 +149,15 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
                 XsQName(ns.namespaceUri, prefix, localName, false)
             }
         }
-        else -> sequenceOf(this) // URIQualifiedName
+        else -> { // URIQualifiedName
+            sequenceOf(
+                (this as PsiElement).staticallyKnownNamespaces().filter { ns ->
+                    ns.namespaceUri?.data == namespace!!.data
+                }.map { ns ->
+                    XsQName(ns.namespaceUri, null, localName, false)
+                },
+                sequenceOf<XsQNameValue>(this)
+            ).flatten()
+        }
     }
 }

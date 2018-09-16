@@ -215,6 +215,52 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName, `is`(nullValue()))
             }
+
+            @Test
+            @DisplayName("expand; namespace prefix in statically-known namespaces")
+            fun expandToExistingNamespace() {
+                val qname = parse<XPathURIQualifiedName>("Q{http://www.w3.org/2001/XMLSchema}test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(2))
+
+                // The URIQualifiedName bound to the 'xs' NamespaceDecl.
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+
+                // The URIQualifiedName itself, not bound to a namespace.
+                assertThat(expanded[1].isLexicalQName, `is`(false))
+                assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(expanded[1].prefix, `is`(nullValue()))
+                assertThat(expanded[1].localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("expand; namespace prefix not in statically-known namespaces")
+            fun expandToMissingNamespace() {
+                val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(false))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                // The URIQualifiedName itself, not bound to a namespace.
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.com"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
         }
 
         @Test
