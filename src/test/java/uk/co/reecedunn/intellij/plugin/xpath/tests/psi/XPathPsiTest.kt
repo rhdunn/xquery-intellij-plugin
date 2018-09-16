@@ -379,6 +379,37 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(f.arity, `is`(0))
                 assertThat(f.functionName, `is`(nullValue()))
             }
+
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    test()
+                    """
+                )[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultFunction))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(2))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/function"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+
+                assertThat(expanded[1].isLexicalQName, `is`(false))
+                assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(expanded[1].prefix, `is`(nullValue()))
+                assertThat(expanded[1].localName!!.data, `is`("test"))
+            }
         }
 
         @Nested
