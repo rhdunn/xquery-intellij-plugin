@@ -21,12 +21,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathDefaultNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathPrincipalNodeKind
-import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -106,7 +104,7 @@ private class PluginPsiTest : ParserTestCase() {
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.9.1) Axes")
-    internal inner class PathExpressions {
+    internal inner class Axes {
         @Nested
         @DisplayName("XQuery IntelliJ Plugin BNF (25) ForwardAxis")
         internal inner class ForwardAxis {
@@ -116,6 +114,45 @@ private class PluginPsiTest : ParserTestCase() {
                 val steps = parse<XPathNodeTest>("property::one")
                 assertThat(steps.size, `is`(1))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XPathPrincipalNodeKind.Element)) // property
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (1.1) Type Declaration")
+    internal inner class TypeDeclaration {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin BNF (19) TypeDecl")
+        internal inner class TypeDecl {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    declare type test = xs:string;
+                    """
+                )[0] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(2))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+
+                assertThat(expanded[1].isLexicalQName, `is`(false))
+                assertThat(expanded[1].namespace!!.data, `is`(""))
+                assertThat(expanded[1].prefix, `is`(nullValue()))
+                assertThat(expanded[1].localName!!.data, `is`("test"))
             }
         }
     }
