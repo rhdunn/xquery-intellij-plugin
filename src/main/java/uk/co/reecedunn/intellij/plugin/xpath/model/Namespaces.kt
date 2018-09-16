@@ -113,7 +113,7 @@ fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclara
 }
 
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
-    val parentType = (this as? PsiElement)?.parent?.node?.elementType
+    val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XPathNamespaceType.Undefined
     return if (parentType === XQueryElementType.NAME_TEST)
         when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
             XPathPrincipalNodeKind.Element -> XPathNamespaceType.DefaultElementOrType
