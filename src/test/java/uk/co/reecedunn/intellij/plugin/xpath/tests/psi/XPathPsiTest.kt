@@ -75,6 +75,25 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("order"))
             }
+
+            @Test
+            @DisplayName("expand")
+            fun expand() {
+                val qname = parse<XPathNCName>("test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`(""))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
         }
 
         @Nested
@@ -118,6 +137,39 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("xs"))
                 assertThat(qname.localName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("expand; namespace prefix in statically-known namespaces")
+            fun expandToExistingNamespace() {
+                val qname = parse<XPathQName>("xs:test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(expanded[0].prefix!!.data, `is`("xs"))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("expand; namespace prefix not in statically-known namespaces")
+            fun expandToMissingNamespace() {
+                val qname = parse<XPathQName>("xsd:test")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xsd"))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(0))
             }
         }
 
