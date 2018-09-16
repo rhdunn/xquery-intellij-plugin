@@ -56,6 +56,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -66,6 +67,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -76,6 +78,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("'\"\""))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -86,6 +89,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("''\""))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -97,6 +101,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -107,6 +112,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
         }
 
@@ -119,6 +125,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
                 val literal = parse<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
@@ -126,6 +133,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun charRef() {
                 val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
 
@@ -139,6 +147,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
@@ -155,6 +164,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
@@ -177,6 +187,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -187,6 +198,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
         }
     }
@@ -286,6 +298,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -294,11 +307,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -315,6 +330,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -323,6 +339,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -337,6 +354,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -347,6 +365,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("http://www.example.com"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -357,6 +376,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("'\"\"{}"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -367,6 +387,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("''\"{}"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -378,6 +399,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -388,6 +410,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -409,6 +432,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("http://www.example.com"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -426,6 +450,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsAnyUriValue
                 assertThat(literal.data, `is`("http://www.example.com"))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -459,6 +484,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -467,11 +493,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -492,6 +520,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -500,6 +529,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -522,6 +552,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -530,6 +561,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -548,6 +580,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -556,6 +589,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -574,6 +608,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -582,6 +617,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -602,6 +638,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -610,6 +647,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -924,6 +962,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -932,6 +971,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -1168,6 +1208,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -1176,6 +1217,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2012/xquery"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -1195,6 +1237,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val qname = decl.functionName!!
                 assertThat(qname.prefix!!.data, `is`("fn"))
                 assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -1206,6 +1249,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 val qname = decl.functionName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -1232,6 +1276,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -1240,11 +1285,13 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/function"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -1265,6 +1312,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -1273,6 +1321,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2012/xquery"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }

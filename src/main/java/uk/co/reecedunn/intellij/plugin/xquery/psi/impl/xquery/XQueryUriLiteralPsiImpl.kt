@@ -65,5 +65,5 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), X
         return resolveFileByPath(parent.parent, project, path)
     }
 
-    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!)
+    override val value: XsAnyAtomicType get() = XsAnyUri(cachedContent.get()!!, this)
 }

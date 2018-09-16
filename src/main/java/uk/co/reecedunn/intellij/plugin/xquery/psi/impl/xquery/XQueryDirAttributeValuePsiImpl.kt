@@ -43,9 +43,9 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
         get(): XsAnyAtomicType? {
             return cachedContent.get()?.let {
                 if ((parent as XPathDefaultNamespaceDeclaration).namespaceType == XPathNamespaceType.Undefined) {
-                    XsString(it)
+                    XsString(it, this)
                 } else {
-                    XsAnyUri(it)
+                    XsAnyUri(it, this)
                 }
             }
         }

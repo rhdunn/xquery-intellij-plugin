@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import com.intellij.psi.PsiElement
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -140,6 +140,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -148,11 +149,13 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }

@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-private val EMPTY_NAMESPACE = XsAnyUri("")
-private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery")
+private val EMPTY_NAMESPACE = XsAnyUri("", null as PsiElement?)
+private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", null as PsiElement?)
 
 private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
@@ -129,16 +129,16 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
             when (getNamespaceType()) {
                 XPathNamespaceType.DefaultElementOrType -> {
                     (this as PsiElement).defaultElementOrTypeNamespace().map { decl ->
-                        XsQName(decl.namespaceUri, null, localName, false)
+                        XsQName(decl.namespaceUri, null, localName, false, element)
                     }
                 }
                 XPathNamespaceType.DefaultFunction -> {
                     (this as PsiElement).defaultFunctionNamespace().map { decl ->
-                        XsQName(decl.namespaceUri, null, localName, false)
+                        XsQName(decl.namespaceUri, null, localName, false, element)
                     }
                 }
-                XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false))
-                XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false))
+                XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
+                XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
                 else -> sequenceOf(this)
             }
         }
@@ -146,7 +146,7 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
             (this as PsiElement).staticallyKnownNamespaces().filter { ns ->
                 ns.namespacePrefix?.data == prefix!!.data
             }.map { ns ->
-                XsQName(ns.namespaceUri, prefix, localName, false)
+                XsQName(ns.namespaceUri, prefix, localName, false, element)
             }
         }
         else -> { // URIQualifiedName
@@ -154,7 +154,7 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
                 (this as PsiElement).staticallyKnownNamespaces().filter { ns ->
                     ns.namespaceUri?.data == namespace!!.data
                 }.map { ns ->
-                    XsQName(ns.namespaceUri, null, localName, false)
+                    XsQName(ns.namespaceUri, null, localName, false, element)
                 },
                 sequenceOf<XsQNameValue>(this)
             ).flatten()

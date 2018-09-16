@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -43,6 +44,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun bracedUriLiteral() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.\uFFFF}")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 
             @Test
@@ -50,6 +52,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun unclosedBracedUriLiteral() {
                 val literal = parse<XPathBracedURILiteral>("Q{Lorem ipsum.")[0] as XsAnyUriValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
+                assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
 
@@ -60,20 +63,24 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("identifier")
             fun identifier() {
                 val qname = parse<XPathNCName>("test")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("keyword")
             fun keyword() {
                 val qname = parse<XPathNCName>("order")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("order"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -85,6 +92,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -93,6 +101,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -103,40 +112,48 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("non-keyword prefix; non-keyword local name")
             fun identifier() {
                 val qname = parse<XPathQName>("fn:true")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("fn"))
                 assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("keyword prefix; non-keyword local name")
             fun keywordPrefix() {
                 val qname = parse<XPathQName>("option:test")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("option"))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("non-keyword prefix; keyword local name")
             fun keywordLocalName() {
                 val qname = parse<XPathQName>("test:case")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("test"))
                 assertThat(qname.localName!!.data, `is`("case"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("missing local name")
             fun noLocalName() {
                 val qname = parse<XPathQName>("xs:")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("xs"))
                 assertThat(qname.localName, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -148,6 +165,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("xs"))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -156,6 +174,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(expanded[0].prefix!!.data, `is`("xs"))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -167,6 +186,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("xsd"))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(0))
@@ -180,40 +200,48 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("non-keyword local name")
             fun identifier() {
                 val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}test")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("keyword local name")
             fun keyword() {
                 val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}option")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("option"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("empty namespace")
             fun emptyNamespace() {
                 val qname = parse<XPathURIQualifiedName>("Q{}test")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`(""))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
             @DisplayName("missing local name")
             fun noLocalName() {
                 val qname = parse<XPathURIQualifiedName>("Q{http://www.example.com}")[0] as XsQNameValue
+
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -225,6 +253,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -234,12 +263,14 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 // The URIQualifiedName itself, not bound to a namespace.
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -251,6 +282,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -260,6 +292,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.com"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -268,6 +301,7 @@ private class XPathPsiTest : ParserTestCase() {
         fun xmlNCName() {
             val literal = parse<XmlNCNameImpl>("test")[0] as XsNCNameValue
             assertThat(literal.data, `is`("test"))
+            assertThat(literal.element, sameInstance(literal as PsiElement))
         }
     }
 
@@ -293,6 +327,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -301,11 +336,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -328,6 +365,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -367,6 +405,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -375,11 +414,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -406,6 +447,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -414,11 +456,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -439,6 +483,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -447,6 +492,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -467,6 +513,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -475,6 +522,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -487,6 +535,7 @@ private class XPathPsiTest : ParserTestCase() {
         fun integerLiteral() {
             val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
             assertThat(literal.data, `is`(BigInteger.valueOf(123)))
+            assertThat(literal.element, sameInstance(literal as PsiElement))
             assertThat(literal.toInt(), `is`(123))
         }
 
@@ -495,6 +544,7 @@ private class XPathPsiTest : ParserTestCase() {
         fun decimalLiteral() {
             val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
             assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
+            assertThat(literal.element, sameInstance(literal as PsiElement))
         }
 
         @Test
@@ -502,6 +552,7 @@ private class XPathPsiTest : ParserTestCase() {
         fun doubleLiteral() {
             val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
             assertThat(literal.data, `is`(1e3))
+            assertThat(literal.element, sameInstance(literal as PsiElement))
         }
 
         @Nested
@@ -515,6 +566,7 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -525,6 +577,7 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("Lorem ipsum."))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -535,6 +588,7 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("'\"\""))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
             @Test
@@ -545,6 +599,7 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val literal = psi.value as XsStringValue
                 assertThat(literal.data, `is`("''\""))
+                assertThat(literal.element, sameInstance(psi as PsiElement))
             }
         }
     }
@@ -565,6 +620,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -573,6 +629,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -594,6 +651,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("math"))
                 assertThat(qname.localName!!.data, `is`("pow"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -607,6 +665,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("fn"))
                 assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -620,6 +679,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("math"))
                 assertThat(qname.localName!!.data, `is`("sin"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -646,6 +706,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -654,11 +715,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/function"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -705,6 +768,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -718,6 +782,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("true"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -744,6 +809,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -752,11 +818,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/function"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -777,6 +845,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -785,6 +854,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -855,6 +925,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -863,11 +934,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -886,6 +959,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -894,6 +968,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -912,6 +987,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(1))
@@ -920,6 +996,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`(""))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
 
@@ -932,6 +1009,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val qname = parse<XPathWildcard>("*:*")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.prefix!!.data, `is`("*"))
@@ -946,6 +1024,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val qname = parse<XPathWildcard>("*:test")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.prefix!!.data, `is`("*"))
@@ -960,6 +1039,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val qname = parse<XPathWildcard>("test:*")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.prefix, `is`(not(instanceOf(XdmWildcardValue::class.java))))
                 assertThat(qname.prefix!!.data, `is`("test"))
@@ -974,6 +1054,7 @@ private class XPathPsiTest : ParserTestCase() {
                 val qname = parse<XPathWildcard>("*:")[0] as XsQNameValue
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.prefix!!.data, `is`("*"))
@@ -988,6 +1069,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
@@ -1000,6 +1082,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.isLexicalQName, `is`(false))
                 assertThat(qname.namespace!!.data, `is`(""))
                 assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                 assertThat(qname.localName!!.data, `is`("*"))
@@ -1068,6 +1151,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -1076,11 +1160,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`(""))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }
@@ -1102,6 +1188,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("f"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -1115,6 +1202,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("upper-case"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -1128,6 +1216,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("upper-case"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
             }
 
             @Test
@@ -1154,6 +1243,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(2))
@@ -1162,11 +1252,13 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/function"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
 
                 assertThat(expanded[1].isLexicalQName, `is`(false))
                 assertThat(expanded[1].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
                 assertThat(expanded[1].prefix, `is`(nullValue()))
                 assertThat(expanded[1].localName!!.data, `is`("test"))
+                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
             }
         }
     }

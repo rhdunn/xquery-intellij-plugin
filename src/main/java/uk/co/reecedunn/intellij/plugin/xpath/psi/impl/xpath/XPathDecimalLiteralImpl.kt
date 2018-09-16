@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
+import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
@@ -27,4 +28,6 @@ class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence) :
     XsDecimalValue {
 
     override val data: BigDecimal get() = text.toBigDecimal()
+
+    override val element get(): PsiElement? = this
 }

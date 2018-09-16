@@ -31,6 +31,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.psi.PsiElement
+import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -40,7 +42,14 @@ interface XsStringValue : XsAnyAtomicType {
     val data: String
 }
 
-data class XsString(override val data: String) : XsStringValue
+data class XsString(
+    override val data: String,
+    private val reference: WeakReference<PsiElement>?
+) : XsStringValue {
+    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.3) xs:decimal
@@ -63,7 +72,14 @@ interface XsAnyUriValue : XsAnyAtomicType {
     val data: String
 }
 
-data class XsAnyUri(override val data: String) : XsAnyUriValue
+data class XsAnyUri(
+    override val data: String,
+    private val reference: WeakReference<PsiElement>?
+) : XsAnyUriValue {
+    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.18) xs:QName
@@ -79,8 +95,19 @@ data class XsQName(
     override val namespace: XsAnyUriValue?,
     override val prefix: XsNCNameValue?,
     override val localName: XsNCNameValue?,
-    override val isLexicalQName: Boolean
-) : XsQNameValue
+    override val isLexicalQName: Boolean,
+    private val reference: WeakReference<PsiElement>?
+) : XsQNameValue {
+    constructor(
+        namespace: XsAnyUriValue?,
+        prefix: XsNCNameValue?,
+        localName: XsNCNameValue?,
+        isLexicalQName: Boolean,
+        element: PsiElement?
+    ) : this(namespace, prefix, localName, isLexicalQName, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.1) xs:normalizedString

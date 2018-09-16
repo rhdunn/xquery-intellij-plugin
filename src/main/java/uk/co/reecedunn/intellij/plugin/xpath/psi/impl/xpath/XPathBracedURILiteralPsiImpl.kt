@@ -60,6 +60,8 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) :
         }.filterNotNull().joinToString(separator = "") `is` Cacheable
     }
 
+    override val element get(): PsiElement? = this
+
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
     override val conformanceElement get(): PsiElement = firstChild

@@ -43,6 +43,8 @@ class XPathQNamePsiImpl(node: ASTNode) :
 
     override val isLexicalQName: Boolean = true
 
+    override val element get(): PsiElement? = this
+
     // endregion
     // region PsiElement
 

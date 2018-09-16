@@ -38,7 +38,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode) :
         cachedContent.invalidate()
     }
 
-    override val value: XsAnyAtomicType get() = XsString(cachedContent.get()!!)
+    override val value: XsAnyAtomicType get() = XsString(cachedContent.get()!!, this)
 
     protected val cachedContent = CacheableProperty {
         children().map { child ->

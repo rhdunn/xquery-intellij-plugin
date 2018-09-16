@@ -18,8 +18,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.psi.PsiElement
+
 // region XQuery and XPath 3.1 Data Model (2.7.4) : item()
 
-interface XdmItem
+interface XdmItem {
+    val element: PsiElement?
+}
 
 // endregion

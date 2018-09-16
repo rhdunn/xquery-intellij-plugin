@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
+import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
@@ -26,4 +27,6 @@ class XPathDoubleLiteralImpl(type: IElementType, text: CharSequence) :
     XsDoubleValue {
 
     override val data: Double get() = text.toDouble()
+
+    override val element get(): PsiElement? = this
 }
