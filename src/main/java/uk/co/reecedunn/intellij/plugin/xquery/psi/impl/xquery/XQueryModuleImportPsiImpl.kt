@@ -20,32 +20,34 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-class XQueryModuleImportPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryModuleImport,
-        XQueryPrologResolver,
-        XPathNamespaceDeclaration {
+class XQueryModuleImportPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryModuleImport,
+    XQueryPrologResolver,
+    XPathNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
-    override val namespacePrefix get(): XsNCNameValue? {
-        return children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
-    }
+    override val namespacePrefix
+        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
-    override val namespaceUri get(): XsAnyUriValue? =
-        children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
+    override val namespaceUri
+        get(): XsAnyUriValue? = children().filterIsInstance<XQueryUriLiteral>().firstOrNull()?.value as? XsAnyUriValue
 
     // endregion
     // region XQueryPrologResolver
 
-    override val prolog get(): XQueryProlog? {
-        return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
-            val file = (uri.value as XsAnyUriValue).resolveUri<XQueryModule>()
-            val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-            (library as? XQueryPrologResolver)?.prolog
-        }.filterNotNull().firstOrNull()
-    }
+    override val prolog
+        get(): XQueryProlog? {
+            return children().filterIsInstance<XQueryUriLiteral>().drop(1).map { uri ->
+                val file = (uri.value as XsAnyUriValue).resolveUri<XQueryModule>()
+                val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+                (library as? XQueryPrologResolver)?.prolog
+            }.filterNotNull().firstOrNull()
+        }
 
     // endregion
 }

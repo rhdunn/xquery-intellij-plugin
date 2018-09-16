@@ -1058,52 +1058,75 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(import.namespaceUri, `is`(nullValue()))
             }
 
-            @Test
-            @DisplayName("empty")
-            fun empty() {
-                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
-                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+            @Nested
+            @DisplayName("resolve uri")
+            internal inner class ResolveUri {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
-            }
+                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                }
 
-            @Test
-            @DisplayName("same directory")
-            fun sameDirectory() {
-                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
-                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+                @Test
+                @DisplayName("same directory")
+                fun sameDirectory() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                val prolog = (psi as XQueryPrologResolver).prolog!!
-                assertThat(prolog.resourcePath(), endsWith("/tests/resolve/files/test.xq"))
-            }
+                    val prolog = (psi as XQueryPrologResolver).prolog!!
+                    assertThat(prolog.resourcePath(), endsWith("/tests/resolve/files/test.xq"))
+                }
 
-            @Test
-            @DisplayName("parent directory")
-            fun parentDirectory() {
-                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
-                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+                @Test
+                @DisplayName("parent directory")
+                fun parentDirectory() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                val prolog = (psi as XQueryPrologResolver).prolog!!
-                assertThat(prolog.resourcePath(), endsWith("/tests/resolve/namespaces/ModuleDecl.xq"))
-            }
+                    val prolog = (psi as XQueryPrologResolver).prolog!!
+                    assertThat(prolog.resourcePath(), endsWith("/tests/resolve/namespaces/ModuleDecl.xq"))
+                }
 
-            @Test
-            @DisplayName("res:// file matching")
-            fun resProtocol() {
-                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
-                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+                @Test
+                @DisplayName("res:// file matching")
+                fun resProtocol() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                val prolog = (psi as XQueryPrologResolver).prolog!!
-                assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
-            }
+                    val prolog = (psi as XQueryPrologResolver).prolog!!
+                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                }
 
-            @Test
-            @DisplayName("res:// file missing")
-            fun resProtocolMissing() {
-                val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")
-                val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+                @Test
+                @DisplayName("res:// file missing")
+                fun resProtocolMissing() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("http:// file matching")
+                fun httpProtocol() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_HttpProtocol.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                    val prolog = (psi as XQueryPrologResolver).prolog!!
+                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                }
+
+                @Test
+                @DisplayName("http:// file missing")
+                fun httpProtocolMissing() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_HttpProtocol_FileNotFound.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                }
             }
         }
     }
