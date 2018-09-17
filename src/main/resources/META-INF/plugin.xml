@@ -29,6 +29,7 @@
       <li>Resolve all location URIs in a <code>ModuleImport</code>, not just the first valid location.</li>
       <li>Resolve <code>ModuleImport</code> declarations that don't specify <code>at</code> paths.</li>
       <li>Resolve <code>NamespaceDecl</code> declarations.</li>
+      <li>Resolve <code>DefaultNamespaceDecl</code> declarations.</li>
     </ol>
   ]]></change-notes>
 

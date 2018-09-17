@@ -15,6 +15,7 @@ References and Resolving:
 1.  Resolve all location URIs in a `ModuleImport`, not just the first valid location.
 1.  Resolve `ModuleImport` declarations that don't specify `at` paths.
 1.  Resolve `NamespaceDecl` declarations.
+1.  Resolve `DefaultNamespaceDecl` declarations.
 
 ## 1.2 - 2018-08-27
 
