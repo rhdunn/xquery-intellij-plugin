@@ -15,7 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
+
 /**
  * An XQuery 1.0 `ModuleImport` node in the XQuery AST.
  */
-interface XQueryModuleImport : XQueryImport
+interface XQueryModuleImport : XQueryImport {
+    val locationUris: Sequence<XsAnyUriValue>
+}
