@@ -779,7 +779,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun noProlog() {
                 val module = parse<XQueryMainModule>("()")[0]
 
-                assertThat((module as XQueryPrologResolver).prolog, `is`(nullValue()))
+                assertThat((module as XQueryPrologResolver).prolog.count(), `is`(0))
             }
 
             @Test
@@ -787,8 +787,10 @@ private class XQueryPsiTest : ParserTestCase() {
             fun prolog() {
                 val module = parse<XQueryMainModule>("declare function local:func() {}; ()")[0]
 
-                val prolog = (module as XQueryPrologResolver).prolog!!
-                val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
+                val prologs = (module as XQueryPrologResolver).prolog.toList()
+                assertThat(prologs.size, `is`(1))
+
+                val name = prologs[0].walkTree().filterIsInstance<XPathEQName>().first()
                 assertThat(name.text, `is`("local:func"))
             }
         }
@@ -801,7 +803,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun noProlog() {
                 val module = parse<XQueryLibraryModule>("module namespace test = \"http://www.example.com\";")[0]
 
-                assertThat((module as XQueryPrologResolver).prolog, `is`(nullValue()))
+                assertThat((module as XQueryPrologResolver).prolog.count(), `is`(0))
             }
 
             @Test
@@ -814,8 +816,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     """
                 )[0]
 
-                val prolog = (module as XQueryPrologResolver).prolog!!
-                val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
+                val prologs = (module as XQueryPrologResolver).prolog.toList()
+                assertThat(prologs.size, `is`(1))
+
+                val name = prologs[0].walkTree().filterIsInstance<XPathEQName>().first()
                 assertThat(name.text, `is`("test:func"))
             }
         }
@@ -910,7 +914,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
 
-                assertThat((decl as XQueryPrologResolver).prolog, `is`(nullValue()))
+                assertThat((decl as XQueryPrologResolver).prolog.count(), `is`(0))
             }
 
             @Test
@@ -923,8 +927,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespacePrefix!!.data, `is`("test"))
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
 
-                val prolog = (decl as XQueryPrologResolver).prolog!!
-                val name = prolog.walkTree().filterIsInstance<XPathEQName>().first()
+                val prologs = (decl as XQueryPrologResolver).prolog.toList()
+                assertThat(prologs.size, `is`(1))
+
+                val name = prologs[0].walkTree().filterIsInstance<XPathEQName>().first()
                 assertThat(name.text, `is`("test:func"))
             }
 
@@ -1067,7 +1073,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
 
                 @Test
@@ -1076,8 +1082,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    val prolog = (psi as XQueryPrologResolver).prolog!!
-                    assertThat(prolog.resourcePath(), endsWith("/tests/resolve/files/test.xq"))
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/files/test.xq"))
                 }
 
                 @Test
@@ -1086,8 +1094,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    val prolog = (psi as XQueryPrologResolver).prolog!!
-                    assertThat(prolog.resourcePath(), endsWith("/tests/resolve/namespaces/ModuleDecl.xq"))
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/namespaces/ModuleDecl.xq"))
                 }
 
                 @Test
@@ -1096,8 +1106,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    val prolog = (psi as XQueryPrologResolver).prolog!!
-                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
@@ -1106,7 +1118,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
 
                 @Test
@@ -1115,8 +1127,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_HttpProtocol.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    val prolog = (psi as XQueryPrologResolver).prolog!!
-                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
@@ -1125,7 +1139,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_HttpProtocol_FileNotFound.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
 
                 @Test
@@ -1134,8 +1148,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_NamespaceOnly.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    val prolog = (psi as XQueryPrologResolver).prolog!!
-                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
@@ -1144,7 +1160,20 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/ModuleImport_NamespaceOnly_FileNotFound.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("multiple location URIs")
+                fun multipleLocationUris() {
+                    val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_MultipleLocationUris.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(2))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/files/test.xq"))
+                    assertThat(prologs[1].resourcePath(), endsWith("/tests/resolve/files/test2.xq"))
                 }
             }
         }
@@ -1189,7 +1218,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/NamespaceDecl_Empty.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryNamespaceDecl>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
 
                 @Test
@@ -1198,7 +1227,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/NamespaceDecl_SameDirectory.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryNamespaceDecl>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
 
                 @Test
@@ -1207,7 +1236,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/NamespaceDecl_ResourceFile.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryNamespaceDecl>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
 
                 @Test
@@ -1216,8 +1245,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/NamespaceDecl_HttpProtocol.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryNamespaceDecl>().toList()[0]
 
-                    val prolog = (psi as XQueryPrologResolver).prolog!!
-                    assertThat(prolog.resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
                 }
 
                 @Test
@@ -1226,7 +1257,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val file = parseResource("tests/resolve/files/NamespaceDecl_HttpProtocol_FileNotFound.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryNamespaceDecl>().toList()[0]
 
-                    assertThat((psi as XQueryPrologResolver).prolog, `is`(nullValue()))
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
             }
         }

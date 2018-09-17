@@ -48,7 +48,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
 
             val file = ResourceVirtualFile.resolve(context, project)
             val module = file!!.children().filterIsInstance<XQueryMainModule>().firstOrNull()
-            staticContextCache = (module as? XQueryPrologResolver)?.prolog
+            staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
         }
         return staticContextCache
     }

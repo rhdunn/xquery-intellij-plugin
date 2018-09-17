@@ -93,7 +93,7 @@ private fun PsiElement.defaultNamespace(
             }
             is XQueryMainModule ->
                 if (resolveProlog && !visitedProlog)
-                    (node as XQueryPrologResolver).prolog?.defaultNamespace(type, false) ?: emptySequence()
+                    (node as XQueryPrologResolver).prolog.flatMap { prolog -> prolog.defaultNamespace(type, false) }
                 else
                     emptySequence()
             is XQueryDirElemConstructor ->

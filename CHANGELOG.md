@@ -12,6 +12,7 @@ References and Resolving:
 1.  Expand `NCName`-based `EQName` nodes, using the default element or function
     namespaces where appropriate.
 1.  Locate built-in definitions from `http://`-based `URILiteral` nodes.
+1.  Resolve all location URIs in a `ModuleImport`, not just the first valid location.
 1.  Resolve `ModuleImport` declarations that don't specify `at` paths.
 1.  Resolve `NamespaceDecl` declarations.
 

@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 interface XPathFunctionReference {
@@ -29,8 +30,8 @@ interface XPathFunctionReference {
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
-    val prologs = (this as XsQNameValue).expand().map { name ->
-        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog
+    val prologs: Sequence<XQueryProlog> = (this as XsQNameValue).expand().flatMap { name ->
+        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
     }.filterNotNull()
 
     return prologs.flatMap { prolog ->

@@ -45,7 +45,7 @@ class DuplicateNamespaceUriInspection : Inspection("xqst/XQST0047.md") {
         file.children().forEach { module ->
             val uris = HashMap<String, XPathNamespaceDeclaration>()
 
-            val prolog = (module as? XQueryPrologResolver)?.prolog
+            val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
                 val ns = child as? XPathNamespaceDeclaration
                 val uri = ns?.namespaceUri?.data

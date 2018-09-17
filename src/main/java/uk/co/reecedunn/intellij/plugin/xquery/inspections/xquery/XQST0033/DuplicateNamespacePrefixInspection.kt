@@ -56,7 +56,7 @@ class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
                 }
             }
 
-            val prolog = (module as? XQueryPrologResolver)?.prolog
+            val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             prolog?.children()?.forEach(fun (child) {
                 val ns = child as? XPathNamespaceDeclaration
                 val prefix = ns?.namespacePrefix?.data

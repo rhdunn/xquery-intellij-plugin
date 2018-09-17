@@ -30,8 +30,10 @@ class XQueryMainModulePsiImpl(node: ASTNode) :
     XQueryPrologResolver,
     XPathStaticContext {
 
-    override val prolog get(): XQueryProlog? = children().filterIsInstance<XQueryProlog>().firstOrNull()
+    override val prolog get(): Sequence<XQueryProlog> = children().filterIsInstance<XQueryProlog>()
 
     override val variables
-        get(): Sequence<XPathVariableDeclaration> = (prolog as? XPathStaticContext)?.variables ?: emptySequence()
+        get(): Sequence<XPathVariableDeclaration> {
+            return prolog.flatMap { prolog -> (prolog as? XPathStaticContext)?.variables ?: emptySequence() }
+        }
 }

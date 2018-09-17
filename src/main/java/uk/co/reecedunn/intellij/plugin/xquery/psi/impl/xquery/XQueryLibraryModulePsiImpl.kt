@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,5 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryLibraryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryLibraryModule, XQueryPrologResolver {
-    override val prolog get(): XQueryProlog? =
-        children().filterIsInstance<XQueryProlog>().firstOrNull()
+    override val prolog get(): Sequence<XQueryProlog> = children().filterIsInstance<XQueryProlog>()
 }

@@ -26,6 +26,7 @@
         namespaces where appropriate.
       </li>
       <li>Locate built-in definitions from <code>http://</code>-based <code>URILiteral</code> nodes.</li>
+      <li>Resolve all location URIs in a <code>ModuleImport</code>, not just the first valid location.</li>
       <li>Resolve <code>ModuleImport</code> declarations that don't specify <code>at</code> paths.</li>
       <li>Resolve <code>NamespaceDecl</code> declarations.</li>
     </ol>
