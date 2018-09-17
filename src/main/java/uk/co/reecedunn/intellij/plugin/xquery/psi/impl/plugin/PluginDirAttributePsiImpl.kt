@@ -24,11 +24,17 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-class PluginDirAttributePsiImpl(node: ASTNode):
+class PluginDirAttributePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginDirAttribute,
+    XQueryPrologResolver,
     XPathDefaultNamespaceDeclaration {
+    // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
@@ -36,6 +42,17 @@ class PluginDirAttributePsiImpl(node: ASTNode):
         cachedNamespaceUri.invalidate()
     }
 
+    // endregion
+    // region XQueryPrologResolver
+
+    override val prolog: Sequence<XQueryProlog>
+        get() {
+            val file = namespaceUri?.resolveUri<XQueryModule>(true)
+            val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+            return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
+        }
+
+    // endregion
     // region XQueryNamespaceDeclaration
 
     override val namespaceType

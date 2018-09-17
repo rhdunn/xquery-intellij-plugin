@@ -1,0 +1,1 @@
+<a xmlns:test="test.xq"/>

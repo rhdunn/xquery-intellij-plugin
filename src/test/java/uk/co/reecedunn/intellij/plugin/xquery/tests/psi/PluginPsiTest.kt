@@ -20,13 +20,16 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -76,6 +79,58 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
                 assertThat(expr.namespaceType, `is`(XPathNamespaceType.Undefined))
+            }
+
+            @Nested
+            @DisplayName("resolve uri")
+            internal inner class ResolveUri {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_Empty.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("same directory")
+                fun sameDirectory() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_SameDirectory.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("res:// file matching")
+                fun resProtocol() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_ResourceFile.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("http:// file matching")
+                fun httpProtocol() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                }
+
+                @Test
+                @DisplayName("http:// file missing")
+                fun httpProtocolMissing() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
             }
         }
     }
