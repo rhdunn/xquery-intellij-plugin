@@ -1,0 +1,18 @@
+xquery version "3.0";
+(:~
+:  BaseX admin module functions
+:
+: @see http://docs.basex.org/wiki/Admin_Module
+:)
+module namespace admin = "http://basex.org/modules/admin";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+
+declare %a:since("basex", "9.0") function admin:sessions() as element(session)* external;
+declare %a:since("basex", "9.0") function admin:logs() as element(file)* external;
+declare %a:since("basex", "9.0") function admin:logs($date as xs:string) as element(entry)* external;
+declare %a:since("basex", "9.0") function admin:logs($date as xs:string, $merge as xs:boolean) as element(entry)* external;
+declare %a:since("basex", "9.0") function admin:write-log($text as xs:string) as empty-sequence() external;
+declare %a:since("basex", "9.0") function admin:write-log($text as xs:string, $type as xs:string) as empty-sequence() external;
+declare %a:since("basex", "9.0") function admin:delete-logs($date as xs:string) as empty-sequence() external;
+
