@@ -26,3 +26,11 @@ declare %a:since("basex", "9.0") function bin:decode-string($in as xs:base64Bina
 declare %a:since("basex", "9.0") function bin:decode-string($in as xs:base64Binary?, $encoding as xs:string, $offset as xs:integer) as xs:string? external;
 declare %a:since("basex", "9.0") function bin:decode-string($in as xs:base64Binary?, $encoding as xs:string, $offset as xs:integer, $size as xs:integer) as xs:string? external;
 declare %a:since("basex", "9.0") function bin:encode-string($in as xs:string?, $encoding as xs:string) as xs:base64Binary? external;
+declare %a:since("basex", "9.0") function bin:pack-double($in as xs:double) as xs:base64Binary external;
+declare %a:since("basex", "9.0") function bin:pack-double($in as xs:double, $octet-order as xs:string) as xs:base64Binary external;
+declare %a:since("basex", "9.0") function bin:pack-float($in as xs:float) as xs:base64Binary external;
+declare %a:since("basex", "9.0") function bin:pack-float($in as xs:float, $octet-order as xs:string) as xs:base64Binary external;
+declare %a:since("basex", "9.0") function bin:pack-integer($in as xs:integer, $size as xs:integer) as xs:base64Binary external;
+declare %a:since("basex", "9.0") function bin:pack-integer($in as xs:integer, $size as xs:integer, $octet-order as xs:string) as xs:base64Binary external;
+declare %a:since("basex", "9.0") function bin:unpack-double($in as xs:base64Binary, $offset as xs:integer) as xs:double external;
+declare %a:since("basex", "9.0") function bin:unpack-double($in as xs:base64Binary, $offset as xs:integer, $octet-order as xs:string) as xs:double external;
