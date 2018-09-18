@@ -67,6 +67,68 @@ private class XPathStaticContextTest : ParserTestCase() {
                 assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+        internal inner class NamedFunctionRef {
+            @Test
+            @DisplayName("arity: single match")
+            fun aritySingleMatch() {
+                val qname = parse<XPathEQName>("fn:true#0")[0]
+
+                val decls = qname.staticallyKnownFunctions().toList()
+                assertThat(decls.size, `is`(1))
+
+                assertThat(decls[0].arity, `is`(0))
+                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+            }
+
+            @Test
+            @DisplayName("arity: multiple matches")
+            fun arityMultipleMatches() {
+                val qname = parse<XPathEQName>("fn:data#0")[0]
+
+                val decls = qname.staticallyKnownFunctions().toList()
+                assertThat(decls.size, `is`(2))
+
+                assertThat(decls[0].arity, `is`(0))
+                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                assertThat(decls[1].arity, `is`(1))
+                assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowFunctionSpecifier {
+            @Test
+            @DisplayName("arity: single match")
+            fun aritySingleMatch() {
+                val qname = parse<XPathEQName>("() => fn:true()")[0]
+
+                val decls = qname.staticallyKnownFunctions().toList()
+                assertThat(decls.size, `is`(1))
+
+                assertThat(decls[0].arity, `is`(0))
+                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+            }
+
+            @Test
+            @DisplayName("arity: multiple matches")
+            fun arityMultipleMatches() {
+                val qname = parse<XPathEQName>("() => fn:data()")[0]
+
+                val decls = qname.staticallyKnownFunctions().toList()
+                assertThat(decls.size, `is`(2))
+
+                assertThat(decls[0].arity, `is`(0))
+                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                assertThat(decls[1].arity, `is`(1))
+                assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+            }
+        }
     }
 
     // region In-Scope Variable Bindings
