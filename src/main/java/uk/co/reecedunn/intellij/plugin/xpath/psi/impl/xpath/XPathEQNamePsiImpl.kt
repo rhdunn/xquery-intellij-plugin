@@ -21,28 +21,12 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference
 
 abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
-    override fun equals(other: Any?): Boolean {
-        if (other !is XPathEQName) {
-            return false
-        }
-
-        val lhsLocalName = (this as XsQNameValue).localName
-        val rhsLocalName = (other as XsQNameValue).localName
-        if (lhsLocalName?.data?.equals(rhsLocalName?.data) == true) {
-            val lhsPrefix = (this as XsQNameValue).prefix
-            val rhsPrefix = (other as XsQNameValue).prefix
-            return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.data?.equals(rhsPrefix?.data) == true
-        }
-        return false
-    }
-
     override fun getReference(): PsiReference? {
         val references = references
         return if (references.isEmpty()) null else references[0]

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.diff.comparison.expand
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -37,8 +38,8 @@ fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
     return prologs.flatMap { prolog ->
         prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
             val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-            val functionName = function?.children()?.filterIsInstance<XPathEQName>()?.firstOrNull()
-            if (functionName?.equals(this) == true) {
+            val functionName = function?.children()?.filterIsInstance<XsQNameValue>()?.firstOrNull()
+            if (functionName?.let { op_qname_equal(it, this) } == true) {
                 function
             } else {
                 null
