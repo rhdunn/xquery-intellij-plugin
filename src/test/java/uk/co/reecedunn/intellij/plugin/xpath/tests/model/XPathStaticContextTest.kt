@@ -40,93 +40,249 @@ private class XPathStaticContextTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
         internal inner class FunctionCall {
-            @Test
-            @DisplayName("arity: single match")
-            fun aritySingleMatch() {
-                val qname = parse<XPathEQName>("fn:true()")[0]
+            @Nested
+            @DisplayName("arity")
+            internal inner class Arity {
+                @Test
+                @DisplayName("single match")
+                fun singleMatch() {
+                    val qname = parse<XPathEQName>("fn:true()")[0]
 
-                val decls = qname.staticallyKnownFunctions().toList()
-                assertThat(decls.size, `is`(1))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-                assertThat(decls[0].arity, `is`(0))
-                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+
+                @Test
+                @DisplayName("multiple matches")
+                fun multipleMatches() {
+                    val qname = parse<XPathEQName>("fn:data()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
             }
 
-            @Test
-            @DisplayName("arity: multiple matches")
-            fun arityMultipleMatches() {
-                val qname = parse<XPathEQName>("fn:data()")[0]
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("built-in namespaces")
+                fun builtInNamespaces() {
+                    val qname = parse<XPathEQName>("fn:false()")[0]
 
-                val decls = qname.staticallyKnownFunctions().toList()
-                assertThat(decls.size, `is`(2))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-                assertThat(decls[0].arity, `is`(0))
-                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
 
-                assertThat(decls[1].arity, `is`(1))
-                assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("default function namespace")
+                fun defaultFunctionNamespace() {
+                    val qname = parse<XPathEQName>("true()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+            }
+
+            @Nested
+            @DisplayName("URIQualifiedName")
+            internal inner class URIQualifiedName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("Q{http://www.w3.org/2005/xpath-functions}false()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
             }
         }
 
         @Nested
         @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
         internal inner class NamedFunctionRef {
-            @Test
-            @DisplayName("arity: single match")
-            fun aritySingleMatch() {
-                val qname = parse<XPathEQName>("fn:true#0")[0]
+            @Nested
+            @DisplayName("arity")
+            internal inner class Arity {
+                @Test
+                @DisplayName("single match")
+                fun singleMatch() {
+                    val qname = parse<XPathEQName>("fn:true#0")[0]
 
-                val decls = qname.staticallyKnownFunctions().toList()
-                assertThat(decls.size, `is`(1))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-                assertThat(decls[0].arity, `is`(0))
-                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+
+                @Test
+                @DisplayName("multiple matches")
+                fun multipleMatches() {
+                    val qname = parse<XPathEQName>("fn:data#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
             }
 
-            @Test
-            @DisplayName("arity: multiple matches")
-            fun arityMultipleMatches() {
-                val qname = parse<XPathEQName>("fn:data#0")[0]
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("built-in namespaces")
+                fun builtInNamespaces() {
+                    val qname = parse<XPathEQName>("fn:false#0")[0]
 
-                val decls = qname.staticallyKnownFunctions().toList()
-                assertThat(decls.size, `is`(2))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-                assertThat(decls[0].arity, `is`(0))
-                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
 
-                assertThat(decls[1].arity, `is`(1))
-                assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("default function namespace")
+                fun defaultFunctionNamespace() {
+                    val qname = parse<XPathEQName>("true#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+            }
+
+            @Nested
+            @DisplayName("URIQualifiedName")
+            internal inner class URIQualifiedName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("Q{http://www.w3.org/2005/xpath-functions}false#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
             }
         }
 
         @Nested
         @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier")
         internal inner class ArrowFunctionSpecifier {
-            @Test
-            @DisplayName("arity: single match")
-            fun aritySingleMatch() {
-                val qname = parse<XPathEQName>("() => fn:true()")[0]
+            @Nested
+            @DisplayName("arity")
+            internal inner class Arity {
+                @Test
+                @DisplayName("single match")
+                fun singleMatch() {
+                    val qname = parse<XPathEQName>("() => fn:true()")[0]
 
-                val decls = qname.staticallyKnownFunctions().toList()
-                assertThat(decls.size, `is`(1))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-                assertThat(decls[0].arity, `is`(0))
-                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+
+                @Test
+                @DisplayName("multiple matches")
+                fun multipleMatches() {
+                    val qname = parse<XPathEQName>("() => fn:data()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
             }
 
-            @Test
-            @DisplayName("arity: multiple matches")
-            fun arityMultipleMatches() {
-                val qname = parse<XPathEQName>("() => fn:data()")[0]
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("built-in namespaces")
+                fun builtInNamespaces() {
+                    val qname = parse<XPathEQName>("() => fn:false()")[0]
 
-                val decls = qname.staticallyKnownFunctions().toList()
-                assertThat(decls.size, `is`(2))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-                assertThat(decls[0].arity, `is`(0))
-                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
 
-                assertThat(decls[1].arity, `is`(1))
-                assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("default function namespace")
+                fun defaultFunctionNamespace() {
+                    val qname = parse<XPathEQName>("() => true()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+            }
+
+            @Nested
+            @DisplayName("URIQualifiedName")
+            internal inner class URIQualifiedName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("() => Q{http://www.w3.org/2005/xpath-functions}false()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
             }
         }
     }
