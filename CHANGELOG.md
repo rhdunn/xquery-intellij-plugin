@@ -17,6 +17,7 @@ References and Resolving:
 1.  Resolve `NamespaceDecl` declarations.
 1.  Resolve `DefaultNamespaceDecl` declarations.
 1.  Resolve `DirAttributeList` attributes.
+1.  Matching statically-known functions against expanded QNames.
 
 ## 1.2 - 2018-08-27
 

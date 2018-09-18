@@ -31,6 +31,7 @@
       <li>Resolve <code>NamespaceDecl</code> declarations.</li>
       <li>Resolve <code>DefaultNamespaceDecl</code> declarations.</li>
       <li>Resolve <code>DirAttributeList</code> attributes.</li>
+      <li>Matching statically-known functions against expanded QNames.</li>
     </ol>
   ]]></change-notes>
 

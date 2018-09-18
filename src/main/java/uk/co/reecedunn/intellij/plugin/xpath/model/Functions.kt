@@ -31,18 +31,17 @@ interface XPathFunctionReference {
 }
 
 fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
-    val prologs: Sequence<XQueryProlog> = (this as XsQNameValue).expand().flatMap { name ->
-        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
-    }.filterNotNull()
-
-    return prologs.flatMap { prolog ->
-        prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
-            val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-            val functionName = function?.children()?.filterIsInstance<XsQNameValue>()?.firstOrNull()
-            if (functionName?.let { op_qname_equal(it, this) } == true) {
-                function
-            } else {
-                null
+    return (this as XsQNameValue).expand().flatMap { name ->
+        val prologs = (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
+        prologs.flatMap { prolog ->
+            prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
+                val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
+                val functionName = function?.children()?.filterIsInstance<XsQNameValue>()?.firstOrNull()
+                if (functionName?.expand()?.firstOrNull()?.let { op_qname_equal(it, name) } == true) {
+                    function
+                } else {
+                    null
+                }
             }
         }
     }.filterNotNull()
