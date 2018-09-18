@@ -17,55 +17,58 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XPath 3.1 - Static Context")
 private class XPathStaticContextTest : ParserTestCase() {
-    // region Statically-known Functions
+    @Nested
+    @DisplayName("XPath 3.1 (2.1.1) Statically known namespaces")
+    internal inner class StaticallyKnownNamespaces {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+        internal inner class FunctionCall {
+            @Test
+            @DisplayName("arity: single match")
+            fun aritySingleMatch() {
+                val qname = parse<XPathEQName>("fn:true()")[0]
 
-    @Test
-    fun testQName_staticallyKnownFunctions_SingleDeclMatch() {
-        val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")
+                val decls = qname.staticallyKnownFunctions().toList()
+                assertThat(decls.size, `is`(1))
 
-        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XPathQName>().first()
+                assertThat(decls[0].arity, `is`(0))
+                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+            }
 
-        val decls = fnName.staticallyKnownFunctions().toList()
-        assertThat(decls.size, `is`(1))
+            @Test
+            @DisplayName("arity: multiple matches")
+            fun arityMultipleMatches() {
+                val qname = parse<XPathEQName>("fn:data()")[0]
 
-        val functionName = decls[0].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:true"))
-        assertThat(decls[0].arity, `is`(0))
+                val decls = qname.staticallyKnownFunctions().toList()
+                assertThat(decls.size, `is`(2))
+
+                assertThat(decls[0].arity, `is`(0))
+                assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                assertThat(decls[1].arity, `is`(1))
+                assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+            }
+        }
     }
 
-    @Test
-    fun testQName_staticallyKnownFunctions_MultipleDeclMatch() {
-        val file = parseResource("tests/resolve/functions/FunctionCall_QName_Arity.xq")
-
-        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XPathQName>().first()
-
-        val decls = fnName.staticallyKnownFunctions().toList()
-        assertThat(decls.size, `is`(2))
-
-        var functionName = decls[0].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:data"))
-        assertThat(decls[0].arity, `is`(0))
-
-        functionName = decls[1].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:data"))
-        assertThat(decls[1].arity, `is`(1))
-    }
-
-    // endregion
     // region In-Scope Variable Bindings
     // region InlineFunctionExpr -> ParamList -> Param
 
