@@ -40,3 +40,8 @@ declare %a:since("basex", "9.0") function bin:unpack-integer($in as xs:base64Bin
 declare %a:since("basex", "9.0") function bin:unpack-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer, $octet-order as xs:string) as xs:integer external;
 declare %a:since("basex", "9.0") function bin:unpack-unsigned-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer) as xs:integer external;
 declare %a:since("basex", "9.0") function bin:unpack-unsigned-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer, $octet-order as xs:string) as xs:integer external;
+declare %a:since("basex", "9.0") function bin:or($a as xs:base64Binary?, $b as xs:base64Binary?) as xs:base64Binary? external;
+declare %a:since("basex", "9.0") function bin:xor($a as xs:base64Binary?, $b as xs:base64Binary?) as xs:base64Binary? external;
+declare %a:since("basex", "9.0") function bin:and($a as xs:base64Binary?, $b as xs:base64Binary?) as xs:base64Binary? external;
+declare %a:since("basex", "9.0") function bin:not($in as xs:base64Binary?) as xs:base64Binary? external;
+declare %a:since("basex", "9.0") function bin:shift($in as xs:base64Binary?, $by as xs:integer) as xs:base64Binary? external;
