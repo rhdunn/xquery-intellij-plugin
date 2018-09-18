@@ -34,3 +34,9 @@ declare %a:since("basex", "9.0") function bin:pack-integer($in as xs:integer, $s
 declare %a:since("basex", "9.0") function bin:pack-integer($in as xs:integer, $size as xs:integer, $octet-order as xs:string) as xs:base64Binary external;
 declare %a:since("basex", "9.0") function bin:unpack-double($in as xs:base64Binary, $offset as xs:integer) as xs:double external;
 declare %a:since("basex", "9.0") function bin:unpack-double($in as xs:base64Binary, $offset as xs:integer, $octet-order as xs:string) as xs:double external;
+declare %a:since("basex", "9.0") function bin:unpack-float($in as xs:base64Binary, $offset as xs:integer) as xs:float external;
+declare %a:since("basex", "9.0") function bin:unpack-float($in as xs:base64Binary, $offset as xs:integer, $octet-order as xs:string) as xs:float external;
+declare %a:since("basex", "9.0") function bin:unpack-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer) as xs:integer external;
+declare %a:since("basex", "9.0") function bin:unpack-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer, $octet-order as xs:string) as xs:integer external;
+declare %a:since("basex", "9.0") function bin:unpack-unsigned-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer) as xs:integer external;
+declare %a:since("basex", "9.0") function bin:unpack-unsigned-integer($in as xs:base64Binary, $offset as xs:integer, $size as xs:integer, $octet-order as xs:string) as xs:integer external;
