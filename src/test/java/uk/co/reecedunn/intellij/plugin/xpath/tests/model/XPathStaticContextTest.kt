@@ -20,13 +20,9 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -35,8 +31,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - Static Context")
 private class XPathStaticContextTest : ParserTestCase() {
     @Nested
-    @DisplayName("XPath 3.1 (2.1.1) Statically known namespaces")
-    internal inner class StaticallyKnownNamespaces {
+    @DisplayName("XPath 3.1 (2.1.1) Statically known function signatures")
+    internal inner class StaticallyKnownFunctionSignatures {
         @Nested
         @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
         internal inner class FunctionCall {
@@ -91,8 +87,8 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("NCName")
             internal inner class NCName {
                 @Test
-                @DisplayName("default function namespace")
-                fun defaultFunctionNamespace() {
+                @DisplayName("built-in function")
+                fun builtInFunction() {
                     val qname = parse<XPathEQName>("true()")[0]
 
                     val decls = qname.staticallyKnownFunctions().toList()
@@ -174,8 +170,8 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("NCName")
             internal inner class NCName {
                 @Test
-                @DisplayName("default function namespace")
-                fun defaultFunctionNamespace() {
+                @DisplayName("built-in function")
+                fun builtInFunction() {
                     val qname = parse<XPathEQName>("true#0")[0]
 
                     val decls = qname.staticallyKnownFunctions().toList()
@@ -257,8 +253,8 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("NCName")
             internal inner class NCName {
                 @Test
-                @DisplayName("default function namespace")
-                fun defaultFunctionNamespace() {
+                @DisplayName("built-in function")
+                fun builtInFunction() {
                     val qname = parse<XPathEQName>("() => true()")[0]
 
                     val decls = qname.staticallyKnownFunctions().toList()
