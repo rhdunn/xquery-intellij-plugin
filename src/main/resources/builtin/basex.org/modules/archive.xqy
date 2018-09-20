@@ -24,5 +24,5 @@ declare %a:since("basex", "8.3") function archive:extract-to($path as xs:string,
 declare %a:since("basex", "8.3") function archive:extract-to($path as xs:string, $archive as xs:base64Binary, $entries as item()*) as empty-sequence() external;
 declare %a:since("basex", "7.3") function archive:update($archive as xs:base64Binary, $entries as item()*, $contents as item()*) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function archive:delete($archive as xs:base64Binary, $entries as item()*) as xs:base64Binary external;
-declare %a:since("basex", "7.7") %a:deprecated("basex", "8.3", "archive:create-from#2") function archive:write($path as xs:string, $archive as xs:base64Binary) as empty-sequence() external;
-declare %a:since("basex", "7.7") %a:deprecated("basex", "8.3", "archive:create-from#3") function archive:write($path as xs:string, $archive as xs:base64Binary, $entries as item()*) as empty-sequence() external;
+declare %a:since("basex", "7.7") %a:until("basex", "8.3", "archive:create-from#2", "archive:extract-to#1") function archive:write($path as xs:string, $archive as xs:base64Binary) as empty-sequence() external;
+declare %a:since("basex", "7.7") %a:until("basex", "8.3", "archive:create-from#3", "archive:extract-to#2") function archive:write($path as xs:string, $archive as xs:base64Binary, $entries as item()*) as empty-sequence() external;
