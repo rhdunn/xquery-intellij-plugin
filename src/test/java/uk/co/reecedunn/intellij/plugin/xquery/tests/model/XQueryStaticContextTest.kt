@@ -580,6 +580,26 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
                     assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
                 }
+
+                @Test
+                @DisplayName("module import")
+                fun moduleImport() {
+                    settings.implementationVersion = "w3c/1ed"
+                    settings.XQueryVersion = "1.0"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        import module namespace a = "http://basex.org/modules/admin" at "res://basex.org/modules/admin.xqy";
+                        a:sessions()
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
+                }
             }
         }
 
@@ -629,6 +649,26 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
                     assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
                 }
+
+                @Test
+                @DisplayName("module import")
+                fun moduleImport() {
+                    settings.implementationVersion = "w3c/1ed"
+                    settings.XQueryVersion = "1.0"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        import module namespace a = "http://basex.org/modules/admin" at "res://basex.org/modules/admin.xqy";
+                        a:sessions#0
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
+                }
             }
         }
 
@@ -677,6 +717,26 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
                     assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
+                }
+
+                @Test
+                @DisplayName("module import")
+                fun moduleImport() {
+                    settings.implementationVersion = "w3c/1ed"
+                    settings.XQueryVersion = "1.0"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        import module namespace a = "http://basex.org/modules/admin" at "res://basex.org/modules/admin.xqy";
+                        () => a:sessions()
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
             }
         }
