@@ -200,7 +200,7 @@ private class XPathStaticContextTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier")
+        @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier")
         internal inner class ArrowFunctionSpecifier {
             @Nested
             @DisplayName("arity")

@@ -128,14 +128,14 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
         isLexicalQName && prefix == null -> { // NCName
             when (getNamespaceType()) {
                 XPathNamespaceType.DefaultElementOrType -> {
-                    element!!.defaultElementOrTypeNamespace().map { decl ->
-                        XsQName(decl.namespaceUri, null, localName, false, element)
-                    }
+                    element!!.defaultElementOrTypeNamespace().firstOrNull()?.let { decl ->
+                        sequenceOf(XsQName(decl.namespaceUri, null, localName, false, element))
+                    } ?: emptySequence()
                 }
                 XPathNamespaceType.DefaultFunction -> {
-                    element!!.defaultFunctionNamespace().map { decl ->
-                        XsQName(decl.namespaceUri, null, localName, false, element)
-                    }
+                    element!!.defaultFunctionNamespace().firstOrNull()?.let { decl ->
+                        sequenceOf(XsQName(decl.namespaceUri, null, localName, false, element))
+                    } ?: emptySequence()
                 }
                 XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))

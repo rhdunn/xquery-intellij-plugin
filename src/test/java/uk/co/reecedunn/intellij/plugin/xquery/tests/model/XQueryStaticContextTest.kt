@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
@@ -527,6 +528,85 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].namespaceType, `is`(XPathNamespaceType.DefaultFunction))
                 assertThat(element[0].namespacePrefix, `is`(nullValue()))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (2.1.1) Statically known function signatures")
+    internal inner class StaticallyKnownFunctionSignatures {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
+        internal inner class FunctionCall {
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("default function namespace")
+                fun defaultFunctionNamespace() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://www.w3.org/2001/XMLSchema";
+                        string()
+                        """
+                    )[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(1))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (168) NamedFunctionRef")
+        internal inner class NamedFunctionRef {
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("default function namespace")
+                fun defaultFunctionNamespace() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://www.w3.org/2001/XMLSchema";
+                        string#0
+                        """
+                    )[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(1))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        internal inner class ArrowFunctionSpecifier {
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("default function namespace")
+                fun defaultFunctionNamespace() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://www.w3.org/2001/XMLSchema";
+                        () => string()
+                        """
+                    )[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(1))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
+                }
             }
         }
     }
