@@ -15,8 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.model
 
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -558,6 +557,30 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
             }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("module declaration")
+                fun moduleDeclaration() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        module namespace test = "http://www.example.com/test";
+                        declare function test:f() { test:g() };
+                        declare function test:g() { 2 };
+                        """
+                    )
+                    assertThat(qname.size, `is`(4))
+
+                    val decls = qname[2].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
+                    assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
+                }
+            }
         }
 
         @Nested
@@ -583,6 +606,30 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
             }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("module declaration")
+                fun moduleDeclaration() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        module namespace test = "http://www.example.com/test";
+                        declare function test:f() { test:g#0 };
+                        declare function test:g() { 2 };
+                        """
+                    )
+                    assertThat(qname.size, `is`(4))
+
+                    val decls = qname[2].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
+                    assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
+                }
+            }
         }
 
         @Nested
@@ -606,6 +653,30 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[0].arity, `is`(1))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
+                }
+            }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("module declaration")
+                fun moduleDeclaration() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        module namespace test = "http://www.example.com/test";
+                        declare function test:f() { () => test:g() };
+                        declare function test:g() { 2 };
+                        """
+                    )
+                    assertThat(qname.size, `is`(4))
+
+                    val decls = qname[2].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
+                    assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
                 }
             }
         }
