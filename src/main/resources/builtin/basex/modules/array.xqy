@@ -27,6 +27,7 @@ declare %a:since("basex", "8.0") function array:fold-left($array as array(*), $z
 declare %a:since("basex", "8.0") function array:fold-right($array as array(*), $zero as item()*, $function as function(item()*, item()*) as item()*) as item()* external;
 declare %a:since("basex", "8.0") function array:for-each-pair($array1 as array(*), $array2 as array(*), $function as function(item()*) as item()*) as array(*) external;
 declare %a:since("basex", "8.0") function array:sort($array as array(*)) as array(*) external;
-declare %a:since("basex", "8.0") function array:sort($array as array(*), $collation as xs:string?) as array(*) external;
-declare %a:since("basex", "8.0") %a:until("basex", "8.6") function array:sort($array as array(*), $collation as xs:string?, $key as function(item()*) as xs:anyAtomicType*) as array(*) external; (: [8.6]$collation as xs:string? :)
-declare %a:since("basex", "8.0") %a:until("basex", "8.4") function array:serialize($input as map(*)) as xs:string external;
+declare %a:since("basex", "8.6") function array:sort($array as array(*), $collation as xs:string?) as array(*) external;
+declare %a:since("basex", "8.0") %a:until("basex", "8.6") function array:sort($array as array(*), $key as function(item()*) as xs:anyAtomicType*) as array(*) external;
+declare %a:since("basex", "8.6") function array:sort($array as array(*), $collation as xs:string?, $key as function(item()*) as xs:anyAtomicType*) as array(*) external;
+declare %a:since("basex", "8.0") %a:until("basex", "8.4") %a:see-also("basex", "8.4", "fn:serialize") function array:serialize($input as map(*)) as xs:string external;
