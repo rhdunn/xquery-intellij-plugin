@@ -1,8 +1,8 @@
 xquery version "3.0";
 (:~
-: BaseX binary module functions
-: 
-:)
+ : BaseX binary module functions
+ :
+ :)
 module namespace bin = "http://expath.org/ns/binary";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";

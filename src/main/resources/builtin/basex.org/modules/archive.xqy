@@ -1,9 +1,9 @@
 xquery version "3.0";
 (:~
-: BaseX archive module functions
-:
-: @see http://docs.basex.org/wiki/Archive_Module
-:)
+ : BaseX archive module functions
+ :
+ : @see http://docs.basex.org/wiki/Archive_Module
+ :)
 module namespace archive = "http://basex.org/modules/archive";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";

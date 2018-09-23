@@ -1,9 +1,9 @@
 xquery version "3.0";
 (:~
-: BaseX client module functions
-:
-: @see http://docs.basex.org/wiki/Client_Module
-:)
+ : BaseX client module functions
+ :
+ : @see http://docs.basex.org/wiki/Client_Module
+ :)
 module namespace client = "http://basex.org/";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
