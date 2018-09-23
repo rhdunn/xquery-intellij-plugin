@@ -109,7 +109,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     return resolvers
         .filter { resolver -> resolver.match(path) }
         .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(project) }
-        .firstOrNull()
+        .filterNotNull().firstOrNull()
 }
 
 // endregion
