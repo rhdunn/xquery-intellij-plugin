@@ -17,12 +17,20 @@ package uk.co.reecedunn.intellij.plugin.core.tests.module
 
 import com.intellij.openapi.module.*
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.util.graph.Graph
+import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
 import java.util.Comparator
+
+private fun createModule(project: Project): Module {
+    val module = MockModule(project)
+    module.registerService(ModuleRootManager::class.java, MockModuleRootsManager())
+    return module
+}
 
 class MockModuleManager(project: Project) : ModuleManager() {
     private val modules: Array<Module> = arrayOf(
-        MockModule(project)
+        createModule(project)
     )
 
     override fun setUnloadedModules(unloadedModuleNames: MutableList<String>) {
