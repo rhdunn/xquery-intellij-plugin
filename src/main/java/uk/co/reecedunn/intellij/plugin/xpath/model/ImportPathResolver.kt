@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 interface ImportPathResolver {
@@ -35,5 +36,21 @@ object HttpProtocolImportResolver : ImportPathResolver {
         val resource = "builtin/${path.substringAfter("http://")}.xqy"
         val file = ResourceVirtualFile.create(ResourceVirtualFile::class.java, resource)
         return if (file.isValid) file else null
+    }
+}
+
+class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathResolver {
+    override fun resolve(path: String): VirtualFile? {
+        var file = file
+        if (file is LightVirtualFileBase) {
+            file = file.originalFile
+        }
+
+        return resolve(file, path)
+    }
+
+    private fun resolve(parent: VirtualFile?, path: String): VirtualFile? {
+        if (parent == null) return null
+        return parent.findFileByRelativePath(path) ?: resolve(parent.parent, path)
     }
 }

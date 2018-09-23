@@ -87,19 +87,6 @@ data class XsAnyUri(
     override val element get(): PsiElement? = reference?.get()
 }
 
-private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: String): PsiFile? {
-    if (parent == null) {
-        return null
-    }
-
-    val file = parent.findFileByRelativePath(path)
-    if (file != null) {
-        return file.toPsiFile(project)
-    }
-
-    return resolveFileByPath(parent.parent, project, path)
-}
-
 @Suppress("UNCHECKED_CAST")
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
@@ -112,12 +99,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
             HttpProtocolImportResolver.resolve(path)?.toPsiFile(element!!.project)
         }
         !path.contains("://") && !httpOnly -> {
-            var file = element!!.containingFile.virtualFile
-            if (file is LightVirtualFileBase) {
-                file = file.originalFile
-            }
-
-            return resolveFileByPath(file, element!!.project, path) as? T
+            RelativeFileImportResolver(element!!.containingFile.virtualFile).resolve(path)?.toPsiFile(element!!.project)
         }
         else -> null
     }
