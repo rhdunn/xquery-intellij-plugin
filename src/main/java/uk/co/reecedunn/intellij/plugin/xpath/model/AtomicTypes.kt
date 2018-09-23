@@ -96,17 +96,19 @@ private val STATIC_IMPORT_RESOLVERS = sequenceOf(
 
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
+    val project = element!!.project
     val resolvers =
         if (httpOnly)
             HTTP_ONLY_IMPORT_RESOLVERS
         else
             sequenceOf(
                 STATIC_IMPORT_RESOLVERS,
+                moduleRootImportResolvers(project),
                 sequenceOf(RelativeFileImportResolver(element!!.containingFile.virtualFile))
             ).flatten()
     return resolvers
         .filter { resolver -> resolver.match(path) }
-        .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(element!!.project) }
+        .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(project) }
         .firstOrNull()
 }
 

@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
+import com.intellij.openapi.module.ModuleManager
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -66,5 +69,18 @@ class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathReso
     private fun resolve(parent: VirtualFile?, path: String): VirtualFile? {
         if (parent == null) return null
         return parent.findFileByRelativePath(path) ?: resolve(parent.parent, path)
+    }
+}
+
+class ModuleFileImportResolver(private val root: VirtualFile) : ImportPathResolver {
+    override fun match(path: String): Boolean = path.startsWith("/")
+
+    override fun resolve(path: String): VirtualFile? = root.findFileByRelativePath(path)
+}
+
+fun moduleRootImportResolvers(project: Project): Sequence<ImportPathResolver> {
+    val manager = ProjectRootManager.getInstance(project)
+    return manager.contentSourceRoots.asSequence().map { root ->
+        ModuleFileImportResolver(root)
     }
 }
