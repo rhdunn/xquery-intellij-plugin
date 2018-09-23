@@ -63,12 +63,7 @@ class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathReso
             file = file.originalFile
         }
 
-        return resolve(file, path)
-    }
-
-    private fun resolve(parent: VirtualFile?, path: String): VirtualFile? {
-        if (parent == null) return null
-        return parent.findFileByRelativePath(path) ?: resolve(parent.parent, path)
+        return file.parent.findFileByRelativePath(path)
     }
 }
 

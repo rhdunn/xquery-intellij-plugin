@@ -129,9 +129,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         val resolved = ref.resolve()
-        assertThat(resolved, `is`(notNullValue()))
-        assertThat(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
-        assertThat(resolved!!.containingFile.name, `is`("ModuleDecl.xq"))
+        assertThat(resolved, `is`(nullValue()))
     }
 
     @Test

@@ -1112,6 +1112,16 @@ private class XQueryPsiTest : ParserTestCase() {
                     val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
 
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("module in relative directory")
+                fun moduleInRelativeDirectory() {
+                    val file = parseResource("tests/resolve/ModuleImport_URILiteral_InDirectory.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryModuleImport>().toList()[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
                     assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/namespaces/ModuleDecl.xq"))
