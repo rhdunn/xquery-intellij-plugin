@@ -106,10 +106,10 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     return when {
         path.isEmpty() -> null
         path.startsWith("res://") && !httpOnly -> {
-            ResourceVirtualFile.resolve(path, element!!.project) as? T
+            ResourceVirtualFile.resolve(path)?.toPsiFile(element!!.project)
         }
         path.startsWith("http://") -> {
-            ResourceVirtualFile.resolve("res://${path.substringAfter("http://")}.xqy", element!!.project) as? T
+            ResourceVirtualFile.resolve("res://${path.substringAfter("http://")}.xqy")?.toPsiFile(element!!.project)
         }
         !path.contains("://") && !httpOnly -> {
             var file = element!!.containingFile.virtualFile

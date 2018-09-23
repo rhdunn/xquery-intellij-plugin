@@ -114,14 +114,14 @@ class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
             return ResourceVirtualFile(klass.classLoader, resource)
         }
 
-        fun resolve(path: String?, project: Project): PsiFile? {
+        fun resolve(path: String?): VirtualFile? {
             if (path == null || !path.startsWith("res://")) {
                 return null
             }
 
             val resource = path.replaceFirst("res://".toRegex(), "builtin/")
             val file = create(ResourceVirtualFile::class.java, resource)
-            return if (file.isValid) file.toPsiFile(project) else null
+            return if (file.isValid) file else null
         }
     }
 }

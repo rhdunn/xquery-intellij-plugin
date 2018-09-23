@@ -18,8 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -46,7 +48,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
             var context = product?.implementation?.staticContext(product, productVersion, xquery)
             if (context == null) context = defaultStaticContext(xquery)
 
-            val file = ResourceVirtualFile.resolve(context, project)
+            val file = ResourceVirtualFile.resolve(context)?.toPsiFile<XQueryModule>(project)
             val module = file!!.children().filterIsInstance<XQueryMainModule>().firstOrNull()
             staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
         }
