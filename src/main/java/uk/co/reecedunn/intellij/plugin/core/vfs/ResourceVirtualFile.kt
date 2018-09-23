@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,16 +112,6 @@ class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
     companion object {
         fun create(klass: Class<*>, resource: String): VirtualFile {
             return ResourceVirtualFile(klass.classLoader, resource)
-        }
-
-        fun resolve(path: String?): VirtualFile? {
-            if (path == null || !path.startsWith("res://")) {
-                return null
-            }
-
-            val resource = path.replaceFirst("res://".toRegex(), "builtin/")
-            val file = create(ResourceVirtualFile::class.java, resource)
-            return if (file.isValid) file else null
         }
     }
 }
