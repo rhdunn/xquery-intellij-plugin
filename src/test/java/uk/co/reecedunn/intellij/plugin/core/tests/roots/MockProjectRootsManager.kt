@@ -22,6 +22,7 @@ import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 class MockProjectRootsManager : ProjectRootManager() {
     override fun orderEntries(): OrderEnumerator {
@@ -49,7 +50,9 @@ class MockProjectRootsManager : ProjectRootManager() {
     }
 
     override fun getContentSourceRoots(): Array<VirtualFile> {
-        return arrayOf()
+        return arrayOf(
+            ResourceVirtualFile.create(MockProjectRootsManager::class.java, "tests")
+        )
     }
 
     override fun getFileIndex(): ProjectFileIndex {

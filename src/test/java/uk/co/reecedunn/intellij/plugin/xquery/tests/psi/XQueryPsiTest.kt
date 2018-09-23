@@ -1192,6 +1192,22 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/files/test.xq"))
                     assertThat(prologs[1].resourcePath(), endsWith("/tests/resolve/files/test2.xq"))
                 }
+
+                @Test
+                @DisplayName("module root")
+                fun moduleRoot() {
+                    val psi = parse<XQueryModuleImport>(
+                        """
+                        import module "http://example.com/test" at "/resolve/files/test.xq";
+                        ()
+                        """
+                    )[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/files/test.xq"))
+                }
             }
         }
     }
