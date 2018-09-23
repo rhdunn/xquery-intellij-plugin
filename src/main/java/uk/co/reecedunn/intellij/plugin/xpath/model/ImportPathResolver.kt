@@ -29,3 +29,11 @@ object ResProtocolImportResolver : ImportPathResolver {
         return if (file.isValid) file else null
     }
 }
+
+object HttpProtocolImportResolver : ImportPathResolver {
+    override fun resolve(path: String): VirtualFile? {
+        val resource = "builtin/${path.substringAfter("http://")}.xqy"
+        val file = ResourceVirtualFile.create(ResourceVirtualFile::class.java, resource)
+        return if (file.isValid) file else null
+    }
+}

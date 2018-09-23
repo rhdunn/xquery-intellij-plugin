@@ -109,7 +109,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
             ResProtocolImportResolver.resolve(path)?.toPsiFile(element!!.project)
         }
         path.startsWith("http://") -> {
-            ResProtocolImportResolver.resolve("res://${path.substringAfter("http://")}.xqy")?.toPsiFile(element!!.project)
+            HttpProtocolImportResolver.resolve(path)?.toPsiFile(element!!.project)
         }
         !path.contains("://") && !httpOnly -> {
             var file = element!!.containingFile.virtualFile
