@@ -2,6 +2,7 @@ xquery version "3.0";
 (:~
  : BaseX binary module functions
  :
+ : @see http://docs.basex.org/wiki/Binary_Module
  :)
 module namespace bin = "http://expath.org/ns/binary";
 
