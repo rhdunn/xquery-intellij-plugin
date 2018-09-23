@@ -31,12 +31,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.testFramework.LightVirtualFileBase
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
@@ -87,23 +83,31 @@ data class XsAnyUri(
     override val element get(): PsiElement? = reference?.get()
 }
 
+private val HTTP_ONLY_IMPORT_RESOLVERS = sequenceOf(
+    EmptyPathImportResolver,
+    HttpProtocolImportResolver
+)
+
+private val STATIC_IMPORT_RESOLVERS = sequenceOf(
+    EmptyPathImportResolver,
+    HttpProtocolImportResolver,
+    ResProtocolImportResolver
+)
+
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
-    return when {
-        path.isEmpty() -> {
-            EmptyPathImportResolver.resolve(path)
-        }
-        path.startsWith("res://") && !httpOnly -> {
-            ResProtocolImportResolver.resolve(path)
-        }
-        path.startsWith("http://") -> {
-            HttpProtocolImportResolver.resolve(path)
-        }
-        !path.contains("://") && !httpOnly -> {
-            RelativeFileImportResolver(element!!.containingFile.virtualFile).resolve(path)
-        }
-        else -> null
-    }?.toPsiFile(element!!.project)
+    val resolvers =
+        if (httpOnly)
+            HTTP_ONLY_IMPORT_RESOLVERS
+        else
+            sequenceOf(
+                STATIC_IMPORT_RESOLVERS,
+                sequenceOf(RelativeFileImportResolver(element!!.containingFile.virtualFile))
+            ).flatten()
+    return resolvers
+        .filter { resolver -> resolver.match(path) }
+        .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(element!!.project) }
+        .firstOrNull()
 }
 
 // endregion
