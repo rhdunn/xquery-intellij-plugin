@@ -93,16 +93,16 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     return when {
         path.isEmpty() -> null
         path.startsWith("res://") && !httpOnly -> {
-            ResProtocolImportResolver.resolve(path)?.toPsiFile(element!!.project)
+            ResProtocolImportResolver.resolve(path)
         }
         path.startsWith("http://") -> {
-            HttpProtocolImportResolver.resolve(path)?.toPsiFile(element!!.project)
+            HttpProtocolImportResolver.resolve(path)
         }
         !path.contains("://") && !httpOnly -> {
-            RelativeFileImportResolver(element!!.containingFile.virtualFile).resolve(path)?.toPsiFile(element!!.project)
+            RelativeFileImportResolver(element!!.containingFile.virtualFile).resolve(path)
         }
         else -> null
-    }
+    }?.toPsiFile(element!!.project)
 }
 
 // endregion
