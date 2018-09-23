@@ -37,7 +37,7 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParse
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
-        myProject.registerService(ModuleManager::class.java, MockModuleManager())
+        myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
     }
 
     @AfterAll

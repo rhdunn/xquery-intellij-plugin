@@ -16,10 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.module
 
 import com.intellij.openapi.module.*
+import com.intellij.openapi.project.Project
 import com.intellij.util.graph.Graph
 import java.util.Comparator
 
-class MockModuleManager : ModuleManager() {
+class MockModuleManager(project: Project) : ModuleManager() {
+    private val modules: Array<Module> = arrayOf(
+        MockModule(project)
+    )
+
     override fun setUnloadedModules(unloadedModuleNames: MutableList<String>) {
         TODO("not implemented")
     }
@@ -80,13 +85,9 @@ class MockModuleManager : ModuleManager() {
         TODO("not implemented")
     }
 
-    override fun getModules(): Array<Module> {
-        TODO("not implemented")
-    }
+    override fun getModules(): Array<Module> = modules
 
-    override fun getSortedModules(): Array<Module> {
-        TODO("not implemented")
-    }
+    override fun getSortedModules(): Array<Module> = modules
 
     override fun findModuleByName(name: String): Module? {
         TODO("not implemented")
