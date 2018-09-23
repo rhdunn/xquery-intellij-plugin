@@ -18,19 +18,21 @@ package uk.co.reecedunn.intellij.plugin.core.tests.module
 import com.intellij.openapi.module.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.graph.Graph
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import java.util.Comparator
 
-private fun createModule(project: Project): Module {
-    val module = MockModule(project)
-    module.registerService(ModuleRootManager::class.java, MockModuleRootsManager())
+private fun createModule(project: Project, moduleFile: VirtualFile): Module {
+    val module = MockModule(project, moduleFile)
+    module.registerService(ModuleRootManager::class.java, MockModuleRootsManager(module))
     return module
 }
 
 class MockModuleManager(project: Project) : ModuleManager() {
     private val modules: Array<Module> = arrayOf(
-        createModule(project)
+        createModule(project, ResourceVirtualFile.create(MockModuleManager::class.java, "tests"))
     )
 
     override fun setUnloadedModules(unloadedModuleNames: MutableList<String>) {

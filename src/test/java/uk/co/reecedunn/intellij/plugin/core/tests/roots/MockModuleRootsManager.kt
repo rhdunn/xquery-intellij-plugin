@@ -21,7 +21,7 @@ import com.intellij.openapi.roots.*
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
-class MockModuleRootsManager : ModuleRootManager() {
+class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
     override fun getExcludeRoots(): Array<VirtualFile> {
         TODO("not implemented")
     }
@@ -94,12 +94,10 @@ class MockModuleRootsManager : ModuleRootManager() {
         TODO("not implemented")
     }
 
-    override fun getSourceRoots(): Array<VirtualFile> {
-        TODO("not implemented")
-    }
+    override fun getSourceRoots(): Array<VirtualFile> = getSourceRoots(true)
 
     override fun getSourceRoots(includingTests: Boolean): Array<VirtualFile> {
-        TODO("not implemented")
+        return arrayOf(module.moduleFile!!)
     }
 
     override fun getSourceRoots(rootType: JpsModuleSourceRootType<*>): MutableList<VirtualFile> {

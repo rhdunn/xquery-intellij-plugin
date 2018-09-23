@@ -18,7 +18,8 @@ package uk.co.reecedunn.intellij.plugin.core.tests.module
 import com.intellij.mock.MockModule
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 
-class MockModule(project: Project, parentDisposable: Disposable) : MockModule(project, parentDisposable) {
-    constructor(project: Project) : this(project, Disposable {})
+class MockModule(project: Project, private val moduleFile: VirtualFile) : MockModule(project, Disposable {}) {
+    override fun getModuleFile(): VirtualFile? = moduleFile
 }
