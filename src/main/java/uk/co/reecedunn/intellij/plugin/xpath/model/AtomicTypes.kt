@@ -87,11 +87,12 @@ data class XsAnyUri(
     override val element get(): PsiElement? = reference?.get()
 }
 
-@Suppress("UNCHECKED_CAST")
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
     return when {
-        path.isEmpty() -> null
+        path.isEmpty() -> {
+            EmptyPathImportResolver.resolve(path)
+        }
         path.startsWith("res://") && !httpOnly -> {
             ResProtocolImportResolver.resolve(path)
         }

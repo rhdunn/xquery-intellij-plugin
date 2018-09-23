@@ -23,6 +23,10 @@ interface ImportPathResolver {
     fun resolve(path: String): VirtualFile?
 }
 
+object EmptyPathImportResolver : ImportPathResolver {
+    override fun resolve(path: String): VirtualFile? = null
+}
+
 object ResProtocolImportResolver : ImportPathResolver {
     override fun resolve(path: String): VirtualFile? {
         val resource = path.replaceFirst("res://".toRegex(), "builtin/")
