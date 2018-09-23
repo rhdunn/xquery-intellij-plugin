@@ -16,10 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -35,6 +37,7 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParse
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        myProject.registerService(ModuleManager::class.java, MockModuleManager())
     }
 
     @AfterAll
