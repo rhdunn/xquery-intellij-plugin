@@ -59,6 +59,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -246,14 +247,13 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
 
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File {
-        val file = createVirtualFile("testcase.xqy", text)
-        return PsiManager.getInstance(myProject).findFile(file)!! as File
+        return createVirtualFile("testcase.xqy", text).toPsiFile(myProject)!!
     }
 
     @Suppress("UNCHECKED_CAST")
     fun parseResource(resource: String): File {
         val file = ResourceVirtualFile.create(ParsingTestCase::class.java, resource)
-        return PsiManager.getInstance(myProject).findFile(file)!! as File
+        return file.toPsiFile(myProject)!!
     }
 
     protected inline fun <reified T> parse(xquery: String): List<T> {

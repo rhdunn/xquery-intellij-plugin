@@ -35,9 +35,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiManager
 import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -94,7 +94,7 @@ private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: Stri
 
     val file = parent.findFileByRelativePath(path)
     if (file != null) {
-        return PsiManager.getInstance(project).findFile(file)
+        return file.toPsiFile(project)
     }
 
     return resolveFileByPath(parent.parent, project, path)
