@@ -21,6 +21,7 @@ import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.testFramework.LightVirtualFileBase
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
+import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 interface ImportPathResolver {
@@ -75,9 +76,7 @@ class ModuleFileImportResolver(private val root: VirtualFile) : ImportPathResolv
 }
 
 fun moduleRootImportResolvers(project: Project, rootType: JpsModuleSourceRootType<*>): Sequence<ImportPathResolver> {
-    return ModuleManager.getInstance(project).modules.asSequence()
-        .flatMap { module -> ModuleRootManager.getInstance(module).contentEntries.asSequence() }
-        .flatMap { entry -> entry.sourceFolders.asSequence() }
+    return project.sourceFolders()
         .filter { folder -> folder.file != null && folder.rootType === rootType }
         .map { folder -> ModuleFileImportResolver(folder.file!!) }
 }
