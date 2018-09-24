@@ -19,9 +19,27 @@ import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.roots.SourceFolder
+import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.jps.model.java.JavaSourceRootType
+import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 fun Project.sourceFolders(): Sequence<SourceFolder> {
     return ModuleManager.getInstance(this).modules.asSequence()
         .flatMap { module -> ModuleRootManager.getInstance(module).contentEntries.asSequence() }
         .flatMap { entry -> entry.sourceFolders.asSequence() }
+}
+
+fun SourceFolder.isRootOfFile(file: VirtualFile?): Boolean {
+    if (file == null) return false
+    return this.file?.equals(file) == true || isRootOfFile(file.parent)
+}
+
+fun VirtualFile.getSourceRootType(project: Project): JpsModuleSourceRootType<*> {
+    var rootType: JpsModuleSourceRootType<*> = JavaSourceRootType.SOURCE
+    project.sourceFolders().filter { folder -> folder.isRootOfFile(this) }.forEach { folder ->
+        if (folder.rootType === JavaSourceRootType.TEST_SOURCE) {
+            rootType = JavaSourceRootType.TEST_SOURCE
+        }
+    }
+    return rootType
 }
