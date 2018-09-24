@@ -21,22 +21,18 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRoot
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
-class MockSourceFolder : SourceFolder {
+class MockSourceFolder(private val file: VirtualFile) : SourceFolder {
     override fun getUrl(): String {
         TODO("not implemented")
     }
 
-    override fun getFile(): VirtualFile? {
-        TODO("not implemented")
-    }
+    override fun getFile(): VirtualFile? = file
 
     override fun getPackagePrefix(): String {
         TODO("not implemented")
     }
 
-    override fun isTestSource(): Boolean {
-        TODO("not implemented")
-    }
+    override fun isTestSource(): Boolean = false
 
     override fun getContentEntry(): ContentEntry {
         TODO("not implemented")

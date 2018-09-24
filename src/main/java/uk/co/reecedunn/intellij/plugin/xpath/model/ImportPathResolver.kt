@@ -75,6 +75,8 @@ class ModuleFileImportResolver(private val root: VirtualFile) : ImportPathResolv
 
 fun moduleRootImportResolvers(project: Project, includingTests: Boolean = false): Sequence<ImportPathResolver> {
     return ModuleManager.getInstance(project).modules.asSequence()
-        .flatMap { module -> ModuleRootManager.getInstance(module).getSourceRoots(includingTests).asSequence() }
-        .map { file -> ModuleFileImportResolver(file) }
+        .flatMap { module -> ModuleRootManager.getInstance(module).contentEntries.asSequence() }
+        .flatMap { entry -> entry.sourceFolders.asSequence() }
+        .filter { folder -> folder.file != null && (!folder.isTestSource || includingTests) }
+        .map { folder -> ModuleFileImportResolver(folder.file!!) }
 }

@@ -67,7 +67,7 @@ class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
     }
 
     override fun getContentEntries(): Array<ContentEntry> {
-        TODO("not implemented")
+        return arrayOf(MockContentEntry(module.moduleFile!!))
     }
 
     override fun getExcludeRootUrls(): Array<String> {
