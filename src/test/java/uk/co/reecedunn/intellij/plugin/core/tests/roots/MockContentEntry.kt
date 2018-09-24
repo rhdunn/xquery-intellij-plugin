@@ -20,6 +20,7 @@ import com.intellij.openapi.roots.ExcludeFolder
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
+import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 class MockContentEntry(private val file: VirtualFile) : ContentEntry {
@@ -111,7 +112,7 @@ class MockContentEntry(private val file: VirtualFile) : ContentEntry {
         TODO("not implemented")
     }
 
-    override fun getSourceFolders(): Array<SourceFolder> = arrayOf(MockSourceFolder(file))
+    override fun getSourceFolders(): Array<SourceFolder> = arrayOf(MockSourceFolder(file, JavaSourceRootType.SOURCE))
 
     override fun getSourceFolders(rootType: JpsModuleSourceRootType<*>): MutableList<SourceFolder> {
         TODO("not implemented")

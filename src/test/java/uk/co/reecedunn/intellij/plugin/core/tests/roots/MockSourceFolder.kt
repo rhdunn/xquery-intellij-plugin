@@ -18,10 +18,11 @@ package uk.co.reecedunn.intellij.plugin.core.tests.roots
 import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRoot
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
-class MockSourceFolder(private val file: VirtualFile) : SourceFolder {
+class MockSourceFolder(private val file: VirtualFile, private val rootType: JpsModuleSourceRootType<*>) : SourceFolder {
     override fun getUrl(): String {
         TODO("not implemented")
     }
@@ -32,7 +33,7 @@ class MockSourceFolder(private val file: VirtualFile) : SourceFolder {
         TODO("not implemented")
     }
 
-    override fun isTestSource(): Boolean = false
+    override fun isTestSource(): Boolean = rootType === JavaSourceRootType.SOURCE
 
     override fun getContentEntry(): ContentEntry {
         TODO("not implemented")
@@ -46,9 +47,7 @@ class MockSourceFolder(private val file: VirtualFile) : SourceFolder {
         TODO("not implemented")
     }
 
-    override fun getRootType(): JpsModuleSourceRootType<*> {
-        TODO("not implemented")
-    }
+    override fun getRootType(): JpsModuleSourceRootType<*> = rootType
 
     override fun getJpsElement(): JpsModuleSourceRoot {
         TODO("not implemented")

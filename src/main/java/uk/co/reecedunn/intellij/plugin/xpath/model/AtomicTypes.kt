@@ -33,6 +33,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
@@ -103,7 +104,7 @@ fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
         else
             sequenceOf(
                 STATIC_IMPORT_RESOLVERS,
-                moduleRootImportResolvers(project),
+                moduleRootImportResolvers(project, JavaSourceRootType.SOURCE),
                 sequenceOf(RelativeFileImportResolver(element!!.containingFile.virtualFile))
             ).flatten()
     return resolvers
