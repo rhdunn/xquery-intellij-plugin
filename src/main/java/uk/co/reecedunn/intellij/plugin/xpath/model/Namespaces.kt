@@ -114,7 +114,16 @@ fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclara
 
 fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
     return firstOrNull()?.let { decl ->
-        sequenceOf(XsQName(decl.namespaceUri, null, ncname.localName, false, ncname.element))
+        val expanded =
+            ncname.element!!.staticallyKnownNamespaces().filter { ns ->
+                ns.namespaceUri?.data == decl.namespaceUri?.data
+            }.map { ns ->
+                XsQName(ns.namespaceUri, null, ncname.localName, false, ncname.element)
+            }
+        if (expanded.any())
+            expanded
+        else
+            sequenceOf(XsQName(decl.namespaceUri, null, ncname.localName, false, ncname.element))
     } ?: emptySequence()
 }
 

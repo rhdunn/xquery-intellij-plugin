@@ -556,6 +556,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(1))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
+
+                @Test
+                @DisplayName("default namespace to imported module")
+                fun defaultNamespaceToImportedModule() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://example.com/test";
+                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        func()
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
+                }
             }
 
             @Nested
@@ -645,6 +663,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(1))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
+
+                @Test
+                @DisplayName("default namespace to imported module")
+                fun defaultNamespaceToImportedModule() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://example.com/test";
+                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        func#0
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
+                }
             }
 
             @Nested
@@ -733,6 +769,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[0].arity, `is`(1))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
+                }
+
+                @Test
+                @DisplayName("default namespace to imported module")
+                fun defaultNamespaceToImportedModule() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://example.com/test";
+                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        () => func()
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
                 }
             }
 
