@@ -112,6 +112,12 @@ fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclara
     return defaultNamespace(XPathNamespaceType.DefaultFunction, true)
 }
 
+fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
+    return firstOrNull()?.let { decl ->
+        sequenceOf(XsQName(decl.namespaceUri, null, ncname.localName, false, ncname.element))
+    } ?: emptySequence()
+}
+
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XPathNamespaceType.Undefined
     return if (parentType === XQueryElementType.NAME_TEST)
@@ -127,16 +133,8 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null -> { // NCName
             when (getNamespaceType()) {
-                XPathNamespaceType.DefaultElementOrType -> {
-                    element!!.defaultElementOrTypeNamespace().firstOrNull()?.let { decl ->
-                        sequenceOf(XsQName(decl.namespaceUri, null, localName, false, element))
-                    } ?: emptySequence()
-                }
-                XPathNamespaceType.DefaultFunction -> {
-                    element!!.defaultFunctionNamespace().firstOrNull()?.let { decl ->
-                        sequenceOf(XsQName(decl.namespaceUri, null, localName, false, element))
-                    } ?: emptySequence()
-                }
+                XPathNamespaceType.DefaultElementOrType -> element!!.defaultElementOrTypeNamespace().expandNCName(this)
+                XPathNamespaceType.DefaultFunction -> element!!.defaultFunctionNamespace().expandNCName(this)
                 XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
                 else -> sequenceOf(this)
