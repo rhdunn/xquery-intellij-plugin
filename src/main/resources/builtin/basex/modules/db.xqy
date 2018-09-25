@@ -9,9 +9,9 @@ module namespace db = "http://basex.org/modules/db";
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("basex", "7.0") function db:system() as element(system) external;
-declare %a:since("basex", "7.0") function db:option($name as xs:string) as xs:string external;
+declare %a:since("basex", "9.0") function db:option($name as xs:string) as xs:string external;
 declare %a:since("basex", "7.0") function db:info($db as xs:string) as element(database) external;
-declare %a:since("basex", "7.0") function db:property($db as xs:string, $name as xs:string) as xs:anyAtomicType external;
+declare %a:since("basex", "8.6") function db:property($db as xs:string, $name as xs:string) as xs:anyAtomicType external;
 declare %a:since("basex", "7.0") function db:list() as xs:string* external;
 declare %a:since("basex", "7.0") function db:list($db as xs:string) as xs:string* external;
 declare %a:since("basex", "7.0") function db:list($db as xs:string, $path as xs:string) as xs:string* external;
@@ -34,8 +34,8 @@ declare %a:since("basex", "7.0") function db:attribute($db as xs:string, $string
 declare %a:since("basex", "7.0") function db:attribute($db as xs:string, $strings as xs:strings*, $name as xs:string) as attribute()* external;
 declare %a:since("basex", "7.2.1") function db:attribute-range($db as xs:string, $min as xs:string, $max as xs:string) as attribute()* external;
 declare %a:since("basex", "7.2.1") function db:attribute-range($db as xs:string, $min as xs:string, $max as xs:string, $name as xs:string) as attribute()* external;
-declare %a:since("basex", "7.0") function db:token($db as xs:string, $tokens as xs:string*) as attribute()* external;
-declare %a:since("basex", "7.0") function db:token($db as xs:string, $tokens as xs:string*, $name as xs:string) as attribute()* external;
+declare %a:since("basex", "8.4") function db:token($db as xs:string, $tokens as xs:string*) as attribute()* external;
+declare %a:since("basex", "8.4") function db:token($db as xs:string, $tokens as xs:string*, $name as xs:string) as attribute()* external;
 declare %a:since("basex", "7.5") function db:create($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.5") function db:create($db as xs:string, $inputs as item()*) as empty-sequence() external;
 declare %a:since("basex", "7.5") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*) as empty-sequence() external;
