@@ -55,11 +55,13 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     val VERSION_8_4: Version = ProductVersion("8.4", this)
     val VERSION_8_5: Version = ProductVersion("8.5", this)
     val VERSION_8_6: Version = ProductVersion("8.6", this)
+    val VERSION_9_0: Version = ProductVersion("9.0", this)
 
     override val versions: List<Version> = listOf(
         VERSION_8_4,
         VERSION_8_5,
-        VERSION_8_6
+        VERSION_8_6,
+        VERSION_9_0
     )
 
     val BASEX: Product = BaseXProduct("basex", "BaseX", this)
