@@ -19,23 +19,27 @@
       <li>Recognise Saxon <code>UnionType</code> constructs in <code>TypedMapTest</code> sequence types.</li>
       <li>Support <code>TupleType</code> constructs with names only, not associated sequence types.</li>
     </ol>
-    <p>Module Imports:</p>
+    <p>Module Import Resolution:</p>
     <ol>
       <li>Use project source roots to resolve module import URIs.</li>
       <li>Locate built-in definitions from <code>http://</code>-based <code>URILiteral</code> nodes.</li>
       <li>Resolve all location URIs in a <code>ModuleImport</code>, not just the first valid location.</li>
       <li>Resolve <code>ModuleImport</code> declarations that don't specify <code>at</code> paths.</li>
     </ol>
-    <p>References and Resolving:</p>
+    <p>EQName Resolution:</p>
     <ol>
       <li>
         Expand <code>NCName</code>-based <code>EQName</code> nodes, using the default element or function
         namespaces where appropriate.
       </li>
-      <li>Resolve <code>NamespaceDecl</code> declarations.</li>
-      <li>Resolve <code>DefaultNamespaceDecl</code> declarations.</li>
-      <li>Resolve <code>DirAttributeList</code> attributes.</li>
+      <li>Resolve EQNames bound to <code>NamespaceDecl</code> declarations.</li>
+      <li>Resolve EQNames bound to <code>DefaultNamespaceDecl</code> declarations.</li>
+      <li>Resolve EQNames bound to <code>DirAttributeList</code> attributes.</li>
+    </ol>
+    <p>Function Resolution:</p>
+    <ol>
       <li>Matching statically-known functions against expanded QNames.</li>
+      <li>Search the <code>MainModule</code>/<code>LibraryModule</code> prolog for function declarations.</li>
     </ol>
   ]]></change-notes>
 

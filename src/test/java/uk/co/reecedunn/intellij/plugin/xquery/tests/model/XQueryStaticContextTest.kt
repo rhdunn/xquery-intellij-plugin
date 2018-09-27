@@ -608,6 +608,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[1].arity, `is`(1))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
+
+                @Test
+                @DisplayName("main module prolog")
+                fun mainModuleProlog() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://example.co.uk/prolog";
+                        declare function test() { () };
+                        test()
+                        """
+                    )[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test"))
+                }
             }
 
             @Nested
@@ -707,8 +725,8 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("module prolog")
-                fun moduleProlog() {
+                @DisplayName("main module prolog")
+                fun mainModuleProlog() {
                     settings.implementationVersion = "w3c/1ed"
                     settings.XQueryVersion = "1.0"
 
@@ -802,6 +820,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[1].arity, `is`(1))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
+                }
+
+                @Test
+                @DisplayName("main module prolog")
+                fun mainModuleProlog() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://example.co.uk/prolog";
+                        declare function test() { () };
+                        test#0
+                        """
+                    )[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test"))
                 }
             }
 
@@ -902,8 +938,8 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("module prolog")
-                fun moduleProlog() {
+                @DisplayName("main module prolog")
+                fun mainModuleProlog() {
                     settings.implementationVersion = "w3c/1ed"
                     settings.XQueryVersion = "1.0"
 
@@ -997,6 +1033,24 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[1].arity, `is`(1))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
+                }
+
+                @Test
+                @DisplayName("main module prolog")
+                fun mainModuleProlog() {
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://example.co.uk/prolog";
+                        declare function test() { () };
+                        () => test()
+                        """
+                    )[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("test"))
                 }
             }
 
@@ -1097,8 +1151,8 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("module prolog")
-                fun moduleProlog() {
+                @DisplayName("main module prolog")
+                fun mainModuleProlog() {
                     settings.implementationVersion = "w3c/1ed"
                     settings.XQueryVersion = "1.0"
 
