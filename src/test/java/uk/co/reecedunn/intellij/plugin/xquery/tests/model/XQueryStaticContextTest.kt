@@ -574,6 +574,40 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
                 }
+
+                @Test
+                @DisplayName("default namespace to imported module with built-in functions")
+                fun defaultNamespaceToImportedModuleWithBuiltinFunctions() {
+                    settings.implementationVersion = "marklogic/v8.0"
+                    settings.XQueryVersion = "1.0-ml"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://marklogic.com/xdmp/json";
+                        import module namespace json = "http://marklogic.com/xdmp/json" at "/MarkLogic/json/json.xqy";
+                        transform-to-json(), (: imported function :)
+                        array() (: built-in function :)
+                        """
+                    ).drop(1)
+
+                    var decls = qname[0].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(2))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    decls = qname[1].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
+                }
             }
 
             @Nested
@@ -714,6 +748,40 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
                 }
+
+                @Test
+                @DisplayName("default namespace to imported module with built-in functions")
+                fun defaultNamespaceToImportedModuleWithBuiltinFunctions() {
+                    settings.implementationVersion = "marklogic/v8.0"
+                    settings.XQueryVersion = "1.0-ml"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://marklogic.com/xdmp/json";
+                        import module namespace json = "http://marklogic.com/xdmp/json" at "/MarkLogic/json/json.xqy";
+                        transform-to-json#0, (: imported function :)
+                        array#0 (: built-in function :)
+                        """
+                    ).drop(1)
+
+                    var decls = qname[0].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(2))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    decls = qname[1].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
+                }
             }
 
             @Nested
@@ -853,6 +921,40 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
+                }
+
+                @Test
+                @DisplayName("default namespace to imported module with built-in functions")
+                fun defaultNamespaceToImportedModuleWithBuiltinFunctions() {
+                    settings.implementationVersion = "marklogic/v8.0"
+                    settings.XQueryVersion = "1.0-ml"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare default function namespace "http://marklogic.com/xdmp/json";
+                        import module namespace json = "http://marklogic.com/xdmp/json" at "/MarkLogic/json/json.xqy";
+                        () => transform-to-json(), (: imported function :)
+                        () => array() (: built-in function :)
+                        """
+                    ).drop(1)
+
+                    var decls = qname[0].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(2))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    decls = qname[1].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
             }
 
