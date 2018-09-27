@@ -38,13 +38,15 @@ class NamedVersion(id: String, value: Double, val name: String, kind: Versioned)
     override fun toString(): String = kind.name + " " + name
 }
 
-class Specification(id: String,
-                    value: Double,
-                    @Suppress("UNUSED_PARAMETER") date: Int,
-                    val label: String,
-                    @Suppress("unused") val href: String,
-                    kind: Versioned) :
-        Version(id, value, kind) {
+class Specification(
+    id: String,
+    value: Double,
+    @Suppress("UNUSED_PARAMETER") date: Int,
+    val label: String,
+    @Suppress("unused") val href: String,
+    kind: Versioned
+) :
+    Version(id, value, kind) {
 
     override fun toString(): String = kind.name + " " + label
 }
@@ -71,10 +73,12 @@ abstract class Product(val id: String, val name: String, val implementation: Imp
     abstract fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned>
 }
 
-abstract class Implementation(override val id: String,
-                              override val name: String,
-                              @Suppress("unused") val vendorUri: String) :
-        Versioned {
+abstract class Implementation(
+    override val id: String,
+    override val name: String,
+    @Suppress("unused") val vendorUri: String
+) :
+    Versioned {
 
     abstract val products: List<Product>
 
@@ -90,7 +94,8 @@ var DIALECTS: List<Versioned> = listOf(
     // Vendor Dialects
     BaseX,
     MarkLogic,
-    Saxon)
+    Saxon
+)
 
 fun dialectById(id: CharSequence?): Versioned? = DIALECTS.firstOrNull { dialect -> dialect.id == id }
 
@@ -162,8 +167,8 @@ class VersionedProductId {
                     val versionId = parts[1].substring(1)
                     product = vendor!!.products[0]
                     version =
-                        vendor!!.versions.find { v -> v.id == versionId } ?:
-                        vendor!!.versions.find { v -> v.id == "$versionId.0" } // MarkLogic compatibility IDs (e.g. `v9`).
+                            vendor!!.versions.find { v -> v.id == versionId } ?:
+                            vendor!!.versions.find { v -> v.id == "$versionId.0" } // MarkLogic compatibility IDs (e.g. `v9`).
                 } else {
                     product = vendor!!.products.find { p -> p.id == parts[1] }
                 }

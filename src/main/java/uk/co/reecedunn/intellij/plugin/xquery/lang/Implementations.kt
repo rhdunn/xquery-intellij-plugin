@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 // region BaseX
 
-private class BaseXProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+private class BaseXProduct(id: String, name: String, implementation: Implementation) :
+    Product(id, name, implementation) {
+
     override fun toString(): String = name
 
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
@@ -26,7 +28,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
         XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 -> true
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
-        XQuery.CR_3_1_20151217  -> productVersion.value <= 8.5
+        XQuery.CR_3_1_20151217 -> productVersion.value <= 8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
         FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
@@ -57,33 +59,35 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override val versions: List<Version> = listOf(
         VERSION_8_4,
         VERSION_8_5,
-        VERSION_8_6)
+        VERSION_8_6
+    )
 
     val BASEX: Product = BaseXProduct("basex", "BaseX", this)
 
     override val products: List<Product> = listOf(BASEX)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this ||
-        dialect === FullText ||
-        dialect === UpdateFacility ||
-        dialect === XQuery
+        dialect === this || dialect === FullText || dialect === UpdateFacility || dialect === XQuery
 
-    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
-        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-            "res://www.w3.org/TR/xquery.xqy"
-        XQuery.REC_3_0_20140408 ->
-            "res://www.w3.org/TR/xquery-30.xqy"
-        XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-            "res://www.w3.org/TR/xquery-31.xqy"
-        else -> null
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        return when (xqueryVersion) {
+            XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+                "res://www.w3.org/TR/xquery.xqy"
+            XQuery.REC_3_0_20140408 ->
+                "res://www.w3.org/TR/xquery-30.xqy"
+            XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+                "res://www.w3.org/TR/xquery-31.xqy"
+            else -> null
+        }
     }
 }
 
 // endregion
 // region MarkLogic
 
-private class MarkLogicProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+private class MarkLogicProduct(id: String, name: String, implementation: Implementation) :
+    Product(id, name, implementation) {
+
     override fun toString(): String = name
 
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
@@ -125,7 +129,8 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
         VERSION_6_0,
         VERSION_7_0,
         VERSION_8_0,
-        VERSION_9_0)
+        VERSION_9_0
+    )
 
     val MARKLOGIC: Product = MarkLogicProduct("marklogic", "MarkLogic", this)
 
@@ -149,9 +154,10 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
 // endregion
 // region Saxon (Saxonica)
 
-private class SaxonProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+private class SaxonProduct(id: String, name: String, implementation: Implementation) :
+    Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = when (feature) {
-        // http://www.saxonica.com/products/feature-matrix-9-8.xml:
+    // http://www.saxonica.com/products/feature-matrix-9-8.xml:
         XQueryFeature.MINIMAL_CONFORMANCE, XQueryFeature.FULL_AXIS, XQueryFeature.MODULE, XQueryFeature.SERIALIZATION ->
             true
         XQueryFeature.HIGHER_ORDER_FUNCTION ->
@@ -167,7 +173,7 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
             true
         XQuery.REC_1_0_20070123 -> true
         XQuery.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
-        XQuery.CR_3_1_20151217  -> productVersion === Saxon.VERSION_9_7
+        XQuery.CR_3_1_20151217 -> productVersion === Saxon.VERSION_9_7
         XQuery.REC_3_1_20170321 -> productVersion.value >= 9.8
         UpdateFacility.REC_1_0_20110317 -> this !== Saxon.HE && this !== Saxon.PE
         FunctionsAndOperators.REC_1_0_20070123 -> true
@@ -209,7 +215,8 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
         VERSION_9_5,
         VERSION_9_6,
         VERSION_9_7,
-        VERSION_9_8)
+        VERSION_9_8
+    )
 
     val HE: Product = SaxonProduct("HE", "Home Edition", this)
     val PE: Product = SaxonProduct("PE", "Professional Edition", this)
@@ -223,14 +230,16 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override fun supportsDialect(dialect: Versioned): Boolean =
         dialect === this || dialect === UpdateFacility || dialect === XQuery
 
-    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
-        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-            "res://www.w3.org/TR/xquery.xqy"
-        XQuery.REC_3_0_20140408 ->
-            "res://www.w3.org/TR/xquery-30.xqy"
-        XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-            "res://www.w3.org/TR/xquery-31.xqy"
-        else -> null
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        return when (xqueryVersion) {
+            XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+                "res://www.w3.org/TR/xquery.xqy"
+            XQuery.REC_3_0_20140408 ->
+                "res://www.w3.org/TR/xquery-30.xqy"
+            XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+                "res://www.w3.org/TR/xquery-31.xqy"
+            else -> null
+        }
     }
 }
 
@@ -240,24 +249,26 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
 private class W3CProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
-    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
-            true
-        XQuery.REC_1_0_20070123, XQuery.REC_3_0_20140408, XQuery.REC_3_1_20170321 ->
-            productVersion === W3C.FIRST_EDITION
-        XQuery.REC_1_0_20101214 ->
-            productVersion === W3C.SECOND_EDITION
-        FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 ->
-            productVersion === W3C.FIRST_EDITION
-        UpdateFacility.REC_1_0_20110317, UpdateFacility.NOTE_3_0_20170124 ->
-            productVersion === W3C.FIRST_EDITION
-        Scripting.NOTE_1_0_20140918 ->
-            productVersion === W3C.FIRST_EDITION
-        FunctionsAndOperators.REC_1_0_20070123, FunctionsAndOperators.REC_3_0_20140408, FunctionsAndOperators.REC_3_1_20170321 ->
-            productVersion === W3C.FIRST_EDITION
-        FunctionsAndOperators.REC_1_0_20101214 ->
-            productVersion === W3C.SECOND_EDITION
-        else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean {
+        return when (ref) {
+            XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
+                true
+            XQuery.REC_1_0_20070123, XQuery.REC_3_0_20140408, XQuery.REC_3_1_20170321 ->
+                productVersion === W3C.FIRST_EDITION
+            XQuery.REC_1_0_20101214 ->
+                productVersion === W3C.SECOND_EDITION
+            FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 ->
+                productVersion === W3C.FIRST_EDITION
+            UpdateFacility.REC_1_0_20110317, UpdateFacility.NOTE_3_0_20170124 ->
+                productVersion === W3C.FIRST_EDITION
+            Scripting.NOTE_1_0_20140918 ->
+                productVersion === W3C.FIRST_EDITION
+            FunctionsAndOperators.REC_1_0_20070123, FunctionsAndOperators.REC_3_0_20140408, FunctionsAndOperators.REC_3_1_20170321 ->
+                productVersion === W3C.FIRST_EDITION
+            FunctionsAndOperators.REC_1_0_20101214 ->
+                productVersion === W3C.SECOND_EDITION
+            else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
+        }
     }
 
     @Suppress("PropertyName")
@@ -287,14 +298,16 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 
     override val products: List<Product> = listOf(SPECIFICATIONS)
 
-    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
-        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-            "res://www.w3.org/TR/xquery.xqy"
-        XQuery.REC_3_0_20140408 ->
-            "res://www.w3.org/TR/xquery-30.xqy"
-        XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-            "res://www.w3.org/TR/xquery-31.xqy"
-        else -> null
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        return when (xqueryVersion) {
+            XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+                "res://www.w3.org/TR/xquery.xqy"
+            XQuery.REC_3_0_20140408 ->
+                "res://www.w3.org/TR/xquery-30.xqy"
+            XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+                "res://www.w3.org/TR/xquery-31.xqy"
+            else -> null
+        }
     }
 }
 
@@ -309,7 +322,8 @@ val PRODUCTS: List<Product> = listOf(
     Saxon.EE_Q,
     Saxon.EE_T,
     Saxon.EE_V,
-    W3C.SPECIFICATIONS)
+    W3C.SPECIFICATIONS
+)
 
 fun defaultStaticContext(xquery: Specification?): String? = when (xquery) {
     XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
