@@ -705,6 +705,27 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
+
+                @Test
+                @DisplayName("module prolog")
+                fun moduleProlog() {
+                    settings.implementationVersion = "w3c/1ed"
+                    settings.XQueryVersion = "1.0"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare namespace e = "http://example.co.uk/prolog";
+                        declare function e:test() { () };
+                        e:test()
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("e:test"))
+                }
             }
         }
 
@@ -879,6 +900,27 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
+
+                @Test
+                @DisplayName("module prolog")
+                fun moduleProlog() {
+                    settings.implementationVersion = "w3c/1ed"
+                    settings.XQueryVersion = "1.0"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare namespace e = "http://example.co.uk/prolog";
+                        declare function e:test() { () };
+                        e:test#0
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("e:test"))
+                }
             }
         }
 
@@ -1052,6 +1094,27 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
+                }
+
+                @Test
+                @DisplayName("module prolog")
+                fun moduleProlog() {
+                    settings.implementationVersion = "w3c/1ed"
+                    settings.XQueryVersion = "1.0"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        declare namespace e = "http://example.co.uk/prolog";
+                        declare function e:test() { () };
+                        () => e:test()
+                        """
+                    )[1]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("e:test"))
                 }
             }
         }
