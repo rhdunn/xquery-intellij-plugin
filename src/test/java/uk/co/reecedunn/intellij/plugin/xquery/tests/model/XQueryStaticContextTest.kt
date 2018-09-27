@@ -620,6 +620,39 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 }
 
                 @Test
+                @DisplayName("module import with built-in functions")
+                fun moduleImportWithBuiltinFunctions() {
+                    settings.implementationVersion = "marklogic/v8.0"
+                    settings.XQueryVersion = "1.0-ml"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        import module namespace json = "http://marklogic.com/xdmp/json" at "/MarkLogic/json/json.xqy";
+                        json:transform-to-json(), (: imported function :)
+                        json:array() (: built-in function :)
+                        """
+                    ).drop(1)
+
+                    var decls = qname[0].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(2))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    decls = qname[1].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
+                }
+
+                @Test
                 @DisplayName("namespace")
                 fun namespace() {
                     settings.implementationVersion = "w3c/1ed"
@@ -727,6 +760,39 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 }
 
                 @Test
+                @DisplayName("module import with built-in functions")
+                fun moduleImportWithBuiltinFunctions() {
+                    settings.implementationVersion = "marklogic/v8.0"
+                    settings.XQueryVersion = "1.0-ml"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        import module namespace json = "http://marklogic.com/xdmp/json" at "/MarkLogic/json/json.xqy";
+                        json:transform-to-json#0, (: imported function :)
+                        json:array#0 (: built-in function :)
+                        """
+                    ).drop(1)
+
+                    var decls = qname[0].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(2))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    decls = qname[1].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
+                }
+
+                @Test
                 @DisplayName("namespace")
                 fun namespace() {
                     settings.implementationVersion = "w3c/1ed"
@@ -831,6 +897,39 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[0].arity, `is`(0))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
+                }
+
+                @Test
+                @DisplayName("module import with built-in functions")
+                fun moduleImportWithBuiltinFunctions() {
+                    settings.implementationVersion = "marklogic/v8.0"
+                    settings.XQueryVersion = "1.0-ml"
+
+                    val qname = parse<XPathEQName>(
+                        """
+                        import module namespace json = "http://marklogic.com/xdmp/json" at "/MarkLogic/json/json.xqy";
+                        () => json:transform-to-json(), (: imported function :)
+                        () => json:array() (: built-in function :)
+                        """
+                    ).drop(1)
+
+                    var decls = qname[0].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(2))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
+
+                    decls = qname[1].staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
                 @Test
