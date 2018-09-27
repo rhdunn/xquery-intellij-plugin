@@ -39,7 +39,7 @@ declare %a:since("basex", "8.4") function db:token($db as xs:string, $tokens as 
 declare %a:since("basex", "7.8") function db:create($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8") function db:create($db as xs:string, $inputs as item()*) as empty-sequence() external;
 declare %a:since("basex", "7.8") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*) as empty-sequence() external;
-declare %a:since("basex", "7.8") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*, $options as map(*)?) as empty-sequence() external;
+declare %a:since("basex", "7.8") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*, $options as map(*)? (: $options [7.8] as item() [8.2.1] as map(xs:string, xs:string) [8.2.3] as map(*) [8.6.7] as map(*)? :)) as empty-sequence() external;
 declare %a:since("basex", "7.8") function db:drop($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8") function db:add($db as xs:string, $input as item()) as empty-sequence() external;
 declare %a:since("basex", "7.8") function db:add($db as xs:string, $input as item(), $path as xs:string) as empty-sequence() external;
@@ -67,5 +67,6 @@ declare %a:since("basex", "7.8") function db:is-xml($db as xs:string, $path as x
 declare %a:since("basex", "7.8") function db:content-type($db as xs:string, $path as xs:string) as xs:string external;
 declare %a:since("basex", "7.8") %a:until("basex", "9.0") %a:see-also("basex", "9.0", "update:output") function db:output() external;
 declare %a:since("basex", "8.2") %a:until("basex", "9.0") %a:see-also("basex", "9.0", "update:cache") function db:output-cache() external;
-declare %a:since("basex", "7.8") function db:export() external;
+declare %a:since("basex", "7.8") function db:export($db as xs:string, $path as xs:string) as empty-sequence() external;
+declare %a:since("basex", "7.8") function db:export($db as xs:string, $path as xs:string, $params as item()) as empty-sequence() external;
 declare %a:since("basex", "7.8") %a:until("basex", "8.2") function db:event($name as xs:string, $query as item()) as empty-sequence() external;
