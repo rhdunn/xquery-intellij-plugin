@@ -210,12 +210,14 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     val VERSION_9_6: Version = ProductVersion("9.6", this)
     val VERSION_9_7: Version = ProductVersion("9.7", this)
     val VERSION_9_8: Version = ProductVersion("9.8", this)
+    val VERSION_9_9: Version = ProductVersion("9.9", this)
 
     override val versions: List<Version> = listOf(
         VERSION_9_5,
         VERSION_9_6,
         VERSION_9_7,
-        VERSION_9_8
+        VERSION_9_8,
+        VERSION_9_9
     )
 
     val HE: Product = SaxonProduct("HE", "Home Edition", this)
