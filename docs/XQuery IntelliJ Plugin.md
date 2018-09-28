@@ -18,6 +18,7 @@
     - [2.2.1 Part 1: Items](#221-part-1-items)
     - [2.2.2 Part 2: Simple and Complex Types](#222-part-2-simple-and-complex-types)
     - [2.2.3 Part 3: Atomic Types](#223-part-3-atomic-types)
+    - [2.2.4 Part 4: Sequences](#224-part-4-sequences)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -365,6 +366,33 @@ __xdm:wildcard__
 >
 > The unspecified prefix or local name of a `Wildcard` is an instance of
 > `xdm:wildcard`.
+
+##### 2.2.4 Part 4: Sequences
+\[Definition: The *lower bound* of a sequence type specifies the minimum number
+of values the sequence can contain.\] The value space is restricted to `0` and
+`1`.
+
+\[Definition: The *upper bound* of a sequence type specifies the maximum number
+of values the sequence can contain.\] The value space is restricted to `0`,
+`1`, and `n`. Here, `n` signifies *many* items, an unbounded number of items
+and is mapped to the maximum integer value.
+
+\[Definition: The *cardinality* of a sequence is the *lower bound* and *upper
+bound* pair.\] This constrains the number of items in the sequence.
+
+\[Definition: The *item type* of a sequence type is the single item type
+associated with the values in the sequence.\]
+
+The *lower bound*, *upper bound*, and *item type* values are mapped as follows:
+
+| Type        | lower bound | upper bound | item type     | Description             |
+|-------------|-------------|-------------|---------------|-------------------------|
+| `()`        | `0`         | `0`         | `xs:untyped`  | An empty sequence.      |
+| `T?`        | `0`         | `1`         | `T`           | An optional item.       |
+| `T*`        | `0`         | `n`         | `T`           | An optional sequence.   |
+| *list type* | `0`         | `n`         | *atomic type* | An XMLSchema list type. |
+| `T`         | `1`         | `1`         | `T`           | A single item.          |
+| `T+`        | `1`         | `n`         | `T`           | A sequence.             |
 
 ## 3 Expressions
 
