@@ -86,6 +86,7 @@ class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {
             }
         }
 
+        mVersion!!.renderer = VERSION_RENDERER
         mImplementationVersions!!.renderer = VERSION_RENDERER
 
         mDialectForXQuery1_0!!.renderer = VERSIONED_RENDERER

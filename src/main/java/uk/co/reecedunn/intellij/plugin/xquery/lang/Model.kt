@@ -50,9 +50,10 @@ class Specification(
     @Suppress("UNUSED_PARAMETER") date: Int,
     val label: String,
     @Suppress("unused") val href: String,
-    kind: Versioned
+    kind: Versioned,
+    features: String? = null
 ) :
-    Version(id, value, kind) {
+    Version(id, value, kind, features) {
 
     override fun toString(): String = kind.name + " " + label
 }
