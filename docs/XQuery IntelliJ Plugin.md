@@ -30,17 +30,17 @@
     - [3.6.1 Match Options](#361-match-options)
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
   - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
-  - [3.8 Maps and Arrays](#38-maps-and-arrays)
+  - [3.8 JSON Constructors](#38-json-constructors)
     - [3.8.1 Maps](#381-maps)
     - [3.8.2 Arrays](#382-arrays)
+    - [3.8.3 Booleans](#383-booleans)
+    - [3.8.4 Numbers](#384-numbers)
+    - [3.8.5 Nulls](#385-nulls)
   - [3.9 Path Expressions](#39-path-expressions)
     - [3.9.1 Axes](#391-axes)
   - [3.10 Validate Expressions](#310-validate-expressions)
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
   - [3.12 Binary Constructors](#312-binary-constructors)
-  - [3.13 Boolean Constructors](#313-boolean-constructors)
-  - [3.14 Number Constructors](#314-number-constructors)
-  - [3.15 Null Constructors](#315-null-constructors)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -540,7 +540,7 @@ This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
 
-### 3.8 Maps and Arrays
+### 3.8 JSON Constructors
 
 #### 3.8.1 Maps
 
@@ -563,6 +563,55 @@ From 9.7, the XQuery 3.1 syntax (`:`) is used.
 
 MarkLogic 8.0 uses the `array-node` keyword for defining JSON arrays. It does
 not support the square array style constructors.
+
+### 3.8.3 Booleans
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[50\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
+
+MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
+`false`) JSON values.
+
+A boolean constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  Otherwise, the result is a boolean node with the expression cast to
+    `xs:boolean` as its content. If the cast fails, an `err:FORG0001` (invalid
+    cast) error is raised.
+
+A boolean node follows the rules for casting from an `xs:boolean` type, using
+the content of the boolean node in the cast. However, a boolean node is not an
+instance of `xs:boolean`.
+
+### 3.8.4 Numbers
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[54\] | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |         |
+
+MarkLogic 8.0 provides `NumberTest` types for working with numeric JSON values.
+
+A numeric constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  Otherwise, the result is a number node with the expression cast to
+    `xs:double` as its content. If the cast fails, an `err:FORG0001` (invalid
+    cast) error is raised.
+
+A number node follows the rules for casting from an `xs:double` type, using
+the content of the number node in the cast. However, a number node is not an
+instance of `xs:double`.
+
+### 3.8.5 Nulls
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[58\] | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |         |
+
+MarkLogic 8.0 provides `NullTest` types for working with `null` JSON values.
+
+Null nodes are not removed from sequences, such as when used in arrays and maps.
 
 ### 3.9 Path Expressions
 
@@ -664,55 +713,6 @@ Casting from a binary node to a target type is performed as follows:
 1.  Otherwise, an `err:FORG0001` (invalid cast) error is raised.
 
 A binary node is not an instance of `xs:boolean`.
-
-### 3.13 Boolean Constructors
-
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[50\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
-
-MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
-`false`) JSON values.
-
-A boolean constructor is evaluated using the supplied content expression as
-follows:
-1.  If the expression is an empty sequence, the result is an empty sequence.
-1.  Otherwise, the result is a boolean node with the expression cast to
-    `xs:boolean` as its content. If the cast fails, an `err:FORG0001` (invalid
-    cast) error is raised.
-
-A boolean node follows the rules for casting from an `xs:boolean` type, using
-the content of the boolean node in the cast. However, a boolean node is not an
-instance of `xs:boolean`.
-
-### 3.14 Number Constructors
-
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[54\] | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |         |
-
-MarkLogic 8.0 provides `NumberTest` types for working with numeric JSON values.
-
-A numeric constructor is evaluated using the supplied content expression as
-follows:
-1.  If the expression is an empty sequence, the result is an empty sequence.
-1.  Otherwise, the result is a number node with the expression cast to
-    `xs:double` as its content. If the cast fails, an `err:FORG0001` (invalid
-    cast) error is raised.
-
-A number node follows the rules for casting from an `xs:double` type, using
-the content of the number node in the cast. However, a number node is not an
-instance of `xs:double`.
-
-### 3.15 Null Constructors
-
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[58\] | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |         |
-
-MarkLogic 8.0 provides `NullTest` types for working with `null` JSON values.
-
-Null nodes are not removed from sequences, such as when used in arrays and maps.
 
 ## 4 Modules and Prologs
 
@@ -1024,13 +1024,13 @@ in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays) \[MarkLogic 8.0\] -- JSON support
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
-1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
+1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#383-booleans) \[MarkLogic 8.0\] -- JSON support
 1.  [Document Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps) \[MarkLogic 8.0\] -- JSON support
 1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
-1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#315-null-constructors) \[MarkLogic 8.0\] -- JSON support
-1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
+1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#385-nulls) \[MarkLogic 8.0\] -- JSON support
+1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#384-numbers) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Text Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
