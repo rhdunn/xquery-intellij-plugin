@@ -77,9 +77,19 @@ Other supported IntelliJ features:
 2.  Paired brace matching.
 3.  Commenting code support.
 
+## Documents
+
+[XQuery IntelliJ Plugin](docs/XQuery%20IntelliJ%20Plugin.md) &mdash;
+The specification document for vendor and plugin extensions for XPath
+and XQuery supported by the XQuery IntelliJ Plugin.
+
+[XQuery IntelliJ Plugin Data Model](docs/XQuery%20IntelliJ%20Plugin%20Data%20Model.md)
+&mdash; The specification document for XPath and XQuery Data Model
+extensions used by the XQuery IntelliJ Plugin.
+
 ## License Information
 
-Copyright (C) 2016-2017 Reece H. Dunn
+Copyright (C) 2016-2018 Reece H. Dunn
 
 The IntelliJ XQuery Plugin is licensed under the [Apache 2.0](LICENSE)
 license.
