@@ -216,6 +216,7 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     val VERSION_9_9: Version = ProductVersion("9.9", this, "\$object?function(), orElse, andAlso, f{.}")
 
     override val versions: List<Version> = listOf(
+        VERSION_9_4,
         VERSION_9_5,
         VERSION_9_6,
         VERSION_9_7,
