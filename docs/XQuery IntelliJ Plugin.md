@@ -232,18 +232,18 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 
 #### 2.2.1 Part 1: Items
 
-<pre><code>item
-├─── node
-│    ├─── attribute
+<pre><code>item()
+├─── node()
+│    ├─── attribute()
 │    │    └─── <em>user-defined attribute types</em>
-│    ├─── document
+│    ├─── document-node()
 │    │    └─── <em>document types with more precise content type</em>
-│    ├─── element
+│    ├─── element()
 │    │    └─── <em>user-defined element types</em>
-│    ├─── comment
-│    ├─── namespace
-│    ├─── processing-instruction
-│    └─── text
+│    ├─── comment()
+│    ├─── namespace-node()
+│    ├─── processing-instruction()
+│    └─── text()
 ├──── function(*)
 │    ├─── map(*)
 │    └─── array(*)
