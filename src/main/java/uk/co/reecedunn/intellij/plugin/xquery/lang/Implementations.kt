@@ -28,7 +28,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
         XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 -> true
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
-        XQuery.CR_3_1_20151217 -> productVersion.value <= 8.5
+        XQuery.CR_3_1_20151217 -> productVersion.value in 8.2..8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
         FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
@@ -59,6 +59,9 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     val VERSION_9_0: Version = ProductVersion("9.0", this)
 
     override val versions: List<Version> = listOf(
+        VERSION_6_1,
+        VERSION_7_7,
+        VERSION_7_8,
         VERSION_8_4,
         VERSION_8_5,
         VERSION_8_6,
