@@ -450,7 +450,7 @@ class ModelTest {
                 // endregion
                 // region Specification: XQuery
 
-                assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(false))
+                assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(true))
                 assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(false))
                 assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(version.value >= 7.7))
                 assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(version.value in 8.2..8.5))
@@ -776,17 +776,20 @@ class ModelTest {
             for (version in BaseX.versions) {
                 xquery = XQuery.versionsFor(product, version)
                 if (version.value < 7.7) {
-                    assertThat(xquery.size, `is`(0))
-                } else if (version.value < 8.2) {
                     assertThat(xquery.size, `is`(1))
-                    assertThat(xquery[0], `is`(XQuery.REC_3_0_20140408))
-                } else {
+                    assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+                } else if (version.value < 8.2) {
                     assertThat(xquery.size, `is`(2))
-                    assertThat(xquery[0], `is`(XQuery.REC_3_0_20140408))
+                    assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+                    assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+                } else {
+                    assertThat(xquery.size, `is`(3))
+                    assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+                    assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
                     if (version.value <= 8.5) {
-                        assertThat(xquery[1], `is`(XQuery.CR_3_1_20151217))
+                        assertThat(xquery[2], `is`(XQuery.CR_3_1_20151217))
                     } else {
-                        assertThat(xquery[1], `is`(XQuery.REC_3_1_20170321))
+                        assertThat(xquery[2], `is`(XQuery.REC_3_1_20170321))
                     }
                 }
             }
@@ -1023,7 +1026,7 @@ class ModelTest {
     fun testBaseX_VersionForXQuery() {
         for (product in BaseX.products) {
             for (version in BaseX.versions) {
-                assertThat(XQuery.versionForXQuery(product, version, "1.0"), `is`(nullValue()))
+                assertThat(XQuery.versionForXQuery(product, version, "1.0"), `is`(XQuery.REC_1_0_20070123))
                 if (version.value < 7.7)
                     assertThat(XQuery.versionForXQuery(product, version, "3.0"), `is`(nullValue()))
                 else

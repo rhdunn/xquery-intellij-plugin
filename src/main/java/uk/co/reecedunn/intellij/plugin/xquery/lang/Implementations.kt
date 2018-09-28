@@ -27,6 +27,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
         XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 -> true
+        XQuery.REC_1_0_20070123 -> true // Recognises 1.0, processes as 3.0/3.1.
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuery.CR_3_1_20151217 -> productVersion.value in 8.2..8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
