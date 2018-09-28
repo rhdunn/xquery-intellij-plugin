@@ -47,6 +47,11 @@
   - [4.2 Annotations](#42-annotations)
   - [4.3 Stylesheet Import](#43-stylesheet-import)
   - [4.4 Transactions](#44-transactions)
+- [5 Type Manipulation](#5-type-manipulation)
+  - [5.1 Upper and Lower Bounds](#51-upper-and-lower-bounds)
+    - [5.1.1 Minimum of two bounds](#511-minimum-of-two-bounds)
+    - [5.1.2 Maximum of two bounds](#512-maximum-of-two-bounds)
+    - [5.1.3 Sum of two bounds](#513-sum-of-two-bounds)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
   - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
@@ -819,6 +824,47 @@ Unlike Scripting Extensions, MarkLogic transactions have a separate prolog for
 each transaction. Due to the way the syntax is constructed, MarkLogic
 transactions without a prolog will be parsed according to the Scripting Extension
 syntax.
+
+## 5 Type Manipulation
+
+### 5.1 Upper and Lower Bounds
+
+#### 5.1.1 Minimum of two bounds
+The minimum of two bounds is determined by taking the minimum numerical value
+of each bound, and converting the result back to a bound. This gives the
+following results:
+
+|     | `0` | `1` | `n` |
+|-----|-----|-----|-----|
+| `0` | `0` | `0` | `0` |
+| `1` | `0` | `1` | `1` |
+| `n` | `0` | `1` | `n` |
+
+#### 5.1.2 Maximum of two bounds
+The maximum of two bounds is determined by taking the maximum numerical value
+of each bound, and converting the result back to a bound. This gives the
+following results:
+
+|     | `0` | `1` | `n` |
+|-----|-----|-----|-----|
+| `0` | `0` | `1` | `n` |
+| `1` | `1` | `1` | `n` |
+| `n` | `n` | `n` | `n` |
+
+#### 5.1.3 Sum of two bounds
+The sum of two bounds `Ab` and `Bb` is computed using the following rules:
+1.  If `Ab` and `Bb` are `0`, the sum is `0`.
+1.  If `Ab` is `1` and `Bb` is `0`, the sum is `1`.
+1.  If `Ab` is `0` and `Bb` is `1`, the sum is `1`.
+1.  Otherwise, the sum is `n`.
+
+This gives the following results:
+
+|     | `0` | `1` | `n` |
+|-----|-----|-----|-----|
+| `0` | `0` | `1` | `n` |
+| `1` | `1` | `n` | `n` |
+| `n` | `n` | `n` | `n` |
 
 ## A XQuery IntelliJ Plugin Grammar
 
