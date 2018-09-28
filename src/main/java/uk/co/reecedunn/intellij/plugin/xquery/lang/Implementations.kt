@@ -50,11 +50,12 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
 }
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
-    val VERSION_6_1: Version = ProductVersion("6.1", this) // Conformance with Update Facility and Full Text.
-    val VERSION_7_8: Version = ProductVersion("7.8", this) // Introduction of the BaseX UpdateExpr.
-    val VERSION_8_4: Version = ProductVersion("8.4", this)
-    val VERSION_8_5: Version = ProductVersion("8.5", this)
-    val VERSION_8_6: Version = ProductVersion("8.6", this)
+    val VERSION_6_1: Version = ProductVersion("6.1", this, "Update Facility, Full Text, fuzzy")
+    val VERSION_7_7: Version = ProductVersion("7.7", this, "XQuery 3.0 REC")
+    val VERSION_7_8: Version = ProductVersion("7.8", this, "update")
+    val VERSION_8_4: Version = ProductVersion("8.4", this, "non-deterministic")
+    val VERSION_8_5: Version = ProductVersion("8.5", this, "update {}")
+    val VERSION_8_6: Version = ProductVersion("8.6", this, "XQuery 3.1 REC")
     val VERSION_9_0: Version = ProductVersion("9.0", this)
 
     override val versions: List<Version> = listOf(
@@ -122,10 +123,10 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
     val VERSION_4_0: Version = ProductVersion("4.0", this) // Introduction of the 1.0-ml syntax.
-    val VERSION_6_0: Version = ProductVersion("6.0", this)
-    val VERSION_7_0: Version = ProductVersion("7.0", this)
-    val VERSION_8_0: Version = ProductVersion("8.0", this)
-    val VERSION_9_0: Version = ProductVersion("9.0", this)
+    val VERSION_6_0: Version = ProductVersion("6.0", this, "property::, namespace::, binary, transactions, etc.")
+    val VERSION_7_0: Version = ProductVersion("7.0", this, "schema kind tests")
+    val VERSION_8_0: Version = ProductVersion("8.0", this, "json kind tests and constructors, schema-facet()")
+    val VERSION_9_0: Version = ProductVersion("9.0", this, "=>")
 
     override val versions: List<Version> = listOf(
         VERSION_6_0,
@@ -207,12 +208,12 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
 }
 
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
-    val VERSION_9_4: Version = ProductVersion("9.4", this) // Introduction of the `map` vendor extension in XQuery 3.0
-    val VERSION_9_5: Version = ProductVersion("9.5", this)
-    val VERSION_9_6: Version = ProductVersion("9.6", this)
-    val VERSION_9_7: Version = ProductVersion("9.7", this)
-    val VERSION_9_8: Version = ProductVersion("9.8", this)
-    val VERSION_9_9: Version = ProductVersion("9.9", this)
+    val VERSION_9_4: Version = ProductVersion("9.4", this, "map")
+    val VERSION_9_5: Version = ProductVersion("9.5", this, "XQuery 3.0 REC (not HE)")
+    val VERSION_9_6: Version = ProductVersion("9.6", this, "XQuery 3.0 REC (HE)")
+    val VERSION_9_7: Version = ProductVersion("9.7", this, "XQuery 3.1 REC")
+    val VERSION_9_8: Version = ProductVersion("9.8", this, "tuple(), union(), declare type")
+    val VERSION_9_9: Version = ProductVersion("9.9", this, "\$object?function(), orElse, andAlso, f{.}")
 
     override val versions: List<Version> = listOf(
         VERSION_9_5,

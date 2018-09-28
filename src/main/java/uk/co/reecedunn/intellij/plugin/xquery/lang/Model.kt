@@ -28,10 +28,16 @@ interface Versioned {
     fun supportsDialect(dialect: Versioned): Boolean = dialect === this
 }
 
-sealed class Version(val id: String, val value: Double, val kind: Versioned)
+sealed class Version(val id: String, val value: Double, val kind: Versioned, val features: String? = null) {
+    fun toFeatureString(): String {
+        return features?.let { "$this - $it" } ?: toString()
+    }
+}
 
-internal class ProductVersion(id: String, kind: Versioned) : Version(id, id.toDouble(), kind) {
-    override fun toString(): String = kind.name + " " + id
+internal class ProductVersion(id: String, kind: Versioned, features: String? = null) :
+    Version(id, id.toDouble(), kind, features) {
+
+    override fun toString(): String = "${kind.name} $id"
 }
 
 class NamedVersion(id: String, value: Double, val name: String, kind: Versioned) : Version(id, value, kind) {

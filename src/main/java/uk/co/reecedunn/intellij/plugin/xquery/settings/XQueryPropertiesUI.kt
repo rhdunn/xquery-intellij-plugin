@@ -69,6 +69,15 @@ class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {
         mDialectForXQuery3_1!!.name = "DialectForXQuery3.1"
 
         @Suppress("LocalVariableName")
+        val VERSION_RENDERER = object : ColoredListCellRenderer<Version>() {
+            override fun customizeCellRenderer(list: JList<out Version>, value: Version?, index: Int, selected: Boolean, hasFocus: Boolean) {
+                if (value != null) {
+                    append(value.toFeatureString())
+                }
+            }
+        }
+
+        @Suppress("LocalVariableName")
         val VERSIONED_RENDERER = object : ColoredListCellRenderer<Versioned>() {
             override fun customizeCellRenderer(list: JList<out Versioned>, value: Versioned?, index: Int, selected: Boolean, hasFocus: Boolean) {
                 if (value != null) {
@@ -76,6 +85,9 @@ class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {
                 }
             }
         }
+
+        mImplementationVersions!!.renderer = VERSION_RENDERER
+
         mDialectForXQuery1_0!!.renderer = VERSIONED_RENDERER
         mDialectForXQuery3_0!!.renderer = VERSIONED_RENDERER
         mDialectForXQuery3_1!!.renderer = VERSIONED_RENDERER
