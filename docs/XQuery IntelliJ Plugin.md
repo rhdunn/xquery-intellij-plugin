@@ -127,9 +127,11 @@ A `UnionType` defines a union type whose members are the `QName` types listed
 in the type definition. These types are restricted to being atomic types (that
 is, they cannot be list, union, or other complex types).
 
-For example, `xs:numeric` can be defined as:
-
-    declare type xs:numeric = union(xs:float, xs:double, xs:decimal);
+> __Example:__
+>
+> `xs:numeric` can be defined as:
+>
+>     declare type xs:numeric = union(xs:float, xs:double, xs:decimal);
 
 ##### 2.1.2.2 Tuple Type
 
@@ -436,11 +438,12 @@ This plugin follows the precedence of `CastExpr`, `TransformWithExpr`, and
 While XQuery 3.1 with UpdateFacility 3.0 is not an official W3C combination,
 it is supported by BaseX.
 
-This allows arrow expressions to be combined with transform with expressions
-like in the following example:
-
-    <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
-    (: returns: <test>ipsum</test> :)
+> __Example:__
+>
+> Arrow expressions can be combined with `transform with` expressions, such as:
+>
+>     <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
+>     (: returns: <test>ipsum</test> :)
 
 ### 3.4 Block Expressions
 
@@ -459,17 +462,20 @@ This follows the grammar production pattern used in other constructs like
 | \[11\] | `AndExpr`               | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
 | \[12\] | `UpdateExpr`            | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 
-BaseX 7.8 supports update expressions with a single inline expression. For
-example:
+BaseX 7.8 supports update expressions with a single inline expression.
 
-    <text>hello</text> update rename node . as "test"
-    (: returns: <test>hello</test> :)
+> __Example:__
+>
+>     <text>hello</text> update rename node . as "test"
+>     (: returns: <test>hello</test> :)
 
 BaseX 8.5 extends this to support multiple update operations in a block
-expression. For example:
+expression.
 
-    <text>hello</text> update { rename node . as "test" }
-    (: returns: <test>hello</test> :)
+> __Example:__
+>
+>     <text>hello</text> update { rename node . as "test" }
+>     (: returns: <test>hello</test> :)
 
 > __Note__
 >
@@ -484,10 +490,12 @@ expression. For example:
 > ```N update (A update B)```
 
 The update expression is optional. If it is missing, the update expression has
-no effect:
+no effect.
 
-    <text>hello</text> update (), <text>hello</text> update {}
-    (: returns: ( <text>hello</text>, <text>hello</text> ) :)
+> __Example:__
+>
+>     <text>hello</text> update (), <text>hello</text> update {}
+>     (: returns: ( <text>hello</text>, <text>hello</text> ) :)
 
 The expressions on the right hand side of the update expression must either be
 an `empty-sequence()`, or an updating expression. If this is not the case, an
