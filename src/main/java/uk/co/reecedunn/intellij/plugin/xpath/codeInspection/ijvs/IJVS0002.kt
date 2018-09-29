@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -40,18 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {
-    private fun getLocalName(name: XPathEQName?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
-        if (name != null && name.node.elementType === XQueryElementType.NCNAME) {
-            val localname = name.firstChild
-            val type = localname.node.elementType
-            if (type is IXQueryKeywordOrNCNameType) {
-                return Pair(localname, type.keywordType)
-            }
-        }
-        return null
-    }
-
+class IJVS0002 : Inspection("ijvs/IJVS0002.md") {
     private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
         if (name != null && name.isLexicalQName && name.prefix == null) {
             val localname = name.localName?.element!!

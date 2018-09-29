@@ -83,7 +83,8 @@ not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
 *  `error = http://marklogic.com/xdmp/error`
-*  `wrn = http://reecedunn.co.uk/xquery/xqt-warnings`
+*  `ije = http://reecedunn.co.uk/xquery/xqt-errors`
+*  `ijw = http://reecedunn.co.uk/xquery/xqt-warnings`
 *  `xdm = http://reecedunn.co.uk/xquery-datamodel`
 
 ### 2.1 Types
@@ -919,6 +920,12 @@ in this document:
 
 ### D.1 Vendor-Specific Behaviour
 
-__wrn:IJVS0001__
+__ijw:IJVS0001__
 > It is a *static warning* if the query contains any constructs that are not
 > supported by the XQuery processor.
+
+__ije:IJVS0002__
+> It is a *static error* if an unprefixed function name contains a reserved
+> function name for constructs supported by the XQuery processor.
+>
+> See [A.3 Reserved Function Names](#a3-reserved-function-names).

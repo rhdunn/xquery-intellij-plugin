@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
+import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - Error and Warning Conditions")
@@ -313,6 +314,290 @@ private class PluginInspectionTest : InspectionTestCase() {
                         `is`("XPST0003: Saxon 9.5 does not support MarkLogic 7.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("IJVS0002 - reserved function name")
+        internal inner class IJVS0002Test {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+            internal inner class FunctionCall {
+                @Nested
+                @DisplayName("MarkLogic 8.0 reserved function names")
+                internal inner class MarkLogic80 {
+                    @Test
+                    @DisplayName("in XQuery 1.0")
+                    fun testFunctionCall_MarkLogic80ReservedFunctionName_XQuery10() {
+                        settings.implementationVersion = "w3c/spec/v1ed"
+                        val file =
+                            parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in MarkLogic 7.0")
+                    fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic70() {
+                        settings.implementationVersion = "marklogic/v7"
+                        val file =
+                            parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in MarkLogic 8.0")
+                    fun testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic80() {
+                        settings.implementationVersion = "marklogic/v8"
+                        val file =
+                            parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(1))
+
+                        assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                        assertThat(
+                            problems[0].descriptionTemplate,
+                            `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name.")
+                        )
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XQuery Scripting Extension 1.0 reserved function names")
+                internal inner class Scripting10 {
+                    @Test
+                    @DisplayName("in XQuery 1.0")
+                    fun testFunctionCall_Scripting10ReservedFunctionName_XQuery10() {
+                        settings.implementationVersion = "saxon/HE/v9.5"
+                        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in Scripting Extension 1.0")
+                    fun testFunctionCall_Scripting10ReservedFunctionName_W3C() {
+                        settings.implementationVersion = "w3c/spec/v1ed"
+                        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(1))
+
+                        assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                        assertThat(
+                            problems[0].descriptionTemplate,
+                            `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
+                        )
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+            internal inner class FunctionDecl {
+                @Nested
+                @DisplayName("MarkLogic 8.0 reserved function names")
+                internal inner class MarkLogic80 {
+                    @Test
+                    @DisplayName("in XQuery 1.0")
+                    fun testFunctionDecl_MarkLogic80ReservedFunctionName_XQuery10() {
+                        settings.implementationVersion = "w3c/spec/v1ed"
+                        val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in MarkLogic 7.0")
+                    fun testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic70() {
+                        settings.implementationVersion = "marklogic/v7"
+                        val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in MarkLogic 8.0")
+                    fun testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic80() {
+                        settings.implementationVersion = "marklogic/v8"
+                        val file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(1))
+
+                        assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                        assertThat(
+                            problems[0].descriptionTemplate,
+                            `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name.")
+                        )
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XQuery Scripting Extension 1.0 reserved function names")
+                internal inner class Scripting10 {
+                    @Test
+                    @DisplayName("in XQuery 1.0")
+                    fun testFunctionDecl_Scripting10ReservedFunctionName_XQuery10() {
+                        settings.implementationVersion = "saxon/HE/v9.5"
+                        val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in Scripting Extension 1.0")
+                    fun testFunctionDecl_Scripting10ReservedFunctionName_W3C() {
+                        settings.implementationVersion = "w3c/spec/v1ed"
+                        val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(1))
+
+                        assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                        assertThat(
+                            problems[0].descriptionTemplate,
+                            `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
+                        )
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+            internal inner class NamedFunctionRef {
+                @Test
+                @DisplayName("XQuery 1.0 reserved function names")
+                fun testNamedFunctionRef_XQuery10ReservedFunctionName() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0002()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: Reserved XQuery 1.0 keyword used as a function name.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_IF))
+                }
+
+                @Test
+                @DisplayName("XQuery 3.0 reserved function names")
+                fun testNamedFunctionRef_XQuery30ReservedFunctionName() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0002()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: Reserved XQuery 3.0 keyword used as a function name.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
+                }
+
+                @Nested
+                @DisplayName("XQuery Scripting Extension 1.0 reserved function names")
+                internal inner class Scripting10 {
+                    @Test
+                    @DisplayName("in XQuery 1.0")
+                    fun testNamedFunctionRef_Scripting10ReservedFunctionName_XQuery10() {
+                        settings.implementationVersion = "saxon/HE/v9.5"
+                        val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("in Scripting Extension 1.0")
+                    fun testNamedFunctionRef_Scripting10ReservedFunctionName_W3C() {
+                        settings.implementationVersion = "w3c/spec/v1ed"
+                        val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
+
+                        val problems = inspect(
+                            file,
+                            IJVS0002()
+                        )
+                        assertThat(problems, `is`(notNullValue()))
+                        assertThat(problems!!.size, `is`(1))
+
+                        assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                        assertThat(
+                            problems[0].descriptionTemplate,
+                            `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
+                        )
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
+                    }
                 }
             }
         }
