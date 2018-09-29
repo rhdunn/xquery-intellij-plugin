@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -30,14 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-/** Checks non-XQuery 1.0 constructs against the selected implementation.
- *
- * Constructs that are not in the base XQuery 1.0 syntax implement the
- * [uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance]
- * interface to determine if the construct is valid for the given XQuery
- * implementation and associated dialect.
- */
-class UnsupportedConstructInspection : Inspection("ijst/IJST0001.md") {
+class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

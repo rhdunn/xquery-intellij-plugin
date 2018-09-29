@@ -75,7 +75,7 @@
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0001" hasStaticDescription="true"
                      enabledByDefault="true" level="WARNING"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.UnsupportedConstructInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001"/>
     <localInspection language="XQuery" shortName="IJVS0002" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0002" hasStaticDescription="true"

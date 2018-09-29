@@ -55,6 +55,8 @@
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
   - [C.2 MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
   - [C.3 Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
+- [D Error and Warning Conditions](#d-error-and-warning-conditions)
+  - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
 ## 1 Introduction
 The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
@@ -81,6 +83,7 @@ not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
 *  `error = http://marklogic.com/xdmp/error`
+*  `wrn = http://reecedunn.co.uk/xquery/xqt-warnings`
 *  `xdm = http://reecedunn.co.uk/xquery-datamodel`
 
 ### 2.1 Types
@@ -911,3 +914,11 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+
+## D Error and Warning Conditions
+
+### D.1 Vendor-Specific Behaviour
+
+__wrn:IJVS0001__
+> It is a *static warning* if the query contains any constructs that are not
+> supported by the XQuery processor.
