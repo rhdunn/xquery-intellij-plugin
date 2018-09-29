@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
-@DisplayName("Helper Class - CharacterClass")
+@DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - CharacterClass")
 class CharacterClassTest {
     @Test
     @DisplayName("XQuery 1.0 EBNF (157) Char ; XML 1.0 EBNF (2) Char")

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
-@DisplayName("Helper Class - ByteSequence")
+@DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - ByteSequence")
 class ByteSequenceTest {
     @Test
     @DisplayName("byte sequences")

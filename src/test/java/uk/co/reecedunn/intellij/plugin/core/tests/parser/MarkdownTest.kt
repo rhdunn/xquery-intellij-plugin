@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This tests the Markdown generation to ensure that it is consistent.
-@DisplayName("Helper Class - Markdown")
+@DisplayName("IntelliJ - Custom Language Support - Code Inspections and Intentions - Markdown")
 class MarkdownTest {
     @Test
     @DisplayName("paragraph; single line")

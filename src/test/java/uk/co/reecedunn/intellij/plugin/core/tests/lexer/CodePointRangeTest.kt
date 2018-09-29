@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
-@DisplayName("Helper Class - CodePointRange")
+@DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - CodePointRange")
 class CodePointRangeTest {
     @Test
     @DisplayName("empty buffer")

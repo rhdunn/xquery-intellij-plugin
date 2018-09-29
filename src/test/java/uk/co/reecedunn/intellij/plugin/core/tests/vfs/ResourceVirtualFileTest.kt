@@ -28,7 +28,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringWriter
 
-@DisplayName("Helper Class - ResourceVirtualFile")
+@DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
 class ResourceVirtualFileTest {
     @Throws(IOException::class)
     private fun streamToString(stream: InputStream): String {
