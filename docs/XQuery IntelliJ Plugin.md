@@ -936,3 +936,9 @@ __ije:IJVS0003__
 >
 > Standard conforming processors only support XML entity names. MarkLogic
 > allows HTML4 and HTML5 entity names in addition to the XML entity names.
+
+__ije:IJVS0004__
+> It is a *static error* if `:=` is used to separate map keys and values on
+> an XQuery 3.1 conforming XQuery processor.
+>
+> The `:=` separator is used by older versions of the Saxon XQuery processor.

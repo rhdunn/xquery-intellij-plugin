@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
+import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004
 
 // region XML Entities
 
@@ -2963,6 +2964,161 @@ private class PluginInspectionTest : InspectionTestCase() {
                         "XPST0003: Predefined entity '&", ";' is not a known entity name.",
                         ProblemHighlightType.ERROR
                     )
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("IJVS0004 - map separator operator")
+        internal inner class IJVS0004Test {
+            @Nested
+            @DisplayName("XQuery 3.1")
+            internal inner class XQuery31 {
+                @Test
+                @DisplayName("XQuery ':' assignment operator")
+                fun testXQuery31_Map_XQuerySeparator() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+                    val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("Saxon ':=' assignment operator")
+                fun testXQuery31_Map_SaxonSeparator() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+                    val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                }
+
+                @Test
+                @DisplayName("missing assignment operator")
+                fun testXQuery31_Map_NoValueAssignmentOperator() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_3_1_20170321.label
+                    val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+            }
+
+            @Nested
+            @DisplayName("Saxon 9.4")
+            internal inner class Saxon94 {
+                @Test
+                @DisplayName("Saxon ':=' assignment operator")
+                fun testSaxon94_Map_SaxonSeparator() {
+                    settings.implementationVersion = "saxon/EE/v9.5"
+                    settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+                    val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("XQuery ':' assignment operator")
+                fun testSaxon94_Map_XQuerySeparator() {
+                    settings.implementationVersion = "saxon/EE/v9.5"
+                    settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+                    val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
+                }
+
+                @Test
+                @DisplayName("missing assignment operator")
+                fun testSaxon94_Map_NoValueAssignmentOperator() {
+                    settings.implementationVersion = "saxon/EE/v9.5"
+                    settings.XQueryVersion = XQuery.REC_3_0_20140408.label
+                    val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+            }
+
+            @Nested
+            @DisplayName("MarkLogic 8.0")
+            internal inner class MarkLogic80 {
+                @Test
+                @DisplayName("MarkLogic ':' assignment operator")
+                fun testMarkLogic80_ObjectNode_MarkLogicSeparator() {
+                    settings.implementationVersion = "marklogic/v8"
+                    val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("Saxon ':=' assignment operator")
+                fun testMarkLogic80_ObjectNode_SaxonSeparator() {
+                    settings.implementationVersion = "marklogic/v8"
+                    val file = parseResource("tests/psi/marklogic-8.0/MapConstructorEntry_SaxonSeparator.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0004()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
                 }
             }
         }

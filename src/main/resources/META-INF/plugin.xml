@@ -90,7 +90,7 @@
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0004" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.MapConstructorEntryInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004"/>
     <localInspection language="XQuery" shortName="IJVS0005" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0005" hasStaticDescription="true"

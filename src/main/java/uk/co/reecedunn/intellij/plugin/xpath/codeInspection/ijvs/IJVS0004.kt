@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -33,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-class MapConstructorEntryInspection : Inspection("ijst/IJST0004.md") {
+class IJVS0004 : Inspection("ijvs/IJVS0004.md") {
     private fun conformsTo(element: XPathMapConstructorEntry, productVersion: Version?): Boolean {
         val conformanceElement = element.separator
         if (conformanceElement === element.firstChild) {
