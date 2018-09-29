@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 @file:Suppress("PackageName")
 
-package uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -23,41 +23,41 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-class FinalStatementSemicolonInspection : Inspection("ijst/IJST0005.md") {
+class MapConstructorEntryInspection : Inspection("ijst/IJST0004.md") {
+    private fun conformsTo(element: XPathMapConstructorEntry, productVersion: Version?): Boolean {
+        val conformanceElement = element.separator
+        if (conformanceElement === element.firstChild) {
+            return true
+        }
+        val isSaxonExtension =
+            productVersion?.kind === Saxon && productVersion.value >= 9.4 && productVersion.value <= 9.7
+        return conformanceElement.node.elementType === XQueryTokenType.ASSIGN_EQUAL == isSaxonExtension
+    }
+
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
-        val product = settings.product
-        val productVersion = settings.productVersion
-        val requiresSemicolon = product.conformsTo(productVersion, Scripting.NOTE_1_0_20140918)
+        val productVersion: Version = settings.productVersion
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun (element) {
-            if (element.parent.node.elementType === XQueryElementType.FILE)
-                return
-
-            if (element.siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() !== null)
-                return
-
-            val haveSemicolon = element.firstChild !== null
-            if (haveSemicolon != requiresSemicolon && requiresSemicolon) {
-                val context = if (element.firstChild === null) file.findElementAt(element.textOffset - 1)!! else element
-                val description = XQueryBundle.message("inspection.XPST0003.final-statement-semicolon.required", Scripting.NOTE_1_0_20140918)
+        file.walkTree().filterIsInstance<XPathMapConstructorEntry>().forEach { element ->
+            if (!conformsTo(element, productVersion)) {
+                val context = element.separator
+                val description = XQueryBundle.message("inspection.XPST0003.map-constructor-entry.message")
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
             }
-        })
+        }
         return descriptors.toTypedArray()
     }
 }

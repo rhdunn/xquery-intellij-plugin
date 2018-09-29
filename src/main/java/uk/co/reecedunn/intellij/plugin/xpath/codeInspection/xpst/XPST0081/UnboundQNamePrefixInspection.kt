@@ -15,7 +15,7 @@
  */
 @file:Suppress("PackageName")
 
-package uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix

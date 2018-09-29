@@ -15,13 +15,12 @@
  */
 @file:Suppress("PackageName")
 
-package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003
 
 import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.InspectionTestCase

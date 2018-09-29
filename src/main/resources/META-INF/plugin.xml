@@ -75,33 +75,33 @@
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0001" hasStaticDescription="true"
                      enabledByDefault="true" level="WARNING"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.UnsupportedConstructInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.UnsupportedConstructInspection"/>
     <localInspection language="XQuery" shortName="IJVS0002" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0002" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.ReservedFunctionNameInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.ReservedFunctionNameInspection"/>
     <localInspection language="XQuery" shortName="IJVS0003" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0003" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.PredefinedEntityRefInspection"/>
     <localInspection language="XQuery" shortName="IJVS0004" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0004" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.MapConstructorEntryInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.MapConstructorEntryInspection"/>
     <localInspection language="XQuery" shortName="IJVS0005" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0005" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.FinalStatementSemicolonInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.FinalStatementSemicolonInspection"/>
 
     <localInspection language="XQuery" shortName="XPST0017" bundle="messages.XQueryBundle"
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xpst.XPST0017" hasStaticDescription="true"
                      enabledByDefault="false" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0017.UndefinedFunctionInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0017.UndefinedFunctionInspection"/>
     <localInspection language="XQuery" shortName="XQST0031" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0031" hasStaticDescription="true"
@@ -121,7 +121,7 @@
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xpst.XPST0081" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081.UnboundQNamePrefixInspection"/>
     <localInspection language="XQuery" shortName="XQST0118" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0118" hasStaticDescription="true"
