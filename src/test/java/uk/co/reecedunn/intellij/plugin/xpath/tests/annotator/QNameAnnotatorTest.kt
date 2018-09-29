@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator
+package uk.co.reecedunn.intellij.plugin.xpath.tests.annotator
 
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.HighlighterColors
@@ -22,7 +22,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

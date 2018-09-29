@@ -69,7 +69,7 @@
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryEQNameManipulator"/>
 
-    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
 
     <localInspection language="XQuery" shortName="IJVS0001" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
