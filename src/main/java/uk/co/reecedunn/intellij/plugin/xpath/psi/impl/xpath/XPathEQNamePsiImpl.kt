@@ -22,9 +22,9 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
-import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
-import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
-import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryEQNamePrefixReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
 abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
     override fun getReference(): PsiReference? {
