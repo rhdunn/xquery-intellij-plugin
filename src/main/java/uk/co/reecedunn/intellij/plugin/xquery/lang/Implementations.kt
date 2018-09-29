@@ -216,8 +216,8 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     val VERSION_9_5: Version = ProductVersion("9.5", this, "XQuery 3.0 REC (not HE)")
     val VERSION_9_6: Version = ProductVersion("9.6", this, "XQuery 3.0 REC (HE)")
     val VERSION_9_7: Version = ProductVersion("9.7", this, "XQuery 3.1 REC")
-    val VERSION_9_8: Version = ProductVersion("9.8", this, "tuple(), union(), declare type")
-    val VERSION_9_9: Version = ProductVersion("9.9", this, "\$object?function(), orElse, andAlso, f{.}")
+    val VERSION_9_8: Version = ProductVersion("9.8", this, "tuple(), union(), declare type, orElse, andAlso, f{.}")
+    val VERSION_9_9: Version = ProductVersion("9.9", this, "calling java functions with '\$o?f()'")
 
     override val versions: List<Version> = listOf(
         VERSION_9_4,
