@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.inspections
+package uk.co.reecedunn.intellij.plugin.core.codeInspection
 
 import com.intellij.codeInspection.LocalInspectionTool
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
