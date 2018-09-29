@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 import org.apache.xmlbeans.impl.common.IOUtil
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is.`is`
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -27,6 +28,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringWriter
 
+@DisplayName("Helper Class - ResourceVirtualFile")
 class ResourceVirtualFileTest {
     @Throws(IOException::class)
     private fun streamToString(stream: InputStream): String {
@@ -35,10 +37,9 @@ class ResourceVirtualFileTest {
         return writer.toString()
     }
 
-    // region File System
-
     @Test
     @Throws(IOException::class)
+    @DisplayName("resource file; valid path")
     fun testFileSystem_CreatingFile() {
         val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs/test.xq")
         assertThat(file.name, `is`("test.xq"))
@@ -69,6 +70,7 @@ class ResourceVirtualFileTest {
 
     @Test
     @Throws(IOException::class)
+    @DisplayName("resource file; invalid path")
     fun testFileSystem_InvalidFilePath() {
         val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs/test.xqy")
         assertThat(file.name, `is`("test.xqy"))
@@ -98,6 +100,7 @@ class ResourceVirtualFileTest {
 
     @Test
     @Throws(IOException::class)
+    @DisplayName("resource directory")
     fun testFileSystem_Directory() {
         val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs")
         assertThat(file.name, `is`("vfs"))
@@ -127,6 +130,4 @@ class ResourceVirtualFileTest {
         assertThat(children[0].length, `is`(28L))
         assertThat(children[0].fileSystem, instanceOf(ResourceVirtualFileSystem::class.java))
     }
-
-    // endregion
 }

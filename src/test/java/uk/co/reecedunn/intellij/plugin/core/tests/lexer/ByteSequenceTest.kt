@@ -17,12 +17,15 @@ package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
+@DisplayName("Helper Class - ByteSequence")
 class ByteSequenceTest {
     @Test
+    @DisplayName("byte sequences")
     fun testConstruction() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -35,6 +38,7 @@ class ByteSequenceTest {
     }
 
     @Test
+    @DisplayName("subSequence")
     fun testSubSequence() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -51,6 +55,7 @@ class ByteSequenceTest {
     }
 
     @Test
+    @DisplayName("subSequence of a subSequence")
     fun testSubSubSequence() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -65,6 +70,7 @@ class ByteSequenceTest {
     }
 
     @Test
+    @DisplayName("subSequence throws IndexOutOfBoundsException")
     fun testSubSequence_OutOfBounds() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -86,6 +92,7 @@ class ByteSequenceTest {
     }
 
     @Test
+    @DisplayName("charAt/[] throws IndexOutOfBoundsException")
     fun testCharAt_OutOfBounds() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)
@@ -98,6 +105,7 @@ class ByteSequenceTest {
     }
 
     @Test
+    @DisplayName("charAt/[] on a subSequence throws IndexOutOfBoundsException")
     fun testCharAt_SubSequence_OutOfBounds() {
         val data = byteArrayOf(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39)
         val b = ByteSequence(data)

@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import org.hamcrest.CoreMatchers.`is`
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
+@DisplayName("Helper Class - CodePointRange")
 class CodePointRangeTest {
     @Test
+    @DisplayName("empty buffer")
     fun testEmptyBuffer() {
         val range = CodePointRange()
 
@@ -34,6 +37,7 @@ class CodePointRangeTest {
     }
 
     @Test
+    @DisplayName("basic multiplane codepoints")
     fun testMatchingCodePoints() {
         val range = CodePointRange()
 
@@ -66,6 +70,7 @@ class CodePointRangeTest {
     }
 
     @Test
+    @DisplayName("incomplete surrogate pairs")
     fun testMatchingIncompleteSurrogatePairs() {
         val range = CodePointRange()
 
@@ -88,6 +93,7 @@ class CodePointRangeTest {
     }
 
     @Test
+    @DisplayName("surrogate pairs")
     fun testMatchingSurrogatePairs() {
         val range = CodePointRange()
 
@@ -120,6 +126,7 @@ class CodePointRangeTest {
     }
 
     @Test
+    @DisplayName("flush")
     fun testFlush() {
         val range = CodePointRange()
 
@@ -139,6 +146,7 @@ class CodePointRangeTest {
     }
 
     @Test
+    @DisplayName("save and restore")
     fun testSaveRestore() {
         val range = CodePointRange()
 
