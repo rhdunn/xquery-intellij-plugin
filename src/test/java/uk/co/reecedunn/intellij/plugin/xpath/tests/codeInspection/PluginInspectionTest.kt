@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.codeInspection
+package uk.co.reecedunn.intellij.plugin.xpath.tests.codeInspection
 
 import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.*
@@ -2798,31 +2798,41 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testXMLEntities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_0_9, XML_ENTITIES)
+                    checkSupportedEntities(XQuery.MARKLOGIC_0_9,
+                        XML_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 1.0")
                 fun testXMLEntities_XQuery_1_0() {
-                    checkSupportedEntities(XQuery.REC_1_0_20070123, XML_ENTITIES)
+                    checkSupportedEntities(XQuery.REC_1_0_20070123,
+                        XML_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testXMLEntities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_1_0, XML_ENTITIES)
+                    checkSupportedEntities(XQuery.MARKLOGIC_1_0,
+                        XML_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 3.0")
                 fun testXMLEntities_XQuery_3_0() {
-                    checkSupportedEntities(XQuery.REC_3_0_20140408, XML_ENTITIES)
+                    checkSupportedEntities(XQuery.REC_3_0_20140408,
+                        XML_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 3.1")
                 fun testXMLEntities_XQuery_3_1() {
-                    checkSupportedEntities(XQuery.REC_3_1_20170321, XML_ENTITIES)
+                    checkSupportedEntities(XQuery.REC_3_1_20170321,
+                        XML_ENTITIES
+                    )
                 }
             }
 
@@ -2832,14 +2842,17 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testHTML4Entities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_0_9, HTML4_ENTITIES)
+                    checkSupportedEntities(XQuery.MARKLOGIC_0_9,
+                        HTML4_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 1.0")
                 fun testHTML4Entities_XQuery_1_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_1_0_20070123, HTML4_ENTITIES, 248,
+                        XQuery.REC_1_0_20070123,
+                        HTML4_ENTITIES, 248,
                         "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
                 }
@@ -2847,14 +2860,17 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testHTML4Entities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_1_0, HTML4_ENTITIES)
+                    checkSupportedEntities(XQuery.MARKLOGIC_1_0,
+                        HTML4_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 3.0")
                 fun testHTML4Entities_XQuery_3_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_0_20140408, HTML4_ENTITIES, 248,
+                        XQuery.REC_3_0_20140408,
+                        HTML4_ENTITIES, 248,
                         "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
                 }
@@ -2863,7 +2879,8 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.1")
                 fun testHTML4Entities_XQuery_3_1() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_1_20170321, HTML4_ENTITIES, 248,
+                        XQuery.REC_3_1_20170321,
+                        HTML4_ENTITIES, 248,
                         "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
                 }
@@ -2875,14 +2892,17 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testHTML5Entities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_0_9, HTML5_ENTITIES)
+                    checkSupportedEntities(XQuery.MARKLOGIC_0_9,
+                        HTML5_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 1.0")
                 fun testHTML5Entities_XQuery_1_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_1_0_20070123, HTML5_ENTITIES, 1872,
+                        XQuery.REC_1_0_20070123,
+                        HTML5_ENTITIES, 1872,
                         "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
                 }
@@ -2890,14 +2910,17 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testHTML5Entities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_1_0, HTML5_ENTITIES)
+                    checkSupportedEntities(XQuery.MARKLOGIC_1_0,
+                        HTML5_ENTITIES
+                    )
                 }
 
                 @Test
                 @DisplayName("xquery version 3.0")
                 fun testHTML5Entities_XQuery_3_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_0_20140408, HTML5_ENTITIES, 1872,
+                        XQuery.REC_3_0_20140408,
+                        HTML5_ENTITIES, 1872,
                         "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
                 }
@@ -2906,7 +2929,8 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.1")
                 fun testHTML5Entities_XQuery_3_1() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_1_20170321, HTML5_ENTITIES, 1872,
+                        XQuery.REC_3_1_20170321,
+                        HTML5_ENTITIES, 1872,
                         "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
                 }
