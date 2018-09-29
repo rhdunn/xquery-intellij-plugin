@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage
 import java.util.*
 
-@DisplayName("IntelliJ - Settings - Editor - Color Scheme")
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - Color Settings Page")
 class ColorSettingsPageTest {
     @Test
     @DisplayName("icon")

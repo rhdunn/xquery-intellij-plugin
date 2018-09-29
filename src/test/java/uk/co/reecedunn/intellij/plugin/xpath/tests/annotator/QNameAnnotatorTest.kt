@@ -20,292 +20,311 @@ import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.markup.TextAttributes
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
-    // region NCName
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (123) NCName")
+    internal inner class NCName {
+        @Test
+        @DisplayName("identifier")
+        fun testNCName() {
+            val file = parseResource("tests/parser/xquery-1.0/OptionDecl.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(0))
+        }
 
-    @Test
-    fun testNCName() {
-        val file = parseResource("tests/parser/xquery-1.0/OptionDecl.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(0))
+        @Test
+        @DisplayName("keyword")
+        fun testNCName_Keyword() {
+            val file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(24))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(24))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
+        }
     }
 
-    @Test
-    fun testNCName_Keyword() {
-        val file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(2))
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (122) QName")
+    internal inner class QName {
+        @Test
+        @DisplayName("prefix: identifier; local name: identifier")
+        fun testQName() {
+            val file = parseResource("tests/parser/xquery-1.0/QName.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
 
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(15))
-        assertThat(annotations[0].endOffset, `is`(24))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(15))
-        assertThat(annotations[1].endOffset, `is`(24))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
+
+        @Test
+        @DisplayName("prefix: keyword")
+        fun testQName_KeywordPrefixPart() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(20))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(20))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
+
+        @Test
+        @DisplayName("prefix: missing")
+        fun testQName_MissingPrefixPart() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("local name: keyword")
+        fun testQName_KeywordLocalPart() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(4))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(19))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(19))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+
+            assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[2].startOffset, `is`(20))
+            assertThat(annotations[2].endOffset, `is`(25))
+            assertThat(annotations[2].message, `is`(nullValue()))
+            assertThat(annotations[2].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[2].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[3].startOffset, `is`(20))
+            assertThat(annotations[3].endOffset, `is`(25))
+            assertThat(annotations[3].message, `is`(nullValue()))
+            assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[3].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
+        }
+
+        @Test
+        @DisplayName("local name: missing")
+        fun testQName_MissingLocalPart() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
     }
 
-    // endregion
-    // region QName
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
+    internal inner class URIQualifiedName {
+        @Test
+        @DisplayName("local name: identifier")
+        fun testURIQualifiedName() {
+            val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(0))
+        }
 
-    @Test
-    fun testQName() {
-        val file = parseResource("tests/parser/xquery-1.0/QName.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(2))
+        @Test
+        @DisplayName("local name: keyword")
+        fun testURIQualifiedName_Keyword() {
+            val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
 
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(15))
-        assertThat(annotations[0].endOffset, `is`(18))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(21))
+            assertThat(annotations[0].endOffset, `is`(25))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(15))
-        assertThat(annotations[1].endOffset, `is`(18))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(21))
+            assertThat(annotations[1].endOffset, `is`(25))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
+        }
     }
 
-    @Test
-    fun testQName_KeywordPrefixPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(2))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+    internal inner class DirAttributeList {
+        @Test
+        @DisplayName("xmlns:prefix")
+        fun testDirAttributeList_XmlnsAttribute() {
+            val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(6))
 
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(15))
-        assertThat(annotations[0].endOffset, `is`(20))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(1))
+            assertThat(annotations[0].endOffset, `is`(2))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(15))
-        assertThat(annotations[1].endOffset, `is`(20))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(1))
+            assertThat(annotations[1].endOffset, `is`(2))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.XML_TAG))
+
+            assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[2].startOffset, `is`(1))
+            assertThat(annotations[2].endOffset, `is`(2))
+            assertThat(annotations[2].message, `is`(nullValue()))
+            assertThat(annotations[2].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[2].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+
+            assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[3].startOffset, `is`(11))
+            assertThat(annotations[3].endOffset, `is`(12))
+            assertThat(annotations[3].message, `is`(nullValue()))
+            assertThat(annotations[3].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[3].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[4].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[4].startOffset, `is`(11))
+            assertThat(annotations[4].endOffset, `is`(12))
+            assertThat(annotations[4].message, `is`(nullValue()))
+            assertThat(annotations[4].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[4].textAttributes, `is`(SyntaxHighlighter.XML_TAG))
+
+            assertThat(annotations[5].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[5].startOffset, `is`(11))
+            assertThat(annotations[5].endOffset, `is`(12))
+            assertThat(annotations[5].message, `is`(nullValue()))
+            assertThat(annotations[5].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[5].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
     }
 
-    @Test
-    fun testQName_MissingPrefixPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(0))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (27) Annotation")
+    internal inner class Annotation {
+        @Test
+        @DisplayName("ncname")
+        fun testAnnotation() {
+            val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(10))
+            assertThat(annotations[0].endOffset, `is`(17))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(10))
+            assertThat(annotations[1].endOffset, `is`(17))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.ANNOTATION))
+        }
+
+        @Test
+        @DisplayName("qname")
+        fun testAnnotation_QName() {
+            val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(4))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(10))
+            assertThat(annotations[0].endOffset, `is`(12))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(10))
+            assertThat(annotations[1].endOffset, `is`(12))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+
+            assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[2].startOffset, `is`(13))
+            assertThat(annotations[2].endOffset, `is`(19))
+            assertThat(annotations[2].message, `is`(nullValue()))
+            assertThat(annotations[2].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[2].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[3].startOffset, `is`(13))
+            assertThat(annotations[3].endOffset, `is`(19))
+            assertThat(annotations[3].message, `is`(nullValue()))
+            assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[3].textAttributes, `is`(SyntaxHighlighter.ANNOTATION))
+        }
     }
-
-    @Test
-    fun testQName_KeywordLocalPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(4))
-
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(15))
-        assertThat(annotations[0].endOffset, `is`(19))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(15))
-        assertThat(annotations[1].endOffset, `is`(19))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
-
-        assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[2].startOffset, `is`(20))
-        assertThat(annotations[2].endOffset, `is`(25))
-        assertThat(annotations[2].message, `is`(nullValue()))
-        assertThat(annotations[2].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[2].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[3].startOffset, `is`(20))
-        assertThat(annotations[3].endOffset, `is`(25))
-        assertThat(annotations[3].message, `is`(nullValue()))
-        assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[3].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
-    }
-
-    @Test
-    fun testQName_MissingLocalPart() {
-        val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(2))
-
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(15))
-        assertThat(annotations[0].endOffset, `is`(18))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(15))
-        assertThat(annotations[1].endOffset, `is`(18))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
-    }
-
-    // endregion
-    // region URIQualifiedName
-
-    @Test
-    fun testURIQualifiedName() {
-        val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(0))
-    }
-
-    @Test
-    fun testURIQualifiedName_Keyword() {
-        val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(2))
-
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(21))
-        assertThat(annotations[0].endOffset, `is`(25))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(21))
-        assertThat(annotations[1].endOffset, `is`(25))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))
-    }
-
-    // endregion
-    // region DirAttributeList
-
-    @Test
-    fun testDirAttributeList_XmlnsAttribute() {
-        val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(6))
-
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(1))
-        assertThat(annotations[0].endOffset, `is`(2))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(1))
-        assertThat(annotations[1].endOffset, `is`(2))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.XML_TAG))
-
-        assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[2].startOffset, `is`(1))
-        assertThat(annotations[2].endOffset, `is`(2))
-        assertThat(annotations[2].message, `is`(nullValue()))
-        assertThat(annotations[2].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[2].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
-
-        assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[3].startOffset, `is`(11))
-        assertThat(annotations[3].endOffset, `is`(12))
-        assertThat(annotations[3].message, `is`(nullValue()))
-        assertThat(annotations[3].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[3].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[4].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[4].startOffset, `is`(11))
-        assertThat(annotations[4].endOffset, `is`(12))
-        assertThat(annotations[4].message, `is`(nullValue()))
-        assertThat(annotations[4].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[4].textAttributes, `is`(SyntaxHighlighter.XML_TAG))
-
-        assertThat(annotations[5].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[5].startOffset, `is`(11))
-        assertThat(annotations[5].endOffset, `is`(12))
-        assertThat(annotations[5].message, `is`(nullValue()))
-        assertThat(annotations[5].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[5].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
-    }
-
-    // endregion
-    // region Annotation
-
-    @Test
-    fun testAnnotation() {
-        val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(2))
-
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(10))
-        assertThat(annotations[0].endOffset, `is`(17))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(10))
-        assertThat(annotations[1].endOffset, `is`(17))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.ANNOTATION))
-    }
-
-    @Test
-    fun testAnnotation_QName() {
-        val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
-        val annotations = annotateTree(file, QNameAnnotator())
-        assertThat(annotations.size, `is`(4))
-
-        assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[0].startOffset, `is`(10))
-        assertThat(annotations[0].endOffset, `is`(12))
-        assertThat(annotations[0].message, `is`(nullValue()))
-        assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[1].startOffset, `is`(10))
-        assertThat(annotations[1].endOffset, `is`(12))
-        assertThat(annotations[1].message, `is`(nullValue()))
-        assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
-
-        assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[2].startOffset, `is`(13))
-        assertThat(annotations[2].endOffset, `is`(19))
-        assertThat(annotations[2].message, `is`(nullValue()))
-        assertThat(annotations[2].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
-        assertThat(annotations[2].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
-
-        assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
-        assertThat(annotations[3].startOffset, `is`(13))
-        assertThat(annotations[3].endOffset, `is`(19))
-        assertThat(annotations[3].message, `is`(nullValue()))
-        assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
-        assertThat(annotations[3].textAttributes, `is`(SyntaxHighlighter.ANNOTATION))
-    }
-
-    // endregion
 }
