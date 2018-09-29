@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -31,12 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-/** XPST0081 error condition
- *
- * It is a *static error* if a QName used in a query contains a
- * namespace prefix that is not in the *statically known namespaces*.
- */
-class UnboundQNamePrefixInspection : Inspection("xpst/XPST0081.md") {
+class XPST0081 : Inspection("xpst/XPST0081.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

@@ -16,9 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.codeInspection
 
 import com.intellij.codeInspection.ProblemHighlightType
-import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.notNullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -2789,8 +2787,8 @@ private class PluginInspectionTest : InspectionTestCase() {
 
                 for (problem in problems) {
                     assertThat(problems[0].highlightType, `is`(type))
-                    assertThat(problem.descriptionTemplate, CoreMatchers.startsWith(startsWith))
-                    assertThat(problem.descriptionTemplate, CoreMatchers.endsWith(endsWith))
+                    assertThat(problem.descriptionTemplate, startsWith(startsWith))
+                    assertThat(problem.descriptionTemplate, endsWith(endsWith))
                 }
             }
 

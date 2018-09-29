@@ -121,7 +121,7 @@
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xpst.XPST0081" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081.UnboundQNamePrefixInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081"/>
     <localInspection language="XQuery" shortName="XQST0118" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0118" hasStaticDescription="true"
