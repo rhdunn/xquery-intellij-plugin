@@ -19,10 +19,7 @@ import com.intellij.ide.ui.UISettings
 import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -33,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsCo
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DisplayName("IntelliJ - Settings - Languages and Frameworks - ProjectSettingsConfigurable")
 private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
     @BeforeAll
     override fun setUp() {
@@ -50,12 +48,14 @@ private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModu
     }
 
     @Test
+    @DisplayName("display name")
     fun testDisplayName() {
         val configurable = XQueryProjectSettingsConfigurable(myProject)
         assertThat(configurable.displayName, `is`("XQuery"))
     }
 
     @Test
+    @DisplayName("help topic")
     fun testHelpTopic() {
         val configurable = XQueryProjectSettingsConfigurable(myProject)
         assertThat(configurable.helpTopic, `is`(nullValue()))

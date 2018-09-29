@@ -18,20 +18,24 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage
 import java.util.*
 
+@DisplayName("IntelliJ - Settings - Editor - Color Scheme")
 class ColorSettingsPageTest {
     @Test
+    @DisplayName("icon")
     fun testIcon() {
         val settings = ColorSettingsPage()
         assertThat(settings.icon, `is`(nullValue()))
     }
 
     @Test
+    @DisplayName("highlighter")
     fun testHighlighter() {
         val settings = ColorSettingsPage()
         val highlighter = settings.highlighter
@@ -39,6 +43,7 @@ class ColorSettingsPageTest {
     }
 
     @Test
+    @DisplayName("demo text contains all syntax highlighter highlight types")
     fun testDemoText() {
         val settings = ColorSettingsPage()
         val highlighter = settings.highlighter
@@ -78,12 +83,14 @@ class ColorSettingsPageTest {
     }
 
     @Test
+    @DisplayName("additional highlighting tag to descriptor map")
     fun testAdditionalHighlightingTagToDescriptorMap() {
         val settings = ColorSettingsPage()
         assertThat(settings.additionalHighlightingTagToDescriptorMap, `is`(nullValue()))
     }
 
     @Test
+    @DisplayName("attribute descriptors")
     fun testAttributeDescriptors() {
         val settings = ColorSettingsPage()
         assertThat(settings.attributeDescriptors.size, `is`(18))
@@ -126,12 +133,14 @@ class ColorSettingsPageTest {
     }
 
     @Test
+    @DisplayName("color descriptors")
     fun testColorDescriptors() {
         val settings = ColorSettingsPage()
         assertThat(settings.colorDescriptors.size, `is`(0))
     }
 
     @Test
+    @DisplayName("display name")
     fun testDisplayName() {
         val settings = ColorSettingsPage()
         assertThat(settings.displayName, `is`("XQuery"))

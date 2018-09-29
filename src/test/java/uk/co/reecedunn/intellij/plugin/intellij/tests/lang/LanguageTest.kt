@@ -17,29 +17,40 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.lang
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
-class XQueryTest {
-    @Test
-    fun testID() {
-        assertThat(XQuery.getID(), `is`("XQuery"))
-    }
+@DisplayName("IntelliJ - Custom Language Support - Language")
+class LanguageTest {
+    @Nested
+    @DisplayName("XQuery")
+    internal inner class XQueryLanguage {
+        @Test
+        @DisplayName("id")
+        fun testID() {
+            assertThat(XQuery.getID(), `is`("XQuery"))
+        }
 
-    @Test
-    fun testBaseLanguage() {
-        assertThat(XQuery.baseLanguage, `is`(nullValue()))
-    }
+        @Test
+        @DisplayName("baseLanguage")
+        fun testBaseLanguage() {
+            assertThat(XQuery.baseLanguage, `is`(nullValue()))
+        }
 
-    @Test
-    fun testMimeTypes() {
-        assertThat(XQuery.mimeTypes.size, `is`(1))
-        assertThat(XQuery.mimeTypes[0], `is`("application/xquery"))
-    }
+        @Test
+        @DisplayName("mimeTypes")
+        fun testMimeTypes() {
+            assertThat(XQuery.mimeTypes.size, `is`(1))
+            assertThat(XQuery.mimeTypes[0], `is`("application/xquery"))
+        }
 
-    @Test
-    fun testCaseSensitivity() {
-        assertThat(XQuery.isCaseSensitive, `is`(true))
+        @Test
+        @DisplayName("isCaseSensitive")
+        fun testCaseSensitivity() {
+            assertThat(XQuery.isCaseSensitive, `is`(true))
+        }
     }
 }

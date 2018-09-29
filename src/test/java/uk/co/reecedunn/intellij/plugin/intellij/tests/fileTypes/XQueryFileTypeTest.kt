@@ -17,10 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.fileTypes
 
 import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -32,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DisplayName("IntelliJ - Custom Language Support - Registering a File Type")
 private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryParserDefinition()) {
     @BeforeAll
     override fun setUp() {
@@ -46,6 +44,7 @@ private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryP
     }
 
     @Test
+    @DisplayName("FileTypeFactory")
     fun testFactory() {
         val factory = FileTypeFactory()
         val consumer = FileTypeToArrayConsumer()
@@ -58,6 +57,7 @@ private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryP
     }
 
     @Test
+    @DisplayName("XQuery properties")
     fun testProperties() {
         val fileType = XQueryFileType.INSTANCE
 
@@ -66,109 +66,364 @@ private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryP
         assertThat(fileType.defaultExtension, `is`("xqy"))
     }
 
-    @Test
-    fun testDefaultEncoding() {
-        val fileType = XQueryFileType.INSTANCE
-        val file = createVirtualFile("encoding.xqy", "")
+    @Nested
+    @DisplayName("XQuery charset")
+    internal inner class XQueryCharset {
+        @Test
+        @DisplayName("default encoding")
+        fun testDefaultEncoding() {
+            val fileType = XQueryFileType.INSTANCE
+            val file = createVirtualFile("encoding.xqy", "")
 
-        assertThat(fileType.getCharset(file, "let \$_ := 123".toByteArray()), `is`("UTF-8"))
+            assertThat(fileType.getCharset(file, "let \$_ := 123".toByteArray()), `is`("UTF-8"))
 
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\";".toByteArray()), `is`("UTF-8"))
+            assertThat(fileType.getCharset(file, "xquery version \"1.0\";".toByteArray()), `is`("UTF-8"))
 
-        assertThat(fileType.getCharset(file, "xquery version\"1.0\"encoding\"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xqwery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery+version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery versjon \"1.0\" encoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version+\"1.0\" encoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version   1.0\" encoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version \"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version \"1.0".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\"+encoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" enkoding \"latin1\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding+\"latin1\"".toByteArray()), `is`("UTF-8"))
+            assertThat(
+                fileType.getCharset(file, "xquery version\"1.0\"encoding\"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xqwery version \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery+version \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery versjon \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery version+\"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery version   1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(fileType.getCharset(file, "xquery version \"".toByteArray()), `is`("UTF-8"))
+            assertThat(fileType.getCharset(file, "xquery version \"1.0".toByteArray()), `is`("UTF-8"))
+            assertThat(
+                fileType.getCharset(file, "xquery version \"1.0\"+encoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery version \"1.0\" enkoding \"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery version \"1.0\" encoding+\"latin1\"".toByteArray()),
+                `is`("UTF-8")
+            )
+        }
+
+        @Test
+        @DisplayName("from VersionDecl")
+        fun testFileEncoding() {
+            val fileType = XQueryFileType.INSTANCE
+            val file = createVirtualFile("encoding.xqy", "")
+
+            assertThat(
+                fileType.getCharset(file, "xquery version \"1.0\" encoding \"UTF-8\"".toByteArray()),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.getCharset(file, "xquery version \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("ISO-8859-1")
+            )
+
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "    xquery    version    \"1.0\"    encoding    \"latin1\"".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"latin1\"\r\r".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "(::)xquery(::)version(::)\"1.0\"(::)encoding(:\"latin1\"".toByteArray()
+                ), `is`("UTF-8")
+            )
+
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "(::)xquery(::)version(::)\"1.0\"(::)encoding(::)\"latin1\"".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(file, "(::)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(
+                    file,
+                    "(::)\n(:x:)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()
+                ), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(file, "\n(::)xquery version \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.getCharset(file, "\n(::)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()),
+                `is`("ISO-8859-1")
+            )
+        }
+
+        @Test
+        @DisplayName("unsupported/invalid VersionDecl encoding")
+        fun testUnsupportedFileEncoding() {
+            val fileType = XQueryFileType.INSTANCE
+            val file = createVirtualFile("encoding.xqy", "")
+
+            assertThat(
+                fileType.getCharset(file, "xquery version \"1.0\" encoding \"utf\"".toByteArray()),
+                `is`("UTF-8")
+            )
+        }
     }
 
-    @Test
-    fun testFileEncoding() {
-        val fileType = XQueryFileType.INSTANCE
-        val file = createVirtualFile("encoding.xqy", "")
+    @Nested
+    @DisplayName("XQuery charset from contents")
+    internal inner class XQuery {
+        @Test
+        @DisplayName("default encoding")
+        fun testDefaultEncodingFromContents() {
+            val fileType = XQueryFileType.INSTANCE
+            val file = createVirtualFile("encoding.xqy", "")
 
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"UTF-8\"".toByteArray()), `is`("UTF-8"))
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
+            assertThat(
+                fileType.extractCharsetFromFileContent(null, file, "let \$_ := 123" as CharSequence).name(),
+                `is`("UTF-8")
+            )
 
-        assertThat(fileType.getCharset(file, "    xquery    version    \"1.0\"    encoding    \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"latin1\"\r\r".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t".toByteArray()), `is`("ISO-8859-1"))
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\";" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
 
-        assertThat(fileType.getCharset(file, "(::)xquery(::)version(::)\"1.0\"(::)encoding(:\"latin1\"".toByteArray()), `is`("UTF-8"))
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version\"1.0\"encoding\"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xqwery version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery+version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery versjon \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version+\"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version   1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(null, file, "xquery version \"" as CharSequence).name(),
+                `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\"+encoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\" enkoding \"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\" encoding+\"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+        }
 
-        assertThat(fileType.getCharset(file, "(::)xquery(::)version(::)\"1.0\"(::)encoding(::)\"latin1\"".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "(::)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "(::)\n(:x:)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "\n(::)xquery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
-        assertThat(fileType.getCharset(file, "\n(::)\nxquery version \"1.0\" encoding \"latin1\"".toByteArray()), `is`("ISO-8859-1"))
-    }
+        @Test
+        @DisplayName("from VersionDecl")
+        fun testFileEncodingFromContents() {
+            val fileType = XQueryFileType.INSTANCE
+            val file = createVirtualFile("encoding.xqy", "")
 
-    @Test
-    fun testUnsupportedFileEncoding() {
-        val fileType = XQueryFileType.INSTANCE
-        val file = createVirtualFile("encoding.xqy", "")
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\" encoding \"UTF-8\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
 
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"utf\"".toByteArray()), `is`("UTF-8"))
-    }
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "    xquery    version    \"1.0\"    encoding    \"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"latin1\"\r\r" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
 
-    @Test
-    fun testDefaultEncodingFromContents() {
-        val fileType = XQueryFileType.INSTANCE
-        val file = createVirtualFile("encoding.xqy", "")
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "(::)xquery(::)version(::)\"1.0\"(::)encoding(:\"latin1\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
 
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "let \$_ := 123" as CharSequence).name(), `is`("UTF-8"))
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "(::)xquery(::)version(::)\"1.0\"(::)encoding(::)\"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "(::)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "(::)\n(:x:)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "\n(::)xquery version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "\n(::)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence
+                ).name(), `is`("ISO-8859-1")
+            )
+        }
 
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\";" as CharSequence).name(), `is`("UTF-8"))
+        @Test
+        @DisplayName("unsupported/invalid VersionDecl encoding")
+        fun testUnsupportedFileEncodingFromContents() {
+            val fileType = XQueryFileType.INSTANCE
+            val file = createVirtualFile("encoding.xqy", "")
 
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version\"1.0\"encoding\"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xqwery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery+version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery versjon \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version+\"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version   1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\"+encoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\" enkoding \"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\" encoding+\"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-    }
-
-    @Test
-    fun testFileEncodingFromContents() {
-        val fileType = XQueryFileType.INSTANCE
-        val file = createVirtualFile("encoding.xqy", "")
-
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\" encoding \"UTF-8\"" as CharSequence).name(), `is`("UTF-8"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "    xquery    version    \"1.0\"    encoding    \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"latin1\"\r\r" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t" as CharSequence).name(), `is`("ISO-8859-1"))
-
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "(::)xquery(::)version(::)\"1.0\"(::)encoding(:\"latin1\"" as CharSequence).name(), `is`("UTF-8"))
-
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "(::)xquery(::)version(::)\"1.0\"(::)encoding(::)\"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "(::)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "(::)\n(:x:)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "\n(::)xquery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "\n(::)\nxquery version \"1.0\" encoding \"latin1\"" as CharSequence).name(), `is`("ISO-8859-1"))
-    }
-
-    @Test
-    fun testUnsupportedFileEncodingFromContents() {
-        val fileType = XQueryFileType.INSTANCE
-        val file = createVirtualFile("encoding.xqy", "")
-
-        assertThat(fileType.extractCharsetFromFileContent(null, file, "xquery version \"1.0\" encoding \"utf\"" as CharSequence).name(), `is`("UTF-8"))
+            assertThat(
+                fileType.extractCharsetFromFileContent(
+                    null,
+                    file,
+                    "xquery version \"1.0\" encoding \"utf\"" as CharSequence
+                ).name(), `is`("UTF-8")
+            )
+        }
     }
 }

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
 import com.intellij.util.xmlb.XmlSerializer
 import org.hamcrest.CoreMatchers.`is`
 import org.jdom.output.XMLOutputter
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
@@ -25,8 +26,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
+@DisplayName("IntelliJ - Settings - Languages and Frameworks - XQuery Project Settings")
 class XQueryProjectSettingsTest {
     @Test
+    @DisplayName("default values")
     fun testDefaultValues() {
         val settings = XQueryProjectSettings()
         assertThat(settings.implementationVersion, `is`("w3c/spec/v1ed"))
@@ -40,12 +43,14 @@ class XQueryProjectSettingsTest {
     }
 
     @Test
+    @DisplayName("state; get")
     fun testGetState() {
         val settings = XQueryProjectSettings()
         assertThat(settings.state, `is`(settings))
     }
 
     @Test
+    @DisplayName("state; load")
     fun testLoadState() {
         val other = XQueryProjectSettings()
         other.implementationVersion = "marklogic/v6"
@@ -67,6 +72,7 @@ class XQueryProjectSettingsTest {
     }
 
     @Test
+    @DisplayName("transient properties")
     fun testTransientProperties() {
         val settings = XQueryProjectSettings()
         settings.implementationVersion = "marklogic/v6"
@@ -82,6 +88,7 @@ class XQueryProjectSettingsTest {
     }
 
     @Test
+    @DisplayName("unsupported implementation version")
     fun testDefaultXQueryDialectForUnsupportedXQueryVersions() {
         val settings = XQueryProjectSettings()
         settings.implementationVersion = "marklogic/v7"
@@ -96,6 +103,7 @@ class XQueryProjectSettingsTest {
     }
 
     @Test
+    @DisplayName("serialization to xml")
     fun testSerialization() {
         val settings = XQueryProjectSettings()
         val outputter = XMLOutputter()
