@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
+package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
 
 import com.intellij.ide.ui.UISettings
 import com.intellij.lang.LanguageASTFactory
@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

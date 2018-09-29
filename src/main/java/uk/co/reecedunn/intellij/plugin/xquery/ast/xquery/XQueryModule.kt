@@ -20,7 +20,7 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: Specification?) {
     fun getVersionOrDefault(project: Project): Specification {

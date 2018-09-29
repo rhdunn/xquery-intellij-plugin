@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.settings
+package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.ColoredListCellRenderer

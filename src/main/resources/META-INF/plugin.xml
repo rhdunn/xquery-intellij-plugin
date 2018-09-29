@@ -52,7 +52,7 @@
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage"/>
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
@@ -128,9 +128,9 @@
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118.MismatchedDirElemTagNameInspection"/>
 
-    <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
-                    serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>
-    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable"/>
+    <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"
+                    serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
+    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
   </extensions>
 
   <application-components>

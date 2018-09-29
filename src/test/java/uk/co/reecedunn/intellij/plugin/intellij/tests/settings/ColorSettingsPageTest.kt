@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.settings
+package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import org.hamcrest.CoreMatchers.`is`
@@ -21,7 +21,7 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage
+import uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage
 import java.util.*
 
 class ColorSettingsPageTest {

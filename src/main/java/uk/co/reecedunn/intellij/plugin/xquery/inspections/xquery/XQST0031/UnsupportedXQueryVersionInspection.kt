@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 /** XQST0081 error condition
  *

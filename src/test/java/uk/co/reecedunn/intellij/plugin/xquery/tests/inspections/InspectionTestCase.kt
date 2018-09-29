@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {

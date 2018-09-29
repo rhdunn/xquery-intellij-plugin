@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 /** Checks non-XQuery 1.0 constructs against the selected implementation.
  *

@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
