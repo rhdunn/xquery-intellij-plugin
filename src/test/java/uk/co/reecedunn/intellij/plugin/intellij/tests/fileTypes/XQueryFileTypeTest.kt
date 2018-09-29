@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.filetypes
+package uk.co.reecedunn.intellij.plugin.intellij.tests.fileTypes
 
 import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
@@ -24,8 +24,8 @@ import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory
-import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory
+import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
