@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
+package uk.co.reecedunn.intellij.plugin.intellij.tests.lang.findUsages
 
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryWordsScanner
+import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryWordsScanner
 
 class XQueryWordsScannerTest {
     // region Test Helpers
