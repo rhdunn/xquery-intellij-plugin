@@ -19,8 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
-import uk.co.reecedunn.intellij.plugin.xquery.lang.FullText
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar, XQueryConformance {

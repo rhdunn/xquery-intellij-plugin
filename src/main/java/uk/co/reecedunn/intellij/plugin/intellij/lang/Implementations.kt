@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.co.reecedunn.intellij.plugin.xquery.lang
+package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 // region BaseX
 

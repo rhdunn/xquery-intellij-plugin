@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEntityRefType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 class PredefinedEntityRefInspection : Inspection("ijst/IJST0003.md") {

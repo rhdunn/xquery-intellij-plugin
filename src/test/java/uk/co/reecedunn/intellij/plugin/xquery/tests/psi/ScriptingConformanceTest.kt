@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnno
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance

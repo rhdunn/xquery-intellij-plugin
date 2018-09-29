@@ -22,7 +22,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase
 
@@ -2183,7 +2183,7 @@ private class PredefinedEntityRefInspectionTest : InspectionTestCase() {
     // endregion
     // region Helper Functions
 
-    private fun checkSupportedEntities(version: uk.co.reecedunn.intellij.plugin.xquery.lang.Specification, entities: String) {
+    private fun checkSupportedEntities(version: uk.co.reecedunn.intellij.plugin.intellij.lang.Specification, entities: String) {
         settings.XQueryVersion = version.label
         if (version == XQuery.MARKLOGIC_0_9 || version == XQuery.MARKLOGIC_1_0) {
             settings.implementationVersion = "marklogic/v6"
@@ -2198,7 +2198,7 @@ private class PredefinedEntityRefInspectionTest : InspectionTestCase() {
         assertThat(problems!!.size, `is`(0))
     }
 
-    private fun checkUnsupportedEntities(version: uk.co.reecedunn.intellij.plugin.xquery.lang.Specification, entities: String, inspectionCount: Int, startsWith: String, endsWith: String, type: ProblemHighlightType = ProblemHighlightType.GENERIC_ERROR_OR_WARNING) {
+    private fun checkUnsupportedEntities(version: uk.co.reecedunn.intellij.plugin.intellij.lang.Specification, entities: String, inspectionCount: Int, startsWith: String, endsWith: String, type: ProblemHighlightType = ProblemHighlightType.GENERIC_ERROR_OR_WARNING) {
         settings.XQueryVersion = version.label
         if (version == XQuery.MARKLOGIC_0_9 || version == XQuery.MARKLOGIC_1_0) {
             settings.implementationVersion = "marklogic/v6"

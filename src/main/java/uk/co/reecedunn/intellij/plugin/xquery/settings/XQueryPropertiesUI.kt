@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.settings
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import javax.swing.JComboBox
 import javax.swing.JList
 import javax.swing.JPanel

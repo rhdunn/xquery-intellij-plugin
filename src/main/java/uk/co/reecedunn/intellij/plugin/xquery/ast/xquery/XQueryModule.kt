@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: Specification?) {

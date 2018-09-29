@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
-import uk.co.reecedunn.intellij.plugin.xquery.lang.FullText
+import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase

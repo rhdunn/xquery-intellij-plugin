@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
+import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase

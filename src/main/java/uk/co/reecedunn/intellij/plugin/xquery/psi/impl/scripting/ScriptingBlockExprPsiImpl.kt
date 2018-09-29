@@ -19,8 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class ScriptingBlockExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockExpr, XQueryConformance {
