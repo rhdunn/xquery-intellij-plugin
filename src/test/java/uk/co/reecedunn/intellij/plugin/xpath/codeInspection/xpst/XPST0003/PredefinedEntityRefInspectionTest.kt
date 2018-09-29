@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
-import uk.co.reecedunn.intellij.plugin.core.codeInspection.InspectionTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 
 // region XML Entities
 

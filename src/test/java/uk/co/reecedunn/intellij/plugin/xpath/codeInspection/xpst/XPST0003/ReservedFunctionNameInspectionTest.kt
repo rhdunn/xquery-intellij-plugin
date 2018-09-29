@@ -23,7 +23,7 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.core.codeInspection.InspectionTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 private class ReservedFunctionNameInspectionTest : InspectionTestCase() {
