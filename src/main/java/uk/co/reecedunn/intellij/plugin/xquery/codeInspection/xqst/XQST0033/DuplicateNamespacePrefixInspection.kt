@@ -15,7 +15,7 @@
  */
 @file:Suppress("PackageName")
 
-package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033
+package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix

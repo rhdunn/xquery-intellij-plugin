@@ -15,14 +15,14 @@
  */
 @file:Suppress("PackageName")
 
-package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xquery.XQST0033
+package uk.co.reecedunn.intellij.plugin.xquery.tests.codeInspection.xqst.XQST0033
 
 import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection
+import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033.DuplicateNamespacePrefixInspection
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.InspectionTestCase
 

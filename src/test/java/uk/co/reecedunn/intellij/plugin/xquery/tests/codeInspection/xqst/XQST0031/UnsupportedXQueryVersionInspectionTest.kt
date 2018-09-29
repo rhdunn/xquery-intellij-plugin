@@ -15,14 +15,14 @@
  */
 @file:Suppress("PackageName")
 
-package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xquery.XQST0031
+package uk.co.reecedunn.intellij.plugin.xquery.tests.codeInspection.xqst.XQST0031
 
 import com.intellij.codeInspection.ProblemHighlightType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031.UnsupportedXQueryVersionInspection
+import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031.UnsupportedXQueryVersionInspection
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.InspectionTestCase
 
