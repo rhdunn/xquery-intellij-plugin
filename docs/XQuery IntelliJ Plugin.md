@@ -929,3 +929,10 @@ __ije:IJVS0002__
 > function name for constructs supported by the XQuery processor.
 >
 > See [A.3 Reserved Function Names](#a3-reserved-function-names).
+
+__ije:IJVS0003__
+> It is a *static error* if a PredefinedEntityRef name is not supported by
+> the XQuery processor.
+>
+> Standard conforming processors only support XML entity names. MarkLogic
+> allows HTML4 and HTML5 entity names in addition to the XML entity names.
