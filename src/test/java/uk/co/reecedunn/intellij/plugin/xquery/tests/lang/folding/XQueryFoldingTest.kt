@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.folding
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.folding
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryFoldingBuilder
+import uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
