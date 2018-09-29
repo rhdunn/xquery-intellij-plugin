@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003
+package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -34,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-class FinalStatementSemicolonInspection : Inspection("ijst/IJST0005.md") {
+class IJVS0005 : Inspection("ijvs/IJVS0005.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

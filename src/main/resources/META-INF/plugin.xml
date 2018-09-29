@@ -95,7 +95,7 @@
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0005" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0003.FinalStatementSemicolonInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005"/>
 
     <localInspection language="XQuery" shortName="XPST0017" bundle="messages.XQueryBundle"
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"

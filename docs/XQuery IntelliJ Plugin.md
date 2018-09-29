@@ -942,3 +942,9 @@ __ije:IJVS0004__
 > an XQuery 3.1 conforming XQuery processor.
 >
 > The `:=` separator is used by older versions of the Saxon XQuery processor.
+
+__ije:IJVS0005__
+> It is a *static error* if a multi-statement query body contains a semicolon
+> at the end of the last statement when targeting the MarkLogic XQuery
+> processor, or is missing a semicolon at the end of the last statement when
+> targeting an XQuery processor supporting Scripting Extension 1.0.

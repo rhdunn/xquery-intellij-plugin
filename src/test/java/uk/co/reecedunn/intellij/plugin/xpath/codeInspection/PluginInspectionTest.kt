@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004
+import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005
 
 // region XML Entities
 
@@ -3119,6 +3120,175 @@ private class PluginInspectionTest : InspectionTestCase() {
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("IJVS0005 - final statement semicolon")
+        internal inner class IJVS0005Test {
+            @Nested
+            @DisplayName("MarkLogic")
+            internal inner class MarkLogic {
+                @Test
+                @DisplayName("single statement; without a final statement semicolon")
+                fun testMarkLogic_Single_NoSemicolon() {
+                    settings.implementationVersion = "marklogic/v6.0"
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
+                    val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("single statement; with a final statement semicolon")
+                fun testMarkLogic_Single_Semicolon() {
+                    settings.implementationVersion = "marklogic/v6.0"
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
+                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("multiple statements; with a final statement semicolon")
+                fun testMarkLogic_Multiple_SemicolonAtEnd() {
+                    settings.implementationVersion = "marklogic/v6.0"
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
+                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("multiple statements; without a final statement semicolon")
+                fun testMarkLogic_Multiple_NoSemicolonAtEnd() {
+                    settings.implementationVersion = "marklogic/v6.0"
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
+                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("with prolog")
+                fun testMarkLogic_WithProlog() {
+                    settings.implementationVersion = "marklogic/v6.0"
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
+                    val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery Scripting Extension")
+            internal inner class ScriptingExtension {
+                @Test
+                @DisplayName("single statement; without a final statement semicolon")
+                fun testScripting_Single_NoSemicolon() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.label
+                    val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("single statement; with a final statement semicolon")
+                fun testScripting_Single_Semicolon() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.label
+                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("multiple statements; with a final statement semicolon")
+                fun testScripting_Multiple_SemicolonAtEnd() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.label
+                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("multiple statements; without a final statement semicolon")
+                fun testScripting_Multiple_NoSemicolonAtEnd() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.label
+                    val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery Scripting Extension 1.0 requires ';' at the end of each statement.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.INTEGER_LITERAL))
+                }
+
+                @Test
+                @DisplayName("with prolog")
+                fun testScripting_WithProlog() {
+                    settings.implementationVersion = "w3c/spec/v1ed"
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.label
+                    val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+
+                    val problems = inspect(
+                        file,
+                        IJVS0005()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
                 }
             }
         }
