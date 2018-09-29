@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 private enum class KindTest {
     ANY_TEST,

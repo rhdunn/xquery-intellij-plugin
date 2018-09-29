@@ -37,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 class ReservedFunctionNameInspection : Inspection("ijst/IJST0002.md") {

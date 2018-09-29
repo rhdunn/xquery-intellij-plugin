@@ -19,7 +19,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import javax.swing.Icon
 
 private val DESCRIPTORS = arrayOf(

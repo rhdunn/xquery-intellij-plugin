@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.inspections
 
 import com.intellij.codeInspection.LocalInspectionTool
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
-import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 
 abstract class Inspection(private val descriptionPath: String) : LocalInspectionTool() {
     override fun getStaticDescription(): String? {

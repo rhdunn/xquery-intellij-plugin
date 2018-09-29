@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityR
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 class PredefinedEntityRefInspection : Inspection("ijst/IJST0003.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
