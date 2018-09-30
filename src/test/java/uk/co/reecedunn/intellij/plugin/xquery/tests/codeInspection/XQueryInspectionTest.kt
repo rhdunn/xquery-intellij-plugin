@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
+import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -352,6 +353,172 @@ private class XQueryInspectionTest : InspectionTestCase() {
                 assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
                 assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("one"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQST0118 - mismatched direct xml element name")
+        internal inner class XQST0118Test {
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("matching element names")
+                fun testNCName_MatchedTags() {
+                    val file = parseResource("tests/inspections/xquery/XQST0118/NCName_MatchedTags.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("self-closing element")
+                fun testNCName_SelfClosing() {
+                    val file = parseResource("tests/inspections/xquery/XQST0118/NCName_SelfClosing.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("mismatching element names")
+                fun testNCName_MismatchedTags() {
+                    val file = parseResource("tests/inspections/xquery/XQST0118/NCName_MismatchedTags.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XQST0118: The closing tag 'b' does not match the open tag 'a'.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.NCNAME))
+                    assertThat(problems[0].psiElement.text, `is`("b"))
+                }
+            }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("matching element names (prefix and local name)")
+                fun testQName_MatchedPrefixAndLocalName() {
+                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("self-closing")
+                fun testQName_SelfClosing() {
+                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("missing closing tag")
+                fun testQName_MissingClosingTag() {
+                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("invalid opening tag")
+                fun testQName_InvalidOpeningTag() {
+                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTagQName.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("invalid closing tag")
+                fun testQName_InvalidClosingTag() {
+                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("mismatched prefix")
+                fun testQName_MismatchedPrefix() {
+                    val file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedPrefix.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XQST0118: The closing tag 'c:b' does not match the open tag 'a:b'.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.text, `is`("c:b"))
+                }
+
+                @Test
+                @DisplayName("mismatched local name")
+                fun testQName_MismatchedLocalName() {
+                    val file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedLocalName.xq")
+
+                    val problems = inspect(
+                        file,
+                        XQST0118()
+                    )
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XQST0118: The closing tag 'a:c' does not match the open tag 'a:b'.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.text, `is`("a:c"))
+                }
             }
         }
     }

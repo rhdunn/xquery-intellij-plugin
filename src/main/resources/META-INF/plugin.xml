@@ -126,7 +126,7 @@
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0118" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118.MismatchedDirElemTagNameInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118"/>
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>

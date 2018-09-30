@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
+package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -30,12 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-/** XQST0118 error condition
- *
- * It is a *static error* if a direct element constructor has a close tag that
- * does not match the open tag (prefix and local name).
- */
-class MismatchedDirElemTagNameInspection : Inspection("xqst/XQST0118.md") {
+class XQST0118 : Inspection("xqst/XQST0118.md") {
     private fun displayName(eqname: XsQNameValue): String {
         if (eqname.prefix == null)
             return eqname.localName!!.data
