@@ -36,13 +36,6 @@ class SyntaxHighlighterTest {
     }
 
     @Test
-    @DisplayName("highlighting lexer is the XQuery + xqDoc lexer")
-    fun testHighlightingLexer() {
-        val lexer = SyntaxHighlighter().highlightingLexer
-        assertThat(lexer.javaClass.name, `is`(CombinedLexer::class.java.name))
-    }
-
-    @Test
     @DisplayName("bad character")
     fun testTokenHighlights_BadCharacter() {
         val highlighter = SyntaxHighlighter()
