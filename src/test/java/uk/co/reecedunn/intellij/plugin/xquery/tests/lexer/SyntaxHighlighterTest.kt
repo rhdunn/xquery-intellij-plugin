@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
 import org.hamcrest.CoreMatchers.`is`
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -24,8 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SyntaxHighlighter")
 class SyntaxHighlighterTest {
     @Test
+    @DisplayName("syntax highlighter factory")
     fun testFactory() {
         val factory = SyntaxHighlighterFactory()
         val highlighter = factory.getSyntaxHighlighter(null, null)
@@ -33,12 +36,14 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("highlighting lexer is the XQuery + xqDoc lexer")
     fun testHighlightingLexer() {
         val lexer = SyntaxHighlighter().highlightingLexer
         assertThat(lexer.javaClass.name, `is`(CombinedLexer::class.java.name))
     }
 
     @Test
+    @DisplayName("bad character")
     fun testTokenHighlights_BadCharacter() {
         val highlighter = SyntaxHighlighter()
 
@@ -47,6 +52,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("comment")
     fun testTokenHighlights_Comment() {
         val highlighter = SyntaxHighlighter()
 
@@ -85,6 +91,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("number")
     fun testTokenHighlights_Number() {
         val highlighter = SyntaxHighlighter()
 
@@ -103,6 +110,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("string")
     fun testTokenHighlights_String() {
         val highlighter = SyntaxHighlighter()
 
@@ -132,6 +140,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("escaped character")
     fun testTokenHighlights_EscapedCharacter() {
         val highlighter = SyntaxHighlighter()
 
@@ -140,6 +149,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("entity reference")
     fun testTokenHighlights_EntityReference() {
         val highlighter = SyntaxHighlighter()
 
@@ -162,6 +172,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("identifier")
     fun testTokenHighlights_Identifier() {
         val highlighter = SyntaxHighlighter()
 
@@ -170,6 +181,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("keywords")
     fun testTokenHighlights_Keywords() {
         val highlighter = SyntaxHighlighter()
 
@@ -811,6 +823,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("annotation")
     fun testTokenHighlights_Annotation() {
         val highlighter = SyntaxHighlighter()
 
@@ -834,6 +847,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml tag")
     fun testTokenHighlights_XmlTag() {
         val highlighter = SyntaxHighlighter()
 
@@ -854,6 +868,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml tag name")
     fun testTokenHighlights_XmlTagName() {
         val highlighter = SyntaxHighlighter()
 
@@ -867,6 +882,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml attribute name")
     fun testTokenHighlights_XmlAttributeName() {
         val highlighter = SyntaxHighlighter()
 
@@ -884,6 +900,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml attribute value")
     fun testTokenHighlights_XmlAttributeValue() {
         val highlighter = SyntaxHighlighter()
 
@@ -909,6 +926,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml escaped character")
     fun testTokenHighlights_XmlEscapedCharacter() {
         val highlighter = SyntaxHighlighter()
 
@@ -918,6 +936,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml entity reference")
     fun testTokenHighlights_XmlEntityReference() {
         val highlighter = SyntaxHighlighter()
 
@@ -931,6 +950,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
         val highlighter = SyntaxHighlighter()
 
@@ -991,6 +1011,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xqdoc tag")
     fun testTokenHighlights_XQDocTag() {
         val highlighter = SyntaxHighlighter()
 
@@ -1036,6 +1057,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xqdoc tag value")
     fun testTokenHighlights_XQDocTagValue() {
         val highlighter = SyntaxHighlighter()
 
@@ -1049,6 +1071,7 @@ class SyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xqdoc xml markup")
     fun testTokenHighlights_XQDocMarkup() {
         val highlighter = SyntaxHighlighter()
 

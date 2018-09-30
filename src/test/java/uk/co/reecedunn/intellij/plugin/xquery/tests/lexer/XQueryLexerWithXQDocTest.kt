@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
 import com.intellij.lexer.Lexer
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
@@ -25,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_XQUERY_COMMENT
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - Highlighting Lexer")
 class XQueryLexerWithXQDocTest : LexerTestCase() {
     private fun createLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
@@ -33,6 +35,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("xquery tokens")
     fun testXQueryTokens() {
         val lexer = createLexer()
 
@@ -42,6 +45,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("xquery comment")
     fun testXQueryComment() {
         val lexer = createLexer()
 
@@ -53,6 +57,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("xquery comment")
     fun testXQDocComment() {
         val lexer = createLexer()
 
@@ -69,6 +74,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("state restore to the xquery lexer")
     fun testXQueryStateRestore() {
         val lexer = createLexer()
 
@@ -79,6 +85,7 @@ class XQueryLexerWithXQDocTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("state restore to the xqdoc lexer")
     fun testXQDocStateRestore() {
         val lexer = createLexer()
 
