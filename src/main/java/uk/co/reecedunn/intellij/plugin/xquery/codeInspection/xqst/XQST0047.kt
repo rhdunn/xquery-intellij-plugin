@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0047
+package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -31,12 +29,7 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-/** XQST0047 error condition
- *
- * It is a *static error* if the prolog contains multiple references to the
- * same namespace URI.
- */
-class DuplicateNamespaceUriInspection : Inspection("xqst/XQST0047.md") {
+class XQST0047 : Inspection("xqst/XQST0047.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
