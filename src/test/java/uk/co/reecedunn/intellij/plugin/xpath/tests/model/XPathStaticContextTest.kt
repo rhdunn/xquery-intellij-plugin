@@ -31,6 +31,118 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - Static Context")
 private class XPathStaticContextTest : ParserTestCase() {
     @Nested
+    @DisplayName("XPath 3.1 (2.1.1) In-scope variables")
+    internal inner class InScopeVariables {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (3) Param")
+        internal inner class Param {
+            @Test
+            @DisplayName("in FunctionBody; no parameters")
+            fun testInlineFunctionExpr_FunctionBody_NoParameters() {
+                val element = parse<XPathFunctionCall>("function () { test() }")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("in FunctionBody; single parameter")
+            fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
+                val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(1))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("in FunctionBody; multiple parameters")
+            fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
+                val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(2))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                assertThat(variables[1].variableName?.localName?.data, `is`("y"))
+                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("outside FunctionBody")
+            fun testInlineFunctionExpr_OutsideFunctionBody() {
+                val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr")
+        internal inner class QuantifiedExpr {
+            @Test
+            @DisplayName("single binding; 'in' Expr")
+            fun testQuantifiedExpr_SingleBinding_InExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("single binding; 'satisfies' Expr")
+            fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(1))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("multiple bindings; first 'in' Expr")
+            fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("multiple bindings; last 'in' Expr")
+            fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(1))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("multiple bindings; 'satisfies' Expr")
+            fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
+                val variables = element.inScopeVariablesForFile().toList()
+                assertThat(variables.size, `is`(2))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                assertThat(variables[1].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (2.1.1) Statically known function signatures")
     internal inner class StaticallyKnownFunctionSignatures {
         @Nested
@@ -282,104 +394,4 @@ private class XPathStaticContextTest : ParserTestCase() {
             }
         }
     }
-
-    // region In-Scope Variable Bindings
-    // region InlineFunctionExpr -> ParamList -> Param
-
-    @Test
-    fun testInlineFunctionExpr_FunctionBody_NoParameters() {
-        val element = parse<XPathFunctionCall>("function () { test() }")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
-        val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(1))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
-        val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(2))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_OutsideFunctionBody() {
-        val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    // endregion
-    // region QuantifiedExpr
-
-    @Test
-    fun testQuantifiedExpr_SingleBinding_InExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    @Test
-    fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(1))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    @Test
-    fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(1))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(2))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-        assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-    }
-
-    // endregion
-    // endregion
 }
