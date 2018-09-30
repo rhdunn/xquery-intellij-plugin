@@ -106,7 +106,7 @@
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0031" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031.UnsupportedXQueryVersionInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031"/>
     <localInspection language="XQuery" shortName="XQST0033" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0033" hasStaticDescription="true"

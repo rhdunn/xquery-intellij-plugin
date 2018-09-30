@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031
+package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -30,12 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-/** XQST0081 error condition
- *
- * It is a *static error* if a VersionDecl specifies a version that is
- * not supported by the implementation.
- */
-class UnsupportedXQueryVersionInspection : Inspection("xqst/XQST0081.md") {
+class XQST0031 : Inspection("xqst/XQST0031.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
