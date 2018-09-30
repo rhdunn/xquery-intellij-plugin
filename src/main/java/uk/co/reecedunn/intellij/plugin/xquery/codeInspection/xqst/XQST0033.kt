@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
-package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
+package uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst
 
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -32,13 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-/** XQST0033 error condition
- *
- * It is a *static error* if the prolog contains duplicate namespace
- * prefix names in namespace declarations, including the module
- * declaration namespace.
- */
-class DuplicateNamespacePrefixInspection : Inspection("xqst/XQST0033.md") {
+class XQST0033 : Inspection("xqst/XQST0033.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

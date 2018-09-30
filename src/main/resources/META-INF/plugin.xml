@@ -111,7 +111,7 @@
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0033" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033.DuplicateNamespacePrefixInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033"/>
     <localInspection language="XQuery" shortName="XQST0047" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0047" hasStaticDescription="true"

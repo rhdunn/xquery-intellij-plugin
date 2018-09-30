@@ -27,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
+import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Error Conditions")
@@ -225,6 +227,131 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"0.9-ml\""))
                 }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQST0033 - duplicate namespace prefix")
+        internal inner class XQST0033Test {
+            @Test
+            @DisplayName("no duplicates")
+            fun testNoDuplicates() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("ModuleImport duplicate of ModuleDecl")
+            fun testModuleDecl_ModuleImport() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(1))
+
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'test' has already been defined."))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.text, `is`("test"))
+            }
+
+            @Test
+            @DisplayName("ModuleDecl missing URILiteral")
+            fun testModuleDecl_NoUri() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-no-uri.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("NamespaceDecl duplicate of ModuleImport")
+            fun testModuleImport_NamespaceDecl() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(1))
+
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.text, `is`("one"))
+            }
+
+            @Test
+            @DisplayName("SchemaImport duplicate of NamespaceDecl")
+            fun testNamespaceDecl_SchemaImport() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(1))
+
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.text, `is`("one"))
+            }
+
+            @Test
+            @DisplayName("ModuleImport duplicate of SchemaImport")
+            fun testSchemaImport_ModuleImport() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(1))
+
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.text, `is`("one"))
+            }
+
+            @Test
+            @DisplayName("MarkLogic transactions; no duplicates")
+            fun testOtherTransaction_NoDuplicates() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("MarkLogic transactions; duplicates")
+            fun testOtherTransaction_Duplicates() {
+                val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq")
+
+                val problems = inspect(file,
+                    XQST0033()
+                )
+                assertThat(problems, `is`(notNullValue()))
+                assertThat(problems!!.size, `is`(1))
+
+                assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
+                assertThat(problems[0].descriptionTemplate, `is`("XQST0033: The namespace prefix 'one' has already been defined."))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.text, `is`("one"))
             }
         }
     }
