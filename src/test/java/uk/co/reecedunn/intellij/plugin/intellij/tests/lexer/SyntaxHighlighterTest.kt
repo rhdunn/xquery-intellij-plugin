@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
+package uk.co.reecedunn.intellij.plugin.intellij.tests.lexer
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SyntaxHighlighter")

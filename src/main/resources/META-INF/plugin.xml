@@ -51,7 +51,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
 
-    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory"/>
+    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage"/>
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>

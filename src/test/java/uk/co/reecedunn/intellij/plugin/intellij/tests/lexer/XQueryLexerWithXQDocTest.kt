@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
+package uk.co.reecedunn.intellij.plugin.intellij.tests.lexer
 
 import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName

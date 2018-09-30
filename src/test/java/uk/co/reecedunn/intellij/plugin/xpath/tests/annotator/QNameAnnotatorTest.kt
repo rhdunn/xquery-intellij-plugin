@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - QNameAnnotator")

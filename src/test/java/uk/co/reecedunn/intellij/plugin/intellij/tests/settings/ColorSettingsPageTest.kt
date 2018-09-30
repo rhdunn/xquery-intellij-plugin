@@ -21,7 +21,7 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage
 import java.util.*
 

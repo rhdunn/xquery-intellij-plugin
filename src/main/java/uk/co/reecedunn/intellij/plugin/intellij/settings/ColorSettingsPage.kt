@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import javax.swing.Icon
 

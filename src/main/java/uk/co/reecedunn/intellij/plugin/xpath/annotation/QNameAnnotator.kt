@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
 
 class QNameAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
