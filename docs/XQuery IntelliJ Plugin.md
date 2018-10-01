@@ -43,8 +43,8 @@
   - [4.3 Stylesheet Import](#43-stylesheet-import)
   - [4.4 Transactions](#44-transactions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
-  - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
-  - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
+  - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
+  - [A.2 EBNF for XQuery 3.1 with Vendor Extensions](#a2-ebnf-for-xquery-31-with-vendor-extensions)
   - [A.3 Reserved Function Names](#a3-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
@@ -55,6 +55,7 @@
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
   - [C.2 MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
   - [C.3 Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
+  - [C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions)
 - [D Error and Warning Conditions](#d-error-and-warning-conditions)
   - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
@@ -212,7 +213,7 @@ MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[59\]  | `ArrayNodeTest`         | ::= | `AnyArrayNodeTest | NamedArrayNodeTest` |     |
+| \[59\]  | `ArrayNodeTest`         | ::= | `AnyArrayNodeTest \| NamedArrayNodeTest` |     |
 | \[60\]  | `AnyArrayNodeTest`      | ::= | `"array-node" "(" ")"`              |         |
 | \[61\]  | `NamedArrayNodeTest`    | ::= | `"array-node" "(" StringLiteral ")"` |        |
 
@@ -434,7 +435,7 @@ From 9.7, the XQuery 3.1 syntax (`:`) is used.
 MarkLogic 8.0 uses the `array-node` keyword for defining JSON arrays. It does
 not support the square array style constructors.
 
-### 3.8.3 Booleans
+#### 3.8.3 Booleans
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -454,7 +455,7 @@ A boolean node follows the rules for casting from an `xs:boolean` type, using
 the content of the boolean node in the cast. However, a boolean node is not an
 instance of `xs:boolean`.
 
-### 3.8.4 Numbers
+#### 3.8.4 Numbers
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -473,7 +474,7 @@ A number node follows the rules for casting from an `xs:double` type, using
 the content of the number node in the cast. However, a number node is not an
 instance of `xs:double`.
 
-### 3.8.5 Nulls
+#### 3.8.5 Nulls
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -540,7 +541,7 @@ typed validation expressions.
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[31\] | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
+| \[31\] | `CatchClause`                  | ::= | `"catch" (CatchErrorList \| ("(" "$" VarName ")")) EnclosedExpr` | |
 
 MarkLogic only allows a single `CatchClause` for a given try/catch expression,
 using the parenthesis style catch clause. It does not support the XQuery 3.0
@@ -611,7 +612,7 @@ If the type name has no namespace prefix, it is implicitly qualified by the
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[26\] | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
+| \[26\] | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 
 The bare keyword `private` is a MarkLogic extension that is allowed on a
 function or variable declared in the prolog for backwards compatibility with
@@ -656,7 +657,7 @@ syntax.
 
 ## A XQuery IntelliJ Plugin Grammar
 
-### A.1 EBNF for XPath 3.1
+### A.1 EBNF for XPath 3.1 with Vendor Extensions
 
 This EBNF grammar includes and modifies the EBNF grammar for the following
 specifications:
@@ -686,7 +687,7 @@ These changes include support for:
 | \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
 
-### A.2 EBNF for XQuery 3.1
+### A.2 EBNF for XQuery 3.1 with Vendor Extensions
 
 This EBNF grammar includes and modifies the EBNF grammar for the following
 specifications:
@@ -705,6 +706,9 @@ specifications, including this document.
 The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
+1.  BaseX Vendor Extensions;
+1.  MarkLogic Vendor Extensions;
+1.  Saxon Vendor Extensions;
 1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
 
 | Ref      | Symbol                         |     | Expression                          | Options               |
@@ -734,12 +738,12 @@ These changes include support for:
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
 | \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
-| \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
+| \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
 | \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
-| \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
+| \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList \| ("(" "$" VarName ")")) EnclosedExpr` | |
 | \[32\]   | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` |         |
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
@@ -767,7 +771,7 @@ These changes include support for:
 | \[56\]   | `AnyNullNodeTest`              | ::= | `"null-node" "(" ")"`                     |                 |
 | \[57\]   | `NamedNullNodeTest`            | ::= | `"null-node" "(" StringLiteral ")"`       |                 |
 | \[58\]   | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |                 |
-| \[59\]   | `ArrayNodeTest`                | ::= | `AnyArrayNodeTest | NamedArrayNodeTest`   |                 |
+| \[59\]   | `ArrayNodeTest`                | ::= | `AnyArrayNodeTest \| NamedArrayNodeTest`  |                 |
 | \[60\]   | `AnyArrayNodeTest`             | ::= | `"array-node" "(" ")"`                    |                 |
 | \[61\]   | `NamedArrayNodeTest`           | ::= | `"array-node" "(" StringLiteral ")"`      |                 |
 | \[62\]   | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |                 |
@@ -883,7 +887,7 @@ __XML Schema__
 ### C.1 BaseX Vendor Extensions
 The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
-1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
+1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility.
 1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
 1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
@@ -915,6 +919,20 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+
+### C.5 IntelliJ Plugin Extensions
+The following constructs have had their grammar modified to make it easier to
+implement features such as variable lookup. These changes do not modify the
+behaviour of those constructs:
+1.  [Node Constructors](#31-node-constructors)
+1.  [Quantified Expressions](#32-quantified-expressions)
+1.  [Typeswitch](#331-typeswitch)
+1.  [Block Expressions](#34-block-expressions)
+1.  [Node Tests](#392-node-tests)
+
+The XQuery IntelliJ Plugin supports the following vendor extensions described
+in this document:
+1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
 
 ## D Error and Warning Conditions
 

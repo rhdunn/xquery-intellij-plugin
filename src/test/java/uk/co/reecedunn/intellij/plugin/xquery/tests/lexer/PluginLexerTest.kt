@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRU
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
 @DisplayName("XQuery IntelliJ Plugin - Lexer")
 class PluginLexerTest : LexerTestCase() {
@@ -35,370 +34,168 @@ class PluginLexerTest : LexerTestCase() {
         return lexer
     }
 
-    // region MarkLogic 6.0 :: TransactionSeparator
-
     @Test
-    fun testTransactionSeparator() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+    fun dirAttribute() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL)
     }
 
-    // endregion
-    // region MarkLogic 6.0 :: CompatibilityAnnotation
-
     @Test
-    fun testCompatibilityAnnotation_MarkLogic() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (3) QuantifiedExpr")
+    fun quantifiedExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "private", XQueryTokenType.K_PRIVATE)
-    }
-
-    // endregion
-    // region MarkLogic 6.0 :: StylesheetImport
-
-    @Test
-    fun testStylesheetImport() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT)
-        matchSingleToken(lexer, "stylesheet", XQueryTokenType.K_STYLESHEET)
-        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
-    }
-
-    // endregion
-    // region MarkLogic 6.0 :: ValidateExpr
-
-    @Test
-    fun testValidateExpr_ValidateAs() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 6.0 :: ForwardAxis
-
-    @Test
-    fun testForwardAxis_MarkLogic() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "property", XQueryTokenType.K_PROPERTY)
-        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR)
-    }
-
-    // endregion
-    // region MarkLogic 6.0 :: BinaryConstructor
-
-    @Test
-    fun testBinaryConstructor() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: AttributeDeclTest
-
-    @Test
-    fun testAttributeDeclTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "attribute-decl", XQueryTokenType.K_ATTRIBUTE_DECL)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: ComplexTypeTest
-
-    @Test
-    fun testComplexTypeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "complex-type", XQueryTokenType.K_COMPLEX_TYPE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: ElementDeclTest
-
-    @Test
-    fun testElementDeclTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "element-decl", XQueryTokenType.K_ELEMENT_DECL)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaComponentTest
-
-    @Test
-    fun testSchemaComponentTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-component", XQueryTokenType.K_SCHEMA_COMPONENT)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaParticleTest
-
-    @Test
-    fun testSchemaParticleTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-particle", XQueryTokenType.K_SCHEMA_PARTICLE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaRootTest
-
-    @Test
-    fun testSchemaRootTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-root", XQueryTokenType.K_SCHEMA_ROOT)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SchemaTypeTest
-
-    @Test
-    fun testSchemaTypeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-type", XQueryTokenType.K_SCHEMA_TYPE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 7.0 :: SimpleTypeTest
-
-    @Test
-    fun testSimpleTypeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "simple-type", XQueryTokenType.K_SIMPLE_TYPE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: SchemaFacetTest
-
-    @Test
-    fun testSchemaFacetTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-facet", XQueryTokenType.K_SCHEMA_FACET)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: ArrayConstructor
-
-    @Test
-    fun testArrayConstructor() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "some", XQueryTokenType.K_SOME)
+        matchSingleToken(lexer, "every", XQueryTokenType.K_EVERY)
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "satisfies", XQueryTokenType.K_SATISFIES)
     }
 
-    // endregion
-    // region MarkLogic 8.0 :: BooleanConstructor
-
     @Test
-    fun testBooleanConstructor() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (4) QuantifiedExprBinding")
+    fun quantifiedExprBinding() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (5) TypeswitchExpr")
+    fun typeswitchExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "typeswitch", XQueryTokenType.K_TYPESWITCH)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (6) DefaultCaseClause")
+    fun defaultCaseClause() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (7) CastExpr")
+    fun castExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (8) TransformWithExpr")
+    fun transformWithExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM)
+        matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
 
-    // endregion
-    // region MarkLogic 8.0 :: NullConstructor
-
     @Test
-    fun testNullConstructor() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (9) BlockVarDecl")
+    fun blockVarDecl() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NumberConstructor
-
-    @Test
-    fun testNumberConstructor() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: MapConstructor
-
-    @Test
-    fun testMapConstructor_MarkLogic() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
 
-    // endregion
-    // region MarkLogic 8.0 :: AnyKindTest
-
     @Test
-    fun testAnyKindTest_MarkLogic() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (10) BlockVarDeclEntry")
+    fun blockVarDeclEntry() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
     }
 
-    // endregion
-    // region MarkLogic 8.0 :: ArrayTest
-
     @Test
-    fun testArrayTest() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    fun andExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "and", XQueryTokenType.K_AND)
     }
 
-    // endregion
-    // region MarkLogic 8.0 :: BooleanTest
-
     @Test
-    fun testBooleanTest() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
+    fun updateExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE)
     }
 
-    // endregion
-    // region MarkLogic 8.0 :: NullTest
-
     @Test
-    fun testNullTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: NumberTest
-
-    @Test
-    fun testNumberTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region MarkLogic 8.0 :: MapTest
-
-    @Test
-    fun testMapTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    // endregion
-    // region BaseX 6.1 :: FTFuzzyOption
-
-    @Test
-    @Specification(name = "BaseX Full-Text", reference = "http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying")
-    fun testFTFuzzyOption() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
+    fun ftFuzzyOption() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "fuzzy", XQueryTokenType.K_FUZZY)
     }
 
-    // endregion
-    // region BaseX 7.8 :: UpdateExpr
-
     @Test
-    fun testUpdateExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE)
-    }
-
-    // endregion
-    // region BaseX 8.4 :: NonDeterministicFunctionCall
-
-    @Test
-    fun testNonDeterministicFunctionCall() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (16) NonDeterministicFunctionCall")
+    fun nonDeterministicFunctionCall() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "non-deterministic", XQueryTokenType.K_NON_DETERMINISTIC)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
+    fun mapConstructorEntry() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
+    fun typeDecl() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
+        matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
+        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (20) ItemType")
+    fun itemType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
-    // endregion
-    // region BaseX 8.5 :: UpdateExpr
-
     @Test
-    fun testUpdateExpr_BaseX85() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (21) TypedMapTest")
+    fun typedMapTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
-    // endregion
-    // region Saxon 9.8 :: UnionType
-
     @Test
-    @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types")
-    fun testUnionType() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+    fun unionType() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "union", XQueryTokenType.K_UNION)
@@ -407,12 +204,9 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
-    // endregion
-    // region Saxon 9.8 :: TupleType
-
     @Test
-    @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
-    fun testTupleType() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    fun tupleType() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "tuple", XQueryTokenType.K_TUPLE)
@@ -421,29 +215,424 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
-    // endregion
-    // region Saxon 9.8 :: TupleTypeField
-
     @Test
-    @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
-    fun testTupleTypeField() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
+    fun tupleField() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
     }
 
-    // endregion
-    // region Saxon 9.8 :: TypeDecl
-
     @Test
-    @Specification(name = "Saxon 9.8", reference = "http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
-    fun testTypeDecl() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
+    fun forwardAxis() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
-        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL)
+        matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE)
+        matchSingleToken(lexer, "child", XQueryTokenType.K_CHILD)
+        matchSingleToken(lexer, "descendant", XQueryTokenType.K_DESCENDANT)
+        matchSingleToken(lexer, "descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF)
+        matchSingleToken(lexer, "following", XQueryTokenType.K_FOLLOWING)
+        matchSingleToken(lexer, "following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING)
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "property", XQueryTokenType.K_PROPERTY)
+        matchSingleToken(lexer, "self", XQueryTokenType.K_SELF)
+        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR)
     }
 
-    // endregion
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
+    fun compatibilityAnnotation() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "assignable", XQueryTokenType.K_ASSIGNABLE)
+        matchSingleToken(lexer, "private", XQueryTokenType.K_PRIVATE)
+        matchSingleToken(lexer, "sequential", XQueryTokenType.K_SEQUENTIAL)
+        matchSingleToken(lexer, "simple", XQueryTokenType.K_SIMPLE)
+        matchSingleToken(lexer, "unassignable", XQueryTokenType.K_UNASSIGNABLE)
+        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (27) ValidateExpr")
+    fun validateExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
+        matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
+        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
+    fun binaryTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (30) BinaryConstructor")
+    fun binaryConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
+    fun catchClause() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "catch", XQueryTokenType.K_CATCH)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (33) StylesheetImport")
+    fun stylesheetImport() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT)
+        matchSingleToken(lexer, "stylesheet", XQueryTokenType.K_STYLESHEET)
+        matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (35) TransactionSeparator")
+    fun transactionSeparator() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
+    fun attributeDeclTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "attribute-decl", XQueryTokenType.K_ATTRIBUTE_DECL)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (38) ComplexTypeTest")
+    fun complexTypeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "complex-type", XQueryTokenType.K_COMPLEX_TYPE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (39) ElementDeclTest")
+    fun elementDeclTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "element-decl", XQueryTokenType.K_ELEMENT_DECL)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (40) SchemaComponentTest")
+    fun schemaComponentTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-component", XQueryTokenType.K_SCHEMA_COMPONENT)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (41) SchemaParticleTest")
+    fun schemaParticleTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-particle", XQueryTokenType.K_SCHEMA_PARTICLE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (42) SchemaRootTest")
+    fun schemaRootTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-root", XQueryTokenType.K_SCHEMA_ROOT)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (43) SchemaTypeTest")
+    fun schemaTypeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-type", XQueryTokenType.K_SCHEMA_TYPE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (44) SimpleTypeTest")
+    fun simpleTypeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "simple-type", XQueryTokenType.K_SIMPLE_TYPE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (45) SchemaFacetTest")
+    fun schemaFacetTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-facet", XQueryTokenType.K_SCHEMA_FACET)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
+    fun anyBooleanNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
+    fun namedBooleanNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (50) BooleanConstructor")
+    fun booleanConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
+    fun anyNumberNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
+    fun namedNumberNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (54) NumberConstructor")
+    fun numberConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
+    fun anyNullNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
+    fun namedNullNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (58) NullConstructor")
+    fun nullConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
+    fun anyArrayNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (61) NamedArrayNodeTest")
+    fun namedArrayNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (62) CurlyArrayConstructor")
+    fun curlyArrayConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
+        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
+    fun anyMapNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
+    fun namedMapNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
+    fun mapConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (67) AnyKindTest")
+    fun anyKindTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (68) NamedKindTest")
+    fun namedKindTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (70) AnyTextTest")
+    fun anyTextTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (71) NamedTextTest")
+    fun namedTextTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (72) DocumentTest")
+    fun documentTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "document-node", XQueryTokenType.K_DOCUMENT_NODE)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (74) ApplyExpr")
+    fun applyExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (75) ConcatExpr")
+    fun concatExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (76) Wildcard")
+    fun wildcard() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (77) WildcardIndicator")
+    fun wildcardIndicator() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+    }
 }
