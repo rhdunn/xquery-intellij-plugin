@@ -515,8 +515,262 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.12) FLWORExpressions")
+    internal inner class FLWORExpressions {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
+        internal inner class PositionalVar {
+            @Test
+            @DisplayName("NCName")
+            fun testPositionalVar_NCName() {
+                val expr = parse<XQueryPositionalVar>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testPositionalVar_QName() {
+                val expr = parse<XQueryPositionalVar>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testPositionalVar_URIQualifiedName() {
+                val expr = parse<XQueryPositionalVar>(
+                    "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
+                            "return \$Q{http://www.example.com}w"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testPositionalVar_MissingVarName() {
+                val expr = parse<XQueryPositionalVar>("for \$x at \$ \$z return \$w")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.12.2) For Clause")
+    internal inner class ForClause {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
+        internal inner class ForBinding {
+            @Test
+            @DisplayName("NCName")
+            fun testForBinding_NCName() {
+                val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testForBinding_QName() {
+                val expr = parse<XQueryForBinding>("for \$a:x at \$a:y in \$a:z return \$a:w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testForBinding_URIQualifiedName() {
+                val expr = parse<XQueryForBinding>(
+                    "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
+                            "return \$Q{http://www.example.com}w"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testForBinding_MissingVarName() {
+                val expr = parse<XQueryForBinding>("for \$ \$y return \$w")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.12.3) Let Clause")
+    internal inner class LetClause {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
+        internal inner class LetBinding {
+            @Test
+            @DisplayName("NCName")
+            fun testLetBinding_NCName() {
+                val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testLetBinding_QName() {
+                val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testLetBinding_URIQualifiedName() {
+                val expr = parse<XQueryLetBinding>(
+                    "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}w"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testLetBinding_MissingVarName() {
+                val expr = parse<XQueryLetBinding>("let \$ := 2 return \$w")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.12.4) Window Clause")
     internal inner class WindowClause {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
+        internal inner class TumblingWindowClause {
+            @Test
+            @DisplayName("NCName")
+            fun testTumblingWindowClause_NCName() {
+                val expr = parse<XQueryTumblingWindowClause>(
+                    "for tumbling window \$x in \$y return \$z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testTumblingWindowClause_QName() {
+                val expr = parse<XQueryTumblingWindowClause>(
+                    "for tumbling window \$a:x in \$a:y return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testTumblingWindowClause_URIQualifiedName() {
+                val expr = parse<XQueryTumblingWindowClause>(
+                    "for tumbling window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testTumblingWindowClause_MissingVarName() {
+                val expr = parse<XQueryTumblingWindowClause>("for tumbling window \$ \$y return \$w")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
+        internal inner class SlidingWindowClause {
+            @Test
+            @DisplayName("NCName")
+            fun testSlidingWindowClause_NCName() {
+                val expr = parse<XQuerySlidingWindowClause>(
+                    "for sliding window \$x in \$y return \$z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testSlidingWindowClause_QName() {
+                val expr = parse<XQuerySlidingWindowClause>(
+                    "for sliding window \$a:x in \$a:y return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testSlidingWindowClause_URIQualifiedName() {
+                val expr = parse<XQuerySlidingWindowClause>(
+                    "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testSlidingWindowClause_MissingVarName() {
+                val expr = parse<XQuerySlidingWindowClause>("for sliding window \$ \$y return \$w")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (56) CurrentItem")
         internal inner class CurrentItem {
@@ -542,6 +796,45 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("NCName")
+            fun testCurrentItem_NCName() {
+                val expr = parse<XQueryCurrentItem>("for sliding window \$x in \$y start \$w when true() return \$z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testCurrentItem_QName() {
+                val expr = parse<XQueryCurrentItem>("for sliding window \$a:x in \$a:y start \$a:w when true() return \$a:z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testCurrentItem_URIQualifiedName() {
+                val expr = parse<XQueryCurrentItem>(
+                    "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "start \$Q{http://www.example.com}w when true() " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("w"))
             }
         }
 
@@ -571,6 +864,47 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("NCName")
+            fun testPreviousItem_NCName() {
+                val expr = parse<XQueryPreviousItem>(
+                    "for sliding window \$x in \$y start \$v previous \$w when true() return \$z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testPreviousItem_QName() {
+                val expr = parse<XQueryPreviousItem>(
+                    "for sliding window \$a:x in \$a:y start \$a:v previous \$a:w when true() return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testPreviousItem_URIQualifiedName() {
+                val expr = parse<XQueryPreviousItem>(
+                    "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "start \$Q{http://www.example.com}v previous \$Q{http://www.example.com}w when true() " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
         }
 
         @Nested
@@ -598,6 +932,256 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("NCName")
+            fun testNextItem_NCName() {
+                val expr = parse<XQueryNextItem>("for sliding window \$x in \$y start \$v next \$w when true() return \$z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testNextItem_QName() {
+                val expr = parse<XQueryNextItem>(
+                    "for sliding window \$a:x in \$a:y start \$a:v next \$a:w when true() return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testNextItem_URIQualifiedName() {
+                val expr = parse<XQueryNextItem>(
+                    "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "start \$Q{http://www.example.com}v next \$Q{http://www.example.com}w when true() " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("w"))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.12.6) Count Clause")
+    internal inner class CountClause {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (59) CountClause")
+        internal inner class CountClauseTest {
+            @Test
+            @DisplayName("NCName")
+            fun testCountClause_NCName() {
+                val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testCountClause_QName() {
+                val expr = parse<XQueryCountClause>("for \$a:x in \$a:y count \$a:z return \$a:w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testCountClause_URIQualifiedName() {
+                val expr = parse<XQueryCountClause>(
+                    "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y count \$Q{http://www.example.com}z " +
+                            "return \$Q{http://www.example.com}w"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testCountClause_MissingVarName() {
+                val expr = parse<XQueryCountClause>("for \$x in \$y count \$")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.12.7) Group By Clause")
+    internal inner class GroupByClause {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (63) GroupingSpec")
+        internal inner class GroupingSpec {
+            @Test
+            @DisplayName("NCName")
+            fun testGroupingSpec_NCName() {
+                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testGroupingSpec_QName() {
+                val expr = parse<XQueryGroupingSpec>(
+                    "for \$a:x in \$a:y group by \$a:z return \$a:w"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testGroupingSpec_URIQualifiedName() {
+                val expr = parse<XQueryGroupingSpec>(
+                    "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "group by \$Q{http://www.example.com}z " +
+                            "return \$Q{http://www.example.com}w"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testGroupingSpec_MissingVarName() {
+                val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (64) GroupingVariable")
+        internal inner class GroupingVariable {
+            @Test
+            @DisplayName("NCName")
+            fun testGroupingVariable_NCName() {
+                val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$z return \$w")[0] as XPathVariableName
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testGroupingVariable_QName() {
+                val expr = parse<XQueryGroupingVariable>(
+                    "for \$a:x in \$a:y group by \$a:z return \$a:w"
+                )[0] as XPathVariableName
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testGroupingVariable_URIQualifiedName() {
+                val expr = parse<XQueryGroupingVariable>(
+                    "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                            "group by \$Q{http://www.example.com}z " +
+                            "return \$Q{http://www.example.com}w"
+                )[0] as XPathVariableName
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("z"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testGroupingVariable_MissingVarName() {
+                val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XPathVariableName
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.18.2) Typeswitch")
+    internal inner class Typeswitch {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (75) CaseClause")
+        internal inner class CaseClause {
+            @Test
+            @DisplayName("NCName")
+            fun testCaseClause_NCName() {
+                val expr = parse<XQueryCaseClause>(
+                    "typeswitch (\$x) case \$y as xs:string return \$z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testCaseClause_QName() {
+                val expr = parse<XQueryCaseClause>(
+                    "typeswitch (\$a:x) case \$a:y as xs:string return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testCaseClause_URIQualifiedName() {
+                val expr = parse<XQueryCaseClause>(
+                    "typeswitch (\$Q{http://www.example.com}x) " +
+                            "case \$Q{http://www.example.com}y as xs:string " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testCaseClause_NoVarName() {
+                val expr = parse<XQueryCaseClause>("typeswitch (\$x) case xs:string return \$z")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }
@@ -806,78 +1390,83 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (4.1) Version Declaration : EBNF (2) VersionDecl")
+    @DisplayName("XQuery 3.1 (4.1) Version Declaration")
     internal inner class VersionDecl {
-        @Test
-        @DisplayName("no version, no encoding")
-        fun noVersionOrEncoding() {
-            val decl = parse<XQueryVersionDecl>("xquery;")[0]
-            assertThat(decl.version, `is`(nullValue()))
-            assertThat(decl.encoding, `is`(nullValue()))
-        }
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (2) VersionDecl")
+        internal inner class VersionDecl {
+            @Test
+            @DisplayName("no version, no encoding")
+            fun noVersionOrEncoding() {
+                val decl = parse<XQueryVersionDecl>("xquery;")[0]
+                assertThat(decl.version, `is`(nullValue()))
+                assertThat(decl.encoding, `is`(nullValue()))
+            }
 
-        @Test
-        @DisplayName("version, no encoding")
-        fun versionOnly() {
-            val decl = parse<XQueryVersionDecl>("xquery version \"1.0\";")[0]
-            assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-            assertThat(decl.encoding, `is`(nullValue()))
-        }
+            @Test
+            @DisplayName("version, no encoding")
+            fun versionOnly() {
+                val decl = parse<XQueryVersionDecl>("xquery version \"1.0\";")[0]
+                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat(decl.encoding, `is`(nullValue()))
+            }
 
-        @Test
-        @DisplayName("no version, encoding")
-        fun encodingOnly() {
-            val decl = parse<XQueryVersionDecl>("xquery encoding \"latin1\";")[0]
-            assertThat(decl.version, `is`(nullValue()))
-            assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
-        }
+            @Test
+            @DisplayName("no version, encoding")
+            fun encodingOnly() {
+                val decl = parse<XQueryVersionDecl>("xquery encoding \"latin1\";")[0]
+                assertThat(decl.version, `is`(nullValue()))
+                assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+            }
 
-        @Test
-        @DisplayName("empty version, no encoding")
-        fun emptyVersion() {
-            val decl = parse<XQueryVersionDecl>("xquery version \"\";")[0]
-            assertThat((decl.version!!.value as XsStringValue).data, `is`(""))
-            assertThat(decl.encoding, `is`(nullValue()))
-        }
+            @Test
+            @DisplayName("empty version, no encoding")
+            fun emptyVersion() {
+                val decl = parse<XQueryVersionDecl>("xquery version \"\";")[0]
+                assertThat((decl.version!!.value as XsStringValue).data, `is`(""))
+                assertThat(decl.encoding, `is`(nullValue()))
+            }
 
-        @Test
-        @DisplayName("no version, empty encoding")
-        fun emptyEncoding() {
-            val decl = parse<XQueryVersionDecl>("xquery encoding \"\";")[0]
-            assertThat(decl.version, `is`(nullValue()))
-            assertThat((decl.encoding!!.value as XsStringValue).data, `is`(""))
-        }
+            @Test
+            @DisplayName("no version, empty encoding")
+            fun emptyEncoding() {
+                val decl = parse<XQueryVersionDecl>("xquery encoding \"\";")[0]
+                assertThat(decl.version, `is`(nullValue()))
+                assertThat((decl.encoding!!.value as XsStringValue).data, `is`(""))
+            }
 
-        @Test
-        @DisplayName("version, encoding")
-        fun versionAndEncoding() {
-            val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"latin1\";")[0]
-            assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-            assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
-        }
+            @Test
+            @DisplayName("version, encoding")
+            fun versionAndEncoding() {
+                val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"latin1\";")[0]
+                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+            }
 
-        @Test
-        @DisplayName("version, empty encoding")
-        fun emptyEncodingWithVersion() {
-            val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"\";")[0]
-            assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-            assertThat((decl.encoding!!.value as XsStringValue).data, `is`(""))
-        }
+            @Test
+            @DisplayName("version, empty encoding")
+            fun emptyEncodingWithVersion() {
+                val decl = parse<XQueryVersionDecl>("xquery version \"1.0\" encoding \"\";")[0]
+                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.encoding!!.value as XsStringValue).data, `is`(""))
+            }
 
-        @Test
-        @DisplayName("comment before declaration")
-        fun commentBefore() {
-            val decl = parse<XQueryVersionDecl>("(: test :)\nxquery version \"1.0\";")[0]
-            assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-            assertThat(decl.encoding, `is`(nullValue()))
-        }
+            @Test
+            @DisplayName("comment before declaration")
+            fun commentBefore() {
+                val decl = parse<XQueryVersionDecl>("(: test :)\nxquery version \"1.0\";")[0]
+                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat(decl.encoding, `is`(nullValue()))
+            }
 
-        @Test
-        @DisplayName("comment as whitespace")
-        fun commentAsWhitespace() {
-            val decl = parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
-            assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
-            assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+            @Test
+            @DisplayName("comment as whitespace")
+            fun commentAsWhitespace() {
+                val decl =
+                    parse<XQueryVersionDecl>("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";")[0]
+                assertThat((decl.version!!.value as XsStringValue).data, `is`("1.0"))
+                assertThat((decl.encoding!!.value as XsStringValue).data, `is`("latin1"))
+            }
         }
     }
 
@@ -1435,6 +2024,56 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.16) Variable Declaration")
+    internal inner class VariableDeclaration {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
+        internal inner class VarDecl {
+            @Test
+            @DisplayName("NCName")
+            fun testVarDecl_NCName() {
+                val expr = parse<XQueryVarDecl>("declare variable \$x := \$y;")[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testVarDecl_QName() {
+                val expr = parse<XQueryVarDecl>("declare variable \$a:x := \$a:y;")[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testVarDecl_URIQualifiedName() {
+                val expr = parse<XQueryVarDecl>(
+                    "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;"
+                )[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testVarDecl_MissingVarName() {
+                val expr = parse<XQueryVarDecl>("declare variable \$ := \$y;")[0] as XPathVariableDeclaration
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }

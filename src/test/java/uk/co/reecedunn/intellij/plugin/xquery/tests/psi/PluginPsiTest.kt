@@ -27,7 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -131,6 +134,131 @@ private class PluginPsiTest : ParserTestCase() {
 
                     assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
                 }
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.3.1) Typeswitch")
+    internal inner class Typeswitch {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (75) DefaultCaseClause")
+        internal inner class DefaultCaseClause {
+            @Test
+            @DisplayName("NCName")
+            fun testDefaultCaseClause_NCName() {
+                val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testDefaultCaseClause_QName() {
+                val expr = parse<PluginDefaultCaseClause>(
+                    "typeswitch (\$a:x) default \$a:y return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testDefaultCaseClause_URIQualifiedName() {
+                val expr = parse<PluginDefaultCaseClause>(
+                    "typeswitch (\$Q{http://www.example.com}x) " +
+                            "default \$Q{http://www.example.com}y " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testDefaultCaseClause_NoVarName() {
+                val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default return \$z")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.4) Block Expressions")
+    internal inner class BlockExpressions {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (9) BlockVarDecl")
+        internal inner class BlockVarDecl {
+            @Test
+            @DisplayName("multiple BlockVarDeclEntry nodes")
+            fun testBlockVarDeclEntry_Multiple() {
+                val decls = parse<PluginBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
+                assertThat(decls.size, `is`(2))
+
+                var qname = (decls[0] as XPathVariableDeclaration).variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                qname = (decls[1] as XPathVariableDeclaration).variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (10) BlockVarDeclEntry")
+        internal inner class BlockVarDeclEntry {
+            @Test
+            @DisplayName("NCName")
+            fun testBlockVarDeclEntry_NCName() {
+                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testBlockVarDeclEntry_QName() {
+                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testBlockVarDeclEntry_URIQualifiedName() {
+                val expr = parse<PluginBlockVarDeclEntry>(
+                    "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }"
+                )[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testBlockVarDeclEntry_MissingVarName() {
+                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }
