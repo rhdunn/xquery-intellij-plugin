@@ -1,10 +1,10 @@
 xquery version "3.0";
 
 (:~
-: User: bridger
-: Date: 9/22/18
-: Time: 3:39 PM
-: To change this template use File | Settings | File Templates.
+: BaseX Crypto module functions
+:
+: @see http://docs.basex.org/wiki/Crypto_Module
+:
 :)
 
 module namespace crypto = "http://expath.org/ns/crypto";
