@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 
-@DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - ASTFactory")
+@DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - XQuery ASTFactory")
 class XQueryASTFactoryTest {
     @Test
     @DisplayName("createComposite")
