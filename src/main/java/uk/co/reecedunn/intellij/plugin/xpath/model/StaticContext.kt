@@ -28,10 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
-interface XPathStaticContext {
-    val variables: Sequence<XPathVariableDeclaration>
-}
-
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
     return walkTree().reversed().flatMap { node -> when (node) {
         is XPathNamespaceDeclaration ->
@@ -176,7 +172,7 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPa
 fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
-        is XQueryProlog -> (node as XPathStaticContext).variables
+        is XQueryProlog -> (node as XPathVariableDeclarations).variables
         is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
         is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> node.flworBindingVariables(node, context)
         is XQueryWindowClause -> node.windowClauseVariables(context)

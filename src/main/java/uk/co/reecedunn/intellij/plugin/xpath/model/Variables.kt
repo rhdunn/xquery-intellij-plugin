@@ -24,3 +24,7 @@ interface XPathVariableDeclaration : XPathVariableName
 interface XPathVariableBinding : XPathVariableName
 
 interface XPathVariableReference : XPathVariableName
+
+interface XPathVariableDeclarations {
+    val variables: Sequence<XPathVariableDeclaration>
+}

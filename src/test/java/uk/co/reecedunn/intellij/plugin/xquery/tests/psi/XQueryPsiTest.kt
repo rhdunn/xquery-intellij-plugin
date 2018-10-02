@@ -1364,7 +1364,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("without Prolog")
                 fun testMainModule_Variables_NoProlog() {
-                    val ctx = parse<XQueryMainModule>("1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("1")[0] as XPathVariableDeclarations
 
                     assertThat(ctx.variables.count(), `is`(0))
                 }
@@ -1372,7 +1372,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("no VarDecl")
                 fun testMainModule_Variables_NoVarDecl() {
-                    val ctx = parse<XQueryMainModule>("declare function f() {}; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("declare function f() {}; 1")[0] as XPathVariableDeclarations
 
                     assertThat(ctx.variables.count(), `is`(0))
                 }
@@ -1380,7 +1380,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing VarName")
                 fun testMainModule_Variables_VarDeclWithMissingVarName() {
-                    val ctx = parse<XQueryMainModule>("declare variable \$; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("declare variable \$; 1")[0] as XPathVariableDeclarations
 
                     assertThat(ctx.variables.count(), `is`(0))
                 }
@@ -1388,7 +1388,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("single VarDecl")
                 fun testMainModule_Variables_SingleVarDecl() {
-                    val ctx = parse<XQueryMainModule>("declare variable \$x; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("declare variable \$x; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(1))
@@ -1401,7 +1401,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("multiple VarDecls")
                 fun testMainModule_Variables_MultipleVarDecls() {
-                    val ctx = parse<XQueryMainModule>("declare variable \$x; declare variable \$y; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("declare variable \$x; declare variable \$y; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(2))
@@ -1418,7 +1418,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("public Annotation")
                 fun testMainModule_Variables_PublicVarDecl() {
-                    val ctx = parse<XQueryMainModule>("declare %public variable \$x; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("declare %public variable \$x; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(1))
@@ -1431,7 +1431,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("private Annotation")
                 fun testMainModule_Variables_PrivateVarDecl() {
-                    val ctx = parse<XQueryMainModule>("declare %private variable \$x; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryMainModule>("declare %private variable \$x; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(1))
@@ -1484,7 +1484,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("no VarDecl")
                 fun testProlog_Variables_NoVarDecl() {
-                    val ctx = parse<XQueryProlog>("declare function f() {}; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryProlog>("declare function f() {}; 1")[0] as XPathVariableDeclarations
 
                     assertThat(ctx.variables.count(), `is`(0))
                 }
@@ -1492,7 +1492,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing VarName")
                 fun testProlog_Variables_VarDeclWithMissingVarName() {
-                    val ctx = parse<XQueryProlog>("declare variable \$; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryProlog>("declare variable \$; 1")[0] as XPathVariableDeclarations
 
                     assertThat(ctx.variables.count(), `is`(0))
                 }
@@ -1500,7 +1500,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("single VarDecl")
                 fun testProlog_Variables_SingleVarDecl() {
-                    val ctx = parse<XQueryProlog>("declare variable \$x; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryProlog>("declare variable \$x; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(1))
@@ -1513,7 +1513,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("multiple VarDecls")
                 fun testProlog_Variables_MultipleVarDecls() {
-                    val ctx = parse<XQueryProlog>("declare variable \$x; declare variable \$y; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryProlog>("declare variable \$x; declare variable \$y; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(2))
@@ -1530,7 +1530,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("public Annotation")
                 fun testProlog_Variables_PublicVarDecl() {
-                    val ctx = parse<XQueryProlog>("declare %public variable \$x; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryProlog>("declare %public variable \$x; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(1))
@@ -1543,7 +1543,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("private Annotation")
                 fun testProlog_Variables_PrivateVarDecl() {
-                    val ctx = parse<XQueryProlog>("declare %private variable \$x; 1")[0] as XPathStaticContext
+                    val ctx = parse<XQueryProlog>("declare %private variable \$x; 1")[0] as XPathVariableDeclarations
 
                     val variables = ctx.variables.toList()
                     assertThat(variables.size, `is`(1))
