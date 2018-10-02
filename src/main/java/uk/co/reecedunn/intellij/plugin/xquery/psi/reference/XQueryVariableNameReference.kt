@@ -20,12 +20,12 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
 
 class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val name = element as XsQNameValue
-        val match = element.inScopeVariablesForFile().find { variable ->
+        val match = element.inScopeVariables().find { variable ->
             val qname = variable.variableName!!
             val matchPrefix = name.prefix?.data == qname.prefix?.data
             val matchLocalName = name.localName?.data == qname.localName?.data

@@ -165,7 +165,7 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XPa
 // endregion
 // region XPath 3.1 (2.1.1) In-scope variables
 
-fun PsiElement.inScopeVariablesForFile(): Sequence<XPathVariableName> {
+fun PsiElement.inScopeVariables(): Sequence<XPathVariableName> {
     val context = InScopeVariableContext()
     return walkTree().reversed().flatMap { node -> when (node) {
         is XQueryProlog -> (node as XPathVariableDeclarations).variables

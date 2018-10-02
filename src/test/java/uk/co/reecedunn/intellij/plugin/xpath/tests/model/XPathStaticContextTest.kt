@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -40,7 +40,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("in FunctionBody; no parameters")
             fun testInlineFunctionExpr_FunctionBody_NoParameters() {
                 val element = parse<XPathFunctionCall>("function () { test() }")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(0))
             }
 
@@ -48,7 +48,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("in FunctionBody; single parameter")
             fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
                 val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(1))
 
                 assertThat(variables[0].variableName?.localName?.data, `is`("x"))
@@ -60,7 +60,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("in FunctionBody; multiple parameters")
             fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
                 val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(2))
 
                 assertThat(variables[0].variableName?.localName?.data, `is`("x"))
@@ -76,7 +76,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("outside FunctionBody")
             fun testInlineFunctionExpr_OutsideFunctionBody() {
                 val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(0))
             }
         }
@@ -88,7 +88,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("single binding; 'in' Expr")
             fun testQuantifiedExpr_SingleBinding_InExpr() {
                 val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(0))
             }
 
@@ -96,7 +96,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("single binding; 'satisfies' Expr")
             fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
                 val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(1))
 
                 assertThat(variables[0].variableName?.localName?.data, `is`("x"))
@@ -108,7 +108,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("multiple bindings; first 'in' Expr")
             fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
                 val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(0))
             }
 
@@ -116,7 +116,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("multiple bindings; last 'in' Expr")
             fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
                 val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(1))
 
                 assertThat(variables[0].variableName?.localName?.data, `is`("x"))
@@ -128,7 +128,7 @@ private class XPathStaticContextTest : ParserTestCase() {
             @DisplayName("multiple bindings; 'satisfies' Expr")
             fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
                 val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
-                val variables = element.inScopeVariablesForFile().toList()
+                val variables = element.inScopeVariables().toList()
                 assertThat(variables.size, `is`(2))
 
                 assertThat(variables[0].variableName?.localName?.data, `is`("y"))
