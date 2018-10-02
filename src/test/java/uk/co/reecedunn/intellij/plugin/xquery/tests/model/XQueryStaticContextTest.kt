@@ -32,6 +32,665 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery 3.1 - Static Context")
 private class XQueryStaticContextTest : ParserTestCase() {
     @Nested
+    @DisplayName("XPath 3.1 (2.1.1) Statically known namespaces")
+    internal inner class StaticallyKnownNamespaces {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (6) ModuleDecl")
+        internal inner class ModuleDecl {
+            @Test
+            @DisplayName("module declaration")
+            fun testStaticallyKnownNamespaces_ModuleDecl() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("module namespace a='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun testStaticallyKnownNamespaces_ModuleDecl_NoNamespacePrefix() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("module namespace ='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun testStaticallyKnownNamespaces_ModuleDecl_NoNamespaceUri() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("module namespace a=; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (21) SchemaImport")
+        internal inner class SchemaImport {
+            @Test
+            @DisplayName("referenced from Prolog via FunctionDecl")
+            fun testStaticallyKnownNamespaces_SchemaImport_Prolog() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("import schema namespace a='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("referenced from MainModule via QueryBody")
+            fun testStaticallyKnownNamespaces_SchemaImport_MainModule() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("import schema namespace a='http://www.example.com'; a:test();")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun testStaticallyKnownNamespaces_SchemaImport_NoNamespacePrefix() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("import schema namespace ='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun testStaticallyKnownNamespaces_SchemaImport_NoNamespaceUri() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("import schema namespace a=; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
+        internal inner class ModuleImport {
+            @Test
+            @DisplayName("referenced from Prolog via FunctionDecl")
+            fun testStaticallyKnownNamespaces_ModuleImport_Prolog() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("import module namespace a='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("referenced from MainModule via QueryBody")
+            fun testStaticallyKnownNamespaces_ModuleImport_MainModule() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("import module namespace a='http://www.example.com'; a:test();")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun testStaticallyKnownNamespaces_ModuleImport_NoNamespacePrefix() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("import module namespace ='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun testStaticallyKnownNamespaces_ModuleImport_NoNamespaceUri() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("import module namespace a=; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (24) NamespaceDecl")
+        internal inner class NamespaceDecl {
+            @Test
+            @DisplayName("referenced from Prolog via FunctionDecl")
+            fun testStaticallyKnownNamespaces_NamespaceDecl_Prolog() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("declare namespace a='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("referenced from MainModule via QueryBody")
+            fun testStaticallyKnownNamespaces_NamespaceDecl_MainModule() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("declare namespace a='http://www.example.com'; a:test();")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace prefix")
+            fun testStaticallyKnownNamespaces_NamespaceDecl_NoNamespacePrefix() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("declare namespace ='http://www.example.com'; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("missing namespace uri")
+            fun testStaticallyKnownNamespaces_NamespaceDecl_NoNamespaceUri() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+        internal inner class DirAttributeList {
+            @Test
+            @DisplayName("namespace prefix atribute")
+            fun testStaticallyKnownNamespaces_DirAttribute_Xmlns() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{b:test()}</a>")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(6))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("b"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("namespace prefix, missing namespace uri")
+            fun testStaticallyKnownNamespaces_DirAttribute_Xmlns_NoNamespaceUri() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("<a xmlns:b=>{b:test()}</a>")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("non-namespace prefix atribute")
+            fun testStaticallyKnownNamespaces_DirAttribute() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("<a b='http://www.example.com'>{b:test()}</a>")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                // predefined XQuery 1.0 namespaces:
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+        }
+
+        @Nested
+        @DisplayName("predefined namespaces")
+        internal inner class PredefinedNamespaces {
+            @Test
+            @DisplayName("XQuery 1.0")
+            fun testStaticallyKnownNamespaces_PredefinedNamespaces_XQuery10() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("fn:true()")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(5))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+            }
+
+            @Test
+            @DisplayName("MarkLogic 6.0")
+            fun testStaticallyKnownNamespaces_PredefinedNamespaces_MarkLogic60() {
+                settings.implementationVersion = "marklogic/v6"
+                settings.XQueryVersion = "1.0-ml"
+
+                val element = parse<XPathFunctionCall>("fn:true()")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(22))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("xsi"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
+
+                assertThat(namespaces[1].namespacePrefix!!.data, `is`("xs"))
+                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+
+                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xqterr"))
+                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xqt-error"))
+
+                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xqe"))
+                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://marklogic.com/xqe"))
+
+                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
+                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+
+                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xdmp"))
+                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://marklogic.com/xdmp"))
+
+                assertThat(namespaces[6].namespacePrefix!!.data, `is`("spell"))
+                assertThat(namespaces[6].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/spell"))
+
+                assertThat(namespaces[7].namespacePrefix!!.data, `is`("sec"))
+                assertThat(namespaces[7].namespaceUri!!.data, `is`("http://marklogic.com/security"))
+
+                assertThat(namespaces[8].namespacePrefix!!.data, `is`("prop"))
+                assertThat(namespaces[8].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/property"))
+
+                assertThat(namespaces[9].namespacePrefix!!.data, `is`("prof"))
+                assertThat(namespaces[9].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/profile"))
+
+                assertThat(namespaces[10].namespacePrefix!!.data, `is`("math"))
+                assertThat(namespaces[10].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/math"))
+
+                assertThat(namespaces[11].namespacePrefix!!.data, `is`("map"))
+                assertThat(namespaces[11].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/map"))
+
+                assertThat(namespaces[12].namespacePrefix!!.data, `is`("lock"))
+                assertThat(namespaces[12].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/lock"))
+
+                assertThat(namespaces[13].namespacePrefix!!.data, `is`("local"))
+                assertThat(namespaces[13].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
+
+                assertThat(namespaces[14].namespacePrefix!!.data, `is`("json"))
+                assertThat(namespaces[14].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/json"))
+
+                assertThat(namespaces[15].namespacePrefix!!.data, `is`("fn"))
+                assertThat(namespaces[15].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(namespaces[16].namespacePrefix!!.data, `is`("error"))
+                assertThat(namespaces[16].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/error"))
+
+                assertThat(namespaces[17].namespacePrefix!!.data, `is`("err"))
+                assertThat(namespaces[17].namespaceUri!!.data, `is`("http://www.w3.org/2005/xqt-error"))
+
+                assertThat(namespaces[18].namespacePrefix!!.data, `is`("dir"))
+                assertThat(namespaces[18].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/directory"))
+
+                assertThat(namespaces[19].namespacePrefix!!.data, `is`("dbg"))
+                assertThat(namespaces[19].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/dbg"))
+
+                assertThat(namespaces[20].namespacePrefix!!.data, `is`("dav"))
+                assertThat(namespaces[20].namespaceUri!!.data, `is`("DAV:"))
+
+                assertThat(namespaces[21].namespacePrefix!!.data, `is`("cts"))
+                assertThat(namespaces[21].namespaceUri!!.data, `is`("http://marklogic.com/cts"))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (2.1.1) Default element/type namespace")
     internal inner class DefaultElementTypeNamespace {
         @Nested
@@ -1174,637 +1833,6 @@ private class XQueryStaticContextTest : ParserTestCase() {
         }
     }
 
-    // region Statically Known Namespaces
-    // region DirElemConstructor -> DirAttributeList -> DirAttribute
-
-    @Test
-    fun testStaticallyKnownNamespaces_DirAttribute_Xmlns() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{b:test()}</a>")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("b"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_DirAttribute_Xmlns_NoNamespaceUri() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("<a xmlns:b=>{b:test()}</a>")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_DirAttribute() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("<a b='http://www.example.com'>{b:test()}</a>")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    // endregion
-    // region ModuleDecl
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleDecl() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("module namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleDecl_NoNamespacePrefix() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("module namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleDecl_NoNamespaceUri() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("module namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    // endregion
-    // region ModuleImport
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleImport_Prolog() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("import module namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleImport_MainModule() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("import module namespace a='http://www.example.com'; a:test();")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleImport_NoNamespacePrefix() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("import module namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_ModuleImport_NoNamespaceUri() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("import module namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    // endregion
-    // region NamespaceDecl
-
-    @Test
-    fun testStaticallyKnownNamespaces_NamespaceDecl_Prolog() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("declare namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_NamespaceDecl_MainModule() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("declare namespace a='http://www.example.com'; a:test();")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_NamespaceDecl_NoNamespacePrefix() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("declare namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_NamespaceDecl_NoNamespaceUri() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    // endregion
-    // region SchemaImport
-
-    @Test
-    fun testStaticallyKnownNamespaces_SchemaImport_Prolog() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("import schema namespace a='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_SchemaImport_MainModule() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("import schema namespace a='http://www.example.com'; a:test();")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(6))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_SchemaImport_NoNamespacePrefix() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("import schema namespace ='http://www.example.com'; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_SchemaImport_NoNamespaceUri() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XQueryFunctionDecl>("import schema namespace a=; declare function a:test() {};")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        // predefined XQuery 1.0 namespaces:
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    // endregion
-    // endregion
-    // region Statically Known Namespaces :: Predefined Namespaces
-
-    @Test
-    fun testStaticallyKnownNamespaces_PredefinedNamespaces_XQuery10() {
-        settings.implementationVersion = "w3c/1ed"
-        settings.XQueryVersion = "1.0"
-
-        val element = parse<XPathFunctionCall>("fn:true()")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(5))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-    }
-
-    @Test
-    fun testStaticallyKnownNamespaces_PredefinedNamespaces_MarkLogic60() {
-        settings.implementationVersion = "marklogic/v6"
-        settings.XQueryVersion = "1.0-ml"
-
-        val element = parse<XPathFunctionCall>("fn:true()")[0]
-        val namespaces = element.staticallyKnownNamespaces().toList()
-        assertThat(namespaces.size, `is`(22))
-
-        assertThat(namespaces[0].namespacePrefix!!.data, `is`("xsi"))
-        assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-        assertThat(namespaces[1].namespacePrefix!!.data, `is`("xs"))
-        assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-        assertThat(namespaces[2].namespacePrefix!!.data, `is`("xqterr"))
-        assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xqt-error"))
-
-        assertThat(namespaces[3].namespacePrefix!!.data, `is`("xqe"))
-        assertThat(namespaces[3].namespaceUri!!.data, `is`("http://marklogic.com/xqe"))
-
-        assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-        assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
-
-        assertThat(namespaces[5].namespacePrefix!!.data, `is`("xdmp"))
-        assertThat(namespaces[5].namespaceUri!!.data, `is`("http://marklogic.com/xdmp"))
-
-        assertThat(namespaces[6].namespacePrefix!!.data, `is`("spell"))
-        assertThat(namespaces[6].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/spell"))
-
-        assertThat(namespaces[7].namespacePrefix!!.data, `is`("sec"))
-        assertThat(namespaces[7].namespaceUri!!.data, `is`("http://marklogic.com/security"))
-
-        assertThat(namespaces[8].namespacePrefix!!.data, `is`("prop"))
-        assertThat(namespaces[8].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/property"))
-
-        assertThat(namespaces[9].namespacePrefix!!.data, `is`("prof"))
-        assertThat(namespaces[9].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/profile"))
-
-        assertThat(namespaces[10].namespacePrefix!!.data, `is`("math"))
-        assertThat(namespaces[10].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/math"))
-
-        assertThat(namespaces[11].namespacePrefix!!.data, `is`("map"))
-        assertThat(namespaces[11].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/map"))
-
-        assertThat(namespaces[12].namespacePrefix!!.data, `is`("lock"))
-        assertThat(namespaces[12].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/lock"))
-
-        assertThat(namespaces[13].namespacePrefix!!.data, `is`("local"))
-        assertThat(namespaces[13].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-        assertThat(namespaces[14].namespacePrefix!!.data, `is`("json"))
-        assertThat(namespaces[14].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/json"))
-
-        assertThat(namespaces[15].namespacePrefix!!.data, `is`("fn"))
-        assertThat(namespaces[15].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-        assertThat(namespaces[16].namespacePrefix!!.data, `is`("error"))
-        assertThat(namespaces[16].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/error"))
-
-        assertThat(namespaces[17].namespacePrefix!!.data, `is`("err"))
-        assertThat(namespaces[17].namespaceUri!!.data, `is`("http://www.w3.org/2005/xqt-error"))
-
-        assertThat(namespaces[18].namespacePrefix!!.data, `is`("dir"))
-        assertThat(namespaces[18].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/directory"))
-
-        assertThat(namespaces[19].namespacePrefix!!.data, `is`("dbg"))
-        assertThat(namespaces[19].namespaceUri!!.data, `is`("http://marklogic.com/xdmp/dbg"))
-
-        assertThat(namespaces[20].namespacePrefix!!.data, `is`("dav"))
-        assertThat(namespaces[20].namespaceUri!!.data, `is`("DAV:"))
-
-        assertThat(namespaces[21].namespacePrefix!!.data, `is`("cts"))
-        assertThat(namespaces[21].namespaceUri!!.data, `is`("http://marklogic.com/cts"))
-    }
-
-    // endregion
     // region Prolog-defined Variable Declarations (externally visible)
     // region MainModule :: VarDecl
 
