@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -34,76 +36,89 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery Scripting Extensions 1.0 - Implementation Conformance Checks")
 private class ScriptingConformanceTest : ParserTestCase() {
-    // region ApplyExpr
+    @Nested
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    internal inner class ApplyExpr {
+        @Test
+        @DisplayName("single expression; no semicolon at end")
+        fun testApplyExpr_Single_NoSemicolon() {
+            val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")
 
-    @Test
-    fun testApplyExpr_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")
+            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
+            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
+            val conformance = applyExpr as XQueryConformance
 
-        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
+            assertThat(conformance.requiresConformance.size, `is`(0))
 
-        assertThat(conformance.requiresConformance.size, `is`(0))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.CONCAT_EXPR)
+            )
+        }
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.CONCAT_EXPR))
+        @Test
+        @DisplayName("single expression; semicolon at end")
+        fun testApplyExpr_Single_Semicolon() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
+
+            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
+            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple expressions; semicolon at end")
+        fun testApplyExpr_Multiple() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")
+
+            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
+            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple expressions; no semicolon at end")
+        fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")
+
+            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
+            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
     }
 
     @Test
-    fun testApplyExpr_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
-
-        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    @Test
-    fun testApplyExpr_Multiple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")
-
-        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    @Test
-    fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")
-
-        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    // endregion
-    // region AssignmentExpr
-
-    @Test
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (158) AssignmentExpr")
     fun testAssignmentExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
 
@@ -114,14 +129,14 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.ASSIGN_EQUAL))
+        assertThat(
+            conformance.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.ASSIGN_EQUAL)
+        )
     }
 
-    // endregion
-    // region BlockExpr
-
     @Test
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (153) BlockExpr")
     fun testBlockExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
@@ -136,10 +151,8 @@ private class ScriptingConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_BLOCK))
     }
 
-    // endregion
-    // region BlockVarDecl
-
     @Test
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
     fun testBlockVarDecl() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
 
@@ -158,10 +171,8 @@ private class ScriptingConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_DECLARE))
     }
 
-    // endregion
-    // region ExitExpr
-
     @Test
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (159) ExitExpr")
     fun testExitExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
 
@@ -176,139 +187,168 @@ private class ScriptingConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_EXIT))
     }
 
-    // endregion
-    // region FunctionDecl
+    @Nested
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (26) FunctionDecl")
+    internal inner class FunctionDecl {
+        @Test
+        @DisplayName("simple annotation")
+        fun testFunctionDecl_Simple() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")
 
-    @Test
-    fun testFunctionDecl_Simple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val scriptingCompatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_SIMPLE)
+            )
+        }
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SIMPLE))
+        @Test
+        @DisplayName("sequential annotation")
+        fun testFunctionDecl_Sequential() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")
+
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val scriptingCompatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_SEQUENTIAL)
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (30) QueryBody ; XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    internal inner class QueryBody {
+        @Test
+        @DisplayName("single expression; no semicolon at end")
+        fun testQueryBody_Single_NoSemicolon() {
+            val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.CONCAT_EXPR)
+            )
+        }
+
+        @Test
+        @DisplayName("single expression; semicolon at end")
+        fun testQueryBody_Single_Semicolon() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple expressions; semicolon at end")
+        fun testQueryBody_Multiple() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple expressions; no semicolon at end")
+        fun testQueryBody_Multiple_NoSemicolonAtEnd() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().last()
+            val conformance = applyExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (24) VarDecl")
+    internal inner class VarDecl {
+        @Test
+        @DisplayName("assignable annotation")
+        fun testVarDecl_Assignable() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")
+
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val scriptingCompatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ASSIGNABLE)
+            )
+        }
+
+        @Test
+        @DisplayName("unassignable annotation")
+        fun testVarDecl_Unassignable() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")
+
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val scriptingCompatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_UNASSIGNABLE)
+            )
+        }
     }
 
     @Test
-    fun testFunctionDecl_Sequential() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SEQUENTIAL))
-    }
-
-    // endregion
-    // region QueryBody (ApplyExpr)
-
-    @Test
-    fun testQueryBody_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.CONCAT_EXPR))
-    }
-
-    @Test
-    fun testQueryBody_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
-    }
-
-    @Test
-    fun testQueryBody_Multiple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
-    }
-
-    @Test
-    fun testQueryBody_Multiple_NoSemicolonAtEnd() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().last()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR))
-    }
-
-    // endregion
-    // region VarDecl
-
-    @Test
-    fun testVarDecl_Assignable() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ASSIGNABLE))
-    }
-
-    @Test
-    fun testVarDecl_Unassignable() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UNASSIGNABLE))
-    }
-
-    // endregion
-    // region WhileExpr
-
-    @Test
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (160) WhileExpr")
     fun testWhileExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 
@@ -322,6 +362,4 @@ private class ScriptingConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_WHILE))
     }
-
-    // endregion
 }

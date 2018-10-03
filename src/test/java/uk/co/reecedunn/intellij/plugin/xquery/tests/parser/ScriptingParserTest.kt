@@ -139,7 +139,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (30) QueryBody")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (30) QueryBody ; XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class QueryBody {
         @Test
         @DisplayName("single expression; semicolon at end")
@@ -308,7 +308,7 @@ private class ScriptingParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("updating annotation; external")
+        @DisplayName("updating annotation; external (from XQuery Update Facility 1.0)")
         fun testFunctionDecl_Updating() {
             val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
@@ -316,7 +316,7 @@ private class ScriptingParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("updating annotation; function body")
+        @DisplayName("updating annotation; function body (from XQuery Update Facility 1.0)")
         fun testFunctionDecl_Updating_EnclosedExpr() {
             val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.xq")
