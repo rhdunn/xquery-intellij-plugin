@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -31,45 +33,54 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery Update Facility 3.0 - Implementation Conformance Checks")
 private class UpdateFacilityConformanceTest : ParserTestCase() {
-    // region CompatibilityAnnotation
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 EBNF (27) CompatibilityAnnotation")
+    internal inner class CompatibilityAnnotation {
+        @Test
+        @DisplayName("function declaration")
+        fun testCompatibilityAnnotation_FunctionDecl() {
+            val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
-    @Test
-    fun testCompatibilityAnnotation_FunctionDecl() {
-        val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val compatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = compatibilityAnnotationPsi as XQueryConformance
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_UPDATING)
+            )
+        }
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UPDATING))
+        @Test
+        @DisplayName("variable declaration")
+        fun testCompatibilityAnnotation_VarDecl() {
+            val file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq")
+
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val compatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = compatibilityAnnotationPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_UPDATING)
+            )
+        }
     }
 
     @Test
-    fun testCompatibilityAnnotation_VarDecl() {
-        val file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = compatibilityAnnotationPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UPDATING))
-    }
-
-    // endregion
-    // region DeleteExpr
-
-    @Test
+    @DisplayName("XQuery Update Facility 1.0 EBNF (144) DeleteExpr")
     fun testDeleteExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
 
@@ -84,29 +95,32 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_DELETE))
     }
 
-    // endregion
-    // region FunctionDecl
+    @Nested
+    @DisplayName("XQuery Update Facility 1.0 EBNF (26) FunctionDecl")
+    internal inner class FunctionDecl {
+        @Test
+        @DisplayName("updating annotation")
+        fun testFunctionDecl_Updating() {
+            val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
-    @Test
-    fun testFunctionDecl_Updating() {
-        val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val compatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = compatibilityAnnotationPsi as XQueryConformance
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UPDATING))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_UPDATING)
+            )
+        }
     }
 
-    // endregion
-    // region InsertExpr
-
     @Test
+    @DisplayName("XQuery Update Facility 1.0 EBNF (143) InsertExpr")
     fun testInsertExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq")
 
@@ -121,10 +135,8 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_INSERT))
     }
 
-    // endregion
-    // region RenameExpr
-
     @Test
+    @DisplayName("XQuery Update Facility 1.0 EBNF (145) ReplaceExpr")
     fun testRenameExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq")
 
@@ -139,10 +151,8 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_RENAME))
     }
 
-    // endregion
-    // region ReplaceExpr
-
     @Test
+    @DisplayName("XQuery Update Facility 1.0 EBNF (145) ReplaceExpr")
     fun testReplaceExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq")
 
@@ -157,10 +167,8 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_REPLACE))
     }
 
-    // endregion
-    // region RevalidationDecl
-
     @Test
+    @DisplayName("XQuery Update Facility 1.0 EBNF (141) RevalidationDecl")
     fun testRevalidationDecl() {
         val file = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq")
 
@@ -175,10 +183,8 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_REVALIDATION))
     }
 
-    // endregion
-    // region TransformExpr (CopyModifyExpr)
-
     @Test
+    @DisplayName("XQuery Update Facility 1.0 EBNF (150) TransformExpr ; XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr")
     fun testTransformExpr() {
         val file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq")
 
@@ -193,10 +199,8 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_COPY))
     }
 
-    // endregion
-    // region TransformWithExpr
-
     @Test
+    @DisplayName("XQuery Update Facility 3.0 EBNF (97) TransformWithExpr")
     fun testTransformWithExpr() {
         val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
 
@@ -212,10 +216,8 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_TRANSFORM))
     }
 
-    // endregion
-    // region UpdatingFunctionCall
-
     @Test
+    @DisplayName("XQuery Update Facility 3.0 EBNF (207) UpdatingFunctionCall")
     fun testUpdatingFunctionCall() {
         val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
 
@@ -229,6 +231,4 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_INVOKE))
     }
-
-    // endregion
 }
