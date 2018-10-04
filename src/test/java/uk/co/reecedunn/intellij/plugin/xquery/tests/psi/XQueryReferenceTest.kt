@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("IntelliJ - Custom Language Support - References and Resolve")
+@DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
 private class XQueryReferenceTest : ParserTestCase() {
     @Nested
     @DisplayName("Files")
@@ -172,73 +172,6 @@ private class XQueryReferenceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("Namespaces")
-    internal inner class Namespaces {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (123) NCName")
-        fun testEQName_NCName() {
-            val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithNCNameReturnType.xq")
-
-            val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
-            val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
-
-            val ref = eqname.reference
-            assertThat(ref, `is`(nullValue()))
-
-            val refs = eqname.references
-            assertThat(refs.size, `is`(0))
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (122) QName")
-        fun testEQName_QName() {
-            val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithQNameReturnType.xq")
-
-            val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
-            val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
-
-            val ref = eqname.reference!!
-            assertThat(ref.canonicalText, `is`("xs"))
-            assertThat(ref.rangeInElement.startOffset, `is`(0))
-            assertThat(ref.rangeInElement.endOffset, `is`(2))
-            assertThat(ref.variants.size, `is`(0))
-
-            var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
-            assertThat(resolved.text, `is`("xs"))
-            assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
-
-            val refs = eqname.references
-            assertThat(refs.size, `is`(1))
-
-            assertThat(refs[0].canonicalText, `is`("xs"))
-            assertThat(refs[0].rangeInElement.startOffset, `is`(0))
-            assertThat(refs[0].rangeInElement.endOffset, `is`(2))
-            assertThat(refs[0].variants.size, `is`(0))
-
-            resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
-            assertThat(resolved.text, `is`("xs"))
-            assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
-        fun testEQName_URIQualifiedName() {
-            val file = parseResource("tests/resolve/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq")
-
-            val sequenceTypePsi = file.walkTree().filterIsInstance<XPathAtomicOrUnionType>().first()
-            val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
-
-            val ref = eqname.reference
-            assertThat(ref, `is`(nullValue()))
-
-            val refs = eqname.references
-            assertThat(refs.size, `is`(0))
-        }
-    }
-
-    @Nested
     @DisplayName("Variables")
     internal inner class Variables {
         @Test
@@ -351,43 +284,6 @@ private class XQueryReferenceTest : ParserTestCase() {
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
             assertThat(resolved, `is`(varQNamePsi))
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (3) Param")
-        fun testParam() {
-            val file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq")
-
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-            val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-            val paramListPsi = functionDeclPsi.children().filterIsInstance<XPathParamList>().first()
-            val paramPsi = paramListPsi.children().filterIsInstance<XPathParam>().first()
-            val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
-
-            val functionBodyPsi = functionDeclPsi.children().filterIsInstance<XPathFunctionBody>().first()
-            val varRefNamePsi = functionBodyPsi.walkTree().filterIsInstance<XPathEQName>().first()
-
-            val ref = varRefNamePsi.reference!!
-            assertThat(ref.canonicalText, `is`("x"))
-            assertThat(ref.rangeInElement.startOffset, `is`(0))
-            assertThat(ref.rangeInElement.endOffset, `is`(1))
-            assertThat(ref.variants.size, `is`(0))
-
-            var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(paramNamePsi))
-
-            val refs = varRefNamePsi.references
-            assertThat(refs.size, `is`(1))
-
-            assertThat(refs[0].canonicalText, `is`("x"))
-            assertThat(refs[0].rangeInElement.startOffset, `is`(0))
-            assertThat(refs[0].rangeInElement.endOffset, `is`(1))
-            assertThat(refs[0].variants.size, `is`(0))
-
-            resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(paramNamePsi))
         }
 
         @Test
