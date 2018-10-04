@@ -20,7 +20,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification
 
 @DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - CharacterClass")
 class CharacterClassTest {
