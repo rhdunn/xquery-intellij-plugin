@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -32,10 +33,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery and XPath Full Text 3.0 - Implementation Conformance Checks")
 private class FullTextConformanceTest : ParserTestCase() {
-    // region FTContainsExpr
-
     @Test
+    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (51) FTContainsExpr")
     fun testFTContainsExpr() {
         val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 
@@ -50,10 +51,8 @@ private class FullTextConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_CONTAINS))
     }
 
-    // endregion
-    // region FTScoreVar
-
     @Test
+    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (37) FTScoreVar")
     fun testFTScoreVar() {
         val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
 
@@ -70,10 +69,8 @@ private class FullTextConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SCORE))
     }
 
-    // endregion
-    // region FTOptionDecl
-
     @Test
+    @DisplayName("XQuery and XPath Full Text 1.0 EBNF (24) FTOptionDecl")
     fun testFTOptionDecl() {
         val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
 
@@ -87,6 +84,4 @@ private class FullTextConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_FT_OPTION))
     }
-
-    // endregion
 }
