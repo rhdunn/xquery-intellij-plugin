@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNameIdentifierOwner
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -104,6 +105,18 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
+
+            @Test
+            @DisplayName("PsiNameIdentifierOwner")
+            fun psiNameIdentifierOwner() {
+                val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
+
+                assertThat(name.name, `is`("test"))
+                assertThat(name.textOffset, `is`(6))
+
+                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+                assertThat(name.nameIdentifier?.text, `is`("test"))
+            }
         }
 
         @Nested
@@ -191,6 +204,18 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val expanded = qname.expand().toList()
                 assertThat(expanded.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("PsiNameIdentifierOwner")
+            fun psiNameIdentifierOwner() {
+                val name = parse<XPathQName>("(: :) a:test")[0] as PsiNameIdentifierOwner
+
+                assertThat(name.name, `is`("test"))
+                assertThat(name.textOffset, `is`(8))
+
+                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+                assertThat(name.nameIdentifier?.text, `is`("test"))
             }
         }
 
@@ -294,6 +319,18 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("PsiNameIdentifierOwner")
+            fun psiNameIdentifierOwner() {
+                val name = parse<XPathURIQualifiedName>("(: :) Q{http://www.example.com}test")[0] as PsiNameIdentifierOwner
+
+                assertThat(name.name, `is`("test"))
+                assertThat(name.textOffset, `is`(31))
+
+                assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
+                assertThat(name.nameIdentifier?.text, `is`("test"))
             }
         }
 
