@@ -116,7 +116,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Update Facility 1.0 EBNF (150) TransformExpr")
+    @DisplayName("XQuery Update Facility 1.0 EBNF (150) TransformExpr ; XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr")
     fun testTransformExpr() {
         val lexer = createLexer()
 
