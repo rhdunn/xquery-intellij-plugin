@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
-: BaseX Database Module functions
+: BaseX Fetch Module functions
 :
 : @see http://docs.basex.org/wiki/Fetch_Module
 :)
