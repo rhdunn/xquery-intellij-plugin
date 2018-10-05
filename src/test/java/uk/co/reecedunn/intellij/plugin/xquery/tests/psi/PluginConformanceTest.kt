@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -41,10 +43,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery IntelliJ Plugin - Implementation Conformance Checks")
 private class PluginConformanceTest : ParserTestCase() {
-    // region AnyArrayNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
     fun testAnyArrayNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.xq")
 
@@ -59,10 +61,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
-    // endregion
-    // region AnyBooleanNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
     fun testAnyBooleanNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
 
@@ -76,10 +76,8 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
-    // endregion
-    // region AnyKindTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (67) AnyKindTest")
     fun testAnyKindTest_Wildcard() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
 
@@ -94,10 +92,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.STAR))
     }
 
-    // endregion
-    // region AnyMapNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
     fun testAnyMapNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
 
@@ -112,10 +108,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
-    // endregion
-    // region AnyNullNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
     fun testAnyNullNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest.xq")
 
@@ -130,10 +124,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NULL_NODE))
     }
 
-    // endregion
-    // region AnyNumberNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
     fun testAnyNumberNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.xq")
 
@@ -148,10 +140,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
-    // endregion
-    // region ArrayConstructor
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (62) CurlyArrayConstructor")
     fun testArrayConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
 
@@ -166,10 +156,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
-    // endregion
-    // region AttributeDeclTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (37) AttributeDeclTest")
     fun testAttributeDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
 
@@ -184,10 +172,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_ATTRIBUTE_DECL))
     }
 
-    // endregion
-    // region BinaryConstructor
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (30) BinaryConstructor")
     fun testBinaryConstructor() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
@@ -203,10 +189,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_BINARY))
     }
 
-    // endregion
-    // region BinaryTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (29) BinaryTest")
     fun testBinaryTest() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
 
@@ -222,10 +206,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_BINARY))
     }
 
-    // endregion
-    // region BooleanConstructor
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (50) BooleanConstructor")
     fun testBooleanConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
 
@@ -240,64 +222,111 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
-    // endregion
-    // region CatchClause
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
+    internal inner class CatchClause {
+        @Test
+        @DisplayName("catch clause")
+        fun testCatchClause() {
+            val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
 
-    @Test
-    fun testCatchClause() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
+            val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
+            val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
+            val versioned = catchClausePsi as XQueryConformance
 
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val versioned = catchClausePsi as XQueryConformance
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_CATCH)
+            )
+        }
 
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_CATCH))
+        @Test
+        @DisplayName("enclosed expression")
+        fun testEnclosedExpr_CatchClause() {
+            val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
+
+            val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
+            val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
+            val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
+            val versioned = enclosedExprPsi as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(versioned.conformanceElement.node.elementType,
+                `is`(XQueryElementType.EXPR))
+        }
+
+        @Test
+        @DisplayName("missing enclosed expression")
+        fun testEnclosedExpr_CatchClause_NoExpr() {
+            val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
+
+            val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
+            val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
+            val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
+            val versioned = enclosedExprPsi as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(2))
+            assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+            assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.BLOCK_OPEN))
+        }
     }
 
-    // endregion
-    // region CompatibilityAnnotation
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
+    internal inner class CompatibilityAnnotation {
+        @Test
+        @DisplayName("function declaration")
+        fun testCompatibilityAnnotation_FunctionDecl() {
+            val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
 
-    @Test
-    fun testCompatibilityAnnotation_FunctionDecl() {
-        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val compatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = compatibilityAnnotationPsi as XQueryConformance
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_PRIVATE)
+            )
+        }
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_PRIVATE))
+        @Test
+        @DisplayName("variable declaration")
+        fun testCompatibilityAnnotation_VarDecl() {
+            val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
+
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val compatibilityAnnotationPsi =
+                annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
+            val conformance = compatibilityAnnotationPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_PRIVATE)
+            )
+        }
     }
 
     @Test
-    fun testCompatibilityAnnotation_VarDecl() {
-        val file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-        val conformance = compatibilityAnnotationPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_PRIVATE))
-    }
-
-    // endregion
-    // region ComplexTypeTest
-
-    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (38) ComplexTypeTest")
     fun testComplexTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
 
@@ -312,10 +341,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_COMPLEX_TYPE))
     }
 
-    // endregion
-    // region ElementDeclTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (39) ElementDeclTest")
     fun testElementDeclTest() {
         val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
 
@@ -330,80 +357,48 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_ELEMENT_DECL))
     }
 
-    // endregion
-    // region EnclosedExpr (CatchClause)
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (26) CompatibilityAnnotation")
+    internal inner class ForwardAxis {
+        @Test
+        @DisplayName("namespace::")
+        fun testForwardAxis_Namespace() {
+            val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
 
-    @Test
-    fun testEnclosedExpr_CatchClause() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
+            val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
+            val versioned = forwardAxisPsi as XQueryConformance
 
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
-        assertThat(versioned.requiresConformance.size, `is`(0))
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_NAMESPACE)
+            )
+        }
 
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-            `is`(XQueryElementType.EXPR))
+        @Test
+        @DisplayName("property::")
+        fun testForwardAxis_Property() {
+            val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
+
+            val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
+            val versioned = forwardAxisPsi as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_PROPERTY)
+            )
+        }
     }
 
     @Test
-    fun testEnclosedExpr_CatchClause_NoExpr() {
-        val file = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
-    // region ForwardAxis
-
-    @Test
-    fun testForwardAxis_Namespace() {
-        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
-
-        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NAMESPACE))
-    }
-
-    @Test
-    fun testForwardAxis_Property() {
-        val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
-
-        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_PROPERTY))
-    }
-
-    // endregion
-    // region FTFuzzyOption
-
-    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (14) FTFuzzyOption")
     fun testFTFuzzyOption() {
         val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
 
@@ -422,10 +417,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_FUZZY))
     }
 
-    // endregion
-    // region MapConstructor
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
     fun testMapConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
 
@@ -440,10 +433,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
-    // endregion
-    // region NamedArrayNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (61) NamedArrayNodeTest")
     fun testNamedArrayNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")
 
@@ -458,10 +449,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_ARRAY_NODE))
     }
 
-    // endregion
-    // region NamedBooleanNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
     fun testNamedBooleanNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
 
@@ -475,10 +464,8 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
     }
 
-    // endregion
-    // region NamedKindTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (68) NamedKindTest")
     fun testNamedKindTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
 
@@ -493,10 +480,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryElementType.STRING_LITERAL))
     }
 
-    // endregion
-    // region NamedMapNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
     fun testNamedMapNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest.xq")
 
@@ -511,10 +496,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_OBJECT_NODE))
     }
 
-    // endregion
-    // region NamedNullNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
     fun testNamedNullNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest.xq")
 
@@ -529,10 +512,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NULL_NODE))
     }
 
-    // endregion
-    // region NamedNumberNodeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
     fun testNamedNumberNodeTest() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
 
@@ -547,10 +528,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
-    // endregion
-    // region NonDeterministicFunctionCall
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (16) NonDeterministicFunctionCall")
     fun testNonDeterministicFunctionCall() {
         val file = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
 
@@ -565,10 +544,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NON_DETERMINISTIC))
     }
 
-    // endregion
-    // region NullConstructor
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (58) NullConstructor")
     fun testNullConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
 
@@ -583,10 +560,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NULL_NODE))
     }
 
-    // endregion
-    // region NumberConstructor
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (54) NumberConstructor")
     fun testNumberConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
 
@@ -601,10 +576,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_NUMBER_NODE))
     }
 
-    // endregion
-    // region SchemaComponentTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (40) SchemaComponentTest")
     fun testSchemaComponentTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
 
@@ -619,10 +592,8 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SCHEMA_COMPONENT))
     }
 
-    // endregion
-    // region SchemaFacetTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (45) SchemaFacetTest")
     fun testSchemaFacetTest() {
         val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
 
@@ -637,10 +608,8 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SCHEMA_FACET))
     }
 
-    // endregion
-    // region SchemaParticleTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (41) SchemaParticleTest")
     fun testSchemaParticleTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
 
@@ -655,10 +624,8 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SCHEMA_PARTICLE))
     }
 
-    // endregion
-    // region SchemaRootTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (42) SchemaRootTest")
     fun testSchemaRootTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
@@ -673,10 +640,8 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SCHEMA_ROOT))
     }
 
-    // endregion
-    // region SchemaTypeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (43) SchemaTypeTest")
     fun testSchemaTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
 
@@ -691,10 +656,8 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SCHEMA_TYPE))
     }
 
-    // endregion
-    // region SimpleTypeTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (44) SimpleTypeTest")
     fun testSimpleTypeTest() {
         val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
 
@@ -709,10 +672,8 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_SIMPLE_TYPE))
     }
 
-    // endregion
-    // region StylesheetImport
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (33) StylesheetImport")
     fun testStylesheetImport() {
         val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
 
@@ -727,10 +688,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_IMPORT))
     }
 
-    // endregion
-    // region TextTest
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (71) NamedTextTest")
     fun testTextTest_KeyName() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
 
@@ -745,102 +704,118 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryElementType.STRING_LITERAL))
     }
 
-    // endregion
-    // region Transactions + TransactionSeparator
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (35) TransactionSeparator")
+    internal inner class TransactionSeparator {
+        @Test
+        @DisplayName("single transaction; no semicolon")
+        fun testTransactions_Single_NoSemicolon() {
+            val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
-    @Test
-    fun testTransactions_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val transactionSeparatorPsi =
+                applyExpr.children().filterIsInstance<PluginTransactionSeparator>().firstOrNull()
 
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().firstOrNull()
+            assertThat(transactionSeparatorPsi, `is`(CoreMatchers.nullValue()))
+        }
 
-        assertThat(transactionSeparatorPsi, `is`(CoreMatchers.nullValue()))
+        @Test
+        @DisplayName("single transaction; with semicolon")
+        fun testTransactions_Single_Semicolon() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
+            val conformance = transactionSeparatorPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple transactions; semicolon at end; first transaction")
+        fun testTransactions_Multiple_First() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
+            val conformance = transactionSeparatorPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(3))
+            assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+            assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+            assertThat(conformance.requiresConformance[2], `is`(Scripting.NOTE_1_0_20140918))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple transactions; semicolon at end; last transaction")
+        fun testTransactions_Multiple_Last() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
+            val conformance = transactionSeparatorPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple transactions; no semicolon at end; first transaction")
+        fun testTransactions_Multiple_NoSemicolonAtEnd_Last() {
+            val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
+
+            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+            val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
+            val conformance = transactionSeparatorPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
+            )
+        }
+
+        @Test
+        @DisplayName("multiple transactions; prolog in other transaction")
+        fun testTransactions_Multiple_WithProlog() {
+            val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
+
+            val transactionSeparatorPsi = file.children().filterIsInstance<PluginTransactionSeparator>().first()
+            val conformance = transactionSeparatorPsi as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(2))
+            assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
+            assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.SEPARATOR)
+            )
+        }
     }
 
     @Test
-    fun testTransactions_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
-        val conformance = transactionSeparatorPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    @Test
-    fun testTransactions_Multiple_First() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
-        val conformance = transactionSeparatorPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(3))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
-        assertThat(conformance.requiresConformance[2], `is`(Scripting.NOTE_1_0_20140918))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    @Test
-    fun testTransactions_Multiple_Last() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
-        val conformance = transactionSeparatorPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    @Test
-    fun testTransactions_Multiple_NoSemicolonAtEnd_Last() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
-        val conformance = transactionSeparatorPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryElementType.TRANSACTION_SEPARATOR))
-    }
-
-    @Test
-    fun testTransactions_Multiple_WithProlog() {
-        val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
-
-        val transactionSeparatorPsi = file.children().filterIsInstance<PluginTransactionSeparator>().first()
-        val conformance = transactionSeparatorPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.SEPARATOR))
-    }
-
-    // endregion
-    // region TupleType
-
-    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
     fun testTupleType() {
         val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
 
@@ -855,10 +830,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_TUPLE))
     }
 
-    // endregion
-    // region TypeDecl
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
     fun testTypeDecl() {
         val file = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
 
@@ -873,10 +846,8 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_TYPE))
     }
 
-    // endregion
-    // region UnionType
-
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
     fun testUnionType() {
         val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")
 
@@ -891,56 +862,65 @@ private class PluginConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_UNION))
     }
 
-    // endregion
-    // region UpdateExpr
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
+    internal inner class UpdateExpr {
+        @Test
+        @DisplayName("inline")
+        fun testUpdateExpr() {
+            val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
 
-    @Test
-    fun testUpdateExpr() {
-        val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
+            val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
+            val conformance = updateExpr as XQueryConformance
 
-        val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-        val conformance = updateExpr as XQueryConformance
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_UPDATE)
+            )
+        }
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UPDATE))
+        @Test
+        @DisplayName("enclosed expression")
+        fun testUpdateExpr_Block() {
+            val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
+
+            val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
+            val conformance = updateExpr as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_5))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.BLOCK_OPEN)
+            )
+        }
     }
 
-    @Test
-    fun testUpdateExpr_Block() {
-        val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (27) ValidateExpr")
+    internal inner class ValidateExpr {
+        @Test
+        @DisplayName("validate as")
+        fun testValidateExpr_ValidateAs() {
+            val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
 
-        val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-        val conformance = updateExpr as XQueryConformance
+            val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
+            val versioned = validateExprPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_5))
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_AS)
+            )
+        }
     }
-
-    // endregion
-    // region ValidateExpr
-
-    @Test
-    fun testValidateExpr_ValidateAs() {
-        val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
-
-        val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-        val versioned = validateExprPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_AS))
-    }
-
-    // endregion
 }

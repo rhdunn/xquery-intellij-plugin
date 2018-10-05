@@ -920,7 +920,7 @@ in this document:
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 
-### C.5 IntelliJ Plugin Extensions
+### C.4 IntelliJ Plugin Extensions
 The following constructs have had their grammar modified to make it easier to
 implement features such as variable lookup. These changes do not modify the
 behaviour of those constructs:
