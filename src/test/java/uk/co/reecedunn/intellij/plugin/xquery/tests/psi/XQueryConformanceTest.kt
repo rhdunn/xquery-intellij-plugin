@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -34,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery 3.1 - Implementation Conformance Checks")
 private class XQueryConformanceTest : ParserTestCase() {
     // region AllowingEmpty
 
