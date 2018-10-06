@@ -6,7 +6,7 @@ xquery version "3.0";
  :)
 module namespace math = "http://www.w3.org/2005/xpath-functions/math";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:acos($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:asin($arg as xs:double?) as xs:double? external;

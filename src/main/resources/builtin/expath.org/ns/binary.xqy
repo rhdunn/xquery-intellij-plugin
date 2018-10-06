@@ -6,7 +6,7 @@ xquery version "3.0";
  :)
 module namespace bin = "http://expath.org/ns/binary";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.8") function bin:hex($in as xs:string?) as xs:base64Binary? external;
 declare %a:since("basex", "7.8") function bin:bin($in as xs:string?) as xs:base64Binary? external;

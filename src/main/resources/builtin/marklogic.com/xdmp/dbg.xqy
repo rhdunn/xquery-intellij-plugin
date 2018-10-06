@@ -6,7 +6,7 @@ xquery version "1.0-ml";
  :)
 module namespace dbg = "http://marklogic.com/xdmp/dbg";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("marklogic", "5.0") function dbg:attach($request-id as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:attached() as xs:unsignedLong* external;

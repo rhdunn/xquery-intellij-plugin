@@ -6,7 +6,7 @@ xquery version "3.0";
  :)
 module namespace archive = "http://basex.org/modules/archive";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.3") function archive:create($entries as item(), $contents as item()*) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function archive:create($entries as item(), $contents as item()*, $options as map(*)?) as xs:base64Binary external;

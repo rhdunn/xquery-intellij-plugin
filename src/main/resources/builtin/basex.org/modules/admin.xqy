@@ -6,7 +6,7 @@ xquery version "3.0";
  :)
 module namespace admin = "http://basex.org/modules/admin";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.5") function admin:sessions() as element(session)* external;
 declare %a:since("basex", "7.5") function admin:logs() as element(file)* external;

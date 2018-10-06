@@ -6,7 +6,7 @@ xquery version "3.1";
  :)
 module namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("xpath-functions", "3.1-20170321") function map:contains($map as map(*), $key as xs:anyAtomicType) as xs:boolean external;
 declare %a:since("xpath-functions", "3.1-20170321") function map:entry($key as xs:anyAtomicType, $value as item()*) as map(*) external;

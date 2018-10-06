@@ -6,7 +6,7 @@ xquery version "1.0-ml";
  :)
 module namespace math = "http://marklogic.com/xdmp/math";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("marklogic", "6.0") %a:until("marklogic", "7.0", "math:pi#0") function math:PI() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:acos($x as xs:double) as xs:double external;

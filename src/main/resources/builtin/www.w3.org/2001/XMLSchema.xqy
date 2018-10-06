@@ -9,7 +9,7 @@ xquery version "3.1";
  :)
 module namespace xs = "http://www.w3.org/2001/XMLSchema";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("xmlschema", "1.0-20010502") function xs:ENTITY($arg as xs:anyAtomicType?) as xs:ENTITY? external;
 declare %a:since("xmlschema", "1.0-20010502") function xs:ID($arg as xs:anyAtomicType?) as xs:ID? external;

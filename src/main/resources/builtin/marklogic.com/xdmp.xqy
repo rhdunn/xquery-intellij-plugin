@@ -23,7 +23,7 @@ xquery version "1.0-ml";
  :)
 module namespace xdmp = "http://marklogic.com/xdmp";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare namespace db = "http://marklogic.com/xdmp/database";
 declare namespace mt = "http://marklogic.com/xdmp/mimetypes";
