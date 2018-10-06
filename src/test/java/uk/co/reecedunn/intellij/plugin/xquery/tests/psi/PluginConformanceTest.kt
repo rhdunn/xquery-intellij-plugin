@@ -933,9 +933,10 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
 
-            assertThat(versioned.requiresConformance.size, `is`(2))
-            assertThat(versioned.requiresConformance[0], `is`(XQuery.MARKLOGIC_0_9))
-            assertThat(versioned.requiresConformance[1], `is`(until(EXistDB.VERSION_4_0)))
+            assertThat(versioned.requiresConformance.size, `is`(3))
+            assertThat(versioned.requiresConformance[0], `is`(XQuery.WD_1_0_20030502))
+            assertThat(versioned.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+            assertThat(versioned.requiresConformance[2], `is`(until(EXistDB.VERSION_4_0)))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(

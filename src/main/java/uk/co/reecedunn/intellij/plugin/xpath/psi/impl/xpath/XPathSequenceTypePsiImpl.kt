@@ -24,7 +24,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10_REC: List<Version> = listOf()
-private val XQUERY10_WD: List<Version> = listOf(XQuery.MARKLOGIC_0_9, until(EXistDB.VERSION_4_0))
+private val XQUERY10_WD: List<Version> = listOf(
+    XQuery.WD_1_0_20030502,
+    XQuery.MARKLOGIC_0_9,
+    until(EXistDB.VERSION_4_0)
+)
 
 class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, XQueryConformance {
     override val requiresConformance: List<Version>

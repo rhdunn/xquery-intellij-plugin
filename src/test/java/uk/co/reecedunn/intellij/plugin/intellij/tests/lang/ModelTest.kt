@@ -35,6 +35,7 @@ class ModelTest {
             assertThat(XmlSchema.REC_1_0_20041028.toString(), `is`("XML Schema Definition 1.0"))
             assertThat(XmlSchema.REC_1_1_20120405.toString(), `is`("XML Schema Definition 1.1"))
 
+            assertThat(XQuery.WD_1_0_20030502.toString(), `is`("XQuery 1.0 Working Draft"))
             assertThat(XQuery.REC_1_0_20070123.toString(), `is`("XQuery 1.0"))
             assertThat(XQuery.MARKLOGIC_0_9.toString(), `is`("XQuery 0.9-ml"))
 

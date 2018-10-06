@@ -46,6 +46,10 @@ object XmlSchema : Versioned {
 object XQuery : Language("XQuery", "application/xquery"), Versioned {
     // region 1.0
 
+    val WD_1_0_20030502 = Specification(
+        "1.0-20030502", 1.0, 20030502, "1.0 Working Draft", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this
+    )
+
     val REC_1_0_20070123 = Specification(
         "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/", this
     )
@@ -96,6 +100,7 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
 
     override val versions: List<Version> = listOf(
         MARKLOGIC_0_9,
+        WD_1_0_20030502,
         REC_1_0_20070123,
         REC_1_0_20101214,
         REC_3_0_20140408,
@@ -104,7 +109,7 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
         MARKLOGIC_1_0
     )
 
-    private val XQUERY10: List<Specification> = listOf(REC_1_0_20070123, REC_1_0_20101214)
+    private val XQUERY10: List<Specification> = listOf(REC_1_0_20070123, REC_1_0_20101214, WD_1_0_20030502)
     private val XQUERY30: List<Specification> = listOf(REC_3_0_20140408)
     private val XQUERY31: List<Specification> = listOf(REC_3_1_20170321, CR_3_1_20151217)
     private val XQUERY09_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_0_9)
