@@ -55,6 +55,8 @@ class ModelTest {
         fun testProductVersion_DisplayName() {
             assertThat(BaseX.VERSION_8_5.toString(), `is`("BaseX 8.5"))
 
+            assertThat(EXistDB.VERSION_3_6.toString(), `is`("eXist-db 3.6"))
+
             assertThat(MarkLogic.VERSION_7_0.toString(), `is`("MarkLogic 7.0"))
 
             assertThat(Saxon.VERSION_9_7.toString(), `is`("Saxon 9.7"))
@@ -98,6 +100,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -115,6 +118,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -132,6 +136,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -149,6 +154,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -166,6 +172,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -183,6 +190,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -200,6 +208,25 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(true))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
+            assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
+            assertThat(versioned.supportsDialect(Saxon), `is`(false))
+            assertThat(versioned.supportsDialect(W3C), `is`(false))
+        }
+
+        @Test
+        @DisplayName("eXist-db vendor implementation")
+        fun testEXistDB_SupportsDialect() {
+            val versioned = EXistDB
+            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
+            assertThat(versioned.supportsDialect(Scripting), `is`(false))
+            assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
+
+            assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(true))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -217,6 +244,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(true))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -234,6 +262,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(true))
             assertThat(versioned.supportsDialect(W3C), `is`(false))
@@ -251,6 +280,7 @@ class ModelTest {
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
 
             assertThat(versioned.supportsDialect(BaseX), `is`(false))
+            assertThat(versioned.supportsDialect(EXistDB), `is`(false))
             assertThat(versioned.supportsDialect(MarkLogic), `is`(false))
             assertThat(versioned.supportsDialect(Saxon), `is`(false))
             assertThat(versioned.supportsDialect(W3C), `is`(true))
@@ -276,6 +306,29 @@ class ModelTest {
                 assertThat(
                     product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
                     `is`(true)
+                ) // Schema Aware
+                assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), `is`(true))
+            }
+        }
+
+        @Test
+        @DisplayName("eXist-db")
+        fun testEXistDBProduct_OptionalFeatureSupport() {
+            val product = EXistDB.products[0]
+            assertThat(product.id, `is`("exist-db"))
+            assertThat(product.implementation.id, `is`("exist-db"))
+
+            for (version in EXistDB.versions) {
+                assertThat(product.supportsFeature(version, XQueryFeature.MINIMAL_CONFORMANCE), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.MODULE), `is`(true))
+                assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), `is`(false)) // Schema Aware
+                assertThat(
+                    product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION),
+                    `is`(false)
                 ) // Schema Aware
                 assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), `is`(true))
                 assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), `is`(true))
@@ -558,6 +611,110 @@ class ModelTest {
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_6), `is`(version.value >= 8.6))
 
                     // endregion
+                    // region Implementation: eXist-db
+
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_1), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_6), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_3), `is`(false))
+
+                    // endregion
+                    // region Implementation: MarkLogic
+
+                    assertThat(product.conformsTo(version, MarkLogic.VERSION_6_0), `is`(false))
+                    assertThat(product.conformsTo(version, MarkLogic.VERSION_7_0), `is`(false))
+                    assertThat(product.conformsTo(version, MarkLogic.VERSION_8_0), `is`(false))
+                    assertThat(product.conformsTo(version, MarkLogic.VERSION_9_0), `is`(false))
+
+                    // endregion
+                    // region Implementation: Saxon
+
+                    assertThat(product.conformsTo(version, Saxon.VERSION_9_5), `is`(false))
+                    assertThat(product.conformsTo(version, Saxon.VERSION_9_6), `is`(false))
+                    assertThat(product.conformsTo(version, Saxon.VERSION_9_7), `is`(false))
+                    assertThat(product.conformsTo(version, Saxon.VERSION_9_8), `is`(false))
+
+                    // endregion
+                    // region Implementation: W3C
+
+                    assertThat(product.conformsTo(version, W3C.FIRST_EDITION), `is`(false))
+                    assertThat(product.conformsTo(version, W3C.SECOND_EDITION), `is`(false))
+
+                    // endregion
+                }
+            }
+        }
+
+        @Test
+        @DisplayName("eXist-db")
+        fun testEXistDB_ConformsTo() {
+            for (product in EXistDB.products) {
+                for (version in EXistDB.versions) {
+                    // region Specification: XML Schema Definition Language (XSD)
+
+                    assertThat(product.conformsTo(version, XmlSchema.REC_1_0_20041028), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchema.REC_1_1_20120405), `is`(version.value >= 4.3))
+
+                    // endregion
+                    // region Specification: XQuery
+
+                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(false))
+                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(false))
+                    assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(true))
+                    assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(version.value >= 3.0 && version.value < 4.0))
+                    assertThat(product.conformsTo(version, XQuery.REC_3_1_20170321), `is`(version.value >= 4.0))
+                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_0_9), `is`(false))
+                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_1_0), `is`(false))
+
+                    // endregion
+                    // region Specification: XQuery and XPath Full Text
+
+                    assertThat(product.conformsTo(version, FullText.REC_1_0_20110317), `is`(false))
+                    assertThat(product.conformsTo(version, FullText.REC_3_0_20151124), `is`(false))
+
+                    // endregion
+                    // region Specification: XQuery and XPath Functions and Operators
+
+                    assertThat(product.conformsTo(version, FunctionsAndOperators.REC_1_0_20070123), `is`(false))
+                    assertThat(product.conformsTo(version, FunctionsAndOperators.REC_1_0_20101214), `is`(false))
+                    assertThat(
+                        product.conformsTo(version, FunctionsAndOperators.REC_3_0_20140408),
+                        `is`(true)
+                    )
+                    assertThat(
+                        product.conformsTo(version, FunctionsAndOperators.REC_3_1_20170321),
+                        `is`(version.value >= 4.0)
+                    )
+
+                    // endregion
+                    // region Specification: XQuery Scripting Extension
+
+                    assertThat(product.conformsTo(version, Scripting.NOTE_1_0_20140918), `is`(false))
+
+                    // endregion
+                    // region Specification: XQuery Update Facility
+
+                    assertThat(product.conformsTo(version, UpdateFacility.REC_1_0_20110317), `is`(false))
+                    assertThat(product.conformsTo(version, UpdateFacility.NOTE_3_0_20170124), `is`(false))
+
+                    // endregion
+                    // region Implementation: BaseX
+
+                    assertThat(product.conformsTo(version, BaseX.VERSION_8_4), `is`(false))
+                    assertThat(product.conformsTo(version, BaseX.VERSION_8_5), `is`(false))
+                    assertThat(product.conformsTo(version, BaseX.VERSION_8_6), `is`(false))
+
+                    // endregion
+                    // region Implementation: eXist-db
+
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_0), `is`(version.value >= 3.0))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_1), `is`(version.value >= 3.1))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_6), `is`(version.value >= 3.6))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_0), `is`(version.value >= 4.0))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_3), `is`(version.value >= 4.3))
+
+                    // endregion
                     // region Implementation: MarkLogic
 
                     assertThat(product.conformsTo(version, MarkLogic.VERSION_6_0), `is`(false))
@@ -636,6 +793,15 @@ class ModelTest {
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_4), `is`(false))
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_5), `is`(false))
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_6), `is`(false))
+
+                    // endregion
+                    // region Implementation: eXist-db
+
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_1), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_6), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_3), `is`(false))
 
                     // endregion
                     // region Implementation: MarkLogic
@@ -739,6 +905,15 @@ class ModelTest {
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_6), `is`(false))
 
                     // endregion
+                    // region Implementation: eXist-db
+
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_1), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_6), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_3), `is`(false))
+
+                    // endregion
                     // region Implementation: MarkLogic
 
                     assertThat(product.conformsTo(version, MarkLogic.VERSION_6_0), `is`(false))
@@ -832,6 +1007,15 @@ class ModelTest {
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_4), `is`(false))
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_5), `is`(false))
                     assertThat(product.conformsTo(version, BaseX.VERSION_8_6), `is`(false))
+
+                    // endregion
+                    // region Implementation: eXist-db
+
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_1), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_3_6), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_0), `is`(false))
+                    assertThat(product.conformsTo(version, EXistDB.VERSION_4_3), `is`(false))
 
                     // endregion
                     // region Implementation: MarkLogic

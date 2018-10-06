@@ -90,6 +90,78 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
 }
 
 // endregion
+// region eXist-db
+
+private class EXistDBProduct(id: String, name: String, implementation: Implementation) :
+    Product(id, name, implementation) {
+
+    override fun toString(): String = name
+
+    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = when (feature) {
+        XQueryFeature.SCHEMA_IMPORT, XQueryFeature.SCHEMA_VALIDATION ->
+            false
+        else ->
+            true
+    }
+
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XmlSchema.REC_1_0_20041028 -> true
+        XmlSchema.REC_1_1_20120405 -> productVersion.value >= 4.3
+        XQuery.REC_3_0_20140408 -> true
+        XQuery.CR_3_1_20151217 -> productVersion.value >= 3.0 && productVersion.value < 4.0
+        XQuery.REC_3_1_20170321 -> productVersion.value >= 4.0
+        FunctionsAndOperators.REC_3_0_20140408 -> true
+        FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 4.0
+        else -> ref.kind === implementation && ref.value <= productVersion.value
+    }
+
+    @Suppress("PropertyName")
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(EXistDB, XQuery)
+    @Suppress("PropertyName")
+    val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
+
+    override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
+        "3.0", "3.1" -> FLAVOURS_XQUERY
+        else -> FLAVOURS_UNSUPPORTED
+    }
+}
+
+object EXistDB : Implementation("exist-db", "eXist-db", "http://www.exist-db.org/") {
+    val VERSION_3_0: Version = ProductVersion("3.0", this, "XQuery 3.0 REC, array, map, json")
+    val VERSION_3_1: Version = ProductVersion("3.1", this, "arrow operator '=>', string constructors")
+    val VERSION_3_6: Version = ProductVersion("3.6", this, "declare context item")
+    val VERSION_4_0: Version = ProductVersion("4.0", this, "XQuery 3.1 REC")
+    val VERSION_4_3: Version = ProductVersion("4.3", this, "XMLSchema 1.1")
+
+    override val versions: List<Version> = listOf(
+        VERSION_3_0,
+        VERSION_3_1,
+        VERSION_3_6,
+        VERSION_4_0,
+        VERSION_4_3
+    )
+
+    val EXIST_DB: Product = EXistDBProduct("exist-db", "eXist-db", this)
+
+    override val products: List<Product> = listOf(EXIST_DB)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === XQuery
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        return when (xqueryVersion) {
+            XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+                "res://www.w3.org/TR/xquery.xqy"
+            XQuery.REC_3_0_20140408 ->
+                "res://www.w3.org/TR/xquery-30.xqy"
+            XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+                "res://www.w3.org/TR/xquery-31.xqy"
+            else -> null
+        }
+    }
+}
+
+// endregion
 // region MarkLogic
 
 private class MarkLogicProduct(id: String, name: String, implementation: Implementation) :
@@ -130,7 +202,7 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
     val VERSION_6_0: Version = ProductVersion("6.0", this, "property::, namespace::, binary, transactions, etc.")
     val VERSION_7_0: Version = ProductVersion("7.0", this, "schema kind tests")
     val VERSION_8_0: Version = ProductVersion("8.0", this, "json kind tests and constructors, schema-facet()")
-    val VERSION_9_0: Version = ProductVersion("9.0", this, "=>")
+    val VERSION_9_0: Version = ProductVersion("9.0", this, "arrow operator '=>'")
 
     override val versions: List<Version> = listOf(
         VERSION_6_0,
@@ -163,8 +235,9 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
 
 private class SaxonProduct(id: String, name: String, implementation: Implementation) :
     Product(id, name, implementation) {
-    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = when (feature) {
+
     // http://www.saxonica.com/products/feature-matrix-9-8.xml:
+    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = when (feature) {
         XQueryFeature.MINIMAL_CONFORMANCE, XQueryFeature.FULL_AXIS, XQueryFeature.MODULE, XQueryFeature.SERIALIZATION ->
             true
         XQueryFeature.HIGHER_ORDER_FUNCTION ->
@@ -256,7 +329,9 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
 // endregion
 // region W3C Specifications
 
-private class W3CProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+private class W3CProduct(id: String, name: String, implementation: Implementation) :
+    Product(id, name, implementation) {
+
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean {
@@ -325,6 +400,7 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 
 val PRODUCTS: List<Product> = listOf(
     BaseX.BASEX,
+    EXistDB.EXIST_DB,
     MarkLogic.MARKLOGIC,
     Saxon.HE,
     Saxon.PE,
