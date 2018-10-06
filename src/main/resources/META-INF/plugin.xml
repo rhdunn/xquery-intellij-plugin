@@ -19,6 +19,10 @@
       <li>Recognise Saxon <code>UnionType</code> constructs in <code>TypedMapTest</code> sequence types.</li>
       <li>Support <code>TupleType</code> constructs with names only, not associated sequence types.</li>
     </ol>
+    <p>XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:</p>
+    <ol>
+      <li>Support <code>empty()</code> syntax for <code>empty-sequence()</code>.</li>
+    </ol>
     <p>Module Import Resolution:</p>
     <ol>
       <li>Use project source roots to resolve module import URIs.</li>

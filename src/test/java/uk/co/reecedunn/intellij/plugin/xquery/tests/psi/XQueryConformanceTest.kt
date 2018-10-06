@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
@@ -2063,4 +2064,23 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
+    internal inner class SequenceType {
+        @Test
+        @DisplayName("empty sequence; recommendation syntax")
+        fun emptySequence() {
+            val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_EMPTY_SEQUENCE)
+            )
+        }
+    }
 }

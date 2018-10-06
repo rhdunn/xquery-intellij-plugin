@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
@@ -1608,4 +1609,32 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
+    internal inner class SequenceType {
+        @Test
+        @DisplayName("empty sequence")
+        fun testSequenceType_Empty() {
+            val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.txt")
+            val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty sequence; compact whitespace")
+        fun testSequenceType_Empty_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty sequence; missing closing parenthesis")
+        fun testSequenceType_Empty_MissingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

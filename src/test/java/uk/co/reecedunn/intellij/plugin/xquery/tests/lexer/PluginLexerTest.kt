@@ -635,4 +635,15 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "*", XQueryTokenType.STAR)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
+    fun sequenceType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE)
+        matchSingleToken(lexer, "empty", XQueryTokenType.K_EMPTY)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
 }

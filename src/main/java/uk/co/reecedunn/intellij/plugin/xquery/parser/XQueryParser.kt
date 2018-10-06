@@ -5972,7 +5972,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseSequenceType(): Boolean {
         val sequenceTypeMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE)) {
+        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE) || matchTokenType(XQueryTokenType.K_EMPTY)) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 sequenceTypeMarker.rollbackTo()

@@ -923,4 +923,24 @@ private class PluginConformanceTest : ParserTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
+    internal inner class SequenceType {
+        @Test
+        @DisplayName("empty sequence; working draft syntax")
+        fun emptySequence() {
+            val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(XQuery.MARKLOGIC_0_9))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_EMPTY)
+            )
+        }
+    }
 }

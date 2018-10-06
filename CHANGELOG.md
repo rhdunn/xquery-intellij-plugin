@@ -7,6 +7,10 @@ Language Support:
 1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
 1.  Support `TupleType` constructs with names only, not associated sequence types.
 
+XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:
+
+1.  Support `empty()` syntax for `empty-sequence()`.
+
 Module Import Resolution:
 
 1.  Use project source roots to resolve module import URIs.

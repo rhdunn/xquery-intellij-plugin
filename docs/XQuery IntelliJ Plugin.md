@@ -56,6 +56,9 @@
   - [C.2 MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
   - [C.3 Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
   - [C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions)
+  - [C.5 eXist-db Extensions](#c5-exist-db-extensions)
+  - [C.6 XPath 2.0 Working Draft 02 May 2003](#c6-xpath-20-working-draft-02-may-2003)
+  - [C.7 XQuery 1.0 Working Draft 02 May 2003](#c7-xquery-10-working-draft-02-may-2003)
 - [D Error and Warning Conditions](#d-error-and-warning-conditions)
   - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
@@ -94,6 +97,7 @@ not normative.
 
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
+| \[78\] | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 | \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
@@ -113,6 +117,10 @@ MarkLogic 8.0 supports `NamedTextTest` for selecting JSON nodes in objects.
 MarkLogic 8.0 supports `document-node(array-node())` for JSON documents with an
 array at the top level, and `document-node(object-node())` for JSON documents
 with an object (map) at the top level.
+
+XQuery 1.0 Working Draft 02 May 2003 uses `empty()` for `empty-sequence()`.
+This is supported by eXist-db prior to 4.0 and the MarkLogic `0.9-ml` XQuery
+version.
 
 #### 2.1.2 SequenceType Matching
 
@@ -675,7 +683,8 @@ The EBNF symbols below only include new and modified symbols. Missing reference
 numbers are for symbols that only apply to XQuery.
 
 These changes include support for:
-1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
+1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
+1.  XQuery IntelliJ Plugin Vendor Extensions.
 
 | Ref     | Symbol                  |     | Expression                          | Options              |
 |---------|-------------------------|-----|-------------------------------------|----------------------|
@@ -686,6 +695,7 @@ These changes include support for:
 | \[75\]  | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |                     |
 | \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
+| \[78\]  | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 
 ### A.2 EBNF for XQuery 3.1 with Vendor Extensions
 
@@ -706,10 +716,11 @@ specifications, including this document.
 The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
+1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
 1.  BaseX Vendor Extensions;
 1.  MarkLogic Vendor Extensions;
 1.  Saxon Vendor Extensions;
-1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
+1.  XQuery IntelliJ Plugin Vendor Extensions.
 
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -790,6 +801,7 @@ These changes include support for:
 | \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
 | \[76\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
+| \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 
 ### A.3 Reserved Function Names
 
@@ -859,6 +871,12 @@ __XML Schema__
 *  W3C. *W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes*. W3C
    Recommendation 5 April 2012. See
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
+
+__Working Drafts__
+*  W3C. *XML Path Language (XPath) 2.0*. W3C Working Draft 02 May 2003.
+   See [https://www.w3.org/TR/2003/WD-xpath20-20030502/]().
+*  W3C. *XQuery 1.0: An XML Query Language*. W3C Working Draft 02 May 2003.
+   See [https://www.w3.org/TR/2003/WD-xquery-20030502]().
 
 ### B.2 BaseX References
 *  BaseX. *XQuery Extensions: Non-determinism*. See
@@ -933,6 +951,22 @@ behaviour of those constructs:
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
+
+### C.5 eXist-db Extensions
+The eXist-db XQuery Processor supports the following vendor extensions described
+in this document:
+1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty-sequence()` in 4.0 and
+    later; `empty()` in older versions.
+
+### C.6 XPath 2.0 Working Draft 02 May 2003
+The XPath 2.0 Working Draft 02 May 2003 specification supports the following
+differences to the XPath 2.0 Recommendation, described in this document:
+1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
+
+### C.7 XQuery 1.0 Working Draft 02 May 2003
+The XQuery 1.0 Working Draft 02 May 2003 specification supports the following
+differences to the XQuery 1.0 Recommendation, described in this document:
+1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
 
 ## D Error and Warning Conditions
 
