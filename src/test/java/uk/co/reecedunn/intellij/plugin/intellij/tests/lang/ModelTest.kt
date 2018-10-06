@@ -1445,6 +1445,30 @@ class ModelTest {
         }
 
         @Test
+        @DisplayName("eXist-db versions")
+        fun testItemId_EXistDB_Versions() {
+            var id: VersionedProductId
+
+            id = VersionedProductId("exist-db/v4.0")
+            assertThat(id.id, `is`("exist-db/v4.0"))
+            assertThat(id.vendor, `is`(EXistDB))
+            assertThat(id.product, `is`(EXistDB.EXIST_DB))
+            assertThat(id.productVersion, `is`(EXistDB.VERSION_4_0))
+
+            id = VersionedProductId("exist-db/v0.5")
+            assertThat(id.id, `is`("exist-db"))
+            assertThat(id.vendor, `is`(EXistDB))
+            assertThat(id.product, `is`(EXistDB.EXIST_DB))
+            assertThat(id.productVersion, `is`(nullValue()))
+
+            id = VersionedProductId("exist-db/4.0")
+            assertThat(id.id, `is`("exist-db"))
+            assertThat(id.vendor, `is`(EXistDB))
+            assertThat(id.product, `is`(nullValue()))
+            assertThat(id.productVersion, `is`(nullValue()))
+        }
+
+        @Test
         @DisplayName("MarkLogic versions")
         fun testItemId_MarkLogic_Versions() {
             var id: VersionedProductId

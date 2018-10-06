@@ -130,7 +130,7 @@ class VersionedProductId {
 
     var id: String?
         get() = when (vendor) {
-            BaseX ->
+            BaseX, EXistDB ->
                 if (productVersion == null) {
                     vendor?.id
                 } else {
@@ -159,6 +159,7 @@ class VersionedProductId {
             vendor = if (parts.isNotEmpty()) {
                 when (parts[0]) {
                     "basex" -> BaseX
+                    "exist-db" -> EXistDB
                     "marklogic" -> MarkLogic
                     "saxon" -> Saxon
                     "w3c" -> W3C
