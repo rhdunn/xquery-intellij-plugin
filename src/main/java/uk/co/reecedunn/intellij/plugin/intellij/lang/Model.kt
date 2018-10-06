@@ -40,6 +40,18 @@ internal class ProductVersion(id: String, kind: Versioned, features: String? = n
     override fun toString(): String = "${kind.name} $id"
 }
 
+internal class UntilVersion(val until: Version) :
+    Version(until.id, until.value, until.kind, until.features) {
+
+    override fun toString(): String = "${kind.name} < $id"
+
+    override fun equals(other: Any?): Boolean = other is UntilVersion && until == other.until
+
+    override fun hashCode(): Int = until.hashCode()
+}
+
+fun until(until: Version): Version = UntilVersion(until)
+
 class NamedVersion(id: String, value: Double, val name: String, kind: Versioned) : Version(id, value, kind) {
     override fun toString(): String = kind.name + " " + name
 }

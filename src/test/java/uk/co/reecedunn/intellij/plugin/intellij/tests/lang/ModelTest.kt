@@ -56,6 +56,7 @@ class ModelTest {
             assertThat(BaseX.VERSION_8_5.toString(), `is`("BaseX 8.5"))
 
             assertThat(EXistDB.VERSION_3_6.toString(), `is`("eXist-db 3.6"))
+            assertThat(until(EXistDB.VERSION_3_6).toString(), `is`("eXist-db < 3.6"))
 
             assertThat(MarkLogic.VERSION_7_0.toString(), `is`("MarkLogic 7.0"))
 
@@ -713,6 +714,12 @@ class ModelTest {
                     assertThat(product.conformsTo(version, EXistDB.VERSION_3_6), `is`(version.value >= 3.6))
                     assertThat(product.conformsTo(version, EXistDB.VERSION_4_0), `is`(version.value >= 4.0))
                     assertThat(product.conformsTo(version, EXistDB.VERSION_4_3), `is`(version.value >= 4.3))
+
+                    assertThat(product.conformsTo(version, until(EXistDB.VERSION_3_0)), `is`(version.value < 3.0))
+                    assertThat(product.conformsTo(version, until(EXistDB.VERSION_3_1)), `is`(version.value < 3.1))
+                    assertThat(product.conformsTo(version, until(EXistDB.VERSION_3_6)), `is`(version.value < 3.6))
+                    assertThat(product.conformsTo(version, until(EXistDB.VERSION_4_0)), `is`(version.value < 4.0))
+                    assertThat(product.conformsTo(version, until(EXistDB.VERSION_4_3)), `is`(version.value < 4.3))
 
                     // endregion
                     // region Implementation: MarkLogic

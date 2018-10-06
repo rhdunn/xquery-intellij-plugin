@@ -112,6 +112,7 @@ private class EXistDBProduct(id: String, name: String, implementation: Implement
         XQuery.REC_3_1_20170321 -> productVersion.value >= 4.0
         FunctionsAndOperators.REC_3_0_20140408 -> true
         FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 4.0
+        is UntilVersion -> !conformsTo(productVersion, ref.until)
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
