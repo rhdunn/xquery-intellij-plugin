@@ -4947,8 +4947,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (elementMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                elementMarker.rollbackTo()
-                return false
+                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                    val marker = mark()
+                    parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                    marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
+                } else {
+                    elementMarker.rollbackTo()
+                    return false
+                }
             }
 
             parseWhiteSpaceAndCommentTokens()
