@@ -49,7 +49,7 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
                 val requiredXQuery = required.filterIsInstance<Specification>()
                 if (!requiredXQuery.isEmpty() && requiredXQuery.find { version -> version.value <= xquery.value } == null) {
                     val context = versioned.conformanceElement
-                    val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct-version.message", xquery.label, required.joinToString(", or "))
+                    val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct-version.message", xquery.versionId, required.joinToString(", or "))
                     descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                 }
             }

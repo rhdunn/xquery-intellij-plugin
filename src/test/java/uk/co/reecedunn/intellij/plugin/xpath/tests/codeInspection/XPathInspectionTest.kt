@@ -76,7 +76,7 @@ private class XPathInspectionTest : InspectionTestCase() {
             @DisplayName("built-in MarkLogic namespaces")
             fun testBuiltinMarkLogic() {
                 settings.implementationVersion = "marklogic/v8"
-                settings.XQueryVersion = XQuery.MARKLOGIC_1_0.label
+                settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
                 val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
 
                 val problems = inspect(file,

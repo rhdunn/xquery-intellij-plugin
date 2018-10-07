@@ -60,14 +60,14 @@ class Specification(
     id: String,
     value: Double,
     @Suppress("UNUSED_PARAMETER") date: Int,
-    val label: String,
+    val versionId: String,
     @Suppress("unused") val href: String,
     kind: Versioned,
     features: String? = null
 ) :
     Version(id, value, kind, features) {
 
-    override fun toString(): String = kind.name + " " + label
+    override fun toString(): String = kind.name + " " + versionId
 }
 
 enum class XQueryFeature {

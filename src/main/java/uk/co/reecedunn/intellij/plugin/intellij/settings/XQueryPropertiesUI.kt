@@ -121,7 +121,7 @@ class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {
 
     private fun isModifiedXQuery(comboBox: JComboBox<Version>, setting: String?): Boolean {
         val value = comboBox.selectedItem ?: return setting != null
-        return (value as Specification).label != setting
+        return (value as Specification).versionId != setting
     }
 
     private fun isModified(comboBox: JComboBox<Versioned>, setting: String?): Boolean {
@@ -149,7 +149,7 @@ class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {
         val dialect31 = mDialectForXQuery3_1!!.selectedItem as? Versioned
 
         settings.implementationVersion = version.id
-        settings.XQueryVersion = xqueryVersion?.label
+        settings.XQueryVersion = xqueryVersion?.versionId
         settings.XQuery10Dialect = dialect10?.id
         settings.XQuery30Dialect = dialect30?.id
         settings.XQuery31Dialect = dialect31?.id

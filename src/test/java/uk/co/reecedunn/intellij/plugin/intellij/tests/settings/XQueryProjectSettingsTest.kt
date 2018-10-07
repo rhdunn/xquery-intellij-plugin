@@ -33,7 +33,7 @@ class XQueryProjectSettingsTest {
     fun testDefaultValues() {
         val settings = XQueryProjectSettings()
         assertThat(settings.implementationVersion, `is`("w3c/spec/v1ed"))
-        assertThat(settings.XQueryVersion, `is`(XQuery.REC_1_0_20070123.label))
+        assertThat(settings.XQueryVersion, `is`(XQuery.REC_1_0_20070123.versionId))
         assertThat(settings.XQuery10Dialect, `is`(XQuery.id))
         assertThat(settings.XQuery30Dialect, `is`(XQuery.id))
         assertThat(settings.XQuery31Dialect, `is`(XQuery.id))
@@ -54,7 +54,7 @@ class XQueryProjectSettingsTest {
     fun testLoadState() {
         val other = XQueryProjectSettings()
         other.implementationVersion = "marklogic/v6"
-        other.XQueryVersion = XQuery.MARKLOGIC_0_9.label
+        other.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
         other.XQuery10Dialect = MarkLogic.id
         other.XQuery30Dialect = MarkLogic.id
         other.XQuery31Dialect = MarkLogic.id
@@ -62,7 +62,7 @@ class XQueryProjectSettingsTest {
         val settings = XQueryProjectSettings()
         settings.loadState(other)
         assertThat(settings.implementationVersion, `is`("marklogic/v6"))
-        assertThat(settings.XQueryVersion, `is`(XQuery.MARKLOGIC_0_9.label))
+        assertThat(settings.XQueryVersion, `is`(XQuery.MARKLOGIC_0_9.versionId))
         assertThat(settings.XQuery10Dialect, `is`(MarkLogic.id))
         assertThat(settings.XQuery30Dialect, `is`(MarkLogic.id))
         assertThat(settings.XQuery31Dialect, `is`(MarkLogic.id))
