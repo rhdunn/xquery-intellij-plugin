@@ -4335,79 +4335,101 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: CompPIConstructor
 
-    @Test
-    fun testCompPIConstructor() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (166) CompPIConstructor")
+    internal inner class CompPIConstructor {
+        @Test
+        @DisplayName("tag name: NCName")
+        fun testCompPIConstructor() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: NCName; compact whitespace")
+        fun testCompPIConstructor_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("content expression; empty expression")
+        fun testCompPIConstructor_NoExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_NoExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_NoExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("content expression; missing closing brace")
+        fun testCompPIConstructor_MissingClosingBrace() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression")
+        fun testCompPIConstructor_ExprTagName() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression; compact whitespace")
+        fun testCompPIConstructor_ExprTagName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression; missing expression")
+        fun testCompPIConstructor_ExprTagName_MissingTagNameExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingTagNameExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingTagNameExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression; missing closing brace")
+        fun testCompPIConstructor_ExprTagName_MissingClosingTagNameBrace() {
+            val expected =
+                loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
+            val actual =
+                parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("content expression; missing expression")
+        fun testCompPIConstructor_MissingValueExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: QName (error recovery)")
+        fun testCompPIConstructor_QNameTagName() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_QNameTagName.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_QNameTagName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: string literal (error recovery)")
+        fun testCompPIConstructor_StringLiteral() {
+            val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_StringLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testCompPIConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_NoExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_NoExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_NoExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_ExprTagName() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_ExprTagName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_ExprTagName_MissingTagNameExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingTagNameExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingTagNameExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_ExprTagName_MissingClosingTagNameBrace() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_ExprTagName_MissingClosingTagNameBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_MissingValueExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_MissingValueExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_MissingValueExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompPIConstructor_QNameTagName() {
-        val expected = loadResource("tests/parser/xquery-1.0/CompPIConstructor_QNameTagName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CompPIConstructor_QNameTagName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: SingleType
 
     @Test

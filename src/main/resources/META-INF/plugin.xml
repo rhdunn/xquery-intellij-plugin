@@ -18,7 +18,7 @@
     <ol>
       <li>Recognise Saxon <code>UnionType</code> constructs in <code>TypedMapTest</code> sequence types.</li>
       <li>Support <code>TupleType</code> constructs with names only, not associated sequence types.</li>
-      <li>Recover parsing when the <code>CompElemConstructor</code> and <code>CompAttrConstructor</code> tag name is a <code>StringLiteral</code>.</li>
+      <li>Recover parsing when the <code>CompElemConstructor</code>, <code>CompAttrConstructor</code>, or  <code>CompPIConstructor</code> tag name is a <code>StringLiteral</code>.</li>
     </ol>
     <p>XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:</p>
     <ol>
