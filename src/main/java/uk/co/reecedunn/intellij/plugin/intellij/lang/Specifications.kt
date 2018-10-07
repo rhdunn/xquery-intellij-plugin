@@ -46,8 +46,9 @@ object XmlSchema : Versioned {
 object XQuery : Language("XQuery", "application/xquery"), Versioned {
     // region 1.0
 
-    val WD_1_0_20030502 = Specification(
-        "1.0-20030502", 1.0, 20030502, "1.0 Working Draft", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this
+    val WD_1_0_20030502 = DraftSpecification(
+        "1.0-20030502", 1.0, 20030502, "1.0", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this,
+        "Working Draft 02 May 2003"
     )
 
     val REC_1_0_20070123 = Specification(

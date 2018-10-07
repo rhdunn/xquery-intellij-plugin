@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ class NamedVersion(id: String, value: Double, val name: String, kind: Versioned)
     override fun toString(): String = kind.name + " " + name
 }
 
-class Specification(
+open class Specification(
     id: String,
     value: Double,
     @Suppress("UNUSED_PARAMETER") date: Int,
@@ -68,6 +68,21 @@ class Specification(
     Version(id, value, kind, features) {
 
     override fun toString(): String = kind.name + " " + versionId
+}
+
+class DraftSpecification(
+    id: String,
+    value: Double,
+    date: Int,
+    versionId: String,
+    href: String,
+    kind: Versioned,
+    val status: String,
+    features: String? = null
+) :
+    Specification(id, value, date, versionId, href, kind, features) {
+
+    override fun toString(): String = "${super.toString()} ($status)"
 }
 
 enum class XQueryFeature {
