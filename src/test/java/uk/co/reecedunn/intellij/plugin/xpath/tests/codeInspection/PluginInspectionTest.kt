@@ -2378,6 +2378,91 @@ private class PluginInspectionTest : InspectionTestCase() {
             }
 
             @Nested
+            @DisplayName("XQuery Working Draft 02 May 2003")
+            internal inner class XQueryWorkingDraftTest {
+                @Test
+                @DisplayName("supported construct; supported XQuery version")
+                fun supportedConstructSupportedXQueryVersion() {
+                    settings.XQueryVersion = XQuery.WD_1_0_20030502.versionId
+                    settings.implementationVersion = "w3c/vwd"
+                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("unsupported construct; supported XQuery version")
+                fun unsupportedConstructUnsupportedXQueryVersion() {
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.implementationVersion = "w3c/v1ed"
+                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: W3C Recommendation (First Edition) does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
+                }
+
+                @Test
+                @DisplayName("MarkLogic, xquery 0.9-ml")
+                fun markLogicXQuery09ml() {
+                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.implementationVersion = "marklogic/v6.0"
+                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("MarkLogic, xquery 1.0-ml")
+                fun markLogicXQuery10ml() {
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.implementationVersion = "marklogic/v6.0"
+                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: MarkLogic XQuery version string '1.0-ml' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
+                }
+
+                @Test
+                @DisplayName("MarkLogic, xquery 1.0")
+                fun markLogicXQuery10() {
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.implementationVersion = "marklogic/v6.0"
+                    val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: MarkLogic XQuery version string '1.0' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
+                }
+            }
+
+            @Nested
             @DisplayName("BaseX")
             internal inner class BaseXTest {
                 @Test
