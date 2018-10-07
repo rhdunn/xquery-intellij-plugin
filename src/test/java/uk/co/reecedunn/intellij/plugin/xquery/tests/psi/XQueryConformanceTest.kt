@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.lang.EXistDB
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -2074,7 +2075,9 @@ private class XQueryConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
 
-            assertThat(versioned.requiresConformance.size, `is`(0))
+            assertThat(versioned.requiresConformance.size, `is`(2))
+            assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_1_0_20070123))
+            assertThat(versioned.requiresConformance[1], `is`(EXistDB.VERSION_4_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(

@@ -23,7 +23,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-private val XQUERY10_REC: List<Version> = listOf()
+private val XQUERY10_REC: List<Version> = listOf(
+    XQuery.REC_1_0_20070123,
+    EXistDB.VERSION_4_0
+)
 private val XQUERY10_WD: List<Version> = listOf(
     XQuery.WD_1_0_20030502,
     XQuery.MARKLOGIC_0_9,
