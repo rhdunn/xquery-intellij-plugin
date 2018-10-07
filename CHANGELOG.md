@@ -31,6 +31,10 @@ Function Resolution:
 1.  Matching statically-known functions against expanded QNames.
 1.  Search the `MainModule`/`LibraryModule` prolog for function declarations.
 
+Inspections:
+
+1.  IJVS0001: Report warnings for constructs that require a different XQuery version.
+
 ## 1.2 - 2018-08-27
 
 Language Support:

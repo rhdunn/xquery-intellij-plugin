@@ -24,6 +24,7 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
@@ -32,9 +33,10 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
-        val settings = XQueryProjectSettings.getInstance(file.getProject())
+        val settings = XQueryProjectSettings.getInstance(file.project)
         val product = settings.product
         val productVersion = settings.productVersion
+        val xquery = file.XQueryVersion.getVersionOrDefault(file.project)
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryConformance>().forEach { versioned ->
@@ -43,6 +45,13 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
                 val context = versioned.conformanceElement
                 val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct.message", productVersion, required.joinToString(", or "))
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+            } else {
+                val requiredXQuery = required.filterIsInstance<Specification>()
+                if (!requiredXQuery.isEmpty() && requiredXQuery.find { version -> version.value <= xquery.value } == null) {
+                    val context = versioned.conformanceElement
+                    val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct-version.message", xquery.label, required.joinToString(", or "))
+                    descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                }
             }
         }
         return descriptors.toTypedArray()

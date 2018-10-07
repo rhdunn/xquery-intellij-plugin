@@ -2195,7 +2195,14 @@ private class PluginInspectionTest : InspectionTestCase() {
 
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
-                    assertThat(problems!!.size, `is`(0))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery 3.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ENCODING))
                 }
 
                 @Test
@@ -2257,6 +2264,26 @@ private class PluginInspectionTest : InspectionTestCase() {
                     val problems = inspect(file, IJVS0001())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("Update Facility 3.0: incompatible XQuery version")
+                fun testUpdateFacility30_IncompatibleXQueryVersion() {
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.label
+                    settings.implementationVersion = "w3c/spec/v1ed"
+
+                    val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery Update Facility 3.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_INVOKE))
                 }
 
                 @Test

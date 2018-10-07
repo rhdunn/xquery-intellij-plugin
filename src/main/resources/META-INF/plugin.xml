@@ -45,6 +45,10 @@
       <li>Matching statically-known functions against expanded QNames.</li>
       <li>Search the <code>MainModule</code>/<code>LibraryModule</code> prolog for function declarations.</li>
     </ol>
+    <p>Inspections:</p>
+    <ol>
+      <li>IJVS0001: Report warnings for constructs that require a different XQuery version.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
