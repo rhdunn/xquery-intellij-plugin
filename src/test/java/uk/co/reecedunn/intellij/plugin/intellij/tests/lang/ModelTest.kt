@@ -67,7 +67,8 @@ class ModelTest {
         @Test
         @DisplayName("NamedVersion")
         fun testNamedVersion_DisplayName() {
-            assertThat(W3C.FIRST_EDITION.toString(), `is`("W3C First Edition"))
+            assertThat(W3C.WORKING_DRAFT.toString(), `is`("W3C Working Draft"))
+            assertThat(W3C.FIRST_EDITION.toString(), `is`("W3C Recommendation (First Edition)"))
         }
 
         @Test

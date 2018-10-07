@@ -339,6 +339,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         return when (ref) {
             XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
                 true
+            XQuery.WD_1_0_20030502 ->
+                productVersion === W3C.WORKING_DRAFT
             XQuery.REC_1_0_20070123, XQuery.REC_3_0_20140408, XQuery.REC_3_1_20170321 ->
                 productVersion === W3C.FIRST_EDITION
             XQuery.REC_1_0_20101214 ->
@@ -375,10 +377,11 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
 }
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
-    val FIRST_EDITION: NamedVersion = NamedVersion("1ed", 1.0, "First Edition", this)
-    val SECOND_EDITION: NamedVersion = NamedVersion("2ed", 2.0, "Second Edition", this)
+    val WORKING_DRAFT: NamedVersion = NamedVersion("wd", 0.5, "Working Draft", this)
+    val FIRST_EDITION: NamedVersion = NamedVersion("1ed", 1.0, "Recommendation (First Edition)", this)
+    val SECOND_EDITION: NamedVersion = NamedVersion("2ed", 2.0, "Recommendation (Second Edition)", this)
 
-    override val versions: List<Version> = listOf(FIRST_EDITION, SECOND_EDITION)
+    override val versions: List<Version> = listOf(WORKING_DRAFT, FIRST_EDITION, SECOND_EDITION)
 
     val SPECIFICATIONS: Product = W3CProduct("spec", "Specifications", this)
 
@@ -386,7 +389,7 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
-            XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+            XQuery.WD_1_0_20030502, XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
                 "res://www.w3.org/TR/xquery.xqy"
             XQuery.REC_3_0_20140408 ->
                 "res://www.w3.org/TR/xquery-30.xqy"
