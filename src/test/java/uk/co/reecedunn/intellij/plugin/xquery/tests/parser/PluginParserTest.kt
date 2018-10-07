@@ -1681,4 +1681,48 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("single")
+        fun singleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing UpdateExpr")
+        fun missingUpdateExpr() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multipleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is first")
+        fun mixedAndAlsoFirst() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is last")
+        fun mixedAndAlsoLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

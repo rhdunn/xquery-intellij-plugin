@@ -143,6 +143,7 @@ object XQueryTokenType {
     val K_ANCESTOR = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR")
     val K_ANCESTOR_OR_SELF = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF")
     val K_AND = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND")
+    val K_ANDALSO = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANDALSO") // Saxon 9.9
     val K_ANY = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANY") // Full Text 1.0
     val K_ARRAY = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY") // XQuery 3.1
     val K_ARRAY_NODE = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
@@ -272,7 +273,7 @@ object XQueryTokenType {
     val K_ORDER = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER")
     val K_ORDERED = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED")
     val K_ORDERING = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING")
-    val K_ORELSE = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE") // Saxon 9.8
+    val K_ORELSE = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE") // Saxon 9.9
     val K_PARAGRAPH = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPH") // Full Text 1.0
     val K_PARAGRAPHS = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPHS") // Full Text 1.0
     val K_PARENT = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT")

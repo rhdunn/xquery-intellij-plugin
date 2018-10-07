@@ -1007,4 +1007,67 @@ private class PluginConformanceTest : ParserTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("and only")
+        fun and() {
+            val file = parseResource("tests/parser/xquery-1.0/AndExpr.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryElementType.NODE_TEST)
+            )
+        }
+
+        @Test
+        @DisplayName("andAlso only")
+        fun andAlso() {
+            val file = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ANDALSO)
+            )
+        }
+
+        @Test
+        @DisplayName("andAlso first")
+        fun andAlsoFirst() {
+            val file = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ANDALSO)
+            )
+        }
+
+        @Test
+        @DisplayName("andAlso last")
+        fun andAlsoLast() {
+            val file = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ANDALSO)
+            )
+        }
+    }
 }

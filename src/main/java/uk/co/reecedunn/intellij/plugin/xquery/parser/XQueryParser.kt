@@ -3214,7 +3214,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseUpdateExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveAndExpr = false
-            while (matchTokenType(XQueryTokenType.K_AND)) {
+            while (matchTokenType(XQueryTokenType.K_AND) || matchTokenType(XQueryTokenType.K_ANDALSO)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseComparisonExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "ComparisonExpr"))

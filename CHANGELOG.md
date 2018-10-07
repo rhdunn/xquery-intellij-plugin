@@ -6,7 +6,7 @@ Language Support:
 
 1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
 1.  Support `TupleType` constructs with names only, not associated sequence types.
-1.  Support Saxon 9.9 `orElse` logical expressions.
+1.  Support Saxon 9.9 `orElse` and `andAlso` logical expressions.
 1.  Recover parsing when the `CompElemConstructor`, `CompAttrConstructor`,
     `CompPIConstructor`, or `CompNamespaceConstructor` tag name is a `StringLiteral`.
 

@@ -331,7 +331,6 @@ This follows the grammar production pattern used in other constructs like
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[11\] | `AndExpr`               | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
 | \[12\] | `UpdateExpr`            | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 
 BaseX 7.8 supports update expressions with a single inline expression.
@@ -598,14 +597,20 @@ A binary node is not an instance of `xs:boolean`.
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[79\] | `OrExpr           `            | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
+| \[79\] | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
+| \[11\] | `AndExpr`                      | ::= | `UpdateExpr (("and" \| "andAlso") UpdateExpr)*` |   |
 
-The `orElse` expression is a new logical expression supported by Saxon 9.8.
+The `orElse` and `andAlso` expressions are new logical expression supported by Saxon 9.9.
 
 The `orElse` expression evaluates the left hand side (`lhs`) first, and only
 evaluates the right hand side (`rhs`) if the left hand side is false. This is
 equivalent to:
->     if (lhs) then true() else xs:boolean(rhs)
+>     if (lhs) then fn:true() else xs:boolean(rhs)
+
+The `andAlso` expression evaluates the left hand side (`lhs`) first, and only
+evaluates the right hand side (`rhs`) if the left hand side is true. This is
+equivalent to:
+>     if (lhs) then xs:boolean(rhs) else fn:false()
 
 ## 4 Modules and Prologs
 
@@ -698,18 +703,21 @@ numbers are for symbols that only apply to XQuery.
 
 These changes include support for:
 1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
+1.  Saxon Vendor Extensions;
 1.  XQuery IntelliJ Plugin Vendor Extensions.
 
 | Ref     | Symbol                  |     | Expression                          | Options              |
 |---------|-------------------------|-----|-------------------------------------|----------------------|
 | \[3\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
 | \[4\]   | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |          |
+| \[11\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparionExpr)*` |  |
 | \[73\]  | `Expr`                  | ::= | `ApplyExpr`                         |                     |
 | \[74\]  | `ApplyExpr`             | ::= | `ConcatExpr`                        |                     |
 | \[75\]  | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |                     |
 | \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
 | \[78\]  | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
+| \[79\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |               |
 
 ### A.2 EBNF for XQuery 3.1 with Vendor Extensions
 
@@ -748,7 +756,7 @@ These changes include support for:
 | \[8\]    | `TransformWithExpr`            | ::= | `ArrowExpr ("transform" "with" "{" Expr? "}")?` |           |
 | \[9\]    | `BlockVarDecl`                 | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
 | \[10\]   | `BlockVarDeclEntry`            | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
-| \[11\]   | `AndExpr`                      | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
+| \[11\]   | `AndExpr`                      | ::= | `UpdateExpr (("and" \| "andAlso") UpdateExpr)*` |           |
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
@@ -816,6 +824,7 @@ These changes include support for:
 | \[76\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
 | \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
+| \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
 
 ### A.3 Reserved Function Names
 
@@ -951,7 +960,7 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.8\] -- `orElse`
+1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
 
 ### C.4 IntelliJ Plugin Extensions
 The following constructs have had their grammar modified to make it easier to
