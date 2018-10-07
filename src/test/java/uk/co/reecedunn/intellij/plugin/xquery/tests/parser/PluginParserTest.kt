@@ -1637,4 +1637,48 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
+    internal inner class OrExpr {
+        @Test
+        @DisplayName("single")
+        fun singleOrElse() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing AndExpr")
+        fun missingAndExpr() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_MissingAndExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_MissingAndExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multipleOrElse() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_MultipleOrElse.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_MultipleOrElse.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; orElse is first")
+        fun mixedOrElseFirst() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; orElse is last")
+        fun mixedOrElseLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

@@ -938,10 +938,72 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
             assertThat(versioned.requiresConformance[2], `is`(until(EXistDB.VERSION_4_0)))
 
-            assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(
                 versioned.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.K_EMPTY)
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
+    internal inner class OrExpr {
+        @Test
+        @DisplayName("or only")
+        fun or() {
+            val file = parseResource("tests/parser/xquery-1.0/OrExpr.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryElementType.NODE_TEST)
+            )
+        }
+
+        @Test
+        @DisplayName("orElse only")
+        fun orElse() {
+            val file = parseResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ORELSE)
+            )
+        }
+
+        @Test
+        @DisplayName("orElse first")
+        fun orElseFirst() {
+            val file = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ORELSE)
+            )
+        }
+
+        @Test
+        @DisplayName("orElse last")
+        fun orElseLast() {
+            val file = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_ORELSE)
             )
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathOrExpr
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XPathOrExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathOrExpr
+private var XQUERY10: List<Version> = listOf()
+private var SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
+
+class XPathOrExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathOrExpr, XQueryConformance {
+
+    override val requiresConformance: List<Version>
+        get() = if (conformanceElement === firstChild) XQUERY10 else SAXON99
+
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.K_ORELSE) ?: firstChild
+}

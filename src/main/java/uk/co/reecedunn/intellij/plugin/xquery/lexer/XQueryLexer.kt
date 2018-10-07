@@ -193,6 +193,7 @@ private val KEYWORDS = mapOf(
         "order" to XQueryTokenType.K_ORDER,
         "ordered" to XQueryTokenType.K_ORDERED,
         "ordering" to XQueryTokenType.K_ORDERING,
+        "orElse" to XQueryTokenType.K_ORELSE, // Saxon 9.8
         "paragraph" to XQueryTokenType.K_PARAGRAPH, // Full Text 1.0
         "paragraphs" to XQueryTokenType.K_PARAGRAPHS, // Full Text 1.0
         "parent" to XQueryTokenType.K_PARENT,

@@ -37,6 +37,7 @@
   - [3.10 Validate Expressions](#310-validate-expressions)
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
   - [3.12 Binary Constructors](#312-binary-constructors)
+  - [3.13 Logical Expressions](#313-logical-expressions)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -593,6 +594,19 @@ Casting from a binary node to a target type is performed as follows:
 
 A binary node is not an instance of `xs:boolean`.
 
+### 3.13 Logical Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[79\] | `OrExpr           `            | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
+
+The `orElse` expression is a new logical expression supported by Saxon 9.8.
+
+The `orElse` expression evaluates the left hand side (`lhs`) first, and only
+evaluates the right hand side (`rhs`) if the left hand side is false. This is
+equivalent to:
+>     if (lhs) then true() else xs:boolean(rhs)
+
 ## 4 Modules and Prologs
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -937,6 +951,7 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.8\] -- `orElse`
 
 ### C.4 IntelliJ Plugin Extensions
 The following constructs have had their grammar modified to make it easier to

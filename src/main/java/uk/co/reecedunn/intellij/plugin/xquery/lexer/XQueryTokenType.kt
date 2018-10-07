@@ -272,6 +272,7 @@ object XQueryTokenType {
     val K_ORDER = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER")
     val K_ORDERED = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED")
     val K_ORDERING = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING")
+    val K_ORELSE = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE") // Saxon 9.8
     val K_PARAGRAPH = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPH") // Full Text 1.0
     val K_PARAGRAPHS = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPHS") // Full Text 1.0
     val K_PARENT = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT")
