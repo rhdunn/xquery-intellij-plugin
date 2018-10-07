@@ -6620,58 +6620,80 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: CompNamespaceConstructor
 
-    @Test
-    fun testCompNamespaceConstructor() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+    internal inner class CompNamespaceConstructor {
+        @Test
+        @DisplayName("tag name: NCName")
+        fun testCompNamespaceConstructor() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: NCName; compact whitespace")
+        fun testCompNamespaceConstructor_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("content expression; missing closing brace")
+        fun testCompNamespaceConstructor_MissingClosingBrace() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression")
+        fun testCompNamespaceConstructor_PrefixExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression; compact whitespace")
+        fun testCompNamespaceConstructor_PrefixExpr_CompactWhitespace() {
+            val expected =
+                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.txt")
+            val actual =
+                parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: expression; missing closing brace")
+        fun testCompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace() {
+            val expected =
+                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.txt")
+            val actual =
+                parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("content expression; missing expression")
+        fun testCompNamespaceConstructor_PrefixExpr_MissingURIExpr() {
+            val expected =
+                loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tag name: string literal (error recovery)")
+        fun testCompNamespaceConstructor_StringLiteral() {
+            val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_StringLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testCompNamespaceConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompNamespaceConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompNamespaceConstructor_PrefixExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompNamespaceConstructor_PrefixExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCompNamespaceConstructor_PrefixExpr_MissingURIExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: NamedFunctionRef
 
     @Test

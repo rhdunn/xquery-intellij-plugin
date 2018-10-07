@@ -4994,8 +4994,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val namespaceMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE)
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.PREFIX)) {
-                if (!parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                    val marker = mark()
+                    parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                    marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
+                } else {
                     namespaceMarker.rollbackTo()
                     return false
                 }
