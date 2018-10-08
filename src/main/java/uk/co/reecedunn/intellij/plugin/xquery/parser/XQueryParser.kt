@@ -4322,7 +4322,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseFunctionItemExpr(): Boolean {
-        return parseNamedFunctionRef() || parseInlineFunctionExpr()
+        return parseNamedFunctionRef() || parseInlineFunctionExpr() || parseSimpleInlineFunctionExpr()
     }
 
     private fun parseNamedFunctionRef(): Boolean {
@@ -4407,6 +4407,21 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         }
 
         inlineFunctionExprMarker.drop()
+        return false
+    }
+
+    private fun parseSimpleInlineFunctionExpr(): Boolean {
+        val inlineFunctionExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FN)
+        if (inlineFunctionExprMarker != null) {
+            parseWhiteSpaceAndCommentTokens()
+            if (!parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+                inlineFunctionExprMarker.rollbackTo()
+                return false
+            }
+
+            inlineFunctionExprMarker.done(XQueryElementType.SIMPLE_INLINE_FUNCTION_EXPR)
+            return true
+        }
         return false
     }
 

@@ -435,6 +435,8 @@ object XQueryElementType {
 
     val UNION_TYPE: IElementType = ICompositeElementType("XQUERY_UNION_TYPE", PluginUnionTypeImpl::class.java, XQuery)
 
+    val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType("XQUERY_SIMPLE_INLINE_FUNCTION_EXPR", PluginSimpleInlineFunctionExprImpl::class.java, XQuery)
+
     // endregion
 
     val WHITESPACE_OR_COMMENT = TokenSet.create(XQueryTokenType.WHITE_SPACE, XQueryElementType.COMMENT)

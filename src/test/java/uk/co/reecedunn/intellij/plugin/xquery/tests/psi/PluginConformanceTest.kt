@@ -1070,4 +1070,23 @@ private class PluginConformanceTest : ParserTestCase() {
             )
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    internal inner class SimpleInlineFunctionExpr {
+        @Test
+        @DisplayName("simple inline function expression")
+        fun simpleInlineFunctionExpr() {
+            val file = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.xq")
+            val versioned = file.walkTree().filterIsInstance<PluginSimpleInlineFunctionExpr>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_FN)
+            )
+        }
+    }
 }

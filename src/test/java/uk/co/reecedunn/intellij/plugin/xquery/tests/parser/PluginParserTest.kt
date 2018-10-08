@@ -1725,4 +1725,40 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    internal inner class SimpleInlineFunctionExpr {
+        @Test
+        @DisplayName("simple inline function expression")
+        fun simpleInlineFunctionExpr() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("simple inline function expression; compact whitespace")
+        fun simpleInlineFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

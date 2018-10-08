@@ -18,6 +18,7 @@
     <ol>
       <li>Recognise Saxon <code>UnionType</code> constructs in <code>TypedMapTest</code> sequence types.</li>
       <li>Support <code>TupleType</code> constructs with names only, not associated sequence types.</li>
+      <li>Support Saxon 9.8 simple inline function expressions.</li>
       <li>Support Saxon 9.9 <code>orElse</code> and <code>andAlso</code> logical expressions.</li>
       <li>Recover parsing when the <code>CompElemConstructor</code>, <code>CompAttrConstructor</code>, <code>CompPIConstructor</code>, or <code>CompNamespaceConstructor</code> tag name is a <code>StringLiteral</code>.</li>
     </ol>
