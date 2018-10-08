@@ -150,9 +150,11 @@ is, they cannot be list, union, or other complex types).
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
-| \[24\] | `TupleField`            | ::= | `NCName (":" SequenceType)?`        |                       |
+| \[24\] | `TupleField`            | ::= | `NCName "?" (":" SequenceType)?`    |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8.
+
+In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
 
 ##### 2.1.2.3 Binary Test
 

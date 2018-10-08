@@ -830,6 +830,35 @@ private class PluginConformanceTest : ParserTestCase() {
             `is`(XQueryTokenType.K_TUPLE))
     }
 
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
+    internal inner class TupleField {
+        @Test
+        @DisplayName("tuple field")
+        fun tupleField() {
+            val file = parseResource("tests/parser/saxon-9.8/TupleField.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(0))
+
+            assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryElementType.NCNAME))
+        }
+
+        @Test
+        @DisplayName("optional tuple field")
+        fun optional() {
+            val file = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.OPTIONAL))
+        }
+    }
+
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
     fun testTypeDecl() {

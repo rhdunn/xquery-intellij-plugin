@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleField
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+
+private val SAXON98: List<Version> = listOf()
+private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
 
 class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTupleField
+    PluginTupleField, XQueryConformance {
+
+    override val requiresConformance
+        get(): List<Version> = if (conformanceElement === firstChild) SAXON98 else SAXON99
+
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.OPTIONAL) ?: firstChild
+}

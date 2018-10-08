@@ -20,6 +20,7 @@
       <li>Support <code>TupleType</code> constructs with names only, not associated sequence types.</li>
       <li>Support Saxon 9.8 simple inline function expressions.</li>
       <li>Support Saxon 9.9 <code>orElse</code> and <code>andAlso</code> logical expressions.</li>
+      <li>Support Saxon 9.9 optional field names for tuples.</li>
       <li>Recover parsing when the <code>CompElemConstructor</code>, <code>CompAttrConstructor</code>, <code>CompPIConstructor</code>, or <code>CompNamespaceConstructor</code> tag name is a <code>StringLiteral</code>.</li>
     </ol>
     <p>XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:</p>

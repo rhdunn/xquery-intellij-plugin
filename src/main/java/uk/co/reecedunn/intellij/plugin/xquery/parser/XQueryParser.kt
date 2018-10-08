@@ -6122,6 +6122,9 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()
+            matchTokenType(XQueryTokenType.OPTIONAL)
+
+            parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
                 if (getTokenType() === XQueryTokenType.COMMA || getTokenType() === XQueryTokenType.PARENTHESIS_CLOSE) {
                     tupleFieldMarker.done(XQueryElementType.TUPLE_FIELD)
