@@ -5,14 +5,18 @@ XQueryModuleImpl[FILE(0:30)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable.')
-            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('fn')
-            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
-            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:15)]('true')
-            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
-            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
-            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            XPathOrExprImpl[XQUERY_OR_EXPR(8:20)]
+               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(8:19)]
+                  XPathQNameImpl[XQUERY_QNAME(8:15)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(8:10)]('fn')
+                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:15)]('true')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(16:19)]
+                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(20:28)]('external')
             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')

@@ -656,4 +656,14 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "or", XQueryTokenType.K_OR)
         matchSingleToken(lexer, "orElse", XQueryTokenType.K_ORELSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    fun simpleInlineFunctionExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "fn", XQueryTokenType.K_FN)
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+    }
 }

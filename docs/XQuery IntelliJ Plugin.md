@@ -25,7 +25,9 @@
   - [3.6 Full Text Selections](#36-full-text-selections)
     - [3.6.1 Match Options](#361-match-options)
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
-  - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
+  - [3.7 Primary Expressions](#37-primary-expressions)
+    - [3.7.1 Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
+    - [3.7.2 Simple Inline Function Expressions](#372-simple-inline-function-expressions)
   - [3.8 JSON Constructors](#38-json-constructors)
     - [3.8.1 Maps](#381-maps)
     - [3.8.2 Arrays](#382-arrays)
@@ -242,7 +244,6 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
 
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[73\] | `Expr`                  | ::= | `ApplyExpr`                         |           |
 | \[74\] | `ApplyExpr`             | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?` |         |
 | \[75\] | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |           |
@@ -405,7 +406,14 @@ Levenshtein distance algorithm.\]
 
 This is a BaseX Full Text extension.
 
-### 3.7 Non-Deterministic Function Calls
+### 3.7 Primary Expressions
+
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
+
+### 3.7.1 Non-Deterministic Function Calls
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -418,6 +426,17 @@ applied if the function call is deterministic.
 This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
+
+#### 3.7.2 Simple Inline Function Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[81\] | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |         |
+
+This is a Saxon 9.8 extension.
+
+The expression `fn{E}` is equivalent to:
+>     function ($arg as item()) as item()* { $arg ! (E) }
 
 ### 3.8 JSON Constructors
 
@@ -825,6 +844,7 @@ These changes include support for:
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
 | \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 | \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
+| \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
 
 ### A.3 Reserved Function Names
 
@@ -922,6 +942,10 @@ __Working Drafts__
    [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types]().
 *  Saxonica. *Type aliases*. See
    [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/type-aliases]().
+*  Saxonica. *Simple inline functions. See
+   [http://saxonica.com/documentation/#!extensions/syntax-extensions/simple-inline-functions]().
+*  Saxonica. *Short-circuit boolean operators*. See
+   [http://saxonica.com/documentation/#!extensions/syntax-extensions/short-circuit]().
 
 ## C Vendor Extensions
 
@@ -930,7 +954,7 @@ The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility.
 1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
-1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
+1.  [Non-Deterministic Function Calls](#371-non-deterministic-function-calls) \[BaseX 8.4\]
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 
 ### C.2 MarkLogic Vendor Extensions
@@ -960,6 +984,7 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
 1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
 
 ### C.4 IntelliJ Plugin Extensions

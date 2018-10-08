@@ -127,6 +127,7 @@ private val KEYWORDS = mapOf(
         "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
         "external" to XQueryTokenType.K_EXTERNAL,
         "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
+        "fn" to XQueryTokenType.K_FN, // Saxon 9.8
         "following" to XQueryTokenType.K_FOLLOWING,
         "following-sibling" to XQueryTokenType.K_FOLLOWING_SIBLING,
         "for" to XQueryTokenType.K_FOR,
