@@ -384,10 +384,10 @@ declare %a:since("marklogic", "8.0") function cts:estimate($query as cts:query?,
 declare %a:since("marklogic", "8.0") function cts:estimate($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?) as xs:integer external;
 declare %a:since("marklogic", "8.0") function cts:estimate($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as xs:integer external;
 declare %a:since("marklogic", "8.0") function cts:estimate($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*, $maximum as xs:double?) as xs:integer external;
-declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?) as Boolean external;
-declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?, $options as (cts:order|xs:string)*) as Boolean external;
-declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?) as Boolean external;
-declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as Boolean external;
+declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?) as xs:boolean external;
+declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?, $options as (cts:order|xs:string)*) as xs:boolean external;
+declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?) as xs:boolean external;
+declare %a:since("marklogic", "8.0") function cts:exists($query as cts:query?, $options as (cts:order|xs:string)*, $quality-weight as xs:double?, $forest-ids as xs:unsignedLong*) as xs:boolean external;
 declare %a:since("marklogic", "8.0") function cts:false-query() as cts:or-query external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query($field-name as xs:string*, $operator as xs:string, $value as xs:anyAtomicType*) as cts:field-range-query external;
 declare %a:since("marklogic", "5.0") function cts:field-range-query($field-name as xs:string*, $operator as xs:string, $value as xs:anyAtomicType*, $options as xs:string*) as cts:field-range-query external;
