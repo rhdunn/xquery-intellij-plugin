@@ -336,4 +336,40 @@ private class PluginPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.1) Union Types")
+    internal inner class UnionTypes {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin BNF (22) UnionType")
+        internal inner class TypeDecl {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    declare type decl = union(test);
+                    """
+                )[1] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
 }

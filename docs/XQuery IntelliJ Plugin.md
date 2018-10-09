@@ -131,13 +131,19 @@ version.
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[22\] | `UnionType`             | ::= | `"union" "(" QName ("," QName)* ")"` |                     |
+| \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 
 The `UnionType` is a new sequence type supported by Saxon 9.8.
 
-A `UnionType` defines a union type whose members are the `QName` types listed
+A `UnionType` defines a union type whose members are the `EQName` types listed
 in the type definition. These types are restricted to being atomic types (that
 is, they cannot be list, union, or other complex types).
+
+If a member type has a namespace prefix, the namespace prefix is resolved to a
+namespace URI using the
+[statically known namespaces](https://www.w3.org/TR/xquery-31/#dt-static-namespaces)<sup><em>XQ31</em></sup>.
+If the member type has no namespace prefix, it is implicitly qualified by the
+[default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
 
 > __Example:__
 >
@@ -793,7 +799,7 @@ These changes include support for:
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]   | `UnionType`                    | ::= | `"union" "(" QName ("," QName)* ")"` |                      |
+| \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                      |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[24\]   | `TupleField`                   | ::= | `NCName "?" (":" SequenceType)?`    |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
