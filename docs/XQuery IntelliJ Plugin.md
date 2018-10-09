@@ -28,6 +28,7 @@
   - [3.7 Primary Expressions](#37-primary-expressions)
     - [3.7.1 Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
     - [3.7.2 Simple Inline Function Expressions](#372-simple-inline-function-expressions)
+    - [3.7.3 Literals](#373-literals)
   - [3.8 JSON Constructors](#38-json-constructors)
     - [3.8.1 Maps](#381-maps)
     - [3.8.2 Arrays](#382-arrays)
@@ -457,6 +458,20 @@ This is a Saxon 9.8 extension.
 The expression `fn{E}` is equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
+#### 3.7.3 Literals
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[82\] | `PredefinedEntityRef`          | ::= | `EntityRef`                               |         |
+| \[83\] | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |   |
+| \[84\] | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |        |
+
+MarkLogic 6.0 supports HTML4 and HTML5 predefined entity references in addition
+to XML entity references. Other XQuery processors only support XML entity
+references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, and `&apos;`). If the predefined
+entity reference is not supported by the XQuery processor, an `ije:IJVS0003`
+error is raised.
+
 ### 3.8 JSON Constructors
 
 #### 3.8.1 Maps
@@ -864,6 +879,10 @@ These changes include support for:
 | \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 | \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
 | \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
+| \[81\]   | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |                 |
+| \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
+| \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
+| \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
 
 ### A.3 Reserved Function Names
 
@@ -995,6 +1014,7 @@ in this document:
 1.  [Transactions](#44-transactions)
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
+1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
 
 ### C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
