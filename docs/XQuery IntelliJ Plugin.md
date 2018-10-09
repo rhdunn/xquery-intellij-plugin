@@ -149,12 +149,17 @@ is, they cannot be list, union, or other complex types).
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
+| \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[24\] | `TupleField`            | ::= | `NCName "?" (":" SequenceType)?`    |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8.
 
 In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
+
+\[Definition: An *extensible* tuple is a tuple that has some fields specified,
+but allows other fields to be included in the map object.\] An *extensible*
+tuple is specified by having the last tuple field be the `*` wildcard operator.
+This is supported by Saxon 9.9.
 
 ##### 2.1.2.3 Binary Test
 
@@ -789,8 +794,8 @@ These changes include support for:
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" QName ("," QName)* ")"` |                      |
-| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
-| \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
+| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
+| \[24\]   | `TupleField`                   | ::= | `NCName "?" (":" SequenceType)?`    |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |

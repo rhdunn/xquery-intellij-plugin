@@ -814,20 +814,42 @@ private class PluginConformanceTest : ParserTestCase() {
         }
     }
 
-    @Test
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
-    fun testTupleType() {
-        val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
+    internal inner class TupleType {
+        @Test
+        @DisplayName("tuple type")
+        fun tupleType() {
+            val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
 
-        val tupleTypePsi = file.walkTree().filterIsInstance<PluginTupleType>().first()
-        val conformance = tupleTypePsi as XQueryConformance
+            val tupleTypePsi = file.walkTree().filterIsInstance<PluginTupleType>().first()
+            val conformance = tupleTypePsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_TUPLE))
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_TUPLE)
+            )
+        }
+
+        @Test
+        @DisplayName("extensible tuple type")
+        fun extensible() {
+            val file = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginTupleType>().first() as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(conformance.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.STAR)
+            )
+        }
     }
 
     @Nested

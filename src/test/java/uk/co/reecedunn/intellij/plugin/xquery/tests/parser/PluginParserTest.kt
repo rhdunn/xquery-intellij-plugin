@@ -1427,30 +1427,58 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Saxon 9.8 :: TupleType
 
-    @Test
-    fun testTupleType() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    internal inner class TupleType {
+        @Test
+        @DisplayName("tuple type")
+        fun tupleType() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tuple type; compact whitespace")
+        fun tupleType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple")
+        fun extensible() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple; compact whitespace")
+        fun extensible_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple; not last")
+        fun extensible_NotLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testTupleType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleType_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType ; XQuery IntelliJ Plugin EBNF (24) TupleField")

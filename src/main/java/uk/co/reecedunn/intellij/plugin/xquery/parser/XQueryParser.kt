@@ -6095,14 +6095,31 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 haveError = true
             }
 
-            parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.COMMA)) {
+            var isExtensible = false
+            var haveNext = true
+            while (haveNext) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseTupleField() && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected", "NCName"))
+                if (isExtensible) {
+                    val marker = mark()
+                    if (!matchTokenType(XQueryTokenType.COMMA)) {
+                        haveNext = false
+                        marker.drop()
+                        continue
+                    } else {
+                        marker.error(XQueryBundle.message("parser.error.tuple-wildcard-with-names-after"))
+                    }
+                } else if (!matchTokenType(XQueryTokenType.COMMA)) {
+                    haveNext = false
+                    continue
+                }
+
+                parseWhiteSpaceAndCommentTokens()
+                if (matchTokenType(XQueryTokenType.STAR)) {
+                    isExtensible = true
+                } else if (!parseTupleField() && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-either", "NCName", "*"))
                     haveError = true
                 }
-                parseWhiteSpaceAndCommentTokens()
             }
 
             parseWhiteSpaceAndCommentTokens()

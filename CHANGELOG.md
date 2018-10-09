@@ -8,7 +8,7 @@ Language Support:
 1.  Support `TupleType` constructs with names only, not associated sequence types.
 1.  Support Saxon 9.8 simple inline function expressions.
 1.  Support Saxon 9.9 `orElse` and `andAlso` logical expressions.
-1.  Support Saxon 9.9 optional field names for tuples.
+1.  Support Saxon 9.9 optional field names for tuples, and extensible tuples.
 1.  Recover parsing when the `CompElemConstructor`, `CompAttrConstructor`,
     `CompPIConstructor`, or `CompNamespaceConstructor` tag name is a `StringLiteral`.
 
