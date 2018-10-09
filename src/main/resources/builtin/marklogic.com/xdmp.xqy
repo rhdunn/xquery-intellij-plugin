@@ -39,6 +39,8 @@ declare %a:since("marklogic", "5.0") function xdmp:and64($x as xs:unsignedLong, 
 declare %a:since("marklogic", "6.0") function xdmp:annotation($function as function(*), $name as xs:QName) as item()* external;
 declare %a:since("marklogic", "5.0") %a:variadic("item()*") function xdmp:apply($function as xdmp:function) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:architecture() as xs:string external;
+declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:arrayValues($array as json:array) as item()* external;
+declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:arrayValues($array as json:array, $flatten as xs:boolean) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:atomizable() as xs:boolean external;
 declare %a:since("marklogic", "7.0") function xdmp:atomizable($item as item()) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:aws-region() as string? external;
@@ -294,6 +296,7 @@ declare %a:since("marklogic", "6.0") function xdmp:format-number($value as xs:nu
 declare %a:since("marklogic", "5.0") function xdmp:format-number($value as xs:numeric, $picture (: as [5.0]xs:string [6.0]xs:string? :), $language (: as [5.0]xs:string [6.0]xs:string? :), $letter-value (: as [5.0]xs:string [6.0]xs:string? :), $ordchar (: as [5.0]xs:string [6.0]xs:string? :), $zero-padding (: as [5.0]xs:string [6.0]xs:string? :), $grouping-separator (: as [5.0]xs:string [6.0]xs:string? :), $grouping-size (: as [5.0]xs:string [6.0]xs:string? [8.0]xs:integer? :)) as xs:string external;
 declare %a:since("marklogic", "5.0") %a:see-also("marklogic", "8.0", "xdmp:from-json-string#1") function xdmp:from-json($arg (: as [5.0]xs:string [8.0]node() :)) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:from-json-string($arg as xs:string) as item()* external;
+declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:fromJSON($arg as node()) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:function($function (: as [5.0]xs:QName [8.0]xs:QName? :)) as xdmp:function external;
 declare %a:since("marklogic", "5.0") function xdmp:function($function (: as [5.0]xs:QName [8.0]xs:QName? :), $module-path as xs:string?) as xdmp:function external;
 declare %a:since("marklogic", "5.0") function xdmp:function-module($function as xdmp:function) as xs:string external;
@@ -685,6 +688,9 @@ declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-subject-name
 declare %a:since("marklogic", "5.0") function xdmp:xa-complete($forestID as xs:unsignedLong, $txn-id as xs:unsignedLong, $commit as xs:boolean, $remember as xs:boolean) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:xa-forget($forestID as xs:unsignedLong, $txn-id as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:xor64($x as xs:unsignedLong, $y as xs:unsignedLong) as xs:unsignedLong external;
+declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:xquery-eval($xquery as xs:string) as item()* external;
+declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:xquery-eval($xquery as xs:string, $vars as Object?) as item()* external;
+declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:xquery-eval($xquery as xs:string, $vars as Object?, $options as Object?) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:xquery-version() as xs:string external;
 declare %a:since("marklogic", "8.0") function xdmp:xslt-eval($stylesheet as node()) as document-node()* external;
 declare %a:since("marklogic", "5.0") function xdmp:xslt-eval($stylesheet (: as [5.0]element() [8.0]node() :), $input as node()?) as document-node()* external;
