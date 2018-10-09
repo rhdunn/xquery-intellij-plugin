@@ -225,6 +225,7 @@ declare %a:since("marklogic", "8.0") function xdmp:effective-version() as xs:uns
 declare %a:since("marklogic", "5.0") function xdmp:elapsed-time() as xs:dayTimeDuration external;
 declare %a:since("marklogic", "5.0") function xdmp:element-content-type($element as element()) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:email($message (: as [5.0]node() [8.0]element() :)) as empty-sequence() external;
+declare %a:since("marklogic", "9.0") function xdmp:email($message as element(), $options (: as (element()|map:map)? :)) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function xdmp:encode-for-NCName($name as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:encoding-language-detect($document as node()) as element()* external;
 declare %a:since("marklogic", "5.0") function xdmp:estimate($expression as item()*) as xs:integer external;
@@ -415,6 +416,8 @@ declare %a:since("marklogic", "9.0") function xdmp:is-whitespace-node($text as n
 declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :)) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:javascript-eval($javascript as xs:string, $vars (: as [5.0]item()* [9.0](item()*|map:map?) :), $options as node()?) as item()* external;
+declare %a:since("marklogic", "9.0") function xdmp:json-validate($node as node(), $schema as xs:string, $mode as xs:string) as node() external;
+declare %a:since("marklogic", "9.0") function xdmp:json-validate-node($node as node(), $schema as node(), $mode as xs:string) as node() external;
 declare %a:since("marklogic", "5.0") function xdmp:key-from-QName($name as xs:QName) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-export($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "9.0") function xdmp:keystore-import($passphrase as xs:string, $filepath as xs:string) as xs:boolean external;
@@ -527,6 +530,9 @@ declare %a:since("marklogic", "5.0") function xdmp:redirect-response($name as xs
 declare %a:since("marklogic", "5.0") function xdmp:remove-orphaned-binary($forestID as xs:unsignedLong, $binaryID as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:request() as xs:unsignedLong external;
 declare %a:since("marklogic", "5.0") function xdmp:request-cancel($hostID as xs:unsignedLong, $serverID as xs:unsignedLong, $requestID as xs:unsignedLong) as empty-sequence() external;
+declare %a:since("marklogic", "9.0") function xdmp:request-log-delete($key as xs:string) as empty-sequence() external;
+declare %a:since("marklogic", "9.0") function xdmp:request-log-get($key as xs:string) as item() external;
+declare %a:since("marklogic", "9.0") function xdmp:request-log-put($key as xs:string, $value as item()) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:request-status($host-id as xs:unsignedLong, $server-id as xs:unsignedLong, $request-id (: as [5.0]xs:unsignedLong [8.0]xs:unsignedLong* :)) as element(request-status) external;
 declare %a:since("marklogic", "5.0") function xdmp:request-timestamp() as xs:unsignedLong? external;
 declare %a:since("marklogic", "6.0") function xdmp:resolve-uri($relative as xs:string?) as xs:anyURI? external;
