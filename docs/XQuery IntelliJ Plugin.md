@@ -112,10 +112,11 @@ not normative.
 | \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 | \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
 
-MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes
-in objects.
+MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
+in objects by the key name.
 
-MarkLogic 8.0 supports `NamedTextTest` for selecting JSON nodes in objects.
+MarkLogic 8.0 supports `NamedTextTest` for selecting JSON text nodes in objects
+by the key name.
 
 MarkLogic 8.0 supports `document-node(array-node())` for JSON documents with an
 array at the top level, and `document-node(object-node())` for JSON documents
@@ -210,7 +211,8 @@ support for `SchemaFacetTest`.
 | \[49\]  | `NamedBooleanNodeTest`  | ::= | `"boolean-node" "(" StringLiteral ")"` |      |
 
 MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
-and `false`) JSON values.
+and `false`) JSON values. The `NamedBooleanNodeTest` variant selects JSON
+boolean nodes in objects by the key name.
 
 ##### 2.1.2.6 Number Node Test
 
@@ -221,7 +223,8 @@ and `false`) JSON values.
 | \[53\]  | `NamedNumberNodeTest`   | ::= | `"number-node" "(" StringLiteral ")"` |       |
 
 MarkLogic 8.0 provides `NumberNodeTest` types for working with numeric JSON
-values.
+values. The `NamedNumberNodeTest` variant selects JSON number nodes in objects
+by the key name.
 
 ##### 2.1.2.7 Null Node Test
 
@@ -232,6 +235,7 @@ values.
 | \[57\]  | `NamedNullNodeTest`     | ::= | `"null-node" "(" StringLiteral ")"` |         |
 
 MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
+The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key name.
 
 ##### 2.1.2.8 Array Node Test
 
@@ -241,7 +245,8 @@ MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 | \[60\]  | `AnyArrayNodeTest`      | ::= | `"array-node" "(" ")"`              |         |
 | \[61\]  | `NamedArrayNodeTest`    | ::= | `"array-node" "(" StringLiteral ")"` |        |
 
-MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
+MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
+`NamedArrayNodeTest` variant selects JSON array nodes in objects by the key name.
 
 ##### 2.1.2.9 Map Node Test
 
@@ -251,7 +256,8 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 | \[64\]  | `AnyMapNodeTest`        | ::= | `"object-node" "(" ")"`             |         |
 | \[65\]  | `NamedMapNodeTest`      | ::= | `"object-node" "(" StringLiteral ")"` |       |
 
-MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
+MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
+`NamedMapNodeTest` variant selects JSON object nodes in objects by the key name.
 
 ## 3 Expressions
 
