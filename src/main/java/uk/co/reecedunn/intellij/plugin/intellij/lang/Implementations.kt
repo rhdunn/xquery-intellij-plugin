@@ -401,6 +401,18 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 }
 
 // endregion
+// region XQuery IntelliJ Plugin (Internal XQuery Extensions)
+
+object XQueryIntelliJPlugin : Implementation("xijp", "XQuery IntelliJ Plugin", "https://github.com/rhdunn/xquery-intellij-plugin") {
+    val VERSION_1_3: Version = ProductVersion("1.3", this, "item type union")
+
+    override val versions: List<Version> get() = listOf()
+    override val products: List<Product> get() = listOf()
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = null
+}
+
+// endregion
 
 val PRODUCTS: List<Product> = listOf(
     BaseX.BASEX,

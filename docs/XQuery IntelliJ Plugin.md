@@ -14,6 +14,7 @@
       - [2.1.2.7 Null Node Test](#2127-null-node-test)
       - [2.1.2.8 Array Node Test](#2128-array-node-test)
       - [2.1.2.9 Map Node Test](#2129-map-node-test)
+      - [2.1.2.10 Item Type Union](#21210-item-type-union)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -102,7 +103,7 @@ not normative.
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
 | \[78\] | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
-| \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemTypeOrUnion` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
@@ -259,6 +260,18 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
 
 MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 `NamedMapNodeTest` variant selects JSON object nodes in objects by the key name.
+
+##### 2.1.2.10 Item Type Union
+
+| Ref    | Symbol                         |     | Expression                          | Options               |
+|--------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[85\] | `ParenthesizedItemTypeOrUnion` | ::= | `ParenthesizedItemType \| ItemTypeUnion` |                  |
+| \[86\] | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"` |                       |
+
+The `ItemTypeUnion` construct is an XQuery IntelliJ Plugin extension that is
+based on the XQuery Formal Semantics specification. This is used in the
+definition of built-in functions for parameters and return types that have
+multiple type inputs.
 
 ## 3 Expressions
 
@@ -818,7 +831,7 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemTypeOrUnion` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                      |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
@@ -883,6 +896,8 @@ These changes include support for:
 | \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
 | \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
 | \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
+| \[85\]   | `ParenthesizedItemTypeOrUnion` | ::= | `ParenthesizedItemType \| ItemTypeUnion`  |                 |
+| \[86\]   | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"`       |                 |
 
 ### A.3 Reserved Function Names
 
@@ -1039,6 +1054,7 @@ behaviour of those constructs:
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
 1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
+1.  [Item Type Union](#21210-item-type-union)
 
 ### C.5 eXist-db Extensions
 The eXist-db XQuery Processor supports the following vendor extensions described

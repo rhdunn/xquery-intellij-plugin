@@ -1140,4 +1140,17 @@ private class PluginConformanceTest : ParserTestCase() {
             )
         }
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
+    fun testItemTypeUnion() {
+        val file = parseResource("tests/parser/intellij-plugin/ItemTypeUnion.xq")
+        val conformance = file.walkTree().filterIsInstance<PluginItemTypeUnion>().first() as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.UNION))
+    }
 }

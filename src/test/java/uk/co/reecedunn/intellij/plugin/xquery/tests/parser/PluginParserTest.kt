@@ -1863,4 +1863,48 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
+    internal inner class ItemTypeUnion {
+        @Test
+        @DisplayName("item type union")
+        fun itemTypeUnion() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("item type union; compact whitespace")
+        fun itemTypeUnion_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing item type")
+        fun missingItemType() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

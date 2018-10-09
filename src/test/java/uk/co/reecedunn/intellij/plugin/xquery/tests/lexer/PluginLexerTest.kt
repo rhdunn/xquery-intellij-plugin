@@ -666,4 +666,14 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
+    fun itemTypeUnion() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
 }
