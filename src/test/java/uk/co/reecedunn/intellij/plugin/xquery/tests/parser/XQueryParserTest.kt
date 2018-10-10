@@ -6926,6 +6926,13 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
+    fun testFunctionTest_MissingFunctionKeyword() {
+        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MissingFunctionKeyword.txt")
+        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MissingFunctionKeyword.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     // endregion
     // region XQuery 3.0 :: AnyFunctionTest
 

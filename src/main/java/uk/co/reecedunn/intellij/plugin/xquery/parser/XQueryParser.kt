@@ -6214,7 +6214,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             functionTestMarker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else if (haveAnnotations) {
-            error(XQueryBundle.message("parser.error.expected", "AnyFunctionTest"))
+            error(XQueryBundle.message("parser.error.expected-keyword", "function"))
 
             functionTestMarker.done(XQueryElementType.FUNCTION_TEST)
             return true
