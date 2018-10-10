@@ -1427,6 +1427,188 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
+    // region Saxon 9.8 :: TypeDecl
+
+    @Test
+    fun testTypeDecl() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_CompactWhitespace() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_MissingQName() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_MissingEquals() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_MissingItemType() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testTypeDecl_AssignEquals() {
+        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
+        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    // endregion
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("single")
+        fun singleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing UpdateExpr")
+        fun missingUpdateExpr() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multipleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is first")
+        fun mixedAndAlsoFirst() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is last")
+        fun mixedAndAlsoLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+    internal inner class UnionType {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName; compact whitespace")
+        fun ncname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName")
+        fun qname() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName; compact whitespace")
+        fun qname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("URIQualifiedName; compact whitespace")
+        fun uriQualifiedName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun testUnionType_MissingClosingParenthesis() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing first type")
+        fun testUnionType_MissingFirstType() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing next type")
+        fun testUnionType_MissingNextType() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple types")
+        fun testUnionType_Multiple() {
+            // This is testing handling of whitespace before parsing the next comma.
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("union in TypedMapTest")
+        fun testUnionType_InTypedMapTest() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
@@ -1573,145 +1755,6 @@ private class PluginParserTest : ParserTestCase() {
         }
     }
 
-    // region Saxon 9.8 :: TypeDecl
-
-    @Test
-    fun testTypeDecl() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_MissingQName() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_MissingEquals() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_MissingItemType() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypeDecl_AssignEquals() {
-        val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
-    internal inner class UnionType {
-        @Test
-        @DisplayName("NCName")
-        fun ncname() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("NCName; compact whitespace")
-        fun ncname_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("QName")
-        fun qname() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("QName; compact whitespace")
-        fun qname_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("URIQualifiedName")
-        fun uriQualifiedName() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("URIQualifiedName; compact whitespace")
-        fun uriQualifiedName_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("missing closing parenthesis")
-        fun testUnionType_MissingClosingParenthesis() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("missing first type")
-        fun testUnionType_MissingFirstType() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("missing next type")
-        fun testUnionType_MissingNextType() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple types")
-        fun testUnionType_Multiple() {
-            // This is testing handling of whitespace before parsing the next comma.
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("union in TypedMapTest")
-        fun testUnionType_InTypedMapTest() {
-            val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
     internal inner class SequenceType {
@@ -1780,50 +1823,6 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedOrElseLast() {
             val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
-    internal inner class AndExpr {
-        @Test
-        @DisplayName("single")
-        fun singleAndAlso() {
-            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("missing UpdateExpr")
-        fun missingUpdateExpr() {
-            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple")
-        fun multipleAndAlso() {
-            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("mixed; andAlso is first")
-        fun mixedAndAlsoFirst() {
-            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("mixed; andAlso is last")
-        fun mixedAndAlsoLast() {
-            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
