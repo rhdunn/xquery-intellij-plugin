@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:44)]
                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(24:25)](':')
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:32)]('integer')
                   LeafPsiElement[XQUERY_UNION_TOKEN(32:33)]('|')
-                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(33:39)]
+                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(33:39)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(33:37)]('item')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')

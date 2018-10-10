@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:51)]
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
                   LeafPsiElement[XQUERY_COMMA_TOKEN(39:40)](',')
-                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(40:46)]
+                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(40:46)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(40:44)]('item')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')

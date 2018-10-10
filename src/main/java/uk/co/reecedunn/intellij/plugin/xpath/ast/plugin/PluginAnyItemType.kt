@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
 
 /**
  * An XPath 2.0 and XQuery 1.0 `ItemType` node in the XQuery AST.
  */
-interface XPathItemType : PsiElement
+interface PluginAnyItemType : PsiElement

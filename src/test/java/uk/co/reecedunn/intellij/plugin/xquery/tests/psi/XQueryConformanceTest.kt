@@ -1752,7 +1752,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType.ITEM_TYPE))
+                `is`(XQueryElementType.ANY_ITEM_TYPE))
     }
 
     // endregion

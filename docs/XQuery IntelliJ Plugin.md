@@ -17,6 +17,7 @@
       - [2.1.2.10 Specialised Sequence Types](#21210-specialised-sequence-types)
         - [2.1.2.10.1 Item Type Union](#212101-item-type-union)
         - [2.1.2.10.2 Tuple Sequence Types](#212102-tuple-sequence-types)
+      - [2.1.2.11 Item Type](#21211-item-type)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -105,7 +106,6 @@ not normative.
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
 | \[78\] | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
-| \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
@@ -269,7 +269,7 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[85\] | `ParenthesizedSequenceType`    | ::= | `ParenthesizedItemType \| ItemTypeUnion \| TupleSequenceType` | |
 
-##### 2.1.2.10.1 Item Type Union
+###### 2.1.2.10.1 Item Type Union
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -284,7 +284,7 @@ one of multiple disjoint types.
 >
 >     declare function load-json($filename as xs:string) as (map(*) | array(*)) external;
 
-##### 2.1.2.10.2 Tuple Sequence Types
+###### 2.1.2.10.2 Tuple Sequence Types
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -303,6 +303,13 @@ as rational or complex numbers.
 > `complex` can be defined as:
 >
 >     declare type complex = (xs:double, xs:double);
+
+##### 2.1.2.11 Item Type
+
+| Ref    | Symbol                  |     | Expression                          | Options |
+|--------|-------------------------|-----|-------------------------------------|---------|
+| \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
+| \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 
 ## 3 Expressions
 
@@ -930,6 +937,7 @@ These changes include support for:
 | \[85\]   | `ParenthesizedSequenceType`    | ::= | `ParenthesizedItemType \| ItemTypeUnion \| TupleSequenceType` | |
 | \[86\]   | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"`       |                 |
 | \[87\]   | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
+| \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
 
 ### A.3 Reserved Function Names
 
@@ -1082,6 +1090,7 @@ behaviour of those constructs:
 1.  [Typeswitch](#331-typeswitch)
 1.  [Block Expressions](#34-block-expressions)
 1.  [Node Tests](#392-node-tests)
+1.  [Any Item Type](#21211-item-type)
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:

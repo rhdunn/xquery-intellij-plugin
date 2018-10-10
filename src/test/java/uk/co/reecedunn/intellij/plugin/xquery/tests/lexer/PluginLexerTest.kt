@@ -174,16 +174,6 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (20) ItemType")
-    fun itemType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (21) TypedMapTest")
     fun typedMapTest() {
         val lexer = createLexer()
@@ -684,6 +674,16 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (88) AnyItemType")
+    fun anyItemType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 }

@@ -36,7 +36,7 @@ XQueryModuleImpl[FILE(0:82)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(60:62)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
-                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(63:71)]
+                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(63:71)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(63:67)]('item')
                      PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(68:69)]('(')

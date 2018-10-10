@@ -6043,8 +6043,24 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseItemType(): Boolean {
-        val itemTypeMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_ITEM)) {
+        return parseKindTest() ||
+                parseAnyItemType() ||
+                parseFunctionTest() ||
+                parseMapTest() ||
+                parseArrayTest() ||
+                parseTupleType() ||
+                parseUnionType() ||
+                parseAtomicOrUnionType() ||
+                parseParenthesizedSequenceType()
+    }
+
+    private fun parseAtomicOrUnionType(): Boolean {
+        return parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)
+    }
+
+    private fun parseAnyItemType(): Boolean {
+        val itemTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ITEM)
+        if (itemTypeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 itemTypeMarker.rollbackTo()
@@ -6056,26 +6072,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            itemTypeMarker.done(XQueryElementType.ITEM_TYPE)
-            return true
-        } else if (parseKindTest() ||
-                parseFunctionTest() ||
-                parseMapTest() ||
-                parseArrayTest() ||
-                parseTupleType() ||
-                parseUnionType() ||
-                parseAtomicOrUnionType() ||
-                parseParenthesizedSequenceType()) {
-            itemTypeMarker.drop()
+            itemTypeMarker.done(XQueryElementType.ANY_ITEM_TYPE)
             return true
         }
-
-        itemTypeMarker.drop()
         return false
-    }
-
-    private fun parseAtomicOrUnionType(): Boolean {
-        return parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)
     }
 
     private fun parseTupleType(): Boolean {
