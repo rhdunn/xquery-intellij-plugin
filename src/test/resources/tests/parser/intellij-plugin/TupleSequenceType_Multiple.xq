@@ -1,0 +1,1 @@
+declare variable $ x as ( xs:integer , node ( ) , item ( ) ) := 2 ;

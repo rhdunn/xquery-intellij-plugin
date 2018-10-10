@@ -441,6 +441,7 @@ object XQueryElementType {
     // region XQuery IntelliJ Plugin
 
     val ITEM_TYPE_UNION: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE_UNION", PluginItemTypeUnionPsiImpl::class.java, XQuery)
+    val TUPLE_SEQUENCE_TYPE: IElementType = ICompositeElementType("XQUERY_TUPLE_SEQUENCE_TYPE", PluginTupleSequenceTypePsiImpl::class.java, XQuery)
 
     // endregion
 

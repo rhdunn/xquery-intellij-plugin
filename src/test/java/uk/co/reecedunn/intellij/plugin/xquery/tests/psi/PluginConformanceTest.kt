@@ -1153,4 +1153,17 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.UNION))
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (87) TupleSequenceType")
+    fun testTupleSequenceType() {
+        val file = parseResource("tests/parser/intellij-plugin/TupleSequenceType.xq")
+        val conformance = file.walkTree().filterIsInstance<PluginTupleSequenceType>().first() as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.COMMA))
+    }
 }

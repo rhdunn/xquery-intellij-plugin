@@ -6065,7 +6065,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 parseTupleType() ||
                 parseUnionType() ||
                 parseAtomicOrUnionType() ||
-                parseParenthesizedItemTypeOrUnion()) {
+                parseParenthesizedSequenceType()) {
             itemTypeMarker.drop()
             return true
         }
@@ -6286,7 +6286,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseParenthesizedItemTypeOrUnion(): Boolean {
+    private fun parseParenthesizedSequenceType(): Boolean {
         val parenthesizedItemTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.PARENTHESIS_OPEN)
         if (parenthesizedItemTypeMarker != null) {
             var haveErrors = false
@@ -6298,17 +6298,39 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 haveErrors = true
             }
 
+            var haveNextItem = true
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.UNION)) {
-                type = XQueryElementType.ITEM_TYPE_UNION
+            while (haveNextItem) {
+                val nextType: IElementType?
+
+                parseWhiteSpaceAndCommentTokens()
+                if (getTokenType() === XQueryTokenType.UNION) {
+                    nextType = XQueryElementType.ITEM_TYPE_UNION
+                } else if (getTokenType() === XQueryTokenType.COMMA) {
+                    nextType = XQueryElementType.TUPLE_SEQUENCE_TYPE
+                } else {
+                    haveNextItem = false
+                    continue
+                }
+
+                if (type === XQueryElementType.PARENTHESIZED_ITEM_TYPE || type === nextType) {
+                    type = nextType
+                    advanceLexer()
+                } else {
+                    var marker = mark()
+                    advanceLexer()
+                    if (nextType === XQueryElementType.ITEM_TYPE_UNION) {
+                        marker.error(XQueryBundle.message("parser.error.expected", "|"))
+                    } else {
+                        marker.error(XQueryBundle.message("parser.error.expected", ","))
+                    }
+                }
 
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseItemType()) {
                     error(XQueryBundle.message("parser.error.expected", "ItemType"))
                     haveErrors = true
                 }
-
-                parseWhiteSpaceAndCommentTokens()
             }
 
             parseWhiteSpaceAndCommentTokens()

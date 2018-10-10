@@ -25,7 +25,7 @@ declare %a:since("marklogic", "5.0") function math:exp($x as xs:double) as xs:do
 declare %a:since("marklogic", "5.0") function math:fabs($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:floor($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $y as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:frexp($x as xs:double) (: as (xs:double,xs:integer) :) external;
+declare %a:since("marklogic", "5.0") function math:frexp($x as xs:double) as (xs:double, xs:integer) external;
 declare %a:since("marklogic", "5.0") function math:ldexp($y as xs:double, $i as xs:integer) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:linear-model($arg as json:array*) as math:linear-model? external;
 declare %a:since("marklogic", "6.0") function math:linear-model-coeff($linear-model as math:linear-model) as xs:double* external;

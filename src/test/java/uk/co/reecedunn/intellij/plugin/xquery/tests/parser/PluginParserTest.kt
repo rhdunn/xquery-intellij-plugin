@@ -1906,5 +1906,81 @@ private class PluginParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed with tuple sequence type")
+        fun mixedWithTupleSequenceType() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithTupleSequenceType.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithTupleSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (87) TupleSequenceType")
+    internal inner class TupleSequenceType {
+        @Test
+        @DisplayName("tuple sequence type")
+        fun tupleSequenceType() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tuple sequence type; compact whitespace")
+        fun tupleSequenceType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing item type")
+        fun missingItemType() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_MissingItemType.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_MissingItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed with item type union")
+        fun mixedWithItemTypeUnion() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_MixedWithItemTypeUnion.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_MixedWithItemTypeUnion.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 }

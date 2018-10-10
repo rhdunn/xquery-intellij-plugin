@@ -676,4 +676,14 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "|", XQueryTokenType.UNION)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (87) TupleSequenceType")
+    fun tupleSequenceType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
 }
