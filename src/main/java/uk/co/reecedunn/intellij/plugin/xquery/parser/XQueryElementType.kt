@@ -19,13 +19,10 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -441,6 +438,7 @@ object XQueryElementType {
 
     val NAMED_KIND_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_KIND_TEST", PluginNamedKindTestPsiImpl::class.java, XQuery)
 
+    val ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE", PluginItemTypePsiImpl::class.java, XQuery)
     val ANY_ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ANY_ITEM_TYPE", PluginAnyItemTypePsiImpl::class.java, XQuery)
 
     val ANY_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_ANY_TEXT_TEST", PluginAnyTextTestPsiImpl::class.java, XQuery)

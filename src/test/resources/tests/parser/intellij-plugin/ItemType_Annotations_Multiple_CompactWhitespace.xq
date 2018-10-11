@@ -1,0 +1,1 @@
+declare variable$x as%alpha%beta for xs:string:=2;

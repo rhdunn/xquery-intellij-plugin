@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.notNullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -37,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryCatchExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginItemType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -1165,5 +1165,35 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.COMMA))
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (20) ItemType")
+    internal inner class ItemType {
+        @Test
+        @DisplayName("without annotations")
+        fun noAnnotations() {
+            val file = parseResource("tests/parser/xquery-1.0/ItemType.xq")
+            val versioned = file.walkTree().filterIsInstance<PluginItemType>().firstOrNull()
+
+            // ItemTypes without annotations only have the direct type
+            // (AnyItemType in this case) in the PSI tree.
+            assertThat(versioned, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("with annotations")
+        fun withAnnotations() {
+            val file = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_KindTest.xq")
+            val versioned = file.walkTree().filterIsInstance<PluginItemType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
+
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_FOR)
+            )
+        }
     }
 }

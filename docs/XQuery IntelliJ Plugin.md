@@ -308,8 +308,28 @@ as rational or complex numbers.
 
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
+| \[20\] | `ItemType`              | ::= | `(Annotation Annotation* "for")? (KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType)` | |
 | \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+
+The XQuery IntelliJ Plugin provides a vendor extension to support annotations
+on a type itself, not just on function signatures. This is used in the
+definition of built-in functions for parameters and return types to provide
+information to the plugin on how those types are used.
+
+> __Example:__
+>
+>     declare function f() as (%since("3.2") %until("4.0") for item() |
+>                              %since("4.0") for node()) external;
+
+The construction of annotations on item types is designed to be unambiguous
+with `FunctionTest` that may specify annotations on function signatures.
+
+> __Example:__
+>
+>     declare function f() as %test for %public function() as item() external;
+>
+> In this example, `%test` applies to the type and `%public` applies to the
+> function signature.
 
 ## 3 Expressions
 

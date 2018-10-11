@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
+import com.intellij.psi.PsiElement
 
-class PluginAnyItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyItemType
+/**
+ * An `ItemType` node in the XQuery AST with annotations.
+ */
+interface PluginItemType : PsiElement
