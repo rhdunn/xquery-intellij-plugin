@@ -5,7 +5,7 @@ xquery version "3.0";
 : @see http://docs.basex.org/wiki/RESTXQ_Module
 :
 :)
-module namespace restxq = "http://exquery.org/ns/restxq";
+module namespace rest = "http://exquery.org/ns/restxq";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
