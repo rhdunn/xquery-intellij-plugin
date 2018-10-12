@@ -7069,6 +7069,20 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
+    fun testParenthesizedItemType_EmptySequence() {
+        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.txt")
+        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    fun testParenthesizedItemType_OccurrenceIndicator() {
+        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.txt")
+        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     // endregion
     // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
 

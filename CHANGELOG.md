@@ -2,19 +2,23 @@
 
 ## 1.3 - (In Development)
 
-Language Support:
+Saxon Vendor Extensions:
 
 1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
 1.  Support `TupleType` constructs with names only, not associated sequence types.
 1.  Support Saxon 9.8 simple inline function expressions.
 1.  Support Saxon 9.9 `orElse` and `andAlso` logical expressions.
 1.  Support Saxon 9.9 optional field names for tuples, and extensible tuples.
-1.  Recover parsing when the `CompElemConstructor`, `CompAttrConstructor`,
-    `CompPIConstructor`, or `CompNamespaceConstructor` tag name is a `StringLiteral`.
 
 XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:
 
 1.  Support `empty()` syntax for `empty-sequence()`.
+
+Invalid Syntax Recovery:
+
+1.  Recover parsing when the `CompElemConstructor`, `CompAttrConstructor`,
+    `CompPIConstructor`, or `CompNamespaceConstructor` tag name is a `StringLiteral`.
+1.  Recover parsing when a `SequenceType` is used in a `ParenthesizedItemType`.
 
 Module Import Resolution:
 

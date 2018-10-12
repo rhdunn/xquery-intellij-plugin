@@ -2005,6 +2005,22 @@ private class PluginParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithTupleSequenceType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("item type as sequence type; empty sequence")
+        fun itemTypeAsSequenceType_EmptySequence() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_EmptySequence.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_EmptySequence.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("item type as sequence type; occurrence indicator")
+        fun itemTypeAsSequenceType_OccurrenceIndicator() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_OccurrenceIndicator.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_OccurrenceIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
@@ -2063,6 +2079,22 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedWithItemTypeUnion() {
             val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_MixedWithItemTypeUnion.txt")
             val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_MixedWithItemTypeUnion.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("item type as sequence type; empty sequence")
+        fun itemTypeAsSequenceType_EmptySequence() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_EmptySequence.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_EmptySequence.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("item type as sequence type; occurrence indicator")
+        fun itemTypeAsSequenceType_OccurrenceIndicator() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_OccurrenceIndicator.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_OccurrenceIndicator.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
