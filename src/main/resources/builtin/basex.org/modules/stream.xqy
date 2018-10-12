@@ -7,7 +7,7 @@ xquery version "3.0";
 :)
 module namespace stream = "http://basex.org/modules/stream";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.7") %a:until("basex", "9.0") function stream:materialize($value as item()*) as item()* external;
 declare %a:since("basex", "7.7") %a:until("basex", "9.0") function stream:is-streamable($item as item()) as item() external;

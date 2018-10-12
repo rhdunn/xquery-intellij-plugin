@@ -6,8 +6,7 @@ xquery version "3.0";
 :)
 module namespace file = "http://expath.org/ns/file";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
-
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare %a:since("basex", "7.8") function file:list($dir as xs:string) as xs:string external;

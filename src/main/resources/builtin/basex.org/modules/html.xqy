@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace html = "http://basex.org/modules/html";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.6") function html:parser() as xs:string external;
 declare %a:since("basex", "7.6") function html:parse($input as xs:anyAtomicType) as document-node() external;

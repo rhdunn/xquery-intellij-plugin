@@ -7,8 +7,7 @@ xquery version "3.0";
 :)
 module namespace rest = "http://exquery.org/ns/restxq";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
-
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace wadl = "http://wadl.dev.java.net/2009/02";
 
 declare %a:since("basex", "7.7") function rest:base-uri() as xs:anyURI external;

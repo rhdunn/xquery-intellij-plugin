@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace strings = "http://basex.org/modules/strings";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "8.3") function strings:levenshtein($string1 as xs:string, $string2 as xs:string) as xs:double external;
 declare %a:since("basex", "8.3") function strings:soundex($string as xs:string) as xs:string external;

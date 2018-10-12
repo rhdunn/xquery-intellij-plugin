@@ -6,8 +6,7 @@ xquery version "3.0";
 :)
 module namespace web = "http://basex.org/modules/web";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
-
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace rest = "http://exquery.org/ns/restxq";
 
 declare %a:since("basex", "8.1") function web:content-type($path as xs:string) as xs:string external;

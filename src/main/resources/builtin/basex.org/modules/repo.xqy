@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace repo = "http://basex.org/modules/repo";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.1") function repo:install($path as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.1") function repo:delete($pkg as xs:string) as empty-sequence() external;

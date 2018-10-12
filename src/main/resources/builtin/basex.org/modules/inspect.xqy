@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace inspect = "http://basex.org/modules/inspect";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare namespace xqdoc = "http://www.xqdoc.org/1.0";
 

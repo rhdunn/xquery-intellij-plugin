@@ -9,7 +9,7 @@ xquery version "3.0";
 
 module namespace crypto = "http://expath.org/ns/crypto";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.0") function crypto:hmac($message as xs:string, $key as xs:anyAtomicType, $algorithm as xs:string) as xs:base64Binary (: $key as [7.0]xs:string [8.6]xs:anyAtomicType :) external;
 declare %a:since("basex", "7.0") function crypto:hmac($message as xs:string, $key as xs:anyAtomicType, $algorithm as xs:string, $encoding as xs:string) as xs:base64Binary (: $key as [7.0]xs:string [8.6]xs:anyAtomicType :) external;

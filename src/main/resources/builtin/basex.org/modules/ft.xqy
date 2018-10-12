@@ -8,7 +8,7 @@ xquery version "3.0";
 :)
 module namespace ft = "http://basex.org/modules/ft";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "...") function ft:search($db as xs:string, $terms as item()*) as text()* external;
 declare %a:since("basex", "7.2") function ft:search($db as xs:string, $terms as item()*, $options as map(*)?) as text()* external;

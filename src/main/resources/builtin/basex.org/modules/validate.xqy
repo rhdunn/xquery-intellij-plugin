@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace validate = "http://basex.org/modules/validate";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.3") function validate:dtd($input as item()) as empty-sequence() external;
 declare %a:since("basex", "7.3") function validate:dtd($input as item(), $schema as xs:string?) as empty-sequence() external;

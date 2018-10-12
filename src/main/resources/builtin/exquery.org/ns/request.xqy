@@ -7,7 +7,7 @@ xquery version "3.0";
 :)
 module namespace request = "http://exquery.org/ns/request";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.5") function request:method() as xs:string external;
 declare %a:since("basex", "7.7") function request:attribute($name as xs:string) as xs:string external;

@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace hash = "http://basex.org/modules/hash";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.3") function hash:md5($value as xs:anyAtomicType) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function hash:sha1($value as xs:anyAtomicType) as xs:base64Binary external;

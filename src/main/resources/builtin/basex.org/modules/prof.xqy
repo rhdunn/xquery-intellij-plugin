@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace prof = "http://basex.org/modules/prof";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "9.0") function prof:track($expression as item()) as item()* external;
 declare %a:since("basex", "9.0") function prof:track($expression as item(), $options as map(*)?) as item()* external;

@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace geo = "http://expath.org/ns/geo";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.6") function geo:dimension($geometry as element(*)) as xs:integer external;
 declare %a:since("basex", "7.6") function geo:geometry-type($geometry as element(*)) as xs:QName external;

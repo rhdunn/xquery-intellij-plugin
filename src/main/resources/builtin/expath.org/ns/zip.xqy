@@ -7,7 +7,7 @@ xquery version "3.0";
 :)
 module namespace zip = "http://expath.org/ns/zip";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.3", "archive:extract-binary") function zip:binary-entry($uri as xs:string, $path as xs:string) as xs:base64Binary external;
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.3", "archive:extract-text") function zip:text-entry($uri as xs:string, $path as xs:string) as xs:string external;

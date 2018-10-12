@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace sessions = "http://basex.org/modules/sessions";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.5") function sessions:ids() as xs:string external;
 declare %a:since("basex", "7.5") function sessions:created($id as xs:string) as xs:dateTime external;

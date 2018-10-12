@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace random = "http://basex.org/modules/random";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.5") function random:double() as xs:double external;
 declare %a:since("basex", "7.5") function random:integer() as xs:integer external;

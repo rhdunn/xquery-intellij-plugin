@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace db = "http://basex.org/modules/db";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.0") function db:system() as element(system) external;
 declare %a:since("basex", "9.0") function db:option($name as xs:string) as xs:string external;

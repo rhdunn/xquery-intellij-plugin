@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace xslt = "http://basex.org/modules/xslt";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.3") function xslt:processor() as xs:string external;
 declare %a:since("basex", "7.3") function xslt:version() as xs:string external;

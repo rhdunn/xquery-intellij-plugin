@@ -6,7 +6,7 @@ xquery version "3.0";
 :)
 module namespace xquery = "http://basex.org/modules/xquery";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
 declare %a:since("basex", "7.3") function xquery:eval($query as xs:string) as item()* external;
 declare %a:since("basex", "7.3") function xquery:eval($query as xs:string, $bindings as map(*)?) as item()* external;
