@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:51)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginItemTypeImpl[XQUERY_ITEM_TYPE(24:44)]
+               PluginItemTypeImpl[XQUERY_ITEM_TYPE(24:45)]
                   XQueryAnnotationImpl[XQUERY_ANNOTATION(24:31)]
                      LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(24:25)]('%')
                      PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:51)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(35:37)]('xs')
                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(37:38)](':')
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:44)]('string')
-               PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(45:47)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(48:50)]

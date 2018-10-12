@@ -6086,7 +6086,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseItemType(): Boolean {
         return parseKindTest() ||
                 parseAnyItemType() ||
-                parseFunctionTest() ||
+                parseAnnotatedItemType() ||
                 parseMapTest() ||
                 parseArrayTest() ||
                 parseTupleType() ||
@@ -6242,8 +6242,8 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseFunctionTest(): Boolean {
-        val functionTestMarker = mark()
+    private fun parseAnnotatedItemType(): Boolean {
+        val marker = mark()
 
         var haveAnnotations = false
         while (parseAnnotation()) {
@@ -6255,23 +6255,23 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             advanceLexer()
             parseWhiteSpaceAndCommentTokens()
 
-            if (!parseItemType()) {
-                error(XQueryBundle.message("parser.error.expected", "ItemType"))
+            if (!parseSequenceType()) {
+                error(XQueryBundle.message("parser.error.expected", "SequenceType"))
             }
 
-            functionTestMarker.done(XQueryElementType.ITEM_TYPE)
+            marker.done(XQueryElementType.ITEM_TYPE)
             return true
         } else if (parseAnyOrTypedFunctionTest()) {
-            functionTestMarker.done(XQueryElementType.FUNCTION_TEST)
+            marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else if (haveAnnotations) {
             error(XQueryBundle.message("parser.error.expected-keyword", "function"))
 
-            functionTestMarker.done(XQueryElementType.FUNCTION_TEST)
+            marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         }
 
-        functionTestMarker.drop()
+        marker.drop()
         return false
     }
 
