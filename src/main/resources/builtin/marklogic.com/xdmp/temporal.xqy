@@ -9,6 +9,8 @@ module namespace sql = "http://marklogic.com/xdmp/temporal";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/8.0";
+
 declare %a:since("marklogic", "8.0") %a:until("marklogic", "9.0") function temporal:advance-lsqt($temporal-collection as xs:string) as xs:dateTime external;
 declare %a:since("marklogic", "9.0") function temporal:advance-lsqt($temporal-collection as xs:string) as xs:dateTime external;
 declare %a:since("marklogic", "8.0") function temporal:advance-lsqt($temporal-collection as xs:string, $lag as xs:unsignedInt) as xs:dateTime external;

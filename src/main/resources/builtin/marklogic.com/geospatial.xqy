@@ -8,6 +8,8 @@ module namespace geo = "http://marklogic.com/geospatial";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/8.0";
+
 declare %a:since("marklogic", "8.0") function geo:approx-center($region as cts:region) as cts:point external;
 declare %a:since("marklogic", "8.0") function geo:approx-center($region as cts:region, $options as xs:string*) as cts:point external;
 declare %a:since("marklogic", "8.0") function geo:arc-intersection($p1 as cts:point, $p2 as cts:point, $q1 as cts:point, $q2 as cts:point) as cts:point external;

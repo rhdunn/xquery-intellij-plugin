@@ -29,6 +29,8 @@ declare namespace db = "http://marklogic.com/xdmp/database";
 declare namespace mt = "http://marklogic.com/xdmp/mimetypes";
 declare namespace x509 = "http://marklogic.com/xdmp/x509";
 
+declare option a:requires "marklogic/5.0";
+
 declare %a:since("marklogic", "5.0") function xdmp:QName-from-key($key as xs:string) as xs:QName external;
 declare %a:since("marklogic", "5.0") function xdmp:access($uri as xs:string, $action as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function xdmp:add-response-header($name as xs:string, $value as xs:string) as empty-sequence() external;

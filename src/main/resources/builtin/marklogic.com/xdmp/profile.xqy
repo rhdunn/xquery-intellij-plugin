@@ -8,6 +8,8 @@ module namespace prof = "http://marklogic.com/xdmp/profile";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/5.0";
+
 declare %a:since("marklogic", "5.0") function prof:allowed($request-id as xs:unsignedLong) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function prof:disable($request-id as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function prof:enable($request-id as xs:unsignedLong) as empty-sequence() external;

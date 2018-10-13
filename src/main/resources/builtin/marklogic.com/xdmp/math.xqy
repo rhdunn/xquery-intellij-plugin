@@ -8,6 +8,8 @@ module namespace math = "http://marklogic.com/xdmp/math";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/5.0";
+
 declare %a:since("marklogic", "6.0") %a:until("marklogic", "7.0", "math:pi#0") function math:PI() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:acos($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:asin($x as xs:double) as xs:double external;

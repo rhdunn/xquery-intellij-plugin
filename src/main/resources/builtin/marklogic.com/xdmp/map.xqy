@@ -8,6 +8,8 @@ module namespace map = "http://marklogic.com/xdmp/map";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/5.0";
+
 declare %a:since("marklogic", "5.0") function map:clear($map as map:map) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function map:contains($map as map:map, $key as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function map:count($map as map:map) as xs:unsignedInt external;

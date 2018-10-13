@@ -8,6 +8,8 @@ module namespace dbg = "http://marklogic.com/xdmp/dbg";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/5.0";
+
 declare %a:since("marklogic", "5.0") function dbg:attach($request-id as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:attached() as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function dbg:attached($server as xs:unsignedLong) as xs:unsignedLong* external;

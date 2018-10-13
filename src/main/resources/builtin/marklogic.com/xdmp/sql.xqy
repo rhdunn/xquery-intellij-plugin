@@ -9,6 +9,8 @@ module namespace sql = "http://marklogic.com/xdmp/sql";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/7.0";
+
 declare %a:since("marklogic", "9.0") function sql:bit-length($str as xs:string) as xs:integer external;
 declare %a:since("marklogic", "9.0") function sql:collated-string($string as xs:string, $collationURI as xs:string) as rdf:collatedString external;
 declare %a:since("marklogic", "9.0") function sql:collatedString-collation($val as sql:collatedString) as xs:string external;

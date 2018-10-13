@@ -607,15 +607,15 @@ private class XQueryStaticContextTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("MarkLogic 6.0")
-            fun testStaticallyKnownNamespaces_PredefinedNamespaces_MarkLogic60() {
+            @DisplayName("MarkLogic")
+            fun testStaticallyKnownNamespaces_PredefinedNamespaces_MarkLogic() {
                 settings.implementationVersion = "marklogic/v6"
                 settings.XQueryVersion = "1.0-ml"
 
                 val element = parse<XPathFunctionCall>("fn:true()")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
 
-                assertThat(namespaces.size, `is`(28)) // Includes built-in namespaces for all MarkLogic versions.
+                assertThat(namespaces.size, `is`(29)) // Includes built-in namespaces for all MarkLogic versions.
                 assertThat(namespace(namespaces, "cts"), `is`("http://marklogic.com/cts"))
                 assertThat(namespace(namespaces, "dav"), `is`("DAV:"))
                 assertThat(namespace(namespaces, "dbg"), `is`("http://marklogic.com/xdmp/dbg"))
@@ -636,6 +636,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(namespace(namespaces, "sec"), `is`("http://marklogic.com/security"))
                 assertThat(namespace(namespaces, "sem"), `is`("http://marklogic.com/xdmp/semantics"))
                 assertThat(namespace(namespaces, "spell"), `is`("http://marklogic.com/xdmp/spell"))
+                assertThat(namespace(namespaces, "sql"), `is`("http://marklogic.com/xdmp/sql"))
                 assertThat(namespace(namespaces, "tde"), `is`("http://marklogic.com/xdmp/tde"))
                 assertThat(namespace(namespaces, "temporal"), `is`("http://marklogic.com/xdmp/temporal"))
                 assertThat(namespace(namespaces, "xdmp"), `is`("http://marklogic.com/xdmp"))

@@ -9,6 +9,8 @@ module namespace sem = "http://marklogic.com/xdmp/semantics";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "marklogic/7.0";
+
 declare %a:since("marklogic", "7.0") function sem:binding() as sem:binding external;
 declare %a:since("marklogic", "7.0") function sem:binding($map as element(json:object)) as sem:binding external;
 declare %a:since("marklogic", "8.0") function sem:bnode() as sem:blank external;

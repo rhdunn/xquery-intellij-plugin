@@ -20,22 +20,24 @@ declare namespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
 declare namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace local = "http://www.w3.org/2005/xquery-local-functions";
 
-(: MarkLogic 6.0 :)
+(: MarkLogic 5.0 -- NOTE: These are from the MarkLogic 6.0 namespace list that have functions from MarkLogic 5.0. :)
 declare namespace cts = "http://marklogic.com/cts";
-declare namespace dav = "DAV:";
 declare namespace dbg = "http://marklogic.com/xdmp/dbg";
+declare namespace map = "http://marklogic.com/xdmp/map";
+declare namespace math = "http://marklogic.com/xdmp/math";
+declare namespace prof = "http://marklogic.com/xdmp/profile";
+declare namespace spell = "http://marklogic.com/xdmp/spell";
+declare namespace xdmp = "http://marklogic.com/xdmp";
+
+(: MarkLogic 6.0 :)
+declare namespace dav = "DAV:";
 declare namespace dir = "http://marklogic.com/xdmp/directory";
 declare namespace err = "http://www.w3.org/2005/xqt-error";
 declare namespace error = "http://marklogic.com/xdmp/error";
 declare namespace json = "http://marklogic.com/xdmp/json";
 declare namespace lock = "http://marklogic.com/xdmp/lock";
-declare namespace map = "http://marklogic.com/xdmp/map";
-declare namespace math = "http://marklogic.com/xdmp/math";
-declare namespace prof = "http://marklogic.com/xdmp/profile";
 declare namespace prop = "http://marklogic.com/xdmp/property";
 declare namespace sec = "http://marklogic.com/security";
-declare namespace spell = "http://marklogic.com/xdmp/spell";
-declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace xqe = "http://marklogic.com/xqe";
 declare namespace xqterr = "http://www.w3.org/2005/xqt-error";
 
@@ -43,6 +45,7 @@ declare namespace xqterr = "http://www.w3.org/2005/xqt-error";
 import module namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#" at "res://www.w3.org/1999/02/22-rdf-syntax-ns.xqy";
 declare namespace sc = "http://marklogic.com/xdmp/schema-components";
 declare namespace sem = "http://marklogic.com/xdmp/semantics";
+declare namespace sql = "http://marklogic.com/xdmp/sql";
 
 (: MarkLogic 8.0 :)
 declare namespace geo = "http://marklogic.com/geospatial";
