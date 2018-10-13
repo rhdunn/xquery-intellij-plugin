@@ -223,9 +223,9 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
         if (productVersion == null) return null
         return when (xqueryVersion) {
             XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-                "res://marklogic.com/${productVersion.value}/1.0.xqy"
+                "res://marklogic.com/static-context/1.0.xqy"
             XQuery.MARKLOGIC_1_0 ->
-                "res://marklogic.com/${productVersion.value}/1.0-ml.xqy"
+                "res://marklogic.com/static-context/1.0-ml.xqy"
             else -> null
         }
     }
