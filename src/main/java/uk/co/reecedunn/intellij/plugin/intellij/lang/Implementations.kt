@@ -79,11 +79,11 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-                "res://www.w3.org/TR/xquery.xqy"
+                "res://www.w3.org/static-context/xquery.xqy"
             XQuery.REC_3_0_20140408 ->
-                "res://www.w3.org/TR/xquery-30.xqy"
+                "res://www.w3.org/static-context/xquery-30.xqy"
             XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-                "res://www.w3.org/TR/xquery-31.xqy"
+                "res://www.w3.org/static-context/xquery-31.xqy"
             else -> null
         }
     }
@@ -152,11 +152,11 @@ object EXistDB : Implementation("exist-db", "eXist-db", "http://www.exist-db.org
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-                "res://www.w3.org/TR/xquery.xqy"
+                "res://www.w3.org/static-context/xquery.xqy"
             XQuery.REC_3_0_20140408 ->
-                "res://www.w3.org/TR/xquery-30.xqy"
+                "res://www.w3.org/static-context/xquery-30.xqy"
             XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-                "res://www.w3.org/TR/xquery-31.xqy"
+                "res://www.w3.org/static-context/xquery-31.xqy"
             else -> null
         }
     }
@@ -317,11 +317,11 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-                "res://www.w3.org/TR/xquery.xqy"
+                "res://www.w3.org/static-context/xquery.xqy"
             XQuery.REC_3_0_20140408 ->
-                "res://www.w3.org/TR/xquery-30.xqy"
+                "res://www.w3.org/static-context/xquery-30.xqy"
             XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-                "res://www.w3.org/TR/xquery-31.xqy"
+                "res://www.w3.org/static-context/xquery-31.xqy"
             else -> null
         }
     }
@@ -390,11 +390,11 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuery.WD_1_0_20030502, XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-                "res://www.w3.org/TR/xquery.xqy"
+                "res://www.w3.org/static-context/xquery.xqy"
             XQuery.REC_3_0_20140408 ->
-                "res://www.w3.org/TR/xquery-30.xqy"
+                "res://www.w3.org/static-context/xquery-30.xqy"
             XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-                "res://www.w3.org/TR/xquery-31.xqy"
+                "res://www.w3.org/static-context/xquery-31.xqy"
             else -> null
         }
     }
