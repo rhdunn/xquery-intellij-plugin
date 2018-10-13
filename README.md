@@ -19,7 +19,8 @@ PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
 
 _Supported IntelliJ Versions:_ 2017.1 - 2018.2
 
-_Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica Saxon, W3C Specifications
+_Supported XQuery Implementations:_ BaseX, eXist-db, MarkLogic, Saxonica Saxon,
+W3C Specifications
 
 ## Features
 
