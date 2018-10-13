@@ -12,6 +12,10 @@
     - [3.1.1 Minimum of two bounds](#311-minimum-of-two-bounds)
     - [3.1.2 Maximum of two bounds](#312-maximum-of-two-bounds)
     - [3.1.3 Sum of two bounds](#313-sum-of-two-bounds)
+  - [3.2 Aggregate Types](#32-aggregate-types)
+    - [3.2.1 Item Type Union](#321-item-type-union)
+    - [3.2.2 Sequence Type Union](#322-sequence-type-union)
+    - [3.3.3 Sequence Type Addition](#333-sequence-type-addition)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
 
@@ -247,6 +251,99 @@ This gives the following results:
 | `0` | `0` | `1` | `n` |
 | `1` | `1` | `n` | `n` |
 | `n` | `n` | `n` | `n` |
+
+### 3.2 Aggregate Types
+\[Definition: The *aggregate type* of an expression is the type that best
+matches the type of each part of that expression, such that the expression
+could be assigned to a variable set to that aggregate type and not raise a
+type error.\]
+
+\[Definition: A *disjoint expression* is an expression that consists of
+different values depending on the evaluation of conditions, such as in `if`,
+`typeswitch`, or `switch` expressions.\] The aggregate type of a disjoint
+expression is the union of the type of each conditional value in that
+disjoint expression.
+
+> __Example__
+>
+> The expression `if ($x instance of xs:string) then 2 else ()` has the types
+> `xs:integer` and `empty-sequence()` in the then and else clauses that form
+> the conditional values of the `if` expression. This expression has an
+> *aggregate type* of `xs:integer?` that is the union of the conditional types.
+
+\[Definition: A *sequence expression* is an expression that consists of a
+list of expressions that computes the values in the resulting sequence.\]
+The aggregate type of a sequence expression is the addition of the type of
+each expression used to construct the sequence.
+
+> __Example__
+>
+> The expression `(2, (), "test" cast as xs:NCName)` has the types
+> `xs:integer`, `empty-sequence()`, and `xs:NCName` for each item in the
+> sequence, and an *aggregate type* of `union(xs:integer, xs:NCName)+` that
+> is the combination of the types of the items in the sequence.
+
+#### 3.2.1 Item Type Union
+The *item type union* is the union of the ItemType Ai and the ItemType Bi. It
+is determined as follows:
+1.  If `subtype-itemtype(Ai, Bi)`, then the union is `Bi`.
+1.  If `subtype-itemtype(Bi, Ai)`, then the union is `Ai`.
+1.  If `Ai` and `Bi` are union types, then the union is a union type with the
+    member types of `Ai` and the member types of `Bi` as its member types.
+1.  If `Ai` is a union type, and `Bi` is a simple type, then the union is a
+    union type with the member types of `Ai` and the simple type `Bi` as its
+    member types.
+1.  If `Ai` is a simple type, and `Bi` is a union type, then the union is a
+    union type with the simple type `Ai` and the member types of `Bi` as its
+    member types.
+1.  If `Ai` and `Bi` are simple types, then the union is a union type with
+    the simple types `Ai` and `Bi` as its member types.
+1.  If `Ai` and `Bi` are KindTest types, then the union is `node()`.
+1.  Otherwise, the union is the `item()` type.
+
+#### 3.2.2 Sequence Type Union
+When computing the union of *BT* with *TT*, the resulting sequence type is
+computed as follows:
+1.  The *lower bound* is the minimum of the *lower bound* for *BT* and *TT*.
+1.  The *upper bound* is the maximum of the *upper bound* for *BT* and *TT*.
+1.  The *item type* is determined as follows:
+    1.  If *BT* is the empty sequence, then *item type* is the *item type* for
+        *TT*.
+    1.  If *TT* is the empty sequence, then *item type* is the *item type* for
+        *BT*.
+    1.  The *item type* is the *[item type union](#321-item-type-union)* of the
+        *item type* for *BT* and *TT*.
+
+The union is then:
+1.  *BT* if the computed *lower bound*, *upper bound*, and *item type* are the
+    same as those for *BT*.
+1.  *TT* if the computed *lower bound*, *upper bound*, and *item type* are the
+    same as those for *TT*.
+1.  A new sequence type using the computed *lower bound*, *upper bound*, and
+    *item type* values. See the mapping table in the type system part 4:
+    [sequences](#214-part-4-sequences) section.
+
+#### 3.3.3 Sequence Type Addition
+When computing the addition of *BT* with *TT*, the resulting sequence type is
+computed as follows:
+1.  The *lower bound* is the maximum of the *lower bound* for *BT* and *TT*.
+1.  The *upper bound* is the sum of the *upper bound* for *BT* and *TT*. 
+1.  The *item type* is determined as follows:
+    1.  If *BT* is the empty sequence, then *item type* is the *item type* for
+        *TT*.
+    1.  If *TT* is the empty sequence, then *item type* is the *item type* for
+        *BT*.
+    1.  The *item type* is the *[item type union](#321-item-type-union)* of the
+        *item type* for *BT* and *TT*.
+
+The addition is then:
+1.  *BT* if the computed *lower bound*, *upper bound*, and *item type* are the
+    same as those for *BT*.
+1.  *TT* if the computed *lower bound*, *upper bound*, and *item type* are the
+    same as those for *TT*.
+1.  A new sequence type using the computed *lower bound*, *upper bound*, and
+    *item type* values. See the mapping table in the type system part 4:
+    [sequences](#214-part-4-sequences) section.
 
 ## A References
 
