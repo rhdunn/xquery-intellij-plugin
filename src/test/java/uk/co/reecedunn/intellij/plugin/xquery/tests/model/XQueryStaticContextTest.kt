@@ -34,6 +34,10 @@ private class XQueryStaticContextTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (2.1.1) Statically known namespaces")
     internal inner class StaticallyKnownNamespaces {
+        private fun namespace(namespaces: List<XPathNamespaceDeclaration>, prefix: String): String {
+            return namespaces.asIterable().first { ns -> ns.namespacePrefix!!.data == prefix }.namespaceUri!!.data
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (6) ModuleDecl")
         internal inner class ModuleDecl {
@@ -45,27 +49,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("module namespace a='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -76,24 +73,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("module namespace ='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -104,24 +94,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("module namespace a=; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
         }
 
@@ -136,27 +119,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("import schema namespace a='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -167,27 +143,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XPathFunctionCall>("import schema namespace a='http://www.example.com'; a:test();")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -198,24 +167,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("import schema namespace ='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -226,24 +188,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("import schema namespace a=; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
         }
 
@@ -258,27 +213,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("import module namespace a='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -289,27 +237,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XPathFunctionCall>("import module namespace a='http://www.example.com'; a:test();")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -320,24 +261,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("import module namespace ='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -348,24 +282,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("import module namespace a=; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
         }
 
@@ -380,27 +307,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("declare namespace a='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -411,27 +331,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XPathFunctionCall>("declare namespace a='http://www.example.com'; a:test();")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("a"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -442,24 +355,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("declare namespace ='http://www.example.com'; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -470,24 +376,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
         }
 
@@ -502,27 +401,20 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{b:test()}</a>")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(6))
+                assertThat(namespaces.size, `is`(9))
 
                 assertThat(namespaces[0].namespacePrefix!!.data, `is`("b"))
                 assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[5].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[5].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -533,24 +425,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XPathFunctionCall>("<a xmlns:b=>{b:test()}</a>")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
 
             @Test
@@ -561,24 +446,17 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
                 val element = parse<XPathFunctionCall>("<a b='http://www.example.com'>{b:test()}</a>")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
 
-                // predefined XQuery 1.0 namespaces:
-
-                assertThat(namespaces[0].namespacePrefix!!.data, `is`("local"))
-                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xquery-local-functions"))
-
-                assertThat(namespaces[1].namespacePrefix!!.data, `is`("fn"))
-                assertThat(namespaces[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-
-                assertThat(namespaces[2].namespacePrefix!!.data, `is`("xsi"))
-                assertThat(namespaces[2].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema-instance"))
-
-                assertThat(namespaces[3].namespacePrefix!!.data, `is`("xs"))
-                assertThat(namespaces[3].namespaceUri!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
-
-                assertThat(namespaces[4].namespacePrefix!!.data, `is`("xml"))
-                assertThat(namespaces[4].namespaceUri!!.data, `is`("http://www.w3.org/XML/1998/namespace"))
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }
         }
 
@@ -598,9 +476,12 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 val element = parse<XPathFunctionCall>("fn:true()")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
 
-                assertThat(namespaces.size, `is`(5))
+                assertThat(namespaces.size, `is`(8))
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
                 assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
                 assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
                 assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
                 assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))

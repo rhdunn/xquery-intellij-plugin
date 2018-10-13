@@ -8,6 +8,8 @@ module namespace math = "http://www.w3.org/2005/xpath-functions/math";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "xpath-functions/3.0";
+
 declare %a:since("xpath-functions", "3.0-20140408") function math:acos($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:asin($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:atan($arg as xs:double?) as xs:double? external;
