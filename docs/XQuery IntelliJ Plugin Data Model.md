@@ -1,5 +1,12 @@
 # XQuery IntelliJ Plugin Data Model
 
+## Abstract
+This document defines the data model for vendor and plugin specific
+functionality that extends XQuery and associated W3C extensions. The
+plugin data model extensions are to fill in gaps within the type
+system and to provide static type analysis.
+
+## Table of Contents
 - [1 Introduction](#1-introduction)
 - [2 Concepts](#2-concepts)
   - [2.1 Type System](#21-type-system)
@@ -20,11 +27,15 @@
   - [A.1 W3C References](#a1-w3c-references)
 
 ## 1 Introduction
-The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
-to XQuery, and vendor extensions.
+This document defines the data model for vendor and plugin specific functionality
+that extends XQuery 3.1, XQuery and XPath Full Text 3.0, XQuery Update Facility
+3.0, and XQuery Scripting Extension 1.0.
 
-This document describes the data model extensions to XPath and XQuery to support
-static analysis.
+The plugin supports BaseX, eXist-db, MarkLogic, and Saxon vendor extensions. The
+data model needed to support these extensions is detailed in this document.
+
+The plugin data model extensions are to fill in gaps within the type system and
+to provide static type analysis.
 
 ## 2 Basics
 This document uses the following namespace prefixes to represent the namespace

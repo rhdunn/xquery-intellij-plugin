@@ -1,5 +1,11 @@
 # XQuery IntelliJ Plugin
 
+## Abstract
+This document defines the syntax and semantics for vendor and plugin specific
+functionality that extends XQuery and associated W3C extensions. The
+plugin-specific extensions are provided to support IntelliJ integration.
+
+## Table of Contents
 - [1 Introduction](#1-introduction)
 - [2 Basics](#2-basics)
   - [2.1 Types](#21-types)
@@ -71,11 +77,19 @@
   - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
 ## 1 Introduction
-The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
-to XQuery, and vendor extensions.
+This document defines the syntax and semantics for vendor and plugin specific
+functionality that extends XQuery 3.1, XQuery and XPath Full Text 3.0, XQuery
+Update Facility 3.0, and XQuery Scripting Extension 1.0.
 
-This document describes the vendor and plugin specific extensions supported in
-by the XQuery IntelliJ plugin.
+The plugin supports BaseX, eXist-db, MarkLogic, and Saxon vendor extensions.
+These are listed in appendix [C Vendor Extensions](#c-vendor-extensions),
+grouped by the XQuery vendor, with links to the relevant parts of this document
+that describe the specific extensions.
+
+The plugin also provides plugin-specific extensions to support IntelliJ
+integration. These are listed in appendix
+[C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions), with links to
+the relevant parts of this document that describe the specific extensions.
 
 ## 2 Basics
 This document uses the following namespace prefixes to represent the namespace
