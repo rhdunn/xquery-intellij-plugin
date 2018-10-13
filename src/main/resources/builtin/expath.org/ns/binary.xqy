@@ -8,6 +8,8 @@ module namespace bin = "http://expath.org/ns/binary";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "basex/7.8";
+
 declare %a:since("basex", "7.8") function bin:hex($in as xs:string?) as xs:base64Binary? external;
 declare %a:since("basex", "7.8") function bin:bin($in as xs:string?) as xs:base64Binary? external;
 declare %a:since("basex", "7.8") function bin:octal($in as xs:string?) as xs:base64Binary? external;

@@ -1,12 +1,14 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
-: BaseX Process Module functions
-:
-: @see http://docs.basex.org/wiki/Output_Module
-:)
+ : BaseX Process Module functions
+ :
+ : @see http://docs.basex.org/wiki/Process_Module
+ :)
 module namespace proc = "http://basex.org/modules/proc";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.3";
 
 declare %a:since("basex", "7.3") function proc:system($cmd as xs:string) as xs:string external;
 declare %a:since("basex", "7.3") function proc:system($cmd as xs:string, $args as xs:string*) as xs:string external;

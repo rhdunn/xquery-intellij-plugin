@@ -8,6 +8,8 @@ module namespace client = "http://basex.org/modules/client";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "basex/7.3";
+
 declare %a:since("basex", "7.3") function client:connect($host as xs:string, $port as xs:integer, $user as xs:string, $password as xs:string) as xs:anyURI external;
 declare %a:since("basex", "7.3") function client:execute($id as xs:anyURI, $command as xs:string) as xs:string external;
 declare %a:since("basex", "7.5") function client:info($id as xs:anyURI) as xs:string external;

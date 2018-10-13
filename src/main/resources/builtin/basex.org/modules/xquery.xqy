@@ -1,12 +1,14 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
-: BaseX XQuery Module functions
-:
-: @see http://docs.basex.org/wiki/XQuery_Module
-:)
+ : BaseX XQuery Module functions
+ :
+ : @see http://docs.basex.org/wiki/XQuery_Module
+ :)
 module namespace xquery = "http://basex.org/modules/xquery";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.3";
 
 declare %a:since("basex", "7.3") function xquery:eval($query as xs:string) as item()* external;
 declare %a:since("basex", "7.3") function xquery:eval($query as xs:string, $bindings as map(*)?) as item()* external;

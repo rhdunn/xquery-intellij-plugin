@@ -1,14 +1,15 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
-: BaseX Inspect Module functions
-:
-: @see http://docs.basex.org/wiki/Inspection_Module
-:)
+ : BaseX Inspect Module functions
+ :
+ : @see http://docs.basex.org/wiki/Inspection_Module
+ :)
 module namespace inspect = "http://basex.org/modules/inspect";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
-
 declare namespace xqdoc = "http://www.xqdoc.org/1.0";
+
+declare option a:requires "basex/7.7";
 
 declare %a:since("basex", "7.7") function inspect:functions() as function(*)* external;
 declare %a:since("basex", "7.7") function inspect:functions($uri as xs:string) as function(*)* external;

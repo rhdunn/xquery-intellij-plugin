@@ -1,12 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX Index Module functions
-:
-: @see http://docs.basex.org/wiki/Index_Module
-:)
+ : BaseX Index Module functions
+ :
+ : @see http://docs.basex.org/wiki/Index_Module
+ :)
 module namespace index = "http://basex.org/modules/index";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.1";
 
 declare %a:since("basex", "7.1") function index:facets($db as xs:string) as xs:string external;
 declare %a:since("basex", "7.1") function index:facets($db as xs:string, $type as xs:string) as xs:string external;

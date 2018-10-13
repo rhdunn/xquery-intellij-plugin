@@ -1,12 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX User Module functions
-:
-: @see http://docs.basex.org/wiki/User_Module
-:)
+ : BaseX User Module functions
+ :
+ : @see http://docs.basex.org/wiki/User_Module
+ :)
 module namespace user = "http://basex.org/modules/user";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/8.0";
 
 declare %a:since("basex", "8.1") function user:current() as xs:string external;
 declare %a:since("basex", "8.0") function user:list() as xs:string* external;

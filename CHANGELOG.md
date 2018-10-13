@@ -20,6 +20,12 @@ Invalid Syntax Recovery:
     `CompPIConstructor`, or `CompNamespaceConstructor` tag name is a `StringLiteral`.
 1.  Recover parsing when a `SequenceType` is used in a `ParenthesizedItemType`.
 
+Static Context:
+
+1.  Add the `sql` namespace to the MarkLogic static context, added in MarkLogic 7.0.
+1.  Add support for the BaseX built-in functions and static context. Thanks to
+    Bridger Dyson-Smith for providing the built-in function definitions.
+
 Module Import Resolution:
 
 1.  Use project source roots to resolve module import URIs.

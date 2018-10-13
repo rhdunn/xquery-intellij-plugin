@@ -1,12 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX Random Module functions
-:
-: @see http://docs.basex.org/wiki/Random_Module
-:)
+ : BaseX Random Module functions
+ :
+ : @see http://docs.basex.org/wiki/Random_Module
+ :)
 module namespace random = "http://basex.org/modules/random";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.5";
 
 declare %a:since("basex", "7.5") function random:double() as xs:double external;
 declare %a:since("basex", "7.5") function random:integer() as xs:integer external;

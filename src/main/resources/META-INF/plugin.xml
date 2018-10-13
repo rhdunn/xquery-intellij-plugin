@@ -31,6 +31,11 @@
       <li>Recover parsing when the <code>CompElemConstructor</code>, <code>CompAttrConstructor</code>, <code>CompPIConstructor</code>, or <code>CompNamespaceConstructor</code> tag name is a <code>StringLiteral</code>.</li>
       <li>Recover parsing when a <code>SequenceType</code> is used in a <code>ParenthesizedItemType</code>.</li>
     </ol>
+    <p>Static Context:</p>
+    <ol>
+      <li>Add the <code>sql</code> namespace to the MarkLogic static context, added in MarkLogic 7.0.</li>
+      <li>Add support for the BaseX built-in functions and static context. Thanks to Bridger Dyson-Smith for providing the built-in function definitions.</li>
+    </ol>
     <p>Module Import Resolution:</p>
     <ol>
       <li>Use project source roots to resolve module import URIs.</li>

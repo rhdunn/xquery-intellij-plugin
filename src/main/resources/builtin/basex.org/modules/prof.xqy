@@ -1,12 +1,14 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
-: BaseX Profiling Module functions
-:
-: @see http://docs.basex.org/wiki/Profiling_Module
-:)
+ : BaseX Profiling Module functions
+ :
+ : @see http://docs.basex.org/wiki/Profiling_Module
+ :)
 module namespace prof = "http://basex.org/modules/prof";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.3";
 
 declare %a:since("basex", "9.0") function prof:track($expression as item()) as item()* external;
 declare %a:since("basex", "9.0") function prof:track($expression as item(), $options as map(*)?) as item()* external;

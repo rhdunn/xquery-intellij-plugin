@@ -1,12 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX convert module functions
-:
-: @see http://docs.basex.org/wiki/Conversion_Module
-:)
+ : BaseX convert module functions
+ :
+ : @see http://docs.basex.org/wiki/Conversion_Module
+ :)
 module namespace convert = "http://basex.org/modules/convert";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.3";
 
 declare %a:since("basex", "7.3") function convert:binary-to-string($bytes as xs:anyAtomicType) as xs:string external;
 declare %a:since("basex", "7.3") function convert:binary-to-string($bytes as xs:anyAtomicType, $encoding as xs:string) as xs:string external;

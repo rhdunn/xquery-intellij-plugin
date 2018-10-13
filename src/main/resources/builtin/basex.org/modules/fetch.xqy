@@ -1,12 +1,14 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
-: BaseX Fetch Module functions
-:
-: @see http://docs.basex.org/wiki/Fetch_Module
-:)
+ : BaseX Fetch Module functions
+ :
+ : @see http://docs.basex.org/wiki/Fetch_Module
+ :)
 module namespace fetch = "http://basex.org/modules/fetch";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.6";
 
 declare %a:since("basex", "7.6") function fetch:binary($uri as xs:string) as xs:base64Binary external;
 declare %a:since("basex", "7.6") function fetch:text($uri as xs:string) as xs:string external;

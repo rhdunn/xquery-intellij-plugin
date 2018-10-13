@@ -8,6 +8,8 @@ module namespace hash = "http://basex.org/modules/hash";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires "basex/7.6";
+
 declare %a:since("basex", "7.3") function hash:md5($value as xs:anyAtomicType) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function hash:sha1($value as xs:anyAtomicType) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function hash:sha256($value as xs:anyAtomicType) as xs:base64Binary external;

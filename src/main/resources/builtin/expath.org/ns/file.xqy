@@ -1,13 +1,15 @@
 xquery version "3.0";
 (:~
-: BaseX File Module functions
-:
-: @see http://docs.basex.org/wiki/File_Module
-:)
+ : BaseX File Module functions
+ :
+ : @see http://docs.basex.org/wiki/File_Module
+ :)
 module namespace file = "http://expath.org/ns/file";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+
+declare option a:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
 
 declare %a:since("basex", "7.8") function file:list($dir as xs:string) as xs:string external;
 declare %a:since("basex", "7.8") function file:list($dir as xs:string, $recursive as xs:boolean) as xs:string external;

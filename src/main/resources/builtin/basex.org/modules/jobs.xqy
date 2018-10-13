@@ -1,12 +1,14 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
-: BaseX Jobs Module functions
-:
-: @see http://docs.basex.org/wiki/Jobs_Module
-:)
+ : BaseX Jobs Module functions
+ :
+ : @see http://docs.basex.org/wiki/Jobs_Module
+ :)
 module namespace jobs = "http://basex.org/modules/jobs";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/8.5";
 
 declare %a:since("basex", "8.5") function jobs:current() as xs:string external;
 declare %a:since("basex", "8.5") function jobs:list() as xs:string* external;

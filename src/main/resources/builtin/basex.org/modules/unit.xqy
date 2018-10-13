@@ -1,12 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX Unit Module functions
-:
-: @see http://docs.basex.org/wiki/Unit_Module
-:)
+ : BaseX Unit Module functions
+ :
+ : @see http://docs.basex.org/wiki/Unit_Module
+ :)
 module namespace unit = "http://basex.org/modules/unit";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires "basex/7.7";
 
 (:
 BaseX Unit Module annotations
