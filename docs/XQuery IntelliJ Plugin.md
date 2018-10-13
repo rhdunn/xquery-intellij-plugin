@@ -17,7 +17,7 @@
       - [2.1.2.10 Specialised Sequence Types](#21210-specialised-sequence-types)
         - [2.1.2.10.1 Item Type Union](#212101-item-type-union)
         - [2.1.2.10.2 Tuple Sequence Types](#212102-tuple-sequence-types)
-      - [2.1.2.11 Annotated Item Types](#21211-annotated-item-types)
+      - [2.1.2.11 Annotated Function Tests and Sequence Types](#21211-annotated-function-tests-and-sequence-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -116,6 +116,7 @@ not normative.
 | \[70\] | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
 | \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 | \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
+| \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -305,13 +306,12 @@ as rational or complex numbers.
 >
 >     declare type complex = (xs:double, xs:double);
 
-##### 2.1.2.11 Annotated Item Types
+##### 2.1.2.11 Annotated Function Tests and Sequence Types
 
-| Ref    | Symbol                  |     | Expression                          | Options |
-|--------|-------------------------|-----|-------------------------------------|---------|
-| \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
-| \[89\] | `AnnotatedItemType`     | ::= | `(Annotation Annotation* (("for" SequenceType) \| FunctionTest))? FunctionTest` | |
-| \[90\] | `FunctionTest`          | ::= | `AnyFunctionTest \| TypedFunctionTest` |      |
+| Ref    | Symbol                        |     | Expression                          | Options |
+|--------|-------------------------------|-----|-------------------------------------|---------|
+| \[89\] | `AnnotatedFunctionOrSequence` | ::= | `(Annotation Annotation* (("for" SequenceType) \| FunctionTest)) \| FunctionTest` | |
+| \[90\] | `FunctionTest`                | ::= | `AnyFunctionTest \| TypedFunctionTest` |      |
 
 The XQuery IntelliJ Plugin provides a vendor extension to support annotations
 on a type itself, not just on function signatures. This is used in the
@@ -960,7 +960,7 @@ These changes include support for:
 | \[86\]   | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"`       |                 |
 | \[87\]   | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
-| \[89\]   | `AnnotatedItemTypeTest`        | ::= | `(Annotation Annotation* (("for" SequenceType) \| FunctionTest))? FunctionTest` | |
+| \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `(Annotation Annotation* (("for" SequenceType) \| FunctionTest))? FunctionTest` | |
 | \[90\]   | `FunctionTest`                 | ::= | `AnyFunctionTest \| TypedFunctionTest` |                    |
 
 ### A.3 Reserved Function Names

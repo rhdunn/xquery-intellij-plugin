@@ -6086,7 +6086,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseItemType(): Boolean {
         return parseKindTest() ||
                 parseAnyItemType() ||
-                parseAnnotatedItemType() ||
+                parseAnnotatedFunctionOrSequence() ||
                 parseMapTest() ||
                 parseArrayTest() ||
                 parseTupleType() ||
@@ -6242,7 +6242,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseAnnotatedItemType(): Boolean {
+    private fun parseAnnotatedFunctionOrSequence(): Boolean {
         val marker = mark()
 
         var haveAnnotations = false

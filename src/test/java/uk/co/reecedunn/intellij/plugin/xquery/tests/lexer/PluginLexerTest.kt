@@ -686,4 +686,12 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (89) AnnotatedFunctionOrSequence")
+    fun annotatedFunctionOrSequence() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "for", XQueryTokenType.K_FOR)
+    }
 }
