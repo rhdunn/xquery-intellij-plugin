@@ -20,15 +20,15 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val PLUGIN13: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 
-class PluginItemTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginItemType, XQueryConformance {
+class PluginAnnotatedSequenceTypePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginAnnotatedSequenceType, XQueryConformance {
 
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) XQUERY10 else PLUGIN13

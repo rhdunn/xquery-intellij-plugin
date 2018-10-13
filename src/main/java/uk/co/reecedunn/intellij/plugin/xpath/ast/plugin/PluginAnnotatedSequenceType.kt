@@ -20,4 +20,4 @@ import com.intellij.psi.PsiElement
 /**
  * An `ItemType` node in the XQuery AST with annotations.
  */
-interface PluginItemType : PsiElement
+interface PluginAnnotatedSequenceType : PsiElement

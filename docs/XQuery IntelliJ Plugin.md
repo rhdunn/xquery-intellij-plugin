@@ -105,7 +105,7 @@ not normative.
 
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedItemType \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
+| \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
 | \[78\] | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
@@ -310,8 +310,8 @@ as rational or complex numbers.
 
 | Ref    | Symbol                        |     | Expression                          | Options |
 |--------|-------------------------------|-----|-------------------------------------|---------|
-| \[89\] | `AnnotatedFunctionOrSequence` | ::= | `(Annotation Annotation* (("for" SequenceType) \| FunctionTest)) \| FunctionTest` | |
-| \[90\] | `FunctionTest`                | ::= | `AnyFunctionTest \| TypedFunctionTest` |      |
+| \[89\] | `AnnotatedFunctionOrSequence` | ::= | `AnnotatedSequenceType \| FunctionTest` |     |
+| \[90\] | `AnnotatedSequenceType`       | ::= | `Annotation Annotation* "for" SequenceType` | |
 
 The XQuery IntelliJ Plugin provides a vendor extension to support annotations
 on a type itself, not just on function signatures. This is used in the
@@ -891,7 +891,7 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedItemType \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                      |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
@@ -960,8 +960,8 @@ These changes include support for:
 | \[86\]   | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"`       |                 |
 | \[87\]   | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
-| \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `(Annotation Annotation* (("for" SequenceType) \| FunctionTest))? FunctionTest` | |
-| \[90\]   | `FunctionTest`                 | ::= | `AnyFunctionTest \| TypedFunctionTest` |                    |
+| \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
+| \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |
 
 ### A.3 Reserved Function Names
 
@@ -1121,7 +1121,7 @@ in this document:
 1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
 1.  [Item Type Union](#212101-item-type-union)
 1.  [Tuple Sequence Types](#212102-tuple-sequence-types)
-1.  [Annotated Item Types](#21211-annotated-item-types)
+1.  [Annotated Sequence Types](#21211-annotated-function-tests-and-sequence-types)
 
 ### C.5 eXist-db Extensions
 The eXist-db XQuery Processor supports the following vendor extensions described

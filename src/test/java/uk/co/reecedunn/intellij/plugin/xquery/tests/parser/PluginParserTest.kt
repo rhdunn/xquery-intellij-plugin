@@ -1518,90 +1518,6 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (20) ItemType")
-    internal inner class ItemType {
-        @Test
-        @DisplayName("on KindTest")
-        fun onKindTest() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_KindTest.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_KindTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on KindTest; compact whitespace")
-        fun onKindTest_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_KindTest_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_KindTest_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on function without annotations")
-        fun onFunctionWithoutAnnotations() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithoutAnnotations.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithoutAnnotations.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on function without annotations; compact whitespace")
-        fun onFunctionWithoutAnnotations_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithoutAnnotations_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithoutAnnotations_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on function with annotations")
-        fun onFunctionWithAnnotations() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithAnnotations.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithAnnotations.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on function with annotations; compact whitespace")
-        fun onFunctionWithAnnotations_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithAnnotations_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_FunctionWithAnnotations_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on other types")
-        fun onOther() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_Other.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_Other.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("on other types; compact whitespace")
-        fun onOther_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_Other_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_Other_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple annotations")
-        fun multipleAnnotations() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_Multiple.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple annotations; compact whitespace")
-        fun multipleAnnotations_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemType_Annotations_Multiple_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemType_Annotations_Multiple_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
     internal inner class UnionType {
         @Test
@@ -2096,6 +2012,120 @@ private class PluginParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_OccurrenceIndicator.txt")
             val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_OccurrenceIndicator.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (90) AnnotatedSequenceType")
+    internal inner class AnnotatedSequenceType {
+        @Nested
+        @DisplayName("annotations on kind tests")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("kind test")
+            fun kindTest() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("kind test; compact whitespace")
+            fun kindTest_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("annotations on function tests")
+        internal inner class FunctionTest {
+            @Test
+            @DisplayName("function without annotations")
+            fun functionWithoutAnnotations() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("function without annotations; compact whitespace")
+            fun functionWithoutAnnotations_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("function with annotations")
+            fun functionWithAnnotations() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("function with annotations; compact whitespace")
+            fun functionWithAnnotations_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("annotations on atomic or union types")
+        internal inner class AtomicOrUnionType {
+            @Test
+            @DisplayName("atomic or union type")
+            fun atomicOrUnionType() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("atomic or union type; compact whitespace")
+            fun atomicOrUnionType_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("multiple annotations")
+        internal inner class Multiple {
+            @Test
+            @DisplayName("multiple")
+            fun multipleAnnotations() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple; compact whitespace")
+            fun multipleAnnotations_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 }

@@ -438,7 +438,7 @@ object XQueryElementType {
 
     val NAMED_KIND_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_KIND_TEST", PluginNamedKindTestPsiImpl::class.java, XQuery)
 
-    val ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE", PluginItemTypePsiImpl::class.java, XQuery)
+    val ANNOTATED_SEQUENCE_TYPE: IElementType = ICompositeElementType("XQUERY_ANNOTATED_SEQUENCE_TYPE", PluginAnnotatedSequenceTypePsiImpl::class.java, XQuery)
     val ANY_ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ANY_ITEM_TYPE", PluginAnyItemTypePsiImpl::class.java, XQuery)
 
     val ANY_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_ANY_TEXT_TEST", PluginAnyTextTestPsiImpl::class.java, XQuery)

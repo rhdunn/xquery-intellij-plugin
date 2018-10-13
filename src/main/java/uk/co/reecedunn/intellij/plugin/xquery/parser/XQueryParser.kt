@@ -6259,7 +6259,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", "SequenceType"))
             }
 
-            marker.done(XQueryElementType.ITEM_TYPE)
+            marker.done(XQueryElementType.ANNOTATED_SEQUENCE_TYPE)
             return true
         } else if (parseAnyOrTypedFunctionTest()) {
             marker.done(XQueryElementType.FUNCTION_TEST)
