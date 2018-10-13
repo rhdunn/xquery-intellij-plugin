@@ -1,13 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX Request Module functions
-:
-: @see http://docs.basex.org/wiki/Request_Module
-:
-:)
+ : BaseX Request Module functions
+ :
+ : @see http://docs.basex.org/wiki/Request_Module
+ :)
 module namespace request = "http://exquery.org/ns/request";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires-import "basex/7.5; location-uri=(none)";
 
 declare %a:since("basex", "7.5") function request:method() as xs:string external;
 declare %a:since("basex", "7.7") function request:attribute($name as xs:string) as xs:string external;

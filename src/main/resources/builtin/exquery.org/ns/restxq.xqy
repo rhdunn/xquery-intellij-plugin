@@ -1,14 +1,15 @@
 xquery version "3.0";
 (:~
-: BaseX RESTXQ Module functions
-:
-: @see http://docs.basex.org/wiki/RESTXQ_Module
-:
-:)
+ : BaseX RESTXQ Module functions
+ :
+ : @see http://docs.basex.org/wiki/RESTXQ_Module
+ :)
 module namespace rest = "http://exquery.org/ns/restxq";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace wadl = "http://wadl.dev.java.net/2009/02";
+
+declare option a:requires-import "basex/7.7; location-uri=(none)";
 
 declare %a:since("basex", "7.7") function rest:base-uri() as xs:anyURI external;
 declare %a:since("basex", "7.7") function rest:uri() as xs:anyURI external;

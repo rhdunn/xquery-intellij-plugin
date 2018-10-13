@@ -8,6 +8,8 @@ module namespace geo = "http://expath.org/ns/geo";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 
+declare option a:requires-import "basex/7.6; location-uri=(none)";
+
 declare %a:since("basex", "7.6") function geo:dimension($geometry as element(*)) as xs:integer external;
 declare %a:since("basex", "7.6") function geo:geometry-type($geometry as element(*)) as xs:QName external;
 declare %a:since("basex", "7.6") function geo:srid($geometry as element(*)) as xs:integer external;
@@ -50,4 +52,3 @@ declare %a:since("basex", "7.6") function geo:point-n($line as element(*)) as el
 declare %a:since("basex", "7.6") function geo:exterior-ring($polygon as element(*)) as element(*) external;
 declare %a:since("basex", "7.6") function geo:num-interior-ring($polygon as element(*)) as xs:integer external;
 declare %a:since("basex", "7.6") function geo:interior-ring-n($polygon as element(*)) as element(*) external;
-

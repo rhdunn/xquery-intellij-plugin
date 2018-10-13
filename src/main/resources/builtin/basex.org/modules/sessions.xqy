@@ -1,12 +1,14 @@
 xquery version "3.0";
 (:~
-: BaseX Sessions Module functions
-:
-: @see http://docs.basex.org/wiki/Sessions_Module
-:)
+ : BaseX Sessions Module functions
+ :
+ : @see http://docs.basex.org/wiki/Sessions_Module
+ :)
 module namespace sessions = "http://basex.org/modules/sessions";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+
+declare option a:requires-import "basex/7.5; location-uri=(none)";
 
 declare %a:since("basex", "7.5") function sessions:ids() as xs:string external;
 declare %a:since("basex", "7.5") function sessions:created($id as xs:string) as xs:dateTime external;
