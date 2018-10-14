@@ -83,6 +83,7 @@ declare namespace strings = "http://basex.org/modules/strings";
 
 (: BaseX 8.5 :)
 declare namespace jobs = "http://basex.org/modules/jobs";
+declare namespace util = "http://basex.org/modules/util";
 
 (: BaseX 9.0 :)
 declare namespace lazy = "http://basex.org/modules/lazy";
