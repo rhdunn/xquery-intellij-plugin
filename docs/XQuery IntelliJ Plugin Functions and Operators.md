@@ -66,6 +66,7 @@ It specifies which XQuery processor the module definitions apply to.
 A *specification* is one of:
 1. `expath-binary` -- EXPath Binary Module
 1. `expath-crypto` -- EXPath Cryptographic Module
+1. `expath-file` -- EXPath File Module
 1. `xpath-functions` -- XPath and XQuery Functions and Operators
 
 It specifies which XQuery specification the module applies to.
@@ -115,3 +116,5 @@ that is required for the given imported module definitions.
    [http://expath.org/spec/binary/1.0]().
 *  EXPath. *Cryptographic Module*. EXPath Candidate Module 14 February 2015.
    See [http://expath.org/spec/crypto/20150214](https://web.archive.org/web/20170227073403/http://expath.org/spec/crypto/20150214).
+*  EXPath. *File Module 1.0*. EXPath Module 20 February 2015. See
+   [http://expath.org/spec/file/1.0]().
