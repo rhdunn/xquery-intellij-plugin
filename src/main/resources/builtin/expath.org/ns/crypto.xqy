@@ -1,7 +1,9 @@
 xquery version "3.0";
 (:~
- : BaseX Crypto module functions
+ : Cryptographic Module (EXPath Candidate Module 14 February 2015)
  :
+ : @see https://web.archive.org/web/20170227073403/http://expath.org/spec/crypto/20150214
+ : @see https://web.archive.org/web/20170227144046/http://expath.org/spec/crypto/20110810
  : @see http://docs.basex.org/wiki/Crypto_Module
  :)
 module namespace crypto = "http://expath.org/ns/crypto";
@@ -9,13 +11,20 @@ module namespace crypto = "http://expath.org/ns/crypto";
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option o:requires "basex/7.0";
+declare option o:requires "expath-crypto/1.0-20110810";
 
-declare %a:since("basex", "7.0") function crypto:hmac($message as xs:string, $key as xs:anyAtomicType, $algorithm as xs:string) as xs:base64Binary (: $key as [7.0]xs:string [8.6]xs:anyAtomicType :) external;
-declare %a:since("basex", "7.0") function crypto:hmac($message as xs:string, $key as xs:anyAtomicType, $algorithm as xs:string, $encoding as xs:string) as xs:base64Binary (: $key as [7.0]xs:string [8.6]xs:anyAtomicType :) external;
-declare %a:since("basex", "7.0") function crypto:encrypt($input as xs:string, $encoding as xs:string, $key as xs:string, $algorithm as xs:string) as xs:string external;
-declare %a:since("basex", "7.0") function crypto:decrypt($input as xs:string, $type as xs:string, $key as xs:string, $algorithm as xs:string) as xs:string external;
-declare %a:since("basex", "7.0") function crypto:generate-signature($input as node(), $canonicalization as xs:string, $digest as xs:string, $signature as xs:string, $prefix as xs:string, $type as xs:string) as node() external;
-declare %a:since("basex", "7.0") function crypto:generate-signature($input as node(), $canonicalization as xs:string, $digest as xs:string, $signature as xs:string, $prefix as xs:string, $type as xs:string, $xpath as xs:string, $certificate as node()) as node() external;
-declare %a:since("basex", "7.0") function crypto:generate-signature($input as node(), $canonicalization as xs:string, $digest as xs:string, $signature as xs:string, $prefix as xs:string, $type as xs:string, $ext as item()) as node() external;
-declare %a:since("basex", "7.0") function crypto:validate-signature($input-doc as node()) as xs:boolean external;
+declare option o:implements-module "basex/7.0 as expath-crypto/1.0-20110810";
+
+declare type hmac-key = (
+  %a:since("expath-crypto", "1.0-20110810") %a:until("basex", "8.6") for xs:string |
+  %a:since("basex", "8.6") for xs:anyAtomicType (: = (xs:string | xs:hexBinary | xs:base64Binary) :)
+);
+
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:hmac($message as xs:string, $key as hmac-key, $algorithm as xs:string) as xs:base64Binary external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:hmac($message as xs:string, $key as hmac-key, $algorithm as xs:string, $encoding as xs:string) as xs:base64Binary external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:encrypt($input as xs:string, $encoding as xs:string, $key as xs:string, $algorithm as xs:string) as xs:string external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:decrypt($input as xs:string, $type as xs:string, $key as xs:string, $algorithm as xs:string) as xs:string external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:generate-signature($input as node(), $canonicalization as xs:string, $digest as xs:string, $signature as xs:string, $prefix as xs:string, $type as xs:string) as node() external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:generate-signature($input as node(), $canonicalization as xs:string, $digest as xs:string, $signature as xs:string, $prefix as xs:string, $type as xs:string, $xpath as xs:string, $certificate as node()) as node() external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:generate-signature($input as node(), $canonicalization as xs:string, $digest as xs:string, $signature as xs:string, $prefix as xs:string, $type as xs:string, $xpath-or-certificate as item() (: = (xs:string | node()) :)) as node() external;
+declare %a:since("expath-crypto", "1.0-20110810") function crypto:validate-signature($input-doc as node()) as xs:boolean external;

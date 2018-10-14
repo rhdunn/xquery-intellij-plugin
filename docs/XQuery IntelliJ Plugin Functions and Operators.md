@@ -16,6 +16,9 @@ JetBrain's IntelliJ IDEs.
   - [2.1 o:implements-module](#21-oimplements-module)
   - [2.2 o:requires](#22-orequires)
   - [2.3 o:requires-import](#23-orequires-import)
+- [A References](#a-references)
+  - [A.1 W3C References](#a1-w3c-references)
+  - [A.2 EXPath References](#a2-expath-references)
 
 ## 1 Introduction
 The purpose of this document is to catalog the options, annotations, functions,
@@ -51,12 +54,19 @@ no namespace is associated with the `op` prefix.
 These values are used by different 
 
 #### 1.2.1 implementation
-An *implementation* is one of: `basex`, `exist-db`, `marklogic`, or `saxon`.
+An *implementation* is one of:
+1. `basex`
+1. `exist-db`
+1. `marklogic`
+1. `saxon`
 
 It specifies which XQuery processor the module definitions apply to.
 
 #### 1.2.2 specification
-A *specification* is one of: `expath-binary`, or `xpath-functions`.
+A *specification* is one of:
+1. `expath-binary` -- EXPath Binary Module
+1. `expath-crypto` -- EXPath Cryptographic Module
+1. `xpath-functions` -- XPath and XQuery Functions and Operators
 
 It specifies which XQuery specification the module applies to.
 
@@ -93,3 +103,15 @@ that is required for the given imported module definitions.
 >     (implementation|specification) "/" version ";" S "location-uri" "=" AnyURI
 ###### Example
 >     declare option o:requires-import "basex/7.5; location-uri=(none)";
+
+## A References
+
+### A.1 W3C References
+*  W3C. *XPath and XQuery Functions and Operators 3.1*. W3C Recommendation 21
+   March 2017. See [https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/]().
+
+### A.2 EXPath References
+*  EXPath. *Binary Module 1.0*. EXPath Module 3 December 2013. See
+   [http://expath.org/spec/binary/1.0]().
+*  EXPath. *Cryptographic Module*. EXPath Candidate Module 14 February 2015.
+   See [http://expath.org/spec/crypto/20150214](https://web.archive.org/web/20170227073403/http://expath.org/spec/crypto/20150214).
