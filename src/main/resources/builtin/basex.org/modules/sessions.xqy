@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace sessions = "http://basex.org/modules/sessions";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires-import "basex/7.5; location-uri=(none)";
+declare option o:requires-import "basex/7.5; location-uri=(none)";
 
 declare %a:since("basex", "7.5") function sessions:ids() as xs:string external;
 declare %a:since("basex", "7.5") function sessions:created($id as xs:string) as xs:dateTime external;

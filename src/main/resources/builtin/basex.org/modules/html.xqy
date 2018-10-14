@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace html = "http://basex.org/modules/html";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.6";
+declare option o:requires "basex/7.6";
 
 declare %a:since("basex", "7.6") function html:parser() as xs:string external;
 declare %a:since("basex", "7.6") function html:parse($input as xs:anyAtomicType) as document-node() external;

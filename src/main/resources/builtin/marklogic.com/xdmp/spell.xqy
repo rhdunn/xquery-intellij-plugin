@@ -7,8 +7,9 @@ xquery version "1.0-ml";
 module namespace spell = "http://marklogic.com/xdmp/spell";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "marklogic/5.0";
+declare option o:requires "marklogic/5.0";
 
 declare type options-type = (
   %a:since("marklogic", "5.0") %a:until("marklogic", "8.0") for node() |

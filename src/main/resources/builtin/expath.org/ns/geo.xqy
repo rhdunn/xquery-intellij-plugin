@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace geo = "http://expath.org/ns/geo";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires-import "basex/7.6; location-uri=(none)";
+declare option o:requires-import "basex/7.6; location-uri=(none)";
 
 declare %a:since("basex", "7.6") function geo:dimension($geometry as element(*)) as xs:integer external;
 declare %a:since("basex", "7.6") function geo:geometry-type($geometry as element(*)) as xs:QName external;

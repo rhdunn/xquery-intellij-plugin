@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace array = "http://www.w3.org/2005/xpath-functions/array";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "xpath-functions/3.1";
+declare option o:requires "xpath-functions/3.1";
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:append($array as array(*), $appendage as item()*) as array(*) external;
 declare %a:since("xpath-functions", "3.1-20170321") function array:filter($array as array(*), $function as function(item()*) as xs:boolean) as array(*) external;

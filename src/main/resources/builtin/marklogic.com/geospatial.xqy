@@ -7,8 +7,9 @@ xquery version "1.0-ml";
 module namespace geo = "http://marklogic.com/geospatial";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "marklogic/8.0";
+declare option o:requires "marklogic/8.0";
 
 declare %a:since("marklogic", "8.0") function geo:approx-center($region as cts:region) as cts:point external;
 declare %a:since("marklogic", "8.0") function geo:approx-center($region as cts:region, $options as xs:string*) as cts:point external;

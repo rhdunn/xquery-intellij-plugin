@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace sql = "http://basex.org/modules/sql";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.6";
+declare option o:requires "basex/7.6";
 
 declare %a:since("basex", "7.0") function sql:init($class as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function sql:connect($url as xs:string) as xs:anyURI (: [7.0] as xs:integer [9.0] as xs:anyURI :) external;

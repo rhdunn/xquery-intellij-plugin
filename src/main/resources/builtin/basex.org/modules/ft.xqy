@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace ft = "http://basex.org/modules/ft";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
+declare option o:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
 
 declare %a:since("basex", "7.0") function ft:search($db as xs:string, $terms as item()*) as text()* external;
 declare %a:since("basex", "7.2") function ft:search($db as xs:string, $terms as item()*, $options as map(*)?) as text()* external;

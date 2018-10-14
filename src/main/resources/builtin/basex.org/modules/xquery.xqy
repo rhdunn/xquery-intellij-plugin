@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace xquery = "http://basex.org/modules/xquery";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.3";
+declare option o:requires "basex/7.3";
 
 declare %a:since("basex", "7.3") function xquery:eval($query as xs:string) as item()* external;
 declare %a:since("basex", "7.3") function xquery:eval($query as xs:string, $bindings as map(*)?) as item()* external;

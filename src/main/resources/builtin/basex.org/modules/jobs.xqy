@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace jobs = "http://basex.org/modules/jobs";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/8.5";
+declare option o:requires "basex/8.5";
 
 declare %a:since("basex", "8.5") function jobs:current() as xs:string external;
 declare %a:since("basex", "8.5") function jobs:list() as xs:string* external;

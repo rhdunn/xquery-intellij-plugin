@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace http = "http://expath.org/ns/http-client";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.1";
+declare option o:requires "basex/7.1";
 
 declare %a:since("basex", "7.1") function http:send-request($request as element(http:request)) as item()+ external;
 declare %a:since("basex", "7.1") function http:send-request($request as element(http:request)?, $href as xs:string?) as item()+ external;

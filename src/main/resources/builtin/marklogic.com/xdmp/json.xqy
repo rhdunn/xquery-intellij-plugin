@@ -7,8 +7,9 @@ xquery version "1.0-ml";
 module namespace json = "http://marklogic.com/xdmp/json";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "marklogic/6.0";
+declare option o:requires "marklogic/6.0";
 
 declare %a:since("marklogic", "6.0") function json:array() as json:array external;
 declare %a:since("marklogic", "6.0") function json:array($array as element(json:array)) as json:array external;

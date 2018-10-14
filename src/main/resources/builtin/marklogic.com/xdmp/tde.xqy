@@ -7,8 +7,9 @@ xquery version "1.0-ml";
 module namespace tde = "http://marklogic.com/xdmp/tde";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "marklogic/9.0";
+declare option o:requires "marklogic/9.0";
 
 declare %a:since("marklogic", "9.0") function tde:get-view($schema as xs:string, $view as xs:string) as map:map external;
 declare %a:since("marklogic", "9.0") function tde:node-data-extract($documents as node()*) as map:map external;

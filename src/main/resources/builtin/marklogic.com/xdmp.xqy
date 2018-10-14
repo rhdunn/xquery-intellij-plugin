@@ -24,12 +24,13 @@ xquery version "1.0-ml";
 module namespace xdmp = "http://marklogic.com/xdmp";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare namespace db = "http://marklogic.com/xdmp/database";
 declare namespace mt = "http://marklogic.com/xdmp/mimetypes";
 declare namespace x509 = "http://marklogic.com/xdmp/x509";
 
-declare option a:requires "marklogic/5.0";
+declare option o:requires "marklogic/5.0";
 
 declare type options-type = (
   %a:since("marklogic", "5.0") %a:until("marklogic", "8.0") for node() |

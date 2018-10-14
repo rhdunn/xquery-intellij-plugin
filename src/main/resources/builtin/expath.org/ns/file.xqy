@@ -7,9 +7,11 @@ xquery version "3.0";
 module namespace file = "http://expath.org/ns/file";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
+
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
-declare option a:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
+declare option o:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
 
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "file:dir-separator#0") variable $file:directory-separator external;
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "file:path-separator#0") variable $file:path-separator external;

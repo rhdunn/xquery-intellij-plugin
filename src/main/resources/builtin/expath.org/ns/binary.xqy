@@ -8,10 +8,11 @@ xquery version "3.0";
 module namespace bin = "http://expath.org/ns/binary";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "expath-binary/1.0";
+declare option o:requires "expath-binary/1.0";
 
-declare option a:implements-module "basex/7.8 as expath-binary/1.0-20131203";
+declare option o:implements-module "basex/7.8 as expath-binary/1.0-20131203";
 
 declare %a:since("expath-binary", "1.0-20131203") function bin:hex($in as xs:string?) as xs:base64Binary? external;
 declare %a:since("expath-binary", "1.0-20131203") function bin:bin($in as xs:string?) as xs:base64Binary? external;

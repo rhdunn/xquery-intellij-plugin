@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace proc = "http://basex.org/modules/proc";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.3";
+declare option o:requires "basex/7.3";
 
 declare %a:since("basex", "7.3") function proc:system($cmd as xs:string) as xs:string external;
 declare %a:since("basex", "7.3") function proc:system($cmd as xs:string, $args as xs:string*) as xs:string external;

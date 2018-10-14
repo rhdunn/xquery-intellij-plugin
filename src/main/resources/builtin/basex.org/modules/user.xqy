@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace user = "http://basex.org/modules/user";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/8.0";
+declare option o:requires "basex/8.0";
 
 declare %a:since("basex", "8.1") function user:current() as xs:string external;
 declare %a:since("basex", "8.0") function user:list() as xs:string* external;

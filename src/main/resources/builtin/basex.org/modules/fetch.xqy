@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace fetch = "http://basex.org/modules/fetch";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.6";
+declare option o:requires "basex/7.6";
 
 declare %a:since("basex", "7.6") function fetch:binary($uri as xs:string) as xs:base64Binary external;
 declare %a:since("basex", "7.6") function fetch:text($uri as xs:string) as xs:string external;

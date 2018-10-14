@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace prof = "http://basex.org/modules/prof";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.3";
+declare option o:requires "basex/7.3";
 
 declare %a:since("basex", "9.0") function prof:track($expression as item()) as item()* external;
 declare %a:since("basex", "9.0") function prof:track($expression as item(), $options as map(*)?) as item()* external;

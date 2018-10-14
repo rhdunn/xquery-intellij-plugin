@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace update = "http://basex.org/modules/update";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/9.0";
+declare option o:requires "basex/9.0";
 
 declare %a:since("basex", "9.0") function update:apply($function as function(*), $arguments as array(*)) as empty-sequence() external;
 declare %a:since("basex", "9.0") function update:for-each($seq as item()*, $function as function(item()) as item()*) as empty-sequence() external;

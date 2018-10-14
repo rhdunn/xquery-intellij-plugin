@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace xslt = "http://basex.org/modules/xslt";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
+declare option o:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
 
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "xslt:processor#0") variable $xslt:processor external;
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "xslt:version#0") variable $xslt:version external;

@@ -7,8 +7,9 @@ xquery version "1.0-ml";
 module namespace sc = "http://marklogic.com/xdmp/schema-components";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "marklogic/7.0";
+declare option o:requires "marklogic/7.0";
 
 declare %a:since("marklogic", "7.0") function sc:annotations() as element()* external;
 declare %a:since("marklogic", "7.0") function sc:annotations($arg as schema-component()) as element()* external;

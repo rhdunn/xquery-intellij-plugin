@@ -7,9 +7,11 @@ xquery version "3.1";
 module namespace inspect = "http://basex.org/modules/inspect";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
+
 declare namespace xqdoc = "http://www.xqdoc.org/1.0";
 
-declare option a:requires "basex/7.7";
+declare option o:requires "basex/7.7";
 
 declare %a:since("basex", "7.7") function inspect:functions() as function(*)* external;
 declare %a:since("basex", "7.7") function inspect:functions($uri as xs:string) as function(*)* external;

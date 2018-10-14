@@ -8,8 +8,9 @@ xquery version "3.0";
 module namespace zip = "http://expath.org/ns/zip";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
+declare option o:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
 
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.3", "archive:extract-binary") function zip:binary-entry($uri as xs:string, $path as xs:string) as xs:base64Binary external;
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.3", "archive:extract-text") function zip:text-entry($uri as xs:string, $path as xs:string) as xs:string external;

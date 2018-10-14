@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace unit = "http://basex.org/modules/unit";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.7";
+declare option o:requires "basex/7.7";
 
 (:
 BaseX Unit Module annotations

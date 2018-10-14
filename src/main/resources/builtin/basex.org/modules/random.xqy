@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace random = "http://basex.org/modules/random";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.5";
+declare option o:requires "basex/7.5";
 
 declare %a:since("basex", "7.5") function random:double() as xs:double external;
 declare %a:since("basex", "7.5") function random:integer() as xs:integer external;

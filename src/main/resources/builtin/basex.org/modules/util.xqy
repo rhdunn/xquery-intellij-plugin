@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace util = "http://basex.org/modules/util";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/8.5";
+declare option o:requires "basex/8.5";
 
 declare %a:since("basex", "9.1") function util:if($condition as item()*, $then as item()*) as item()* external;
 declare %a:since("basex", "9.1") function util:if($condition as item()*, $then as item()*, $else as item()*) as item()* external;

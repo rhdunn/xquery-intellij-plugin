@@ -7,8 +7,9 @@ xquery version "3.0";
 module namespace hof = "http://basex.org/modules/hof";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.0";
+declare option o:requires "basex/7.0";
 
 declare %a:since("basex", "7.0") function hof:fold-left1($seq as item()+, $f as function(item()*, item()) as item()*) as item()* external;
 declare %a:since("basex", "7.0") function hof:until($pred as function(item()*) as xs:boolean, $f as function(item()*) as item()*, $start as item()*) as item()* external;

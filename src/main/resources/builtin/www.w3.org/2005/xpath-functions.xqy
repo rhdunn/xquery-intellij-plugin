@@ -10,8 +10,9 @@ xquery version "3.1";
 module namespace fn = "http://www.w3.org/2005/xpath-functions";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "xpath-functions/1.0";
+declare option o:requires "xpath-functions/1.0";
 
 declare %a:since("xpath-functions", "1.0-20070123") function fn:QName($paramURI as xs:string?, $paramQName as xs:string) as xs:QName external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:abs($arg as xs:numeric?) as xs:numeric? external;

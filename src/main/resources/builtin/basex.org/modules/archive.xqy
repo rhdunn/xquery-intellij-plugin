@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace archive = "http://basex.org/modules/archive";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.3";
+declare option o:requires "basex/7.3";
 
 declare %a:since("basex", "7.3") function archive:create($entries as item(), $contents as item()*) as xs:base64Binary external;
 declare %a:since("basex", "7.3") function archive:create($entries as item(), $contents as item()*, $options as map(*)?) as xs:base64Binary external;

@@ -7,8 +7,9 @@ xquery version "3.1";
 module namespace db = "http://basex.org/modules/db";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
-declare option a:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
+declare option o:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version definitions are available for. :)
 
 declare %a:since("basex", "7.0") function db:system() as element(system) external;
 declare %a:since("basex", "9.0") function db:option($name as xs:string) as xs:string external;
