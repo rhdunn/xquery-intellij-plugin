@@ -69,6 +69,7 @@ A *specification* is one of:
 1. `expath-file` -- EXPath File Module
 1. `expath-geo` -- EXPath Geo Module
 1. `expath-http` -- EXPath HTTP Client Module
+1. `expath-webapp` -- EXPath Web Applications
 1. `expath-zip` -- EXPath ZIP Module
 1. `xpath-functions` -- XPath and XQuery Functions and Operators
 
@@ -125,5 +126,7 @@ that is required for the given imported module definitions.
    See [http://expath.org/spec/geo/20100930]().
 *  EXPath. *HTTP Client Module*. EXPath Candidate Module 9 January 2010.
    See [http://expath.org/spec/http-client/20100109]().
+*  EXPath. *Web Applications*. EXPath Candidate Module 1 April 2013.
+   See [http://expath.org/spec/webapp/20130401]().
 *  EXPath. *ZIP Module*. EXPath Candidate Module 12 October 2010.
    See [http://expath.org/spec/zip/20101012]().
