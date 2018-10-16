@@ -68,6 +68,7 @@ A *specification* is one of:
 1. `expath-crypto` -- EXPath Cryptographic Module
 1. `expath-file` -- EXPath File Module
 1. `expath-geo` -- EXPath Geo Module
+1. `expath-http` -- EXPath HTTP Client Module
 1. `xpath-functions` -- XPath and XQuery Functions and Operators
 
 It specifies which XQuery specification the module applies to.
@@ -121,3 +122,5 @@ that is required for the given imported module definitions.
    [http://expath.org/spec/file/1.0]().
 *  EXPath. *Geo Module*. EXPath Candidate Module 30 September 2010.
    See [http://expath.org/spec/geo/20100930]().
+*  EXPath. *HTTP Client Module*. EXPath Candidate Module 9 January 2010.
+   See [http://expath.org/spec/http-client/20100109]().
