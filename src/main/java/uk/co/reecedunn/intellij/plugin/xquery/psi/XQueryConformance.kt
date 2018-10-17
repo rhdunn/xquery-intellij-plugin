@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 
 interface XQueryConformance {
     /**

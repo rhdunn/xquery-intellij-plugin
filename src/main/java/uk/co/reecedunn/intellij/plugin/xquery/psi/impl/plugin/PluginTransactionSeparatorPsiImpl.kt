@@ -21,10 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 

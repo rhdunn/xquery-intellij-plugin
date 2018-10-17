@@ -17,152 +17,381 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariablesForFile
+import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XPath 3.1 - Static Context")
 private class XPathStaticContextTest : ParserTestCase() {
-    // region Statically-known Functions
+    @Nested
+    @DisplayName("XPath 3.1 (2.1.1) In-scope variables")
+    internal inner class InScopeVariables {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (3) Param")
+        internal inner class Param {
+            @Test
+            @DisplayName("in FunctionBody; no parameters")
+            fun testInlineFunctionExpr_FunctionBody_NoParameters() {
+                val element = parse<XPathFunctionCall>("function () { test() }")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(0))
+            }
 
-    @Test
-    fun testQName_staticallyKnownFunctions_SingleDeclMatch() {
-        val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")
+            @Test
+            @DisplayName("in FunctionBody; single parameter")
+            fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
+                val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(1))
 
-        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XPathQName>().first()
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+            }
 
-        val decls = fnName.staticallyKnownFunctions().toList()
-        assertThat(decls.size, `is`(1))
+            @Test
+            @DisplayName("in FunctionBody; multiple parameters")
+            fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
+                val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(2))
 
-        val functionName = decls[0].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:true"))
-        assertThat(decls[0].arity, `is`(0))
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                assertThat(variables[1].variableName?.localName?.data, `is`("y"))
+                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("outside FunctionBody")
+            fun testInlineFunctionExpr_OutsideFunctionBody() {
+                val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr")
+        internal inner class QuantifiedExpr {
+            @Test
+            @DisplayName("single binding; 'in' Expr")
+            fun testQuantifiedExpr_SingleBinding_InExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("single binding; 'satisfies' Expr")
+            fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(1))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("multiple bindings; first 'in' Expr")
+            fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("multiple bindings; last 'in' Expr")
+            fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(1))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("multiple bindings; 'satisfies' Expr")
+            fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
+                val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
+                val variables = element.inScopeVariables().toList()
+                assertThat(variables.size, `is`(2))
+
+                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
+                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+
+                assertThat(variables[1].variableName?.localName?.data, `is`("x"))
+                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
+                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+            }
+        }
     }
 
-    @Test
-    fun testQName_staticallyKnownFunctions_MultipleDeclMatch() {
-        val file = parseResource("tests/resolve/functions/FunctionCall_QName_Arity.xq")
+    @Nested
+    @DisplayName("XPath 3.1 (2.1.1) Statically known function signatures")
+    internal inner class StaticallyKnownFunctionSignatures {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+        internal inner class FunctionCall {
+            @Nested
+            @DisplayName("arity")
+            internal inner class Arity {
+                @Test
+                @DisplayName("single match")
+                fun singleMatch() {
+                    val qname = parse<XPathEQName>("fn:true()")[0]
 
-        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XPathQName>().first()
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
 
-        val decls = fnName.staticallyKnownFunctions().toList()
-        assertThat(decls.size, `is`(2))
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
 
-        var functionName = decls[0].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:data"))
-        assertThat(decls[0].arity, `is`(0))
+                @Test
+                @DisplayName("multiple matches")
+                fun multipleMatches() {
+                    val qname = parse<XPathEQName>("fn:data()")[0]
 
-        functionName = decls[1].children().filterIsInstance<XPathQName>().first()
-        assertThat(functionName.text, `is`("fn:data"))
-        assertThat(decls[1].arity, `is`(1))
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
+            }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("built-in namespaces")
+                fun builtInNamespaces() {
+                    val qname = parse<XPathEQName>("fn:false()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
+
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("true()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+            }
+
+            @Nested
+            @DisplayName("URIQualifiedName")
+            internal inner class URIQualifiedName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("Q{http://www.w3.org/2005/xpath-functions}false()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+        internal inner class NamedFunctionRef {
+            @Nested
+            @DisplayName("arity")
+            internal inner class Arity {
+                @Test
+                @DisplayName("single match")
+                fun singleMatch() {
+                    val qname = parse<XPathEQName>("fn:true#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+
+                @Test
+                @DisplayName("multiple matches")
+                fun multipleMatches() {
+                    val qname = parse<XPathEQName>("fn:data#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
+            }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("built-in namespaces")
+                fun builtInNamespaces() {
+                    val qname = parse<XPathEQName>("fn:false#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
+
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("true#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+            }
+
+            @Nested
+            @DisplayName("URIQualifiedName")
+            internal inner class URIQualifiedName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("Q{http://www.w3.org/2005/xpath-functions}false#0")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier")
+        internal inner class ArrowFunctionSpecifier {
+            @Nested
+            @DisplayName("arity")
+            internal inner class Arity {
+                @Test
+                @DisplayName("single match")
+                fun singleMatch() {
+                    val qname = parse<XPathEQName>("() => fn:true()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+
+                @Test
+                @DisplayName("multiple matches")
+                fun multipleMatches() {
+                    val qname = parse<XPathEQName>("() => fn:data()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(2))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
+
+                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
+            }
+
+            @Nested
+            @DisplayName("QName")
+            internal inner class QName {
+                @Test
+                @DisplayName("built-in namespaces")
+                fun builtInNamespaces() {
+                    val qname = parse<XPathEQName>("() => fn:false()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
+
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("() => true()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
+                }
+            }
+
+            @Nested
+            @DisplayName("URIQualifiedName")
+            internal inner class URIQualifiedName {
+                @Test
+                @DisplayName("built-in function")
+                fun builtInFunction() {
+                    val qname = parse<XPathEQName>("() => Q{http://www.w3.org/2005/xpath-functions}false()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
+                }
+            }
+        }
     }
-
-    // endregion
-    // region In-Scope Variable Bindings
-    // region InlineFunctionExpr -> ParamList -> Param
-
-    @Test
-    fun testInlineFunctionExpr_FunctionBody_NoParameters() {
-        val element = parse<XPathFunctionCall>("function () { test() }")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
-        val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(1))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
-        val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(2))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_OutsideFunctionBody() {
-        val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    // endregion
-    // region QuantifiedExpr
-
-    @Test
-    fun testQuantifiedExpr_SingleBinding_InExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    @Test
-    fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(1))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(0))
-    }
-
-    @Test
-    fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(1))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-    }
-
-    @Test
-    fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
-        val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
-        val variables = element.inScopeVariablesForFile().toList()
-        assertThat(variables.size, `is`(2))
-
-        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-        assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-    }
-
-    // endregion
-    // endregion
 }

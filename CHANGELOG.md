@@ -2,18 +2,53 @@
 
 ## 1.3 - (In Development)
 
-Language Support:
+Saxon Vendor Extensions:
 
 1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
 1.  Support `TupleType` constructs with names only, not associated sequence types.
+1.  Support Saxon 9.8 simple inline function expressions.
+1.  Support Saxon 9.9 `orElse` and `andAlso` logical expressions.
+1.  Support Saxon 9.9 optional field names for tuples, and extensible tuples.
 
-References and Resolving:
+XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:
+
+1.  Support `empty()` syntax for `empty-sequence()`.
+
+Invalid Syntax Recovery:
+
+1.  Recover parsing when the `CompElemConstructor`, `CompAttrConstructor`,
+    `CompPIConstructor`, or `CompNamespaceConstructor` tag name is a `StringLiteral`.
+1.  Recover parsing when a `SequenceType` is used in a `ParenthesizedItemType`.
+
+Static Context:
+
+1.  Add the `sql` namespace to the MarkLogic static context, added in MarkLogic 7.0.
+1.  Add support for the BaseX built-in functions and static context. Thanks to
+    Bridger Dyson-Smith for providing the built-in function definitions.
+
+Module Import Resolution:
+
+1.  Use project source roots to resolve module import URIs.
+1.  Locate built-in definitions from `http://`-based `URILiteral` nodes.
+1.  Resolve all location URIs in a `ModuleImport`, not just the first valid location.
+1.  Resolve `ModuleImport` declarations that don't specify `at` paths.
+
+EQName Resolution:
 
 1.  Expand `NCName`-based `EQName` nodes, using the default element or function
     namespaces where appropriate.
-1.  Locate built-in definitions from `http://`-based `URILiteral` nodes.
-1.  Resolve `ModuleImport` declarations that don't specify `at` paths.
-1.  Resolve `NamespaceDecl` declarations.
+1.  Resolve EQNames bound to `NamespaceDecl` declarations.
+1.  Resolve EQNames bound to `DefaultNamespaceDecl` declarations.
+1.  Resolve EQNames bound to `DirAttributeList` attributes.
+
+Function Resolution:
+
+1.  Matching statically-known functions against expanded QNames.
+1.  Search the `MainModule`/`LibraryModule` prolog for function declarations.
+
+Inspections:
+
+1.  IJVS0001: Report warnings for constructs that require a different XQuery version.
 
 ## 1.2 - 2018-08-27
 

@@ -7,7 +7,10 @@ xquery version "1.0-ml";
  :)
 module namespace sem = "http://marklogic.com/xdmp/semantics";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
+
+declare option o:requires "marklogic/7.0";
 
 declare %a:since("marklogic", "7.0") function sem:binding() as sem:binding external;
 declare %a:since("marklogic", "7.0") function sem:binding($map as element(json:object)) as sem:binding external;

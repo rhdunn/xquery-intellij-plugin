@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
 
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
 object XQDocTokenType {
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE

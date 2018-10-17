@@ -7,7 +7,10 @@ xquery version "1.0-ml";
  :)
 module namespace sql = "http://marklogic.com/xdmp/sql";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
+
+declare option o:requires "marklogic/7.0";
 
 declare %a:since("marklogic", "9.0") function sql:bit-length($str as xs:string) as xs:integer external;
 declare %a:since("marklogic", "9.0") function sql:collated-string($string as xs:string, $collationURI as xs:string) as rdf:collatedString external;
@@ -46,6 +49,6 @@ declare %a:since("marklogic", "9.0") function sql:strpos($target as xs:string?, 
 declare %a:since("marklogic", "9.0") function sql:timestampadd($dateTimeType as xs:ID, $value as xs:integer, $timestamp as xs:string) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:timestampdiff($dateTimeType as xs:ID, $timestamp1 as xs:genericDateTimeArg, $timestamp2 as xs:genericDateTimeArg) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:trim($str as xs:string) as xs:string external;
-declare %a:since("marklogic", "9.0") function sql:week($arg (: as (xs:dateTime?|xs:date?|xs:string?) :)) as xs:integer? external;
+declare %a:since("marklogic", "9.0") function sql:week($arg as (xs:dateTime|xs:date|xs:string)?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:year($arg as genericDateTimeArg?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:yearday($arg as xs:genericDateTimeArg?) as xs:integer? external;

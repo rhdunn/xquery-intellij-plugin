@@ -20,13 +20,19 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -76,6 +82,183 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
                 assertThat(expr.namespaceType, `is`(XPathNamespaceType.Undefined))
+            }
+
+            @Nested
+            @DisplayName("resolve uri")
+            internal inner class ResolveUri {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_Empty.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("same directory")
+                fun sameDirectory() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_SameDirectory.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("res:// file matching")
+                fun resProtocol() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_ResourceFile.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("http:// file matching")
+                fun httpProtocol() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                }
+
+                @Test
+                @DisplayName("http:// file missing")
+                fun httpProtocolMissing() {
+                    val file = parseResource("tests/resolve/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
+                    val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                    assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                }
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.3.1) Typeswitch")
+    internal inner class Typeswitch {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (75) DefaultCaseClause")
+        internal inner class DefaultCaseClause {
+            @Test
+            @DisplayName("NCName")
+            fun testDefaultCaseClause_NCName() {
+                val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default \$y return \$z")[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testDefaultCaseClause_QName() {
+                val expr = parse<PluginDefaultCaseClause>(
+                    "typeswitch (\$a:x) default \$a:y return \$a:z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testDefaultCaseClause_URIQualifiedName() {
+                val expr = parse<PluginDefaultCaseClause>(
+                    "typeswitch (\$Q{http://www.example.com}x) " +
+                            "default \$Q{http://www.example.com}y " +
+                            "return \$Q{http://www.example.com}z"
+                )[0] as XPathVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testDefaultCaseClause_NoVarName() {
+                val expr = parse<PluginDefaultCaseClause>("typeswitch (\$x) default return \$z")[0] as XPathVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.4) Block Expressions")
+    internal inner class BlockExpressions {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (9) BlockVarDecl")
+        internal inner class BlockVarDecl {
+            @Test
+            @DisplayName("multiple BlockVarDeclEntry nodes")
+            fun testBlockVarDeclEntry_Multiple() {
+                val decls = parse<PluginBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
+                assertThat(decls.size, `is`(2))
+
+                var qname = (decls[0] as XPathVariableDeclaration).variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                qname = (decls[1] as XPathVariableDeclaration).variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (10) BlockVarDeclEntry")
+        internal inner class BlockVarDeclEntry {
+            @Test
+            @DisplayName("NCName")
+            fun testBlockVarDeclEntry_NCName() {
+                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$x := \$y; 2 }")[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun testBlockVarDeclEntry_QName() {
+                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$a:x := \$a:y; 2 }")[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun testBlockVarDeclEntry_URIQualifiedName() {
+                val expr = parse<PluginBlockVarDeclEntry>(
+                    "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }"
+                )[0] as XPathVariableDeclaration
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun testBlockVarDeclEntry_MissingVarName() {
+                val expr = parse<PluginBlockVarDeclEntry>("block { declare \$ := \$y; 2 }")[0] as XPathVariableDeclaration
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }
@@ -143,19 +326,49 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
                 val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(2))
+                assertThat(expanded.size, `is`(1))
 
                 assertThat(expanded[0].isLexicalQName, `is`(false))
                 assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
                 assertThat(expanded[0].prefix, `is`(nullValue()))
                 assertThat(expanded[0].localName!!.data, `is`("test"))
                 assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+            }
+        }
+    }
 
-                assertThat(expanded[1].isLexicalQName, `is`(false))
-                assertThat(expanded[1].namespace!!.data, `is`(""))
-                assertThat(expanded[1].prefix, `is`(nullValue()))
-                assertThat(expanded[1].localName!!.data, `is`("test"))
-                assertThat(expanded[1].element, sameInstance(qname as PsiElement))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.1) Union Types")
+    internal inner class UnionTypes {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin BNF (22) UnionType")
+        internal inner class TypeDecl {
+            @Test
+            @DisplayName("NCName namespace resolution")
+            fun ncname() {
+                val qname = parse<XPathEQName>(
+                    """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    declare type decl = union(test);
+                    """
+                )[1] as XsQNameValue
+                assertThat(qname.getNamespaceType(), `is`(XPathNamespaceType.DefaultElementOrType))
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val expanded = qname.expand().toList()
+                assertThat(expanded.size, `is`(1))
+
+                assertThat(expanded[0].isLexicalQName, `is`(false))
+                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                assertThat(expanded[0].prefix, `is`(nullValue()))
+                assertThat(expanded[0].localName!!.data, `is`("test"))
+                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
             }
         }
     }

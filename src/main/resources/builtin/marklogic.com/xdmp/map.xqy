@@ -6,7 +6,10 @@ xquery version "1.0-ml";
  :)
 module namespace map = "http://marklogic.com/xdmp/map";
 
-import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
+declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
+declare namespace o = "http://reecedunn.co.uk/xquery/options";
+
+declare option o:requires "marklogic/5.0";
 
 declare %a:since("marklogic", "5.0") function map:clear($map as map:map) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function map:contains($map as map:map, $key as xs:string) as xs:boolean external;

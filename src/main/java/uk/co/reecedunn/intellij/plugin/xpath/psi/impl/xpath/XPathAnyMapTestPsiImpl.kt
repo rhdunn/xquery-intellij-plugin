@@ -19,9 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyMapTest
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class XPathAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyMapTest, XQueryConformance {

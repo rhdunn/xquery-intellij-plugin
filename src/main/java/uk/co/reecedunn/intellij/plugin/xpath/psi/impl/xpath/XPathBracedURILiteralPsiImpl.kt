@@ -26,9 +26,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 

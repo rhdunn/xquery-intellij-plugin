@@ -19,14 +19,15 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.ResProtocolImportResolver
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
     private val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
@@ -46,9 +47,9 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
             var context = product?.implementation?.staticContext(product, productVersion, xquery)
             if (context == null) context = defaultStaticContext(xquery)
 
-            val file = ResourceVirtualFile.resolve(context, project)
-            val module = file!!.children().filterIsInstance<XQueryMainModule>().firstOrNull()
-            staticContextCache = (module as? XQueryPrologResolver)?.prolog
+            val file = context?.let { ResProtocolImportResolver.resolve(it)?.toPsiFile<XQueryModule>(project) }
+            val module = file?.children()?.filterIsInstance<XQueryMainModule>()?.firstOrNull()
+            staticContextCache = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
         }
         return staticContextCache
     }

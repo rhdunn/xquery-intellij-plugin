@@ -1,0 +1,27 @@
+XQueryModuleImpl[FILE(0:21)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:21)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:21)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:21)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(0:21)]
+               XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:21)]
+                  XQueryCompElemConstructorImpl[XQUERY_COMP_ELEM_CONSTRUCTOR(0:21)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(8:13)]('XPST0003: String literal should be wrapped in braces, or be a qualified name.')
+                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(8:13)]
+                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(8:9)]('"')
+                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(9:12)]('div')
+                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(12:13)]('"')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                     XQueryEnclosedContentExprImpl[XQUERY_ENCLOSED_CONTENT_EXPR(14:21)]
+                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                        XPathExprImpl[XQUERY_EXPR(16:20)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:20)]
+                              XPathOrExprImpl[XQUERY_OR_EXPR(16:20)]
+                                 XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(16:19)]
+                                    LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
+                                    PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                                    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(20:21)]('}')

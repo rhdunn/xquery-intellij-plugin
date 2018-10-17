@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 class XQueryPrologPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryProlog,
-    XPathStaticContext {
+    XPathVariableDeclarations {
 
     override fun subtreeChanged() {
         super.subtreeChanged()

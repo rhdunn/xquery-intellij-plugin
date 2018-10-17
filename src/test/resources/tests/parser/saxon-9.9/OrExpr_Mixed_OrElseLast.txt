@@ -1,0 +1,23 @@
+XQueryModuleImpl[FILE(0:15)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
+               XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                  XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                     XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
+               PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+               XPathNodeTestImpl[XQUERY_NODE_TEST(5:7)]
+                  XPathNameTestImpl[XQUERY_NAME_TEST(5:7)]
+                     XPathNCNameImpl[XQUERY_NCNAME(5:7)]
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:6)]('b')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORELSE(7:13)]('orElse')
+               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+               XPathNodeTestImpl[XQUERY_NODE_TEST(14:15)]
+                  XPathNameTestImpl[XQUERY_NAME_TEST(14:15)]
+                     XPathNCNameImpl[XQUERY_NCNAME(14:15)]
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('c')

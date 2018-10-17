@@ -20,8 +20,8 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 

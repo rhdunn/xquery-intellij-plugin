@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclarations
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -28,10 +28,12 @@ class XQueryMainModulePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryMainModule,
     XQueryPrologResolver,
-    XPathStaticContext {
+    XPathVariableDeclarations {
 
-    override val prolog get(): XQueryProlog? = children().filterIsInstance<XQueryProlog>().firstOrNull()
+    override val prolog get(): Sequence<XQueryProlog> = children().filterIsInstance<XQueryProlog>()
 
     override val variables
-        get(): Sequence<XPathVariableDeclaration> = (prolog as? XPathStaticContext)?.variables ?: emptySequence()
+        get(): Sequence<XPathVariableDeclaration> {
+            return prolog.flatMap { prolog -> (prolog as? XPathVariableDeclarations)?.variables ?: emptySequence() }
+        }
 }

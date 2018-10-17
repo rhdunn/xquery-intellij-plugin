@@ -18,18 +18,27 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathDefaultNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathDefaultNamespaceDeclaration,
+    XQueryPrologResolver,
     XQueryDefaultNamespaceDecl {
+    // region XQueryPrologResolver
+
+    override val prolog: Sequence<XQueryProlog>
+        get() {
+            val file = namespaceUri?.resolveUri<XQueryModule>(true)
+            val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+            return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
+        }
+
+    // endregion
+    // region XPathDefaultNamespaceDeclaration
 
     override val namespacePrefix: XsNCNameValue? = null
 
@@ -50,4 +59,6 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
                 }
             }.filterNotNull().first()
         }
+
+    // endregion
 }

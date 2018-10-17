@@ -19,12 +19,10 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -62,7 +60,6 @@ object XQueryElementType {
     val NODE_TEST: IElementType = ICompositeElementType("XQUERY_NODE_TEST", XPathNodeTestPsiImpl::class.java, XQuery)
     val NAME_TEST: IElementType = ICompositeElementType("XQUERY_NAME_TEST", XPathNameTestPsiImpl::class.java, XQuery)
     val WILDCARD: IElementType = ICompositeElementType("XQUERY_WILDCARD", XPathWildcardPsiImpl::class.java, XQuery)
-    val WILDCARD_INDICATOR: IElementType = ICompositeElementType("XQUERY_WILDCARD_INDICATOR", PluginWildcardIndicatorPsiImpl::class.java, XQuery)
     val PREDICATE_LIST: IElementType = ICompositeElementType("XQUERY_PREDICATE_LIST", XPathPredicateListPsiImpl::class.java, XQuery)
     val PREDICATE: IElementType = ICompositeElementType("XQUERY_PREDICATE", XPathPredicatePsiImpl::class.java, XQuery)
 
@@ -100,7 +97,6 @@ object XQueryElementType {
     val QUANTIFIED_EXPR: IElementType = ICompositeElementType("XQUERY_QUANTIFIED_EXPR", XPathQuantifiedExprPsiImpl::class.java, XQuery)
     val TYPESWITCH_EXPR: IElementType = ICompositeElementType("XQUERY_TYPESWITCH_EXPR", XQueryTypeswitchExprPsiImpl::class.java, XQuery)
     val CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_CASE_CLAUSE", XQueryCaseClausePsiImpl::class.java, XQuery)
-    val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_DEFAULT_CASE_CLAUSE", PluginDefaultCaseClausePsiImpl::class.java, XQuery)
     val IF_EXPR: IElementType = ICompositeElementType("XQUERY_IF_EXPR", XPathIfExprPsiImpl::class.java, XQuery)
 
     val QUERY_BODY: IElementType = ICompositeElementType("XQUERY_QUERY_BODY", XQueryQueryBodyPsiImpl::class.java, XQuery)
@@ -127,11 +123,7 @@ object XQueryElementType {
     val SCHEMA_ATTRIBUTE_TEST: IElementType = ICompositeElementType("XQUERY_SCHEMA_ATTRIBUTE_TEST", XPathSchemaAttributeTestPsiImpl::class.java, XQuery)
     val PI_TEST: IElementType = ICompositeElementType("XQUERY_PI_TEST", XPathPITestPsiImpl::class.java, XQuery)
     val COMMENT_TEST: IElementType = ICompositeElementType("XQUERY_COMMENT_TEST", XPathCommentTestPsiImpl::class.java, XQuery)
-    val ANY_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_ANY_TEXT_TEST", PluginAnyTextTestPsiImpl::class.java, XQuery)
-    val NAMED_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_TEXT_TEST", PluginNamedTextTestPsiImpl::class.java, XQuery)
     val ANY_KIND_TEST: IElementType = ICompositeElementType("XQUERY_ANY_KIND_TEST", XPathAnyKindTestPsiImpl::class.java, XQuery)
-    val NAMED_KIND_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_KIND_TEST", PluginNamedKindTestPsiImpl::class.java, XQuery)
-    val ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE", XPathItemTypePsiImpl::class.java, XQuery)
     val SEQUENCE_TYPE: IElementType = ICompositeElementType("XQUERY_SEQUENCE_TYPE", XPathSequenceTypePsiImpl::class.java, XQuery)
 
     val PARAM: IElementType = ICompositeElementType("XQUERY_PARAM", XPathParamPsiImpl::class.java, XQuery)
@@ -156,7 +148,6 @@ object XQueryElementType {
 
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_DIR_ELEM_CONSTRUCTOR", XQueryDirElemConstructorPsiImpl::class.java, XQuery)
     val DIR_ATTRIBUTE_LIST: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE_LIST", XQueryDirAttributeListPsiImpl::class.java, XQuery)
-    val DIR_ATTRIBUTE: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE", PluginDirAttributePsiImpl::class.java, XQuery)
     val DIR_ATTRIBUTE_VALUE: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE_VALUE", XQueryDirAttributeValuePsiImpl::class.java, XQuery)
     val DIR_COMMENT_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQueryDirCommentConstructorPsiImpl::class.java, XQuery)
     val DIR_PI_CONSTRUCTOR: IElementType = ICompositeElementType("XQUERY_DIR_PI_CONSTRUCTOR", XQueryDirPIConstructorPsiImpl::class.java, XQuery)
@@ -205,7 +196,6 @@ object XQueryElementType {
 
     val FOR_BINDING: IElementType = ICompositeElementType("XQUERY_FOR_BINDING", XQueryForBindingPsiImpl::class.java, XQuery)
     val LET_BINDING: IElementType = ICompositeElementType("XQUERY_LET_BINDING", XQueryLetBindingPsiImpl::class.java, XQuery)
-    val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType("XQUERY_QUANTIFIED_EXPR_BINDING", PluginQuantifiedExprBindingPsiImpl::class.java, XQuery)
 
     val ALLOWING_EMPTY: IElementType = ICompositeElementType("XQUERY_ALLOWING_EMPTY", XQueryAllowingEmptyPsiImpl::class.java, XQuery)
     val INTERMEDIATE_CLAUSE: IElementType = ICompositeElementType("XQUERY_INTERMEDIATE_CLAUSE", XQueryIntermediateClausePsiImpl::class.java, XQuery)
@@ -295,8 +285,6 @@ object XQueryElementType {
     // endregion
     // region Update Facility 3.0
 
-    val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", PluginCompatibilityAnnotationPsiImpl::class.java, XQuery)
-
     val COPY_MODIFY_EXPR: IElementType = ICompositeElementType("XQUERY_COPY_MODIFY_EXPR", UpdateFacilityCopyModifyExprPsiImpl::class.java, XQuery)
     val UPDATING_FUNCTION_CALL: IElementType = ICompositeElementType("XQUERY_UPDATING_FUNCTION_CALL", UpdateFacilityUpdatingFunctionCallPsiImpl::class.java, XQuery)
 
@@ -362,7 +350,6 @@ object XQueryElementType {
 
     val BLOCK_DECLS: IElementType = ICompositeElementType("XQUERY_BLOCK_DECLS", ScriptingBlockDeclsPsiImpl::class.java, XQuery)
     val BLOCK_VAR_DECL: IElementType = ICompositeElementType("XQUERY_BLOCK_VAR_DECL", ScriptingBlockVarDeclPsiImpl::class.java, XQuery)
-    val BLOCK_VAR_DECL_ENTRY: IElementType = ICompositeElementType("XQUERY_BLOCK_VAR_DECL_ENTRY", PluginBlockVarDeclEntryPsiImpl::class.java, XQuery)
 
     val BLOCK_EXPR: IElementType = ICompositeElementType("XQUERY_BLOCK_EXPR", ScriptingBlockExprPsiImpl::class.java, XQuery)
     val ASSIGNMENT_EXPR: IElementType = ICompositeElementType("XQUERY_ASSIGNMENT_EXPR", ScriptingAssignmentExprPsiImpl::class.java, XQuery)
@@ -434,6 +421,31 @@ object XQueryElementType {
     val TUPLE_FIELD: IElementType = ICompositeElementType("XQUERY_TUPLE_FIELD", PluginTupleFieldImpl::class.java, XQuery)
 
     val UNION_TYPE: IElementType = ICompositeElementType("XQUERY_UNION_TYPE", PluginUnionTypeImpl::class.java, XQuery)
+
+    val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType("XQUERY_SIMPLE_INLINE_FUNCTION_EXPR", PluginSimpleInlineFunctionExprImpl::class.java, XQuery)
+
+    // endregion
+    // region XQuery IntelliJ Plugin
+
+    val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", PluginCompatibilityAnnotationPsiImpl::class.java, XQuery)
+
+    val WILDCARD_INDICATOR: IElementType = ICompositeElementType("XQUERY_WILDCARD_INDICATOR", PluginWildcardIndicatorPsiImpl::class.java, XQuery)
+
+    val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType("XQUERY_DEFAULT_CASE_CLAUSE", PluginDefaultCaseClausePsiImpl::class.java, XQuery)
+    val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType("XQUERY_QUANTIFIED_EXPR_BINDING", PluginQuantifiedExprBindingPsiImpl::class.java, XQuery)
+    val BLOCK_VAR_DECL_ENTRY: IElementType = ICompositeElementType("XQUERY_BLOCK_VAR_DECL_ENTRY", PluginBlockVarDeclEntryPsiImpl::class.java, XQuery)
+    val DIR_ATTRIBUTE: IElementType = ICompositeElementType("XQUERY_DIR_ATTRIBUTE", PluginDirAttributePsiImpl::class.java, XQuery)
+
+    val NAMED_KIND_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_KIND_TEST", PluginNamedKindTestPsiImpl::class.java, XQuery)
+
+    val ANNOTATED_SEQUENCE_TYPE: IElementType = ICompositeElementType("XQUERY_ANNOTATED_SEQUENCE_TYPE", PluginAnnotatedSequenceTypePsiImpl::class.java, XQuery)
+    val ANY_ITEM_TYPE: IElementType = ICompositeElementType("XQUERY_ANY_ITEM_TYPE", PluginAnyItemTypePsiImpl::class.java, XQuery)
+
+    val ANY_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_ANY_TEXT_TEST", PluginAnyTextTestPsiImpl::class.java, XQuery)
+    val NAMED_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_TEXT_TEST", PluginNamedTextTestPsiImpl::class.java, XQuery)
+
+    val ITEM_TYPE_UNION: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE_UNION", PluginItemTypeUnionPsiImpl::class.java, XQuery)
+    val TUPLE_SEQUENCE_TYPE: IElementType = ICompositeElementType("XQUERY_TUPLE_SEQUENCE_TYPE", PluginTupleSequenceTypePsiImpl::class.java, XQuery)
 
     // endregion
 

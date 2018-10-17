@@ -16,10 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery IntelliJ Plugin - Parser")
 private class PluginParserTest : ParserTestCase() {
     // region BaseX 6.1 :: FTFuzzyOption
 
@@ -1424,90 +1427,6 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Saxon 9.8 :: TupleType
-
-    @Test
-    fun testTupleType() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleType_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region Saxon 9.8 :: TupleType :: TupleField
-
-    @Test
-    fun testTupleField() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_Multiple() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_MultipleWithOccurrenceIndicator() {
-        // This is testing handling of whitespace before parsing the next comma.
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_MissingColon() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_MissingSequenceType() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTupleField_NoSequenceType() {
-        val expected = loadResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region Saxon 9.8 :: TypeDecl
 
     @Test
@@ -1553,57 +1472,700 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region Saxon 9.8 :: UnionType
 
-    @Test
-    fun testUnionType() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("single")
+        fun singleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing UpdateExpr")
+        fun missingUpdateExpr() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multipleAndAlso() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is first")
+        fun mixedAndAlsoFirst() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; andAlso is last")
+        fun mixedAndAlsoLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
+    internal inner class UnionType {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName; compact whitespace")
+        fun ncname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_NCName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName")
+        fun qname() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName; compact whitespace")
+        fun qname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("URIQualifiedName; compact whitespace")
+        fun uriQualifiedName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_URIQualifiedName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun testUnionType_MissingClosingParenthesis() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing first type")
+        fun testUnionType_MissingFirstType() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing next type")
+        fun testUnionType_MissingNextType() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple types")
+        fun testUnionType_Multiple() {
+            // This is testing handling of whitespace before parsing the next comma.
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("union in TypedMapTest")
+        fun testUnionType_InTypedMapTest() {
+            val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionType_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
+    internal inner class TupleType {
+        @Test
+        @DisplayName("tuple type")
+        fun tupleType() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tuple type; compact whitespace")
+        fun tupleType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple")
+        fun extensible() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple; compact whitespace")
+        fun extensible_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("extensible tuple; not last")
+        fun extensible_NotLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionType_MissingFirstType() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType ; XQuery IntelliJ Plugin EBNF (24) TupleField")
+    internal inner class TupleType_TupleField {
+        @Test
+        @DisplayName("single")
+        fun testTupleField() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun testTupleField_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun testTupleField_Multiple() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun testTupleField_Multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("occurrence indicator in SequenceType")
+        fun testTupleField_MultipleWithOccurrenceIndicator() {
+            // This is testing handling of whitespace before parsing the next comma.
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing colon")
+        fun testTupleField_MissingColon() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing SequenceType")
+        fun testTupleField_MissingSequenceType() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("no SequenceType")
+        fun testTupleField_NoSequenceType() {
+            val expected = loadResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional field name")
+        fun testTupleField_OptionFieldName() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional field name; compact whitespace")
+        fun testTupleField_OptionFieldName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional field name; no sequence type")
+        fun testTupleField_OptionFieldName_NoSequenceType() {
+            val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionType_MissingNextType() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
+    internal inner class SequenceType {
+        @Test
+        @DisplayName("empty sequence")
+        fun testSequenceType_Empty() {
+            val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.txt")
+            val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty sequence; compact whitespace")
+        fun testSequenceType_Empty_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty sequence; missing closing parenthesis")
+        fun testSequenceType_Empty_MissingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionType_Multiple() {
-        // This is testing handling of whitespace before parsing the next comma.
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
+    internal inner class OrExpr {
+        @Test
+        @DisplayName("single")
+        fun singleOrElse() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing AndExpr")
+        fun missingAndExpr() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_MissingAndExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_MissingAndExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multipleOrElse() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_MultipleOrElse.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_MultipleOrElse.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; orElse is first")
+        fun mixedOrElseFirst() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; orElse is last")
+        fun mixedOrElseLast() {
+            val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.txt")
+            val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionType_InTypedMapTest() {
-        val expected = loadResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.txt")
-        val actual = parseResource("tests/parser/saxon-9.8/UnionType_InTypedMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (81) SimpleInlineFunctionExpr")
+    internal inner class SimpleInlineFunctionExpr {
+        @Test
+        @DisplayName("simple inline function expression")
+        fun simpleInlineFunctionExpr() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("simple inline function expression; compact whitespace")
+        fun simpleInlineFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingExpr.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    // endregion
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
+    internal inner class ItemTypeUnion {
+        @Test
+        @DisplayName("item type union")
+        fun itemTypeUnion() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("item type union; compact whitespace")
+        fun itemTypeUnion_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; missing token")
+        internal inner class MissingToken {
+            @Test
+            @DisplayName("missing item type")
+            fun missingItemType() {
+                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("error recovery; mixed with tuple sequence type")
+        fun mixedWithTupleSequenceType() {
+            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithTupleSequenceType.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithTupleSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; item type as sequence type")
+        internal inner class ItemTypeAsSequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun emptySequence() {
+                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_EmptySequence.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_EmptySequence.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurrence indicator")
+            fun occurrenceIndicator() {
+                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_OccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_OccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (87) TupleSequenceType")
+    internal inner class TupleSequenceType {
+        @Test
+        @DisplayName("tuple sequence type")
+        fun tupleSequenceType() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("tuple sequence type; compact whitespace")
+        fun tupleSequenceType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; missing token")
+        internal inner class MissingToken {
+            @Test
+            @DisplayName("missing item type")
+            fun missingItemType() {
+                val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_MissingItemType.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_MissingItemType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/TupleSequenceType_MissingClosingParenthesis.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/TupleSequenceType_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("error recovery; mixed with item type union")
+        fun mixedWithItemTypeUnion() {
+            val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_MixedWithItemTypeUnion.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_MixedWithItemTypeUnion.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; item type as sequence type")
+        internal inner class ItemTypeAsSequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun emptySequence() {
+                val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_EmptySequence.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_EmptySequence.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurrence indicator")
+            fun occurrenceIndicator() {
+                val expected = loadResource("tests/parser/intellij-plugin/TupleSequenceType_OccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/TupleSequenceType_OccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (90) AnnotatedSequenceType")
+    internal inner class AnnotatedSequenceType {
+        @Nested
+        @DisplayName("annotations on kind tests")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("kind test")
+            fun kindTest() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("kind test; compact whitespace")
+            fun kindTest_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("annotations on function tests")
+        internal inner class FunctionTest {
+            @Test
+            @DisplayName("function without annotations")
+            fun functionWithoutAnnotations() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("function without annotations; compact whitespace")
+            fun functionWithoutAnnotations_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithoutAnnotations_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("function with annotations")
+            fun functionWithAnnotations() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("function with annotations; compact whitespace")
+            fun functionWithAnnotations_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_FunctionTest_FunctionWithAnnotations_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("annotations on atomic or union types")
+        internal inner class AtomicOrUnionType {
+            @Test
+            @DisplayName("atomic or union type")
+            fun atomicOrUnionType() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("atomic or union type; compact whitespace")
+            fun atomicOrUnionType_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_AtomicOrUnionType_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("annotations on sequence types")
+        internal inner class SequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun emptySequence() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_EmptySequence.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_EmptySequence.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurrence indicator")
+            fun occurrenceIndicator() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_OccurrenceIndicator.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_OccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("multiple annotations")
+        internal inner class Multiple {
+            @Test
+            @DisplayName("multiple")
+            fun multipleAnnotations() {
+                val expected = loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple.txt")
+                val actual = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple; compact whitespace")
+            fun multipleAnnotations_CompactWhitespace() {
+                val expected =
+                    loadResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple_CompactWhitespace.txt")
+                val actual =
+                    parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_Multiple_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
 }

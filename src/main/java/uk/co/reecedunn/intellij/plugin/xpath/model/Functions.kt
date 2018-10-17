@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import com.intellij.diff.comparison.expand
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 interface XPathFunctionReference {
@@ -28,20 +28,36 @@ interface XPathFunctionReference {
     val arity: Int
 }
 
-fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
-    val prologs = (this as XsQNameValue).expand().map { name ->
-        (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog
-    }.filterNotNull()
-
-    return prologs.flatMap { prolog ->
-        prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
-            val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-            val functionName = function?.children()?.filterIsInstance<XPathEQName>()?.firstOrNull()
-            if (functionName?.equals(this) == true) {
-                function
-            } else {
-                null
-            }
+private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
+    return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
+        val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
+        val functionName = function?.children()?.filterIsInstance<XsQNameValue>()?.firstOrNull()
+        if (functionName?.expand()?.firstOrNull()?.let { op_qname_equal(it, name) } == true) {
+            function
+        } else {
+            null
         }
-    }.filterNotNull()
+    }
+}
+
+fun XPathEQName.staticallyKnownFunctions(): Sequence<XQueryFunctionDecl> {
+    var thisProlog: XQueryProlog? =
+        (ancestors().filter { element ->
+            element is XQueryMainModule || element is XQueryLibraryModule
+        }.first() as XQueryPrologResolver).prolog.firstOrNull()
+    val functions = (this as XsQNameValue).expand().flatMap { name ->
+        val prologs = (name.namespace?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
+        prologs.flatMap { prolog ->
+            if (prolog == thisProlog)
+                thisProlog = null
+            prolog.staticallyKnownFunctions(name)
+        }
+    }.toList()
+    return if (thisProlog != null)
+        sequenceOf(
+            functions.asSequence(),
+            (this as XsQNameValue).expand().flatMap { name -> thisProlog!!.staticallyKnownFunctions(name) }
+        ).flatten().filterNotNull()
+    else
+        functions.asSequence().filterNotNull()
 }

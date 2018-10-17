@@ -19,8 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, XQueryConformance {

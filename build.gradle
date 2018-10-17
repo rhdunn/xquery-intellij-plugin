@@ -1,20 +1,23 @@
 buildscript {
+    // (1) Year and Version -- (a) IC-2017.3, (b) 2017.2.4, (c) 2018.1
+    // (2) Build ID -- (a) IU-163.7890, (b) 171.1234
+    // (3) Named Snapshots -- (a) LATEST-EAP-SNAPSHOT, (b) LATEST-TRUNK-SNAPSHOT
     ext.since_from_version = { version ->
-        // (1) Year and Version -- IC-2017.3 => 173, 2017.2.4 => 172
+        // (1) Year and Version
 
         def since = version =~ /([A-Z]+-)?20([0-9][0-9])\.([1-3])(\.[0-9]+)?/
         if (since.matches()) {
             return "${since.group(2)}${since.group(3)}"
         }
 
-        // (2) Build ID -- IU-163.7890 => 163, 171.1234 => 171
+        // (2) Build ID
 
-        since = version =~ /([A-Z]+-)?([0-9][0-9][0-9])\.[0-9]+?/ // e.g. IU-163.7890, 171.1234
+        since = version =~ /([A-Z]+-)?([0-9][0-9][0-9])\.[0-9]+?/
         if (since.matches()) {
             return since.group(2)
         }
 
-        // (3) Named Snapshots -- LATEST-EAP-SNAPSHOT, LATEST-TRUNK-SNAPSHOT
+        // (3) Named Snapshots
 
         def repositoryPath = "https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/BUILD"
         def build = new File("$projectDir/build/BUILD-${version}.txt")
@@ -36,7 +39,7 @@ buildscript {
             "1.2.70" // <= 2018.2
     }
 
-    ext.idea_version = System.getenv("IDEA_VERSION") ?: 'LATEST-EAP-SNAPSHOT'
+    ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.2'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_version(ext.idea_version)
@@ -53,7 +56,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.2.17"
+    id "org.jetbrains.intellij" version "0.3.12"
 }
 
 apply plugin: 'org.jetbrains.intellij'

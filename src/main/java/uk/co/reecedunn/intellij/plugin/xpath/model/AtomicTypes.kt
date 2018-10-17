@@ -31,13 +31,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiManager
-import com.intellij.testFramework.LightVirtualFileBase
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import org.jetbrains.jps.model.java.JavaSourceRootType
+import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -87,40 +85,39 @@ data class XsAnyUri(
     override val element get(): PsiElement? = reference?.get()
 }
 
-private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: String): PsiFile? {
-    if (parent == null) {
-        return null
-    }
+private val HTTP_ONLY_IMPORT_RESOLVERS = sequenceOf(
+    EmptyPathImportResolver,
+    HttpProtocolImportResolver
+)
 
-    val file = parent.findFileByRelativePath(path)
-    if (file != null) {
-        return PsiManager.getInstance(project).findFile(file)
-    }
+private val STATIC_IMPORT_RESOLVERS = sequenceOf(
+    EmptyPathImportResolver,
+    HttpProtocolImportResolver,
+    ResProtocolImportResolver
+)
 
-    return resolveFileByPath(parent.parent, project, path)
-}
-
-@Suppress("UNCHECKED_CAST")
 fun <T : PsiFile> XsAnyUriValue.resolveUri(httpOnly: Boolean = false): T? {
     val path = data
-    return when {
-        path.isEmpty() -> null
-        path.startsWith("res://") && !httpOnly -> {
-            ResourceVirtualFile.resolve(path, element!!.project) as? T
+    val project = element!!.project
+    val resolvers =
+        if (httpOnly)
+            HTTP_ONLY_IMPORT_RESOLVERS
+        else {
+            val file = element!!.containingFile.virtualFile
+            sequenceOf(
+                STATIC_IMPORT_RESOLVERS,
+                moduleRootImportResolvers(project, JavaSourceRootType.SOURCE),
+                if (file.getSourceRootType(project) === JavaSourceRootType.TEST_SOURCE)
+                    moduleRootImportResolvers(project, JavaSourceRootType.TEST_SOURCE)
+                else
+                    emptySequence(),
+                sequenceOf(RelativeFileImportResolver(file))
+            ).flatten()
         }
-        path.startsWith("http://") -> {
-            ResourceVirtualFile.resolve("res://${path.substringAfter("http://")}.xqy", element!!.project) as? T
-        }
-        !path.contains("://") && !httpOnly -> {
-            var file = element!!.containingFile.virtualFile
-            if (file is LightVirtualFileBase) {
-                file = file.originalFile
-            }
-
-            return resolveFileByPath(file, element!!.project, path) as? T
-        }
-        else -> null
-    }
+    return resolvers
+        .filter { resolver -> resolver.match(path) }
+        .map { resolver -> resolver.resolve(path)?.toPsiFile<T>(project) }
+        .filterNotNull().firstOrNull()
 }
 
 // endregion

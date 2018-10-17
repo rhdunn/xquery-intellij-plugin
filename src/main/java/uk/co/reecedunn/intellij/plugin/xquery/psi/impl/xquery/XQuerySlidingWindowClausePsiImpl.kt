@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :

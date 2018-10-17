@@ -30,10 +30,10 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
     // region XQueryPrologResolver
 
     override val prolog
-        get(): XQueryProlog? {
+        get(): Sequence<XQueryProlog> {
             val file = namespaceUri?.resolveUri<XQueryModule>(true)
             val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-            return (library as? XQueryPrologResolver)?.prolog
+            return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
         }
 
     // endregion

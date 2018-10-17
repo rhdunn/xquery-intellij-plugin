@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiManager
 import org.apache.commons.compress.utils.IOUtils
 
 import java.io.File
@@ -111,18 +110,8 @@ class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
     }
 
     companion object {
-        fun create(klass: Class<*>, resource: String): ResourceVirtualFile {
+        fun create(klass: Class<*>, resource: String): VirtualFile {
             return ResourceVirtualFile(klass.classLoader, resource)
-        }
-
-        fun resolve(path: String?, project: Project): PsiFile? {
-            if (path == null || !path.startsWith("res://")) {
-                return null
-            }
-
-            val resource = path.replaceFirst("res://".toRegex(), "builtin/")
-            val file = create(ResourceVirtualFile::class.java, resource)
-            return if (file.isValid) PsiManager.getInstance(project).findFile(file) else null
         }
     }
 }

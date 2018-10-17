@@ -1,0 +1,1 @@
+declare variable $ x as % test for % public function ( ) as item ( ) := 2 ;

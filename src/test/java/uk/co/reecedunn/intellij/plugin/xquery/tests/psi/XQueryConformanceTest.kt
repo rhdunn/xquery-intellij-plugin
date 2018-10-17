@@ -17,23 +17,27 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.intellij.lang.EXistDB
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@DisplayName("XQuery 3.1 - Implementation Conformance Checks")
 private class XQueryConformanceTest : ParserTestCase() {
     // region AllowingEmpty
 
@@ -1748,7 +1752,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType.ITEM_TYPE))
+                `is`(XQueryElementType.ANY_ITEM_TYPE))
     }
 
     // endregion
@@ -2061,4 +2065,25 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
+    internal inner class SequenceType {
+        @Test
+        @DisplayName("empty sequence; recommendation syntax")
+        fun emptySequence() {
+            val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(2))
+            assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_1_0_20070123))
+            assertThat(versioned.requiresConformance[1], `is`(EXistDB.VERSION_4_0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.K_EMPTY_SEQUENCE)
+            )
+        }
+    }
 }

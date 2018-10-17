@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,19 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleType
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class PluginTupleTypeImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTupleType, XQueryConformance {
-    override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
+private val SAXON98: List<Version> = listOf(Saxon.VERSION_9_8)
+private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+class PluginTupleTypeImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginTupleType, XQueryConformance {
+
+    override val requiresConformance
+        get(): List<Version> = if (conformanceElement === firstChild) SAXON98 else SAXON99
+
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.STAR) ?: firstChild
 }

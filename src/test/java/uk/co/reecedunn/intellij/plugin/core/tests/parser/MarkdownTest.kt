@@ -16,13 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This tests the Markdown generation to ensure that it is consistent.
+@DisplayName("IntelliJ - Custom Language Support - Code Inspections and Intentions - Markdown")
 class MarkdownTest {
     @Test
+    @DisplayName("paragraph; single line")
     fun onelineParagraph() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor."),
@@ -31,6 +34,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("paragraph; multiple lines")
     fun multilineParagraph() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor sit amet,\r\nconsectetur adipiscing elit."),
@@ -39,6 +43,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("paragraph; multiple paragraphs")
     fun multipleParagraphs() {
         assertThat(
             Markdown.parse("Lorem ipsum dolor sit amet,\r\n\r\nconsectetur adipiscing elit."),
@@ -47,6 +52,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("inline content: code")
     fun code() {
         assertThat(
             Markdown.parse("Lorem `ipsum` dolor sit amet."),
@@ -55,6 +61,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("inline content: emphasis")
     fun emphasis() {
         assertThat(
             Markdown.parse("Lorem *ipsum* dolor sit amet."),
@@ -63,6 +70,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("inline content: strong")
     fun strong() {
         assertThat(
             Markdown.parse("Lorem __ipsum__ dolor sit amet."),
@@ -71,6 +79,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("pre; single line")
     fun onelinePre() {
         assertThat(
             Markdown.parse("    Lorem ipsum dolor sit amet."),
@@ -79,6 +88,7 @@ class MarkdownTest {
     }
 
     @Test
+    @DisplayName("pre; multiple lines")
     fun multilinePre() {
         assertThat(
             Markdown.parse("    Lorem ipsum dolor sit amet,\r\n    consectetur adipiscing elit."),

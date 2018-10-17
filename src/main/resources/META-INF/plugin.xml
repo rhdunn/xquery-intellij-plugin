@@ -14,20 +14,53 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.3-dev:</h3>
-    <p>Language Support:</p>
+    <p>Saxon Vendor Extensions:</p>
     <ol>
       <li>Recognise Saxon <code>UnionType</code> constructs in <code>TypedMapTest</code> sequence types.</li>
       <li>Support <code>TupleType</code> constructs with names only, not associated sequence types.</li>
+      <li>Support Saxon 9.8 simple inline function expressions.</li>
+      <li>Support Saxon 9.9 <code>orElse</code> and <code>andAlso</code> logical expressions.</li>
+      <li>Support Saxon 9.9 optional field names for tuples, and extensible tuples.</li>
     </ol>
-    <p>References and Resolving:</p>
+    <p>XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:</p>
+    <ol>
+      <li>Support <code>empty()</code> syntax for <code>empty-sequence()</code>.</li>
+    </ol>
+    <p>Invalid Syntax Recovery:</p>
+    <ol>
+      <li>Recover parsing when the <code>CompElemConstructor</code>, <code>CompAttrConstructor</code>, <code>CompPIConstructor</code>, or <code>CompNamespaceConstructor</code> tag name is a <code>StringLiteral</code>.</li>
+      <li>Recover parsing when a <code>SequenceType</code> is used in a <code>ParenthesizedItemType</code>.</li>
+    </ol>
+    <p>Static Context:</p>
+    <ol>
+      <li>Add the <code>sql</code> namespace to the MarkLogic static context, added in MarkLogic 7.0.</li>
+      <li>Add support for the BaseX built-in functions and static context. Thanks to Bridger Dyson-Smith for providing the built-in function definitions.</li>
+    </ol>
+    <p>Module Import Resolution:</p>
+    <ol>
+      <li>Use project source roots to resolve module import URIs.</li>
+      <li>Locate built-in definitions from <code>http://</code>-based <code>URILiteral</code> nodes.</li>
+      <li>Resolve all location URIs in a <code>ModuleImport</code>, not just the first valid location.</li>
+      <li>Resolve <code>ModuleImport</code> declarations that don't specify <code>at</code> paths.</li>
+    </ol>
+    <p>EQName Resolution:</p>
     <ol>
       <li>
         Expand <code>NCName</code>-based <code>EQName</code> nodes, using the default element or function
         namespaces where appropriate.
       </li>
-      <li>Locate built-in definitions from <code>http://</code>-based <code>URILiteral</code> nodes.</li>
-      <li>Resolve <code>ModuleImport</code> declarations that don't specify <code>at</code> paths.</li>
-      <li>Resolve <code>NamespaceDecl</code> declarations.</li>
+      <li>Resolve EQNames bound to <code>NamespaceDecl</code> declarations.</li>
+      <li>Resolve EQNames bound to <code>DefaultNamespaceDecl</code> declarations.</li>
+      <li>Resolve EQNames bound to <code>DirAttributeList</code> attributes.</li>
+    </ol>
+    <p>Function Resolution:</p>
+    <ol>
+      <li>Matching statically-known functions against expanded QNames.</li>
+      <li>Search the <code>MainModule</code>/<code>LibraryModule</code> prolog for function declarations.</li>
+    </ol>
+    <p>Inspections:</p>
+    <ol>
+      <li>IJVS0001: Report warnings for constructs that require a different XQuery version.</li>
     </ol>
   ]]></change-notes>
 
@@ -37,88 +70,88 @@
   <depends>com.intellij.modules.xml</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory"/>
+    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
 
-    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage"/>
+    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage"/>
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
-    <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryFindUsagesProvider"/>
+    <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
 
-    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.editor.XQueryPairedBraceMatcher"/>
-    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.editor.XQueryCommenter"/>
-    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.editor.XQueryFoldingBuilder"/>
+    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryPairedBraceMatcher"/>
+    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryCommenter"/>
+    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder"/>
 
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryUriLiteralManipulator"/>
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryUriLiteralManipulator"/>
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryQNameManipulator"/>
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryQNameManipulator"/>
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryEQNameManipulator"/>
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryEQNameManipulator"/>
 
-    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
 
     <localInspection language="XQuery" shortName="IJVS0001" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0001" hasStaticDescription="true"
                      enabledByDefault="true" level="WARNING"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.UnsupportedConstructInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001"/>
     <localInspection language="XQuery" shortName="IJVS0002" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0002" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.ReservedFunctionNameInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002"/>
     <localInspection language="XQuery" shortName="IJVS0003" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0003" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003"/>
     <localInspection language="XQuery" shortName="IJVS0004" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0004" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.MapConstructorEntryInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004"/>
     <localInspection language="XQuery" shortName="IJVS0005" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
                      key="inspection.ijvs.IJVS0005" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.FinalStatementSemicolonInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005"/>
 
     <localInspection language="XQuery" shortName="XPST0017" bundle="messages.XQueryBundle"
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xpst.XPST0017" hasStaticDescription="true"
                      enabledByDefault="false" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0017.UndefinedFunctionInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0017"/>
     <localInspection language="XQuery" shortName="XQST0031" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0031" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031.UnsupportedXQueryVersionInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031"/>
     <localInspection language="XQuery" shortName="XQST0033" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0033" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033"/>
     <localInspection language="XQuery" shortName="XQST0047" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0047" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0047.DuplicateNamespaceUriInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0047"/>
     <localInspection language="XQuery" shortName="XPST0081" bundle="messages.XQueryBundle"
                      groupKey="inspection.xpst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xpst.XPST0081" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081"/>
     <localInspection language="XQuery" shortName="XQST0118" bundle="messages.XQueryBundle"
                      groupKey="inspection.xqst.group-name" groupPath="XPath and XQuery"
                      key="inspection.xqst.XQST0118" hasStaticDescription="true"
                      enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118.MismatchedDirElemTagNameInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118"/>
 
-    <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
-                    serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>
-    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable"/>
+    <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"
+                    serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
+    <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
   </extensions>
 
   <application-components>

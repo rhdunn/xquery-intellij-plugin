@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -51,6 +52,7 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.SIMPLE_TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.TYPE_DECL to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
+    XQueryElementType.UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.VAR_NAME to XPathNamespaceType.None
 )
 
@@ -73,6 +75,29 @@ interface XPathDefaultNamespaceDeclaration : XPathNamespaceDeclaration {
     val namespaceType: XPathNamespaceType
 }
 
+// region XPath 3.1 (2.1.1) Statically known namespaces
+
+fun PsiElement.staticallyKnownNamespaces(): Sequence<XPathNamespaceDeclaration> {
+    return walkTree().reversed().flatMap { node ->
+        when (node) {
+            is XPathNamespaceDeclaration ->
+                sequenceOf(node as XPathNamespaceDeclaration)
+            is XQueryDirElemConstructor ->
+                node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
+                    ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { attr -> attr as XPathNamespaceDeclaration }
+                    ?: emptySequence()
+            is XQueryProlog ->
+                node.children().reversed().filterIsInstance<XPathNamespaceDeclaration>()
+            is XQueryModule ->
+                node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XPathNamespaceDeclaration>() ?: emptySequence()
+            else -> emptySequence()
+        }
+    }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }
+}
+
+// endregion
+// region XPath 3.1 (2.1.1) Default element/type namespace ; XPath 3.1 (2.1.1) Default function namespace
+
 private fun PsiElement.defaultNamespace(
     type: XPathNamespaceType,
     resolveProlog: Boolean
@@ -93,7 +118,7 @@ private fun PsiElement.defaultNamespace(
             }
             is XQueryMainModule ->
                 if (resolveProlog && !visitedProlog)
-                    (node as XQueryPrologResolver).prolog?.defaultNamespace(type, false) ?: emptySequence()
+                    (node as XQueryPrologResolver).prolog.flatMap { prolog -> prolog.defaultNamespace(type, false) }
                 else
                     emptySequence()
             is XQueryDirElemConstructor ->
@@ -112,6 +137,23 @@ fun PsiElement.defaultFunctionNamespace(): Sequence<XPathDefaultNamespaceDeclara
     return defaultNamespace(XPathNamespaceType.DefaultFunction, true)
 }
 
+// endregion
+
+private fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
+    return firstOrNull()?.let { decl ->
+        val expanded =
+            ncname.element!!.staticallyKnownNamespaces().filter { ns ->
+                ns.namespaceUri?.data == decl.namespaceUri?.data
+            }.map { ns ->
+                XsQName(ns.namespaceUri, null, ncname.localName, false, ncname.element)
+            }
+        if (expanded.any())
+            expanded
+        else
+            sequenceOf(XsQName(decl.namespaceUri, null, ncname.localName, false, ncname.element))
+    } ?: emptySequence()
+}
+
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XPathNamespaceType.Undefined
     return if (parentType === XQueryElementType.NAME_TEST)
@@ -127,16 +169,8 @@ fun XsQNameValue.expand(): Sequence<XsQNameValue> {
     return when {
         isLexicalQName && prefix == null -> { // NCName
             when (getNamespaceType()) {
-                XPathNamespaceType.DefaultElementOrType -> {
-                    element!!.defaultElementOrTypeNamespace().map { decl ->
-                        XsQName(decl.namespaceUri, null, localName, false, element)
-                    }
-                }
-                XPathNamespaceType.DefaultFunction -> {
-                    element!!.defaultFunctionNamespace().map { decl ->
-                        XsQName(decl.namespaceUri, null, localName, false, element)
-                    }
-                }
+                XPathNamespaceType.DefaultElementOrType -> element!!.defaultElementOrTypeNamespace().expandNCName(this)
+                XPathNamespaceType.DefaultFunction -> element!!.defaultFunctionNamespace().expandNCName(this)
                 XPathNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
                 XPathNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
                 else -> sequenceOf(this)

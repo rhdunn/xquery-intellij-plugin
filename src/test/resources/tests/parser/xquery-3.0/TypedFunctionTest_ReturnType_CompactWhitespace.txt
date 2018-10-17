@@ -16,14 +16,14 @@ XQueryModuleImpl[FILE(0:58)]
                XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(24:49)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(24:32)]('function')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
-                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(33:39)]
+                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(33:39)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(33:37)]('item')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(40:42)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(43:49)]
+                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(43:49)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(43:47)]('item')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(47:48)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(48:49)](')')

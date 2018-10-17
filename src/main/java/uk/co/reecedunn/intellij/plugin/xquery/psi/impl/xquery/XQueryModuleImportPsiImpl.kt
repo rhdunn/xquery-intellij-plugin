@@ -40,24 +40,24 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
     // endregion
     // region XQueryPrologResolver
 
+    override val locationUris
+        get(): Sequence<XsAnyUriValue> {
+            val imports = children().filterIsInstance<XQueryUriLiteral>().map { uri ->
+                uri.value as XsAnyUriValue
+            }.filterNotNull().toList()
+            return if (imports.size == 1)
+                sequenceOf(imports[0])
+            else
+                imports.drop(1).asSequence()
+        }
+
     override val prolog
-        get(): XQueryProlog? {
-            var hasImportPath = false
-            return children().filterIsInstance<XQueryUriLiteral>().drop(1).map { uri ->
-                // 1. Try the "at ..." paths.
-                hasImportPath = true
-                val file = (uri.value as XsAnyUriValue).resolveUri<XQueryModule>()
+        get(): Sequence<XQueryProlog> {
+            return locationUris.flatMap { uri ->
+                val file = uri.resolveUri<XQueryModule>()
                 val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-                (library as? XQueryPrologResolver)?.prolog
-            }.filterNotNull().firstOrNull() ?: if (!hasImportPath) {
-                // 2. Try the import namespace if there are no "at ..." paths.
-                val uri = children().filterIsInstance<XQueryUriLiteral>().firstOrNull()
-                val file = (uri?.value as? XsAnyUriValue)?.resolveUri<XQueryModule>()
-                val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-                (library as? XQueryPrologResolver)?.prolog
-            } else {
-                null
-            }
+                (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
+            }.filterNotNull()
         }
 
     // endregion

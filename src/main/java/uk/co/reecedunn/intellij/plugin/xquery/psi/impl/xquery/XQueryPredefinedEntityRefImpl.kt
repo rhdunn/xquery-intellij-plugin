@@ -21,7 +21,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEntityRefType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import java.io.InputStreamReader
 
 private fun loadPredefinedEntities(entities: HashMap<String, XQueryEntityRef>, path: String, type: XQueryEntityRefType) {

@@ -1,5 +1,11 @@
 # XQuery IntelliJ Plugin
 
+## Abstract
+This document defines the syntax and semantics for vendor and plugin specific
+functionality that extends XQuery and associated W3C extensions. The
+plugin-specific extensions are provided to support IntelliJ integration.
+
+## Table of Contents
 - [1 Introduction](#1-introduction)
 - [2 Basics](#2-basics)
   - [2.1 Types](#21-types)
@@ -14,10 +20,10 @@
       - [2.1.2.7 Null Node Test](#2127-null-node-test)
       - [2.1.2.8 Array Node Test](#2128-array-node-test)
       - [2.1.2.9 Map Node Test](#2129-map-node-test)
-  - [2.2 Type System](#22-type-system)
-    - [2.2.1 Part 1: Items](#221-part-1-items)
-    - [2.2.2 Part 2: Simple and Complex Types](#222-part-2-simple-and-complex-types)
-    - [2.2.3 Part 3: Atomic Types](#223-part-3-atomic-types)
+      - [2.1.2.10 Specialised Sequence Types](#21210-specialised-sequence-types)
+        - [2.1.2.10.1 Item Type Union](#212101-item-type-union)
+        - [2.1.2.10.2 Tuple Sequence Types](#212102-tuple-sequence-types)
+      - [2.1.2.11 Annotated Function Tests and Sequence Types](#21211-annotated-function-tests-and-sequence-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -29,26 +35,30 @@
   - [3.6 Full Text Selections](#36-full-text-selections)
     - [3.6.1 Match Options](#361-match-options)
       - [3.6.1.1 Fuzzy Option](#3611-fuzzy-option)
-  - [3.7 Non-Deterministic Function Calls](#37-non-deterministic-function-calls)
-  - [3.8 Maps and Arrays](#38-maps-and-arrays)
+  - [3.7 Primary Expressions](#37-primary-expressions)
+    - [3.7.1 Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
+    - [3.7.2 Simple Inline Function Expressions](#372-simple-inline-function-expressions)
+    - [3.7.3 Literals](#373-literals)
+  - [3.8 JSON Constructors](#38-json-constructors)
     - [3.8.1 Maps](#381-maps)
     - [3.8.2 Arrays](#382-arrays)
+    - [3.8.3 Booleans](#383-booleans)
+    - [3.8.4 Numbers](#384-numbers)
+    - [3.8.5 Nulls](#385-nulls)
   - [3.9 Path Expressions](#39-path-expressions)
     - [3.9.1 Axes](#391-axes)
   - [3.10 Validate Expressions](#310-validate-expressions)
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
   - [3.12 Binary Constructors](#312-binary-constructors)
-  - [3.13 Boolean Constructors](#313-boolean-constructors)
-  - [3.14 Number Constructors](#314-number-constructors)
-  - [3.15 Null Constructors](#315-null-constructors)
+  - [3.13 Logical Expressions](#313-logical-expressions)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
   - [4.3 Stylesheet Import](#43-stylesheet-import)
   - [4.4 Transactions](#44-transactions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
-  - [A.1 EBNF for XPath 3.1](#a1-ebnf-for-xpath-31)
-  - [A.2 EBNF for XQuery 3.1](#a2-ebnf-for-xquery-31)
+  - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
+  - [A.2 EBNF for XQuery 3.1 with Vendor Extensions](#a2-ebnf-for-xquery-31-with-vendor-extensions)
   - [A.3 Reserved Function Names](#a3-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
@@ -59,13 +69,27 @@
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
   - [C.2 MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
   - [C.3 Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
+  - [C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions)
+  - [C.5 eXist-db Extensions](#c5-exist-db-extensions)
+  - [C.6 XPath 2.0 Working Draft 02 May 2003](#c6-xpath-20-working-draft-02-may-2003)
+  - [C.7 XQuery 1.0 Working Draft 02 May 2003](#c7-xquery-10-working-draft-02-may-2003)
+- [D Error and Warning Conditions](#d-error-and-warning-conditions)
+  - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
 ## 1 Introduction
-The XQuery IntelliJ plugin provides language support for XQuery, W3C extensions
-to XQuery, and vendor extensions.
+This document defines the syntax and semantics for vendor and plugin specific
+functionality that extends XQuery 3.1, XQuery and XPath Full Text 3.0, XQuery
+Update Facility 3.0, and XQuery Scripting Extension 1.0.
 
-This document describes the vendor and plugin specific extensions supported in
-by the XQuery IntelliJ plugin.
+The plugin supports BaseX, eXist-db, MarkLogic, and Saxon vendor extensions.
+These are listed in appendix [C Vendor Extensions](#c-vendor-extensions),
+grouped by the XQuery vendor, with links to the relevant parts of this document
+that describe the specific extensions.
+
+The plugin also provides plugin-specific extensions to support IntelliJ
+integration. These are listed in appendix
+[C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions), with links to
+the relevant parts of this document that describe the specific extensions.
 
 ## 2 Basics
 This document uses the following namespace prefixes to represent the namespace
@@ -85,6 +109,8 @@ not normative.
 
 *  `err = http://www.w3.org/2005/xqt-errors`
 *  `error = http://marklogic.com/xdmp/error`
+*  `ije = http://reecedunn.co.uk/xquery/xqt-errors`
+*  `ijw = http://reecedunn.co.uk/xquery/xqt-warnings`
 *  `xdm = http://reecedunn.co.uk/xquery-datamodel`
 
 ### 2.1 Types
@@ -93,7 +119,8 @@ not normative.
 
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[20\] | `ItemType`              | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\] | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
+| \[78\] | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
 | \[21\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[28\] | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\] | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
@@ -103,15 +130,21 @@ not normative.
 | \[70\] | `AnyTextTest`           | ::= | `"text" "(" ")"`                    |         |
 | \[71\] | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 | \[72\] | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
+| \[88\] | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 
-MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting JSON nodes
-in objects.
+MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
+in objects by the key name.
 
-MarkLogic 8.0 supports `NamedTextTest` for selecting JSON nodes in objects.
+MarkLogic 8.0 supports `NamedTextTest` for selecting JSON text nodes in objects
+by the key name.
 
 MarkLogic 8.0 supports `document-node(array-node())` for JSON documents with an
 array at the top level, and `document-node(object-node())` for JSON documents
 with an object (map) at the top level.
+
+XQuery 1.0 Working Draft 02 May 2003 uses `empty()` for `empty-sequence()`.
+This is supported by eXist-db prior to 4.0 and the MarkLogic `0.9-ml` XQuery
+version.
 
 #### 2.1.2 SequenceType Matching
 
@@ -119,26 +152,41 @@ with an object (map) at the top level.
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[22\] | `UnionType`             | ::= | `"union" "(" QName ("," QName)* ")"` |                     |
+| \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 
 The `UnionType` is a new sequence type supported by Saxon 9.8.
 
-A `UnionType` defines a union type whose members are the `QName` types listed
+A `UnionType` defines a union type whose members are the `EQName` types listed
 in the type definition. These types are restricted to being atomic types (that
 is, they cannot be list, union, or other complex types).
 
-For example, `xs:numeric` can be defined as:
+If a member type has a namespace prefix, the namespace prefix is resolved to a
+namespace URI using the
+[statically known namespaces](https://www.w3.org/TR/xquery-31/#dt-static-namespaces)<sup><em>XQ31</em></sup>.
+If the member type has no namespace prefix, it is implicitly qualified by the
+[default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
 
-    declare type xs:numeric = union(xs:float, xs:double, xs:decimal);
+> __Example:__
+>
+> `xs:numeric` can be defined as:
+>
+>     declare type xs:numeric = union(xs:float, xs:double, xs:decimal);
 
 ##### 2.1.2.2 Tuple Type
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
-| \[24\] | `TupleField`            | ::= | `NCName (":" SequenceType)?`        |                       |
+| \[23\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
+| \[24\] | `TupleField`            | ::= | `NCName "?" (":" SequenceType)?`    |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8.
+
+In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
+
+\[Definition: An *extensible* tuple is a tuple that has some fields specified,
+but allows other fields to be included in the map object.\] An *extensible*
+tuple is specified by having the last tuple field be the `*` wildcard operator.
+This is supported by Saxon 9.9.
 
 ##### 2.1.2.3 Binary Test
 
@@ -183,7 +231,8 @@ support for `SchemaFacetTest`.
 | \[49\]  | `NamedBooleanNodeTest`  | ::= | `"boolean-node" "(" StringLiteral ")"` |      |
 
 MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
-and `false`) JSON values.
+and `false`) JSON values. The `NamedBooleanNodeTest` variant selects JSON
+boolean nodes in objects by the key name.
 
 ##### 2.1.2.6 Number Node Test
 
@@ -194,7 +243,8 @@ and `false`) JSON values.
 | \[53\]  | `NamedNumberNodeTest`   | ::= | `"number-node" "(" StringLiteral ")"` |       |
 
 MarkLogic 8.0 provides `NumberNodeTest` types for working with numeric JSON
-values.
+values. The `NamedNumberNodeTest` variant selects JSON number nodes in objects
+by the key name.
 
 ##### 2.1.2.7 Null Node Test
 
@@ -205,16 +255,18 @@ values.
 | \[57\]  | `NamedNullNodeTest`     | ::= | `"null-node" "(" StringLiteral ")"` |         |
 
 MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
+The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key name.
 
 ##### 2.1.2.8 Array Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[59\]  | `ArrayNodeTest`         | ::= | `AnyArrayNodeTest | NamedArrayNodeTest` |     |
+| \[59\]  | `ArrayNodeTest`         | ::= | `AnyArrayNodeTest \| NamedArrayNodeTest` |     |
 | \[60\]  | `AnyArrayNodeTest`      | ::= | `"array-node" "(" ")"`              |         |
 | \[61\]  | `NamedArrayNodeTest`    | ::= | `"array-node" "(" StringLiteral ")"` |        |
 
-MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
+MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
+`NamedArrayNodeTest` variant selects JSON array nodes in objects by the key name.
 
 ##### 2.1.2.9 Map Node Test
 
@@ -224,151 +276,81 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays.
 | \[64\]  | `AnyMapNodeTest`        | ::= | `"object-node" "(" ")"`             |         |
 | \[65\]  | `NamedMapNodeTest`      | ::= | `"object-node" "(" StringLiteral ")"` |       |
 
-MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects.
+MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
+`NamedMapNodeTest` variant selects JSON object nodes in objects by the key name.
 
-### 2.2 Type System
+##### 2.1.2.10 Specialised Sequence Types
 
-#### 2.2.1 Part 1: Items
+| Ref    | Symbol                         |     | Expression                          | Options               |
+|--------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[85\] | `ParenthesizedSequenceType`    | ::= | `ParenthesizedItemType \| ItemTypeUnion \| TupleSequenceType` | |
 
-<pre><code>item
-├─── node
-│    ├─── attribute
-│    │    └─── <em>user-defined attribute types</em>
-│    ├─── document
-│    │    └─── <em>document types with more precise content type</em>
-│    ├─── element
-│    │    └─── <em>user-defined element types</em>
-│    ├─── comment
-│    ├─── namespace
-│    ├─── processing-instruction
-│    └─── text
-├──── function(*)
-│    ├─── map(*)
-│    └─── array(*)
-└─── xs:anyAtomicType ──────────────────────────────────── See Part 3
-</code></pre>
+###### 2.1.2.10.1 Item Type Union
 
-#### 2.2.2 Part 2: Simple and Complex Types
+| Ref    | Symbol                         |     | Expression                          | Options               |
+|--------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[86\] | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"` |                       |
 
-<pre><code>xs:anyType
-├─── xdm:anyComplexType
-│    ├─── xs:untyped
-│    └─── <em>user-defined complex types</em>
-└─── xs:anySimpleType
-     ├─── xs:anyAtomicType ─────────────────────────────── See Part 3
-     ├─── xdm:anyListType
-     │    ├─── xs:IDREFS
-     │    ├─── xs:NMTOKENS
-     │    ├─── xs:ENTITIES
-     │    └─── <em>user-defined list types</em>
-     └─── xdm:anyUnionType
-          ├─── xs:numeric
-          ├─── xs:error<sup>1</sup>
-          └─── <em>user-defined union types</em>
-</code></pre>
+The `ItemTypeUnion` construct is an XQuery IntelliJ Plugin extension that is
+based on the XQuery Formal Semantics specification. This is used in the
+definition of built-in functions for parameters and return types that can have
+one of multiple disjoint types.
 
-1.  `xs:error` is defined in XML Schema 1.1 Part 2, and in the Types section of
-    the XPath 3.1 and XQuery 3.1 specifications, but not in XQuery and XPath
-    3.1 Data Model. Support for this type is dependent on whether the
-    implementation supports XML Schema 1.1.
-
-The data model defines three additional simple and complex types:
-`xdm:anyComplexType`, `xdm:anyListType`, and `xdm:anyUnionType`. These types
-are defined in an XQuery IntelliJ Plugin specific namespace.
-
-__xdm:anyComplexType__
-> The datatype __xdm:anyComplexType__ is a complex type that includes all
-> complex types (and no values that are not complex). Its base type is
-> `xs:anyType` from which all schema types, including simple, and complex
-> types are derived.
-
-__xdm:anyListType__
-> The datatype __xdm:anyListType__ is a list type that includes all
-> list types (and no values that are not lists). Its base type is
-> `xs:anySimpleType` from which all simple types, including atomic, list,
-> and union types are derived.
-
-__xdm:anyUnionType__
-> The datatype __xdm:anyUnionType__ is a union type that includes all
-> union types (and no values that are not unions). Its base type is
-> `xs:anySimpleType` from which all simple types, including atomic, list,
-> and union types are derived.
-
-#### 2.2.3 Part 3: Atomic Types
-
-<pre><code>xs:anyAtomicType<sup>1</sup>
-├─── xs:anyURI
-├─── xs:base64Binary
-├─── xs:boolean
-├─── xs:date
-├─── xs:dateTime
-│    └─── xs:dateTimeStamp<sup>2</sup>
-├─── xs:decimal
-│    └─── xs:integer
-│         ├─── xs:long
-│         │    └─── xs:int
-│         │         └─── xs:short
-│         │              └─── xs:byte
-│         ├─── xs:nonNegativeInteger
-│         │    ├─── xs:positiveInteger
-│         │    └─── xs:unsignedLong
-│         │         └─── xs:unsignedInt
-│         │              └─── xs:unsignedShort
-│         │                   └─── xs:unsignedByte
-│         └─── xs:nonPositiveInteger
-│              └─── xs:negativeInteger
-├─── xs:double
-├─── xs:duration
-│    ├─── xs:dayTimeDuration<sup>1</sup>
-│    └─── xs:yearMonthDuration<sup>1</sup>
-├─── xs:float
-├─── xs:gDay
-├─── xs:gMonth
-├─── xs:gMonthDay
-├─── xs:gYear
-├─── xs:gYearMonth
-├─── xs:hexBinary
-├─── xs:NOTATION
-├─── xs:QName
-├─── xs:string
-│    └─── xs:normalizedString
-│         ├─── xs:token
-│         │    ├─── xs:language
-│         │    └─── xs:Name
-│         │         └─── xs:NCName
-│         │              ├─── xs:ENTITY
-│         │              ├─── xs:ID
-│         │              ├─── xs:IDREF
-│         │              └─── xdm:wildcard
-│         └─── xs:NMTOKEN
-├─── xs:time
-└─── xs:untypedAtomic
-</code></pre>
-
-1.  `xs:anyAtomicType`, `xs:yearMonthDuration`, and `xs:dayTimeDuration` are
-    defined in XML Schema 1.1 Part 2, and in XQuery and XPath 3.1 Data Model.
-    Support for these types is available on any conforming implementation.
-
-1.  `xs:dateTimeStamp` is defined in XML Schema 1.1 Part 2, but not in XQuery
-    and XPath 3.1 Data Model. Support for this type is dependent on whether the
-    implementation supports XML Schema 1.1.
-
-The data model defines one additional atomic type: `xdm:wildcard`. This type is
-defined in an XQuery IntelliJ Plugin specific namespace.
-
-__xdm:wildcard__
-> The type `xdm:wildcard` is derived from `xs:NCName`. The lexical
-> representation of `xdm:wildcard` is `*`. The value space of `xdm:wildcard`
-> is the empty set.
+> __Example:__
 >
-> The unspecified prefix or local name of a `Wildcard` is an instance of
-> `xdm:wildcard`.
+>     declare function load-json($filename as xs:string) as (map(*) | array(*)) external;
+
+###### 2.1.2.10.2 Tuple Sequence Types
+
+| Ref    | Symbol                         |     | Expression                          | Options               |
+|--------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[87\] | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
+
+The `TupleSequenceType` construct is an XQuery IntelliJ Plugin extension.
+This is used in the definition of built-in functions for parameters and
+return types that return sequence-based tuples.
+
+A typed sequence defines the type of each item in a sequence of a specified
+length. This is useful for defining sequence-based tuple return types such
+as rational or complex numbers.
+
+> __Example:__
+>
+> `complex` can be defined as:
+>
+>     declare type complex = (xs:double, xs:double);
+
+##### 2.1.2.11 Annotated Function Tests and Sequence Types
+
+| Ref    | Symbol                        |     | Expression                          | Options |
+|--------|-------------------------------|-----|-------------------------------------|---------|
+| \[89\] | `AnnotatedFunctionOrSequence` | ::= | `AnnotatedSequenceType \| FunctionTest` |     |
+| \[90\] | `AnnotatedSequenceType`       | ::= | `Annotation Annotation* "for" SequenceType` | |
+
+The XQuery IntelliJ Plugin provides a vendor extension to support annotations
+on a type itself, not just on function signatures. This is used in the
+definition of built-in functions for parameters and return types to provide
+information to the plugin on how those types are used.
+
+> __Example:__
+>
+>     declare function f() as (%since("3.2") %until("4.0") for item() |
+>                              %since("4.0") for node()) external;
+
+The construction of annotations on item types is designed to be unambiguous
+with XQuery 3.1 `FunctionTest` that may specify annotations on function signatures.
+
+> __Example:__
+>
+>     declare function f() as %test for %public function() as item() external;
+>
+> In this example, `%test` applies to the type and `%public` applies to the
+> function signature.
 
 ## 3 Expressions
 
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[73\] | `Expr`                  | ::= | `ApplyExpr`                         |           |
 | \[74\] | `ApplyExpr`             | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?` |         |
 | \[75\] | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |           |
@@ -436,11 +418,12 @@ This plugin follows the precedence of `CastExpr`, `TransformWithExpr`, and
 While XQuery 3.1 with UpdateFacility 3.0 is not an official W3C combination,
 it is supported by BaseX.
 
-This allows arrow expressions to be combined with transform with expressions
-like in the following example:
-
-    <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
-    (: returns: <test>ipsum</test> :)
+> __Example:__
+>
+> Arrow expressions can be combined with `transform with` expressions, such as:
+>
+>     <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
+>     (: returns: <test>ipsum</test> :)
 
 ### 3.4 Block Expressions
 
@@ -456,20 +439,22 @@ This follows the grammar production pattern used in other constructs like
 
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[11\] | `AndExpr`               | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
 | \[12\] | `UpdateExpr`            | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 
-BaseX 7.8 supports update expressions with a single inline expression. For
-example:
+BaseX 7.8 supports update expressions with a single inline expression.
 
-    <text>hello</text> update rename node . as "test"
-    (: returns: <test>hello</test> :)
+> __Example:__
+>
+>     <text>hello</text> update rename node . as "test"
+>     (: returns: <test>hello</test> :)
 
 BaseX 8.5 extends this to support multiple update operations in a block
-expression. For example:
+expression.
 
-    <text>hello</text> update { rename node . as "test" }
-    (: returns: <test>hello</test> :)
+> __Example:__
+>
+>     <text>hello</text> update { rename node . as "test" }
+>     (: returns: <test>hello</test> :)
 
 > __Note__
 >
@@ -484,10 +469,12 @@ expression. For example:
 > ```N update (A update B)```
 
 The update expression is optional. If it is missing, the update expression has
-no effect:
+no effect.
 
-    <text>hello</text> update (), <text>hello</text> update {}
-    (: returns: ( <text>hello</text>, <text>hello</text> ) :)
+> __Example:__
+>
+>     <text>hello</text> update (), <text>hello</text> update {}
+>     (: returns: ( <text>hello</text>, <text>hello</text> ) :)
 
 The expressions on the right hand side of the update expression must either be
 an `empty-sequence()`, or an updating expression. If this is not the case, an
@@ -526,7 +513,14 @@ Levenshtein distance algorithm.\]
 
 This is a BaseX Full Text extension.
 
-### 3.7 Non-Deterministic Function Calls
+### 3.7 Primary Expressions
+
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
+| \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
+| \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
+
+### 3.7.1 Non-Deterministic Function Calls
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -540,7 +534,32 @@ This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
 
-### 3.8 Maps and Arrays
+#### 3.7.2 Simple Inline Function Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[81\] | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |         |
+
+This is a Saxon 9.8 extension.
+
+The expression `fn{E}` is equivalent to:
+>     function ($arg as item()) as item()* { $arg ! (E) }
+
+#### 3.7.3 Literals
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[82\] | `PredefinedEntityRef`          | ::= | `EntityRef`                               |         |
+| \[83\] | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |   |
+| \[84\] | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |        |
+
+MarkLogic 6.0 supports HTML4 and HTML5 predefined entity references in addition
+to XML entity references. Other XQuery processors only support XML entity
+references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, and `&apos;`). If the predefined
+entity reference is not supported by the XQuery processor, an `ije:IJVS0003`
+error is raised.
+
+### 3.8 JSON Constructors
 
 #### 3.8.1 Maps
 
@@ -563,6 +582,55 @@ From 9.7, the XQuery 3.1 syntax (`:`) is used.
 
 MarkLogic 8.0 uses the `array-node` keyword for defining JSON arrays. It does
 not support the square array style constructors.
+
+#### 3.8.3 Booleans
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[50\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
+
+MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
+`false`) JSON values.
+
+A boolean constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  Otherwise, the result is a boolean node with the expression cast to
+    `xs:boolean` as its content. If the cast fails, an `err:FORG0001` (invalid
+    cast) error is raised.
+
+A boolean node follows the rules for casting from an `xs:boolean` type, using
+the content of the boolean node in the cast. However, a boolean node is not an
+instance of `xs:boolean`.
+
+#### 3.8.4 Numbers
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[54\] | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |         |
+
+MarkLogic 8.0 provides `NumberTest` types for working with numeric JSON values.
+
+A numeric constructor is evaluated using the supplied content expression as
+follows:
+1.  If the expression is an empty sequence, the result is an empty sequence.
+1.  Otherwise, the result is a number node with the expression cast to
+    `xs:double` as its content. If the cast fails, an `err:FORG0001` (invalid
+    cast) error is raised.
+
+A number node follows the rules for casting from an `xs:double` type, using
+the content of the number node in the cast. However, a number node is not an
+instance of `xs:double`.
+
+#### 3.8.5 Nulls
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[58\] | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |         |
+
+MarkLogic 8.0 provides `NullTest` types for working with `null` JSON values.
+
+Null nodes are not removed from sequences, such as when used in arrays and maps.
 
 ### 3.9 Path Expressions
 
@@ -621,7 +689,7 @@ typed validation expressions.
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[31\] | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
+| \[31\] | `CatchClause`                  | ::= | `"catch" (CatchErrorList \| ("(" "$" VarName ")")) EnclosedExpr` | |
 
 MarkLogic only allows a single `CatchClause` for a given try/catch expression,
 using the parenthesis style catch clause. It does not support the XQuery 3.0
@@ -665,54 +733,24 @@ Casting from a binary node to a target type is performed as follows:
 
 A binary node is not an instance of `xs:boolean`.
 
-### 3.13 Boolean Constructors
+### 3.13 Logical Expressions
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[50\] | `BooleanConstructor`           | ::= | `"boolean-node" "{" Expr "}"`             |         |
+| \[79\] | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |         |
+| \[11\] | `AndExpr`                      | ::= | `UpdateExpr (("and" \| "andAlso") UpdateExpr)*` |   |
 
-MarkLogic 8.0 provides `BooleanTest` types for working with boolean (`true` and
-`false`) JSON values.
+The `orElse` and `andAlso` expressions are new logical expression supported by Saxon 9.9.
 
-A boolean constructor is evaluated using the supplied content expression as
-follows:
-1.  If the expression is an empty sequence, the result is an empty sequence.
-1.  Otherwise, the result is a boolean node with the expression cast to
-    `xs:boolean` as its content. If the cast fails, an `err:FORG0001` (invalid
-    cast) error is raised.
+The `orElse` expression evaluates the left hand side (`lhs`) first, and only
+evaluates the right hand side (`rhs`) if the left hand side is false. This is
+equivalent to:
+>     if (lhs) then fn:true() else xs:boolean(rhs)
 
-A boolean node follows the rules for casting from an `xs:boolean` type, using
-the content of the boolean node in the cast. However, a boolean node is not an
-instance of `xs:boolean`.
-
-### 3.14 Number Constructors
-
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[54\] | `NumberConstructor`            | ::= | `"number-node" "{" Expr "}"`              |         |
-
-MarkLogic 8.0 provides `NumberTest` types for working with numeric JSON values.
-
-A numeric constructor is evaluated using the supplied content expression as
-follows:
-1.  If the expression is an empty sequence, the result is an empty sequence.
-1.  Otherwise, the result is a number node with the expression cast to
-    `xs:double` as its content. If the cast fails, an `err:FORG0001` (invalid
-    cast) error is raised.
-
-A number node follows the rules for casting from an `xs:double` type, using
-the content of the number node in the cast. However, a number node is not an
-instance of `xs:double`.
-
-### 3.15 Null Constructors
-
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[58\] | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |         |
-
-MarkLogic 8.0 provides `NullTest` types for working with `null` JSON values.
-
-Null nodes are not removed from sequences, such as when used in arrays and maps.
+The `andAlso` expression evaluates the left hand side (`lhs`) first, and only
+evaluates the right hand side (`rhs`) if the left hand side is true. This is
+equivalent to:
+>     if (lhs) then xs:boolean(rhs) else fn:false()
 
 ## 4 Modules and Prologs
 
@@ -741,7 +779,7 @@ If the type name has no namespace prefix, it is implicitly qualified by the
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[26\] | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
+| \[26\] | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 
 The bare keyword `private` is a MarkLogic extension that is allowed on a
 function or variable declared in the prolog for backwards compatibility with
@@ -786,7 +824,7 @@ syntax.
 
 ## A XQuery IntelliJ Plugin Grammar
 
-### A.1 EBNF for XPath 3.1
+### A.1 EBNF for XPath 3.1 with Vendor Extensions
 
 This EBNF grammar includes and modifies the EBNF grammar for the following
 specifications:
@@ -804,19 +842,24 @@ The EBNF symbols below only include new and modified symbols. Missing reference
 numbers are for symbols that only apply to XQuery.
 
 These changes include support for:
-1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
+1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
+1.  Saxon Vendor Extensions;
+1.  XQuery IntelliJ Plugin Vendor Extensions.
 
 | Ref     | Symbol                  |     | Expression                          | Options              |
 |---------|-------------------------|-----|-------------------------------------|----------------------|
 | \[3\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
 | \[4\]   | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |          |
+| \[11\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparionExpr)*` |  |
 | \[73\]  | `Expr`                  | ::= | `ApplyExpr`                         |                     |
 | \[74\]  | `ApplyExpr`             | ::= | `ConcatExpr`                        |                     |
 | \[75\]  | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |                     |
 | \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
+| \[78\]  | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
+| \[79\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |               |
 
-### A.2 EBNF for XQuery 3.1
+### A.2 EBNF for XQuery 3.1 with Vendor Extensions
 
 This EBNF grammar includes and modifies the EBNF grammar for the following
 specifications:
@@ -835,7 +878,11 @@ specifications, including this document.
 The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
-1.  XQuery IntelliJ Plugin changes to make it easier to implement the plugin.
+1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
+1.  BaseX Vendor Extensions;
+1.  MarkLogic Vendor Extensions;
+1.  Saxon Vendor Extensions;
+1.  XQuery IntelliJ Plugin Vendor Extensions.
 
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -849,7 +896,7 @@ These changes include support for:
 | \[8\]    | `TransformWithExpr`            | ::= | `ArrowExpr ("transform" "with" "{" Expr? "}")?` |           |
 | \[9\]    | `BlockVarDecl`                 | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
 | \[10\]   | `BlockVarDeclEntry`            | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
-| \[11\]   | `AndExpr`                      | ::= | `UpdateExpr ("and" UpdateExpr)*`    |                       |
+| \[11\]   | `AndExpr`                      | ::= | `UpdateExpr (("and" \| "andAlso") UpdateExpr)*` |           |
 | \[12\]   | `UpdateExpr`                   | ::= | `ComparisonExpr ("update" (EnclosedExpr \| ExprSingle))*` | |
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
@@ -858,18 +905,18 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| TypeDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| ("item" "(" ")") \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| UnionType \| AtomicOrUnionType \| ParenthesizedSequenceType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]   | `UnionType`                    | ::= | `"union" "(" QName ("," QName)* ")"` |                      |
-| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ")"` |            |
-| \[24\]   | `TupleField`                   | ::= | `NCName (":" SequenceType)?`        |                       |
+| \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                      |
+| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
+| \[24\]   | `TupleField`                   | ::= | `NCName "?" (":" SequenceType)?`    |                       |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
-| \[26\]   | `CompatibilityAnnotaion`       | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
+| \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
 | \[28\]   | `KindTest`                     | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[29\]   | `BinaryTest`                   | ::= | `"binary" "(" ")"`                  |                       |
 | \[30\]   | `BinaryConstructor`            | ::= | `"binary" EnclosedExpr`             |                       |
-| \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList | ("(" "$" VarName ")")) EnclosedExpr` | |
+| \[31\]   | `CatchClause`                  | ::= | `"catch" (CatchErrorList \| ("(" "$" VarName ")")) EnclosedExpr` | |
 | \[32\]   | `Import`                       | ::= | `SchemaImport \| ModuleImport \| StylesheetIport` |         |
 | \[33\]   | `StylesheetImport`             | ::= | `"import" "stylesheet" "at" URILiteral`   |                 |
 | \[34\]   | `Module`                       | ::= | `VersionDecl? (LibraryModule \| (MainModule (TransactionSeparator VersionDecl? MainModule)* ))` | |
@@ -897,7 +944,7 @@ These changes include support for:
 | \[56\]   | `AnyNullNodeTest`              | ::= | `"null-node" "(" ")"`                     |                 |
 | \[57\]   | `NamedNullNodeTest`            | ::= | `"null-node" "(" StringLiteral ")"`       |                 |
 | \[58\]   | `NullConstructor`              | ::= | `"null-node" "{" "}"`                     |                 |
-| \[59\]   | `ArrayNodeTest`                | ::= | `AnyArrayNodeTest | NamedArrayNodeTest`   |                 |
+| \[59\]   | `ArrayNodeTest`                | ::= | `AnyArrayNodeTest \| NamedArrayNodeTest`  |                 |
 | \[60\]   | `AnyArrayNodeTest`             | ::= | `"array-node" "(" ")"`                    |                 |
 | \[61\]   | `NamedArrayNodeTest`           | ::= | `"array-node" "(" StringLiteral ")"`      |                 |
 | \[62\]   | `CurlyArrayConstructor`        | ::= | `("array" \| "array-node") EnclosedExpr`  |                 |
@@ -916,6 +963,19 @@ These changes include support for:
 | \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
 | \[76\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
+| \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
+| \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
+| \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
+| \[81\]   | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |                 |
+| \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
+| \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
+| \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
+| \[85\]   | `ParenthesizedSequenceType`    | ::= | `ParenthesizedItemType \| ItemTypeUnion \| TupleSequenceType` | |
+| \[86\]   | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"`       |                 |
+| \[87\]   | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
+| \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
+| \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
+| \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |
 
 ### A.3 Reserved Function Names
 
@@ -986,6 +1046,12 @@ __XML Schema__
    Recommendation 5 April 2012. See
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
 
+__Working Drafts__
+*  W3C. *XML Path Language (XPath) 2.0*. W3C Working Draft 02 May 2003.
+   See [https://www.w3.org/TR/2003/WD-xpath20-20030502/]().
+*  W3C. *XQuery 1.0: An XML Query Language*. W3C Working Draft 02 May 2003.
+   See [https://www.w3.org/TR/2003/WD-xquery-20030502]().
+
 ### B.2 BaseX References
 *  BaseX. *XQuery Extensions: Non-determinism*. See
    [http://docs.basex.org/wiki/XQuery_Extensions#Non-determinism](). 
@@ -1007,15 +1073,19 @@ __XML Schema__
    [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types]().
 *  Saxonica. *Type aliases*. See
    [http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/type-aliases]().
+*  Saxonica. *Simple inline functions. See
+   [http://saxonica.com/documentation/#!extensions/syntax-extensions/simple-inline-functions]().
+*  Saxonica. *Short-circuit boolean operators*. See
+   [http://saxonica.com/documentation/#!extensions/syntax-extensions/short-circuit]().
 
 ## C Vendor Extensions
 
 ### C.1 BaseX Vendor Extensions
 The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
-1.  [Cast Expressions](#332-cast) -- arrow, `transform with`, and `cast as` expression precedence.
+1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility.
 1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
-1.  [Non-Deterministic Function Calls](#37-non-deterministic-function-calls) \[BaseX 8.4\]
+1.  [Non-Deterministic Function Calls](#371-non-deterministic-function-calls) \[BaseX 8.4\]
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 
 ### C.2 MarkLogic Vendor Extensions
@@ -1024,19 +1094,20 @@ in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
 1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays) \[MarkLogic 8.0\] -- JSON support
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
-1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#313-boolean-constructors) \[MarkLogic 8.0\] -- JSON support
+1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#383-booleans) \[MarkLogic 8.0\] -- JSON support
 1.  [Document Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
 1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps) \[MarkLogic 8.0\] -- JSON support
 1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
-1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#315-null-constructors) \[MarkLogic 8.0\] -- JSON support
-1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#314-number-constructors) \[MarkLogic 8.0\] -- JSON support
+1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#385-nulls) \[MarkLogic 8.0\] -- JSON support
+1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#384-numbers) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Text Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Transactions](#44-transactions)
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
+1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
 
 ### C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
@@ -1045,3 +1116,72 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
+1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+
+### C.4 IntelliJ Plugin Extensions
+The following constructs have had their grammar modified to make it easier to
+implement features such as variable lookup. These changes do not modify the
+behaviour of those constructs:
+1.  [Node Constructors](#31-node-constructors)
+1.  [Quantified Expressions](#32-quantified-expressions)
+1.  [Typeswitch](#331-typeswitch)
+1.  [Block Expressions](#34-block-expressions)
+1.  [Node Tests](#392-node-tests)
+1.  [Any Item Type](#21211-item-type)
+
+The XQuery IntelliJ Plugin supports the following vendor extensions described
+in this document:
+1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
+1.  [Item Type Union](#212101-item-type-union)
+1.  [Tuple Sequence Types](#212102-tuple-sequence-types)
+1.  [Annotated Sequence Types](#21211-annotated-function-tests-and-sequence-types)
+
+### C.5 eXist-db Extensions
+The eXist-db XQuery Processor supports the following vendor extensions described
+in this document:
+1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty-sequence()` in 4.0 and
+    later; `empty()` in older versions.
+
+### C.6 XPath 2.0 Working Draft 02 May 2003
+The XPath 2.0 Working Draft 02 May 2003 specification supports the following
+differences to the XPath 2.0 Recommendation, described in this document:
+1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
+
+### C.7 XQuery 1.0 Working Draft 02 May 2003
+The XQuery 1.0 Working Draft 02 May 2003 specification supports the following
+differences to the XQuery 1.0 Recommendation, described in this document:
+1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
+
+## D Error and Warning Conditions
+
+### D.1 Vendor-Specific Behaviour
+
+__ijw:IJVS0001__
+> It is a *static warning* if the query contains any constructs that are not
+> supported by the XQuery processor.
+
+__ije:IJVS0002__
+> It is a *static error* if an unprefixed function name contains a reserved
+> function name for constructs supported by the XQuery processor.
+>
+> See [A.3 Reserved Function Names](#a3-reserved-function-names).
+
+__ije:IJVS0003__
+> It is a *static error* if a PredefinedEntityRef name is not supported by
+> the XQuery processor.
+>
+> Standard conforming processors only support XML entity names. MarkLogic
+> allows HTML4 and HTML5 entity names in addition to the XML entity names.
+
+__ije:IJVS0004__
+> It is a *static error* if `:=` is used to separate map keys and values on
+> an XQuery 3.1 conforming XQuery processor.
+>
+> The `:=` separator is used by older versions of the Saxon XQuery processor.
+
+__ije:IJVS0005__
+> It is a *static error* if a multi-statement query body contains a semicolon
+> at the end of the last statement when targeting the MarkLogic XQuery
+> processor, or is missing a semicolon at the end of the last statement when
+> targeting an XQuery processor supporting Scripting Extension 1.0.

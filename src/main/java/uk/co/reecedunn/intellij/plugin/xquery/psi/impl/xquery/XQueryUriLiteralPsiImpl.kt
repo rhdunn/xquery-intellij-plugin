@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryUriLiteralReference
 
 class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), XQueryUriLiteral {
     override fun getReference(): PsiReference {

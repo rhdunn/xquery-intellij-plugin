@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 private enum class KindTest {
     ANY_TEST,
@@ -3195,7 +3195,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val orExprMarker = mark()
         if (parseAndExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.K_OR)) {
+            while (matchTokenType(XQueryTokenType.K_OR) || matchTokenType(XQueryTokenType.K_ORELSE)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseAndExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AndExpr"))
@@ -3214,7 +3214,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseUpdateExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveAndExpr = false
-            while (matchTokenType(XQueryTokenType.K_AND)) {
+            while (matchTokenType(XQueryTokenType.K_AND) || matchTokenType(XQueryTokenType.K_ANDALSO)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseComparisonExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "ComparisonExpr"))
@@ -4322,7 +4322,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseFunctionItemExpr(): Boolean {
-        return parseNamedFunctionRef() || parseInlineFunctionExpr()
+        return parseNamedFunctionRef() || parseInlineFunctionExpr() || parseSimpleInlineFunctionExpr()
     }
 
     private fun parseNamedFunctionRef(): Boolean {
@@ -4407,6 +4407,21 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         }
 
         inlineFunctionExprMarker.drop()
+        return false
+    }
+
+    private fun parseSimpleInlineFunctionExpr(): Boolean {
+        val inlineFunctionExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FN)
+        if (inlineFunctionExprMarker != null) {
+            parseWhiteSpaceAndCommentTokens()
+            if (!parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+                inlineFunctionExprMarker.rollbackTo()
+                return false
+            }
+
+            inlineFunctionExprMarker.done(XQueryElementType.SIMPLE_INLINE_FUNCTION_EXPR)
+            return true
+        }
         return false
     }
 
@@ -4947,8 +4962,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (elementMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                elementMarker.rollbackTo()
-                return false
+                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                    val marker = mark()
+                    parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                    marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
+                } else {
+                    elementMarker.rollbackTo()
+                    return false
+                }
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -4965,8 +4986,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (attributeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                attributeMarker.rollbackTo()
-                return false
+                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                    val marker = mark()
+                    parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                    marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
+                } else {
+                    attributeMarker.rollbackTo()
+                    return false
+                }
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -4982,8 +5009,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val namespaceMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE)
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.PREFIX)) {
-                if (!parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                    val marker = mark()
+                    parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                    marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
+                } else {
                     namespaceMarker.rollbackTo()
                     return false
                 }
@@ -5033,8 +5064,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (piMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseQName(XQueryElementType.NCNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                piMarker.rollbackTo()
-                return false
+                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                    val marker = mark()
+                    parseStringLiteral(XQueryElementType.STRING_LITERAL)
+                    marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
+                } else {
+                    piMarker.rollbackTo()
+                    return false
+                }
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -5972,7 +6009,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseSequenceType(): Boolean {
         val sequenceTypeMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE)) {
+        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE) || matchTokenType(XQueryTokenType.K_EMPTY)) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 sequenceTypeMarker.rollbackTo()
@@ -5999,6 +6036,47 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
+    private fun parseItemType_as_SequenceType(): Boolean {
+        val sequenceTypeMarker = mark()
+        val emptySequenceMarker = mark()
+        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE) || matchTokenType(XQueryTokenType.K_EMPTY)) {
+            emptySequenceMarker.error(XQueryBundle.message("parser.error.expected-not", "ItemType", "SequenceType"))
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                sequenceTypeMarker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens()
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"))
+            }
+
+            sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
+            return true
+        } else if (parseItemType()) {
+            emptySequenceMarker.drop()
+
+            parseWhiteSpaceAndCommentTokens()
+
+            val occurrenceIndicatorMarker = mark()
+            if (parseOccurrenceIndicator()) {
+                occurrenceIndicatorMarker.error(XQueryBundle.message("parser.error.expected-not", "ItemType", "SequenceType"))
+                sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
+                return true
+            } else {
+                occurrenceIndicatorMarker.drop()
+                sequenceTypeMarker.drop()
+                return true
+            }
+        }
+
+        emptySequenceMarker.drop()
+        sequenceTypeMarker.drop()
+        return false
+    }
+
     private fun parseOccurrenceIndicator(): Boolean {
         return matchTokenType(XQueryTokenType.OPTIONAL) ||
                 matchTokenType(XQueryTokenType.STAR) ||
@@ -6006,8 +6084,24 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseItemType(): Boolean {
-        val itemTypeMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_ITEM)) {
+        return parseKindTest() ||
+                parseAnyItemType() ||
+                parseAnnotatedFunctionOrSequence() ||
+                parseMapTest() ||
+                parseArrayTest() ||
+                parseTupleType() ||
+                parseUnionType() ||
+                parseAtomicOrUnionType() ||
+                parseParenthesizedSequenceType()
+    }
+
+    private fun parseAtomicOrUnionType(): Boolean {
+        return parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)
+    }
+
+    private fun parseAnyItemType(): Boolean {
+        val itemTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ITEM)
+        if (itemTypeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 itemTypeMarker.rollbackTo()
@@ -6019,26 +6113,10 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            itemTypeMarker.done(XQueryElementType.ITEM_TYPE)
-            return true
-        } else if (parseKindTest() ||
-                parseFunctionTest() ||
-                parseMapTest() ||
-                parseArrayTest() ||
-                parseTupleType() ||
-                parseUnionType() ||
-                parseAtomicOrUnionType() ||
-                parseParenthesizedItemType()) {
-            itemTypeMarker.drop()
+            itemTypeMarker.done(XQueryElementType.ANY_ITEM_TYPE)
             return true
         }
-
-        itemTypeMarker.drop()
         return false
-    }
-
-    private fun parseAtomicOrUnionType(): Boolean {
-        return parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)
     }
 
     private fun parseTupleType(): Boolean {
@@ -6058,14 +6136,31 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 haveError = true
             }
 
-            parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.COMMA)) {
+            var isExtensible = false
+            var haveNext = true
+            while (haveNext) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseTupleField() && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected", "NCName"))
+                if (isExtensible) {
+                    val marker = mark()
+                    if (!matchTokenType(XQueryTokenType.COMMA)) {
+                        haveNext = false
+                        marker.drop()
+                        continue
+                    } else {
+                        marker.error(XQueryBundle.message("parser.error.tuple-wildcard-with-names-after"))
+                    }
+                } else if (!matchTokenType(XQueryTokenType.COMMA)) {
+                    haveNext = false
+                    continue
+                }
+
+                parseWhiteSpaceAndCommentTokens()
+                if (matchTokenType(XQueryTokenType.STAR)) {
+                    isExtensible = true
+                } else if (!parseTupleField() && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-either", "NCName", "*"))
                     haveError = true
                 }
-                parseWhiteSpaceAndCommentTokens()
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6083,6 +6178,9 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         val tupleFieldMarker = mark()
         if (parseNCName(XQueryElementType.NCNAME)) {
             var haveError = false
+
+            parseWhiteSpaceAndCommentTokens()
+            matchTokenType(XQueryTokenType.OPTIONAL)
 
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
@@ -6144,8 +6242,8 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseFunctionTest(): Boolean {
-        val functionTestMarker = mark()
+    private fun parseAnnotatedFunctionOrSequence(): Boolean {
+        val marker = mark()
 
         var haveAnnotations = false
         while (parseAnnotation()) {
@@ -6153,17 +6251,27 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             haveAnnotations = true
         }
 
-        if (parseAnyOrTypedFunctionTest()) {
-            functionTestMarker.done(XQueryElementType.FUNCTION_TEST)
+        if (haveAnnotations && getTokenType() === XQueryTokenType.K_FOR) {
+            advanceLexer()
+            parseWhiteSpaceAndCommentTokens()
+
+            if (!parseSequenceType()) {
+                error(XQueryBundle.message("parser.error.expected", "SequenceType"))
+            }
+
+            marker.done(XQueryElementType.ANNOTATED_SEQUENCE_TYPE)
+            return true
+        } else if (parseAnyOrTypedFunctionTest()) {
+            marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else if (haveAnnotations) {
-            error(XQueryBundle.message("parser.error.expected", "AnyFunctionTest"))
+            error(XQueryBundle.message("parser.error.expected-keyword", "function"))
 
-            functionTestMarker.done(XQueryElementType.FUNCTION_TEST)
+            marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         }
 
-        functionTestMarker.drop()
+        marker.drop()
         return false
     }
 
@@ -6229,15 +6337,51 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseParenthesizedItemType(): Boolean {
+    private fun parseParenthesizedSequenceType(): Boolean {
         val parenthesizedItemTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.PARENTHESIS_OPEN)
         if (parenthesizedItemTypeMarker != null) {
             var haveErrors = false
+            var type = XQueryElementType.PARENTHESIZED_ITEM_TYPE
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseItemType()) {
+            if (!parseItemType_as_SequenceType()) {
                 error(XQueryBundle.message("parser.error.expected", "ItemType"))
                 haveErrors = true
+            }
+
+            var haveNextItem = true
+            parseWhiteSpaceAndCommentTokens()
+            while (haveNextItem) {
+                val nextType: IElementType?
+
+                parseWhiteSpaceAndCommentTokens()
+                if (getTokenType() === XQueryTokenType.UNION) {
+                    nextType = XQueryElementType.ITEM_TYPE_UNION
+                } else if (getTokenType() === XQueryTokenType.COMMA) {
+                    nextType = XQueryElementType.TUPLE_SEQUENCE_TYPE
+                } else {
+                    haveNextItem = false
+                    continue
+                }
+
+                if (type === XQueryElementType.PARENTHESIZED_ITEM_TYPE || type === nextType) {
+                    type = nextType
+                    advanceLexer()
+                } else {
+                    val marker = mark()
+                    advanceLexer()
+                    if (nextType === XQueryElementType.ITEM_TYPE_UNION) {
+                        marker.error(XQueryBundle.message("parser.error.expected", "|"))
+                    } else {
+                        marker.error(XQueryBundle.message("parser.error.expected", ","))
+                    }
+                }
+
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseItemType_as_SequenceType()) {
+                    error(XQueryBundle.message("parser.error.expected", "ItemType"))
+                    haveErrors = true
+                }
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6245,7 +6389,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            parenthesizedItemTypeMarker.done(XQueryElementType.PARENTHESIZED_ITEM_TYPE)
+            parenthesizedItemTypeMarker.done(type)
             return true
         }
         return false
