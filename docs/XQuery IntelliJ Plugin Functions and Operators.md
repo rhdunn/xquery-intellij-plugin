@@ -19,6 +19,7 @@ JetBrain's IntelliJ IDEs.
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 EXPath References](#a2-expath-references)
+  - [A.3 EXQuery References](#a3-exquery-references)
 
 ## 1 Introduction
 The purpose of this document is to catalog the options, annotations, functions,
@@ -71,6 +72,7 @@ A *specification* is one of:
 1. `expath-http` -- EXPath HTTP Client Module
 1. `expath-webapp` -- EXPath Web Applications
 1. `expath-zip` -- EXPath ZIP Module
+1. `exquery-restxq` -- RESTXQ 1.0: RESTful Annotations for XQuery
 1. `xpath-functions` -- XPath and XQuery Functions and Operators
 
 It specifies which XQuery specification the module applies to.
@@ -130,3 +132,7 @@ that is required for the given imported module definitions.
    See [http://expath.org/spec/webapp/20130401]().
 *  EXPath. *ZIP Module*. EXPath Candidate Module 12 October 2010.
    See [http://expath.org/spec/zip/20101012]().
+
+### A.3 EXQuery References
+*  EXQuery. *RESTXQ 1.0: RESTful Annotations for XQuery*. Unofficial Draft 21
+   March 2016. See [http://exquery.github.io/exquery/exquery-restxq-specification/restxq-1.0-specification.html]().
