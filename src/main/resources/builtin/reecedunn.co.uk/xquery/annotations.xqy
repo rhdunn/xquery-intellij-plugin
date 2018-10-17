@@ -13,4 +13,4 @@ declare %a:annotation function a:see-also($conformance as xs:string, $version as
 declare %a:annotation function a:since($conformance as xs:string, $version as xs:string) external;
 declare %a:annotation function a:until($conformance as xs:string, $version as xs:string) external;
 declare %a:annotation function a:until($conformance as xs:string, $version as xs:string, $replacement as xs:string) external;
-declare %a:annotation function a:variadic($type as xs:string) external;
+declare %a:annotation function a:variadic() external;
