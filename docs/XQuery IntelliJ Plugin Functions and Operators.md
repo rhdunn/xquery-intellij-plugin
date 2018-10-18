@@ -72,7 +72,8 @@ A *specification* is one of:
 1. `expath-http` -- EXPath HTTP Client Module
 1. `expath-webapp` -- EXPath Web Applications
 1. `expath-zip` -- EXPath ZIP Module
-1. `exquery-restxq` -- RESTXQ 1.0: RESTful Annotations for XQuery
+1. `exquery-request` -- EXQuery HTTP Request Module 1.0
+1. `exquery-restxq` -- EXQuery RESTXQ 1.0: RESTful Annotations for XQuery
 1. `xpath-functions` -- XPath and XQuery Functions and Operators
 
 It specifies which XQuery specification the module applies to.
@@ -134,5 +135,7 @@ that is required for the given imported module definitions.
    See [http://expath.org/spec/zip/20101012]().
 
 ### A.3 EXQuery References
+*  EXQuery. *HTTP Request Module 1.0*. Unofficial Draft 04 August 2013. See
+   [http://exquery.github.io/expath-specs-playground/request-module-1.0-specification.html]().
 *  EXQuery. *RESTXQ 1.0: RESTful Annotations for XQuery*. Unofficial Draft 21
    March 2016. See [http://exquery.github.io/exquery/exquery-restxq-specification/restxq-1.0-specification.html]().

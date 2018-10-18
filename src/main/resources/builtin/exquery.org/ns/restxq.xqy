@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- : RESTXQ 1.0: RESTful Annotations for XQuery (Unofficial Draft 21 March 2016)
+ : RESTXQ 1.0: RESTful Annotations for XQuery (EXQuery Unofficial Draft 21 March 2016)
  :
  : @see http://exquery.github.io/exquery/exquery-restxq-specification/restxq-1.0-specification.html
  : @see http://docs.basex.org/wiki/RESTXQ_Module

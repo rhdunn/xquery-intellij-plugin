@@ -9,6 +9,7 @@ Saxon Vendor Extensions:
 1.  Support Saxon 9.8 simple inline function expressions.
 1.  Support Saxon 9.9 `orElse` and `andAlso` logical expressions.
 1.  Support Saxon 9.9 optional field names for tuples, and extensible tuples.
+1.  Support `NCName` and `URIQualifiedName` types in the `union()` syntax.
 
 XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:
 
@@ -25,6 +26,8 @@ Static Context:
 1.  Add the `sql` namespace to the MarkLogic static context, added in MarkLogic 7.0.
 1.  Add support for the BaseX built-in functions and static context. Thanks to
     Bridger Dyson-Smith for providing the built-in function definitions.
+1.  Add support for EXPath and EXQuery module functions used by BaseX as built-in
+    functions and importable modules.
 
 Module Import Resolution:
 
