@@ -59,15 +59,18 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             }
         }
 
-        var end = element.lastChild
-        if (end.node.elementType === XQueryTokenType.CLOSE_XML_TAG || end.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG) {
-            end = end.prevSibling
-        }
+        val end = element.lastChild
+        val endOffset =
+            if (end.node.elementType === XQueryTokenType.CLOSE_XML_TAG || end.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG) {
+                end.prevSibling.textRange.endOffset
+            } else {
+                end.textRange.startOffset
+            }
 
         if (hasEnclosedExprOnlyContent && !hasMultiLineAttributes || start == null) {
             return null
         }
-        return TextRange(start.textRange.startOffset, end.textRange.startOffset)
+        return TextRange(start.textRange.startOffset, endOffset)
     }
 
     private fun getRange(element: PsiElement): TextRange? {

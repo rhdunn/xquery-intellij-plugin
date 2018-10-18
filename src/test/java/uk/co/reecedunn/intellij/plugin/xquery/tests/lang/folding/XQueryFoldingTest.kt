@@ -148,6 +148,17 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("single line; self-closing")
+        fun testDirElemConstructor_SelfClosing() {
+            val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.xq")
+            val builder = XQueryFoldingBuilder()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
         @DisplayName("incomplete")
         fun testDirElemConstructor_Incomplete() {
             val file = parseResource("tests/folding/DirElemConstructor_Incomplete.xq")
@@ -211,6 +222,17 @@ private class XQueryFoldingTest : ParserTestCase() {
 
             assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple lines; self closing")
+        fun testDirElemConstructor_MultiLine_() {
+            val file = parseResource("tests/folding/DirElemConstructor_MultiLine_SelfClosing.xq")
+            val builder = XQueryFoldingBuilder()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
         }
 
         @Test
