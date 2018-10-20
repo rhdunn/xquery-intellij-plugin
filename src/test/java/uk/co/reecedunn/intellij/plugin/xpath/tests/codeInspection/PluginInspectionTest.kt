@@ -2437,7 +2437,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: MarkLogic XQuery version string '1.0-ml' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
+                        `is`("XPST0003: XQuery version string '1.0-ml' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
                 }
@@ -2456,7 +2456,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: MarkLogic XQuery version string '1.0' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
                 }
@@ -2573,6 +2573,63 @@ private class PluginInspectionTest : InspectionTestCase() {
                         `is`("XPST0003: Saxon 9.5 does not support MarkLogic 7.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
+                }
+            }
+
+            @Nested
+            @DisplayName("MarkLogic subset of XQuery 3.0")
+            internal inner class MarkLogicXQuery30Subset {
+                @Test
+                @DisplayName("Supported XQuery 3.0 construct with version '0.9-ml'")
+                fun xqueryVersion09ml() {
+                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.implementationVersion = "marklogic/v6.0"
+
+                    val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '0.9-ml' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
+                }
+
+                @Test
+                @DisplayName("Supported XQuery 3.0 construct with version '1.0-ml'")
+                fun xqueryVersion10ml() {
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.implementationVersion = "marklogic/v6.0"
+
+                    val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("Supported XQuery 3.0 construct with version '1.0'")
+                fun xqueryVersion10() {
+                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.implementationVersion = "marklogic/v6.0"
+
+                    val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
                 }
             }
         }
