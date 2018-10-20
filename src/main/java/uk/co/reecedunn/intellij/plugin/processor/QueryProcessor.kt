@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-interface QueryProcessor {
-    fun close()
+import java.io.Closeable
+
+interface QueryProcessor : Closeable {
+    fun createQuery(query: String): Query
 }

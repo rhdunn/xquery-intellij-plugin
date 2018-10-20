@@ -15,9 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
+import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
+    override fun createQuery(query: String): Query {
+        val ret = classes.localSessionClass.getMethod("query", String::class.java).invoke(session, query)
+        return BaseXQuery(ret, classes)
+    }
+
     override fun close() {
         classes.localSessionClass.getMethod("close").invoke(session)
     }

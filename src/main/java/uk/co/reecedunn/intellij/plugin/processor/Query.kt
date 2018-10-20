@@ -13,20 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.basex
+package uk.co.reecedunn.intellij.plugin.processor
 
-import java.io.File
-import java.net.URLClassLoader
+import java.io.Closeable
 
-internal class BaseXClasses(path: File) {
-    val contextClass: Class<*>
-    val localSessionClass: Class<*>
-    val queryClass: Class<*>
-
-    init {
-        val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-        contextClass = loader.loadClass("org.basex.core.Context")
-        localSessionClass = loader.loadClass("org.basex.api.client.LocalSession")
-        queryClass = loader.loadClass("org.basex.api.client.Query")
-    }
+interface Query : Closeable {
 }

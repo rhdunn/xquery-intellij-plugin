@@ -15,18 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
-import java.io.File
-import java.net.URLClassLoader
+import uk.co.reecedunn.intellij.plugin.processor.Query
 
-internal class BaseXClasses(path: File) {
-    val contextClass: Class<*>
-    val localSessionClass: Class<*>
-    val queryClass: Class<*>
-
-    init {
-        val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
-        contextClass = loader.loadClass("org.basex.core.Context")
-        localSessionClass = loader.loadClass("org.basex.api.client.LocalSession")
-        queryClass = loader.loadClass("org.basex.api.client.Query")
+internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
+    override fun close() {
+        classes.queryClass.getMethod("close").invoke(query)
     }
 }
