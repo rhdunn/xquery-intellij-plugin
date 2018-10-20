@@ -15,6 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-import java.io.Closeable
-
-interface Query : Closeable, Iterator<QueryResult>
+data class QueryResult(val value: String, val type: String?)
