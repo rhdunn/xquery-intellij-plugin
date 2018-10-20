@@ -11,20 +11,16 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/7.7";
 
-(:
-BaseX Unit Module annotations
-@TODO - do these need to be included?
-%unit:test
-%unit:test("expected", CODE) %unit:test("expected" as xs:string, xs:QName)???
-%unit:before
-%unit:before(FUNCTION)
-%unit:after
-%unit:after(FUNCTION)
-%unit:before-module
-%unit:after-module
-%unit:ignore
-%unit:ignore(MESSAGE)
-:)
+declare %a:since("basex", "7.7") %a:annotation function unit:after() external;
+declare %a:since("basex", "7.7") %a:annotation function unit:after($function as %parse-as("EQName") for xs:string) external;
+declare %a:since("basex", "7.7") %a:annotation function unit:after-module() external;
+declare %a:since("basex", "7.7") %a:annotation function unit:before() external;
+declare %a:since("basex", "7.7") %a:annotation function unit:before($function as %parse-as("EQName") for xs:string) external;
+declare %a:since("basex", "7.7") %a:annotation function unit:before-module() external;
+declare %a:since("basex", "7.7") %a:annotation function unit:ignore() external;
+declare %a:since("basex", "7.7") %a:annotation function unit:ignore($message as xs:string) external;
+declare %a:since("basex", "7.7") %a:annotation function unit:test() external;
+declare %a:since("basex", "7.7") %a:annotation function unit:test($error as xs:string, $code as %parse-as("EQName") for xs:string) external;
 
 declare %a:since("basex", "7.7") function unit:assert($test as item()*) as empty-sequence() external;
 declare %a:since("basex", "7.7") function unit:assert($test as item()*, $info as item()) as empty-sequence() external;
