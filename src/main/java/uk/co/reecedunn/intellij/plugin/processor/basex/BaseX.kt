@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
+import uk.co.reecedunn.intellij.plugin.processor.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessorInstanceManager
 import java.io.File
@@ -27,4 +28,14 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
         val session = classes.localSessionClass.getConstructor(classes.contextClass).newInstance(context)
         return BaseXQueryProcessor(session, classes)
     }
+
+    override fun connect(settings: ConnectionSettings): QueryProcessor {
+        val session = classes.clientSessionClass.getConstructor(
+            String::class.java, Int::class.java, String::class.java, String::class.java
+        ).newInstance(settings.hostname, settings.port, settings.username, settings.password)
+        return BaseXQueryProcessor(session, classes)
+    }
+
+    override val defaultConnectionSettings: ConnectionSettings =
+        ConnectionSettings("localhost", 1984, "admin", "admin")
 }

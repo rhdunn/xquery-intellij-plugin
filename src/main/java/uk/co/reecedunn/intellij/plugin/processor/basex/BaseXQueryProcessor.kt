@@ -20,11 +20,11 @@ import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override fun createQuery(query: String): Query {
-        val ret = classes.localSessionClass.getMethod("query", String::class.java).invoke(session, query)
+        val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)
         return BaseXQuery(ret, classes)
     }
 
     override fun close() {
-        classes.localSessionClass.getMethod("close").invoke(session)
+        classes.sessionClass.getMethod("close").invoke(session)
     }
 }

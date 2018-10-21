@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-interface QueryProcessorInstanceManager {
-    fun create(): QueryProcessor
-
-    fun connect(settings: ConnectionSettings): QueryProcessor
-
-    val defaultConnectionSettings: ConnectionSettings
-}
+data class ConnectionSettings(
+    val hostname: String,
+    val port: Int,
+    val username: String?,
+    val password: String?
+)
