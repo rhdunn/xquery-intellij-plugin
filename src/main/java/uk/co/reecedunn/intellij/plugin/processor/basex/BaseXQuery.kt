@@ -29,6 +29,12 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
 }
 
 internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
+    override fun bindVariable(name: String, value: Any?, type: String?) {
+        classes.queryClass
+            .getMethod("bind", String::class.java, Any::class.java, String::class.java)
+            .invoke(query, name, value, type)
+    }
+
     override fun run(): Sequence<QueryResult> {
         return BaseXQueryResultIterator(query, classes).asSequence()
     }

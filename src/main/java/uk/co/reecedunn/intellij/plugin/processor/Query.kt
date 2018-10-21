@@ -18,5 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor
 import java.io.Closeable
 
 interface Query : Closeable {
+    fun bindVariable(name: String, value: Any?, type: String?)
+
     fun run(): Sequence<QueryResult>
 }
