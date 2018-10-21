@@ -15,19 +15,29 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
+import org.intellij.lang.annotations.Language
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
+@Language("XQuery")
+val VERSION_QUERY = """
+declare namespace db = "http://basex.org/modules/db";
+db:system()/generalinformation/version/string()
+"""
+
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
+    override val version: String
+        get() = createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
     override fun createQuery(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
                 val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)
-                return BaseXQuery(ret, classes)
+                BaseXQuery(ret, classes)
             }
             else -> throw UnsupportedQueryType(mimetype)
         }
