@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessorFactory
+import uk.co.reecedunn.intellij.plugin.processor.QueryProcessorInstanceManager
 import java.io.File
 
-class BaseX(path: File) : QueryProcessorFactory {
+class BaseX(path: File) : QueryProcessorInstanceManager {
     private val classes = BaseXClasses(path)
     private val context = classes.contextClass.getConstructor(Boolean::class.java).newInstance(false)
 
