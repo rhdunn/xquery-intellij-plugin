@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-import java.io.Closeable
+import java.lang.RuntimeException
 
-interface QueryProcessor : Closeable {
-    val supportedQueryTypes: Array<String>
-
-    fun createQuery(query: String, mimetype: String): Query
-}
+class UnsupportedQueryType(val mimetype: String) :
+    RuntimeException("Unsupported query type: ${mimetype}")

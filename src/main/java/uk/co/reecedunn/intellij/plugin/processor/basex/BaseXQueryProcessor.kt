@@ -15,13 +15,22 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
+import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
-    override fun createQuery(query: String): Query {
-        val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)
-        return BaseXQuery(ret, classes)
+    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
+
+    override fun createQuery(query: String, mimetype: String): Query {
+        return when (mimetype) {
+            MimeTypes.XQUERY -> {
+                val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)
+                return BaseXQuery(ret, classes)
+            }
+            else -> throw UnsupportedQueryType(mimetype)
+        }
     }
 
     override fun close() {

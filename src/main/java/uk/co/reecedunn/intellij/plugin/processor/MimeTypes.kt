@@ -15,10 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-import java.io.Closeable
-
-interface QueryProcessor : Closeable {
-    val supportedQueryTypes: Array<String>
-
-    fun createQuery(query: String, mimetype: String): Query
+object MimeTypes {
+    val XQUERY = "application/xquery"
 }
