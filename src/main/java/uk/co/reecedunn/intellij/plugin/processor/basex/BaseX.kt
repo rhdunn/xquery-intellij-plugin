@@ -23,7 +23,7 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
     private val classes = BaseXClasses(path)
     private val context = classes.contextClass.getConstructor(Boolean::class.java).newInstance(false)
 
-    override fun createQueryProcessor(): QueryProcessor {
+    override fun create(): QueryProcessor {
         val session = classes.localSessionClass.getConstructor(classes.contextClass).newInstance(context)
         return BaseXQueryProcessor(session, classes)
     }

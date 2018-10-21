@@ -16,5 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.processor
 
 interface QueryProcessorInstanceManager {
-    fun createQueryProcessor(): QueryProcessor
+    fun create(): QueryProcessor
 }
