@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
@@ -29,10 +30,17 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses) : QueryProcessor {
             return "$edition $version"
         }
 
-    override val supportedQueryTypes: Array<String> = arrayOf()
+    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
     override fun createQuery(query: String, mimetype: String): Query {
         return when (mimetype) {
+            MimeTypes.XQUERY -> {
+                val compiler = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)
+                val executable =
+                    classes.xqueryCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
+                val evaluator = classes.xqueryExecutableClass.getMethod("load").invoke(executable)
+                SaxonXQueryRunner(evaluator, classes)
+            }
             else -> throw UnsupportedQueryType(mimetype)
         }
     }

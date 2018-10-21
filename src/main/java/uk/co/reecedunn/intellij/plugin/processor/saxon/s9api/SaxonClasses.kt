@@ -19,10 +19,26 @@ import java.io.File
 import java.net.URLClassLoader
 
 internal class SaxonClasses(path: File) {
+    val itemClass: Class<*>
     val processorClass: Class<*>
+    val typeClass: Class<*>
+    val typeHierarchyClass: Class<*>
+    val xdmItemClass: Class<*>
+    val xdmSequenceIteratorClass: Class<*>
+    val xqueryCompilerClass: Class<*>
+    val xqueryEvaluatorClass: Class<*>
+    val xqueryExecutableClass: Class<*>
 
     init {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
+        itemClass = loader.loadClass("net.sf.saxon.om.Item")
         processorClass = loader.loadClass("net.sf.saxon.s9api.Processor")
+        typeClass = loader.loadClass("net.sf.saxon.type.Type")
+        typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
+        xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
+        xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
+        xqueryCompilerClass = loader.loadClass("net.sf.saxon.s9api.XQueryCompiler")
+        xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")
+        xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
     }
 }
