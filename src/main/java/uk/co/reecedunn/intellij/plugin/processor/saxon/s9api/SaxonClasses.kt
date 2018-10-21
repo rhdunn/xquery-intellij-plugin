@@ -25,6 +25,7 @@ internal class SaxonClasses(path: File) {
     val typeHierarchyClass: Class<*>
     val xdmItemClass: Class<*>
     val xdmSequenceIteratorClass: Class<*>
+    val xdmValueClass: Class<*>
     val xqueryCompilerClass: Class<*>
     val xqueryEvaluatorClass: Class<*>
     val xqueryExecutableClass: Class<*>
@@ -37,8 +38,13 @@ internal class SaxonClasses(path: File) {
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
+        xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
         xqueryCompilerClass = loader.loadClass("net.sf.saxon.s9api.XQueryCompiler")
         xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
+    }
+
+    fun javaToXdmValue(value: Any?): Any? {
+        return xdmValueClass.getMethod("makeValue", Any::class.java).invoke(null, value)
     }
 }

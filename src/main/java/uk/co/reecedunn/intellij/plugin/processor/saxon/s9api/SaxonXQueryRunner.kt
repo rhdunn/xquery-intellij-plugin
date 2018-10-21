@@ -24,7 +24,8 @@ internal class SaxonXQueryRunner(val evaluator: Any, val classes: SaxonClasses) 
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
-        TODO("not implemented")
+        val item = classes.javaToXdmValue(value)
+        classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass).invoke(evaluator, item)
     }
 
     override fun run(): Sequence<QueryResult> {
