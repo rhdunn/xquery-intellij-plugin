@@ -23,7 +23,12 @@ import java.io.File
 
 class BaseX(path: File) : QueryProcessorInstanceManager, QueryServerInstanceManager {
     private val classes = BaseXClasses(path)
-    private val context = classes.contextClass.getConstructor(Boolean::class.java).newInstance(false)
+    private val context =
+        try {
+            classes.contextClass.getConstructor(Boolean::class.java).newInstance(true)
+        } catch (e: NoSuchMethodException) {
+            classes.contextClass.getConstructor().newInstance()
+        }
 
     override fun create(): QueryProcessor {
         val session = classes.localSessionClass.getConstructor(classes.contextClass).newInstance(context)

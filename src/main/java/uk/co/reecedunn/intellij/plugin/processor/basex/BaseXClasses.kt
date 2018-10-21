@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import java.io.File
 import java.net.URLClassLoader
 
@@ -28,9 +29,13 @@ internal class BaseXClasses(path: File) {
     init {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
         contextClass = loader.loadClass("org.basex.core.Context")
-        localSessionClass = loader.loadClass("org.basex.api.client.LocalSession")
-        clientSessionClass = loader.loadClass("org.basex.api.client.ClientSession")
-        sessionClass = loader.loadClass("org.basex.api.client.Session")
-        queryClass = loader.loadClass("org.basex.api.client.Query")
+        localSessionClass = loader.loadClassOrNull("org.basex.api.client.LocalSession")
+                ?: loader.loadClass("org.basex.server.LocalSession")
+        clientSessionClass = loader.loadClassOrNull("org.basex.api.client.ClientSession")
+                ?: loader.loadClass("org.basex.server.ClientSession")
+        sessionClass = loader.loadClassOrNull("org.basex.api.client.Session")
+                ?: loader.loadClass("org.basex.server.Session")
+        queryClass = loader.loadClassOrNull("org.basex.api.client.Query")
+                ?: loader.loadClass("org.basex.server.Query")
     }
 }

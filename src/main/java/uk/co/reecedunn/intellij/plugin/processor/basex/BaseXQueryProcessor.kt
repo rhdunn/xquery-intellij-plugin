@@ -23,13 +23,20 @@ import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
 @Language("XQuery")
 val VERSION_QUERY = """
-declare namespace db = "http://basex.org/modules/db";
-db:system()/generalinformation/version/string()
+let ${'$'}info := db:system()
+return if (${'$'}info instance of element(system)) then (: BaseX >= 7.1 :)
+    ${'$'}info/generalinformation/version/string()
+else (: BaseX == 7.0 :)
+    for ${'$'}line in fn:tokenize(${'$'}info, "(\r\n?|\n)")
+    where fn:starts-with(${'$'}line, " Version: ")
+    return fn:substring-after(${'$'}line, " Version: ")
 """
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override val version: String
-        get() = createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+        get() {
+            return createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+        }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
