@@ -20,12 +20,15 @@ import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 
 internal class SaxonXQueryRunner(val evaluator: Any, val classes: SaxonClasses) : Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
-        TODO("not implemented")
+        classes.xqueryEvaluatorClass
+            .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
+            .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value))
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
-        val item = classes.javaToXdmValue(value)
-        classes.xqueryEvaluatorClass.getMethod("setContextItem", classes.xdmItemClass).invoke(evaluator, item)
+        classes.xqueryEvaluatorClass
+            .getMethod("setContextItem", classes.xdmItemClass)
+            .invoke(evaluator, classes.toXdmValue(value))
     }
 
     override fun run(): Sequence<QueryResult> {

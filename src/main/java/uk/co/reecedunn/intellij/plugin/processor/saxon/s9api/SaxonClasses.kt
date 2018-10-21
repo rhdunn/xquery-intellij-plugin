@@ -21,6 +21,7 @@ import java.net.URLClassLoader
 internal class SaxonClasses(path: File) {
     val itemClass: Class<*>
     val processorClass: Class<*>
+    val qnameClass: Class<*>
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
     val xdmItemClass: Class<*>
@@ -34,6 +35,7 @@ internal class SaxonClasses(path: File) {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         processorClass = loader.loadClass("net.sf.saxon.s9api.Processor")
+        qnameClass = loader.loadClass("net.sf.saxon.s9api.QName")
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
@@ -44,7 +46,15 @@ internal class SaxonClasses(path: File) {
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
     }
 
-    fun javaToXdmValue(value: Any?): Any? {
+    fun toXdmValue(value: Any?): Any? {
         return xdmValueClass.getMethod("makeValue", Any::class.java).invoke(null, value)
+    }
+
+    fun toQName(value: String): Any {
+        return when {
+            value.startsWith("{") -> qnameClass.getMethod("fromClarkName", String::class.java).invoke(null, value)
+            value.startsWith("Q{") -> qnameClass.getMethod("fromEQName", String::class.java).invoke(null, value)
+            else -> qnameClass.getConstructor(String::class.java).newInstance(value) // NCName
+        }
     }
 }
