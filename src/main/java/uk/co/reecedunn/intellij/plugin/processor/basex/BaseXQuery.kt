@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 
@@ -23,12 +24,7 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
 
     override fun next(): QueryResult {
         val next = classes.queryClass.getMethod("next").invoke(query) as String?
-        val type =
-            try {
-                classes.queryClass.getMethod("type").invoke(query)
-            } catch (e: NoSuchMethodException) {
-                null // Not available in BaseX 7.0
-            }
+        val type = classes.queryClass.getMethodOrNull("type")?.invoke(query)
         return QueryResult(next!!, type?.toString() ?: "item()")
     }
 }

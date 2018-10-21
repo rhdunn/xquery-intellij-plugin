@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
@@ -25,9 +26,9 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses) : QueryProcessor {
 
     override val version: String
         get() {
-            val edition = classes.processorClass.getMethod("getSaxonEdition").invoke(processor) as String
+            val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String
             val version = classes.processorClass.getMethod("getSaxonProductVersion").invoke(processor) as String
-            return "$edition $version"
+            return edition?.let { "$it $version" } ?: version
         }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
