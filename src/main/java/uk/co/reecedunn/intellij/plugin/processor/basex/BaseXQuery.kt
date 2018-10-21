@@ -18,13 +18,19 @@ package uk.co.reecedunn.intellij.plugin.processor.basex
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 
-internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
+private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses) : Iterator<QueryResult> {
     override fun hasNext(): Boolean = classes.queryClass.getMethod("more").invoke(query) as Boolean
 
     override fun next(): QueryResult {
         val next = classes.queryClass.getMethod("next").invoke(query) as String?
         val type = classes.queryClass.getMethod("type").invoke(query)
         return QueryResult(next!!, type?.toString())
+    }
+}
+
+internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
+    override fun run(): Sequence<QueryResult> {
+        return BaseXQueryResultIterator(query, classes).asSequence()
     }
 
     override fun close() {

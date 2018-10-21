@@ -17,4 +17,6 @@ package uk.co.reecedunn.intellij.plugin.processor
 
 import java.io.Closeable
 
-interface Query : Closeable, Iterator<QueryResult>
+interface Query : Closeable {
+    fun run(): Sequence<QueryResult>
+}
