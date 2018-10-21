@@ -35,6 +35,12 @@ internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
             .invoke(query, name, value, type)
     }
 
+    override fun bindContextItem(value: Any?, type: String?) {
+        classes.queryClass
+            .getMethod("context", Any::class.java, String::class.java)
+            .invoke(query, value, type)
+    }
+
     override fun run(): Sequence<QueryResult> {
         return BaseXQueryResultIterator(query, classes).asSequence()
     }
