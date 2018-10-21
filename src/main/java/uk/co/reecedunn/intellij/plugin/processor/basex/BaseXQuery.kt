@@ -24,7 +24,7 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
     override fun next(): QueryResult {
         val next = classes.queryClass.getMethod("next").invoke(query) as String?
         val type = classes.queryClass.getMethod("type").invoke(query)
-        return QueryResult(next!!, type?.toString())
+        return QueryResult(next!!, type?.toString() ?: "item()")
     }
 }
 

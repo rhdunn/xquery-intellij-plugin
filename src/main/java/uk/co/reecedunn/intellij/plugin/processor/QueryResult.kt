@@ -15,4 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-data class QueryResult(val value: String, val type: String?)
+data class QueryResult(val value: String, val type: String)
