@@ -76,6 +76,18 @@ allprojects {
     }
 }
 
+sourceSets {
+    integrationTest {
+        java.srcDir file('src/integrationTest/java')
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -83,6 +95,15 @@ dependencies {
 
     testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
+
+    integrationTestCompile sourceSets.main.output
+    integrationTestCompile configurations.testCompile
+    integrationTestCompile sourceSets.test.output
+
+    integrationTestCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
+
+    integrationTestRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
+    integrationTestRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
 }
 
 intellij {
@@ -127,7 +148,5 @@ compileTestKotlin {
 }
 
 test {
-    useJUnitPlatform {
-        excludeTags "integration"
-    }
+    useJUnitPlatform()
 }
