@@ -22,13 +22,13 @@ internal class SaxonXQueryRunner(val evaluator: Any, val classes: SaxonClasses) 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         classes.xqueryEvaluatorClass
             .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
-            .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value))
+            .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value, type))
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
         classes.xqueryEvaluatorClass
             .getMethod("setContextItem", classes.xdmItemClass)
-            .invoke(evaluator, classes.toXdmValue(value))
+            .invoke(evaluator, classes.toXdmValue(value, type))
     }
 
     override fun run(): Sequence<QueryResult> {

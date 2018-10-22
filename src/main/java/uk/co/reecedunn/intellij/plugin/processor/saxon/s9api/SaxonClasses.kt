@@ -46,7 +46,7 @@ internal class SaxonClasses(path: File) {
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
     }
 
-    fun toXdmValue(value: Any?): Any? {
+    fun toXdmValue(value: Any?, type: Any?): Any? {
         return xdmValueClass.getMethod("makeValue", Any::class.java).invoke(null, value)
     }
 
