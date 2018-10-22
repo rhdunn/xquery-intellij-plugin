@@ -131,19 +131,25 @@ that is required for the given built-in module definitions.
 ###### Summary
 > Parses a string as a QName.
 ###### Signature
-> <pre>op:QName-parse($qname as <em>xs:string</em>) as <em>xs:QName</em></pre>
+> <pre>op:QName-parse($qname as <em>xs:string</em>, $namespaces as <em>map(xs:string, xs:string)</em>) as <em>xs:QName</em></pre>
 ###### Rules
 > The string is parsed as follows:
 >
 > 1.  If the string is a `URIQualifiedName`, the return value is an expanded,
->     non-local QName with the *namespace uri* being the `AnyURI` part, and
+>     non-lexical QName with the *namespace uri* being the `AnyURI` part, and
 >     the *local name* being the `NCName` part. The *prefix* of the QName is
 >     missing.
 >
 > 1.  If the string is a `ClarkQName`, the return value is an expanded,
->     non-local QName with the *namespace uri* being the `AnyURI` part, and
+>     non-lexical QName with the *namespace uri* being the `AnyURI` part, and
 >     the *local name* being the `NCName` part. The *prefix* of the QName is
 >     missing.
+>
+> 1.  If the string is a `LexicalQName`, the return value is an expanded lexical
+>     QName with the *prefix* being the first `NCName` part and the *local name*
+>     being the second `NCName` part. The *namespace uri* is the entry in the
+>     `$namespaces` map where the key is the QName *prefix*. If the prefix does
+>     not exist in the map, an `err:XPST0081` error is raised.
 
 ## A References
 

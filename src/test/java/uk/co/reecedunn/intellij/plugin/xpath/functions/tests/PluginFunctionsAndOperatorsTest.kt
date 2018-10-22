@@ -16,10 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xpath.functions.tests
 
 import org.hamcrest.CoreMatchers.*
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op.UndeclaredNamespacePrefixException
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")
@@ -30,7 +32,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("URIQualifiedName")
         fun uriQualifiedName() {
-            val qname = op_qname_parse("Q{http://www.example.co.uk}test")!!
+            val qname = op_qname_parse("Q{http://www.example.co.uk}test", mapOf())!!
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
@@ -40,11 +42,30 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("Clark Notation")
         fun clarkNotation() {
-            val qname = op_qname_parse("{http://www.example.co.uk}test")!!
+            val qname = op_qname_parse("{http://www.example.co.uk}test", mapOf())!!
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
             assertThat(qname.isLexicalQName, `is`(false))
+        }
+
+        @Test
+        @DisplayName("QName")
+        fun qname() {
+            val qname = op_qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))!!
+            assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
+            assertThat(qname.prefix!!.data, `is`("xs"))
+            assertThat(qname.localName!!.data, `is`("string"))
+            assertThat(qname.isLexicalQName, `is`(true))
+        }
+
+        @Test
+        @DisplayName("QName; undeclared namespace")
+        fun qname_undeclaredNamespace() {
+            val e = assertThrows(UndeclaredNamespacePrefixException::class.java) {
+                op_qname_parse("xs:string", mapOf())!!
+            }
+            assertThat(e.message, `is`("XPST0081: Undeclared namespace prefix: xs"))
         }
     }
 }
