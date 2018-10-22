@@ -168,6 +168,15 @@ interface XsNameValue : XsTokenValue
 
 interface XsNCNameValue : XsNameValue
 
+data class XsNCName(
+    override val data: String,
+    private val reference: WeakReference<PsiElement>?
+) : XsNCNameValue {
+    constructor(data: String, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
+
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.13) xs:integer
 

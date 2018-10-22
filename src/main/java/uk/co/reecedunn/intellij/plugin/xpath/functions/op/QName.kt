@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.functions.op
 
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
 // region XPath and XQuery Functions and Operators 3.1 (10.2.1) op:QName-equal
 
@@ -29,6 +30,21 @@ fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
         }
     }
     return false
+}
+
+// endregion
+// region XQuery IntelliJ Plugin Functions and Operators () op:QName-parse
+
+@Suppress("FunctionName")
+fun op_qname_parse(qname: String): XsQNameValue? {
+    return when {
+        qname.startsWith("Q{") -> {
+            val ns = XsAnyUri(qname.substringBefore("}").substring(2), null as PsiElement?)
+            val localName = XsNCName(qname.substringAfter("}"), null as PsiElement?)
+            XsQName(ns, null, localName, false, null as PsiElement?)
+        }
+        else -> null
+    }
 }
 
 // endregion
