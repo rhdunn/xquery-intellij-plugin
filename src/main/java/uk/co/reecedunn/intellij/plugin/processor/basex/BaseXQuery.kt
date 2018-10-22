@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.basex
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryResult
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses) : Iterator<QueryResult> {
     override fun hasNext(): Boolean = classes.queryClass.getMethod("more").invoke(query) as Boolean
@@ -30,10 +31,10 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
 }
 
 internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
-    override fun bindVariable(name: String, value: Any?, type: String?) {
+    override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
         classes.queryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
-            .invoke(query, name, value, type)
+            .invoke(query, "Q{${name.namespace!!.data}}${name.localName!!.data}", value, type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {

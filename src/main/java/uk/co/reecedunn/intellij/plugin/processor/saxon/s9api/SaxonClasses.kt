@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import java.io.File
 import java.net.URLClassLoader
 
@@ -50,11 +51,21 @@ internal class SaxonClasses(path: File) {
         return xdmValueClass.getMethod("makeValue", Any::class.java).invoke(null, value)
     }
 
-    fun toQName(value: String): Any {
+    fun toQName(value: XsQNameValue): Any {
         return when {
-            value.startsWith("{") -> qnameClass.getMethod("fromClarkName", String::class.java).invoke(null, value)
-            value.startsWith("Q{") -> qnameClass.getMethod("fromEQName", String::class.java).invoke(null, value)
-            else -> qnameClass.getConstructor(String::class.java).newInstance(value) // NCName
+            value.namespace == null -> {
+                qnameClass.getConstructor(String::class.java).newInstance(value.localName!!.data)
+            }
+            value.prefix == null -> {
+                qnameClass
+                    .getConstructor(String::class.java, String::class.java)
+                    .newInstance(value.namespace!!.data, value.localName!!.data)
+            }
+            else -> {
+                qnameClass
+                    .getConstructor(String::class.java, String::class.java, String::class.java)
+                    .newInstance(value.prefix!!.data, value.namespace!!.data, value.localName!!.data)
+            }
         }
     }
 }
