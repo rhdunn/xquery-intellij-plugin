@@ -25,12 +25,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")
 class PluginFunctionsAndOperatorsTest {
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin Functions and Operators () op:QName-parse")
+    @DisplayName("XQuery IntelliJ Plugin Functions and Operators (3.1) op:QName-parse")
     internal inner class OpQNameParse {
         @Test
         @DisplayName("URIQualifiedName")
-        fun ncname() {
+        fun uriQualifiedName() {
             val qname = op_qname_parse("Q{http://www.example.co.uk}test")!!
+            assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
+            assertThat(qname.prefix, `is`(nullValue()))
+            assertThat(qname.localName!!.data, `is`("test"))
+            assertThat(qname.isLexicalQName, `is`(false))
+        }
+
+        @Test
+        @DisplayName("Clark Notation")
+        fun clarkNotation() {
+            val qname = op_qname_parse("{http://www.example.co.uk}test")!!
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))

@@ -33,13 +33,18 @@ fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
 }
 
 // endregion
-// region XQuery IntelliJ Plugin Functions and Operators () op:QName-parse
+// region XQuery IntelliJ Plugin Functions and Operators (3.1) op:QName-parse
 
 @Suppress("FunctionName")
 fun op_qname_parse(qname: String): XsQNameValue? {
     return when {
-        qname.startsWith("Q{") -> {
+        qname.startsWith("Q{") /* URIQualifiedName */ -> {
             val ns = XsAnyUri(qname.substringBefore("}").substring(2), null as PsiElement?)
+            val localName = XsNCName(qname.substringAfter("}"), null as PsiElement?)
+            XsQName(ns, null, localName, false, null as PsiElement?)
+        }
+        qname.startsWith("{") /* Clark Notation */ -> {
+            val ns = XsAnyUri(qname.substringBefore("}").substring(1), null as PsiElement?)
             val localName = XsNCName(qname.substringAfter("}"), null as PsiElement?)
             XsQName(ns, null, localName, false, null as PsiElement?)
         }

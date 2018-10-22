@@ -16,6 +16,8 @@ JetBrain's IntelliJ IDEs.
   - [2.1 o:implements-module](#21-oimplements-module)
   - [2.2 o:requires](#22-orequires)
   - [2.3 o:requires-import](#23-orequires-import)
+- [3 Functions related to QNames](#3-functions-related-to-qnames)
+  - [3.1 op:QName-parse](#31-opqname-parse)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
   - [A.2 EXPath References](#a2-expath-references)
@@ -52,7 +54,8 @@ implementations should actually provide these functions. For this reason,
 no namespace is associated with the `op` prefix.
 
 ### 1.2 Common definitions
-These values are used by different 
+These values are used by different parts of this specification to describe
+the format of strings in annotations, options, functions, and operators.
 
 #### 1.2.1 implementation
 An *implementation* is one of:
@@ -83,11 +86,21 @@ A *version* can be a major/minor (e.g. `7.0`), major/minor/patch (e.g.
 `7.7.2`), MarkLogic major/minor/patch (e.g. `8.0-6.2`), or major/minor/date
 (e.g. `1.0-20131203`) version string.
 
+#### 1.2.4 QName
+A *QName* can be specified in one of the following formats:
+
+    URIQualifiedName ::= "Q{" AnyURI "}" NCName
+    ClarkQName ::= "{" AnyURI "}" NCName
+    LexicalQName ::= NCName ":" NCName
+    LexicalNCName ::= NCName
+
+Here, `ClarkQName` is the Clark notation for QNames created by James Clark.
+
 ## 2 Options
 
 ### 2.1 o:implements-module
 ###### Summary
-Specifies the version of a specification supported by an implementation.
+> Specifies the version of a specification supported by an implementation.
 ###### Syntax
 >     implementation "/" version S "as" S specification "/" version
 ###### Example
@@ -104,13 +117,33 @@ that is required for the given built-in module definitions.
 
 ### 2.3 o:requires-import
 ###### Summary
-Specifies the specification or implementation, and minimum version of those
-that is required for the given imported module definitions.
+> Specifies the specification or implementation, and minimum version of those
+> that is required for the given imported module definitions.
 ###### Syntax
 >     (implementation|specification) "/" version ";" S "location-uri" "=" "(none)"
 >     (implementation|specification) "/" version ";" S "location-uri" "=" AnyURI
 ###### Example
 >     declare option o:requires-import "basex/7.5; location-uri=(none)";
+
+## 3 Functions related to QNames
+
+### 3.1 op:QName-parse
+###### Summary
+> Parses a string as a QName.
+###### Signature
+> <pre>op:QName-parse($qname as <em>xs:string</em>) as <em>xs:QName</em></pre>
+###### Rules
+> The string is parsed as follows:
+>
+> 1.  If the string is a `URIQualifiedName`, the return value is an expanded,
+>     non-local QName with the *namespace uri* being the `AnyURI` part, and
+>     the *local name* being the `NCName` part. The *prefix* of the QName is
+>     missing.
+>
+> 1.  If the string is a `ClarkQName`, the return value is an expanded,
+>     non-local QName with the *namespace uri* being the `AnyURI` part, and
+>     the *local name* being the `NCName` part. The *prefix* of the QName is
+>     missing.
 
 ## A References
 
