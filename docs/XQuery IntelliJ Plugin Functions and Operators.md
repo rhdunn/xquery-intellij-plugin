@@ -150,6 +150,11 @@ that is required for the given built-in module definitions.
 >     being the second `NCName` part. The *namespace uri* is the entry in the
 >     `$namespaces` map where the key is the QName *prefix*. If the prefix does
 >     not exist in the map, an `err:XPST0081` error is raised.
+>
+> 1.  If the string is a `LexicalNCName`, the return value is equivalent to
+>     parsing `Q{}local-name` where `local-name` is the content of this string.
+>
+> 1.  Otherwise, an invalid QName format error is raised.
 
 ## A References
 

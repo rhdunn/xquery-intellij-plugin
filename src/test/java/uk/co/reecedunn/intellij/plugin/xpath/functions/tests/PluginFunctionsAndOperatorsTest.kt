@@ -32,7 +32,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("URIQualifiedName")
         fun uriQualifiedName() {
-            val qname = op_qname_parse("Q{http://www.example.co.uk}test", mapOf())!!
+            val qname = op_qname_parse("Q{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
@@ -42,7 +42,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("Clark Notation")
         fun clarkNotation() {
-            val qname = op_qname_parse("{http://www.example.co.uk}test", mapOf())!!
+            val qname = op_qname_parse("{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.prefix, `is`(nullValue()))
             assertThat(qname.localName!!.data, `is`("test"))
@@ -52,7 +52,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("QName")
         fun qname() {
-            val qname = op_qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))!!
+            val qname = op_qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.prefix!!.data, `is`("xs"))
             assertThat(qname.localName!!.data, `is`("string"))
@@ -63,9 +63,19 @@ class PluginFunctionsAndOperatorsTest {
         @DisplayName("QName; undeclared namespace")
         fun qname_undeclaredNamespace() {
             val e = assertThrows(UndeclaredNamespacePrefixException::class.java) {
-                op_qname_parse("xs:string", mapOf())!!
+                op_qname_parse("xs:string", mapOf())
             }
             assertThat(e.message, `is`("XPST0081: Undeclared namespace prefix: xs"))
+        }
+
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val qname = op_qname_parse("string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
+            assertThat(qname.namespace!!.data, `is`(""))
+            assertThat(qname.prefix, `is`(nullValue()))
+            assertThat(qname.localName!!.data, `is`("string"))
+            assertThat(qname.isLexicalQName, `is`(true))
         }
     }
 }
