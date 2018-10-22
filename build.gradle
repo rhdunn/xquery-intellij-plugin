@@ -127,5 +127,7 @@ compileTestKotlin {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags "integration"
+    }
 }
