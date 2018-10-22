@@ -24,12 +24,18 @@ import uk.co.reecedunn.intellij.plugin.processor.basex.BaseX
 import java.io.File
 
 @Suppress("Reformat")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery processor")
 class ProcessorTest {
     val home = System.getProperty("user.home")
     // Modify these for the processor being tested:
     val provider = BaseX(File("$home/xquery/basex/basex-9.0/BaseX.jar"))
     val processor: QueryProcessor = provider.create()
+
+    @AfterAll
+    fun tearDown() {
+        processor.close()
+    }
 
     @Nested
     @DisplayName("return values")
