@@ -33,16 +33,16 @@ buildscript {
     }
 
     ext.kotlin_from_version = { version ->
-        if (version == "LATEST-EAP-SNAPSHOT" || version == "LATEST-TRUNK-SNAPSHOT")
-            "1.3-M2" // >= 2018.3
+        if (version >= 191)
+            "1.3.0-rc-190"
         else
-            "1.2.70" // <= 2018.2
+            "1.2.70"
     }
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.2'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
-    ext.kotlin_version = ext.kotlin_from_version(ext.idea_version)
+    ext.kotlin_version = ext.kotlin_from_version(ext.idea_since_build.toInteger())
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
