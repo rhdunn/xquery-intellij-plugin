@@ -39,16 +39,28 @@ class ProcessorTest {
     }
 
     @Nested
-    @DisplayName("return values")
+    @DisplayName("return value type display name")
     internal inner class ReturnValues {
-        private fun atomic(value: String, type: String, value2: String? = null) {
+        private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.createQuery("\"$value\" cast as $type", MimeTypes.XQUERY)
             val items = q.run().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
-            assertThat(items[0].value, `is`(anyOf(`is`(value), `is`(value2 ?: value))))
-            assertThat(items[0].type, `is`(type))
+            assertThat(items[0].value, valueMatcher)
+            assertThat(items[0].type, typeMatcher)
+        }
+
+        private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
+            atomic(value, type, valueMatcher, `is`(type))
+        }
+
+        private fun atomic_types(value: String, type: String, typeMatcher: Matcher<String>) {
+            atomic(value, type, `is`(value), typeMatcher)
+        }
+
+        private fun atomic(value: String, type: String) {
+            atomic(value, type, `is`(value), `is`(type))
         }
 
         @Test @DisplayName("empty-sequence()") fun emptySequence() {
@@ -60,7 +72,7 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
-        @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic("bG9yZW0gaXBzdW0=", "xs:base64Binary", "lorem ipsum") }
+        @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
         @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
         @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
@@ -73,7 +85,7 @@ class ProcessorTest {
         @Test @DisplayName("xs:gMonthDay") fun xsGMonthDay() { atomic("--10-12", "xs:gMonthDay") }
         @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
         @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
-        @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic("6C6F72656D20697073756D", "xs:hexBinary", "lorem ipsum") }
+        @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
         @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
@@ -84,7 +96,7 @@ class ProcessorTest {
     @Nested
     @DisplayName("bind variable using NCName from string with a specified type")
     internal inner class BindVariableNCNameFromString {
-        private fun atomic(value: String, type: String, value2: String? = null) {
+        private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("x", mapOf()), value, type)
 
@@ -92,8 +104,20 @@ class ProcessorTest {
             q.close()
 
             assertThat(items.size, `is`(1))
-            assertThat(items[0].value, `is`(anyOf(`is`(value), `is`(value2 ?: value))))
-            assertThat(items[0].type, `is`(type))
+            assertThat(items[0].value, valueMatcher)
+            assertThat(items[0].type, typeMatcher)
+        }
+
+        private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
+            atomic(value, type, valueMatcher, `is`(type))
+        }
+
+        private fun atomic_types(value: String, type: String, typeMatcher: Matcher<String>) {
+            atomic(value, type, `is`(value), typeMatcher)
+        }
+
+        private fun atomic(value: String, type: String) {
+            atomic(value, type, `is`(value), `is`(type))
         }
 
         @Test @DisplayName("null") fun nullValue() {
@@ -117,7 +141,7 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
-        @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic("bG9yZW0gaXBzdW0=", "xs:base64Binary", "lorem ipsum") }
+        @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
         @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
         @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
@@ -130,7 +154,7 @@ class ProcessorTest {
         @Test @DisplayName("xs:gMonthDay") fun xsGMonthDay() { atomic("--10-12", "xs:gMonthDay") }
         @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
         @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
-        @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic("6C6F72656D20697073756D", "xs:hexBinary", "lorem ipsum") }
+        @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
         @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
@@ -141,7 +165,7 @@ class ProcessorTest {
     @Nested
     @DisplayName("bind context item from string with a specified type")
     internal inner class BindContextItemFromString {
-        private fun atomic(value: String, type: String, value2: String? = null) {
+        private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.createQuery(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
 
@@ -149,8 +173,20 @@ class ProcessorTest {
             q.close()
 
             assertThat(items.size, `is`(1))
-            assertThat(items[0].value, `is`(anyOf(`is`(value), `is`(value2 ?: value))))
-            assertThat(items[0].type, `is`(type))
+            assertThat(items[0].value, valueMatcher)
+            assertThat(items[0].type, typeMatcher)
+        }
+
+        private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
+            atomic(value, type, valueMatcher, `is`(type))
+        }
+
+        private fun atomic_types(value: String, type: String, typeMatcher: Matcher<String>) {
+            atomic(value, type, `is`(value), typeMatcher)
+        }
+
+        private fun atomic(value: String, type: String) {
+            atomic(value, type, `is`(value), `is`(type))
         }
 
         @Test @DisplayName("null") fun nullValue() {
@@ -174,7 +210,7 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
-        @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic("bG9yZW0gaXBzdW0=", "xs:base64Binary", "lorem ipsum") }
+        @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
         @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
         @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
@@ -187,7 +223,7 @@ class ProcessorTest {
         @Test @DisplayName("xs:gMonthDay") fun xsGMonthDay() { atomic("--10-12", "xs:gMonthDay") }
         @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
         @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
-        @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic("6C6F72656D20697073756D", "xs:hexBinary", "lorem ipsum") }
+        @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
         @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
