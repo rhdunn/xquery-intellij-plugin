@@ -74,8 +74,11 @@ class ProcessorTest {
         @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
         @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
+        @Test @DisplayName("xs:byte") fun xsByte() { atomic("2", "xs:byte") }
         @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
         @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
+        @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp") }
+        @Test @DisplayName("xs:dayTimeDuration") fun xsDayTimeDuration() { atomic("P5D", "xs:dayTimeDuration") }
         @Test @DisplayName("xs:decimal") fun xsDecimal() { atomic("2.5", "xs:decimal") }
         @Test @DisplayName("xs:double") fun xsDouble() { atomic("2.5", "xs:double") }
         @Test @DisplayName("xs:duration") fun xsDuration() { atomic("P5D", "xs:duration") }
@@ -86,10 +89,33 @@ class ProcessorTest {
         @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
         @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
         @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
+        @Test @DisplayName("xs:int") fun xsInt() { atomic("2", "xs:int") }
         @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
+        @Test @DisplayName("xs:language") fun xsLanguage() { atomic("fr-FR", "xs:language") }
+        @Test @DisplayName("xs:long") fun xsLong() { atomic("2", "xs:long") }
+        @Test @DisplayName("xs:negativeInteger") fun xsNegativeInteger() { atomic("-2", "xs:negativeInteger") }
+        @Test @DisplayName("xs:nonNegativeInteger") fun xsNonNegativeInteger() { atomic("2", "xs:nonNegativeInteger") }
+        @Test @DisplayName("xs:nonPositiveInteger") fun xsNonPositiveInteger() { atomic("-2", "xs:nonPositiveInteger") }
+        @Test @DisplayName("xs:normalizedString") fun xsNormalizedString() { atomic("lorem ipsum", "xs:normalizedString") }
+        @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
+        @Test @DisplayName("xs:positiveInteger") fun xsPositiveInteger() { atomic("2", "xs:positiveInteger") }
+        @Test @DisplayName("xs:short") fun xsShort() { atomic("2", "xs:short") }
         @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
+        @Test @DisplayName("xs:token") fun xsToken() { atomic("2", "xs:token") }
+        @Test @DisplayName("xs:unsignedByte") fun xsUnsignedByte() { atomic("2", "xs:unsignedByte") }
+        @Test @DisplayName("xs:unsignedInt") fun xsUnsignedInt() { atomic("2", "xs:unsignedInt") }
+        @Test @DisplayName("xs:unsignedLong") fun xsUnsignedLong() { atomic("2", "xs:unsignedLong") }
+        @Test @DisplayName("xs:unsignedShort") fun xsUnsignedShort() { atomic("2", "xs:unsignedShort") }
+        @Test @DisplayName("xs:untypedAtomic") fun xsUntypedAtomic() { atomic("2", "xs:untypedAtomic") }
+        @Test @DisplayName("xs:yearMonthDuration") fun xsYearMonthDuration() { atomic("P5M", "xs:yearMonthDuration") }
 
+        @Test @DisplayName("xs:ENTITY") fun xsENTITY() { atomic("lorem-ipsum", "xs:ENTITY") }
+        @Test @DisplayName("xs:ID") fun xsID() { atomic("lorem-ipsum", "xs:ID") }
+        @Test @DisplayName("xs:IDREF") fun xsIDREF() { atomic("lorem-ipsum", "xs:IDREF") }
+        @Test @DisplayName("xs:Name") fun xsName() { atomic("lorem-ipsum", "xs:Name") }
+        @Test @DisplayName("xs:NCName") fun xsNCName() { atomic("lorem-ipsum", "xs:NCName") }
+        @Test @DisplayName("xs:NMTOKEN") fun xsNMTOKEN() { atomic("lorem-ipsum", "xs:NMTOKEN") }
         @Test @DisplayName("xs:QName") fun xsQName() { atomic("xs:string", "xs:QName") }
     }
 
@@ -143,8 +169,11 @@ class ProcessorTest {
         @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
         @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
+        @Test @DisplayName("xs:byte") fun xsByte() { atomic("2", "xs:byte") }
         @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
         @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
+        @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp") }
+        @Test @DisplayName("xs:dayTimeDuration") fun xsDayTimeDuration() { atomic("P5D", "xs:dayTimeDuration") }
         @Test @DisplayName("xs:decimal") fun xsDecimal() { atomic("2.5", "xs:decimal") }
         @Test @DisplayName("xs:double") fun xsDouble() { atomic("2.5", "xs:double") }
         @Test @DisplayName("xs:duration") fun xsDuration() { atomic("P5D", "xs:duration") }
@@ -155,10 +184,33 @@ class ProcessorTest {
         @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
         @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
         @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
+        @Test @DisplayName("xs:int") fun xsInt() { atomic("2", "xs:int") }
         @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
+        @Test @DisplayName("xs:language") fun xsLanguage() { atomic("fr-FR", "xs:language") }
+        @Test @DisplayName("xs:long") fun xsLong() { atomic("2", "xs:long") }
+        @Test @DisplayName("xs:negativeInteger") fun xsNegativeInteger() { atomic("-2", "xs:negativeInteger") }
+        @Test @DisplayName("xs:nonNegativeInteger") fun xsNonNegativeInteger() { atomic("2", "xs:nonNegativeInteger") }
+        @Test @DisplayName("xs:nonPositiveInteger") fun xsNonPositiveInteger() { atomic("-2", "xs:nonPositiveInteger") }
+        @Test @DisplayName("xs:normalizedString") fun xsNormalizedString() { atomic("lorem ipsum", "xs:normalizedString") }
+        @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
+        @Test @DisplayName("xs:positiveInteger") fun xsPositiveInteger() { atomic("2", "xs:positiveInteger") }
+        @Test @DisplayName("xs:short") fun xsShort() { atomic("2", "xs:short") }
         @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
+        @Test @DisplayName("xs:token") fun xsToken() { atomic("2", "xs:token") }
+        @Test @DisplayName("xs:unsignedByte") fun xsUnsignedByte() { atomic("2", "xs:unsignedByte") }
+        @Test @DisplayName("xs:unsignedInt") fun xsUnsignedInt() { atomic("2", "xs:unsignedInt") }
+        @Test @DisplayName("xs:unsignedLong") fun xsUnsignedLong() { atomic("2", "xs:unsignedLong") }
+        @Test @DisplayName("xs:unsignedShort") fun xsUnsignedShort() { atomic("2", "xs:unsignedShort") }
+        @Test @DisplayName("xs:untypedAtomic") fun xsUntypedAtomic() { atomic("2", "xs:untypedAtomic") }
+        @Test @DisplayName("xs:yearMonthDuration") fun xsYearMonthDuration() { atomic("P5M", "xs:yearMonthDuration") }
 
+        @Test @DisplayName("xs:ENTITY") fun xsENTITY() { atomic("lorem-ipsum", "xs:ENTITY") }
+        @Test @DisplayName("xs:ID") fun xsID() { atomic("lorem-ipsum", "xs:ID") }
+        @Test @DisplayName("xs:IDREF") fun xsIDREF() { atomic("lorem-ipsum", "xs:IDREF") }
+        @Test @DisplayName("xs:Name") fun xsName() { atomic("lorem-ipsum", "xs:Name") }
+        @Test @DisplayName("xs:NCName") fun xsNCName() { atomic("lorem-ipsum", "xs:NCName") }
+        @Test @DisplayName("xs:NMTOKEN") fun xsNMTOKEN() { atomic("lorem-ipsum", "xs:NMTOKEN") }
         @Test @DisplayName("xs:QName") fun xsQName() { atomic("xs:string", "xs:QName") }
     }
 
@@ -212,8 +264,11 @@ class ProcessorTest {
         @Test @DisplayName("xs:anyURI") fun xsAnyURI() { atomic("http://www.example.co.uk", "xs:anyURI") }
         @Test @DisplayName("xs:base64Binary") fun xsBase64Binary() { atomic_values("bG9yZW0gaXBzdW0=", "xs:base64Binary", anyOf(`is`("bG9yZW0gaXBzdW0="), `is`("lorem ipsum"))) }
         @Test @DisplayName("xs:boolean") fun xsBoolean() { atomic("true", "xs:boolean") }
+        @Test @DisplayName("xs:byte") fun xsByte() { atomic("2", "xs:byte") }
         @Test @DisplayName("xs:date") fun xsDate() { atomic("1995-10-12", "xs:date") }
         @Test @DisplayName("xs:dateTime") fun xsDateTime() { atomic("1995-10-12T11:22:33.444", "xs:dateTime") }
+        @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp") }
+        @Test @DisplayName("xs:dayTimeDuration") fun xsDayTimeDuration() { atomic("P5D", "xs:dayTimeDuration") }
         @Test @DisplayName("xs:decimal") fun xsDecimal() { atomic("2.5", "xs:decimal") }
         @Test @DisplayName("xs:double") fun xsDouble() { atomic("2.5", "xs:double") }
         @Test @DisplayName("xs:duration") fun xsDuration() { atomic("P5D", "xs:duration") }
@@ -224,10 +279,33 @@ class ProcessorTest {
         @Test @DisplayName("xs:gYear") fun xsGYear() { atomic("1995", "xs:gYear") }
         @Test @DisplayName("xs:gYearMonth") fun xsGYearMonth() { atomic("1995-10", "xs:gYearMonth") }
         @Test @DisplayName("xs:hexBinary") fun xsHexBinary() { atomic_values("6C6F72656D20697073756D", "xs:hexBinary", anyOf(`is`("6C6F72656D20697073756D"), `is`("lorem ipsum"))) }
+        @Test @DisplayName("xs:int") fun xsInt() { atomic("2", "xs:int") }
         @Test @DisplayName("xs:integer") fun xsInteger() { atomic("2", "xs:integer") }
+        @Test @DisplayName("xs:language") fun xsLanguage() { atomic("fr-FR", "xs:language") }
+        @Test @DisplayName("xs:long") fun xsLong() { atomic("2", "xs:long") }
+        @Test @DisplayName("xs:negativeInteger") fun xsNegativeInteger() { atomic("-2", "xs:negativeInteger") }
+        @Test @DisplayName("xs:nonNegativeInteger") fun xsNonNegativeInteger() { atomic("2", "xs:nonNegativeInteger") }
+        @Test @DisplayName("xs:nonPositiveInteger") fun xsNonPositiveInteger() { atomic("-2", "xs:nonPositiveInteger") }
+        @Test @DisplayName("xs:normalizedString") fun xsNormalizedString() { atomic("lorem ipsum", "xs:normalizedString") }
+        @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
+        @Test @DisplayName("xs:positiveInteger") fun xsPositiveInteger() { atomic("2", "xs:positiveInteger") }
+        @Test @DisplayName("xs:short") fun xsShort() { atomic("2", "xs:short") }
         @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
+        @Test @DisplayName("xs:token") fun xsToken() { atomic("2", "xs:token") }
+        @Test @DisplayName("xs:unsignedByte") fun xsUnsignedByte() { atomic("2", "xs:unsignedByte") }
+        @Test @DisplayName("xs:unsignedInt") fun xsUnsignedInt() { atomic("2", "xs:unsignedInt") }
+        @Test @DisplayName("xs:unsignedLong") fun xsUnsignedLong() { atomic("2", "xs:unsignedLong") }
+        @Test @DisplayName("xs:unsignedShort") fun xsUnsignedShort() { atomic("2", "xs:unsignedShort") }
+        @Test @DisplayName("xs:untypedAtomic") fun xsUntypedAtomic() { atomic("2", "xs:untypedAtomic") }
+        @Test @DisplayName("xs:yearMonthDuration") fun xsYearMonthDuration() { atomic("P5M", "xs:yearMonthDuration") }
 
+        @Test @DisplayName("xs:ENTITY") fun xsENTITY() { atomic("lorem-ipsum", "xs:ENTITY") }
+        @Test @DisplayName("xs:ID") fun xsID() { atomic("lorem-ipsum", "xs:ID") }
+        @Test @DisplayName("xs:IDREF") fun xsIDREF() { atomic("lorem-ipsum", "xs:IDREF") }
+        @Test @DisplayName("xs:Name") fun xsName() { atomic("lorem-ipsum", "xs:Name") }
+        @Test @DisplayName("xs:NCName") fun xsNCName() { atomic("lorem-ipsum", "xs:NCName") }
+        @Test @DisplayName("xs:NMTOKEN") fun xsNMTOKEN() { atomic("lorem-ipsum", "xs:NMTOKEN") }
         @Test @DisplayName("xs:QName") fun xsQName() { atomic("xs:string", "xs:QName") }
     }
 }
