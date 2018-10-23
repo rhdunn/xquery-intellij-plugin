@@ -116,12 +116,23 @@ internal class SaxonClasses(path: File) {
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
     }
 
+    fun tryXdmValue(value: Any?, type: String?): Any? {
+        return try {
+            toXdmValue(value, type)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun toXdmValue(value: Any?, type: String?): Any? {
         return when (type) {
             "xs:QName" -> {
                 // The string constructor throws "Requested type is namespace-sensitive"
                 val qname = op_qname_parse(value as String, SAXON_NAMESPACES)
                 xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(qname))
+            }
+            "xs:numeric" -> {
+                tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
             }
             else -> {
                 val itemtype = itemTypeClass.getField(ATOMIC_ITEM_TYPE_NAMES[type]).get(itemTypeClass)
