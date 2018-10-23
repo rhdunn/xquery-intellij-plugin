@@ -96,14 +96,12 @@ dependencies {
     testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
 
-    integrationTestCompile sourceSets.main.output
     integrationTestCompile configurations.testCompile
+    integrationTestCompile sourceSets.main.output
     integrationTestCompile sourceSets.test.output
 
-    integrationTestCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
-
-    integrationTestRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
-    integrationTestRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
+    integrationTestRuntime configurations.testRuntime
+    integrationTestRuntime sourceSets.test.output
 }
 
 intellij {
