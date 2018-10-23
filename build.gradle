@@ -98,10 +98,8 @@ dependencies {
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
-    integrationTestCompile sourceSets.test.output
 
     integrationTestRuntime configurations.testRuntime
-    integrationTestRuntime sourceSets.test.output
 }
 
 intellij {
