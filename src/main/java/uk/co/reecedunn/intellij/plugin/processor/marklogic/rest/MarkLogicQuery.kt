@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -37,6 +38,10 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val client: Closeable
         val response = client.execute(request)
         val body = EntityUtils.toString(response.entity)
         response.close()
+
+        if (response.statusLine.statusCode != 200) {
+            throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
+        }
 
         return sequenceOf(QueryResult(body, ""))
     }
