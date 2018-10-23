@@ -121,8 +121,8 @@ class ProcessorTest {
     }
 
     @Nested
-    @DisplayName("bind variable using NCName from string with a specified type")
-    internal inner class BindVariableNCNameFromString {
+    @DisplayName("bind variable from string with a specified type")
+    internal inner class BindVariableFromString {
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("x", mapOf()), value, type)
@@ -213,6 +213,46 @@ class ProcessorTest {
         @Test @DisplayName("xs:NCName") fun xsNCName() { atomic("lorem-ipsum", "xs:NCName") }
         @Test @DisplayName("xs:NMTOKEN") fun xsNMTOKEN() { atomic("lorem-ipsum", "xs:NMTOKEN") }
         @Test @DisplayName("xs:QName") fun xsQName() { atomic("xs:string", "xs:QName") }
+    }
+
+    @Nested
+    @DisplayName("bind variable")
+    internal inner class BindVariableName {
+        @Test @DisplayName("NCName") fun ncname() {
+            val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            q.bindVariable(op_qname_parse("x", mapOf()), "2", "xs:integer")
+
+            val items = q.run().toList()
+            q.close()
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].value, `is`("2"))
+            assertThat(items[0].type, `is`("xs:integer"))
+        }
+
+        @Test @DisplayName("URIQualifiedName") fun uriQualifiedName() {
+            val q = processor.createQuery("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
+            q.bindVariable(op_qname_parse("Q{http://www.example.co.uk}x", mapOf()), "2", "xs:integer")
+
+            val items = q.run().toList()
+            q.close()
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].value, `is`("2"))
+            assertThat(items[0].type, `is`("xs:integer"))
+        }
+
+        @Test @DisplayName("QName") fun qname() {
+            val q = processor.createQuery("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
+            q.bindVariable(op_qname_parse("local:x", mapOf("local" to "http://www.w3.org/2005/xquery-local-functions")), "2", "xs:integer")
+
+            val items = q.run().toList()
+            q.close()
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].value, `is`("2"))
+            assertThat(items[0].type, `is`("xs:integer"))
+        }
     }
 
     @Nested

@@ -32,9 +32,10 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
 
 internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
+        // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.queryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
-            .invoke(query, "Q{${name.namespace!!.data}}${name.localName!!.data}", value, type)
+            .invoke(query, name.localName!!.data, value, type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
