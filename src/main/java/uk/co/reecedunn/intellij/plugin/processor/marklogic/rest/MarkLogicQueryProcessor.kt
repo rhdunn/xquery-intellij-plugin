@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 
+import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
@@ -29,7 +30,9 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val client: Closeabl
     override fun createQuery(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
-                TODO("not implemented")
+                val builder = RequestBuilder.post("$baseUri/v1/eval")
+                builder.addParameter("xquery", query)
+                MarkLogicQuery(builder, client)
             }
             else -> throw UnsupportedQueryType(mimetype)
         }
