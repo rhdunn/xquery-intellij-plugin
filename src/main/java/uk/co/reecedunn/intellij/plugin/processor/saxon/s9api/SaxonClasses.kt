@@ -15,9 +15,24 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import java.io.File
 import java.net.URLClassLoader
+
+private val SAXON_NAMESPACES = mapOf(
+    // XQuery 1.0
+    "xml" to "http://www.w3.org/XML/1998/namespace",
+    "xs" to "http://www.w3.org/2001/XMLSchema",
+    "xsi" to "http://www.w3.org/2001/XMLSchema-instance",
+    "fn" to "http://www.w3.org/2005/xpath-functions",
+    "local" to "http://www.w3.org/2005/xquery-local-functions",
+    // XQuery 3.0
+    "math" to "http://www.w3.org/2005/xpath-functions/math",
+    // XQuery 3.1
+    "map" to "http://www.w3.org/2005/xpath-functions/map",
+    "array" to "http://www.w3.org/2005/xpath-functions/array"
+)
 
 private val ATOMIC_ITEM_TYPE_NAMES = mapOf(
     "xs:anyAtomicType" to "ANY_ATOMIC_VALUE",
@@ -102,8 +117,17 @@ internal class SaxonClasses(path: File) {
     }
 
     fun toXdmValue(value: Any?, type: String?): Any? {
-        val itemtype = itemTypeClass.getField(ATOMIC_ITEM_TYPE_NAMES[type]).get(itemTypeClass)
-        return xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
+        return when (type) {
+            "xs:QName" -> {
+                // The string constructor throws "Requested type is namespace-sensitive"
+                val qname = op_qname_parse(value as String, SAXON_NAMESPACES)
+                xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(qname))
+            }
+            else -> {
+                val itemtype = itemTypeClass.getField(ATOMIC_ITEM_TYPE_NAMES[type]).get(itemTypeClass)
+                xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
+            }
+        }
     }
 
     fun toQName(value: XsQNameValue): Any {
