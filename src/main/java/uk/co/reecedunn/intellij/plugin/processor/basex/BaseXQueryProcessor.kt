@@ -33,10 +33,9 @@ else (: BaseX == 7.0 :)
 """
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
-    override val version: String
-        get() {
-            return createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
-        }
+    override val version: String by lazy {
+        createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+    }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 

@@ -24,12 +24,11 @@ import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 internal class SaxonQueryProcessor(val classes: SaxonClasses) : QueryProcessor {
     private val processor = classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
 
-    override val version: String
-        get() {
-            val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String
-            val version = classes.processorClass.getMethod("getSaxonProductVersion").invoke(processor) as String
-            return edition?.let { "$it $version" } ?: version
-        }
+    override val version: String by lazy {
+        val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String
+        val version = classes.processorClass.getMethod("getSaxonProductVersion").invoke(processor) as String
+        edition?.let { "$it $version" } ?: version
+    }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
