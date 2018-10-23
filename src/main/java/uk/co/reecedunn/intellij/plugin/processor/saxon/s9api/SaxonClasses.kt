@@ -92,6 +92,7 @@ internal class SaxonClasses(path: File) {
     val typeClass: Class<*>
     val typeHierarchyClass: Class<*>
     val xdmAtomicValueClass: Class<*>
+    val xdmEmptySequenceClass: Class<*>
     val xdmItemClass: Class<*>
     val xdmSequenceIteratorClass: Class<*>
     val xdmValueClass: Class<*>
@@ -108,6 +109,7 @@ internal class SaxonClasses(path: File) {
         typeClass = loader.loadClass("net.sf.saxon.type.Type")
         typeHierarchyClass = loader.loadClass("net.sf.saxon.type.TypeHierarchy")
         xdmAtomicValueClass = loader.loadClass("net.sf.saxon.s9api.XdmAtomicValue")
+        xdmEmptySequenceClass = loader.loadClass("net.sf.saxon.s9api.XdmEmptySequence")
         xdmItemClass = loader.loadClass("net.sf.saxon.s9api.XdmItem")
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
         xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
@@ -126,6 +128,7 @@ internal class SaxonClasses(path: File) {
 
     fun toXdmValue(value: Any?, type: String?): Any? {
         return when (type) {
+            null, "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
             "xs:QName" -> {
                 // The string constructor throws "Requested type is namespace-sensitive"
                 val qname = op_qname_parse(value as String, SAXON_NAMESPACES)
