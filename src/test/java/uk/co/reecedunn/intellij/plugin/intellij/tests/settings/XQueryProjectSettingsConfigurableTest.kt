@@ -20,6 +20,7 @@ import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.compat.ide.ui.makeUISettings
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -37,7 +38,7 @@ private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModu
         super.setUp()
 
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
-        registerApplicationService(UISettings::class.java, UISettings())
+        registerApplicationService(UISettings::class.java, makeUISettings())
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
     }

@@ -121,6 +121,13 @@ patchPluginXml {
     sinceBuild = idea_since_build
 }
 
+def build = idea_since_build.toInteger()
+if (build >= 191) {
+    sourceSets.main.java.srcDirs += "compat/191/java"
+} else {
+    sourceSets.main.java.srcDirs += "compat/183/java"
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true
