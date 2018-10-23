@@ -17,6 +17,4 @@ package uk.co.reecedunn.intellij.plugin.processor
 
 interface QueryServerInstanceManager {
     fun connect(settings: ConnectionSettings): QueryProcessor
-
-    val defaultConnectionSettings: ConnectionSettings?
 }

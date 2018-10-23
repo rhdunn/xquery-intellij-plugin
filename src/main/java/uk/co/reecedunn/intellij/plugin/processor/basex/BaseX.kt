@@ -41,7 +41,4 @@ class BaseX(path: File) : QueryProcessorInstanceManager, QueryServerInstanceMana
         ).newInstance(settings.hostname, settings.port, settings.username, settings.password)
         return BaseXQueryProcessor(session, classes)
     }
-
-    override val defaultConnectionSettings: ConnectionSettings =
-        ConnectionSettings("localhost", 1984, "admin", "admin")
 }
