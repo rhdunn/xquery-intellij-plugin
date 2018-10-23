@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.tests
 
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Matcher
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
