@@ -26,9 +26,18 @@ import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.primitiveToItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
+private fun op_qname_clark_notation(qname: XsQNameValue): String {
+    return if (qname.namespace != null)
+        "{${qname.namespace!!.data}}${qname.localName!!.data}"
+    else
+        qname.localName!!.data
+}
+
 internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) : Query {
+    private var variables: JsonObject = JsonObject()
+
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
-        //TODO("not implemented")
+        variables.addProperty(op_qname_clark_notation(name), value as String? ?: "")
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
@@ -36,7 +45,10 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
     }
 
     override fun run(): Sequence<QueryResult> {
-        builder.addParameter("vars", queryParams.toString())
+        val params = queryParams.deepCopy()
+        params.addProperty("vars", variables.toString())
+
+        builder.addParameter("vars", params.toString())
         val request = builder.build()
 
         val response = client.execute(request)

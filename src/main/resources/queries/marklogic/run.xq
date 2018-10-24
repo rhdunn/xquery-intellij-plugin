@@ -5,9 +5,11 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:implementation "marklogic/6.0";
 
 declare variable $query as xs:string external;
+declare variable $vars as xs:string external;
 
 try {
-    xdmp:eval($query, (), ())
+    let $varMap as map:map := xdmp:unquote($vars)
+    return xdmp:eval($query, $varMap, ())
 } catch ($e) {
     (: Return the element(error:error) object, instead of a "500 Internal Error"
      : HTTP status message. :)
