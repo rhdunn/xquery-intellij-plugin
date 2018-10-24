@@ -118,6 +118,8 @@ class ProcessorTest {
         @Test @DisplayName("xs:NCName") fun xsNCName() { atomic_types("lorem-ipsum", "xs:NCName", anyOf(`is`("xs:NCName"), `is`("xs:string"))) }
         @Test @DisplayName("xs:NMTOKEN") fun xsNMTOKEN() { atomic_types("lorem-ipsum", "xs:NMTOKEN", anyOf(`is`("xs:NMTOKEN"), `is`("xs:string"))) }
         @Test @DisplayName("xs:QName") fun xsQName() { atomic("xs:string", "xs:QName") }
+
+        @Test @DisplayName("xs:string (empty)") fun xsStringEmpty() { atomic("", "xs:string") }
     }
 
     @Nested

@@ -47,12 +47,15 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val client: Closeable
 
         val mime = MimeResponse(response.allHeaders, body)
         return mime.parts.asSequence().map { part ->
-            val primitive = part.getHeader("X-Primitive") ?: "string"
-            QueryResult(part.body, primitiveToItemType(primitive))
-        }
+            if (part.getHeader("Content-Length")?.toInt() == 0)
+                null
+            else {
+                val primitive = part.getHeader("X-Primitive") ?: "string"
+                QueryResult(part.body, primitiveToItemType(primitive))
+            }
+        }.filterNotNull()
     }
 
     override fun close() {
     }
 }
-
