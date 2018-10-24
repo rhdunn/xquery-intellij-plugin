@@ -44,6 +44,7 @@ class PrimitiveToItemTypeTest {
     @Test
     @DisplayName("XML Schema types")
     fun xmlSchemaTypes() {
+        assertThat(primitiveToItemType("anySimpleType"), `is`("xs:anySimpleType"))
         assertThat(primitiveToItemType("anyURI"), `is`("xs:anyURI"))
         assertThat(primitiveToItemType("base64Binary"), `is`("xs:base64Binary"))
         assertThat(primitiveToItemType("boolean"), `is`("xs:boolean"))

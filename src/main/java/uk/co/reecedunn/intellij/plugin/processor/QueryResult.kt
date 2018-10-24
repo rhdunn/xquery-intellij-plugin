@@ -45,11 +45,12 @@ fun primitiveToItemType(primitive: String): String {
         "triple" ->
             "sem:$primitive"
         // XMLSchema types ======================
+        // - `xs:anySimpleType` is returned instead of `xs:numeric`.
         // - `xs:anyURI` includes other URI-like types, such as `sem:bnode` and `sem:iri`.
         // - `xs:integer` includes other integer-like types, such as `xs:byte`.
         // - `xs:string` includes other string-like types, such as `xs:language` and `cts:token`.
         // - `xs:untypedAtomic` includes other atomic-like types, such as `sem:invalid` and `sem:unknown`.
-        "anyURI",
+        "anySimpleType", "anyURI",
         "base64Binary", "boolean",
         "date", "dateTime", "dayTimeDuration", "decimal", "double", "duration",
         "float",

@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.primitiveToItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 internal class MarkLogicQuery(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
@@ -46,8 +47,8 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val client: Closeable
 
         val mime = MimeResponse(response.allHeaders, body)
         return mime.parts.asSequence().map { part ->
-            val typeName = part.getHeader("X-Primitive") ?: "string"
-            QueryResult(part.body, typeName)
+            val primitive = part.getHeader("X-Primitive") ?: "string"
+            QueryResult(part.body, primitiveToItemType(primitive))
         }
     }
 
