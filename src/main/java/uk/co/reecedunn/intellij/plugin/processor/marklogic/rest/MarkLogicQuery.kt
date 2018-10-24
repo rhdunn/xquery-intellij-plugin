@@ -35,9 +35,11 @@ private fun op_qname_clark_notation(qname: XsQNameValue): String {
 
 internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) : Query {
     private var variables: JsonObject = JsonObject()
+    private var types: JsonObject = JsonObject()
 
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
         variables.addProperty(op_qname_clark_notation(name), value as String? ?: "")
+        types.addProperty(op_qname_clark_notation(name), type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
@@ -47,6 +49,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
     override fun run(): Sequence<QueryResult> {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
+        params.addProperty("types", types.toString())
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()
