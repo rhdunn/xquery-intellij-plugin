@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,5 +14,61 @@
  * limitations under the License.
  */
 package uk.co.reecedunn.intellij.plugin.processor
+
+fun primitiveToItemType(primitive: String): String {
+    return if (primitive.endsWith("-order") ||
+        primitive.endsWith("-query") ||
+        primitive.endsWith("-reference"))
+        "cts:$primitive"
+    else when (primitive) {
+        // CTS types ============================
+        "box",
+        "circle",
+        "complex-polygon",
+        "linestring",
+        "period",
+        "point",
+        "polygon",
+        "region",
+        "unordered" ->
+            "cts:$primitive"
+        // JSON types ===========================
+        // - `json:null()` is equivalent to `()`, so is not returned as a primitive name.
+        // - `map` includes other map-like types, such as `sem:binding`.
+        "map" ->
+            "map:map"
+        "array",
+        "object" ->
+            "json:$primitive"
+        // Semantics types ======================
+        "store",
+        "triple" ->
+            "sem:$primitive"
+        // XMLSchema types ======================
+        // - `xs:anyURI` includes other URI-like types, such as `sem:bnode` and `sem:iri`.
+        // - `xs:integer` includes other integer-like types, such as `xs:byte`.
+        // - `xs:string` includes other string-like types, such as `xs:language` and `cts:token`.
+        // - `xs:untypedAtomic` includes other atomic-like types, such as `sem:invalid` and `sem:unknown`.
+        "anyURI",
+        "base64Binary", "boolean",
+        "date", "dateTime", "dayTimeDuration", "decimal", "double", "duration",
+        "float",
+        "gDay", "gMonth", "gMonthDay", "gYear", "gYearMonth",
+        "hexBinary",
+        "integer",
+        "QName",
+        "string",
+        "time",
+        "untypedAtomic",
+        "yearMonthDuration" ->
+            "xs:$primitive"
+        // other types ==========================
+        // - Don't throw an error here, so unknown types will still work
+        //   (unlike with the XCC API).
+        // - This also handles node types that have the same name as the
+        //   primitive.
+        else -> primitive
+    }
+}
 
 data class QueryResult(val value: String, val type: String)
