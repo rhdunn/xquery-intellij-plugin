@@ -43,7 +43,8 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
-        //TODO("not implemented")
+        // MarkLogic fixes the context item to the content of the MarkLogic database.
+        throw UnsupportedOperationException()
     }
 
     override fun run(): Sequence<QueryResult> {
