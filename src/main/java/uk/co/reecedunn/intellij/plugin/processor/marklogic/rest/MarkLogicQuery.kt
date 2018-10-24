@@ -19,6 +19,7 @@ import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
+import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
@@ -43,7 +44,11 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val client: Closeable
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        return sequenceOf(QueryResult(body, ""))
+        val mime = MimeResponse(response.allHeaders, body)
+        return mime.parts.asSequence().map { part ->
+            val typeName = part.getHeader("X-Primitive") ?: "string"
+            QueryResult(part.body, typeName)
+        }
     }
 
     override fun close() {
