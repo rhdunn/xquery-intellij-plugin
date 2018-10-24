@@ -22,6 +22,15 @@ import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
+fun String.toXQueryString(): String {
+    return "\"${this.replace("\"".toRegex(), "\"\"").replace("&".toRegex(), "&amp;")}\""
+}
+
+fun String.toRunQuery(): String {
+    // Use try/catch to report any errors back from MarkLogic, otherwise "500 Internal Error" is returned.
+    return "try { xdmp:eval(${this.toXQueryString()}, (), ()) } catch(\$e) { \$e }"
+}
+
 internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) : QueryProcessor {
     override val version: String get() = TODO("not implemented")
 
@@ -31,7 +40,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val client: Closeabl
         return when (mimetype) {
             MimeTypes.XQUERY -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", query)
+                builder.addParameter("xquery", query.toRunQuery())
                 MarkLogicQuery(builder, client)
             }
             else -> throw UnsupportedQueryType(mimetype)

@@ -101,7 +101,7 @@ class ProcessorTest {
         @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
         @Test @DisplayName("xs:positiveInteger") fun xsPositiveInteger() { atomic("2", "xs:positiveInteger") }
         @Test @DisplayName("xs:short") fun xsShort() { atomic("2", "xs:short") }
-        @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
+        @Test @DisplayName("xs:string") fun xsString() { atomic_values("lorem &amp; ipsum", "xs:string", `is`("lorem & ipsum")) }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
         @Test @DisplayName("xs:token") fun xsToken() { atomic("2", "xs:token") }
         @Test @DisplayName("xs:unsignedByte") fun xsUnsignedByte() { atomic("2", "xs:unsignedByte") }
@@ -196,7 +196,7 @@ class ProcessorTest {
         @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
         @Test @DisplayName("xs:positiveInteger") fun xsPositiveInteger() { atomic("2", "xs:positiveInteger") }
         @Test @DisplayName("xs:short") fun xsShort() { atomic("2", "xs:short") }
-        @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
+        @Test @DisplayName("xs:string") fun xsString() { atomic("lorem & ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
         @Test @DisplayName("xs:token") fun xsToken() { atomic("2", "xs:token") }
         @Test @DisplayName("xs:unsignedByte") fun xsUnsignedByte() { atomic("2", "xs:unsignedByte") }
@@ -331,7 +331,7 @@ class ProcessorTest {
         @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
         @Test @DisplayName("xs:positiveInteger") fun xsPositiveInteger() { atomic("2", "xs:positiveInteger") }
         @Test @DisplayName("xs:short") fun xsShort() { atomic("2", "xs:short") }
-        @Test @DisplayName("xs:string") fun xsString() { atomic("lorem ipsum", "xs:string") }
+        @Test @DisplayName("xs:string") fun xsString() { atomic("lorem & ipsum", "xs:string") }
         @Test @DisplayName("xs:time") fun xsTime() { atomic("11:22:33.444", "xs:time") }
         @Test @DisplayName("xs:token") fun xsToken() { atomic("2", "xs:token") }
         @Test @DisplayName("xs:unsignedByte") fun xsUnsignedByte() { atomic("2", "xs:unsignedByte") }
