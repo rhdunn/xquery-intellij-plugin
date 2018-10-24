@@ -19,10 +19,10 @@ import org.apache.http.Header
 import org.apache.http.message.BasicHeader
 
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MimeResponse")
 class MimeResponseTest {
@@ -36,13 +36,13 @@ class MimeResponseTest {
         val response = MimeResponse(headers, body)
 
         assertThat(response.parts.size, `is`(1))
-        assertThat<String>(response.getHeader("Content-Length"), `is`("0"))
-        assertThat<String>(response.getHeader("Content-Type"), `is`(nullValue()))
+        assertThat(response.getHeader("Content-Length"), `is`("0"))
+        assertThat(response.getHeader("Content-Type"), `is`(nullValue()))
 
-        assertThat<String>(response.parts[0].getHeader("Content-Length"), `is`("0"))
-        assertThat<String>(response.parts[0].getHeader("Content-Type"), `is`(nullValue()))
-        assertThat<String>(response.parts[0].getHeader("X-Primitive"), `is`(nullValue()))
-        assertThat<String>(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("Content-Length"), `is`("0"))
+        assertThat(response.parts[0].getHeader("Content-Type"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("X-Primitive"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
         assertThat(response.parts[0].body, `is`(""))
     }
 
@@ -57,13 +57,13 @@ class MimeResponseTest {
         val response = MimeResponse(headers, body)
 
         assertThat(response.parts.size, `is`(1))
-        assertThat<String>(response.getHeader("Content-Length"), `is`("5"))
-        assertThat<String>(response.getHeader("Content-Type"), `is`("text/plain"))
+        assertThat(response.getHeader("Content-Length"), `is`("5"))
+        assertThat(response.getHeader("Content-Type"), `is`("text/plain"))
 
-        assertThat<String>(response.parts[0].getHeader("Content-Length"), `is`("5"))
-        assertThat<String>(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
-        assertThat<String>(response.parts[0].getHeader("X-Primitive"), `is`(nullValue()))
-        assertThat<String>(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("Content-Length"), `is`("5"))
+        assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
+        assertThat(response.parts[0].getHeader("X-Primitive"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
         assertThat(response.parts[0].body, `is`(body))
     }
 
@@ -85,12 +85,12 @@ class MimeResponseTest {
         val response = MimeResponse(headers, body)
 
         assertThat(response.parts.size, `is`(1))
-        assertThat<String>(response.getHeader("Content-Length"), `is`("98"))
-        assertThat<String>(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=212ab95a34643c9d"))
+        assertThat(response.getHeader("Content-Length"), `is`("98"))
+        assertThat(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=212ab95a34643c9d"))
 
-        assertThat<String>(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
-        assertThat<String>(response.parts[0].getHeader("X-Primitive"), `is`("integer"))
-        assertThat<String>(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
+        assertThat(response.parts[0].getHeader("X-Primitive"), `is`("integer"))
+        assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
         assertThat(response.parts[0].body, `is`("15"))
     }
 
@@ -118,17 +118,17 @@ class MimeResponseTest {
         val response = MimeResponse(headers, body)
 
         assertThat(response.parts.size, `is`(2))
-        assertThat<String>(response.getHeader("Content-Length"), `is`("205"))
-        assertThat<String>(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=47c813e0bbfa09d4"))
+        assertThat(response.getHeader("Content-Length"), `is`("205"))
+        assertThat(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=47c813e0bbfa09d4"))
 
-        assertThat<String>(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
-        assertThat<String>(response.parts[0].getHeader("X-Primitive"), `is`("integer"))
-        assertThat<String>(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
+        assertThat(response.parts[0].getHeader("X-Primitive"), `is`("integer"))
+        assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
         assertThat(response.parts[0].body, `is`("1"))
 
-        assertThat<String>(response.parts[1].getHeader("Content-Type"), `is`("application/json"))
-        assertThat<String>(response.parts[1].getHeader("X-Primitive"), `is`("number-node()"))
-        assertThat<String>(response.parts[1].getHeader("X-Path"), `is`("number-node()"))
+        assertThat(response.parts[1].getHeader("Content-Type"), `is`("application/json"))
+        assertThat(response.parts[1].getHeader("X-Primitive"), `is`("number-node()"))
+        assertThat(response.parts[1].getHeader("X-Path"), `is`("number-node()"))
         assertThat(response.parts[1].body, `is`("5"))
     }
 
@@ -151,17 +151,17 @@ class MimeResponseTest {
         val response = MimeResponse(headers, body)
 
         assertThat(response.parts.size, `is`(1))
-        assertThat<String>(response.getHeader("Content-Length"), `is`("222"))
-        assertThat<String>(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=31c406fa29f12029"))
+        assertThat(response.getHeader("Content-Length"), `is`("222"))
+        assertThat(response.getHeader("Content-Type"), `is`("multipart/mixed; boundary=31c406fa29f12029"))
 
         val part1 =
             "@prefix p0: <http://example.co.uk/test> .\r\n" +
             "@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\r\n" +
             "\r\n" +
             "p0:case a skos:Concept .\r\n"
-        assertThat<String>(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
-        assertThat<String>(response.parts[0].getHeader("X-Primitive"), `is`("string"))
-        assertThat<String>(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
+        assertThat(response.parts[0].getHeader("Content-Type"), `is`("text/plain"))
+        assertThat(response.parts[0].getHeader("X-Primitive"), `is`("string"))
+        assertThat(response.parts[0].getHeader("X-Path"), `is`(nullValue()))
         assertThat(response.parts[0].body, `is`(part1))
     }
 }
