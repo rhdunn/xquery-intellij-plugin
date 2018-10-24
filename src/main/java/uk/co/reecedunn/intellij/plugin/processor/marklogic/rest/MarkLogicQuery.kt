@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 
+import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
@@ -25,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.primitiveToItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
-internal class MarkLogicQuery(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
+internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) : Query {
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
         //TODO("not implemented")
     }
@@ -35,6 +36,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val client: Closeable
     }
 
     override fun run(): Sequence<QueryResult> {
+        builder.addParameter("vars", queryParams.toString())
         val request = builder.build()
 
         val response = client.execute(request)

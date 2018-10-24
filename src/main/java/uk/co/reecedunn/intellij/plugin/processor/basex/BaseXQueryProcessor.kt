@@ -15,22 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
-import org.intellij.lang.annotations.Language
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
+import uk.co.reecedunn.intellij.plugin.intellij.resources.decode
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
-@Language("XQuery")
-val VERSION_QUERY = """
-let ${'$'}info := db:system()
-return if (${'$'}info instance of element(system)) then (: BaseX >= 7.1 :)
-    ${'$'}info/generalinformation/version/string()
-else (: BaseX == 7.0 :)
-    for ${'$'}line in fn:tokenize(${'$'}info, "(\r\n?|\n)")
-    where fn:starts-with(${'$'}line, " Version: ")
-    return fn:substring-after(${'$'}line, " Version: ")
-"""
+val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override val version: String by lazy {

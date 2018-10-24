@@ -15,21 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 
+import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
+import uk.co.reecedunn.intellij.plugin.intellij.resources.decode
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
-fun String.toXQueryString(): String {
-    return "\"${this.replace("\"".toRegex(), "\"\"").replace("&".toRegex(), "&amp;")}\""
-}
-
-fun String.toRunQuery(): String {
-    // Use try/catch to report any errors back from MarkLogic, otherwise "500 Internal Error" is returned.
-    return "try { xdmp:eval(${this.toXQueryString()}, (), ()) } catch(\$e) { \$e }"
-}
+val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) : QueryProcessor {
     override val version: String get() = TODO("not implemented")
@@ -39,9 +35,12 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val client: Closeabl
     override fun createQuery(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
+                val queryParams = JsonObject()
+                queryParams.addProperty("query", query)
+
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", query.toRunQuery())
-                MarkLogicQuery(builder, client)
+                builder.addParameter("xquery", RUN_QUERY)
+                MarkLogicQuery(builder, queryParams, client)
             }
             else -> throw UnsupportedQueryType(mimetype)
         }

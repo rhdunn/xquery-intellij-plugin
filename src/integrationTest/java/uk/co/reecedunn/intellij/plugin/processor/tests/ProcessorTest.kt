@@ -31,12 +31,17 @@ import java.io.File
 class ProcessorTest {
     val home = System.getProperty("user.home")
     // Modify these for the processor being tested:
+    val processorVersion = "9.0"
     val provider = BaseX(File("$home/xquery/basex/basex-9.0/BaseX.jar"))
     val processor: QueryProcessor = provider.create()
 
     @AfterAll
     fun tearDown() {
         processor.close()
+    }
+
+    @Test @DisplayName("version") fun version() {
+        assertThat(processor.version, `is`(processorVersion))
     }
 
     @Nested
