@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.tests
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
+import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
@@ -333,8 +334,8 @@ class ProcessorTest {
     }
 
     @Nested
-    @DisplayName("bind context item from string with a specified type")
-    internal inner class BindContextItemFromString {
+    @DisplayName("bind context item")
+    internal inner class BindContextItem {
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.createQuery(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
@@ -448,6 +449,37 @@ class ProcessorTest {
         @DisplayName("as union type")
         internal inner class UnionType {
             @Test @DisplayName("xs:numeric") fun xsNumeric() { atomic_types("2", "xs:numeric", `is`("xs:double")) }
+        }
+    }
+
+    @Nested
+    @DisplayName("error")
+    internal inner class Error {
+        @Test
+        @DisplayName("processor generated error")
+        fun processor() {
+            val q = processor.createQuery("(1, 2,", MimeTypes.XQUERY)
+            val items = q.run().toList()
+            q.close()
+
+            @Language("XML")
+            val expected = """
+                <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug" xmlns:err="http://www.w3.org/2005/xqt-errors">
+                    <err:code>err:XPST0003</err:code>
+                    <err:description>XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected ${'$'}end, expecting Function30_ or Percent_</err:description>
+                    <err:value count="0"/>
+                    <err:module line="1" column="5"/>
+                    <dbg:stack>
+                        <dbg:frame>
+                            <dbg:module line="1" column="5"/>
+                        </dbg:frame>
+                    </dbg:stack>
+                </err:error>
+            """
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].type, `is`("err:error"))
+            assertThat(items[0].value, `is`(expected.replace("\n\\s*".toRegex(), "")))
         }
     }
 }

@@ -9,7 +9,7 @@
  : the Run/Debug Configurations of the IntelliJ IDEs. Specifically:
  :
  : 1.  If there is an error, the REST API returns a "500 Internal Error" HTTP
- :     status. This catches the error and returns an element(error:error) object.
+ :     status. This catches the error and returns an element(err:error) object.
  :
  : 2.  The variables are passed via the REST API as xs:untypedAtomic. This
  :     converts the variables to the type they were specified as in the
@@ -112,12 +112,37 @@ declare function local:derived-type-name($value) {
     default return () (: primitive type, so does not need the type name to be specified. :)
 };
 
+declare function local:error(
+    $err:code as xs:QName,
+    $err:description as xs:string?,
+    $err:value as item()*,
+    $err:module as xs:string?,
+    $err:line-number as xs:integer?,
+    $err:column-number as xs:integer,
+    $err:additional as element(error:error)
+) {
+    <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
+        <err:code>{$err:code}</err:code>
+        <err:description>{$err:description}</err:description>
+        <err:value count="{count($err:value)}"></err:value>
+        <err:module line="{$err:line-number}" column="{$err:column-number}">{$err:module}</err:module>
+        <dbg:stack>{
+            for $frame in $err:additional/error:stack/error:frame[position() != last()]
+            let $module := $frame/error:uri/text()
+            let $line := $frame/error:line/text() cast as xs:integer?
+            let $column := $frame/error:column/text() cast as xs:integer?
+            return <dbg:frame><dbg:module line="{$line}" column="{$column}">{$module}</dbg:module></dbg:frame>
+        }</dbg:stack>
+    </err:error>
+};
+
 try {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
     let $retvals := xdmp:eval($query, $variables, ())
     for $retval at $i in $retvals
     let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
     return $retval
-} catch ($e) {
-    $e
+} catch * {
+    let $_ := xdmp:add-response-header("X-Derived-1", "err:error")
+    return local:error($err:code, $err:description, $err:value, $err:module, $err:line-number, $err:column-number, $err:additional)
 }
