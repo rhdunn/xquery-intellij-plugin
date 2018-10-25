@@ -35,6 +35,7 @@ internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
+        classes.bind(query, "context", value, type)
     }
 
     override fun run(): Sequence<QueryResult> {
