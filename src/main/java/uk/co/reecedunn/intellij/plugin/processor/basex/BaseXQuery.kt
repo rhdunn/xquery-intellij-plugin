@@ -39,7 +39,14 @@ internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
     }
 
     override fun run(): Sequence<QueryResult> {
-        return BaseXQueryResultIterator(query, classes).asSequence()
+        val ret = BaseXQueryResultIterator(query, classes)
+        val type = ret.next()
+        return if (type.value == "error") {
+            val error = ret.next()
+            sequenceOf(QueryResult(error.value, "err:error"))
+        } else {
+            ret.asSequence()
+        }
     }
 
     override fun close() {
