@@ -25,10 +25,13 @@ import uk.co.reecedunn.intellij.plugin.processor.Query
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
+val VERSION_QUERY = Resources.load("queries/marklogic/version.xq")!!.decode()
 val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) : QueryProcessor {
-    override val version: String get() = TODO("not implemented")
+    override val version: String by lazy {
+        createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+    }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
