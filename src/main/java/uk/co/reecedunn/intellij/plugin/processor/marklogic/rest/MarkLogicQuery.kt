@@ -64,12 +64,13 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         }
 
         val mime = MimeResponse(response.allHeaders, body)
-        return mime.parts.asSequence().map { part ->
+        return mime.parts.asSequence().mapIndexed { index, part ->
             if (part.getHeader("Content-Length")?.toInt() == 0)
                 null
             else {
                 val primitive = part.getHeader("X-Primitive") ?: "string"
-                QueryResult(part.body, primitiveToItemType(primitive))
+                val derived = mime.getHeader("X-Derived-${index + 1}")
+                QueryResult(part.body, primitiveToItemType(derived ?: primitive))
             }
         }.filterNotNull()
     }

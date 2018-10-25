@@ -79,6 +79,34 @@ class ProcessorTest {
 
                 assertThat(items.size, `is`(0))
             }
+
+            @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
+                val q = processor.createQuery("(1, 2, 3)", MimeTypes.XQUERY)
+                val items = q.run().toList()
+                q.close()
+
+                assertThat(items.size, `is`(3))
+                assertThat(items[0].value, `is`("1"))
+                assertThat(items[0].type, `is`("xs:integer"))
+                assertThat(items[1].value, `is`("2"))
+                assertThat(items[1].type, `is`("xs:integer"))
+                assertThat(items[2].value, `is`("3"))
+                assertThat(items[2].type, `is`("xs:integer"))
+            }
+
+            @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
+                val q = processor.createQuery("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", MimeTypes.XQUERY)
+                val items = q.run().toList()
+                q.close()
+
+                assertThat(items.size, `is`(3))
+                assertThat(items[0].value, `is`("1"))
+                assertThat(items[0].type, `is`("xs:int"))
+                assertThat(items[1].value, `is`("2"))
+                assertThat(items[1].type, `is`("xs:byte"))
+                assertThat(items[2].value, `is`("3"))
+                assertThat(items[2].type, `is`("xs:decimal"))
+            }
         }
 
         @Nested

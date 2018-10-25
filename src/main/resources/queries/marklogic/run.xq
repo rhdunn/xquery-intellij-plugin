@@ -14,6 +14,8 @@
  : 2.  The variables are passed via the REST API as xs:untypedAtomic. This
  :     converts the variables to the type they were specified as in the
  :     xquery-intellij-plugin API.
+ :
+ : 3.  The REST API only returns the primitive type of each item.
  :)
 xquery version "1.0-ml";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
@@ -81,9 +83,41 @@ declare function local:parse-vars($values as map:map, $types as map:map) {
     return $ret
 };
 
+declare function local:derived-type-name($value) {
+    (: NOTE: Ordering is important here -- reverse type hierarchy :)
+    typeswitch ($value)
+    (: xs:integer derived types :)
+    case xs:positiveInteger return "xs:positiveInteger"
+    case xs:unsignedByte return "xs:unsignedByte"
+    case xs:unsignedShort return "xs:unsignedShort"
+    case xs:unsignedInt return "xs:unsignedInt"
+    case xs:unsignedLong return "xs:unsignedLong"
+    case xs:nonNegativeInteger return "xs:nonNegativeInteger"
+    case xs:byte return "xs:byte"
+    case xs:short return "xs:short"
+    case xs:int return "xs:int"
+    case xs:long return "xs:long"
+    case xs:negativeInteger return "xs:negativeInteger"
+    case xs:nonPositiveInteger return "xs:nonPositiveInteger"
+    (: xs:string derived types :)
+    case xs:ENTITY return "xs:ENTITY"
+    case xs:IDREF return "xs:IDREF"
+    case xs:ID return "xs:ID"
+    case xs:NCName return "xs:NCName"
+    case xs:Name return "xs:Name"
+    case xs:NMTOKEN return "xs:NMTOKEN"
+    case xs:language return "xs:language"
+    case xs:token return "xs:token"
+    case xs:normalizedString return "xs:normalizedString"
+    default return () (: primitive type, so does not need the type name to be specified. :)
+};
+
 try {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
-    return xdmp:eval($query, $variables, ())
+    let $retvals := xdmp:eval($query, $variables, ())
+    for $retval at $i in $retvals
+    let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
+    return $retval
 } catch ($e) {
     $e
 }
