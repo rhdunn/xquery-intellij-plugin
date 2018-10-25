@@ -38,4 +38,10 @@ internal class BaseXClasses(path: File) {
         queryClass = loader.loadClassOrNull("org.basex.api.client.Query")
                 ?: loader.loadClass("org.basex.server.Query")
     }
+
+    fun bind(query: Any, name: String, value: Any?, type: String?) {
+        queryClass
+            .getMethod("bind", String::class.java, Any::class.java, String::class.java)
+            .invoke(query, name, value, type)
+    }
 }
