@@ -119,9 +119,9 @@ patchPluginXml {
 
 def build = idea_since_build.toInteger()
 if (build >= 191) {
-    sourceSets.main.java.srcDirs += "compat/191/java"
+    sourceSets.main.java.srcDirs += "compat/191"
 } else {
-    sourceSets.main.java.srcDirs += "compat/183/java"
+    sourceSets.main.java.srcDirs += "compat/183"
 }
 
 jacocoTestReport {
