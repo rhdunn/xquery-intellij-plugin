@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.processor.tests
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
-import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
+import uk.co.reecedunn.intellij.plugin.processor.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.basex.BaseX
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
@@ -455,31 +455,53 @@ class ProcessorTest {
     @Nested
     @DisplayName("error")
     internal inner class Error {
-        @Test
-        @DisplayName("processor generated error")
-        fun processor() {
+        fun parse(query: String): QueryError {
             val q = processor.createQuery("(1, 2,", MimeTypes.XQUERY)
             val items = q.run().toList()
             q.close()
 
-            @Language("XML")
-            val expected = """
-                <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug" xmlns:err="http://www.w3.org/2005/xqt-errors">
-                    <err:code>err:XPST0003</err:code>
-                    <err:description>XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected ${'$'}end, expecting Function30_ or Percent_</err:description>
-                    <err:value count="0"/>
-                    <err:module line="1" column="5"/>
-                    <dbg:stack>
-                        <dbg:frame>
-                            <dbg:module line="1" column="5"/>
-                        </dbg:frame>
-                    </dbg:stack>
-                </err:error>
-            """
-
             assertThat(items.size, `is`(1))
             assertThat(items[0].type, `is`("err:error"))
-            assertThat(items[0].value, `is`(expected.replace("\n\\s*".toRegex(), "")))
+
+            return QueryError(items[0].value)
+        }
+
+        @Test
+        @DisplayName("err:code")
+        fun code() {
+            assertThat(parse("(1, 2,").code, `is`("err:XPST0003"))
+        }
+
+        @Test
+        @DisplayName("err:description")
+        fun description() {
+            assertThat(
+                parse("(1, 2,").description,
+                anyOf(
+                    // BaseX:
+                    `is`("Incomplete expression."),
+                    // MarkLogic:
+                    `is`("XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected \$end, expecting Function30_ or Percent_")
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("err:module")
+        fun module() {
+            assertThat(parse("(1, 2,").module, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("err:line-number")
+        fun lineNumber() {
+            assertThat(parse("(1, 2,").lineNumber, `is`(1))
+        }
+
+        @Test
+        @DisplayName("err:column-number")
+        fun columnNumber() {
+            assertThat(parse("(1, 2,").columnNumber, `is`(5))
         }
     }
 }
