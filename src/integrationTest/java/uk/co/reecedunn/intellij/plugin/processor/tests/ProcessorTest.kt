@@ -491,16 +491,13 @@ class ProcessorTest {
         fun description() {
             assertThat(
                 parse("(1, 2,").description,
-                anyOf(
-                    `is`("Incomplete expression."),
-                    `is`("XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected \$end, expecting Function30_ or Percent_")
-                )
+                anyOf(`is`("Incomplete expression."), `is`("Unexpected token"))
             )
 
             // This MarkLogic error does not include the standard code in the description.
             assertThat(
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
-                `is`("XDMP-XQUERYVERSIONSWITCH: All modules in a module sequence must use the same XQuery version: first=\"1.0-ml\", this=\"0.9-ml\"")
+                `is`("All modules in a module sequence must use the same XQuery version")
             )
         }
 

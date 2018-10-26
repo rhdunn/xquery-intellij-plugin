@@ -123,7 +123,8 @@ declare function local:error(
 ) {
     <err:error xmlns:dbg="http://reecedunn.co.uk/xquery/debug">
         <err:code>{$err:code}</err:code>
-        <err:description>{$err:description}</err:description>
+        <err:vendor-code>{$err:additional/error:code/text()}</err:vendor-code>
+        <err:description>{$err:additional/error:message/text()}</err:description>
         <err:value count="{count($err:value)}"></err:value>
         <err:module line="{$err:line-number}" column="{$err:column-number}">{$err:module}</err:module>
         <dbg:stack>{

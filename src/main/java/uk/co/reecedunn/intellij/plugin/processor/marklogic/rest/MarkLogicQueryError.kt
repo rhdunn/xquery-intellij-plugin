@@ -29,8 +29,7 @@ class MarkLogicQueryError(xml: String) : QueryError() {
     }
 
     override val vendorCode: String? by lazy {
-        val desc = doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
-        desc?.substringBefore(":")
+        doc.root.children(XMLNS_ERR, "vendor-code").first().firstChild?.nodeValue
     }
 
     override val description: String? by lazy {
