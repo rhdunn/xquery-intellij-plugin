@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.basex
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import java.io.File
+import java.lang.reflect.InvocationTargetException
 import java.net.URLClassLoader
 
 internal class BaseXClasses(path: File) {
@@ -25,6 +26,7 @@ internal class BaseXClasses(path: File) {
     val clientSessionClass: Class<*>
     val sessionClass: Class<*>
     val queryClass: Class<*>
+    val basexExceptionClass: Class<*>
 
     init {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
@@ -37,5 +39,18 @@ internal class BaseXClasses(path: File) {
                 ?: loader.loadClass("org.basex.server.Session")
         queryClass = loader.loadClassOrNull("org.basex.api.client.Query")
                 ?: loader.loadClass("org.basex.server.Query")
+        basexExceptionClass = loader.loadClass("org.basex.core.BaseXException")
+    }
+
+    fun <T> check(f: () -> T): T {
+        return try {
+            f()
+        } catch (e: InvocationTargetException) {
+            if (basexExceptionClass.isInstance(e.targetException)) {
+                throw BaseXQueryError(e.targetException.message!!)
+            } else {
+                throw e
+            }
+        }
     }
 }

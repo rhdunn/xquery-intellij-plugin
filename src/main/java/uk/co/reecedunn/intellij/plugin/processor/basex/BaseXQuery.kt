@@ -21,7 +21,9 @@ import uk.co.reecedunn.intellij.plugin.processor.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses) : Iterator<QueryResult> {
-    override fun hasNext(): Boolean = classes.queryClass.getMethod("more").invoke(query) as Boolean
+    override fun hasNext(): Boolean = classes.check {
+        classes.queryClass.getMethod("more").invoke(query) as Boolean
+    }
 
     override fun next(): QueryResult {
         val next = classes.queryClass.getMethod("next").invoke(query) as String?

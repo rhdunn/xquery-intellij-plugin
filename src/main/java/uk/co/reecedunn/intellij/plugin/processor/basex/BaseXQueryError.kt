@@ -1,0 +1,36 @@
+/*
+ * Copyright (C) 2018 Reece H. Dunn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.processor.basex
+
+import uk.co.reecedunn.intellij.plugin.processor.QueryError
+
+private val RE_BASEX_EXCEPTION = "^Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+\\[([^]]+)] (.*)".toRegex()
+
+class BaseXQueryError(msg: String) : QueryError() {
+    private val parts = RE_BASEX_EXCEPTION.matchEntire(msg)?.groupValues
+
+    override val standardCode: String = parts?.get(4)!!
+
+    override val vendorCode: String? = null
+
+    override val description: String? = parts?.get(5)
+
+    override val module: String? = parts?.get(1)?.let { if (it == ".") null else it }
+
+    override val lineNumber: Int? = parts?.get(2)?.toInt()
+
+    override val columnNumber: Int? = parts?.get(3)?.toInt()
+}

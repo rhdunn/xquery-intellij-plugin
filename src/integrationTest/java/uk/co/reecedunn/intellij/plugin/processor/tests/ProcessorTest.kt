@@ -470,19 +470,19 @@ class ProcessorTest {
             // This MarkLogic error does not include the standard code in the description.
             assertThat(
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").standardCode,
-                `is`("FOER0000")
+                anyOf(`is`("XQST0031"), `is`("FOER0000"))
             )
         }
 
         @Test
         @DisplayName("vendor code")
         fun vendorCode() {
-            assertThat(parse("(1, 2,").vendorCode, `is`("XDMP-UNEXPECTED"))
+            assertThat(parse("(1, 2,").vendorCode, anyOf(`is`("XDMP-UNEXPECTED"), `is`(nullValue())))
 
             // This MarkLogic error does not include the standard code in the description.
             assertThat(
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").vendorCode,
-                `is`("XDMP-XQUERYVERSIONSWITCH")
+                anyOf(`is`("XDMP-XQUERYVERSIONSWITCH"), nullValue())
             )
         }
 
@@ -497,7 +497,10 @@ class ProcessorTest {
             // This MarkLogic error does not include the standard code in the description.
             assertThat(
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
-                `is`("All modules in a module sequence must use the same XQuery version")
+                anyOf(
+                    `is`("XQuery version '1.0-ml' not supported."),
+                    `is`("All modules in a module sequence must use the same XQuery version")
+                )
             )
         }
 
@@ -516,7 +519,7 @@ class ProcessorTest {
         @Test
         @DisplayName("column number")
         fun columnNumber() {
-            assertThat(parse("(1, 2,").columnNumber, `is`(5))
+            assertThat(parse("(1, 2,").columnNumber, anyOf(`is`(5), `is`(7)))
         }
     }
 }
