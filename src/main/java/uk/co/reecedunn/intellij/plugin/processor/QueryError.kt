@@ -16,7 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.processor
 
 abstract class QueryError : RuntimeException() {
-    abstract val code: String
+    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
+
+    abstract val standardCode: String
+
+    abstract val vendorCode: String?
 
     abstract val description: String?
 

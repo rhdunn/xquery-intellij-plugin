@@ -463,39 +463,61 @@ class ProcessorTest {
         }
 
         @Test
-        @DisplayName("err:code")
-        fun code() {
-            assertThat(parse("(1, 2,").code, `is`("XPST0003"))
-        }
+        @DisplayName("standard code")
+        fun standardCode() {
+            assertThat(parse("(1, 2,").standardCode, `is`("XPST0003"))
 
-        @Test
-        @DisplayName("err:description")
-        fun description() {
+            // This MarkLogic error does not include the standard code in the description.
             assertThat(
-                parse("(1, 2,").description,
-                anyOf(
-                    // BaseX:
-                    `is`("Incomplete expression."),
-                    // MarkLogic:
-                    `is`("XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected \$end, expecting Function30_ or Percent_")
-                )
+                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").standardCode,
+                `is`("FOER0000")
             )
         }
 
         @Test
-        @DisplayName("err:module")
+        @DisplayName("vendor code")
+        fun vendorCode() {
+            assertThat(parse("(1, 2,").vendorCode, `is`("XDMP-UNEXPECTED"))
+
+            // This MarkLogic error does not include the standard code in the description.
+            assertThat(
+                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").vendorCode,
+                `is`("XDMP-XQUERYVERSIONSWITCH")
+            )
+        }
+
+        @Test
+        @DisplayName("description")
+        fun description() {
+            assertThat(
+                parse("(1, 2,").description,
+                anyOf(
+                    `is`("Incomplete expression."),
+                    `is`("XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected \$end, expecting Function30_ or Percent_")
+                )
+            )
+
+            // This MarkLogic error does not include the standard code in the description.
+            assertThat(
+                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
+                `is`("XDMP-XQUERYVERSIONSWITCH: All modules in a module sequence must use the same XQuery version: first=\"1.0-ml\", this=\"0.9-ml\"")
+            )
+        }
+
+        @Test
+        @DisplayName("module")
         fun module() {
             assertThat(parse("(1, 2,").module, `is`(nullValue()))
         }
 
         @Test
-        @DisplayName("err:line-number")
+        @DisplayName("line number")
         fun lineNumber() {
             assertThat(parse("(1, 2,").lineNumber, `is`(1))
         }
 
         @Test
-        @DisplayName("err:column-number")
+        @DisplayName("column number")
         fun columnNumber() {
             assertThat(parse("(1, 2,").columnNumber, `is`(5))
         }

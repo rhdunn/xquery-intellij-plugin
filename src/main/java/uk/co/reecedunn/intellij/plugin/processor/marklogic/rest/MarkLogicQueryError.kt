@@ -24,8 +24,13 @@ private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
 class MarkLogicQueryError(xml: String) : QueryError() {
     private val doc = XmlDocument.parse(xml)
 
-    override val code: String by lazy {
+    override val standardCode: String by lazy {
         doc.root.children(XMLNS_ERR, "code").first().firstChild.nodeValue.replace("^err:".toRegex(), "")
+    }
+
+    override val vendorCode: String? by lazy {
+        val desc = doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
+        desc?.substringBefore(":")
     }
 
     override val description: String? by lazy {
