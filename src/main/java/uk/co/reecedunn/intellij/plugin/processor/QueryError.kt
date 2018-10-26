@@ -15,21 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.children
+abstract class QueryError {
+    abstract val code: String
 
-private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
+    abstract val description: String?
 
-class QueryError(xml: String) {
-    private val doc = XmlDocument.parse(xml)
+    abstract val module: String?
 
-    val code: String = doc.root.children(XMLNS_ERR, "code").first().firstChild.nodeValue
+    abstract val lineNumber: Int?
 
-    val description: String? = doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
-
-    val module: String? = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
-
-    val lineNumber: Int? = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
-
-    val columnNumber: Int? = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+    abstract val columnNumber: Int?
 }

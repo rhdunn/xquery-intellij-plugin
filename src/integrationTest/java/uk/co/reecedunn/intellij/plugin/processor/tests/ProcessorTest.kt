@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.basex.BaseX
+import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 import java.io.File
 
@@ -463,7 +464,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].type, `is`("err:error"))
 
-            return QueryError(items[0].value)
+            return MarkLogicQueryError(items[0].value)
         }
 
         @Test
