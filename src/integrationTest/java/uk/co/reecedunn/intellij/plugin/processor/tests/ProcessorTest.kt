@@ -465,7 +465,7 @@ class ProcessorTest {
         @Test
         @DisplayName("err:code")
         fun code() {
-            assertThat(parse("(1, 2,").code, `is`("err:XPST0003"))
+            assertThat(parse("(1, 2,").code, `is`("XPST0003"))
         }
 
         @Test

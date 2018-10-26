@@ -24,13 +24,23 @@ private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
 class MarkLogicQueryError(xml: String) : QueryError() {
     private val doc = XmlDocument.parse(xml)
 
-    override val code: String = doc.root.children(XMLNS_ERR, "code").first().firstChild.nodeValue
+    override val code: String by lazy {
+        doc.root.children(XMLNS_ERR, "code").first().firstChild.nodeValue.replace("^err:".toRegex(), "")
+    }
 
-    override val description: String? = doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
+    override val description: String? by lazy {
+        doc.root.children(XMLNS_ERR, "description").first().firstChild?.nodeValue
+    }
 
-    override val module: String? = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
+    override val module: String? by lazy {
+        doc.root.children(XMLNS_ERR, "module").firstOrNull()?.firstChild?.nodeValue
+    }
 
-    override val lineNumber: Int? = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
+    override val lineNumber: Int? by lazy {
+        doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("line")?.toInt()
+    }
 
-    override val columnNumber: Int? = doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+    override val columnNumber: Int? by lazy {
+        doc.root.children(XMLNS_ERR, "module").firstOrNull()?.getAttribute("column")?.toInt()
+    }
 }
