@@ -19,11 +19,11 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertThrows
 import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.basex.BaseX
-import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 import java.io.File
 
@@ -457,14 +457,9 @@ class ProcessorTest {
     @DisplayName("error")
     internal inner class Error {
         fun parse(query: String): QueryError {
-            val q = processor.createQuery("(1, 2,", MimeTypes.XQUERY)
-            val items = q.run().toList()
-            q.close()
-
-            assertThat(items.size, `is`(1))
-            assertThat(items[0].type, `is`("err:error"))
-
-            return MarkLogicQueryError(items[0].value)
+            return processor.createQuery(query, MimeTypes.XQUERY).use {
+                assertThrows(QueryError::class.java) { it.run().toList() }
+            }
         }
 
         @Test

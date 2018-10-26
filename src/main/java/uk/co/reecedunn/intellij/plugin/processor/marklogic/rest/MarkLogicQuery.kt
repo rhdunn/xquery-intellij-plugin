@@ -70,7 +70,10 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
             else {
                 val primitive = part.getHeader("X-Primitive") ?: "string"
                 val derived = mime.getHeader("X-Derived-${index + 1}")
-                QueryResult(part.body, primitiveToItemType(derived ?: primitive))
+                if (derived == "err:error")
+                    throw MarkLogicQueryError(part.body)
+                else
+                    QueryResult(part.body, primitiveToItemType(derived ?: primitive))
             }
         }.filterNotNull()
     }

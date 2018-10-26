@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor
 
-abstract class QueryError {
+abstract class QueryError : RuntimeException() {
     abstract val code: String
 
     abstract val description: String?
