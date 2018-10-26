@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
 
 val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
-val RUN_QUERY = Resources.load("queries/basex/run.xq")!!.decode()
 
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override val version: String by lazy {
@@ -35,8 +34,7 @@ internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) 
     override fun createQuery(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
-                val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, RUN_QUERY)
-                classes.bind(ret, "query", query, "xs:string")
+                val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)
                 BaseXQuery(ret, classes)
             }
             else -> throw UnsupportedQueryType(mimetype)

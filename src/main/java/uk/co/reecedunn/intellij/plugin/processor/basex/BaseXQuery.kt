@@ -32,21 +32,20 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
 
 internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
+        // BaseX cannot bind to namespaced variables, so only pass the NCName.
+        classes.queryClass
+            .getMethod("bind", String::class.java, Any::class.java, String::class.java)
+            .invoke(query, name.localName!!.data, value, type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
-        classes.bind(query, "context", value, type)
+        classes.queryClass
+            .getMethod("context", Any::class.java, String::class.java)
+            .invoke(query, value, type)
     }
 
     override fun run(): Sequence<QueryResult> {
-        val ret = BaseXQueryResultIterator(query, classes)
-        val type = ret.next()
-        return if (type.value == "error") {
-            val error = ret.next()
-            sequenceOf(QueryResult(error.value, "err:error"))
-        } else {
-            ret.asSequence()
-        }
+        return BaseXQueryResultIterator(query, classes).asSequence()
     }
 
     override fun close() {
