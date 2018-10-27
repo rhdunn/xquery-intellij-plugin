@@ -48,5 +48,9 @@ internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableH
         }
     }
 
+    override fun invoke(path: String, mimetype: String): Query {
+        throw UnsupportedOperationException()
+    }
+
     override fun close() = client.close()
 }

@@ -46,6 +46,10 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses) :
         }
     }
 
+    override fun invoke(path: String, mimetype: String): Query {
+        throw UnsupportedOperationException()
+    }
+
     override fun close() {
     }
 }

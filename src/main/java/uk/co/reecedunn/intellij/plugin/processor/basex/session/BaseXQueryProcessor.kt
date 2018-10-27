@@ -42,6 +42,10 @@ internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) 
         }
     }
 
+    override fun invoke(path: String, mimetype: String): Query {
+        throw UnsupportedOperationException()
+    }
+
     override fun close() {
         classes.sessionClass.getMethod("close").invoke(session)
     }

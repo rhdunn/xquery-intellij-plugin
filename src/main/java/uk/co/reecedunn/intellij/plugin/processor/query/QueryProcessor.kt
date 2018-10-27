@@ -23,4 +23,6 @@ interface QueryProcessor : Closeable {
     val supportedQueryTypes: Array<String>
 
     fun eval(query: String, mimetype: String): Query
+
+    fun invoke(path: String, mimetype: String): Query
 }

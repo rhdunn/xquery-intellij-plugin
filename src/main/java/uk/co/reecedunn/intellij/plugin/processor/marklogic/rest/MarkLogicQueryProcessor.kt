@@ -50,5 +50,9 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val client: Closeabl
         }
     }
 
+    override fun invoke(path: String, mimetype: String): Query {
+        throw UnsupportedOperationException()
+    }
+
     override fun close() = client.close()
 }
