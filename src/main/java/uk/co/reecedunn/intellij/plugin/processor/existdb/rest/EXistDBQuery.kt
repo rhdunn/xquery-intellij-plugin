@@ -19,9 +19,13 @@ import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+
+private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
 
 internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
@@ -43,7 +47,11 @@ internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHt
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        return sequenceOf(QueryResult(body, "element()"))
+        val result = XmlDocument.parse(body)
+        return result.root.children(EXIST_NS, "value").map { value ->
+            val type = value.getAttributeNS(EXIST_NS, "type")
+            QueryResult(value.firstChild.nodeValue, type)
+        }
     }
 
     override fun close() {
