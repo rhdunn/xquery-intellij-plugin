@@ -28,11 +28,11 @@ private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
 
 internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
-        TODO()
+        throw UnsupportedOperationException()
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
-        TODO()
+        throw UnsupportedOperationException()
     }
 
     override fun run(): Sequence<QueryResult> {
