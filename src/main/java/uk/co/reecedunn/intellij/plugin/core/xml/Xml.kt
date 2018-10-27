@@ -21,8 +21,12 @@ import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
 import java.io.StringReader
+import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 private class NodeListIterator(val nodes: NodeList): Iterator<Node> {
     private var current: Int = 0
@@ -48,17 +52,26 @@ fun Element.children(namespace: String, localname: String): Sequence<Element> {
     return getElementsByTagNameNS(namespace, localname).asSequence().filterIsInstance<Element>()
 }
 
-class XmlDocument internal constructor(doc: Document) {
+class XmlDocument internal constructor(val doc: Document) {
     val root: Element = doc.documentElement
 
+    fun toXmlString(): String {
+        val writer = StringWriter()
+        XmlDocument.formatter.transform(DOMSource(doc), StreamResult(writer))
+        return writer.buffer.toString()
+    }
+
     companion object {
-        private fun createDocumentBuilder(): DocumentBuilder {
+        private val builder by lazy {
             val factory = DocumentBuilderFactory.newInstance()
             factory.isNamespaceAware = true
-            return factory.newDocumentBuilder()
+            factory.newDocumentBuilder()
         }
 
-        private val builder = createDocumentBuilder()
+        private val formatter by lazy {
+            val factory = TransformerFactory.newInstance()
+            factory.newTransformer()
+        }
 
         fun parse(xml: String): XmlDocument = XmlDocument(builder.parse(InputSource(StringReader(xml))))
     }

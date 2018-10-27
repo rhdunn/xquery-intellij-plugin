@@ -15,15 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 
-import com.google.gson.JsonObject
+import org.apache.http.HttpEntity
 import org.apache.http.client.methods.RequestBuilder
+import org.apache.http.entity.StringEntity
 import org.apache.http.impl.client.CloseableHttpClient
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.decode
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
+
+private val POST_QUERY = Resources.load("queries/existdb/post-query.xml")!!.decode()
 
 internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableHttpClient) : QueryProcessor {
     override val version: String get() = TODO()
@@ -33,7 +38,11 @@ internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableH
     override fun createQuery(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
-                TODO()
+                val xml = XmlDocument.parse(POST_QUERY)
+                xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query))
+                val builder = RequestBuilder.post(baseUri)
+                builder.entity = StringEntity(xml.toXmlString())
+                EXistDBQuery(builder, client)
             }
             else -> throw UnsupportedQueryType(mimetype)
         }
