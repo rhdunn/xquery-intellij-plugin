@@ -17,20 +17,20 @@ package uk.co.reecedunn.intellij.plugin.processor.basex
 
 import uk.co.reecedunn.intellij.plugin.processor.QueryError
 
-private val RE_BASEX_EXCEPTION = "^Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+\\[([^]]+)] (.*)".toRegex()
+private val RE_BASEX_EXCEPTION = "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 
 class BaseXQueryError(msg: String) : QueryError() {
     private val parts = RE_BASEX_EXCEPTION.matchEntire(msg)?.groupValues
 
-    override val standardCode: String = parts?.get(4)!!
+    override val standardCode: String = parts?.get(5)!!
 
     override val vendorCode: String? = null
 
-    override val description: String? = parts?.get(5)
+    override val description: String? = parts?.get(6)
 
-    override val module: String? = parts?.get(1)?.let { if (it == ".") null else it }
+    override val module: String? = parts?.get(2)?.let { if (it == ".") null else it }
 
-    override val lineNumber: Int? = parts?.get(2)?.toInt()
+    override val lineNumber: Int? = parts?.get(3)?.toIntOrNull()
 
-    override val columnNumber: Int? = parts?.get(3)?.toInt()
+    override val columnNumber: Int? = parts?.get(4)?.toIntOrNull()
 }
