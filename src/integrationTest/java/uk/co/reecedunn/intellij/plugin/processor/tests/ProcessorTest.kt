@@ -519,7 +519,8 @@ class ProcessorTest {
         @Test
         @DisplayName("column number")
         fun columnNumber() {
-            assertThat(parse("(1, 2,").columnNumber, anyOf(`is`(5), `is`(7)))
+            // On the ',' (e.g. MarkLogic); after the ',' (e.g. BaseX); or at the start of the line:
+            assertThat(parse("(1, 2,").columnNumber, anyOf(`is`(6), `is`(7), `is`(1)))
         }
     }
 }

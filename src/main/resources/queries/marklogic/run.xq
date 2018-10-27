@@ -126,7 +126,7 @@ declare function local:error(
         <err:vendor-code>{$err:additional/error:code/text()}</err:vendor-code>
         <err:description>{$err:additional/error:message/text()}</err:description>
         <err:value count="{count($err:value)}"></err:value>
-        <err:module line="{$err:line-number}" column="{$err:column-number}">{$err:module}</err:module>
+        <err:module line="{$err:line-number}" column="{$err:column-number + 1}">{$err:module}</err:module>
         <dbg:stack>{
             for $frame in $err:additional/error:stack/error:frame[position() != last()]
             let $module := $frame/error:uri/text()
