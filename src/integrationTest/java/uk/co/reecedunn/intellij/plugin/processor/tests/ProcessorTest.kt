@@ -48,6 +48,21 @@ class ProcessorTest {
     @Nested
     @DisplayName("return value type display name")
     internal inner class ReturnValues {
+        private fun node(query: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
+            val q = processor.eval(query, MimeTypes.XQUERY)
+            val items = q.run().toList()
+            q.close()
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].value, valueMatcher)
+            assertThat(items[0].type, typeMatcher)
+            assertThat(items[0].mimetype, `is`(mimetype))
+        }
+
+        private fun node(query: String, value: String, type: String, mimetype: String) {
+            node(query, `is`(value), `is`(type), mimetype)
+        }
+
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.eval("\"$value\" cast as $type", MimeTypes.XQUERY)
             val items = q.run().toList()
@@ -120,6 +135,81 @@ class ProcessorTest {
                 assertThat(items[2].value, `is`("3"))
                 assertThat(items[2].type, `is`("xs:decimal"))
                 assertThat(items[2].mimetype, `is`("text/plain"))
+            }
+        }
+
+        @Nested
+        @DisplayName("node type (XQuery 3.0)")
+        internal inner class NodeTypeXQuery30 {
+            @Test @DisplayName("attribute()") fun attribute() {
+                node(
+                    "attribute lorem {\"ipsum\"}",
+                    anyOf(`is`("lorem=\"ipsum\""), `is`("ipsum")),
+                    anyOf(`is`("attribute()"), `is`("attribute(Q{}lorem)")),
+                    "text/plain"
+                )
+            }
+            @Test @DisplayName("comment()") fun comment() {
+                node("comment {\"lorem ipsum\"}", "<!--lorem ipsum-->", "comment()", "text/plain")
+            }
+            @Test @DisplayName("document-node()") fun documentNode() {
+                node(
+                    "document { <test/> }",
+                    anyOf(`is`("<test/>"), `is`("<test/>\n"), `is`("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<test/>")),
+                    anyOf(`is`("document-node(element())()"), `is`("document-node(element(Q{}test))"), `is`("document-node()")),
+                    "application/xml"
+                )
+            }
+            @Test @DisplayName("element()") fun element() {
+                node(
+                    "<test/>",
+                    anyOf(`is`("<test/>"), `is`("<test/>\n")),
+                    anyOf(`is`("element()"), `is`("element(Q{}test)")),
+                    "application/xml"
+                )
+            }
+            @Test @DisplayName("function()") fun function() {
+                node("fn:true#0", "fn:true#0", "function(*)", "text/plain")
+            }
+            @Test @DisplayName("processing-instruction()") fun processingInstruction() {
+                node("<?test?>", anyOf(`is`("<?test?>"), `is`("<?test ?>")), `is`("processing-instruction()"), "text/plain")
+            }
+            @Test @DisplayName("text()") fun text() {
+                node("text {\"lorem ipsum\"}", "lorem ipsum", "text()", "text/plain")
+            }
+        }
+
+        @Nested
+        @DisplayName("node type (XQuery 3.1)")
+        internal inner class NodeTypeXQuery31 {
+            @Test @DisplayName("array(*)") fun array() {
+                node("array {}", `is`("[]"), anyOf(`is`("function(*)"), `is`("array(empty-sequence())")), "text/plain")
+            }
+            @Test @DisplayName("map(*)") fun map() {
+                node("map {}", anyOf(`is`("map{}"), `is`("map {\r\n}")), anyOf(`is`("function(*)"), `is`("map(*)")), "text/plain")
+            }
+        }
+
+        @Nested
+        @DisplayName("node type (MarkLogic)")
+        internal inner class NodeTypeMarkLogic {
+            @Test @DisplayName("array-node()") fun arrayNode() {
+                node("array-node {}", "[]", "array-node()", "application/json")
+            }
+            @Test @DisplayName("binary()") fun binary() {
+                node("binary {\"6C6F72656D20697073756D\"}", "lorem ipsum", "binary()", "text/plain")
+            }
+            @Test @DisplayName("boolean-node()") fun booleanNode() {
+                node("boolean-node { false() }", "false", "boolean-node()", "text/plain")
+            }
+            @Test @DisplayName("null-node()") fun nullNode() {
+                node("null-node {}", "null", "null-node()", "text/plain")
+            }
+            @Test @DisplayName("number-node()") fun numberNode() {
+                node("number-node { 2 }", "2", "number-node()", "text/plain")
+            }
+            @Test @DisplayName("object-node()") fun objectNode() {
+                node("object-node {}", "{}", "object-node()", "application/json")
             }
         }
 
@@ -233,6 +323,19 @@ class ProcessorTest {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
 
+        private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
+            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            q.bindVariable("x", value, type)
+
+            val items = q.run().toList()
+            q.close()
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].value, valueMatcher)
+            assertThat(items[0].type, typeMatcher)
+            assertThat(items[0].mimetype, `is`(mimetype))
+        }
+
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", value, type)
@@ -266,6 +369,23 @@ class ProcessorTest {
             q.close()
 
             assertThat(items.size, `is`(0))
+        }
+
+        @Nested
+        @DisplayName("as node type (XML)")
+        internal inner class NodeTypeXml {
+            @Test @DisplayName("element()") fun element() { node("<test/>", "element()", `is`("<test/>"), `is`("element()"), "application/xml") }
+            @Test @DisplayName("document-node()") fun documentNode() { node("<?xml version=\"1.0\"?><test/>", "document-node()", `is`("<test/>"), `is`("document-node(element())()"), "application/xml") }
+        }
+
+        @Nested
+        @DisplayName("as node type (JSON)")
+        internal inner class NodeTypeJson {
+            @Test @DisplayName("array(*)") fun array() { node("[]", "array(*)", `is`("[]"), `is`("array(*)"), "application/json") }
+            @Test @DisplayName("map(*)") fun map() { node("{}", "map(*)", `is`("{}"), `is`("map(*)"), "application/json") }
+
+            @Test @DisplayName("array-node()") fun arrayNode() { node("[]", "array-node()", `is`("[]"), `is`("array-node()"), "application/json") }
+            @Test @DisplayName("object-node()") fun objectNode() { node("{}", "object-node()", `is`("{}"), `is`("object-node()"), "application/json") }
         }
 
         @Nested
@@ -353,6 +473,19 @@ class ProcessorTest {
     @Nested
     @DisplayName("bind context item")
     internal inner class BindContextItem {
+        private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
+            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            q.bindVariable("x", value, type)
+
+            val items = q.run().toList()
+            q.close()
+
+            assertThat(items.size, `is`(1))
+            assertThat(items[0].value, valueMatcher)
+            assertThat(items[0].type, typeMatcher)
+            assertThat(items[0].mimetype, `is`(mimetype))
+        }
+
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
@@ -400,6 +533,23 @@ class ProcessorTest {
 
                 assertThat(items.size, `is`(0))
             }
+        }
+
+        @Nested
+        @DisplayName("as node type (XML)")
+        internal inner class NodeTypeXml {
+            @Test @DisplayName("element()") fun element() { node("<test/>", "element()", `is`("<test/>"), `is`("element()"), "application/xml") }
+            @Test @DisplayName("document-node()") fun documentNode() { node("<?xml version=\"1.0\"?><test/>", "document-node(element())()", `is`("<test/>"), `is`("document-node(element())()"), "application/xml") }
+        }
+
+        @Nested
+        @DisplayName("as node type (JSON)")
+        internal inner class NodeTypeJson {
+            @Test @DisplayName("array(*)") fun array() { node("[]", "array(*)", `is`("[]"), `is`("array(*)"), "application/json") }
+            @Test @DisplayName("map(*)") fun map() { node("{}", "map(*)", `is`("{}"), `is`("map(*)"), "application/json") }
+
+            @Test @DisplayName("array-node()") fun arrayNode() { node("[]", "array-node()", `is`("[]"), `is`("array-node()"), "application/json") }
+            @Test @DisplayName("object-node()") fun objectNode() { node("{}", "object-node()", `is`("{}"), `is`("object-node()"), "application/json") }
         }
 
         @Nested
