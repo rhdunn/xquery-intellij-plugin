@@ -50,7 +50,7 @@ class ProcessorTest {
     @DisplayName("return value type display name")
     internal inner class ReturnValues {
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = processor.createQuery("\"$value\" cast as $type", MimeTypes.XQUERY)
+            val q = processor.eval("\"$value\" cast as $type", MimeTypes.XQUERY)
             val items = q.run().toList()
             q.close()
 
@@ -75,7 +75,7 @@ class ProcessorTest {
         @DisplayName("sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = processor.createQuery("()", MimeTypes.XQUERY)
+                val q = processor.eval("()", MimeTypes.XQUERY)
                 val items = q.run().toList()
                 q.close()
 
@@ -83,7 +83,7 @@ class ProcessorTest {
             }
 
             @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
-                val q = processor.createQuery("(1, 2, 3)", MimeTypes.XQUERY)
+                val q = processor.eval("(1, 2, 3)", MimeTypes.XQUERY)
                 val items = q.run().toList()
                 q.close()
 
@@ -97,7 +97,7 @@ class ProcessorTest {
             }
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
-                val q = processor.createQuery("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", MimeTypes.XQUERY)
+                val q = processor.eval("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", MimeTypes.XQUERY)
                 val items = q.run().toList()
                 q.close()
 
@@ -185,7 +185,7 @@ class ProcessorTest {
     @DisplayName("bind variable")
     internal inner class BindVariableName {
         @Test @DisplayName("by NCName") fun ncname() {
-            val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("x", mapOf()), "2", "xs:integer")
 
             val items = q.run().toList()
@@ -196,7 +196,7 @@ class ProcessorTest {
             assertThat(items[0].type, `is`("xs:integer"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
-            val q = processor.createQuery("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
+            val q = processor.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("Q{http://www.example.co.uk}x", mapOf()), "2", "xs:integer")
 
             val items = q.run().toList()
@@ -207,7 +207,7 @@ class ProcessorTest {
             assertThat(items[0].type, `is`("xs:integer"))
         }
         @Test @DisplayName("by QName") fun qname() {
-            val q = processor.createQuery("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
+            val q = processor.eval("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("local:x", mapOf("local" to "http://www.w3.org/2005/xquery-local-functions")), "2", "xs:integer")
 
             val items = q.run().toList()
@@ -219,7 +219,7 @@ class ProcessorTest {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("x", mapOf()), value, type)
 
             val items = q.run().toList()
@@ -243,7 +243,7 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable(op_qname_parse("x", mapOf()), null, "empty-sequence()")
 
             val items = q.run().toList()
@@ -256,7 +256,7 @@ class ProcessorTest {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = processor.createQuery("declare variable \$x external; \$x", MimeTypes.XQUERY)
+                val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
                 q.bindVariable(op_qname_parse("x", mapOf()), "()", "empty-sequence()")
 
                 val items = q.run().toList()
@@ -338,7 +338,7 @@ class ProcessorTest {
     @DisplayName("bind context item")
     internal inner class BindContextItem {
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = processor.createQuery(".", MimeTypes.XQUERY)
+            val q = processor.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
 
             val items = q.run().toList()
@@ -362,7 +362,7 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = processor.createQuery(".", MimeTypes.XQUERY)
+            val q = processor.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(null, "empty-sequence()")
 
             val items = q.run().toList()
@@ -375,7 +375,7 @@ class ProcessorTest {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = processor.createQuery(".", MimeTypes.XQUERY)
+                val q = processor.eval(".", MimeTypes.XQUERY)
                 q.bindContextItem("()", "empty-sequence()")
 
                 val items = q.run().toList()
@@ -458,7 +458,7 @@ class ProcessorTest {
     internal inner class Error {
         fun parse(query: String): QueryError {
             return assertThrows(QueryError::class.java) {
-                processor.createQuery(query, MimeTypes.XQUERY).use { it.run().toList() }
+                processor.eval(query, MimeTypes.XQUERY).use { it.run().toList() }
             }
         }
 

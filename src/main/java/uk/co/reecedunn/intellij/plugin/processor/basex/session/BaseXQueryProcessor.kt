@@ -27,12 +27,12 @@ val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
 internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) :
     QueryProcessor {
     override val version: String by lazy {
-        createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
     }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
-    override fun createQuery(query: String, mimetype: String): Query {
+    override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
                 val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)

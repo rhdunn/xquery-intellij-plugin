@@ -35,7 +35,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableH
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
-    override fun createQuery(query: String, mimetype: String): Query {
+    override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
                 val xml = XmlDocument.parse(POST_QUERY)

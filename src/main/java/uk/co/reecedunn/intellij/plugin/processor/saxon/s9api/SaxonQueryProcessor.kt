@@ -33,7 +33,7 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses) :
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
-    override fun createQuery(query: String, mimetype: String): Query = classes.check {
+    override fun eval(query: String, mimetype: String): Query = classes.check {
         when (mimetype) {
             MimeTypes.XQUERY -> {
                 val compiler = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)

@@ -31,12 +31,12 @@ val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
 internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) :
     QueryProcessor {
     override val version: String by lazy {
-        createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
     }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
-    override fun createQuery(query: String, mimetype: String): Query {
+    override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
                 val queryParams = JsonObject()
