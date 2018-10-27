@@ -18,9 +18,11 @@ package uk.co.reecedunn.intellij.plugin.core.http.mime
 import com.intellij.util.ArrayUtil
 import org.apache.http.Header
 
+fun Array<Header>.get(header: String): String? {
+    val index = ArrayUtil.indexOf(this, header) { a, b -> (a as Header).name == b }
+    return if (index >= 0) this[index].value else null
+}
+
 class Message internal constructor(private val headers: Array<Header>, val body: String) {
-    fun getHeader(header: String): String? {
-        val index = ArrayUtil.indexOf(this.headers, header) { a, b -> (a as Header).name == b }
-        return if (index >= 0) this.headers[index].value else null
-    }
+    fun getHeader(header: String): String? = this.headers.get(header)
 }

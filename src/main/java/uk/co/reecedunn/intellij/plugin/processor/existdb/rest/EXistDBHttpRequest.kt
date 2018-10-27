@@ -19,6 +19,7 @@ import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
+import uk.co.reecedunn.intellij.plugin.core.http.mime.get
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
@@ -42,7 +43,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        return sequenceOf(QueryResult.fromItemType(body, "xs:string"))
+        return sequenceOf(QueryResult(body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
     }
 
     override fun close() {
