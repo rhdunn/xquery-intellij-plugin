@@ -40,7 +40,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableH
             MimeTypes.XQUERY -> {
                 val xml = XmlDocument.parse(POST_QUERY)
                 xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query))
-                val builder = RequestBuilder.post(baseUri)
+                val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())
                 EXistDBQuery(builder, client)
             }
@@ -49,7 +49,13 @@ internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableH
     }
 
     override fun invoke(path: String, mimetype: String): Query {
-        throw UnsupportedOperationException()
+        return when (mimetype) {
+            MimeTypes.XQUERY -> {
+                val builder = RequestBuilder.get("$baseUri$path")
+                EXistDBHttpRequest(builder, client)
+            }
+            else -> throw UnsupportedQueryType(mimetype)
+        }
     }
 
     override fun close() = client.close()

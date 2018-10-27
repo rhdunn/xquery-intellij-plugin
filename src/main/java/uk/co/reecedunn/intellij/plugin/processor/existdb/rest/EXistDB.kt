@@ -30,7 +30,7 @@ class EXistDB : QueryProcessorInstanceManager {
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
-        val baseUrl = "http://${settings.hostname}:${settings.port}/exist/rest/db"
+        val baseUrl = "http://${settings.hostname}:${settings.port}/exist/rest"
 
         if (settings.username == null || settings.password == null) {
             return EXistDBQueryProcessor(baseUrl, HttpClients.createDefault())
