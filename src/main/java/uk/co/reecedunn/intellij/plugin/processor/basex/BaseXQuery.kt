@@ -32,18 +32,25 @@ private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses
     }
 }
 
+private fun mapType(type: String?): String? {
+    return if (type == "xs:dateTimeStamp") // BaseX does not support XML Schema 1.1 Part 2
+        "xs:dateTime"
+    else
+        type
+}
+
 internal class BaseXQuery(val query: Any, val classes: BaseXClasses) : Query {
     override fun bindVariable(name: XsQNameValue, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.queryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
-            .invoke(query, name.localName!!.data, value, type)
+            .invoke(query, name.localName!!.data, value, mapType(type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
         classes.queryClass
             .getMethod("context", Any::class.java, String::class.java)
-            .invoke(query, value, type)
+            .invoke(query, value, mapType(type))
     }
 
     override fun run(): Sequence<QueryResult> {

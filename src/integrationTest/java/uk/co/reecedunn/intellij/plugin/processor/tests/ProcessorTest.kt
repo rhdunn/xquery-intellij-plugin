@@ -171,7 +171,7 @@ class ProcessorTest {
         @Nested
         @DisplayName("atomic type (derived; XML Schema 1.1 Part 2)")
         internal inner class AtomicTypeDerivedXSD11 {
-            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp") }
+            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic_types("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
         }
 
         @Nested
@@ -324,7 +324,7 @@ class ProcessorTest {
         @Nested
         @DisplayName("as atomic type (derived; XML Schema 1.1 Part 2)")
         internal inner class AtomicTypeDerivedXSD11 {
-            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp") }
+            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic_types("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
         }
 
         @Nested
@@ -443,7 +443,7 @@ class ProcessorTest {
         @Nested
         @DisplayName("as atomic type (derived; XML Schema 1.1 Part 2)")
         internal inner class AtomicTypeDerivedXSD11 {
-            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp") }
+            @Test @DisplayName("xs:dateTimeStamp") fun xsDateTimeStamp() { atomic_types("1995-10-12T11:22:33.444Z", "xs:dateTimeStamp", anyOf(`is`("xs:dateTimeStamp"), `is`("xs:dateTime"))) }
         }
 
         @Nested
