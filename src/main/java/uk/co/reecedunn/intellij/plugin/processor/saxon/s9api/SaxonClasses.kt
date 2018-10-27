@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import java.io.File
+import java.lang.reflect.InvocationTargetException
 import java.net.URLClassLoader
 
 private val SAXON_NAMESPACES = mapOf(
@@ -99,6 +100,7 @@ internal class SaxonClasses(path: File) {
     val xqueryCompilerClass: Class<*>
     val xqueryEvaluatorClass: Class<*>
     val xqueryExecutableClass: Class<*>
+    val saxonApiExceptionClass: Class<*>
 
     init {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
@@ -116,6 +118,7 @@ internal class SaxonClasses(path: File) {
         xqueryCompilerClass = loader.loadClass("net.sf.saxon.s9api.XQueryCompiler")
         xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
+        saxonApiExceptionClass = loader.loadClass("net.sf.saxon.s9api.SaxonApiException")
     }
 
     fun tryXdmValue(value: Any?, type: String?): Any? {
@@ -158,6 +161,18 @@ internal class SaxonClasses(path: File) {
                 qnameClass
                     .getConstructor(String::class.java, String::class.java, String::class.java)
                     .newInstance(value.prefix!!.data, value.namespace!!.data, value.localName!!.data)
+            }
+        }
+    }
+
+    fun <T> check(f: () -> T): T {
+        return try {
+            f()
+        } catch (e: InvocationTargetException) {
+            if (saxonApiExceptionClass.isInstance(e.targetException)) {
+                throw SaxonQueryError(e.targetException, this)
+            } else {
+                throw e
             }
         }
     }

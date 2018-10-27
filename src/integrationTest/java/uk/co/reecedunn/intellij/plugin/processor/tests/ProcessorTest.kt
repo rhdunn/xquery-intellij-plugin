@@ -457,8 +457,8 @@ class ProcessorTest {
     @DisplayName("error")
     internal inner class Error {
         fun parse(query: String): QueryError {
-            return processor.createQuery(query, MimeTypes.XQUERY).use {
-                assertThrows(QueryError::class.java) { it.run().toList() }
+            return assertThrows(QueryError::class.java) {
+                processor.createQuery(query, MimeTypes.XQUERY).use { it.run().toList() }
             }
         }
 
@@ -491,15 +491,24 @@ class ProcessorTest {
         fun description() {
             assertThat(
                 parse("(1, 2,").description,
-                anyOf(`is`("Incomplete expression."), `is`("Unexpected token"))
+                anyOf(
+                    `is`("Incomplete expression."), // BaseX
+                    `is`("Unexpected token"), // MarkLogic
+                    `is`("Expected an expression, but reached the end of the input") // Saxon
+                )
             )
+        }
 
+        @Test
+        @DisplayName("description; MarkLogic XDMP-XQUERYVERSIONSWITCH error")
+        fun description_markLogicErrorCode() {
             // This MarkLogic error does not include the standard code in the description.
             assertThat(
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
                 anyOf(
-                    `is`("XQuery version '1.0-ml' not supported."),
-                    `is`("All modules in a module sequence must use the same XQuery version")
+                    `is`("All modules in a module sequence must use the same XQuery version"), // BaseX
+                    `is`("XQuery version '1.0-ml' not supported."), // MarkLogic
+                    `is`("Invalid XQuery version 1.0-ml") // Saxon
                 )
             )
         }
