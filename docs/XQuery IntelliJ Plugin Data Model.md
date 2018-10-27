@@ -25,6 +25,7 @@ system and to provide static type analysis.
     - [3.3.3 Sequence Type Addition](#333-sequence-type-addition)
 - [A References](#a-references)
   - [A.1 W3C References](#a1-w3c-references)
+  - [A.2 XPath NG Proposals](#a2-xpath-ng-proposals)
 
 ## 1 Introduction
 This document defines the data model for vendor and plugin specific functionality
@@ -197,13 +198,13 @@ __xdm:wildcard__
 
 #### 2.1.4 Part 4: Sequences
 \[Definition: The *lower bound* of a sequence type specifies the minimum number
-of values the sequence can contain.\] The value space is restricted to `0` and
-`1`.
+of values the sequence can contain.\] The value space is restricted to `null`,
+`0` and `1`.
 
 \[Definition: The *upper bound* of a sequence type specifies the maximum number
-of values the sequence can contain.\] The value space is restricted to `0`,
-`1`, and `n`. Here, `n` signifies *many* items, an unbounded number of items
-and is mapped to the maximum integer value.
+of values the sequence can contain.\] The value space is either `null`,
+a non-negative integer, or `infinity`. Here, `infinity` signifies *many* items,
+an unbounded number of items and is mapped to the maximum integer value.
 
 \[Definition: The *cardinality* of a sequence is the *lower bound* and *upper
 bound* pair.\] This constrains the number of items in the sequence.
@@ -213,14 +214,27 @@ associated with the values in the sequence.\]
 
 The *lower bound*, *upper bound*, and *item type* values are mapped as follows:
 
-| Type        | lower bound | upper bound | item type     | Description             |
-|-------------|-------------|-------------|---------------|-------------------------|
-| `()`        | `0`         | `0`         | `xs:untyped`  | An empty sequence.      |
-| `T?`        | `0`         | `1`         | `T`           | An optional item.       |
-| `T*`        | `0`         | `n`         | `T`           | An optional sequence.   |
-| *list type* | `0`         | `n`         | *atomic type* | An XMLSchema list type. |
-| `T`         | `1`         | `1`         | `T`           | A single item.          |
-| `T+`        | `1`         | `n`         | `T`           | A sequence.             |
+| Type                 | lower bound | upper bound | item type         | Description                      |
+|----------------------|-------------|-------------|-------------------|----------------------------------|
+| `xs:error`           | `null`      | `null`      | `xs:error`        | An XSD error item.               |
+| `xs:error+`          | `null`      | `null`      | `xs:error`        | An XSD error sequence.           |
+| `xs:error?`          | `0`         | `0`         | `item()`          | An optional XSD error item.      |
+| `xs:error*`          | `0`         | `0`         | `item()`          | An optional XSD error sequence.  |
+| `()`                 | `0`         | `0`         | `item()`          | An empty sequence.               |
+| `T?`                 | `0`         | `1`         | `T`               | An optional item.                |
+| `T*`                 | `0`         | `infinity`  | `T`               | An optional sequence.            |
+| *list type*          | `0`         | `infinity`  | *atomic type*     | An XMLSchema list type.          |
+| `T`                  | `1`         | `1`         | `T`               | A single item.                   |
+| `T+`                 | `1`         | `infinity`  | `T`               | A sequence.                      |
+| `(T1, T2, ..., Tn)?` | `0`         | `n`         | *item type union* | An optional restricted sequence. |
+| `(T1, T2, ..., Tn)`  | `1`         | `n`         | *item type union* | A restricted sequence.           |
+
+> Note:
+>
+> The list types are only valid in `cast as` expressions, it cannot be used as
+> the type of a variable. Specifying it here is useful for specifying the static
+> type of the cast expression on a list type, and for providing a replacement
+> suggestion in the IDE.
 
 ## 3 Type Manipulation
 
@@ -228,40 +242,45 @@ The *lower bound*, *upper bound*, and *item type* values are mapped as follows:
 
 #### 3.1.1 Minimum of two bounds
 The minimum of two bounds is determined by taking the minimum numerical value
-of each bound, and converting the result back to a bound. This gives the
-following results:
+of each bound. This gives the following results:
 
-|     | `0` | `1` | `n` |
-|-----|-----|-----|-----|
-| `0` | `0` | `0` | `0` |
-| `1` | `0` | `1` | `1` |
-| `n` | `0` | `1` | `n` |
+|            | `0`        | `1`        | `m`        | `infinity` |
+|------------|------------|------------|------------|------------|
+| `0`        | `0`        | `0`        | `0`        | `0`        |
+| `1`        | `0`        | `1`        | `1`        | `1`        |
+| `n`        | `0`        | `1`        | `min(m,n)` | `n`        |
+| `infinity` | `0`        | `1`        | `m`        | `infinity` |
+
+> Note:
+>
+> This does not currently handle the rules for xs:error (`null` bound).
 
 #### 3.1.2 Maximum of two bounds
 The maximum of two bounds is determined by taking the maximum numerical value
-of each bound, and converting the result back to a bound. This gives the
-following results:
+of each bound. This gives the following results:
 
-|     | `0` | `1` | `n` |
-|-----|-----|-----|-----|
-| `0` | `0` | `1` | `n` |
-| `1` | `1` | `1` | `n` |
-| `n` | `n` | `n` | `n` |
+|            | `0`        | `1`        | `m`        | `infinity` |
+|------------|------------|------------|------------|------------|
+| `0`        | `0`        | `1`        | `m`        | `infinity` |
+| `1`        | `1`        | `1`        | `m`        | `infinity` |
+| `n`        | `n`        | `n`        | `max(m,n)` | `infinity` |
+| `infinity` | `infinity` | `infinity` | `infinity` | `infinity` |
+
+> Note:
+>
+> This does not currently handle the rules for xs:error (`null` bound).
 
 #### 3.1.3 Sum of two bounds
 The sum of two bounds `Ab` and `Bb` is computed using the following rules:
-1.  If `Ab` and `Bb` are `0`, the sum is `0`.
-1.  If `Ab` is `1` and `Bb` is `0`, the sum is `1`.
-1.  If `Ab` is `0` and `Bb` is `1`, the sum is `1`.
-1.  Otherwise, the sum is `n`.
+1.  If `Ab` is `infinity`, the sum is `infinity`.
+1.  If `Bb` is `infinity`, the sum is `infinity`.
+1.  If the sum of `Ab` and `Bb` overflows (is greater than the maximum
+    representable integer), the sum is `infinity`.
+1.  Otherwise, the sum is `Ab + Bb`.
 
-This gives the following results:
-
-|     | `0` | `1` | `n` |
-|-----|-----|-----|-----|
-| `0` | `0` | `1` | `n` |
-| `1` | `1` | `n` | `n` |
-| `n` | `n` | `n` | `n` |
+> Note:
+>
+> This does not currently handle the rules for xs:error (`null` bound).
 
 ### 3.2 Aggregate Types
 \[Definition: The *aggregate type* of an expression is the type that best
@@ -387,3 +406,7 @@ __XML Schema__
 *  W3C. *W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes*. W3C
    Recommendation 5 April 2012. See
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
+
+### A.2 XPath NG Proposals
+*  EXPath. *Proposal for Restricted Sequences*. EXPath Proposal. See
+   [https://github.com/expath/xpath-ng/pull/11]().
