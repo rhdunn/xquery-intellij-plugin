@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
-import uk.co.reecedunn.intellij.plugin.processor.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val ERR_NS = "http://www.w3.org/2005/xqt-errors"
 

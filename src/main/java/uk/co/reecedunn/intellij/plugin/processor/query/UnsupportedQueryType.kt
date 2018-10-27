@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-object MimeTypes {
-    val XQUERY = "application/xquery"
-}
+import java.lang.RuntimeException
+
+class UnsupportedQueryType(val mimetype: String) :
+    RuntimeException("Unsupported query type: ${mimetype}")

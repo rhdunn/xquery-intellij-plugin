@@ -20,15 +20,16 @@ import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.decode
-import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
-import uk.co.reecedunn.intellij.plugin.processor.Query
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
 val VERSION_QUERY = Resources.load("queries/marklogic/version.xq")!!.decode()
 val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
 
-internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) : QueryProcessor {
+internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) :
+    QueryProcessor {
     override val version: String by lazy {
         createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
     }

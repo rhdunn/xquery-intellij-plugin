@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
-import uk.co.reecedunn.intellij.plugin.processor.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val RE_BASEX_EXCEPTION = "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 

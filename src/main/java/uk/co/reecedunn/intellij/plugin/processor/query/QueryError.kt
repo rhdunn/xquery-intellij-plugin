@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-interface QueryProcessorInstanceManager {
-    fun create(): QueryProcessor
+abstract class QueryError : RuntimeException() {
+    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
-    fun connect(settings: ConnectionSettings): QueryProcessor
+    abstract val standardCode: String
+
+    abstract val vendorCode: String?
+
+    abstract val description: String?
+
+    abstract val module: String?
+
+    abstract val lineNumber: Int?
+
+    abstract val columnNumber: Int?
 }

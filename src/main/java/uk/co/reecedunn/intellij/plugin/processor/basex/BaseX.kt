@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex
 
-import uk.co.reecedunn.intellij.plugin.processor.ConnectionSettings
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
 
 class BaseX(path: File) : QueryProcessorInstanceManager {

@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-abstract class QueryError : RuntimeException() {
-    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
+import java.io.Closeable
 
-    abstract val standardCode: String
+interface QueryProcessor : Closeable {
+    val version: String
 
-    abstract val vendorCode: String?
+    val supportedQueryTypes: Array<String>
 
-    abstract val description: String?
-
-    abstract val module: String?
-
-    abstract val lineNumber: Int?
-
-    abstract val columnNumber: Int?
+    fun createQuery(query: String, mimetype: String): Query
 }

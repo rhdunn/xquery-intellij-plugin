@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import java.io.Closeable
+interface QueryProcessorInstanceManager {
+    fun create(): QueryProcessor
 
-interface Query : Closeable {
-    fun bindVariable(name: XsQNameValue, value: Any?, type: String?)
-
-    fun bindContextItem(value: Any?, type: String?)
-
-    fun run(): Sequence<QueryResult>
+    fun connect(settings: ConnectionSettings): QueryProcessor
 }

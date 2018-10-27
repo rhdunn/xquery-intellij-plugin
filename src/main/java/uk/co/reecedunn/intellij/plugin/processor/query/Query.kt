@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-data class ConnectionSettings(
-    val hostname: String,
-    val port: Int,
-    val username: String?,
-    val password: String?
-)
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import java.io.Closeable
+
+interface Query : Closeable {
+    fun bindVariable(name: XsQNameValue, value: Any?, type: String?)
+
+    fun bindContextItem(value: Any?, type: String?)
+
+    fun run(): Sequence<QueryResult>
+}

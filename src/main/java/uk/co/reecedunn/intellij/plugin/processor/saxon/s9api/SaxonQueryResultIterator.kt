@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
-import uk.co.reecedunn.intellij.plugin.processor.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClasses) : Iterator<QueryResult> {
     private val hasNextMethod = classes.xdmSequenceIteratorClass.getMethod("hasNext")

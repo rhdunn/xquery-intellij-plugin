@@ -19,9 +19,9 @@ import org.apache.http.auth.AuthScope
 import org.apache.http.auth.UsernamePasswordCredentials
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.client.HttpClients
-import uk.co.reecedunn.intellij.plugin.processor.ConnectionSettings
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 
 class MarkLogic : QueryProcessorInstanceManager {
     override fun create(): QueryProcessor {

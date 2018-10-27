@@ -19,7 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.processor.primitiveToItemType
+import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - primitiveToItemType")
 class PrimitiveToItemTypeTest {

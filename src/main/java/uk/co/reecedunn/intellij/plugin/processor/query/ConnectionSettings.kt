@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-import java.lang.RuntimeException
-
-class UnsupportedQueryType(val mimetype: String) :
-    RuntimeException("Unsupported query type: ${mimetype}")
+data class ConnectionSettings(
+    val hostname: String,
+    val port: Int,
+    val username: String?,
+    val password: String?
+)

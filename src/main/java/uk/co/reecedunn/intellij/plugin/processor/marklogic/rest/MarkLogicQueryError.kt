@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
-import uk.co.reecedunn.intellij.plugin.processor.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
 

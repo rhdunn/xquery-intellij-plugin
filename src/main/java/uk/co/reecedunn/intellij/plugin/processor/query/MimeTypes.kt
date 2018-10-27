@@ -13,14 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-import java.io.Closeable
-
-interface QueryProcessor : Closeable {
-    val version: String
-
-    val supportedQueryTypes: Array<String>
-
-    fun createQuery(query: String, mimetype: String): Query
+object MimeTypes {
+    val XQUERY = "application/xquery"
 }

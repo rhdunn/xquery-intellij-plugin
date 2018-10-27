@@ -16,12 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
-import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
-import uk.co.reecedunn.intellij.plugin.processor.Query
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-internal class SaxonQueryProcessor(val classes: SaxonClasses) : QueryProcessor {
+internal class SaxonQueryProcessor(val classes: SaxonClasses) :
+    QueryProcessor {
     private val processor = classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
 
     override val version: String by lazy {

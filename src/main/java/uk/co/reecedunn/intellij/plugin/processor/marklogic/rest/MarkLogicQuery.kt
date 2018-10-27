@@ -21,9 +21,9 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
-import uk.co.reecedunn.intellij.plugin.processor.Query
-import uk.co.reecedunn.intellij.plugin.processor.QueryResult
-import uk.co.reecedunn.intellij.plugin.processor.primitiveToItemType
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 private fun op_qname_clark_notation(qname: XsQNameValue): String {
@@ -33,7 +33,8 @@ private fun op_qname_clark_notation(qname: XsQNameValue): String {
         qname.localName!!.data
 }
 
-internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) : Query {
+internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) :
+    Query {
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
 
@@ -73,7 +74,10 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
                 if (derived == "err:error")
                     throw MarkLogicQueryError(part.body)
                 else
-                    QueryResult(part.body, primitiveToItemType(derived ?: primitive))
+                    QueryResult(
+                        part.body,
+                        primitiveToItemType(derived ?: primitive)
+                    )
             }
         }.filterNotNull()
     }

@@ -17,14 +17,15 @@ package uk.co.reecedunn.intellij.plugin.processor.basex
 
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.decode
-import uk.co.reecedunn.intellij.plugin.processor.MimeTypes
-import uk.co.reecedunn.intellij.plugin.processor.Query
-import uk.co.reecedunn.intellij.plugin.processor.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.UnsupportedQueryType
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
 val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
 
-internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
+internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) :
+    QueryProcessor {
     override val version: String by lazy {
         createQuery(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
     }
