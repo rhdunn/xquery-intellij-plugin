@@ -32,6 +32,6 @@ internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClas
         val next = nextMethod.invoke(results)
         val value = getUnderlyingValueMethod.invoke(next)
         val type = getItemTypeMethod.invoke(null, value, null)
-        return QueryResult(next.toString(), type.toString())
+        return QueryResult.fromItemType(next.toString(), type.toString())
     }
 }

@@ -56,6 +56,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, valueMatcher)
             assertThat(items[0].type, typeMatcher)
+            assertThat(items[0].mimetype, `is`("text/plain"))
         }
 
         private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
@@ -87,12 +88,18 @@ class ProcessorTest {
                 q.close()
 
                 assertThat(items.size, `is`(3))
+
                 assertThat(items[0].value, `is`("1"))
                 assertThat(items[0].type, `is`("xs:integer"))
+                assertThat(items[0].mimetype, `is`("text/plain"))
+
                 assertThat(items[1].value, `is`("2"))
                 assertThat(items[1].type, `is`("xs:integer"))
+                assertThat(items[1].mimetype, `is`("text/plain"))
+
                 assertThat(items[2].value, `is`("3"))
                 assertThat(items[2].type, `is`("xs:integer"))
+                assertThat(items[2].mimetype, `is`("text/plain"))
             }
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
@@ -101,12 +108,18 @@ class ProcessorTest {
                 q.close()
 
                 assertThat(items.size, `is`(3))
+
                 assertThat(items[0].value, `is`("1"))
                 assertThat(items[0].type, `is`("xs:int"))
+                assertThat(items[0].mimetype, `is`("text/plain"))
+
                 assertThat(items[1].value, `is`("2"))
                 assertThat(items[1].type, `is`("xs:byte"))
+                assertThat(items[1].mimetype, `is`("text/plain"))
+
                 assertThat(items[2].value, `is`("3"))
                 assertThat(items[2].type, `is`("xs:decimal"))
+                assertThat(items[2].mimetype, `is`("text/plain"))
             }
         }
 
@@ -193,6 +206,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, `is`("2"))
             assertThat(items[0].type, `is`("xs:integer"))
+            assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
             val q = processor.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
@@ -204,6 +218,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, `is`("2"))
             assertThat(items[0].type, `is`("xs:integer"))
+            assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by QName") fun qname() {
             val q = processor.eval("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
@@ -215,6 +230,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, `is`("2"))
             assertThat(items[0].type, `is`("xs:integer"))
+            assertThat(items[0].mimetype, `is`("text/plain"))
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
@@ -227,6 +243,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, valueMatcher)
             assertThat(items[0].type, typeMatcher)
+            assertThat(items[0].mimetype, `is`("text/plain"))
         }
 
         private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {
@@ -346,6 +363,7 @@ class ProcessorTest {
             assertThat(items.size, `is`(1))
             assertThat(items[0].value, valueMatcher)
             assertThat(items[0].type, typeMatcher)
+            assertThat(items[0].mimetype, `is`("text/plain"))
         }
 
         private fun atomic_values(value: String, type: String, valueMatcher: Matcher<String>) {

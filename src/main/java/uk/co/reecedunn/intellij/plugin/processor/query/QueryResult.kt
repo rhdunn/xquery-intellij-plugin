@@ -72,4 +72,17 @@ fun primitiveToItemType(primitive: String): String {
     }
 }
 
-data class QueryResult(val value: String, val type: String)
+fun mimetypeFromXQueryItemType(type: String): String {
+    return when (type.substringBefore("(")) {
+        "array-node", "object-node" -> "application/json"
+        "document-node", "element" -> "application/xml"
+        else -> "text/plain"
+    }
+}
+
+data class QueryResult(val value: String, val type: String, val mimetype: String) {
+    companion object {
+        fun fromItemType(value: String, type: String): QueryResult =
+            QueryResult(value, type, mimetypeFromXQueryItemType(type))
+    }
+}

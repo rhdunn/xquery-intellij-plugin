@@ -66,7 +66,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
                 if (derived == "err:error")
                     throw MarkLogicQueryError(part.body)
                 else
-                    QueryResult(
+                    QueryResult.fromItemType(
                         part.body,
                         primitiveToItemType(derived ?: primitive)
                     )

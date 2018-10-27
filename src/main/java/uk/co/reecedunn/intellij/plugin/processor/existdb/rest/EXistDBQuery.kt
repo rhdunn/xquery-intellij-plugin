@@ -49,7 +49,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHt
         val result = XmlDocument.parse(body)
         return result.root.children(EXIST_NS, "value").map { value ->
             val type = value.getAttributeNS(EXIST_NS, "type")
-            QueryResult(value.firstChild.nodeValue, type)
+            QueryResult.fromItemType(value.firstChild.nodeValue, type)
         }
     }
 

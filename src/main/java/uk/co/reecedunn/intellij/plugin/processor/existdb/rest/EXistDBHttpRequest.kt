@@ -42,7 +42,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        return sequenceOf(QueryResult(body, "xs:string"))
+        return sequenceOf(QueryResult.fromItemType(body, "xs:string"))
     }
 
     override fun close() {
