@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.basex
+package uk.co.reecedunn.intellij.plugin.processor.basex.session
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import java.io.File

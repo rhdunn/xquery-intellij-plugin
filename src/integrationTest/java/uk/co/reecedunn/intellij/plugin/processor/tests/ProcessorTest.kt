@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.basex.BaseX
+import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 import java.io.File
 
