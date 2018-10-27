@@ -21,10 +21,9 @@ import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
-    override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
+    override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
 

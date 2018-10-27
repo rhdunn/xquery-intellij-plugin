@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses) : Iterator<QueryResult> {
     override fun hasNext(): Boolean = classes.check {
@@ -41,11 +40,11 @@ private fun mapType(type: String?): String? {
 
 internal class BaseXQuery(val query: Any, val classes: BaseXClasses) :
     Query {
-    override fun bindVariable(name: XsQNameValue, value: Any?, type: String?): Unit = classes.check {
+    override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.queryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
-            .invoke(query, name.localName!!.data, value, mapType(type))
+            .invoke(query, name, value, mapType(type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {

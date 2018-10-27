@@ -134,8 +134,7 @@ internal class SaxonClasses(path: File) {
             null, "empty-sequence()" -> xdmEmptySequenceClass.getMethod("getInstance").invoke(null)
             "xs:QName" -> {
                 // The string constructor throws "Requested type is namespace-sensitive"
-                val qname = op_qname_parse(value as String, SAXON_NAMESPACES)
-                xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(qname))
+                xdmAtomicValueClass.getConstructor(qnameClass).newInstance(toQName(value as String))
             }
             "xs:numeric" -> {
                 tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
@@ -147,7 +146,8 @@ internal class SaxonClasses(path: File) {
         }
     }
 
-    fun toQName(value: XsQNameValue): Any {
+    fun toQName(qname: String): Any {
+        val value = op_qname_parse(qname, SAXON_NAMESPACES)
         return when {
             value.namespace == null -> {
                 qnameClass.getConstructor(String::class.java).newInstance(value.localName!!.data)

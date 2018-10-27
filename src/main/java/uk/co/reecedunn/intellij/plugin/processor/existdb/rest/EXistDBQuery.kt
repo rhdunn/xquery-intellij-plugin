@@ -23,12 +23,11 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
 
 internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
-    override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
+    override fun bindVariable(name: String, value: Any?, type: String?) {
         TODO()
     }
 

@@ -17,11 +17,10 @@ package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 internal class SaxonXQueryRunner(val evaluator: Any, val classes: SaxonClasses) :
     Query {
-    override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
+    override fun bindVariable(name: String, value: Any?, type: String?) {
         classes.xqueryEvaluatorClass
             .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
             .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value, type))

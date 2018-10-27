@@ -20,11 +20,10 @@ import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertThrows
+import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
 import java.io.File
 
 @Suppress("Reformat")
@@ -186,7 +185,7 @@ class ProcessorTest {
     internal inner class BindVariableName {
         @Test @DisplayName("by NCName") fun ncname() {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable(op_qname_parse("x", mapOf()), "2", "xs:integer")
+            q.bindVariable("x", "2", "xs:integer")
 
             val items = q.run().toList()
             q.close()
@@ -197,7 +196,7 @@ class ProcessorTest {
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
             val q = processor.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable(op_qname_parse("Q{http://www.example.co.uk}x", mapOf()), "2", "xs:integer")
+            q.bindVariable("Q{http://www.example.co.uk}x", "2", "xs:integer")
 
             val items = q.run().toList()
             q.close()
@@ -208,7 +207,7 @@ class ProcessorTest {
         }
         @Test @DisplayName("by QName") fun qname() {
             val q = processor.eval("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable(op_qname_parse("local:x", mapOf("local" to "http://www.w3.org/2005/xquery-local-functions")), "2", "xs:integer")
+            q.bindVariable("local:x", "2", "xs:integer")
 
             val items = q.run().toList()
             q.close()
@@ -220,7 +219,7 @@ class ProcessorTest {
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable(op_qname_parse("x", mapOf()), value, type)
+            q.bindVariable("x", value, type)
 
             val items = q.run().toList()
             q.close()
@@ -244,7 +243,7 @@ class ProcessorTest {
 
         @Test @DisplayName("as null") fun nullValue() {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable(op_qname_parse("x", mapOf()), null, "empty-sequence()")
+            q.bindVariable("x", null, "empty-sequence()")
 
             val items = q.run().toList()
             q.close()
@@ -257,7 +256,7 @@ class ProcessorTest {
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
                 val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
-                q.bindVariable(op_qname_parse("x", mapOf()), "()", "empty-sequence()")
+                q.bindVariable("x", "()", "empty-sequence()")
 
                 val items = q.run().toList()
                 q.close()

@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import java.io.Closeable
 
 interface Query : Closeable {
-    fun bindVariable(name: XsQNameValue, value: Any?, type: String?)
+    fun bindVariable(name: String, value: Any?, type: String?)
 
     fun bindContextItem(value: Any?, type: String?)
 

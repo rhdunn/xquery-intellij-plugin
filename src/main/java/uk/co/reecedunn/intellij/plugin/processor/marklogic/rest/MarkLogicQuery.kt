@@ -24,23 +24,15 @@ import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-
-private fun op_qname_clark_notation(qname: XsQNameValue): String {
-    return if (qname.namespace != null)
-        "{${qname.namespace!!.data}}${qname.localName!!.data}"
-    else
-        qname.localName!!.data
-}
 
 internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) :
     Query {
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
 
-    override fun bindVariable(name: XsQNameValue, value: Any?, type: String?) {
-        variables.addProperty(op_qname_clark_notation(name), value as String? ?: "")
-        types.addProperty(op_qname_clark_notation(name), type)
+    override fun bindVariable(name: String, value: Any?, type: String?) {
+        variables.addProperty(name, value as String? ?: "")
+        types.addProperty(name, type)
     }
 
     override fun bindContextItem(value: Any?, type: String?) {
