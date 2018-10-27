@@ -40,15 +40,15 @@ class QueryResultTest {
         fun nodeTypes() {
             test("[]", "array-node()", "application/json") // MarkLogic
             test("lorem ipsum", "attribute()", "text/plain")
-            test("6C6F72656D20697073756D", "binary()", "text/plain") // MarkLogic
-            test("true", "boolean-node()", "text/plain") // MarkLogic
+            test("6C6F72656D20697073756D", "binary()", "application/octet-stream") // MarkLogic
+            test("true", "boolean-node()", "application/json") // MarkLogic
             test("lorem ipsum", "comment()", "text/plain")
             test("<test/>", "document-node()", "application/xml")
             test("<test/>", "element()", "application/xml")
             test("<test/>", "element(test)", "application/xml")
             test("fn:true#0", "function()", "text/plain")
-            test("null", "null-node()", "text/plain") // MarkLogic
-            test("2", "number-node()", "text/plain") // MarkLogic
+            test("null", "null-node()", "application/json") // MarkLogic
+            test("2", "number-node()", "application/json") // MarkLogic
             test("{}", "object-node()", "application/json") // MarkLogic
             test("<?xml?>", "processing-instruction()", "text/plain")
             test("lorem ipsum", "text()", "text/plain")

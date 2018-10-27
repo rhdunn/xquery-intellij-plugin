@@ -74,7 +74,8 @@ fun primitiveToItemType(primitive: String): String {
 
 fun mimetypeFromXQueryItemType(type: String): String {
     return when (type.substringBefore("(")) {
-        "array-node", "object-node" -> "application/json"
+        "array-node", "boolean-node", "null-node", "number-node", "object-node" -> "application/json"
+        "binary" -> "application/octet-stream"
         "document-node", "element" -> "application/xml"
         else -> "text/plain"
     }

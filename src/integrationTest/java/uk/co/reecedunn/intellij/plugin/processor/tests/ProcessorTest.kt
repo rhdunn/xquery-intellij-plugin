@@ -197,16 +197,16 @@ class ProcessorTest {
                 node("array-node {}", "[]", "array-node()", "application/json")
             }
             @Test @DisplayName("binary()") fun binary() {
-                node("binary {\"6C6F72656D20697073756D\"}", "lorem ipsum", "binary()", "text/plain")
+                node("binary {\"6C6F72656D20697073756D\"}", "lorem ipsum", "binary()", "application/octet-stream")
             }
             @Test @DisplayName("boolean-node()") fun booleanNode() {
-                node("boolean-node { false() }", "false", "boolean-node()", "text/plain")
+                node("boolean-node { false() }", "false", "boolean-node()", "application/json")
             }
             @Test @DisplayName("null-node()") fun nullNode() {
-                node("null-node {}", "null", "null-node()", "text/plain")
+                node("null-node {}", "null", "null-node()", "application/json")
             }
             @Test @DisplayName("number-node()") fun numberNode() {
-                node("number-node { 2 }", "2", "number-node()", "text/plain")
+                node("number-node { 2 }", "2", "number-node()", "application/json")
             }
             @Test @DisplayName("object-node()") fun objectNode() {
                 node("object-node {}", "{}", "object-node()", "application/json")

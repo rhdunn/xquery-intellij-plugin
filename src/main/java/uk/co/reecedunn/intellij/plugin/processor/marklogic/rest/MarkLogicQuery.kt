@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemType
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
 internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) :
@@ -65,11 +66,18 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
                 val derived = mime.getHeader("X-Derived-${index + 1}")
                 if (derived == "err:error")
                     throw MarkLogicQueryError(part.body)
-                else
-                    QueryResult.fromItemType(
+                else {
+                    val itemType = primitiveToItemType(derived ?: primitive)
+                    val contentType = part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
+                    QueryResult(
                         part.body,
-                        primitiveToItemType(derived ?: primitive)
+                        itemType,
+                        if (contentType == "application/x-unknown-content-type")
+                            "application/octet-stream"
+                        else
+                            contentType
                     )
+                }
             }
         }.filterNotNull()
     }

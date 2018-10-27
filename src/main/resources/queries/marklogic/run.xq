@@ -86,6 +86,7 @@ declare function local:parse-vars($values as map:map, $types as map:map) {
 declare function local:derived-type-name($value) {
     (: NOTE: Ordering is important here -- reverse type hierarchy :)
     typeswitch ($value)
+    case function(*) return "function(*)"
     (: xs:integer derived types :)
     case xs:positiveInteger return "xs:positiveInteger"
     case xs:unsignedByte return "xs:unsignedByte"
