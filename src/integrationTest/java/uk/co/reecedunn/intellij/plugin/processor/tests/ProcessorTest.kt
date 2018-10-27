@@ -637,7 +637,7 @@ class ProcessorTest {
             // This MarkLogic error does not include the standard code in the description.
             assertThat(
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").standardCode,
-                anyOf(`is`("XQST0031"), `is`("FOER0000"))
+                anyOf(`is`("XQST0031"), `is`("XPST0003"), `is`("FOER0000"))
             )
         }
 
@@ -660,6 +660,7 @@ class ProcessorTest {
                 parse("(1, 2,").description,
                 anyOf(
                     `is`("Incomplete expression."), // BaseX
+                    `is`("unexpected token: null"), // eXist-db
                     `is`("Unexpected token"), // MarkLogic
                     `is`("Expected an expression, but reached the end of the input") // Saxon
                 )
@@ -674,6 +675,7 @@ class ProcessorTest {
                 parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
                 anyOf(
                     `is`("All modules in a module sequence must use the same XQuery version"), // BaseX
+                    `is`("expecting EOF, found ';'"), // eXist-db
                     `is`("XQuery version '1.0-ml' not supported."), // MarkLogic
                     `is`("Invalid XQuery version 1.0-ml") // Saxon
                 )
@@ -683,7 +685,7 @@ class ProcessorTest {
         @Test
         @DisplayName("module")
         fun module() {
-            assertThat(parse("(1, 2,").module, `is`(nullValue()))
+            assertThat(parse("(1, 2,").module, anyOf(`is`(nullValue()), `is`("/db")))
         }
 
         @Test
