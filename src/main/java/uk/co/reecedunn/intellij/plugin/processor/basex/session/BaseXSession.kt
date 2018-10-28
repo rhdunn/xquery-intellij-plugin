@@ -24,6 +24,9 @@ object BaseXSession : QueryProcessorApi {
     override val displayName: String = "BaseX"
     override val requireJar: Boolean = true
 
+    override val canCreate: Boolean = true
+    override val canConnect: Boolean = true
+
     override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
         return BaseX(File(jar))
     }

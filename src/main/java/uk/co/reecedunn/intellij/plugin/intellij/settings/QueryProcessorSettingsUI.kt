@@ -12,6 +12,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QUERY_PROCESSOR_APIS
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import java.awt.event.ActionEvent
 import javax.swing.*
 
 class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryProcessorSettings> {
@@ -38,6 +39,19 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         api!!.addActionListener { _ ->
             val selection = api!!.selectedItem as QueryProcessorApi
             jar!!.isEnabled = selection.requireJar
+
+            if (selection.canCreate && !selection.canConnect) { // create only
+                standalone!!.isEnabled = false
+                standalone!!.isSelected = true
+            } else if (!selection.canCreate && selection.canConnect) { // connect only
+                standalone!!.isEnabled = false
+                standalone!!.isSelected = false
+            } else { // create and connect
+                standalone!!.isEnabled = true
+            }
+
+            val e = ActionEvent(standalone, 0, "api", 0)
+            standalone!!.actionListeners.forEach { listener -> listener.actionPerformed(e) }
         }
     }
 

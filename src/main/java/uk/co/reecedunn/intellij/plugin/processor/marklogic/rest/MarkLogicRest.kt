@@ -23,6 +23,9 @@ object MarkLogicRest : QueryProcessorApi {
     override val displayName: String = "MarkLogic"
     override val requireJar: Boolean = false
 
+    override val canCreate: Boolean = false
+    override val canConnect: Boolean = true
+
     override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
         return MarkLogic()
     }

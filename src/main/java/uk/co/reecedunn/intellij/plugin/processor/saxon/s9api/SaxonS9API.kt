@@ -24,6 +24,9 @@ object SaxonS9API : QueryProcessorApi {
     override val displayName: String = "Saxon"
     override val requireJar: Boolean = true
 
+    override val canCreate: Boolean = true
+    override val canConnect: Boolean = false
+
     override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
         return Saxon(File(jar))
     }

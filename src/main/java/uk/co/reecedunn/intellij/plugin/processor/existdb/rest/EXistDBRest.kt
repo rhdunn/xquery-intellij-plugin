@@ -23,6 +23,9 @@ object EXistDBRest : QueryProcessorApi {
     override val displayName: String = "eXist-db"
     override val requireJar: Boolean = false
 
+    override val canCreate: Boolean = false
+    override val canConnect: Boolean = true
+
     override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
         return EXistDB()
     }

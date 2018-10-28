@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceMan
 
 class EXistDB : QueryProcessorInstanceManager {
     override fun create(): QueryProcessor {
-        // MarkLogic does not provide support for running as an in-memory instance.
+        // eXist-db does not provide support for running as an in-memory instance.
         throw UnsupportedOperationException()
     }
 

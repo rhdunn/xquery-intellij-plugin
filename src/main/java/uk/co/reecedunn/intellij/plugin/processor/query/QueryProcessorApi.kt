@@ -20,5 +20,8 @@ interface QueryProcessorApi {
     val displayName: String
     val requireJar: Boolean
 
+    val canCreate: Boolean
+    val canConnect: Boolean
+
     fun newInstanceManager(jar: String?): QueryProcessorInstanceManager
 }
