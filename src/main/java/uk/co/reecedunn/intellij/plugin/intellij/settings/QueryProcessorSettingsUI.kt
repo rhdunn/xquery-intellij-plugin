@@ -9,6 +9,7 @@ import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.QUERY_PROCESSOR_APIS
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.*
@@ -32,7 +33,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
             }
         }
 
-        QueryProcessorApi.values().forEach { value -> api!!.addItem(value) }
+        QUERY_PROCESSOR_APIS.forEach { value -> api!!.addItem(value) }
 
         api!!.addActionListener { _ ->
             val selection = api!!.selectedItem as QueryProcessorApi
