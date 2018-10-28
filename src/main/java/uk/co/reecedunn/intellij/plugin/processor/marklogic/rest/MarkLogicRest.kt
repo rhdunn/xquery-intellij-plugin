@@ -21,7 +21,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceMan
 object MarkLogicRest : QueryProcessorApi {
     override val id: String = "marklogic.rest"
     override val displayName: String = "MarkLogic"
+
     override val requireJar: Boolean = false
+    override val hasAdminPort: Boolean = true
 
     override val canCreate: Boolean = false
     override val canConnect: Boolean = true

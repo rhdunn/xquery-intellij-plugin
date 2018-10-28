@@ -81,6 +81,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
             val serverEnabled = !standalone!!.isSelected
             hostname!!.isEnabled = serverEnabled
             databasePort!!.isEnabled = serverEnabled
+            adminPort!!.isEnabled = serverEnabled && (api!!.selectedItem as QueryProcessorApi).hasAdminPort
             username!!.isEnabled = serverEnabled
             password!!.isEnabled = serverEnabled
         }

@@ -21,7 +21,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceMan
 object EXistDBRest : QueryProcessorApi {
     override val id: String = "existdb.rest"
     override val displayName: String = "eXist-db"
+
     override val requireJar: Boolean = false
+    override val hasAdminPort: Boolean = false
 
     override val canCreate: Boolean = false
     override val canConnect: Boolean = true

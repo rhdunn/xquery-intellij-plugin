@@ -22,7 +22,9 @@ import java.io.File
 object BaseXSession : QueryProcessorApi {
     override val id: String = "basex.session"
     override val displayName: String = "BaseX"
+
     override val requireJar: Boolean = true
+    override val hasAdminPort: Boolean = false
 
     override val canCreate: Boolean = true
     override val canConnect: Boolean = true

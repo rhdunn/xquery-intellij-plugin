@@ -22,7 +22,9 @@ import java.io.File
 object SaxonS9API : QueryProcessorApi {
     override val id: String = "saxon.s9api"
     override val displayName: String = "Saxon"
+
     override val requireJar: Boolean = true
+    override val hasAdminPort: Boolean = false
 
     override val canCreate: Boolean = true
     override val canConnect: Boolean = false

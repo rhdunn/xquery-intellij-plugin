@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 interface QueryProcessorApi {
     val id: String
     val displayName: String
+
     val requireJar: Boolean
+    val hasAdminPort: Boolean
 
     val canCreate: Boolean
     val canConnect: Boolean
