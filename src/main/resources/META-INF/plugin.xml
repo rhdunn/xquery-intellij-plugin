@@ -72,18 +72,23 @@
   <depends>com.intellij.modules.xml</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
+    <!-- XQuery Language Support -->
 
-    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage"/>
+    <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
 
+    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
+
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryPairedBraceMatcher"/>
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryCommenter"/>
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder"/>
+
+    <!-- References and Resolve -->
 
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryUriLiteralManipulator"/>
@@ -92,7 +97,7 @@
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryEQNameManipulator"/>
 
-    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
+    <!-- Inspections -->
 
     <localInspection language="XQuery" shortName="IJVS0001" bundle="messages.XQueryBundle"
                      groupKey="inspection.ijvs.group-name" groupPath="XPath and XQuery"
@@ -151,9 +156,15 @@
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118"/>
 
+    <!-- Project Settings -->
+
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
+
+    <!-- Run/Debug Configurations -->
+
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.XQueryConfigurationType"/>
   </extensions>
 
   <application-components>
