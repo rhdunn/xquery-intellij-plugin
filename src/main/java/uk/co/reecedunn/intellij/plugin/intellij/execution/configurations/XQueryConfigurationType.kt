@@ -20,6 +20,7 @@ import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.util.IconLoader
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import javax.swing.Icon
 
 private val FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png")
@@ -39,5 +40,7 @@ class XQueryConfigurationType : ConfigurationType {
 
     override fun getDisplayName(): String = XQueryBundle.message("xquery.settings.execution.display-name")
 
-    override fun getConfigurationFactories(): Array<ConfigurationFactory> = arrayOf()
+    override fun getConfigurationFactories(): Array<ConfigurationFactory> {
+        return arrayOf(QueryProcessorConfigurationFactory(this, MimeTypes.XQUERY))
+    }
 }
