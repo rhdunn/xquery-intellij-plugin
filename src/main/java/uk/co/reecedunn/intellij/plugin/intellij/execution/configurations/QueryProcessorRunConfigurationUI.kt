@@ -15,22 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
-import com.intellij.openapi.options.SettingsEditor
-import javax.swing.JComponent
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import javax.swing.JPanel
 
-class QueryProcessorRunConfigurationEditor : SettingsEditor<QueryProcessorRunConfiguration>() {
-    private var editor: QueryProcessorRunConfigurationUI? = null
+class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfiguration> {
+    private var mPanel: JPanel? = null
 
-    override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationUI()
-        return editor!!.panel
+    override val panel get(): JPanel = mPanel!!
+
+    private fun createUIComponents() {
+        mPanel = JPanel()
     }
 
-    override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
-        editor!!.reset(configuration)
+    override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
+        return false
     }
 
-    override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
-        editor!!.apply(configuration)
+    override fun reset(configuration: QueryProcessorRunConfiguration) {
+    }
+
+    override fun apply(configuration: QueryProcessorRunConfiguration) {
     }
 }
