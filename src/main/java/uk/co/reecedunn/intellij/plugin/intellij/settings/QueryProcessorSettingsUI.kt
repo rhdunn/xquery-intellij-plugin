@@ -36,7 +36,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     }
 
     // endregion
-    // region Processor APIs
+    // region Processor JAR
 
     private var jar: ComponentWithBrowseButton<JTextField>? = null
 
@@ -51,10 +51,25 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     }
 
     // endregion
+    // region Standalone
+
+    private var standalone: JCheckBox? = null
+
+    private fun createStandaloneUI() {
+        standalone = JCheckBox()
+        standalone!!.addActionListener { action ->
+            val serverEnabled = !standalone!!.isSelected
+            hostname!!.isEnabled = serverEnabled
+            serverPort!!.isEnabled = serverEnabled
+            username!!.isEnabled = serverEnabled
+            password!!.isEnabled = serverEnabled
+        }
+    }
+
+    // endregion
     // region Form
 
     private var name: JTextField? = null
-    private var standalone: JCheckBox? = null
     private var hostname: JTextField? = null
     private var serverPort: JTextField? = null
     private var username: JTextField? = null
@@ -62,13 +77,13 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
 
     private fun createUIComponents() {
         name = JTextField()
-        standalone = JCheckBox()
         hostname = JTextField()
         serverPort = JTextField()
         username = JTextField()
         password = JPasswordField()
         createQueryProcessorApiUI()
         createJarUI()
+        createStandaloneUI()
     }
 
     // endregion
