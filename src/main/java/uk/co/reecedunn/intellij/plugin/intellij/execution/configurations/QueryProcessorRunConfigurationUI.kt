@@ -19,12 +19,9 @@ import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import javax.swing.JPanel
 
 class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfiguration> {
-    private var mPanel: JPanel? = null
-
-    override val panel get(): JPanel = mPanel!!
+    override var panel: JPanel? = null
 
     private fun createUIComponents() {
-        mPanel = JPanel()
     }
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {

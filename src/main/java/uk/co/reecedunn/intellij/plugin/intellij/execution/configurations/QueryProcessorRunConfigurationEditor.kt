@@ -23,7 +23,7 @@ class QueryProcessorRunConfigurationEditor : SettingsEditor<QueryProcessorRunCon
 
     override fun createEditor(): JComponent {
         editor = QueryProcessorRunConfigurationUI()
-        return editor!!.panel
+        return editor?.panel!!
     }
 
     override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {

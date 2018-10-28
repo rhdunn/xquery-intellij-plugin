@@ -31,9 +31,8 @@ class XQueryPropertiesUI : SettingsUI<XQueryProjectSettings> {
     private var mDialectForXQuery1_0: JComboBox<Versioned>? = null
     private var mDialectForXQuery3_0: JComboBox<Versioned>? = null
     private var mDialectForXQuery3_1: JComboBox<Versioned>? = null
-    private var mPanel: JPanel? = null
 
-    override val panel get(): JPanel = mPanel!!
+    override var panel: JPanel? = null
 
     @Suppress("UNCHECKED_CAST")
     private fun <T> populateComboBox(control: JComboBox<T>, items: List<T>, defaultItem: T?) {
