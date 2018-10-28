@@ -80,7 +80,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         standalone!!.addActionListener { action ->
             val serverEnabled = !standalone!!.isSelected
             hostname!!.isEnabled = serverEnabled
-            serverPort!!.isEnabled = serverEnabled
+            databasePort!!.isEnabled = serverEnabled
             username!!.isEnabled = serverEnabled
             password!!.isEnabled = serverEnabled
         }
@@ -91,14 +91,14 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
 
     private var name: JTextField? = null
     private var hostname: JTextField? = null
-    private var serverPort: JTextField? = null
+    private var databasePort: JTextField? = null
     private var username: JTextField? = null
     private var password: JPasswordField? = null
 
     private fun createUIComponents() {
         name = JTextField()
         hostname = JTextField()
-        serverPort = JTextField()
+        databasePort = JTextField()
         username = JTextField()
         password = JPasswordField()
         createQueryProcessorApiUI()
@@ -122,13 +122,13 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         if (configuration.connection != null) {
             standalone!!.isSelected = true
             hostname!!.text = configuration.connection!!.hostname
-            serverPort!!.text = configuration.connection!!.port.toString()
+            databasePort!!.text = configuration.connection!!.databasePort.toString()
             username!!.text = configuration.connection!!.username
             password!!.text = configuration.connection!!.password
         } else {
             standalone!!.isSelected = false
             hostname!!.text = ""
-            serverPort!!.text = "0"
+            databasePort!!.text = "0"
             username!!.text = ""
             password!!.text = ""
         }
@@ -139,10 +139,10 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         configuration.api = api!!.selectedItem as QueryProcessorApi
         configuration.jar = jar!!.childComponent.text.let { if (it.isEmpty()) null else it }
         if (standalone!!.isSelected) {
-            val port = serverPort!!.text.toInt()
+            val dbPort = databasePort!!.text.toInt()
             val user = username!!.text?.let { if (it.isEmpty()) null else it }
             val pass = password!!.password?.let { if (it.isEmpty()) null else it }
-            configuration.connection = ConnectionSettings(hostname!!.text, port, user, pass?.toString())
+            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, user, pass?.toString())
         } else {
             configuration.connection = null
         }

@@ -37,7 +37,7 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
     override fun connect(settings: ConnectionSettings): QueryProcessor {
         val session = classes.clientSessionClass.getConstructor(
             String::class.java, Int::class.java, String::class.java, String::class.java
-        ).newInstance(settings.hostname, settings.port, settings.username, settings.password)
+        ).newInstance(settings.hostname, settings.databasePort, settings.username, settings.password)
         return BaseXQueryProcessor(session, classes)
     }
 }

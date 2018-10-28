@@ -30,7 +30,7 @@ class MarkLogic : QueryProcessorInstanceManager {
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
-        val baseUrl = "http://${settings.hostname}:${settings.port}"
+        val baseUrl = "http://${settings.hostname}:${settings.databasePort}"
 
         if (settings.username == null || settings.password == null) {
             return MarkLogicQueryProcessor(baseUrl, HttpClients.createDefault())
@@ -38,7 +38,7 @@ class MarkLogic : QueryProcessorInstanceManager {
 
         val credentials = BasicCredentialsProvider()
         credentials.setCredentials(
-            AuthScope(settings.hostname, settings.port),
+            AuthScope(settings.hostname, settings.databasePort),
             UsernamePasswordCredentials(settings.username, settings.password)
         )
         return MarkLogicQueryProcessor(baseUrl, HttpClients.custom().setDefaultCredentialsProvider(credentials).build())

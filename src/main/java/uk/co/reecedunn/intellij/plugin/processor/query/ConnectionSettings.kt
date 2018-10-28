@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 
 data class ConnectionSettings(
     val hostname: String,
-    val port: Int,
+    val databasePort: Int,
     val username: String?,
     val password: String?
 )
