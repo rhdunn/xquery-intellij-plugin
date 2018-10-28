@@ -16,13 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.openapi.options.SettingsEditor
+import com.intellij.openapi.project.Project
 import javax.swing.JComponent
 
-class QueryProcessorRunConfigurationEditor : SettingsEditor<QueryProcessorRunConfiguration>() {
+class QueryProcessorRunConfigurationEditor(private val project: Project) :
+    SettingsEditor<QueryProcessorRunConfiguration>() {
+
     private var editor: QueryProcessorRunConfigurationUI? = null
 
     override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationUI()
+        editor = QueryProcessorRunConfigurationUI(project)
         return editor?.panel!!
     }
 

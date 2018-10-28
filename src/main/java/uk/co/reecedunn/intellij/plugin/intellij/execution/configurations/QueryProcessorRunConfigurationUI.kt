@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
@@ -23,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsD
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.*
 
-class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfiguration> {
+class QueryProcessorRunConfigurationUI(private val project: Project) : SettingsUI<QueryProcessorRunConfiguration> {
     // region Query Processor
 
     private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
@@ -47,7 +48,7 @@ class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfigurati
 
         createQueryProcessor!!.addActionListener {
             val settings = QueryProcessorSettings()
-            val dialog = QueryProcessorSettingsDialog()
+            val dialog = QueryProcessorSettingsDialog(project)
             if (dialog.create(settings)) {
                 queryProcessor!!.addItem(settings)
             }

@@ -15,17 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
+import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
-class QueryProcessorSettingsDialog : Dialog<QueryProcessorSettings>() {
+class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryProcessorSettings>() {
     override val resizable: Boolean = true
     override val createTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.create")
     override val editTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.edit")
 
     override fun createSettingsUI(): SettingsUI<QueryProcessorSettings> {
-        return QueryProcessorSettingsUI()
+        return QueryProcessorSettingsUI(project)
     }
 }
