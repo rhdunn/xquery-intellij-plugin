@@ -28,7 +28,7 @@ class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFac
     RunConfigurationBase(project, factory, name) {
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        TODO()
+        return QueryProcessorRunConfigurationEditor()
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
