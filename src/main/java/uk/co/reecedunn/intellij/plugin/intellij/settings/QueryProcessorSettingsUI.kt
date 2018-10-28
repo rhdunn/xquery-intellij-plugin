@@ -92,6 +92,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     private var name: JTextField? = null
     private var hostname: JTextField? = null
     private var databasePort: JTextField? = null
+    private var adminPort: JTextField? = null
     private var username: JTextField? = null
     private var password: JPasswordField? = null
 
@@ -99,6 +100,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         name = JTextField()
         hostname = JTextField()
         databasePort = JTextField()
+        adminPort = JTextField()
         username = JTextField()
         password = JPasswordField()
         createQueryProcessorApiUI()
@@ -123,12 +125,14 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
             standalone!!.isSelected = true
             hostname!!.text = configuration.connection!!.hostname
             databasePort!!.text = configuration.connection!!.databasePort.toString()
+            adminPort!!.text = configuration.connection!!.adminPort.toString()
             username!!.text = configuration.connection!!.username
             password!!.text = configuration.connection!!.password
         } else {
             standalone!!.isSelected = false
             hostname!!.text = ""
             databasePort!!.text = "0"
+            adminPort!!.text = "0"
             username!!.text = ""
             password!!.text = ""
         }
@@ -140,9 +144,10 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         configuration.jar = jar!!.childComponent.text.let { if (it.isEmpty()) null else it }
         if (standalone!!.isSelected) {
             val dbPort = databasePort!!.text.toInt()
+            val amPort = adminPort!!.text.toInt()
             val user = username!!.text?.let { if (it.isEmpty()) null else it }
             val pass = password!!.password?.let { if (it.isEmpty()) null else it }
-            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, user, pass?.toString())
+            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, amPort, user, pass?.toString())
         } else {
             configuration.connection = null
         }
