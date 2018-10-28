@@ -15,8 +15,35 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-data class QueryProcessorSettings(
-    var name: String?
+import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
+import uk.co.reecedunn.intellij.plugin.processor.existdb.rest.EXistDB
+import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogic
+import uk.co.reecedunn.intellij.plugin.processor.saxon.s9api.Saxon
+import java.io.File
+
+enum class QueryProcessorApi(
+    val id: String,
+    val displayName: String,
+    val requireJar: Boolean,
+    val instanceManager: (String?) -> QueryProcessorInstanceManager
 ) {
+    BASEX_SESSION("basex.session", "BaseX", true, { jar -> BaseX(File(jar!!)) }),
+    EXISTDB_REST("existdb.rest", "eXist-db", false, { _ -> EXistDB() }),
+    MARKLOGIC_REST("marklogic.rest", "MarkLogic", false, { _ -> MarkLogic() }),
+    SAXON_S9API("saxon.s9api", "Saxon", true, { jar -> Saxon(File(jar!!)) }),
+}
+
+data class QueryProcessorSettings(
+    var name: String?,
+    var apiId: String
+) {
+    constructor() : this(null, QueryProcessorApi.BASEX_SESSION.id)
+
     val displayName: String get() = name ?: ""
+
+    var api: QueryProcessorApi
+        get() = QueryProcessorApi.values().find { value -> value.id == apiId }!!
+        set(value) {
+            apiId = value.id
+        }
 }

@@ -46,7 +46,7 @@ class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfigurati
         }
 
         createQueryProcessor!!.addActionListener {
-            val settings = QueryProcessorSettings(null)
+            val settings = QueryProcessorSettings()
             val dialog = QueryProcessorSettingsDialog()
             if (dialog.create(settings)) {
                 queryProcessor!!.addItem(settings)
