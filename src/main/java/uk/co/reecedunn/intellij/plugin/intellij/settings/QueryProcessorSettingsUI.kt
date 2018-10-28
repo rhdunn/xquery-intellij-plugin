@@ -8,6 +8,7 @@ import com.intellij.openapi.ui.TextComponentAccessor
 import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.*
@@ -53,9 +54,19 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     // region Form
 
     private var name: JTextField? = null
+    private var standalone: JCheckBox? = null
+    private var hostname: JTextField? = null
+    private var serverPort: JTextField? = null
+    private var username: JTextField? = null
+    private var password: JPasswordField? = null
 
     private fun createUIComponents() {
         name = JTextField()
+        standalone = JCheckBox()
+        hostname = JTextField()
+        serverPort = JTextField()
+        username = JTextField()
+        password = JPasswordField()
         createQueryProcessorApiUI()
         createJarUI()
     }
@@ -70,15 +81,36 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     }
 
     override fun reset(configuration: QueryProcessorSettings) {
-        name!!.text = configuration.name ?: ""
+        name!!.text = configuration.name
         api!!.selectedItem = configuration.api
-        jar!!.childComponent.text = configuration.jar ?: ""
+        jar!!.childComponent.text = configuration.jar
+        if (configuration.connection != null) {
+            standalone!!.isSelected = true
+            hostname!!.text = configuration.connection!!.hostname
+            serverPort!!.text = configuration.connection!!.port.toString()
+            username!!.text = configuration.connection!!.username
+            password!!.text = configuration.connection!!.password
+        } else {
+            standalone!!.isSelected = false
+            hostname!!.text = ""
+            serverPort!!.text = "0"
+            username!!.text = ""
+            password!!.text = ""
+        }
     }
 
     override fun apply(configuration: QueryProcessorSettings) {
         configuration.name = name!!.text.let { if (it.isEmpty()) null else it }
         configuration.api = api!!.selectedItem as QueryProcessorApi
         configuration.jar = jar!!.childComponent.text.let { if (it.isEmpty()) null else it }
+        if (standalone!!.isSelected) {
+            val port = serverPort!!.text.toInt()
+            val user = username!!.text?.let { if (it.isEmpty()) null else it }
+            val pass = password!!.password?.let { if (it.isEmpty()) null else it }
+            configuration.connection = ConnectionSettings(hostname!!.text, port, user, pass?.toString())
+        } else {
+            configuration.connection = null
+        }
     }
 
     // endregion

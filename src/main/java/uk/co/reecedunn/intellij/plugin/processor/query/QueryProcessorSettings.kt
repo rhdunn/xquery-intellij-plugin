@@ -36,9 +36,10 @@ enum class QueryProcessorApi(
 data class QueryProcessorSettings(
     var name: String?,
     var apiId: String,
-    var jar: String?
+    var jar: String?,
+    var connection: ConnectionSettings?
 ) {
-    constructor() : this(null, QueryProcessorApi.BASEX_SESSION.id, null)
+    constructor() : this(null, QueryProcessorApi.BASEX_SESSION.id, null, null)
 
     val displayName: String get() = name ?: ""
 
