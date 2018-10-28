@@ -33,6 +33,11 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         }
 
         QueryProcessorApi.values().forEach { value -> api!!.addItem(value) }
+
+        api!!.addActionListener { _ ->
+            val selection = api!!.selectedItem as QueryProcessorApi
+            jar!!.isEnabled = selection.requireJar
+        }
     }
 
     // endregion
