@@ -7,7 +7,10 @@ import javax.swing.*
 class QueryProcessorSettingsUI : SettingsUI<QueryProcessorSettings> {
     // region Form
 
+    private var name: JTextField? = null
+
     private fun createUIComponents() {
+        name = JTextField()
     }
 
     // endregion
@@ -20,9 +23,11 @@ class QueryProcessorSettingsUI : SettingsUI<QueryProcessorSettings> {
     }
 
     override fun reset(configuration: QueryProcessorSettings) {
+        name!!.text = configuration.name ?: ""
     }
 
     override fun apply(configuration: QueryProcessorSettings) {
+        configuration.name = name!!.text.let { if (it.isEmpty()) null else it }
     }
 
     // endregion

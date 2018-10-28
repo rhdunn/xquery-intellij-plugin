@@ -16,31 +16,40 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Versioned
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import javax.swing.Action
-import javax.swing.JButton
-import javax.swing.JComboBox
-import javax.swing.JPanel
+import javax.swing.*
 
 class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfiguration> {
     // region Query Processor
 
-    private var processor: QueryProcessorSettings? = null
-
-    private var queryProcessor: JComboBox<String>? = null
+    private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
     private var createQueryProcessor: JButton? = null
 
     private fun createQueryProcessorUI() {
         queryProcessor = ComboBox()
         createQueryProcessor = JButton()
 
+        queryProcessor!!.renderer = object : ColoredListCellRenderer<QueryProcessorSettings>() {
+            override fun customizeCellRenderer(
+                list: JList<out QueryProcessorSettings>,
+                value: QueryProcessorSettings?,
+                index: Int, selected: Boolean, hasFocus: Boolean
+            ) {
+                if (value != null) {
+                    append(value.displayName)
+                }
+            }
+        }
+
         createQueryProcessor!!.addActionListener {
             val settings = QueryProcessorSettings(null)
             val dialog = QueryProcessorSettingsDialog()
             if (dialog.create(settings)) {
-                processor = settings
+                queryProcessor!!.addItem(settings)
             }
         }
     }

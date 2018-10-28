@@ -16,5 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 data class QueryProcessorSettings(
-    val name: String?
-)
+    var name: String?
+) {
+    val displayName: String get() = name ?: ""
+}
