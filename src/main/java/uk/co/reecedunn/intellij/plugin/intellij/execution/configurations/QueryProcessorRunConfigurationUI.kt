@@ -15,14 +15,47 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.openapi.ui.ComboBox
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import javax.swing.Action
+import javax.swing.JButton
+import javax.swing.JComboBox
 import javax.swing.JPanel
 
 class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfiguration> {
-    override var panel: JPanel? = null
+    // region Query Processor
+
+    private var processor: QueryProcessorSettings? = null
+
+    private var queryProcessor: JComboBox<String>? = null
+    private var createQueryProcessor: JButton? = null
+
+    private fun createQueryProcessorUI() {
+        queryProcessor = ComboBox()
+        createQueryProcessor = JButton()
+
+        createQueryProcessor!!.addActionListener {
+            val settings = QueryProcessorSettings(null)
+            val dialog = QueryProcessorSettingsDialog()
+            if (dialog.create(settings)) {
+                processor = settings
+            }
+        }
+    }
+
+    // endregion
+    // region Form
 
     private fun createUIComponents() {
+        createQueryProcessorUI()
     }
+
+    // endregion
+    // region SettingsUI
+
+    override var panel: JPanel? = null
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
         return false
@@ -33,4 +66,6 @@ class QueryProcessorRunConfigurationUI : SettingsUI<QueryProcessorRunConfigurati
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
     }
+
+    // endregion
 }
