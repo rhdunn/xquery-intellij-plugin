@@ -26,6 +26,7 @@ object SaxonS9API : QueryProcessorApi {
 
     override val requireJar: Boolean = true
     override val hasAdminPort: Boolean = false
+    override val hasConfiguration: Boolean = true
 
     override val canCreate: Boolean = true
     override val canConnect: Boolean = false

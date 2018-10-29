@@ -23,6 +23,7 @@ interface QueryProcessorApi {
 
     val requireJar: Boolean
     val hasAdminPort: Boolean
+    val hasConfiguration: Boolean
 
     val canCreate: Boolean
     val canConnect: Boolean

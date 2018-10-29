@@ -26,6 +26,7 @@ object BaseXSession : QueryProcessorApi {
 
     override val requireJar: Boolean = true
     override val hasAdminPort: Boolean = false
+    override val hasConfiguration: Boolean = false
 
     override val canCreate: Boolean = true
     override val canConnect: Boolean = true

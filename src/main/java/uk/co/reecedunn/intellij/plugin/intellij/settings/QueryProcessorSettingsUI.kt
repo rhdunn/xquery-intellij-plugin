@@ -45,6 +45,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         api!!.addActionListener { _ ->
             val selection = api!!.selectedItem as QueryProcessorApi
             jar!!.isEnabled = selection.requireJar
+            configuration!!.isEnabled = selection.hasConfiguration
 
             if (selection.canCreate && !selection.canConnect) { // create only
                 standalone!!.isEnabled = false

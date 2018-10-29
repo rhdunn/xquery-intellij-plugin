@@ -25,6 +25,7 @@ object EXistDBRest : QueryProcessorApi {
 
     override val requireJar: Boolean = false
     override val hasAdminPort: Boolean = false
+    override val hasConfiguration: Boolean = false
 
     override val canCreate: Boolean = false
     override val canConnect: Boolean = true
