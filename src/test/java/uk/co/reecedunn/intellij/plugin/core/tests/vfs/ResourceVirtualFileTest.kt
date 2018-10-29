@@ -15,28 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
-import org.apache.xmlbeans.impl.common.IOUtil
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.StringWriter
 
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
 class ResourceVirtualFileTest {
-    @Throws(IOException::class)
-    private fun streamToString(stream: InputStream): String {
-        val writer = StringWriter()
-        IOUtil.copyCompletely(InputStreamReader(stream), writer)
-        return writer.toString()
-    }
-
     @Test
     @Throws(IOException::class)
     @DisplayName("resource file; valid path")
@@ -49,7 +39,7 @@ class ResourceVirtualFileTest {
         assertThat(file.isValid, `is`(true))
         assertThat(file.length, `is`(28L))
         assertThat(file.fileSystem, instanceOf(ResourceVirtualFileSystem::class.java))
-        assertThat(streamToString(file.inputStream!!), `is`("xquery version \"3.0\"; true()"))
+        assertThat(file.inputStream!!.decode(), `is`("xquery version \"3.0\"; true()"))
         assertThat(file.contentsToByteArray(), `is`("xquery version \"3.0\"; true()".toByteArray()))
         assertThat(file.modificationStamp, `is`(0L))
 
