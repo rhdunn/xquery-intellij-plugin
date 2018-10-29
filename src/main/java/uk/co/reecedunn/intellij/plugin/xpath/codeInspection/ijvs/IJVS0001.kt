@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,15 +24,22 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 private fun supports(a: Specification, b: Specification): Boolean {
-    return a.value >= b.value
+    return when (a) {
+        XQuery.MARKLOGIC_0_9 ->
+            b === XQuery.MARKLOGIC_0_9 || b === XQuery.WD_1_0_20030502
+        XQuery.MARKLOGIC_1_0 ->
+            b === XQuery.MARKLOGIC_1_0 || b === XQuery.REC_3_0_20140408 || b === XQuery.REC_3_1_20170321
+        XQuery.REC_1_0_20070123 ->
+            b !== XQuery.WD_1_0_20030502 && b !== XQuery.MARKLOGIC_0_9 && a.value >= b.value
+        else ->
+            a.value >= b.value
+    }
 }
 
 class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
@@ -60,13 +67,6 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
                 if (requiredXQuery.find { version -> supports(xquery, version) } == null) {
                     val context = versioned.conformanceElement
                     val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct-version.message", xquery.versionId, required.joinToString(", or "))
-                    descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
-                } else if (
-                    product === MarkLogic.MARKLOGIC && xquery !== XQuery.MARKLOGIC_0_9 &&
-                    requiredXQuery.find { version -> version === XQuery.WD_1_0_20030502 } != null
-                ) {
-                    val context = versioned.conformanceElement
-                    val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct-marklogic-version.message", xquery.versionId, required.joinToString(", or "))
                     descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                 }
             }

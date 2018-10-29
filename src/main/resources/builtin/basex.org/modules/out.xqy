@@ -14,4 +14,4 @@ declare option o:requires "basex/7.3";
 declare %a:since("basex", "9.0") function out:cr() as xs:string external;
 declare %a:since("basex", "7.3") function out:nl() as xs:string external;
 declare %a:since("basex", "7.3") function out:tab() as xs:string external;
-declare %a:since("basex", "7.3") %a:variadic("basex", "7.3", "item()") function out:format($format as xs:string, $item as item()) as xs:string external;
+declare %a:since("basex", "7.3") %a:variadic function out:format($format as xs:string, $item as item()) as xs:string external;
