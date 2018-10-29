@@ -15,13 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
-import org.apache.commons.io.IOUtils
 import org.apache.xmlbeans.impl.common.IOUtil
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringWriter
-import java.nio.charset.Charset
 
 object Resources {
     @Throws(IOException::class)
@@ -35,8 +33,4 @@ object Resources {
         val loader = Resources::class.java.classLoader
         return loader.getResourceAsStream(resource)
     }
-}
-
-fun InputStream.decode(charset: Charset = Charsets.UTF_8): String {
-    return String(IOUtils.toByteArray(this), charset)
 }
