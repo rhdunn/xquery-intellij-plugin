@@ -20,10 +20,17 @@ import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
+import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classes: SaxonClasses) :
+internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
     QueryProcessor {
-    private val processor = classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
+
+    private val processor by lazy {
+        if (source == null)
+            classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
+        else
+            classes.processorClass.getConstructor(Source::class.java).newInstance(source)
+    }
 
     override val version: String by lazy {
         val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String

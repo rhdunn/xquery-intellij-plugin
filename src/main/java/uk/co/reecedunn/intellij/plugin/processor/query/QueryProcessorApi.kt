@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import java.io.InputStream
+
 interface QueryProcessorApi {
     val id: String
     val displayName: String
@@ -25,5 +27,5 @@ interface QueryProcessorApi {
     val canCreate: Boolean
     val canConnect: Boolean
 
-    fun newInstanceManager(jar: String?): QueryProcessorInstanceManager
+    fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager
 }

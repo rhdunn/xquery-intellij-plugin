@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
+import java.io.InputStream
 
 object BaseXSession : QueryProcessorApi {
     override val id: String = "basex.session"
@@ -29,7 +30,7 @@ object BaseXSession : QueryProcessorApi {
     override val canCreate: Boolean = true
     override val canConnect: Boolean = true
 
-    override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
+    override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         return BaseX(File(jar))
     }
 }

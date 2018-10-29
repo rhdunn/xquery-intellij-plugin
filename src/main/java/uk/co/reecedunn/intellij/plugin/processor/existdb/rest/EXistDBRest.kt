@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import java.io.InputStream
 
 object EXistDBRest : QueryProcessorApi {
     override val id: String = "existdb.rest"
@@ -28,7 +29,7 @@ object EXistDBRest : QueryProcessorApi {
     override val canCreate: Boolean = false
     override val canConnect: Boolean = true
 
-    override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
+    override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         return EXistDB()
     }
 }

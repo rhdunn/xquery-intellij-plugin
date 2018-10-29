@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
+import java.io.InputStream
 
 object SaxonS9API : QueryProcessorApi {
     override val id: String = "saxon.s9api"
@@ -29,7 +30,7 @@ object SaxonS9API : QueryProcessorApi {
     override val canCreate: Boolean = true
     override val canConnect: Boolean = false
 
-    override fun newInstanceManager(jar: String?): QueryProcessorInstanceManager {
-        return Saxon(File(jar))
+    override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
+        return Saxon(File(jar), config)
     }
 }
