@@ -17,15 +17,20 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import javax.swing.JComponent
+import com.intellij.openapi.ui.ComboBox
+import com.intellij.ui.ColoredListCellRenderer
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project) :
     SettingsEditor<QueryProcessorRunConfiguration>() {
 
-    private var editor: QueryProcessorRunConfigurationUI? = null
+    private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
     override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationUI(project)
+        editor = QueryProcessorRunConfigurationEditorUI(project)
         return editor?.panel!!
     }
 
@@ -36,4 +41,60 @@ class QueryProcessorRunConfigurationEditor(private val project: Project) :
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
         editor!!.apply(configuration)
     }
+}
+
+class QueryProcessorRunConfigurationEditorUI(private val project: Project) : SettingsUI<QueryProcessorRunConfiguration> {
+    // region Query Processor
+
+    private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
+    private var createQueryProcessor: JButton? = null
+
+    private fun createQueryProcessorUI() {
+        queryProcessor = ComboBox()
+        createQueryProcessor = JButton()
+
+        queryProcessor!!.renderer = object : ColoredListCellRenderer<QueryProcessorSettings>() {
+            override fun customizeCellRenderer(
+                list: JList<out QueryProcessorSettings>,
+                value: QueryProcessorSettings?,
+                index: Int, selected: Boolean, hasFocus: Boolean
+            ) {
+                if (value != null) {
+                    append(value.displayName)
+                }
+            }
+        }
+
+        createQueryProcessor!!.addActionListener {
+            val settings = QueryProcessorSettings()
+            val dialog = QueryProcessorSettingsDialog(project)
+            if (dialog.create(settings)) {
+                queryProcessor!!.addItem(settings)
+            }
+        }
+    }
+
+    // endregion
+    // region Form
+
+    private fun createUIComponents() {
+        createQueryProcessorUI()
+    }
+
+    // endregion
+    // region SettingsUI
+
+    override var panel: JPanel? = null
+
+    override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
+        return false
+    }
+
+    override fun reset(configuration: QueryProcessorRunConfiguration) {
+    }
+
+    override fun apply(configuration: QueryProcessorRunConfiguration) {
+    }
+
+    // endregion
 }
