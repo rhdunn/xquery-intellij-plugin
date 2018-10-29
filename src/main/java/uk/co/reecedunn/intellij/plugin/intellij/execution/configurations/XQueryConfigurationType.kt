@@ -38,7 +38,7 @@ class XQueryConfigurationType : ConfigurationType {
 
     override fun getId(): String = "XIJPXQueryProcessorConfiguration"
 
-    override fun getDisplayName(): String = XQueryBundle.message("xquery.settings.execution.display-name")
+    override fun getDisplayName(): String = "XQuery"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, MimeTypes.XQUERY))
