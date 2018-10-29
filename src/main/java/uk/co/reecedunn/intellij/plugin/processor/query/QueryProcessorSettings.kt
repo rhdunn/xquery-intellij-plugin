@@ -19,6 +19,8 @@ import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.processor.existdb.rest.EXistDBRest
 import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.saxon.s9api.SaxonS9API
+import java.io.FileInputStream
+import java.io.InputStream
 
 val QUERY_PROCESSOR_APIS: List<QueryProcessorApi> = listOf(
     BaseXSession,
@@ -31,9 +33,10 @@ data class QueryProcessorSettings(
     var name: String?,
     var apiId: String,
     var jar: String?,
+    var configurationPath: String?,
     var connection: ConnectionSettings?
 ) {
-    constructor() : this(null, QUERY_PROCESSOR_APIS.first().id, null, null)
+    constructor() : this(null, QUERY_PROCESSOR_APIS.first().id, null, null, null)
 
     val displayName: String get() = name ?: ""
 
@@ -42,4 +45,6 @@ data class QueryProcessorSettings(
         set(value) {
             apiId = value.id
         }
+
+    val configuration: InputStream? get() = configurationPath?.let { FileInputStream(it) }
 }

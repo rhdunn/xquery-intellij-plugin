@@ -1,5 +1,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
+import com.intellij.openapi.fileChooser.FileChooserDescriptor
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
@@ -14,6 +16,10 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.event.ActionEvent
 import javax.swing.*
+
+private fun JTextField.textOrNull(): String? {
+    return text?.let { if (it.isEmpty()) null else it }
+}
 
 class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryProcessorSettings> {
     // region Processor APIs
@@ -71,6 +77,21 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     }
 
     // endregion
+    // region Configuration File
+
+    private var configuration: ComponentWithBrowseButton<JTextField>? = null
+
+    private fun createConfigurationUI() {
+        configuration = ComponentWithBrowseButton(JTextField(), null)
+        configuration!!.addBrowseFolderListener(
+            XQueryBundle.message("browser.choose.configuration"), null,
+            project,
+            FileChooserDescriptorFactory.createSingleFileDescriptor(),
+            TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
+        )
+    }
+
+    // endregion
     // region Standalone
 
     private var standalone: JCheckBox? = null
@@ -106,6 +127,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         password = JPasswordField()
         createQueryProcessorApiUI()
         createJarUI()
+        createConfigurationUI()
         createStandaloneUI()
     }
 
@@ -122,6 +144,7 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
         name!!.text = configuration.name
         api!!.selectedItem = configuration.api
         jar!!.childComponent.text = configuration.jar
+        this.configuration!!.childComponent.text = configuration.configurationPath
         if (configuration.connection != null) {
             standalone!!.isSelected = true
             hostname!!.text = configuration.connection!!.hostname
@@ -140,13 +163,14 @@ class QueryProcessorSettingsUI(private val project: Project) : SettingsUI<QueryP
     }
 
     override fun apply(configuration: QueryProcessorSettings) {
-        configuration.name = name!!.text.let { if (it.isEmpty()) null else it }
+        configuration.name = name!!.textOrNull()
         configuration.api = api!!.selectedItem as QueryProcessorApi
-        configuration.jar = jar!!.childComponent.text.let { if (it.isEmpty()) null else it }
+        configuration.jar = jar!!.childComponent.textOrNull()
+        configuration.configurationPath = this.configuration!!.childComponent.textOrNull()
         if (standalone!!.isSelected) {
             val dbPort = databasePort!!.text.toInt()
             val amPort = adminPort!!.text.toInt()
-            val user = username!!.text?.let { if (it.isEmpty()) null else it }
+            val user = username!!.textOrNull()
             val pass = password!!.password?.let { if (it.isEmpty()) null else it }
             configuration.connection = ConnectionSettings(hostname!!.text, dbPort, amPort, user, pass?.toString())
         } else {
