@@ -39,10 +39,19 @@ buildscript {
             "1.2.70"
     }
 
+    ext.compat_dir = { version ->
+        switch (version) {
+            case version >= 191: return "src/compat/191"
+            case 183: return "src/compat/183"
+            default: return "src/compat/182"
+        }
+    }
+
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.2'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_version(ext.idea_since_build.toInteger())
+    ext.compat_path = ext.compat_dir(ext.idea_since_build.toInteger())
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
@@ -117,12 +126,7 @@ patchPluginXml {
     sinceBuild = idea_since_build
 }
 
-def build = idea_since_build.toInteger()
-if (build >= 191) {
-    sourceSets.main.java.srcDirs += "src/compat/191"
-} else {
-    sourceSets.main.java.srcDirs += "src/compat/183"
-}
+sourceSets.main.java.srcDirs += ext.compat_path
 
 jacocoTestReport {
     reports {
