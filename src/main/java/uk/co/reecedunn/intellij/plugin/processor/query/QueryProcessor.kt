@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import java.io.Closeable
 
 interface QueryProcessor : Closeable {
-    val version: String
+    val version: ExecutableOnPooledThread<String>
 
     val supportedQueryTypes: Array<String>
 

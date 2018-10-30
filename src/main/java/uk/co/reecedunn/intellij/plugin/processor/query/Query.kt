@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import java.io.Closeable
 
@@ -23,5 +24,5 @@ interface Query : Closeable {
 
     fun bindContextItem(value: Any?, type: String?)
 
-    fun run(): Sequence<QueryResult>
+    fun run(): ExecutableOnPooledThread<Sequence<QueryResult>>
 }

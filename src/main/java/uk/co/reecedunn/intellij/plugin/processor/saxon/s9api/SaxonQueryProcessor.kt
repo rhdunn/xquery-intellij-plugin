@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnLocalThread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
@@ -32,7 +34,7 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
             classes.processorClass.getConstructor(Source::class.java).newInstance(source)
     }
 
-    override val version: String by lazy {
+    override val version: ExecutableOnPooledThread<String> = ExecuteOnLocalThread {
         val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String
         val version = classes.processorClass.getMethod("getSaxonProductVersion").invoke(processor) as String
         edition?.let { "$it $version" } ?: version

@@ -15,34 +15,42 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.tests
 
+import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertThrows
 import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import java.io.File
+import java.util.concurrent.ExecutionException
 
 @Suppress("Reformat")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery processor")
-class ProcessorTest {
+private class ProcessorTest : PlatformLiteFixture() {
     val home = System.getProperty("user.home")
     // Modify these for the processor being tested:
     val processorVersion = "9.0"
     val provider = BaseX(File("$home/xquery/basex/basex-9.0/BaseX.jar"))
     val processor: QueryProcessor = provider.create()
 
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+    }
+
     @AfterAll
-    fun tearDown() {
+    override fun tearDown() {
+        super.tearDown()
         processor.close()
     }
 
     @Test @DisplayName("version") fun version() {
-        assertThat(processor.version, `is`(processorVersion))
+        assertThat(processor.version.execute().get(), `is`(processorVersion))
     }
 
     @Nested
@@ -50,7 +58,7 @@ class ProcessorTest {
     internal inner class ReturnValues {
         private fun node(query: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
             val q = processor.eval(query, MimeTypes.XQUERY)
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -65,7 +73,7 @@ class ProcessorTest {
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
             val q = processor.eval("\"$value\" cast as $type", MimeTypes.XQUERY)
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -91,7 +99,7 @@ class ProcessorTest {
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
                 val q = processor.eval("()", MimeTypes.XQUERY)
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -99,7 +107,7 @@ class ProcessorTest {
 
             @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
                 val q = processor.eval("(1, 2, 3)", MimeTypes.XQUERY)
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(3))
@@ -119,7 +127,7 @@ class ProcessorTest {
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
                 val q = processor.eval("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", MimeTypes.XQUERY)
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(3))
@@ -290,7 +298,7 @@ class ProcessorTest {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", "2", "xs:integer")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -302,7 +310,7 @@ class ProcessorTest {
             val q = processor.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("Q{http://www.example.co.uk}x", "2", "xs:integer")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -314,7 +322,7 @@ class ProcessorTest {
             val q = processor.eval("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("local:x", "2", "xs:integer")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -327,7 +335,7 @@ class ProcessorTest {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -340,7 +348,7 @@ class ProcessorTest {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -365,7 +373,7 @@ class ProcessorTest {
             val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", null, "empty-sequence()")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(0))
@@ -395,7 +403,7 @@ class ProcessorTest {
                 val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
                 q.bindVariable("x", "()", "empty-sequence()")
 
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -477,7 +485,7 @@ class ProcessorTest {
             val q = processor.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -490,7 +498,7 @@ class ProcessorTest {
             val q = processor.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -515,7 +523,7 @@ class ProcessorTest {
             val q = processor.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(null, "empty-sequence()")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(0))
@@ -528,7 +536,7 @@ class ProcessorTest {
                 val q = processor.eval(".", MimeTypes.XQUERY)
                 q.bindContextItem("()", "empty-sequence()")
 
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -624,8 +632,12 @@ class ProcessorTest {
     @DisplayName("error")
     internal inner class Error {
         fun parse(query: String): QueryError {
-            return assertThrows(QueryError::class.java) {
-                processor.eval(query, MimeTypes.XQUERY).use { it.run().toList() }
+            return Assertions.assertThrows(QueryError::class.java) {
+                try {
+                    processor.eval(query, MimeTypes.XQUERY).use { it.run().execute().get().toList() }
+                } catch (e: ExecutionException) {
+                    throw e.cause!!
+                }
             }
         }
 

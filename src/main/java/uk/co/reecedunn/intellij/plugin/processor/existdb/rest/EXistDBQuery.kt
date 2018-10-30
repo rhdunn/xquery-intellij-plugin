@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
@@ -35,7 +37,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHt
         throw UnsupportedOperationException()
     }
 
-    override fun run(): Sequence<QueryResult> {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = ExecuteOnPooledThread {
         val request = builder.build()
 
         val response = client.execute(request)
@@ -48,7 +50,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHt
         }
 
         val result = XmlDocument.parse(body)
-        return result.root.children(EXIST_NS, "value").map { value ->
+        result.root.children(EXIST_NS, "value").map { value ->
             val type = value.getAttributeNS(EXIST_NS, "type")
             QueryResult.fromItemType(value.firstChild?.nodeValue ?: "", type)
         }

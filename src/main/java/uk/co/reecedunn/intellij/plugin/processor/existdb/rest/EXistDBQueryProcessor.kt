@@ -19,6 +19,7 @@ import org.apache.http.HttpEntity
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
 import org.apache.http.impl.client.CloseableHttpClient
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
@@ -31,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 private val POST_QUERY = Resources.load("queries/existdb/post-query.xml")!!.decode()
 
 internal class EXistDBQueryProcessor(val baseUri: String, val client: CloseableHttpClient) : QueryProcessor {
-    override val version: String get() = TODO()
+    override val version: ExecutableOnPooledThread<String> get() = TODO()
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 

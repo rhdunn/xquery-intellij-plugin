@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
@@ -30,8 +31,10 @@ val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) :
     QueryProcessor {
-    override val version: String by lazy {
-        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query -> query.run().first().value }
+    override val version: ExecutableOnPooledThread<String> by lazy {
+        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
+            query.run().then { results -> results.first().value }
+        }
     }
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)

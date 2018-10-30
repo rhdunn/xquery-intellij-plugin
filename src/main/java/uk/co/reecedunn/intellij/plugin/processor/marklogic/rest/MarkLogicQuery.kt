@@ -19,6 +19,8 @@ import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
@@ -41,7 +43,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         throw UnsupportedOperationException()
     }
 
-    override fun run(): Sequence<QueryResult> {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = ExecuteOnPooledThread {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
@@ -58,7 +60,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         }
 
         val mime = MimeResponse(response.allHeaders, body)
-        return mime.parts.asSequence().mapIndexed { index, part ->
+        mime.parts.asSequence().mapIndexed { index, part ->
             if (part.getHeader("Content-Length")?.toInt() == 0)
                 null
             else {

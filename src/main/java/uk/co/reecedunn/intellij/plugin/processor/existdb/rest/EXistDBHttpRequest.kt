@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.get
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
@@ -32,7 +34,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
         throw UnsupportedOperationException()
     }
 
-    override fun run(): Sequence<QueryResult> {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = ExecuteOnPooledThread {
         val request = builder.build()
 
         val response = client.execute(request)
@@ -43,7 +45,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        return sequenceOf(QueryResult(body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
+        sequenceOf(QueryResult(body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
     }
 
     override fun close() {

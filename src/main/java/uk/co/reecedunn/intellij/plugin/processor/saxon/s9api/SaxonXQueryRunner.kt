@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
@@ -43,9 +45,11 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
             .invoke(evaluator, classes.toXdmValue(value, type))
     }
 
-    override fun run(): Sequence<QueryResult> = classes.check {
-        val iterator = classes.xqueryEvaluatorClass.getMethod("iterator").invoke(evaluator)
-        SaxonQueryResultIterator(iterator, classes).asSequence()
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = ExecuteOnPooledThread {
+        classes.check {
+            val iterator = classes.xqueryEvaluatorClass.getMethod("iterator").invoke(evaluator)
+            SaxonQueryResultIterator(iterator, classes).asSequence()
+        }
     }
 
     override fun close() {
