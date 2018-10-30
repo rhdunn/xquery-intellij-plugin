@@ -15,12 +15,22 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.async
 
+import com.intellij.openapi.application.ApplicationManager
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
 interface ExecutableOnPooledThread<T> {
     fun execute(): Future<T>
 }
+
+// region ExecuteOnPooledThread
+
+class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
+    override fun execute(): Future<T> = ApplicationManager.getApplication().executeOnPooledThread(f)
+}
+
+// endregion
+// region ExecuteOnLocalThread
 
 private class LocalFuture<T>(val f: () -> T) : Future<T> {
     override fun isDone(): Boolean = true
@@ -37,3 +47,5 @@ private class LocalFuture<T>(val f: () -> T) : Future<T> {
 class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
     override fun execute(): Future<T> = LocalFuture(f)
 }
+
+// endregion

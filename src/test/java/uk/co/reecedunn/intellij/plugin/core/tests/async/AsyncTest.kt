@@ -15,20 +15,29 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.async
 
+import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.`is`
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnLocalThread
+import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 class TestAsync {
     val local: ExecutableOnPooledThread<Int> = ExecuteOnLocalThread { 2 }
+
+    val pooled: ExecutableOnPooledThread<Int> = ExecuteOnPooledThread { 2 }
 }
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Threading - Execute On Pooled Thread")
-class AsyncTest {
+private class AsyncTest : PlatformLiteFixture() {
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+    }
+
     @Nested
     @DisplayName("executed on local thread")
     internal inner class OnLocalThread {
@@ -37,6 +46,17 @@ class AsyncTest {
         fun execute() {
             val test = TestAsync()
             assertThat(test.local.execute().get(), `is`(2))
+        }
+    }
+
+    @Nested
+    @DisplayName("executed on pooled thread")
+    internal inner class OnPooledThread {
+        @Test
+        @DisplayName("execute")
+        fun execute() {
+            val test = TestAsync()
+            assertThat(test.pooled.execute().get(), `is`(2))
         }
     }
 }
