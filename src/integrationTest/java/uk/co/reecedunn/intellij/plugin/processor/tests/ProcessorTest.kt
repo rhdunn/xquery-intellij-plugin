@@ -474,8 +474,8 @@ class ProcessorTest {
     @DisplayName("bind context item")
     internal inner class BindContextItem {
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable("x", value, type)
+            val q = processor.eval(".", MimeTypes.XQUERY)
+            q.bindContextItem(value, type)
 
             val items = q.run().toList()
             q.close()
