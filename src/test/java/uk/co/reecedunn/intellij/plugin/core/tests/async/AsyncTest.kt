@@ -60,6 +60,22 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(e.get(), `is`(2))
             assertThat(test.localCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.localCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute; multiple calls")
+        fun executeMultiple() {
+            val test = TestAsync()
+            assertThat(test.localCallCount, `is`(0))
+
+            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.localCallCount, `is`(1))
+
+            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.localCallCount, `is`(2))
         }
 
         @Test
@@ -110,6 +126,22 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(e.get(), `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute; multiple calls")
+        fun executeMultiple() {
+            val test = TestAsync()
+            assertThat(test.pooledCallCount, `is`(0))
+
+            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(1))
+
+            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(2))
         }
 
         @Test
