@@ -24,9 +24,17 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 class TestAsync {
-    val local: ExecutableOnPooledThread<Int> = ExecuteOnLocalThread { 2 }
+    var localCallCount: Int = 0
+    val local: ExecutableOnPooledThread<Int> = ExecuteOnLocalThread {
+        localCallCount += 1
+        2
+    }
 
-    val pooled: ExecutableOnPooledThread<Int> = ExecuteOnPooledThread { 2 }
+    var pooledCallCount: Int = 0
+    val pooled: ExecutableOnPooledThread<Int> = ExecuteOnPooledThread {
+        pooledCallCount += 1
+        2
+    }
 }
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -45,14 +53,22 @@ private class AsyncTest : PlatformLiteFixture() {
         @DisplayName("execute")
         fun execute() {
             val test = TestAsync()
-            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.localCallCount, `is`(0))
+            val e = test.local.execute()
+            assertThat(test.localCallCount, `is`(0))
+            assertThat(e.get(), `is`(2))
+            assertThat(test.localCallCount, `is`(1))
         }
 
         @Test
         @DisplayName("then")
         fun then() {
             val test = TestAsync()
-            assertThat(test.local.then { v -> v + 1 }.execute().get(), `is`(3))
+            assertThat(test.localCallCount, `is`(0))
+            val e = test.local.then { v -> v + 1 }.execute()
+            assertThat(test.localCallCount, `is`(0))
+            assertThat(e.get(), `is`(3))
+            assertThat(test.localCallCount, `is`(1))
         }
     }
 
@@ -63,14 +79,22 @@ private class AsyncTest : PlatformLiteFixture() {
         @DisplayName("execute")
         fun execute() {
             val test = TestAsync()
-            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(0))
+            val e = test.pooled.execute()
+            assertThat(test.pooledCallCount, `is`(0))
+            assertThat(e.get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(1))
         }
 
         @Test
         @DisplayName("then")
         fun then() {
             val test = TestAsync()
-            assertThat(test.pooled.then { v -> v + 1 }.execute().get(), `is`(3))
+            assertThat(test.pooledCallCount, `is`(0))
+            val e = test.pooled.then { v -> v + 1 }.execute()
+            assertThat(test.pooledCallCount, `is`(0))
+            assertThat(e.get(), `is`(3))
+            assertThat(test.pooledCallCount, `is`(1))
         }
     }
 }
