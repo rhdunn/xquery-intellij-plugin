@@ -40,15 +40,9 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
-    override fun eval(query: String, mimetype: String): Query = classes.check {
-        when (mimetype) {
-            MimeTypes.XQUERY -> {
-                val compiler = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)
-                val executable =
-                    classes.xqueryCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
-                val evaluator = classes.xqueryExecutableClass.getMethod("load").invoke(executable)
-                SaxonXQueryRunner(evaluator, classes)
-            }
+    override fun eval(query: String, mimetype: String): Query {
+        return when (mimetype) {
+            MimeTypes.XQUERY -> SaxonXQueryRunner(processor, query, classes)
             else -> throw UnsupportedQueryType(mimetype)
         }
     }
