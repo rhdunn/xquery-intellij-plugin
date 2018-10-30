@@ -47,6 +47,13 @@ private class AsyncTest : PlatformLiteFixture() {
             val test = TestAsync()
             assertThat(test.local.execute().get(), `is`(2))
         }
+
+        @Test
+        @DisplayName("then")
+        fun then() {
+            val test = TestAsync()
+            assertThat(test.local.then { v -> v + 1 }.execute().get(), `is`(3))
+        }
     }
 
     @Nested
@@ -57,6 +64,13 @@ private class AsyncTest : PlatformLiteFixture() {
         fun execute() {
             val test = TestAsync()
             assertThat(test.pooled.execute().get(), `is`(2))
+        }
+
+        @Test
+        @DisplayName("then")
+        fun then() {
+            val test = TestAsync()
+            assertThat(test.pooled.then { v -> v + 1 }.execute().get(), `is`(3))
         }
     }
 }
