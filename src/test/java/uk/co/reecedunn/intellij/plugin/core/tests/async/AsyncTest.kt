@@ -54,10 +54,32 @@ private class AsyncTest : PlatformLiteFixture() {
         fun execute() {
             val test = TestAsync()
             assertThat(test.localCallCount, `is`(0))
+
             val e = test.local.execute()
             assertThat(test.localCallCount, `is`(0))
+
             assertThat(e.get(), `is`(2))
             assertThat(test.localCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute with later callback")
+        fun executeWithLater() {
+            val test = TestAsync()
+            assertThat(test.localCallCount, `is`(0))
+
+            var callbackCalled = false
+            val e = test.local.execute { v ->
+                assertThat(v, `is`(2))
+                assertThat(test.localCallCount, `is`(1))
+                callbackCalled = true
+            }
+            assertThat(test.localCallCount, `is`(0))
+            assertThat(callbackCalled, `is`(false))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
         }
 
         @Test
@@ -65,8 +87,10 @@ private class AsyncTest : PlatformLiteFixture() {
         fun then() {
             val test = TestAsync()
             assertThat(test.localCallCount, `is`(0))
+
             val e = test.local.then { v -> v + 1 }.execute()
             assertThat(test.localCallCount, `is`(0))
+
             assertThat(e.get(), `is`(3))
             assertThat(test.localCallCount, `is`(1))
         }
@@ -80,10 +104,32 @@ private class AsyncTest : PlatformLiteFixture() {
         fun execute() {
             val test = TestAsync()
             assertThat(test.pooledCallCount, `is`(0))
+
             val e = test.pooled.execute()
             assertThat(test.pooledCallCount, `is`(0))
+
             assertThat(e.get(), `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute with later callback")
+        fun executeWithLater() {
+            val test = TestAsync()
+            assertThat(test.pooledCallCount, `is`(0))
+
+            var callbackCalled = false
+            val e = test.pooled.execute { v ->
+                assertThat(v, `is`(2))
+                assertThat(test.pooledCallCount, `is`(1))
+                callbackCalled = true
+            }
+            assertThat(test.pooledCallCount, `is`(0))
+            assertThat(callbackCalled, `is`(false))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(false)) // event queue not flushed
         }
 
         @Test
@@ -91,8 +137,10 @@ private class AsyncTest : PlatformLiteFixture() {
         fun then() {
             val test = TestAsync()
             assertThat(test.pooledCallCount, `is`(0))
+
             val e = test.pooled.then { v -> v + 1 }.execute()
             assertThat(test.pooledCallCount, `is`(0))
+
             assertThat(e.get(), `is`(3))
             assertThat(test.pooledCallCount, `is`(1))
         }

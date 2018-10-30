@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit
 interface ExecutableOnPooledThread<T> {
     fun execute(): Future<T>
 
+    fun execute(later: (T) -> Unit): Future<T>
+
     fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U>
 }
 
@@ -29,6 +31,12 @@ interface ExecutableOnPooledThread<T> {
 
 class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
     override fun execute(): Future<T> = ApplicationManager.getApplication().executeOnPooledThread(f)
+
+    override fun execute(later: (T) -> Unit): Future<T> = ApplicationManager.getApplication().executeOnPooledThread<T> {
+        val ret = f()
+        ApplicationManager.getApplication().invokeLater { later(ret) }
+        ret
+    }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = ExecuteOnPooledThread { g(f()) }
 }
@@ -50,6 +58,12 @@ private class LocalFuture<T>(val f: () -> T) : Future<T> {
 
 class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
     override fun execute(): Future<T> = LocalFuture(f)
+
+    override fun execute(later: (T) -> Unit): Future<T> = LocalFuture {
+        val ret = f()
+        later(ret)
+        ret
+    }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = ExecuteOnLocalThread { g(f()) }
 }
