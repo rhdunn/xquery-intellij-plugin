@@ -44,10 +44,10 @@ class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
 // endregion
 // region ExecuteOnLocalThread
 
-private class LocalFuture<T>(val f: () -> T) : Future<T> {
+private class LocalFuture<T>(val value: T) : Future<T> {
     override fun isDone(): Boolean = true
 
-    override fun get(): T = f()
+    override fun get(): T = value
 
     override fun get(timeout: Long, unit: TimeUnit?): T = get()
 
@@ -57,12 +57,12 @@ private class LocalFuture<T>(val f: () -> T) : Future<T> {
 }
 
 class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
-    override fun execute(): Future<T> = LocalFuture(f)
+    override fun execute(): Future<T> = LocalFuture(f())
 
-    override fun execute(later: (T) -> Unit): Future<T> = LocalFuture {
+    override fun execute(later: (T) -> Unit): Future<T> {
         val ret = f()
         later(ret)
-        ret
+        return LocalFuture(ret)
     }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = ExecuteOnLocalThread { g(f()) }

@@ -56,7 +56,7 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.localCallCount, `is`(0))
 
             val e = test.local.execute()
-            assertThat(test.localCallCount, `is`(0))
+            assertThat(test.localCallCount, `is`(1))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.localCallCount, `is`(1))
@@ -74,8 +74,8 @@ private class AsyncTest : PlatformLiteFixture() {
                 assertThat(test.localCallCount, `is`(1))
                 callbackCalled = true
             }
-            assertThat(test.localCallCount, `is`(0))
-            assertThat(callbackCalled, `is`(false))
+            assertThat(test.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.localCallCount, `is`(1))
@@ -89,7 +89,7 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.localCallCount, `is`(0))
 
             val e = test.local.then { v -> v + 1 }.execute()
-            assertThat(test.localCallCount, `is`(0))
+            assertThat(test.localCallCount, `is`(1))
 
             assertThat(e.get(), `is`(3))
             assertThat(test.localCallCount, `is`(1))
