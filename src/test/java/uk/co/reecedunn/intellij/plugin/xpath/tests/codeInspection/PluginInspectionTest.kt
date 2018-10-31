@@ -2585,13 +2585,13 @@ private class PluginInspectionTest : InspectionTestCase() {
             }
 
             @Nested
-            @DisplayName("MarkLogic")
-            internal inner class MarkLogicTest {
+            @DisplayName("MarkLogic 6.0 / 0.9-ml")
+            internal inner class MarkLogic60Test {
                 @Test
-                @DisplayName("0.9-ml: product conforms to the specification")
-                fun testMarkLogic09ml_ProductConformsToSpecification() {
+                @DisplayName("0.9-ml")
+                fun markLogic09ml() {
                     settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
-                    settings.implementationVersion = "marklogic/v7.0"
+                    settings.implementationVersion = "marklogic/v9.0"
 
                     val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
@@ -2601,8 +2601,21 @@ private class PluginInspectionTest : InspectionTestCase() {
                 }
 
                 @Test
-                @DisplayName("0.9-ml: product does not conform to the specification")
-                fun testMarkLogic09ml_ProductDoesNotConformToSpecification() {
+                @DisplayName("1.0-ml")
+                fun markLogic10ml() {
+                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.implementationVersion = "marklogic/v9.0"
+
+                    val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("product does not conform to the specification")
+                fun productDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "saxon/EE/v9.5"
 
@@ -2619,10 +2632,34 @@ private class PluginInspectionTest : InspectionTestCase() {
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BINARY))
                 }
+            }
+
+            @Nested
+            @DisplayName("MarkLogic 7.0")
+            internal inner class MarkLogic70Test {
+                @Test
+                @DisplayName("0.9-ml")
+                fun markLogic09ml() {
+                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.implementationVersion = "marklogic/v7.0"
+
+                    val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '0.9-ml' does not support MarkLogic 7.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_SCHEMA_ROOT))
+                }
 
                 @Test
-                @DisplayName("1.0-ml: product conforms to the specification")
-                fun testMarkLogic10ml_ProductConformsToSpecification() {
+                @DisplayName("1.0-ml")
+                fun markLogic10ml() {
                     settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v7.0"
 
@@ -2634,8 +2671,8 @@ private class PluginInspectionTest : InspectionTestCase() {
                 }
 
                 @Test
-                @DisplayName("1.0-ml: product does not conform to the specification")
-                fun testMarkLogic10ml_ProductDoesNotConformToSpecification() {
+                @DisplayName("product does not conform to the specification")
+                fun productDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "saxon/EE/v9.5"
 

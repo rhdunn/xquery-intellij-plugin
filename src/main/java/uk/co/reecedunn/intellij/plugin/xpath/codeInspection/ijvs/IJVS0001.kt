@@ -29,12 +29,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-private fun supports(a: Specification, b: Specification): Boolean {
+private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
         XQuery.MARKLOGIC_0_9 ->
             b === XQuery.MARKLOGIC_0_9 ||
             b === XQuery.WD_1_0_20030502
         XQuery.MARKLOGIC_1_0 ->
+            b.kind === MarkLogic ||
             b === XQuery.MARKLOGIC_1_0 ||
             b === XQuery.REC_1_0_20070123 ||
             b === XQuery.REC_3_0_20140408 ||
@@ -67,7 +68,7 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
                 val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct.message", productVersion, required.joinToString(", or "))
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
             } else {
-                val requiredXQuery = required.filterIsInstance<Specification>()
+                val requiredXQuery = required.filter { req -> req is Specification || req.kind === MarkLogic }
                 if (requiredXQuery.isEmpty()) return@forEach
 
                 if (requiredXQuery.find { version -> supports(xquery, version) } == null) {
