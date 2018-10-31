@@ -2085,5 +2085,50 @@ private class XQueryConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.K_EMPTY_SEQUENCE)
             )
         }
+
+        @Test
+        @DisplayName("occurrence indicator; one or more")
+        fun occurrenceIndicator_oneOrMore() {
+            val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryElementType.ATOMIC_OR_UNION_TYPE)
+            )
+        }
+
+        @Test
+        @DisplayName("occurrence indicator; optional")
+        fun occurrenceIndicator_optional() {
+            val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryElementType.ATOMIC_OR_UNION_TYPE)
+            )
+        }
+
+        @Test
+        @DisplayName("occurrence indicator; zero or more")
+        fun occurrenceIndicator_zeroOrMore() {
+            val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(0))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryElementType.ATOMIC_OR_UNION_TYPE)
+            )
+        }
     }
 }

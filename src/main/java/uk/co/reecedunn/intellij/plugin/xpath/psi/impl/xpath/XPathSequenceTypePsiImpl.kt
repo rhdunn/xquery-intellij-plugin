@@ -18,28 +18,39 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-private val XQUERY10_REC: List<Version> = listOf(
+private val XQUERY10_REC_EMPTY: List<Version> = listOf(
     XQuery.REC_1_0_20070123,
     EXistDB.VERSION_4_0
 )
-private val XQUERY10_WD: List<Version> = listOf(
+private val XQUERY10_REC_OCCURRENCE: List<Version> = listOf()
+private val XQUERY10_WD_EMPTY: List<Version> = listOf(
     XQuery.WD_1_0_20030502,
     XQuery.MARKLOGIC_0_9,
     until(EXistDB.VERSION_4_0)
+)
+
+private val OCCURRENCE_INDICATOR = TokenSet.create(
+    XQueryTokenType.PLUS,
+    XQueryTokenType.OPTIONAL,
+    XQueryTokenType.STAR
 )
 
 class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, XQueryConformance {
     override val requiresConformance: List<Version>
         get() {
             return if (conformanceElement.node.elementType == XQueryTokenType.K_EMPTY)
-                XQUERY10_WD
+                XQUERY10_WD_EMPTY
+            else if (findChildByType<PsiElement>(OCCURRENCE_INDICATOR) != null)
+                XQUERY10_REC_OCCURRENCE
             else
-                XQUERY10_REC
+                XQUERY10_REC_EMPTY
         }
 
     override val conformanceElement: PsiElement get() = firstChild
