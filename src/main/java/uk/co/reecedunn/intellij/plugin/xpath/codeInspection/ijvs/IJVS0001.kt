@@ -32,11 +32,17 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 private fun supports(a: Specification, b: Specification): Boolean {
     return when (a) {
         XQuery.MARKLOGIC_0_9 ->
-            b === XQuery.MARKLOGIC_0_9 || b === XQuery.WD_1_0_20030502
+            b === XQuery.MARKLOGIC_0_9 ||
+            b === XQuery.WD_1_0_20030502
         XQuery.MARKLOGIC_1_0 ->
-            b === XQuery.MARKLOGIC_1_0 || b === XQuery.REC_3_0_20140408 || b === XQuery.REC_3_1_20170321
+            b === XQuery.MARKLOGIC_1_0 ||
+            b === XQuery.REC_1_0_20070123 ||
+            b === XQuery.REC_3_0_20140408 ||
+            b === XQuery.REC_3_1_20170321
         XQuery.REC_1_0_20070123 ->
-            b !== XQuery.WD_1_0_20030502 && b !== XQuery.MARKLOGIC_0_9 && a.value >= b.value
+            b !== XQuery.WD_1_0_20030502 &&
+            b !== XQuery.MARKLOGIC_0_9 &&
+            a.value >= b.value
         else ->
             a.value >= b.value
     }
