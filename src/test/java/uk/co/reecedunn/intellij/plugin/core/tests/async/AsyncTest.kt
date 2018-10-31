@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.async
 
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.anyOf
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -492,7 +493,7 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.async.pooledCallCount, `is`(0))
 
             val e = test.pooled.execute()
-            assertThat(test.async.pooledCallCount, `is`(0))
+            assertThat(test.async.pooledCallCount, anyOf(`is`(0), `is`(1)))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
@@ -527,7 +528,7 @@ private class AsyncTest : PlatformLiteFixture() {
                 assertThat(test.async.pooledCallCount, `is`(1))
                 callbackCalled = true
             }
-            assertThat(test.async.pooledCallCount, `is`(0))
+            assertThat(test.async.pooledCallCount, anyOf(`is`(0), `is`(1)))
             assertThat(callbackCalled, `is`(false))
 
             assertThat(e.get(), `is`(2))
@@ -577,7 +578,7 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.async.pooledCallCount, `is`(0))
 
             val e = test.pooled.then { v -> v + 1 }.execute()
-            assertThat(test.async.pooledCallCount, `is`(0))
+            assertThat(test.async.pooledCallCount, anyOf(`is`(0), `is`(1)))
 
             assertThat(e.get(), `is`(3))
             assertThat(test.async.pooledCallCount, `is`(1))
