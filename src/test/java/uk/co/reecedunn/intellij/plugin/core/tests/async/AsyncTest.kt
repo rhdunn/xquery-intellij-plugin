@@ -20,6 +20,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import kotlin.test.assertFalse
 
 class TestAsync {
     var localCallCount: Int = 0
@@ -100,6 +101,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.local.execute { v ->
+                assertFalse(callbackCalled, "Later callback should only be called once.")
                 assertThat(v, `is`(2))
                 assertThat(test.localCallCount, `is`(1))
                 callbackCalled = true
@@ -157,6 +159,27 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.local.execute().get(), `is`(2))
             assertThat(test.async.localCallCount, `is`(1))
         }
+
+        @Test
+        @DisplayName("execute with later callback")
+        fun executeWithLater() {
+            val test = CachingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            var callbackCalled = false
+            val e = test.local.execute { v ->
+                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.async.localCallCount, `is`(1))
+                callbackCalled = true
+            }
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+        }
     }
 
     @Nested
@@ -199,6 +222,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.local.execute { v ->
+                assertFalse(callbackCalled, "Later callback should only be called once.")
                 assertThat(v, `is`(2))
                 assertThat(test.async.localCallCount, `is`(1))
                 callbackCalled = true
@@ -265,6 +289,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.pooled.execute { v ->
+                assertFalse(callbackCalled, "Later callback should only be called once.")
                 assertThat(v, `is`(2))
                 assertThat(test.pooledCallCount, `is`(1))
                 callbackCalled = true
@@ -322,6 +347,27 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.pooled.execute().get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
         }
+
+        @Test
+        @DisplayName("execute with later callback")
+        fun executeWithLater() {
+            val test = CachingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            var callbackCalled = false
+            val e = test.pooled.execute { v ->
+                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.async.pooledCallCount, `is`(1))
+                callbackCalled = true
+            }
+            assertThat(test.async.pooledCallCount, `is`(0))
+            assertThat(callbackCalled, `is`(false))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+        }
     }
 
     @Nested
@@ -364,6 +410,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.pooled.execute { v ->
+                assertFalse(callbackCalled, "Later callback should only be called once.")
                 assertThat(v, `is`(2))
                 assertThat(test.async.pooledCallCount, `is`(1))
                 callbackCalled = true

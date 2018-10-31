@@ -102,7 +102,12 @@ private class CachedExecutableOnLocalThread<T>(val e: ExecutableOnPooledThread<T
         return cached!!
     }
 
-    override fun execute(later: (T) -> Unit): Future<T> = TODO()
+    override fun execute(later: (T) -> Unit): Future<T> {
+        if (cached == null) {
+            cached = e.execute(later)
+        }
+        return cached!!
+    }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = TODO()
 }
