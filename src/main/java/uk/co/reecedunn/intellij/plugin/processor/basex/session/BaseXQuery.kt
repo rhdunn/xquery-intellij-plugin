@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.basex.session
 
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -55,7 +55,7 @@ internal class BaseXQuery(val query: Any, val classes: BaseXClasses) :
             .invoke(query, value, mapType(type))
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = ExecuteOnPooledThread {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         BaseXQueryResultIterator(query, classes).asSequence()
     }
 

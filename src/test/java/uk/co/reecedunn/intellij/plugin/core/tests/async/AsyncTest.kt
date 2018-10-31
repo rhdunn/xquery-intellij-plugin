@@ -19,19 +19,19 @@ import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnLocalThread
-import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.local_thread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 class TestAsync {
     var localCallCount: Int = 0
-    val local: ExecutableOnPooledThread<Int> = ExecuteOnLocalThread {
+    val local: ExecutableOnPooledThread<Int> = local_thread {
         localCallCount += 1
         2
     }
 
     var pooledCallCount: Int = 0
-    val pooled: ExecutableOnPooledThread<Int> = ExecuteOnPooledThread {
+    val pooled: ExecutableOnPooledThread<Int> = pooled_thread {
         pooledCallCount += 1
         2
     }

@@ -27,9 +27,17 @@ interface ExecutableOnPooledThread<T> {
     fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U>
 }
 
+fun <T> pooled_thread(f: () -> T): ExecutableOnPooledThread<T> {
+    return ExecuteOnPooledThread(f)
+}
+
+fun <T> local_thread(f: () -> T): ExecutableOnPooledThread<T> {
+    return ExecuteOnLocalThread(f)
+}
+
 // region ExecuteOnPooledThread
 
-class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
+private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
     override fun execute(): Future<T> = ApplicationManager.getApplication().executeOnPooledThread(f)
 
     override fun execute(later: (T) -> Unit): Future<T> = ApplicationManager.getApplication().executeOnPooledThread<T> {
@@ -56,7 +64,7 @@ private class LocalFuture<T>(val value: T) : Future<T> {
     override fun isCancelled(): Boolean = false
 }
 
-class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
+private class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
     override fun execute(): Future<T> = LocalFuture(f())
 
     override fun execute(later: (T) -> Unit): Future<T> {

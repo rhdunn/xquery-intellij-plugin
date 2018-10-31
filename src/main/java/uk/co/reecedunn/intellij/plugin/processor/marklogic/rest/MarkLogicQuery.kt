@@ -20,7 +20,7 @@ import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.ExecuteOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
@@ -43,7 +43,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         throw UnsupportedOperationException()
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = ExecuteOnPooledThread {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
