@@ -44,7 +44,11 @@ fun <T> forwarded(f: () -> ExecutableOnPooledThread<T>): ExecutableOnPooledThrea
     return f()
 }
 
-// region ExecuteOnPooledThread
+fun <T> cached(f: () -> ExecutableOnPooledThread<T>): ExecutableOnPooledThread<T> {
+    return CachedExecutableOnLocalThread(f())
+}
+
+// region pooled thread
 
 private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
     override fun execute(): Future<T> = ApplicationManager.getApplication().executeOnPooledThread(f)
@@ -59,7 +63,7 @@ private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThrea
 }
 
 // endregion
-// region ExecuteOnLocalThread
+// region local thread
 
 private class LocalFuture<T>(val value: T) : Future<T> {
     override fun isDone(): Boolean = true
@@ -83,6 +87,24 @@ private class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread
     }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = ExecuteOnLocalThread { g(f()) }
+}
+
+// endregion
+// region caching
+
+private class CachedExecutableOnLocalThread<T>(val e: ExecutableOnPooledThread<T>) : ExecutableOnPooledThread<T> {
+    private var cached: Future<T>? = null
+
+    override fun execute(): Future<T> {
+        if (cached == null) {
+            cached = e.execute()
+        }
+        return cached!!
+    }
+
+    override fun execute(later: (T) -> Unit): Future<T> = TODO()
+
+    override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = TODO()
 }
 
 // endregion

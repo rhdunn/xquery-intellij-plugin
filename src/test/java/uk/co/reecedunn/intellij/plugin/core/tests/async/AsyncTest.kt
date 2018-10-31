@@ -43,6 +43,14 @@ class ForwardingTestAsync {
     val pooled by forwarded { async.pooled }
 }
 
+class CachingTestAsync {
+    val async = TestAsync()
+
+    val local by cached { async.local }
+
+    val pooled by cached { async.pooled }
+}
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Threading - Executable On Pooled Thread")
 private class AsyncTest : PlatformLiteFixture() {
@@ -119,8 +127,41 @@ private class AsyncTest : PlatformLiteFixture() {
     }
 
     @Nested
+    @DisplayName("executed on local thread by cached")
+    internal inner class OnLocalThreadByCachedDelegate {
+        @Test
+        @DisplayName("execute")
+        fun execute() {
+            val test = CachingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            val e = test.local.execute()
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute; multiple calls")
+        fun executeMultiple() {
+            val test = CachingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+        }
+    }
+
+    @Nested
     @DisplayName("executed on local thread by forwarded")
-    internal inner class OnLocalThreadByForward {
+    internal inner class OnLocalThreadByForwardedDelegate {
         @Test
         @DisplayName("execute")
         fun execute() {
@@ -251,8 +292,41 @@ private class AsyncTest : PlatformLiteFixture() {
     }
 
     @Nested
+    @DisplayName("executed on pooled thread by cached")
+    internal inner class OnPooledThreadByCachedDelegate {
+        @Test
+        @DisplayName("execute")
+        fun execute() {
+            val test = CachingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            val e = test.pooled.execute()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute; multiple calls")
+        fun executeMultiple() {
+            val test = CachingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+
+            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+        }
+    }
+
+    @Nested
     @DisplayName("executed on pooled thread by forwarded")
-    internal inner class OnPooledThreadByForward {
+    internal inner class OnPooledThreadByForwardedDelegate {
         @Test
         @DisplayName("execute")
         fun execute() {
