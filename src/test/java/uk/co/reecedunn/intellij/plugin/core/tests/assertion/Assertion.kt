@@ -33,5 +33,13 @@ import org.hamcrest.MatcherAssert
  *
  * See: https://youtrack.jetbrains.com/issue/KT-22012.
  */
+
 @Suppress("UNCHECKED_CAST")
-fun <T> assertThat(actual: T?, matcher: Matcher<out T?>) = MatcherAssert.assertThat(actual, matcher as Matcher<T?>)
+fun <T> assertThat(actual: T?, matcher: Matcher<out T?>) {
+    MatcherAssert.assertThat(actual, matcher as Matcher<T?>)
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T> assertThat(reason: String, actual: T?, matcher: Matcher<out T?>) {
+    MatcherAssert.assertThat(reason, actual, matcher as Matcher<T?>)
+}

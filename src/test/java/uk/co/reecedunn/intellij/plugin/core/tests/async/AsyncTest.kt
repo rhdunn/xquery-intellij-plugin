@@ -20,7 +20,6 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import kotlin.test.assertFalse
 
 class TestAsync {
     var localCallCount: Int = 0
@@ -101,7 +100,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.local.execute { v ->
-                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", callbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.localCallCount, `is`(1))
                 callbackCalled = true
@@ -126,7 +125,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var firstCallbackCalled = false
             val first = test.local.execute { v ->
-                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", firstCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.localCallCount, `is`(1))
                 firstCallbackCalled = true
@@ -138,7 +137,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var secondCallbackCalled = false
             val second = test.local.execute { v ->
-                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", secondCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.localCallCount, `is`(2))
                 secondCallbackCalled = true
@@ -203,7 +202,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.local.execute { v ->
-                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", callbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.localCallCount, `is`(1))
                 callbackCalled = true
@@ -261,7 +260,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.local.execute { v ->
-                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", callbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.localCallCount, `is`(1))
                 callbackCalled = true
@@ -286,7 +285,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var firstCallbackCalled = false
             val first = test.local.execute { v ->
-                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", firstCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.localCallCount, `is`(1))
                 firstCallbackCalled = true
@@ -298,7 +297,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var secondCallbackCalled = false
             val second = test.local.execute { v ->
-                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", secondCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.localCallCount, `is`(2))
                 secondCallbackCalled = true
@@ -363,7 +362,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.pooled.execute { v ->
-                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", callbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.pooledCallCount, `is`(1))
                 callbackCalled = true
@@ -388,7 +387,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var firstCallbackCalled = false
             val first = test.pooled.execute { v ->
-                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", firstCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.pooledCallCount, `is`(1))
                 firstCallbackCalled = true
@@ -400,7 +399,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var secondCallbackCalled = false
             val second = test.pooled.execute { v ->
-                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", secondCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.pooledCallCount, `is`(2))
                 secondCallbackCalled = true
@@ -465,7 +464,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.pooled.execute { v ->
-                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", callbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.pooledCallCount, `is`(1))
                 callbackCalled = true
@@ -523,7 +522,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var callbackCalled = false
             val e = test.pooled.execute { v ->
-                assertFalse(callbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", callbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.pooledCallCount, `is`(1))
                 callbackCalled = true
@@ -548,7 +547,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var firstCallbackCalled = false
             val first = test.pooled.execute { v ->
-                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", firstCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.pooledCallCount, `is`(1))
                 firstCallbackCalled = true
@@ -560,7 +559,7 @@ private class AsyncTest : PlatformLiteFixture() {
 
             var secondCallbackCalled = false
             val second = test.pooled.execute { v ->
-                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat("Later callback should only be called once.", secondCallbackCalled, `is`(false))
                 assertThat(v, `is`(2))
                 assertThat(test.async.pooledCallCount, `is`(2))
                 secondCallbackCalled = true
