@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.async
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.local_thread
-import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
+import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 class TestAsync {
@@ -37,8 +35,16 @@ class TestAsync {
     }
 }
 
+class ForwardingTestAsync {
+    val async = TestAsync()
+
+    val local by forwarded { async.local }
+
+    val pooled by forwarded { async.pooled }
+}
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DisplayName("IntelliJ - Threading - Execute On Pooled Thread")
+@DisplayName("IntelliJ - Threading - Executable On Pooled Thread")
 private class AsyncTest : PlatformLiteFixture() {
     @BeforeAll
     override fun setUp() {
@@ -113,6 +119,72 @@ private class AsyncTest : PlatformLiteFixture() {
     }
 
     @Nested
+    @DisplayName("executed on local thread by forwarded")
+    internal inner class OnLocalThreadByForward {
+        @Test
+        @DisplayName("execute")
+        fun execute() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            val e = test.local.execute()
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute; multiple calls")
+        fun executeMultiple() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(test.local.execute().get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(2))
+        }
+
+        @Test
+        @DisplayName("execute with later callback")
+        fun executeWithLater() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            var callbackCalled = false
+            val e = test.local.execute { v ->
+                assertThat(v, `is`(2))
+                assertThat(test.async.localCallCount, `is`(1))
+                callbackCalled = true
+            }
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+        }
+
+        @Test
+        @DisplayName("then")
+        fun then() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            val e = test.local.then { v -> v + 1 }.execute()
+            assertThat(test.async.localCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(3))
+            assertThat(test.async.localCallCount, `is`(1))
+        }
+    }
+
+    @Nested
     @DisplayName("executed on pooled thread")
     internal inner class OnPooledThread {
         @Test
@@ -175,6 +247,72 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(e.get(), `is`(3))
             assertThat(test.pooledCallCount, `is`(1))
+        }
+    }
+
+    @Nested
+    @DisplayName("executed on pooled thread by forwarded")
+    internal inner class OnPooledThreadByForward {
+        @Test
+        @DisplayName("execute")
+        fun execute() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            val e = test.pooled.execute()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+        }
+
+        @Test
+        @DisplayName("execute; multiple calls")
+        fun executeMultiple() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+
+            assertThat(test.pooled.execute().get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(2))
+        }
+
+        @Test
+        @DisplayName("execute with later callback")
+        fun executeWithLater() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            var callbackCalled = false
+            val e = test.pooled.execute { v ->
+                assertThat(v, `is`(2))
+                assertThat(test.async.pooledCallCount, `is`(1))
+                callbackCalled = true
+            }
+            assertThat(test.async.pooledCallCount, `is`(0))
+            assertThat(callbackCalled, `is`(false))
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+        }
+
+        @Test
+        @DisplayName("then")
+        fun then() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            val e = test.pooled.then { v -> v + 1 }.execute()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            assertThat(e.get(), `is`(3))
+            assertThat(test.async.pooledCallCount, `is`(1))
         }
     }
 }

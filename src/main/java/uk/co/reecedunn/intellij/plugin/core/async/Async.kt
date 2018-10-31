@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.async
 import com.intellij.openapi.application.ApplicationManager
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
+import kotlin.reflect.KProperty
 
 interface ExecutableOnPooledThread<T> {
     fun execute(): Future<T>
@@ -27,12 +28,20 @@ interface ExecutableOnPooledThread<T> {
     fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U>
 }
 
+operator fun <T> ExecutableOnPooledThread<T>.getValue(ref: Any?, property: KProperty<*>): ExecutableOnPooledThread<T> {
+    return this
+}
+
 fun <T> pooled_thread(f: () -> T): ExecutableOnPooledThread<T> {
     return ExecuteOnPooledThread(f)
 }
 
 fun <T> local_thread(f: () -> T): ExecutableOnPooledThread<T> {
     return ExecuteOnLocalThread(f)
+}
+
+fun <T> forwarded(f: () -> ExecutableOnPooledThread<T>): ExecutableOnPooledThread<T> {
+    return f()
 }
 
 // region ExecuteOnPooledThread
