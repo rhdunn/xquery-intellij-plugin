@@ -112,6 +112,41 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(e.get(), `is`(2))
             assertThat(test.localCallCount, `is`(1))
             assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+        }
+
+        @Test
+        @DisplayName("execute with later callback; multiple calls")
+        fun executeWithLaterMultiple() {
+            val test = TestAsync()
+            assertThat(test.localCallCount, `is`(0))
+
+            var firstCallbackCalled = false
+            val first = test.local.execute { v ->
+                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.localCallCount, `is`(1))
+                firstCallbackCalled = true
+            }.get()
+
+            assertThat(first, `is`(2))
+            assertThat(test.localCallCount, `is`(1))
+            assertThat(firstCallbackCalled, `is`(true))
+
+            var secondCallbackCalled = false
+            val second = test.local.execute { v ->
+                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.localCallCount, `is`(2))
+                secondCallbackCalled = true
+            }.get()
+
+            assertThat(second, `is`(2))
+            assertThat(test.localCallCount, `is`(2))
+            assertThat(secondCallbackCalled, `is`(true)) // local execute not added to the event queue
         }
 
         @Test
@@ -179,6 +214,10 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(e.get(), `is`(2))
             assertThat(test.async.localCallCount, `is`(1))
             assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
         }
     }
 
@@ -233,6 +272,41 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(e.get(), `is`(2))
             assertThat(test.async.localCallCount, `is`(1))
             assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true)) // local execute not added to the event queue
+        }
+
+        @Test
+        @DisplayName("execute with later callback; multiple calls")
+        fun executeWithLaterMultiple() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.localCallCount, `is`(0))
+
+            var firstCallbackCalled = false
+            val first = test.local.execute { v ->
+                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.async.localCallCount, `is`(1))
+                firstCallbackCalled = true
+            }.get()
+
+            assertThat(first, `is`(2))
+            assertThat(test.async.localCallCount, `is`(1))
+            assertThat(firstCallbackCalled, `is`(true))
+
+            var secondCallbackCalled = false
+            val second = test.local.execute { v ->
+                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.async.localCallCount, `is`(2))
+                secondCallbackCalled = true
+            }.get()
+
+            assertThat(second, `is`(2))
+            assertThat(test.async.localCallCount, `is`(2))
+            assertThat(secondCallbackCalled, `is`(true)) // local execute not added to the event queue
         }
 
         @Test
@@ -300,6 +374,41 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(e.get(), `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
             assertThat(callbackCalled, `is`(false)) // event queue not flushed
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+        }
+
+        @Test
+        @DisplayName("execute with later callback; multiple calls")
+        fun executeWithLaterMultiple() {
+            val test = TestAsync()
+            assertThat(test.pooledCallCount, `is`(0))
+
+            var firstCallbackCalled = false
+            val first = test.pooled.execute { v ->
+                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.pooledCallCount, `is`(1))
+                firstCallbackCalled = true
+            }.get()
+
+            assertThat(first, `is`(2))
+            assertThat(test.pooledCallCount, `is`(1))
+            assertThat(firstCallbackCalled, `is`(false)) // event queue not flushed
+
+            var secondCallbackCalled = false
+            val second = test.pooled.execute { v ->
+                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.pooledCallCount, `is`(2))
+                secondCallbackCalled = true
+            }.get()
+
+            assertThat(second, `is`(2))
+            assertThat(test.pooledCallCount, `is`(2))
+            assertThat(secondCallbackCalled, `is`(false)) // event queue not flushed
         }
 
         @Test
@@ -367,6 +476,10 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
             assertThat(callbackCalled, `is`(false)) // event queue not flushed
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(false)) // event queue not flushed
         }
     }
 
@@ -421,6 +534,41 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
             assertThat(callbackCalled, `is`(false)) // event queue not flushed
+
+            assertThat(e.get(), `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+        }
+
+        @Test
+        @DisplayName("execute with later callback; multiple calls")
+        fun executeWithLaterMultiple() {
+            val test = ForwardingTestAsync()
+            assertThat(test.async.pooledCallCount, `is`(0))
+
+            var firstCallbackCalled = false
+            val first = test.pooled.execute { v ->
+                assertFalse(firstCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.async.pooledCallCount, `is`(1))
+                firstCallbackCalled = true
+            }.get()
+
+            assertThat(first, `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(firstCallbackCalled, `is`(false)) // event queue not flushed
+
+            var secondCallbackCalled = false
+            val second = test.pooled.execute { v ->
+                assertFalse(secondCallbackCalled, "Later callback should only be called once.")
+                assertThat(v, `is`(2))
+                assertThat(test.async.pooledCallCount, `is`(2))
+                secondCallbackCalled = true
+            }.get()
+
+            assertThat(second, `is`(2))
+            assertThat(test.async.pooledCallCount, `is`(2))
+            assertThat(secondCallbackCalled, `is`(false)) // event queue not flushed
         }
 
         @Test
