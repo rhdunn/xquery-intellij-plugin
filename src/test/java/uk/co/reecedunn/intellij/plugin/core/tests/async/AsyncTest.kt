@@ -15,11 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.async
 
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.util.Getter
+import com.intellij.openapi.vfs.encoding.EncodingManager
+import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.anyOf
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.async.*
+import uk.co.reecedunn.intellij.plugin.core.tests.application.MockApplicationEx
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 class TestAsync {
@@ -52,6 +58,21 @@ class CachingTestAsync {
     val pooled by cached { async.pooled }
 }
 
+private fun waitForCallback(check: () -> Boolean) {
+    waitForCallback(2000, 5, check) // 2 seconds, 5 millisecond increments
+}
+
+private fun waitForCallback(maxTimeout: Long, sleep: Long, check: () -> Boolean) {
+    var timeout: Long = 0
+    while (!check() && timeout < maxTimeout) {
+        Thread.sleep(sleep)
+        timeout += sleep
+    }
+    if (!check()) {
+        System.out.println("Callback not succeeded after ${maxTimeout} ms.")
+    }
+}
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Threading - Executable On Pooled Thread")
 private class AsyncTest : PlatformLiteFixture() {
@@ -59,6 +80,16 @@ private class AsyncTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
+    }
+
+    override fun initApplication() {
+        val instance = MockApplicationEx(testRootDisposable)
+        ApplicationManager.setApplication(
+            instance,
+            Getter { FileTypeManager.getInstance() },
+            testRootDisposable
+        )
+        getApplication().registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
     }
 
     @Nested
@@ -427,7 +458,9 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(first, `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
-            assertThat(firstCallbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { firstCallbackCalled }
+            assertThat(firstCallbackCalled, `is`(true))
 
             var secondCallbackCalled = false
             val second = test.pooled.execute { v ->
@@ -439,7 +472,9 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(second, `is`(2))
             assertThat(test.pooledCallCount, `is`(2))
-            assertThat(secondCallbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { secondCallbackCalled }
+            assertThat(secondCallbackCalled, `is`(true))
         }
 
         @Test
@@ -506,11 +541,13 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { callbackCalled }
+            assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+            assertThat(callbackCalled, `is`(true))
         }
 
         @Test
@@ -529,7 +566,9 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(first, `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-            assertThat(firstCallbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { firstCallbackCalled }
+            assertThat(firstCallbackCalled, `is`(true))
 
             var secondCallbackCalled = false
             val second = test.pooled.execute { v ->
@@ -595,11 +634,13 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { callbackCalled }
+            assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+            assertThat(callbackCalled, `is`(true))
         }
 
         @Test
@@ -618,7 +659,9 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(first, `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-            assertThat(firstCallbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { firstCallbackCalled }
+            assertThat(firstCallbackCalled, `is`(true))
 
             var secondCallbackCalled = false
             val second = test.pooled.execute { v ->
@@ -630,7 +673,9 @@ private class AsyncTest : PlatformLiteFixture() {
 
             assertThat(second, `is`(2))
             assertThat(test.async.pooledCallCount, `is`(2))
-            assertThat(secondCallbackCalled, `is`(false)) // event queue not flushed
+
+            waitForCallback { secondCallbackCalled }
+            assertThat(secondCallbackCalled, `is`(true))
         }
 
         @Test
