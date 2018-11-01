@@ -484,7 +484,7 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.pooledCallCount, `is`(0))
 
             val e = test.pooled.then { v -> v + 1 }.execute()
-            assertThat(test.pooledCallCount, `is`(0))
+            assertThat(test.pooledCallCount, anyOf(`is`(0), `is`(1)))
 
             assertThat(e.get(), `is`(3))
             assertThat(test.pooledCallCount, `is`(1))
@@ -501,7 +501,7 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.async.pooledCallCount, `is`(0))
 
             val e = test.pooled.execute()
-            assertThat(test.async.pooledCallCount, `is`(0))
+            assertThat(test.async.pooledCallCount, anyOf(`is`(0), `is`(1)))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
@@ -536,13 +536,13 @@ private class AsyncTest : PlatformLiteFixture() {
                 assertThat(test.async.pooledCallCount, `is`(1))
                 callbackCalled = true
             }
-            assertThat(test.async.pooledCallCount, `is`(0))
-            assertThat(callbackCalled, `is`(false))
+
+            waitForCallback { callbackCalled }
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-
-            waitForCallback { callbackCalled }
             assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
@@ -629,13 +629,13 @@ private class AsyncTest : PlatformLiteFixture() {
                 assertThat(test.async.pooledCallCount, `is`(1))
                 callbackCalled = true
             }
-            assertThat(test.async.pooledCallCount, anyOf(`is`(0), `is`(1)))
-            assertThat(callbackCalled, `is`(false))
+
+            waitForCallback { callbackCalled }
+            assertThat(test.async.pooledCallCount, `is`(1))
+            assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.async.pooledCallCount, `is`(1))
-
-            waitForCallback { callbackCalled }
             assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
