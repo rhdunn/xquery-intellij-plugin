@@ -193,7 +193,7 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         configuration.api = api!!.selectedItem as QueryProcessorApi
         configuration.jar = jar!!.childComponent.textOrNull()
         configuration.configurationPath = this.configuration!!.childComponent.textOrNull()
-        if (standalone!!.isSelected) {
+        if (!standalone!!.isSelected) {
             val dbPort = databasePort!!.text.toInt()
             val amPort = adminPort!!.text.toInt()
             val user = username!!.textOrNull()
