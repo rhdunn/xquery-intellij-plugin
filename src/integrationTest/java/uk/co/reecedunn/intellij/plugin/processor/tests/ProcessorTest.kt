@@ -50,7 +50,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-        provider.session.close()
+        provider.close()
     }
 
     @Test @DisplayName("version") fun version() {

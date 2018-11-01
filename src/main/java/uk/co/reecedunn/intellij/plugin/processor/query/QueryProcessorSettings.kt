@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.processor.existdb.rest.EXistDBRest
 import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.saxon.s9api.SaxonS9API
+import java.io.Closeable
 import java.io.FileInputStream
 import java.io.InputStream
 
@@ -29,7 +30,7 @@ val QUERY_PROCESSOR_APIS: List<QueryProcessorApi> = listOf(
     SaxonS9API
 )
 
-class QueryProcessorSettings {
+class QueryProcessorSettings : Closeable {
     constructor()
 
     constructor(
@@ -102,4 +103,11 @@ class QueryProcessorSettings {
 
             return processor!!
         }
+
+    override fun close() {
+        if (processor != null) {
+            processor!!.close()
+            processor = null
+        }
+    }
 }
