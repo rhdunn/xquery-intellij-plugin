@@ -67,6 +67,10 @@ class QueryProcessorSettings {
         }
 
     var connection: ConnectionSettings? = null
+        set(value) {
+            field = value
+            processor = null
+        }
 
     val displayName: String get() = name ?: ""
 
@@ -80,14 +84,22 @@ class QueryProcessorSettings {
 
     private var instance: QueryProcessorInstanceManager? = null
 
-    fun create(): QueryProcessor {
-        if (instance == null) {
-            instance = api.newInstanceManager(jar, configuration)
-        }
+    private var processor: QueryProcessor? = null
 
-        return if(connection == null)
-            instance!!.create()
-        else
-            instance!!.connect(connection!!)
-    }
+    val session: QueryProcessor
+        get() {
+            if (instance == null) {
+                instance = api.newInstanceManager(jar, configuration)
+                processor = null
+            }
+
+            if (processor == null) {
+                if(connection == null)
+                    processor = instance!!.create()
+                else
+                    processor = instance!!.connect(connection!!)
+            }
+
+            return processor!!
+        }
 }
