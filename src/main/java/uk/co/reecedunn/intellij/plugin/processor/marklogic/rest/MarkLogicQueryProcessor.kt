@@ -19,7 +19,7 @@ import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.forwarded
+import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
@@ -33,7 +33,7 @@ val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val client: CloseableHttpClient) :
     QueryProcessor {
-    override val version: ExecutableOnPooledThread<String> by forwarded {
+    override val version: ExecutableOnPooledThread<String> by cached {
         eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
             query.run().then { results -> results.first().value }
         }
