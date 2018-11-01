@@ -29,14 +29,44 @@ val QUERY_PROCESSOR_APIS: List<QueryProcessorApi> = listOf(
     SaxonS9API
 )
 
-data class QueryProcessorSettings(
-    var name: String?,
-    var apiId: String,
-    var jar: String?,
-    var configurationPath: String?,
-    var connection: ConnectionSettings?
-) {
-    constructor() : this(null, QUERY_PROCESSOR_APIS.first().id, null, null, null)
+class QueryProcessorSettings {
+    constructor()
+
+    constructor(
+        name: String?,
+        apiId: String,
+        jar: String?,
+        configurationPath: String?,
+        connection: ConnectionSettings?
+    ) {
+        this.name = name
+        this.apiId = apiId
+        this.jar = jar
+        this.configurationPath = configurationPath
+        this.connection = connection
+    }
+
+    var name: String? = null
+
+    var apiId: String = QUERY_PROCESSOR_APIS.first().id
+        set(value) {
+            field = value
+            instance = null
+        }
+
+    var jar: String? = null
+        set(value) {
+            field = value
+            instance = null
+        }
+
+    var configurationPath: String? = null
+        set(value) {
+            field = value
+            instance = null
+        }
+
+    var connection: ConnectionSettings? = null
 
     val displayName: String get() = name ?: ""
 
@@ -47,4 +77,17 @@ data class QueryProcessorSettings(
         }
 
     val configuration: InputStream? get() = configurationPath?.let { FileInputStream(it) }
+
+    private var instance: QueryProcessorInstanceManager? = null
+
+    fun create(): QueryProcessor {
+        if (instance == null) {
+            instance = api.newInstanceManager(jar, configuration)
+        }
+
+        return if(connection == null)
+            instance!!.create()
+        else
+            instance!!.connect(connection!!)
+    }
 }

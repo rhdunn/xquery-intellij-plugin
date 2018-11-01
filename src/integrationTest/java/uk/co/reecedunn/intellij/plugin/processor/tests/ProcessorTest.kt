@@ -20,11 +20,10 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
+import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import java.io.File
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.util.concurrent.ExecutionException
 
 @Suppress("Reformat")
@@ -34,8 +33,14 @@ private class ProcessorTest : PlatformLiteFixture() {
     val home = System.getProperty("user.home")
     // Modify these for the processor being tested:
     val processorVersion = "9.0"
-    val provider = BaseX(File("$home/xquery/basex/basex-9.0/BaseX.jar"))
-    val processor: QueryProcessor = provider.create()
+    val provider = QueryProcessorSettings(
+        name = "Test Instance",
+        apiId = BaseXSession.id,
+        jar = "$home/xquery/basex/basex-9.0/BaseX.jar",
+        configurationPath =  null,
+        connection = null
+    )
+    val processor = provider.create()
 
     @BeforeAll
     override fun setUp() {
