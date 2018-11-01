@@ -105,6 +105,8 @@ private class CachedExecutableOnLocalThread<T>(val e: ExecutableOnPooledThread<T
     override fun execute(later: (T) -> Unit): Future<T> {
         if (cached == null) {
             cached = e.execute(later)
+        } else {
+            later(cached!!.get())
         }
         return cached!!
     }
