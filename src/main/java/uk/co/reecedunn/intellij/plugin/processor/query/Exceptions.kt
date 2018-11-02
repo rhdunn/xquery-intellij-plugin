@@ -15,7 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import java.lang.RuntimeException
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+
+class QueryInstanceException(message: String, private val bundleId: String) : RuntimeException(message) {
+    val displayMessage: String get() = XQueryBundle.message(bundleId)
+}
+
+abstract class QueryError : RuntimeException() {
+    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
+
+    abstract val standardCode: String
+
+    abstract val vendorCode: String?
+
+    abstract val description: String?
+
+    abstract val module: String?
+
+    abstract val lineNumber: Int?
+
+    abstract val columnNumber: Int?
+}
 
 class UnsupportedQueryType(val mimetype: String) :
     RuntimeException("Unsupported query type: ${mimetype}")
