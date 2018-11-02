@@ -19,7 +19,9 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.ColoredListCellRenderer
+import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.*
@@ -51,20 +53,9 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) : Set
 
     private fun createQueryProcessorUI() {
         queryProcessor = ComboBox()
+        queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
+
         createQueryProcessor = JButton()
-
-        queryProcessor!!.renderer = object : ColoredListCellRenderer<QueryProcessorSettings>() {
-            override fun customizeCellRenderer(
-                list: JList<out QueryProcessorSettings>,
-                value: QueryProcessorSettings?,
-                index: Int, selected: Boolean, hasFocus: Boolean
-            ) {
-                if (value != null) {
-                    append(value.displayName)
-                }
-            }
-        }
-
         createQueryProcessor!!.addActionListener {
             val settings = QueryProcessorSettings()
             val dialog = QueryProcessorSettingsDialog(project)
