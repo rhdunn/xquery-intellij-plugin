@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.basex.session
 
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryInstanceException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
@@ -32,6 +33,11 @@ object BaseXSession : QueryProcessorApi {
     override val canConnect: Boolean = true
 
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
+        if (jar == null)
+            throw QueryInstanceException(
+                "A JAR file is required for BaseX session query processors.",
+                "processor.exception.missing-jar"
+            )
         return BaseX(File(jar))
     }
 }

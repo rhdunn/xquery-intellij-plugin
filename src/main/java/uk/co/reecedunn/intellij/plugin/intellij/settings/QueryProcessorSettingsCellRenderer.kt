@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryInstanceException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.JList
 
@@ -28,6 +29,13 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
     }
 
+    private fun renderError(value: QueryProcessorSettings, message: String) {
+        clear()
+        append(value.api.displayName, SimpleTextAttributes.ERROR_ATTRIBUTES)
+        value.name?.let { append(" ($it)", SimpleTextAttributes.ERROR_ATTRIBUTES) }
+        append(" [$message]", SimpleTextAttributes.ERROR_ATTRIBUTES)
+    }
+
     override fun customizeCellRenderer(
         list: JList<out QueryProcessorSettings>,
         value: QueryProcessorSettings?,
@@ -35,7 +43,11 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
     ) {
         if (value != null) {
             render(value, null)
-            value.session.version.execute { version -> render(value, version) }
+            try {
+                value.session.version.execute { version -> render(value, version) }
+            } catch (e: QueryInstanceException) {
+                renderError(value, e.displayMessage)
+            }
         }
     }
 }
