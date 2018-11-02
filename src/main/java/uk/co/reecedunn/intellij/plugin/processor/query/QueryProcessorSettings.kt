@@ -73,8 +73,6 @@ class QueryProcessorSettings : Closeable {
             processor = null
         }
 
-    val displayName: String get() = name ?: ""
-
     var api: QueryProcessorApi
         get() = QUERY_PROCESSOR_APIS.find { value -> value.id == apiId }!!
         set(value) {

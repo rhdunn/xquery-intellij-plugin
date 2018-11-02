@@ -16,17 +16,26 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.ui.ColoredListCellRenderer
+import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettings>() {
+    private fun render(value: QueryProcessorSettings, version: String?) {
+        clear()
+        append(value.api.displayName)
+        version?.let { append(" $it") }
+        value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
+    }
+
     override fun customizeCellRenderer(
         list: JList<out QueryProcessorSettings>,
         value: QueryProcessorSettings?,
         index: Int, selected: Boolean, hasFocus: Boolean
     ) {
         if (value != null) {
-            append(value.displayName)
+            render(value, null)
+            value.session.version.execute { version -> render(value, version) }
         }
     }
 }
