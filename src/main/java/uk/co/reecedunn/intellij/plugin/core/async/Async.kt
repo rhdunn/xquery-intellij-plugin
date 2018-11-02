@@ -16,14 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.core.async
 
 import com.intellij.openapi.application.ApplicationManager
-import java.util.concurrent.Future
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.*
 import kotlin.reflect.KProperty
 
-interface ExecutableOnPooledThread<T> {
-    fun execute(): Future<T>
+interface FutureException<T> : Future<T> {
+    fun onException(f: (Throwable) -> Unit)
+}
 
-    fun execute(later: (T) -> Unit): Future<T>
+interface ExecutableOnPooledThread<T> {
+    fun execute(): FutureException<T>
+
+    fun execute(later: (T) -> Unit): FutureException<T>
 
     fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U>
 }
@@ -48,15 +51,55 @@ fun <T> cached(f: () -> ExecutableOnPooledThread<T>): ExecutableOnPooledThread<T
     return CachedExecutableOnLocalThread(f())
 }
 
+class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), FutureException<T> {
+    var onerror: ((Throwable) -> Unit)? = null
+
+    override fun onException(f: (Throwable) -> Unit) {
+        onerror = f
+    }
+
+    override fun get(): T? {
+        return try {
+            super.get()
+        } catch (e: ExecutionException) {
+            if (onerror == null)
+                throw e
+            else
+                onerror!!.invoke(e.cause!!)
+            return null
+        }
+    }
+
+    override fun get(timeout: Long, unit: TimeUnit?): T? {
+        return try {
+            super.get(timeout, unit)
+        } catch (e: ExecutionException) {
+            if (onerror == null)
+                throw e
+            else
+                onerror!!.invoke(e.cause!!)
+            return null
+        }
+    }
+}
+
 // region pooled thread
 
 private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
-    override fun execute(): Future<T> = ApplicationManager.getApplication().executeOnPooledThread(f)
+    override fun execute(): FutureException<T> {
+        val task = FutureExceptionTask<T>(Callable(f))
+        ApplicationManager.getApplication().executeOnPooledThread(task)
+        return task
+    }
 
-    override fun execute(later: (T) -> Unit): Future<T> = ApplicationManager.getApplication().executeOnPooledThread<T> {
-        val ret = f()
-        ApplicationManager.getApplication().invokeLater { later(ret) }
-        ret
+    override fun execute(later: (T) -> Unit): FutureException<T> {
+        val task = FutureExceptionTask<T>(Callable {
+            val ret = f()
+            ApplicationManager.getApplication().invokeLater { later(ret) }
+            ret
+        })
+        ApplicationManager.getApplication().executeOnPooledThread(task)
+        return task
     }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = ExecuteOnPooledThread { g(f()) }
@@ -65,12 +108,25 @@ private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThrea
 // endregion
 // region local thread
 
-private class LocalFuture<T>(val value: T) : Future<T> {
+private class LocalFuture<T>(val value: T?, val error: Throwable?) : FutureException<T> {
+    var onerror: ((Throwable) -> Unit)? = null
+
+    override fun onException(f: (Throwable) -> Unit) {
+        onerror = f
+    }
+
     override fun isDone(): Boolean = true
 
-    override fun get(): T = value
+    override fun get(): T? {
+        if (error == null)
+            return value
+        if (onerror == null)
+            throw ExecutionException(error)
+        onerror!!.invoke(error)
+        return null
+    }
 
-    override fun get(timeout: Long, unit: TimeUnit?): T = get()
+    override fun get(timeout: Long, unit: TimeUnit?): T? = get()
 
     override fun cancel(mayInterruptIfRunning: Boolean): Boolean = false
 
@@ -78,12 +134,22 @@ private class LocalFuture<T>(val value: T) : Future<T> {
 }
 
 private class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread<T> {
-    override fun execute(): Future<T> = LocalFuture(f())
+    override fun execute(): FutureException<T> {
+        return try {
+            LocalFuture(f(), null)
+        } catch (e: Exception) {
+            LocalFuture(null, e)
+        }
+    }
 
-    override fun execute(later: (T) -> Unit): Future<T> {
-        val ret = f()
-        later(ret)
-        return LocalFuture(ret)
+    override fun execute(later: (T) -> Unit): FutureException<T> {
+        return try {
+            val ret = f()
+            later(ret)
+            LocalFuture(ret, null)
+        } catch (e: Exception) {
+            LocalFuture(null, e)
+        }
     }
 
     override fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U> = ExecuteOnLocalThread { g(f()) }
@@ -93,19 +159,19 @@ private class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread
 // region caching
 
 private class CachedExecutableOnLocalThread<T>(val e: ExecutableOnPooledThread<T>) : ExecutableOnPooledThread<T> {
-    private var cached: Future<T>? = null
+    private var cached: FutureException<T>? = null
 
-    override fun execute(): Future<T> {
+    override fun execute(): FutureException<T> {
         if (cached == null) {
             cached = e.execute()
         }
         return cached!!
     }
 
-    override fun execute(later: (T) -> Unit): Future<T> {
+    override fun execute(later: (T) -> Unit): FutureException<T> {
         if (cached == null) {
             cached = e.execute(later)
-        } else {
+        } else if (cached!!.get() != null) {
             later(cached!!.get())
         }
         return cached!!
