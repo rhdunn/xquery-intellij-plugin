@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
 import java.io.File
 import java.io.InputStream
 
@@ -35,6 +36,10 @@ object SaxonS9API : QueryProcessorApi {
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         if (jar == null)
             throw MissingJarFileException(displayName)
-        return Saxon(File(jar), config)
+        return try {
+            Saxon(File(jar), config)
+        } catch (e: ClassNotFoundException) {
+            throw UnsupportedJarFileException(displayName)
+        }
     }
 }

@@ -20,6 +20,7 @@ import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettings>() {
@@ -48,6 +49,8 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
                 value.session.version.execute { version -> render(value, version) }
             } catch (e: MissingJarFileException) {
                 renderError(value, XQueryBundle.message("processor.exception.missing-jar"))
+            } catch (e: UnsupportedJarFileException) {
+                renderError(value, XQueryBundle.message("processor.exception.unsupported-jar"))
             }
         }
     }

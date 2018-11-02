@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
 import java.io.File
 import java.io.InputStream
 
@@ -35,6 +36,10 @@ object BaseXSession : QueryProcessorApi {
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         if (jar == null)
             throw MissingJarFileException(displayName)
-        return BaseX(File(jar))
+        return try {
+            BaseX(File(jar))
+        } catch (e: ClassNotFoundException) {
+            throw UnsupportedJarFileException(displayName)
+        }
     }
 }

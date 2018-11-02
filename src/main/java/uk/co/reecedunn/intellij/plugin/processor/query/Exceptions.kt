@@ -33,5 +33,6 @@ abstract class QueryError : RuntimeException() {
 
 class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")
 
-class UnsupportedQueryType(val mimetype: String) :
-    RuntimeException("Unsupported query type: ${mimetype}")
+class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
+
+class UnsupportedQueryType(val mimetype: String) : RuntimeException("Unsupported query type: ${mimetype}")
