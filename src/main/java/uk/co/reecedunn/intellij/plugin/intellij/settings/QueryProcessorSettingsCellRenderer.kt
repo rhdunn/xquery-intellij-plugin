@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
+import java.net.UnknownHostException
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettings>() {
@@ -51,6 +52,8 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
                 renderError(value, XQueryBundle.message("processor.exception.missing-jar"))
             } catch (e: UnsupportedJarFileException) {
                 renderError(value, XQueryBundle.message("processor.exception.unsupported-jar"))
+            } catch (e: UnknownHostException) {
+                renderError(value, XQueryBundle.message("processor.exception.unknown-hostname"))
             }
         }
     }

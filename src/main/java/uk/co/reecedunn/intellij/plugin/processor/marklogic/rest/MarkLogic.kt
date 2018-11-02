@@ -22,6 +22,7 @@ import org.apache.http.impl.client.HttpClients
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import java.net.UnknownHostException
 
 class MarkLogic : QueryProcessorInstanceManager {
     override fun create(): QueryProcessor {
@@ -30,6 +31,9 @@ class MarkLogic : QueryProcessorInstanceManager {
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
+        if (settings.hostname.isEmpty())
+            throw UnknownHostException("")
+
         val baseUrl = "http://${settings.hostname}:${settings.databasePort}"
 
         if (settings.username == null || settings.password == null) {
