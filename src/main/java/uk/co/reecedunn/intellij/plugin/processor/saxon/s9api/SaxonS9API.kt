@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryInstanceException
+import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
@@ -34,10 +34,7 @@ object SaxonS9API : QueryProcessorApi {
 
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         if (jar == null)
-            throw QueryInstanceException(
-                "A JAR file is required for Saxon s9api query processors.",
-                "processor.exception.missing-jar"
-            )
+            throw MissingJarFileException(displayName)
         return Saxon(File(jar), config)
     }
 }

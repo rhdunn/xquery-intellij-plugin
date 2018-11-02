@@ -15,12 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
-
-class QueryInstanceException(message: String, private val bundleId: String) : RuntimeException(message) {
-    val displayMessage: String get() = XQueryBundle.message(bundleId)
-}
-
 abstract class QueryError : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
@@ -36,6 +30,8 @@ abstract class QueryError : RuntimeException() {
 
     abstract val columnNumber: Int?
 }
+
+class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")
 
 class UnsupportedQueryType(val mimetype: String) :
     RuntimeException("Unsupported query type: ${mimetype}")

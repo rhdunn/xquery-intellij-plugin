@@ -17,7 +17,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryInstanceException
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.JList
 
@@ -45,8 +46,8 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
             render(value, null)
             try {
                 value.session.version.execute { version -> render(value, version) }
-            } catch (e: QueryInstanceException) {
-                renderError(value, e.displayMessage)
+            } catch (e: MissingJarFileException) {
+                renderError(value, XQueryBundle.message("processor.exception.missing-jar"))
             }
         }
     }
