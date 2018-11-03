@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import org.apache.http.conn.HttpHostConnectException
+import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import java.net.UnknownHostException
 
@@ -55,6 +56,8 @@ fun Throwable.toQueryUserMessage(): String {
             XQueryBundle.message("processor.exception.host-connection-error", message ?: "")
         is HttpHostConnectException ->
             XQueryBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
+        is HttpStatusException ->
+            message!!
         else ->
             throw this
     }
