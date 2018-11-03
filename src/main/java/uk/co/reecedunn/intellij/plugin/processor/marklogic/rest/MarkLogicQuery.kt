@@ -23,12 +23,15 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemType
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
-internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) :
+internal class MarkLogicQuery(
+    val builder: RequestBuilder, val queryParams: JsonObject, val connection: HttpConnection
+) :
     Query {
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -51,7 +54,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         builder.addParameter("vars", params.toString())
         val request = builder.build()
 
-        val response = client.execute(request)
+        val response = connection.execute(request)
         val body = EntityUtils.toString(response.entity)
         response.close()
 

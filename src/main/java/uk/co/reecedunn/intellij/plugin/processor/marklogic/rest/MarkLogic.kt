@@ -15,12 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 
-import org.apache.http.auth.AuthScope
-import org.apache.http.auth.UsernamePasswordCredentials
-import org.apache.http.impl.client.BasicCredentialsProvider
-import org.apache.http.impl.client.HttpClients
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 
@@ -31,20 +27,7 @@ class MarkLogic : QueryProcessorInstanceManager {
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
-        if (settings.hostname.isEmpty())
-            throw MissingHostNameException()
-
         val baseUrl = "http://${settings.hostname}:${settings.databasePort}"
-
-        if (settings.username == null || settings.password == null) {
-            return MarkLogicQueryProcessor(baseUrl, HttpClients.createDefault())
-        }
-
-        val credentials = BasicCredentialsProvider()
-        credentials.setCredentials(
-            AuthScope(settings.hostname, settings.databasePort),
-            UsernamePasswordCredentials(settings.username, settings.password)
-        )
-        return MarkLogicQueryProcessor(baseUrl, HttpClients.custom().setDefaultCredentialsProvider(credentials).build())
+        return MarkLogicQueryProcessor(baseUrl, HttpConnection(settings))
     }
 }

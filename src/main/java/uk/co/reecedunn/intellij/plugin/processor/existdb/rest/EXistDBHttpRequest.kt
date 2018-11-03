@@ -22,10 +22,11 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.get
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
+internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
@@ -37,7 +38,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         val request = builder.build()
 
-        val response = client.execute(request)
+        val response =  connection.execute(request)
         val body = EntityUtils.toString(response.entity)
         response.close()
 
