@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
+import com.intellij.icons.AllIcons
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.project.Project
@@ -35,13 +37,21 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     override val editTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.edit")
 
     override fun validate(editor: SettingsUI<QueryProcessorSettings>, onvalidate: (Boolean) -> Unit) {
+        (editor as QueryProcessorSettingsDialogUI).oninfo(
+            XQueryBundle.message("xquery.settings.dialog.query-processor.validating-processor")
+        )
+
         val settings = QueryProcessorSettings()
         editor.apply(settings)
         try {
             settings.session.version
-            onvalidate(true)
+                .execute(ModalityState.any()) { _ -> onvalidate(true) }
+                .onException { e ->
+                    editor.onerror(e.toQueryUserMessage())
+                    onvalidate(false)
+                }
         } catch (e: Throwable) {
-            (editor as QueryProcessorSettingsDialogUI).onerror(e.toQueryUserMessage())
+            editor.onerror(e.toQueryUserMessage())
             onvalidate(false)
         }
     }
@@ -171,7 +181,14 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         createStandaloneUI()
     }
 
+    fun oninfo(message: String) {
+        errorMessage!!.icon = AllIcons.General.Information
+        errorMessage!!.text = message
+        errorMessage!!.isVisible = true
+    }
+
     fun onerror(message: String) {
+        errorMessage!!.icon = AllIcons.General.Error
         errorMessage!!.text = message
         errorMessage!!.isVisible = true
     }
