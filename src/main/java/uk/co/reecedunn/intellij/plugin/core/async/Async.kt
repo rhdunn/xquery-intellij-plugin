@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.async
 
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
 import java.util.concurrent.*
 import kotlin.reflect.KProperty
 
@@ -27,6 +28,8 @@ interface ExecutableOnPooledThread<T> {
     fun execute(): FutureException<T>
 
     fun execute(later: (T) -> Unit): FutureException<T>
+
+    fun execute(modalityState: ModalityState, later: (T) -> Unit): FutureException<T>
 
     fun <U> then(g: (T) -> U): ExecutableOnPooledThread<U>
 }
@@ -93,9 +96,13 @@ private class ExecuteOnPooledThread<T>(val f: () -> T) : ExecutableOnPooledThrea
     }
 
     override fun execute(later: (T) -> Unit): FutureException<T> {
+        return execute(ModalityState.defaultModalityState(), later)
+    }
+
+    override fun execute(modalityState: ModalityState, later: (T) -> Unit): FutureException<T> {
         val task = FutureExceptionTask<T>(Callable {
             val ret = f()
-            ApplicationManager.getApplication().invokeLater { later(ret) }
+            ApplicationManager.getApplication().invokeLater({ later(ret) }, modalityState)
             ret
         })
         ApplicationManager.getApplication().executeOnPooledThread(task)
@@ -143,6 +150,10 @@ private class ExecuteOnLocalThread<T>(val f: () -> T) : ExecutableOnPooledThread
     }
 
     override fun execute(later: (T) -> Unit): FutureException<T> {
+        return execute(ModalityState.defaultModalityState(), later)
+    }
+
+    override fun execute(modalityState: ModalityState, later: (T) -> Unit): FutureException<T> {
         return try {
             val ret = f()
             later(ret)
@@ -169,6 +180,10 @@ private class CachedExecutableOnLocalThread<T>(val e: ExecutableOnPooledThread<T
     }
 
     override fun execute(later: (T) -> Unit): FutureException<T> {
+        return execute(ModalityState.defaultModalityState(), later)
+    }
+
+    override fun execute(modalityState: ModalityState, later: (T) -> Unit): FutureException<T> {
         if (cached == null) {
             cached = e.execute(later)
         } else if (cached!!.get() != null) {
