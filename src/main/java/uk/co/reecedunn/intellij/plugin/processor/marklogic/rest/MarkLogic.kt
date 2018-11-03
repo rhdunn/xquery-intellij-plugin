@@ -20,9 +20,9 @@ import org.apache.http.auth.UsernamePasswordCredentials
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.client.HttpClients
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
-import java.net.UnknownHostException
 
 class MarkLogic : QueryProcessorInstanceManager {
     override fun create(): QueryProcessor {
@@ -32,7 +32,7 @@ class MarkLogic : QueryProcessorInstanceManager {
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
         if (settings.hostname.isEmpty())
-            throw UnknownHostException("")
+            throw MissingHostNameException()
 
         val baseUrl = "http://${settings.hostname}:${settings.databasePort}"
 

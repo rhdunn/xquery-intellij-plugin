@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
@@ -36,6 +37,7 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         val message = when (e) {
             is MissingJarFileException -> XQueryBundle.message("processor.exception.missing-jar")
             is UnsupportedJarFileException -> XQueryBundle.message("processor.exception.unsupported-jar")
+            is MissingHostNameException -> XQueryBundle.message("processor.exception.missing-hostname")
             is UnknownHostException -> XQueryBundle.message("processor.exception.unknown-hostname")
             else -> throw e
         }

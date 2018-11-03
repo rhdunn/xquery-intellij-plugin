@@ -35,4 +35,6 @@ class MissingJarFileException(val jarType: String) : RuntimeException("Missing J
 
 class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
 
+class MissingHostNameException() : RuntimeException("Missing hostname.")
+
 class UnsupportedQueryType(val mimetype: String) : RuntimeException("Unsupported query type: ${mimetype}")
