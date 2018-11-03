@@ -32,7 +32,14 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
     }
 
-    private fun renderError(value: QueryProcessorSettings, message: String) {
+    private fun renderError(value: QueryProcessorSettings, e: Throwable) {
+        val message = when (e) {
+            is MissingJarFileException -> XQueryBundle.message("processor.exception.missing-jar")
+            is UnsupportedJarFileException -> XQueryBundle.message("processor.exception.unsupported-jar")
+            is UnknownHostException -> XQueryBundle.message("processor.exception.unknown-hostname")
+            else -> throw e
+        }
+
         clear()
         append(value.api.displayName, SimpleTextAttributes.ERROR_ATTRIBUTES)
         value.name?.let { append(" ($it)", SimpleTextAttributes.ERROR_ATTRIBUTES) }
@@ -48,12 +55,8 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
             render(value, null)
             try {
                 value.session.version.execute { version -> render(value, version) }
-            } catch (e: MissingJarFileException) {
-                renderError(value, XQueryBundle.message("processor.exception.missing-jar"))
-            } catch (e: UnsupportedJarFileException) {
-                renderError(value, XQueryBundle.message("processor.exception.unsupported-jar"))
-            } catch (e: UnknownHostException) {
-                renderError(value, XQueryBundle.message("processor.exception.unknown-hostname"))
+            } catch (e: Throwable) {
+                renderError(value, e)
             }
         }
     }
