@@ -17,13 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
-import org.apache.http.conn.HttpHostConnectException
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
-import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
-import java.net.UnknownHostException
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcessorSettings>() {
@@ -34,22 +28,7 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         value.name?.let { append(" ($it)", SimpleTextAttributes.GRAY_ATTRIBUTES) }
     }
 
-    private fun renderError(value: QueryProcessorSettings, e: Throwable) {
-        val message = when (e) {
-            is MissingJarFileException ->
-                XQueryBundle.message("processor.exception.missing-jar")
-            is UnsupportedJarFileException ->
-                XQueryBundle.message("processor.exception.unsupported-jar")
-            is MissingHostNameException ->
-                XQueryBundle.message("processor.exception.missing-hostname")
-            is UnknownHostException ->
-                XQueryBundle.message("processor.exception.host-connection-error", e.message ?: "")
-            is HttpHostConnectException ->
-                XQueryBundle.message("processor.exception.host-connection-error", e.host?.toHostString() ?: "")
-            else ->
-                throw e
-        }
-
+    private fun renderError(value: QueryProcessorSettings, message: String) {
         clear()
         append(value.api.displayName, SimpleTextAttributes.ERROR_ATTRIBUTES)
         value.name?.let { append(" ($it)", SimpleTextAttributes.ERROR_ATTRIBUTES) }
@@ -66,9 +45,9 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
             try {
                 value.session.version
                     .execute { version -> render(value, version) }
-                    .onException { e -> renderError(value, e) }
+                    .onException { e -> renderError(value, e.toQueryUserMessage()) }
             } catch (e: Throwable) {
-                renderError(value, e)
+                renderError(value, e.toQueryUserMessage())
             }
         }
     }

@@ -15,6 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import org.apache.http.conn.HttpHostConnectException
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import java.net.UnknownHostException
+
 abstract class QueryError : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
@@ -38,3 +42,20 @@ class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsup
 class MissingHostNameException() : RuntimeException("Missing hostname.")
 
 class UnsupportedQueryType(val mimetype: String) : RuntimeException("Unsupported query type: ${mimetype}")
+
+fun Throwable.toQueryUserMessage(): String {
+    return when (this) {
+        is MissingJarFileException ->
+            XQueryBundle.message("processor.exception.missing-jar")
+        is UnsupportedJarFileException ->
+            XQueryBundle.message("processor.exception.unsupported-jar")
+        is MissingHostNameException ->
+            XQueryBundle.message("processor.exception.missing-hostname")
+        is UnknownHostException ->
+            XQueryBundle.message("processor.exception.host-connection-error", message ?: "")
+        is HttpHostConnectException ->
+            XQueryBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
+        else ->
+            throw this
+    }
+}
