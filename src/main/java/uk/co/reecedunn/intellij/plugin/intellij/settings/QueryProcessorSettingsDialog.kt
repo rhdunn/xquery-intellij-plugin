@@ -25,10 +25,7 @@ import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.QUERY_PROCESSOR_APIS
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.awt.event.ActionEvent
 import javax.swing.*
 
@@ -36,6 +33,18 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     override val resizable: Boolean = true
     override val createTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.create")
     override val editTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.edit")
+
+    override fun validate(editor: SettingsUI<QueryProcessorSettings>, onvalidate: (Boolean) -> Unit) {
+        val settings = QueryProcessorSettings()
+        editor.apply(settings)
+        try {
+            settings.session.version
+            onvalidate(true)
+        } catch (e: Throwable) {
+            (editor as QueryProcessorSettingsDialogUI).onerror(e.toQueryUserMessage())
+            onvalidate(false)
+        }
+    }
 
     override fun createSettingsUI(): SettingsUI<QueryProcessorSettings> {
         return QueryProcessorSettingsDialogUI(project)
@@ -143,6 +152,7 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
     private var adminPort: JTextField? = null
     private var username: JTextField? = null
     private var password: JPasswordField? = null
+    private var errorMessage: JLabel? = null
 
     private fun createUIComponents() {
         name = JTextField()
@@ -151,10 +161,19 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         adminPort = JTextField()
         username = JTextField()
         password = JPasswordField()
+
+        errorMessage = JLabel()
+        errorMessage!!.isVisible = false
+
         createQueryProcessorApiUI()
         createJarUI()
         createConfigurationUI()
         createStandaloneUI()
+    }
+
+    fun onerror(message: String) {
+        errorMessage!!.text = message
+        errorMessage!!.isVisible = true
     }
 
     // endregion

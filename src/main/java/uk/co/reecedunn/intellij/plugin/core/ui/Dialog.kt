@@ -16,11 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.core.ui
 
 import com.intellij.openapi.ui.DialogBuilder
+import com.intellij.openapi.ui.DialogWrapper
 
 abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
     abstract val resizable: Boolean
     abstract val createTitle: String
     abstract val editTitle: String
+
+    open fun validate(editor: SettingsUI<Configuration>, onvalidate: (Boolean) -> Unit) {
+        onvalidate(true)
+    }
 
     private fun run(configuration: Configuration, title: String): Boolean {
         val editor = createSettingsUI()
@@ -30,6 +35,13 @@ abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
         builder.setTitle(title)
         builder.setCenterPanel(editor.panel!!)
         builder.setPreferredFocusComponent(null)
+        builder.setOkOperation {
+            validate(editor) { valid ->
+                if (valid) {
+                    builder.dialogWrapper.close(DialogWrapper.OK_EXIT_CODE)
+                }
+            }
+        }
 
         editor.reset(configuration)
         if (builder.showAndGet()) {
