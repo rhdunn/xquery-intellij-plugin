@@ -62,6 +62,13 @@ class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), F
         onerror = f
     }
 
+    override fun run() {
+        super.run()
+        // Ensure the onException callback gets invoked on errors, as
+        // ApplicationManager.executeOnPooledThread may not call get.
+        if (isDone) get()
+    }
+
     override fun get(): T? {
         return try {
             super.get()
