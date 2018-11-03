@@ -36,7 +36,9 @@ abstract class Dialog<Configuration> : SettingsUIFactory<Configuration> {
         builder.setCenterPanel(editor.panel!!)
         builder.setPreferredFocusComponent(null)
         builder.setOkOperation {
+            builder.dialogWrapper.isOKActionEnabled = false
             validate(editor) { valid ->
+                builder.dialogWrapper.isOKActionEnabled = true
                 if (valid) {
                     builder.dialogWrapper.close(DialogWrapper.OK_EXIT_CODE)
                 }
