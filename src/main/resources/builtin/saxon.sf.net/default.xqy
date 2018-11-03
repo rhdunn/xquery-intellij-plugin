@@ -4,7 +4,7 @@ xquery version "1.0";
  : @see http://www.saxonica.com/html/documentation/functions/saxon
  :
  :)
-module namespace saxon = "http://saxon.sf.net/saxon";
+module namespace saxon = "http://saxon.sf.net/";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
