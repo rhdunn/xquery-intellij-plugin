@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
+import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
@@ -35,11 +36,18 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
 
     private fun renderError(value: QueryProcessorSettings, e: Throwable) {
         val message = when (e) {
-            is MissingJarFileException -> XQueryBundle.message("processor.exception.missing-jar")
-            is UnsupportedJarFileException -> XQueryBundle.message("processor.exception.unsupported-jar")
-            is MissingHostNameException -> XQueryBundle.message("processor.exception.missing-hostname")
-            is UnknownHostException -> XQueryBundle.message("processor.exception.unknown-hostname")
-            else -> throw e
+            is MissingJarFileException ->
+                XQueryBundle.message("processor.exception.missing-jar")
+            is UnsupportedJarFileException ->
+                XQueryBundle.message("processor.exception.unsupported-jar")
+            is MissingHostNameException ->
+                XQueryBundle.message("processor.exception.missing-hostname")
+            is UnknownHostException ->
+                XQueryBundle.message("processor.exception.host-connection-error", e.message ?: "")
+            is HttpHostConnectException ->
+                XQueryBundle.message("processor.exception.host-connection-error", e.host?.toHostString() ?: "")
+            else ->
+                throw e
         }
 
         clear()
