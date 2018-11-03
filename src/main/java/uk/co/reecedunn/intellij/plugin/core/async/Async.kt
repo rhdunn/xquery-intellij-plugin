@@ -55,7 +55,8 @@ fun <T> cached(f: () -> ExecutableOnPooledThread<T>): ExecutableOnPooledThread<T
 }
 
 class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), FutureException<T> {
-    var onerror: ((Throwable) -> Unit)? = null
+    private var onerror: ((Throwable) -> Unit)? = null
+    private var onerrorCalled: Boolean = false
 
     override fun onException(f: (Throwable) -> Unit) {
         onerror = f
@@ -67,8 +68,10 @@ class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), F
         } catch (e: ExecutionException) {
             if (onerror == null)
                 throw e
-            else
+            else if (!onerrorCalled) {
+                onerrorCalled = true
                 onerror!!.invoke(e.cause!!)
+            }
             return null
         }
     }
@@ -79,8 +82,10 @@ class FutureExceptionTask<T>(callable: Callable<T>) : FutureTask<T>(callable), F
         } catch (e: ExecutionException) {
             if (onerror == null)
                 throw e
-            else
+            else if (!onerrorCalled) {
+                onerrorCalled = true
                 onerror!!.invoke(e.cause!!)
+            }
             return null
         }
     }
