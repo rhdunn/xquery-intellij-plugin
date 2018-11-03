@@ -54,7 +54,9 @@ class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<QueryProcesso
         if (value != null) {
             render(value, null)
             try {
-                value.session.version.execute { version -> render(value, version) }
+                value.session.version
+                    .execute { version -> render(value, version) }
+                    .onException { e -> renderError(value, e) }
             } catch (e: Throwable) {
                 renderError(value, e)
             }
