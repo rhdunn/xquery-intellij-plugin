@@ -233,8 +233,8 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
             val dbPort = databasePort!!.text.toInt()
             val amPort = adminPort!!.text.toInt()
             val user = username!!.textOrNull()
-            val pass = password!!.password?.let { if (it.isEmpty()) null else String(it) }
-            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, amPort, user, pass?.toString())
+            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, amPort, user)
+            configuration.connection!!.setPassword(password!!.password?.let { if (it.isEmpty()) null else it })
         } else {
             configuration.connection = null
         }
