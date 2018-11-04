@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
  : BaseX CSV Module functions
  :
@@ -11,7 +11,29 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/7.7.2";
 
-declare %a:since("basex", "7.7.2") function csv:parse($string as xs:string? (: $string [7.7.2] as xs:string [9.1] as xs:string?:)) as item()? (: [7.7.2] as element(csv) [7.8] as document-node(element(csv)) [9.1] as item()? :) external;
-declare %a:since("basex", "7.7.2") function csv:parse($string as xs:string? (: $string [7.7.2] as xs:string [9.1] as xs:string?	:), $options as map(*)? (: $options [7.7.2] as item() [8.2.1] as map(xs:string, item()) [8.6.7] as map(*)? :)) as item()? (: [7.7.2] as element(csv) [7.8] as document-node(element(csv)) [9.1] as item()? :) external;
-declare %a:since("basex", "7.7.2") function csv:serialize($input as item()? (:$input [7.7.2] as node() [8.6.7] as item()? :)) as xs:string external;
-declare %a:since("basex", "7.7.2") function csv:serialize($input as item()? (:$input [7.7.2] as node() [8.6.7] as item()? :), $options as map(*)? (: $options [7.7.2] as item() [8.2.1] as map(xs:string, item()) [8.6.7] as map(*)? :)) as xs:string external;
+declare type csv-string = (
+    %a:since("basex", "7.7.2") %a:until("basex", "9.1") for xs:string |
+    %a:since("basex", "9.1") for xs:string?
+);
+
+declare type csv-result = (
+    %a:since("basex", "7.7.2") %a:until("basex", "7.8") for element(csv) |
+    %a:since("basex", "7.8") %a:until("basex", "9.1") for document-node(element(csv)) |
+    %a:since("basex", "9.1") for item()?
+);
+
+declare type csv-options = (
+    %a:since("basex", "7.7.2") %a:until("basex", "8.2.1") for item() |
+    %a:since("basex", "8.2.1") %a:until("basex", "8.6.7") for map(xs:string, item()) |
+    %a:since("basex", "8.6.7.1") for map(*)?
+);
+
+declare type csv-data = (
+    %a:since("basex", "7.7.2") %a:until("basex", "8.6.7") for node() |
+    %a:since("basex", "8.6.7") for item()?
+);
+
+declare %a:since("basex", "7.7.2") function csv:parse($string as csv-string) as csv-result external;
+declare %a:since("basex", "7.7.2") function csv:parse($string as csv-string, $options as csv-options) as csv-result external;
+declare %a:since("basex", "7.7.2") function csv:serialize($input as csv-data) as xs:string external;
+declare %a:since("basex", "7.7.2") function csv:serialize($input as csv-data, $options as csv-options) as xs:string external;
