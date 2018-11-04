@@ -1092,32 +1092,38 @@ in this document:
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
-1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays) \[MarkLogic 8.0\] -- JSON support
 1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
-1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#383-booleans) \[MarkLogic 8.0\] -- JSON support
-1.  [Document Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
-1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps) \[MarkLogic 8.0\] -- JSON support
-1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
-1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#385-nulls) \[MarkLogic 8.0\] -- JSON support
-1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#384-numbers) \[MarkLogic 8.0\] -- JSON support
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
-1.  [Text Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\] -- JSON support
 1.  [Transactions](#44-transactions)
+1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
+
+MarkLogic also supports the following syntax for XQuery 3.0 constructs:
 1.  [Try/Catch Expressions](#311-trycatch-expressions)
 1.  [Validate Expressions](#310-validate-expressions)
-1.  [Predefined Entity References](#373-literals) -- HTML4 and HTML5 predefined entities
+
+MarkLogic 8.0 supports the following JSON syntax extensions:
+1.  [Array Node Test](#2128-array-node-test) and [Array Constructors](#382-arrays)
+1.  [Boolean Node Test](#2125-boolean-node-test) and [Boolean Constructors](#383-booleans)
+1.  [Document Tests](#211-sequencetype-syntax)
+1.  [Map Node Test](#2129-map-node-test) and [Map Constructors](#381-maps)
+1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\]
+1.  [Null Node Test](#2127-null-node-test) and [Null Constructors](#385-nulls)
+1.  [Number Node Test](#2126-number-node-test) and [Number Constructors](#384-numbers)
+1.  [Text Tests](#211-sequencetype-syntax)
 
 ### C.3 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
-1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
 1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+
+Older versions of Saxon support the following working draft syntax:
+1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
 
 ### C.4 IntelliJ Plugin Extensions
 The following constructs have had their grammar modified to make it easier to
@@ -1138,8 +1144,7 @@ in this document:
 1.  [Annotated Sequence Types](#21211-annotated-function-tests-and-sequence-types)
 
 ### C.5 eXist-db Extensions
-The eXist-db XQuery Processor supports the following vendor extensions described
-in this document:
+Older versions of eXist-db support the following working draft syntax:
 1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty-sequence()` in 4.0 and
     later; `empty()` in older versions.
 
