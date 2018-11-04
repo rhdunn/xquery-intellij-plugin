@@ -47,6 +47,8 @@ class QueryProcessorSettings : Closeable {
         this.connection = connection
     }
 
+    var id: Int = 0
+
     var name: String? = null
 
     var apiId: String = QUERY_PROCESSOR_APIS.first().id

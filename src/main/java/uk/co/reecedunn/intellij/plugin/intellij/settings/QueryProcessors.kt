@@ -27,14 +27,20 @@ import kotlin.collections.ArrayList
 class QueryProcessors : PersistentStateComponent<QueryProcessors> {
     // region Processors
 
+    var currentProcessorId: Int = 0
+
     var processors: List<QueryProcessorSettings> = ArrayList()
 
     fun addProcessor(processor: QueryProcessorSettings) {
         (processors as ArrayList<QueryProcessorSettings>).add(processor)
+        currentProcessorId++
+        processor.id = currentProcessorId
     }
 
     fun setProcessor(index: Int, processor: QueryProcessorSettings) {
+        val id = processors[index].id
         (processors as ArrayList<QueryProcessorSettings>).set(index, processor)
+        processor.id = id
     }
 
     fun removeProcessor(index: Int) {
