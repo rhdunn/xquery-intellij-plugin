@@ -20,11 +20,13 @@ import com.intellij.credentialStore.Credentials
 import com.intellij.ide.passwordSafe.PasswordSafe
 
 data class ConnectionSettings(
-    val hostname: String,
-    val databasePort: Int,
-    val adminPort: Int,
-    val username: String?
+    var hostname: String,
+    var databasePort: Int,
+    var adminPort: Int,
+    var username: String?
 ) {
+    constructor(): this("", 0, 0, null)
+
     private val serviceName: String = "uk.co.reecedunn.intellij.plugin.processor: $hostname:$databasePort"
 
     val password: String?
