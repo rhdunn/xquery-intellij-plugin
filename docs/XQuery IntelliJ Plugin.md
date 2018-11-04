@@ -73,6 +73,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [C.5 eXist-db Extensions](#c5-exist-db-extensions)
   - [C.6 XPath 2.0 Working Draft 02 May 2003](#c6-xpath-20-working-draft-02-may-2003)
   - [C.7 XQuery 1.0 Working Draft 02 May 2003](#c7-xquery-10-working-draft-02-may-2003)
+  - [C.8 EXPath Syntax Extensions](#c8-expath-syntax-extensions)
 - [D Error and Warning Conditions](#d-error-and-warning-conditions)
   - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
@@ -154,7 +155,9 @@ version.
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 
-The `UnionType` is a new sequence type supported by Saxon 9.8.
+The `UnionType` is a new sequence type supported by Saxon 9.8. It is
+[proposal 6](https://github.com/expath/xpath-ng/pull/6) of the EXPath
+syntax extensions for XPath and XQuery.
 
 A `UnionType` defines a union type whose members are the `EQName` types listed
 in the type definition. These types are restricted to being atomic types (that
@@ -540,7 +543,10 @@ be determined statically.
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[81\] | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |         |
 
-This is a Saxon 9.8 extension.
+This is a Saxon 9.8 extension. It is a syntax variant of the focus
+function alternative for inline functions in
+[proposal 5](https://github.com/expath/xpath-ng/pull/5) of the EXPath
+syntax extensions for XPath and XQuery.
 
 The expression `fn{E}` is equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
@@ -1118,9 +1124,11 @@ The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) \[Saxon 9.8\]
+1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+
+Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions) \[Saxon 9.8\]
-1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
 
 Older versions of Saxon support the following working draft syntax:
 1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
@@ -1157,6 +1165,14 @@ differences to the XPath 2.0 Recommendation, described in this document:
 The XQuery 1.0 Working Draft 02 May 2003 specification supports the following
 differences to the XQuery 1.0 Recommendation, described in this document:
 1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
+
+### C.8 EXPath Syntax Extensions
+The EXPath group have a collection of proposed
+[EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
+XQuery. The following proposals are supported by this plugin:
+1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
+    \[[Proposal 5](https://github.com/expath/xpath-ng/pull/5)\] -- focus functions
+1.  [Union Type](#2121-union-type) \[[Proposal 6](https://github.com/expath/xpath-ng/pull/6)\]
 
 ## D Error and Warning Conditions
 
