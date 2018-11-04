@@ -60,7 +60,7 @@ class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFac
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
-        TODO()
+        return QueryProcessorRunState(environment)
     }
 
     // endregion
