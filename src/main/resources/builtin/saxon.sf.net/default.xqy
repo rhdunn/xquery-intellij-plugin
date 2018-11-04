@@ -25,3 +25,13 @@ declare %a:since("saxon/pe", "8.6.1") %a:since("saxon/ee", "8.6.1") function sax
 declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:discard-document($doc as document-node()) as document-node() external;
 declare %a:since("saxon/pe", "7.2") %a:since("saxon/ee", "7.2") function saxon:eval($stored-expression as jt:net.sf.saxon.functions.Evaluate-PreparedExpression, $param1 as item()*, $param2 as item()*, $param3 as item()*) as xs:double external;
 declare %a:since("saxon/pe", "7.2") %a:since("saxon/ee", "7.2") function saxon:evaluate($xpath as xs:string, $param1 as item()*, $param2 as item()*, $param3 as item()*) as item()* external;
+declare %a:since("saxon/pe", "8.2") %a:since("saxon/ee", "8.2") function saxon:evaluate-node($node as node()) as item()* external;
+declare %a:since("saxon/pe", "7.2") %a:since("saxon/ee", "7.2") function saxon:expression($string as xs:string) as jt:net.sf.saxon.functions.Evaluate-PreparedExpression external;
+declare %a:since("saxon/pe", "7.2") %a:since("saxon/ee", "7.2") function saxon:expression($string as xs:string, $ns as element()) as jt:net.sf.saxon.functions.Evaluate-PreparedExpression external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:get-pseudo-attribute($att as xs:string) as xs:string? external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:has-same-nodes($arg1 as node()*, $arg2 as node()*) as xs:boolean external;
+declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:hexBinary-to-octets($input as xs:hexBinary) as xs:integer* external;
+declare %a:since("saxon/pe", "8.5") %a:since("saxon/ee", "8.5") function saxon:hexBinary-to-string($input as xs:hexBinary, $encoding as xs:string) as xs:string external;
+declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*) as item()* external;
+declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*, $key as function(*) (: $key [8.1] as jt:net.sf.saxon.functions.Evaluate-PreparedExpression [9.2] as function() [9.5] as function(*) :)) as item()* external;
+declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:in-summer-time($date as xs:dateTime, $region as xs:string) as xs:boolean external;
