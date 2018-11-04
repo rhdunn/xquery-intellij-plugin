@@ -18,12 +18,14 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
-import com.intellij.ui.ColoredListCellRenderer
-import com.intellij.ui.SimpleTextAttributes
+import com.intellij.openapi.ui.DialogBuilder
+import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import java.awt.Dimension
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project) :
@@ -45,23 +47,47 @@ class QueryProcessorRunConfigurationEditor(private val project: Project) :
     }
 }
 
-class QueryProcessorRunConfigurationEditorUI(private val project: Project) : SettingsUI<QueryProcessorRunConfiguration> {
+class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
+    SettingsUI<QueryProcessorRunConfiguration> {
     // region Query Processor
 
     private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
-    private var createQueryProcessor: JButton? = null
+    private var manageQueryProcessors: JButton? = null
 
     private fun createQueryProcessorUI() {
         queryProcessor = ComboBox()
         queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
 
-        createQueryProcessor = JButton()
-        createQueryProcessor!!.addActionListener {
-            val settings = QueryProcessorSettings()
-            val dialog = QueryProcessorSettingsDialog(project)
-            if (dialog.create(settings)) {
-                queryProcessor!!.addItem(settings)
+        manageQueryProcessors = JButton()
+        manageQueryProcessors!!.addActionListener {
+            val list = object : EditableListPanel<QueryProcessorSettings>(queryProcessor!!.model) {
+                override fun add() {
+                    val item = QueryProcessorSettings()
+                    val dialog = QueryProcessorSettingsDialog(project)
+                    if (dialog.create(item))
+                        queryProcessor!!.addItem(item)
+                }
+
+                override fun edit(index: Int) {
+                    val item = queryProcessor!!.getItemAt(index)
+                    val dialog = QueryProcessorSettingsDialog(project)
+                    dialog.edit(item)
+                }
+
+                override fun remove(index: Int) {
+                    queryProcessor!!.removeItemAt(index)
+                }
             }
+            list.cellRenderer = QueryProcessorSettingsCellRenderer()
+            list.emptyText = XQueryBundle.message("xquery.configurations.processor.manage-processors-empty")
+
+            val panel = list.createPanel()
+            panel.minimumSize = Dimension(300, 200)
+
+            val builder = DialogBuilder()
+            builder.setTitle(XQueryBundle.message("xquery.configurations.processor.manage-processors"))
+            builder.setCenterPanel(panel)
+            builder.showAndGet()
         }
     }
 
