@@ -36,8 +36,13 @@ class QueryProcessHandler(val query: Query) : ProcessHandler() {
         super.startNotify()
         try {
             query.run().execute { results ->
-                results.forEach { result -> notifyResult(result) }
-                notifyProcessDetached()
+                try {
+                    results.forEach { result -> notifyResult(result) }
+                } catch (e: Throwable) {
+                    notifyException(e)
+                } finally {
+                    notifyProcessDetached()
+                }
             }.onException { e ->
                 notifyException(e)
                 notifyProcessDetached()
