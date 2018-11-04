@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
@@ -114,13 +115,17 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     override var panel: JPanel? = null
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
+        if ((queryProcessor!!.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
+            return true
         return false
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
+        queryProcessor!!.selectedItem = configuration.processor
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
+        configuration.processorId = (queryProcessor!!.selectedItem as? QueryProcessorSettings?)?.id
     }
 
     // endregion

@@ -18,14 +18,42 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+
+data class QueryProcessorRunConfigurationData(
+    var processorId: Int? = null
+) : RunConfigurationOptions()
 
 class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFactory, name: String) :
-    RunConfigurationBase<QueryProcessorRunConfigurationEditor>(project, factory, name) {
+    RunConfigurationBase<QueryProcessorRunConfigurationEditor>(project, factory, name),
+    PersistentStateComponent<QueryProcessorRunConfigurationData> {
+    // region Settings
+
+    private val data = QueryProcessorRunConfigurationData()
+
+    var processorId: Int?
+        get() = data.processorId
+        set(value) {
+            data.processorId = value
+        }
+
+    var processor: QueryProcessorSettings?
+        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
+        set(value) {
+            data.processorId = value?.id
+        }
+
+    // endregion
+    // region RunConfigurationBase
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
         return QueryProcessorRunConfigurationEditor(project)
@@ -34,4 +62,13 @@ class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFac
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
         TODO()
     }
+
+    // endregion
+    // region PersistentStateComponent
+
+    override fun getState(): QueryProcessorRunConfigurationData? = data
+
+    override fun loadState(state: QueryProcessorRunConfigurationData) = XmlSerializerUtil.copyBean(state, data)
+
+    // endregion
 }
