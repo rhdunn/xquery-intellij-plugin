@@ -19,9 +19,12 @@ import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
-        return QueryProcessHandler()
+        val configuration = environment.runProfile as QueryProcessorRunConfiguration
+        val query = configuration.processor!!.session.eval("1 to 3", MimeTypes.XQUERY)
+        return QueryProcessHandler(query)
     }
 }

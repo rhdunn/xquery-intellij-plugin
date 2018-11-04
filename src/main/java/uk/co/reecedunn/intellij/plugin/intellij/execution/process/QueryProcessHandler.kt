@@ -16,9 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.process.ProcessOutputTypes
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.io.OutputStream
 
-class QueryProcessHandler : ProcessHandler() {
+class QueryProcessHandler(val query: Query) : ProcessHandler() {
     // region ProcessHandler
 
     override fun getProcessInput(): OutputStream? = null
@@ -28,6 +31,34 @@ class QueryProcessHandler : ProcessHandler() {
     override fun detachProcessImpl() {}
 
     override fun destroyProcessImpl() {}
+
+    override fun startNotify() {
+        super.startNotify()
+        try {
+            query.run().execute { results ->
+                results.forEach { result -> notifyResult(result) }
+                notifyProcessDetached()
+            }.onException { e ->
+                notifyException(e)
+                notifyProcessDetached()
+            }
+        } catch(e: Throwable) {
+            notifyException(e)
+            notifyProcessDetached()
+        }
+    }
+
+    // endregion
+    // Query Results
+
+    fun notifyException(e: Throwable) {
+        e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
+    }
+
+    fun notifyResult(result: QueryResult) {
+        notifyTextAvailable("----- ${result.type} [${result.mimetype}]\n", ProcessOutputTypes.STDOUT)
+        notifyTextAvailable("${result.value}\n", ProcessOutputTypes.STDOUT)
+    }
 
     // endregion
 }
