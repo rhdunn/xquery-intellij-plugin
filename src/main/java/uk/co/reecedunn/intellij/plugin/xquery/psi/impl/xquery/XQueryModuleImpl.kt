@@ -54,7 +54,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
         return staticContextCache
     }
 
-    override fun getFileType(): FileType = XQueryFileType.INSTANCE
+    override fun getFileType(): FileType = XQueryFileType
 
     @Suppress("PropertyName")
     override val XQueryVersions get(): Sequence<XQueryVersionRef> {

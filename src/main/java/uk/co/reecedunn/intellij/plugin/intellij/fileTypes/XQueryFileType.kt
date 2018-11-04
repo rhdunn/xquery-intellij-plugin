@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,12 +31,12 @@ import java.nio.charset.Charset
 import java.nio.charset.UnsupportedCharsetException
 import javax.swing.Icon
 
-private val UTF_8 = Charset.forName("UTF-8")
+object XQueryFileType : LanguageFileType(XQuery) {
+    private val UTF_8 = Charset.forName("UTF-8")
 
-private val FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png")
-private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png")
+    private val FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png")
+    private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png")
 
-class XQueryFileType private constructor() : LanguageFileType(XQuery) {
     override fun getName(): String = "XQuery"
 
     override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")
@@ -119,14 +119,10 @@ class XQueryFileType private constructor() : LanguageFileType(XQuery) {
         return getXQueryEncoding(content)
     }
 
-    companion object {
-        // xq;xqy;xquery -- standard defined extensions
-        // xql           -- XQuery Language (main) file [eXist-db; BaseX]
-        // xqm           -- XQuery Module file [eXist-db; BaseX]
-        // xqu           -- XQuery file [BaseX]
-        // xqws          -- XQuery Web Service [eXist-db]
-        const val EXTENSIONS = "xq;xqy;xquery;xql;xqm;xqu;xqws"
-
-        val INSTANCE = XQueryFileType()
-    }
+    // xq;xqy;xquery -- standard defined extensions
+    // xql           -- XQuery Language (main) file [eXist-db; BaseX]
+    // xqm           -- XQuery Module file [eXist-db; BaseX]
+    // xqu           -- XQuery file [BaseX]
+    // xqws          -- XQuery Web Service [eXist-db]
+    const val EXTENSIONS = "xq;xqy;xquery;xql;xqm;xqu;xqws"
 }
