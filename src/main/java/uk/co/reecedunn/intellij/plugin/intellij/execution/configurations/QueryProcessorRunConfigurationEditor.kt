@@ -15,16 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.ui.DialogBuilder
+import com.intellij.openapi.ui.TextComponentAccessor
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
@@ -47,6 +51,10 @@ class QueryProcessorRunConfigurationEditor(private val project: Project) :
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
         editor!!.apply(configuration)
     }
+}
+
+private fun JTextField.textOrNull(): String? {
+    return text?.let { if (it.isEmpty()) null else it }
 }
 
 class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
@@ -103,10 +111,28 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     }
 
     // endregion
+    // region Script File
+
+    private var scriptFile: ComponentWithBrowseButton<JTextField>? = null
+
+    private fun createScriptFileUI() {
+        val ext = MimeTypes.extensions(MimeTypes.XQUERY)
+
+        scriptFile = ComponentWithBrowseButton(JTextField(), null)
+        scriptFile!!.addBrowseFolderListener(
+            XQueryBundle.message("browser.choose.script-file"), null,
+            project,
+            FileTypeDescriptor(XQueryBundle.message("browser.choose.script-file"), *ext),
+            TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
+        )
+    }
+
+    // endregion
     // region Form
 
     private fun createUIComponents() {
         createQueryProcessorUI()
+        createScriptFileUI()
     }
 
     // endregion
@@ -117,15 +143,19 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
         if ((queryProcessor!!.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
             return true
+        if (scriptFile!!.childComponent.text != configuration.scriptFile)
+            return true
         return false
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
         queryProcessor!!.selectedItem = configuration.processor
+        scriptFile!!.childComponent.text = configuration.scriptFile ?: ""
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = (queryProcessor!!.selectedItem as? QueryProcessorSettings?)?.id
+        configuration.scriptFile = scriptFile!!.childComponent.textOrNull()
     }
 
     // endregion

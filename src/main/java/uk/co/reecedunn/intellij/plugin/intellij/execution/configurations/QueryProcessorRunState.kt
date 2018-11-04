@@ -15,16 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.openapi.vfs.VfsUtil
+import com.intellij.openapi.vfs.VirtualFileManager
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
+import java.io.File
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
-        val query = configuration.processor!!.session.eval("1 to 3", MimeTypes.XQUERY)
+
+        val url = configuration.scriptFile?.let { VfsUtil.pathToUrl(it.replace(File.separatorChar, '/')) }
+        val file = url?.let { VirtualFileManager.getInstance().findFileByUrl(it) }
+            ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
+        val contents = file.inputStream.decode(file.charset)
+
+        val query = configuration.processor!!.session.eval(contents, MimeTypes.XQUERY)
         return QueryProcessHandler(query)
     }
 }

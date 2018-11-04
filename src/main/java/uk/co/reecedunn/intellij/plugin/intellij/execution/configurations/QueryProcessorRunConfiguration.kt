@@ -30,7 +30,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
 data class QueryProcessorRunConfigurationData(
-    var processorId: Int? = null
+    var processorId: Int? = null,
+    var scriptFile: String? = null
 ) : RunConfigurationOptions()
 
 class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFactory, name: String) :
@@ -50,6 +51,12 @@ class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFac
         get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
         set(value) {
             data.processorId = value?.id
+        }
+
+    var scriptFile: String?
+        get() = data.scriptFile
+        set(value) {
+            data.scriptFile = value
         }
 
     // endregion
