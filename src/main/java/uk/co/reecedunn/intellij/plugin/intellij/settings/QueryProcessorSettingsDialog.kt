@@ -208,20 +208,23 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         jar!!.childComponent.text = configuration.jar
         this.configuration!!.childComponent.text = configuration.configurationPath
         if (configuration.connection != null) {
-            standalone!!.isSelected = true
+            standalone!!.isSelected = false
             hostname!!.text = configuration.connection!!.hostname
             databasePort!!.text = configuration.connection!!.databasePort.toString()
             adminPort!!.text = configuration.connection!!.adminPort.toString()
             username!!.text = configuration.connection!!.username
             password!!.text = configuration.connection!!.password
         } else {
-            standalone!!.isSelected = false
+            standalone!!.isSelected = true
             hostname!!.text = ""
             databasePort!!.text = "0"
             adminPort!!.text = "0"
             username!!.text = ""
             password!!.text = ""
         }
+
+        val e = ActionEvent(standalone, 0, "reset", 0)
+        standalone!!.actionListeners.forEach { listener -> listener.actionPerformed(e) }
     }
 
     override fun apply(configuration: QueryProcessorSettings) {
