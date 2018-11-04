@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
+package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.runners.ExecutionEnvironment
-import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
+import java.io.OutputStream
 
-class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
-    override fun startProcess(): ProcessHandler {
-        return QueryProcessHandler()
-    }
+class QueryProcessHandler : ProcessHandler() {
+    // region ProcessHandler
+
+    override fun getProcessInput(): OutputStream? = null
+
+    override fun detachIsDefault(): Boolean = false
+
+    override fun detachProcessImpl() {}
+
+    override fun destroyProcessImpl() {}
+
+    // endregion
 }
