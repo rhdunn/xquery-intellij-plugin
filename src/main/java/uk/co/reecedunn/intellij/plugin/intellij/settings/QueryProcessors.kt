@@ -23,18 +23,23 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import kotlin.collections.ArrayList
 
+data class QueryProcessorsData(
+    var currentProcessorId: Int = 0,
+    var processors: List<QueryProcessorSettings> = ArrayList()
+)
+
 @State(name = "XIJPQueryProcessors", storages = arrayOf(Storage("xijp_processors_config.xml")))
-class QueryProcessors : PersistentStateComponent<QueryProcessors> {
+class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
+    private val data = QueryProcessorsData()
+
     // region Processors
 
-    var currentProcessorId: Int = 0
-
-    var processors: List<QueryProcessorSettings> = ArrayList()
+    val processors: List<QueryProcessorSettings> get() = data.processors
 
     fun addProcessor(processor: QueryProcessorSettings) {
         (processors as ArrayList<QueryProcessorSettings>).add(processor)
-        currentProcessorId++
-        processor.id = currentProcessorId
+        data.currentProcessorId++
+        processor.id = data.currentProcessorId
     }
 
     fun setProcessor(index: Int, processor: QueryProcessorSettings) {
@@ -50,9 +55,9 @@ class QueryProcessors : PersistentStateComponent<QueryProcessors> {
     // endregion
     // region PersistentStateComponent
 
-    override fun getState(): QueryProcessors? = this
+    override fun getState(): QueryProcessorsData? = data
 
-    override fun loadState(state: QueryProcessors) = XmlSerializerUtil.copyBean(state, this)
+    override fun loadState(state: QueryProcessorsData) = XmlSerializerUtil.copyBean(state, data)
 
     // endregion
     // region Instance
