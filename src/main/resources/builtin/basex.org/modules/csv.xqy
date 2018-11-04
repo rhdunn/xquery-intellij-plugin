@@ -25,7 +25,7 @@ declare type csv-result = (
 declare type csv-options = (
     %a:since("basex", "7.7.2") %a:until("basex", "8.2.1") for item() |
     %a:since("basex", "8.2.1") %a:until("basex", "8.6.7") for map(xs:string, item()) |
-    %a:since("basex", "8.6.7.1") for map(*)?
+    %a:since("basex", "8.6.7") for map(*)?
 );
 
 declare type csv-data = (
