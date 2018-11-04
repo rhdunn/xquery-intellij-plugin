@@ -35,3 +35,11 @@ declare %a:since("saxon/pe", "8.5") %a:since("saxon/ee", "8.5") function saxon:h
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*) as item()* external;
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:highest($input as item()*, $key as function(*) (: $key [8.1] as jt:net.sf.saxon.functions.Evaluate-PreparedExpression [9.2] as function() [9.5] as function(*) :)) as item()* external;
 declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:in-summer-time($date as xs:dateTime, $region as xs:string) as xs:boolean external;
+declare %a:since("saxon/pe", "8.3") %a:since("saxon/ee", "8.3") %a:until("saxon/pe", "9.4") %a:until("saxon/ee", "9.4") function saxon:index($sequence as item()*, $expression as jt:net.sf.saxon.functions.Evaluate-PreparedExpression, $collation as xs:string) as jt:com.saxonica.expr.IndexedSequence external;
+declare %a:since("saxon/pe", "9.5") %a:since("saxon/ee", "9.5") function saxon:index($sequence as item()*, $function as function(item()) as xs:anyAtomicType* (: [9.5] as xs:integer  :)) as map(*) (: [8.3] as jt:com.saxonica.expr.IndexedSequence [9.5] as xs:double [9.7] as map(*) :) external;
+declare %a:since("saxon/ee", "9.7") function saxon:is-defaulted($node as node()) as xs:boolean external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:is-whole-number($arg as xs:numeric?) as xs:boolean external;
+declare %a:since("saxon/pe", "9.0") %a:since("saxon/ee", "9.0") function saxon:last-modified($uri as xs:string? (: [9.0] () as document-uri($node)) [9.2] $uri as xs:string? :)) as xs:dateTime? external;
+declare %a:since("saxon/pe", "9.0") %a:since("saxon/ee", "9.0") %a:until("saxon/pe", "9.1") %a:until("saxon/ee", "9.1") function saxon:last-modified($node as node()) as xs:dateTime? external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:leading($input as item()*) as item() external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:leading($input as item()*, $test as function(*) (: [8.0] as jt:net.sf.saxon.functions.Evaluate-PreparedExpression [9.5] as function(*) :)) as item() external;
