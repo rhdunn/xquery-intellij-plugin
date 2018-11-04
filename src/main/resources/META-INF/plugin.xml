@@ -156,11 +156,13 @@
                      enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118"/>
 
-    <!-- Project Settings -->
+    <!-- Application / Project Settings -->
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings"/>
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable"/>
+
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors"/>
 
     <!-- Run/Debug Configurations -->
 

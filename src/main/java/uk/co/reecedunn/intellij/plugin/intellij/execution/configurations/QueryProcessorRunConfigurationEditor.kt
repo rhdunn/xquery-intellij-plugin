@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
+import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
@@ -55,27 +56,36 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     private var manageQueryProcessors: JButton? = null
 
     private fun createQueryProcessorUI() {
-        queryProcessor = ComboBox()
+        val model = DefaultComboBoxModel<QueryProcessorSettings>()
+        QueryProcessors.getInstance().processors.forEach { processor ->
+            model.addElement(processor)
+        }
+
+        queryProcessor = ComboBox(model)
         queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
 
         manageQueryProcessors = JButton()
         manageQueryProcessors!!.addActionListener {
-            val list = object : EditableListPanel<QueryProcessorSettings>(queryProcessor!!.model) {
+            val list = object : EditableListPanel<QueryProcessorSettings>(model) {
                 override fun add() {
                     val item = QueryProcessorSettings()
                     val dialog = QueryProcessorSettingsDialog(project)
-                    if (dialog.create(item))
+                    if (dialog.create(item)) {
                         queryProcessor!!.addItem(item)
+                        QueryProcessors.getInstance().addProcessor(item)
+                    }
                 }
 
                 override fun edit(index: Int) {
                     val item = queryProcessor!!.getItemAt(index)
                     val dialog = QueryProcessorSettingsDialog(project)
-                    dialog.edit(item)
+                    if (dialog.edit(item))
+                        QueryProcessors.getInstance().setProcessor(index, item)
                 }
 
                 override fun remove(index: Int) {
                     queryProcessor!!.removeItemAt(index)
+                    QueryProcessors.getInstance().removeProcessor(index)
                 }
             }
             list.cellRenderer = QueryProcessorSettingsCellRenderer()
