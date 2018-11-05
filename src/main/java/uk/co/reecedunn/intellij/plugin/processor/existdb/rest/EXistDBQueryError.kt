@@ -20,23 +20,30 @@ import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
 private val RE_EXISTDB_MESSAGE =
-    "^exerr:ERROR (org.exist.xquery.XPathException: )?([^ ]+) (.*)( \\[at line ([0-9]+), column ([0-9]+)]\n)?$".toRegex()
+    "^(exerr:ERROR )?(org.exist.xquery.XPathException: )?([^ ]+) (.*)\n?$".toRegex()
+
+private val RE_EXISTDB_LOCATION =
+    "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
 class EXistDBQueryError(exception: String) : QueryError() {
     private val xml = XmlDocument.parse(exception)
-    private val msg = xml.root.children("message").first().firstChild.nodeValue
-    private val parts = RE_EXISTDB_MESSAGE.matchEntire(msg)?.groupValues
+    private val parts by lazy {
+        val messageText = xml.root.children("message").first().firstChild.nodeValue
+        RE_EXISTDB_MESSAGE.matchEntire(messageText)?.groupValues
+            ?: throw RuntimeException("Cannot parse eXist-db error message: $messageText")
+    }
+    private val locationParts = RE_EXISTDB_LOCATION.matchEntire(parts[4].substringAfter(" [at "))?.groupValues
 
     override val standardCode: String =
-        (parts?.get(2)?.let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), "")
+        (parts[3].let { if (it == "Type:") null else it } ?: "FOER0000").replace("^err:".toRegex(), "")
 
     override val vendorCode: String? = null
 
-    override val description: String? = parts?.get(3) ?: msg
+    override val description: String? = parts[4].substringBefore(" [at ")
 
     override val module: String? = xml.root.children("path").first().firstChild.nodeValue
 
-    override val lineNumber: Int? = parts?.get(5)?.toIntOrNull()
+    override val lineNumber: Int? = locationParts?.get(1)?.toIntOrNull()
 
-    override val columnNumber: Int? = parts?.get(6)?.toIntOrNull()
+    override val columnNumber: Int? = locationParts?.get(2)?.toIntOrNull()
 }

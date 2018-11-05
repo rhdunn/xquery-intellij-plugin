@@ -61,8 +61,8 @@ class QueryErrorTest {
     @DisplayName("eXist-db")
     internal inner class EXistDB {
         @Test
-        @DisplayName("with context")
-        fun withContext() {
+        @DisplayName("XPathException")
+        fun xpathException() {
             @Language("xml")
             val exception = """<?xml version="1.0" ?>
                 <exception>
@@ -99,6 +99,26 @@ class QueryErrorTest {
             assertThat(e.module, `is`("/db"))
             assertThat(e.lineNumber, `is`(nullValue()))
             assertThat(e.columnNumber, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("error")
+        fun error() {
+            @Language("xml")
+            val exception = """<?xml version="1.0" ?>
+                <exception>
+                    <path>/db</path>
+                    <message>err:XPTY0004 Too many operands at the left of * [at line 1, column 11, source: (1, 2, 3) * 2]</message>
+                </exception>
+            """
+
+            val e = EXistDBQueryError(exception)
+            assertThat(e.standardCode, `is`("XPTY0004"))
+            assertThat(e.vendorCode, `is`(nullValue()))
+            assertThat(e.description, `is`("Too many operands at the left of *"))
+            assertThat(e.module, `is`("/db"))
+            assertThat(e.lineNumber, `is`(1))
+            assertThat(e.columnNumber, `is`(11))
         }
     }
 
