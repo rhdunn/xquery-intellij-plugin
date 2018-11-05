@@ -694,4 +694,13 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "for", XQueryTokenType.K_FOR)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
+    fun ternaryIfExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "??", XQueryTokenType.TERNARY_IF)
+        matchSingleToken(lexer, "!!", XQueryTokenType.TERNARY_ELSE)
+    }
 }

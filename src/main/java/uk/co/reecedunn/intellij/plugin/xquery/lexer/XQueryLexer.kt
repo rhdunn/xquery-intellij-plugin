@@ -441,6 +441,9 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mType = if (mTokenRange.codePoint == '='.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.NOT_EQUAL
+                } else if (mTokenRange.codePoint == '!'.toInt()) {
+                    mTokenRange.match()
+                    XQueryTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
                 } else {
                     XQueryTokenType.MAP_OPERATOR // XQuery 3.0
                 }
@@ -663,6 +666,9 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mType = if (c == '>'.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.PROCESSING_INSTRUCTION_END
+                } else if (c == '?'.toInt()) {
+                    mTokenRange.match()
+                    XQueryTokenType.TERNARY_IF
                 } else {
                     XQueryTokenType.OPTIONAL
                 }

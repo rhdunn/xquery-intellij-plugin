@@ -1010,6 +1010,9 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ARROW).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_OPEN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_CLOSE).size, `is`(0))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.TERNARY_IF).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.TERNARY_ELSE).size, `is`(0))
     }
 
     @Test

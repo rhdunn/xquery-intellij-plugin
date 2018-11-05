@@ -51,6 +51,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
   - [3.12 Binary Constructors](#312-binary-constructors)
   - [3.13 Logical Expressions](#313-logical-expressions)
+  - [3.14 Conditional Expressions](#314-conditional-expressions)
 - [4 Modules and Prologs](#4-modules-and-prologs)
   - [4.1 Type Declaration](#41-type-declaration)
   - [4.2 Annotations](#42-annotations)
@@ -357,6 +358,7 @@ with XQuery 3.1 `FunctionTest` that may specify annotations on function signatur
 | \[73\] | `Expr`                  | ::= | `ApplyExpr`                         |           |
 | \[74\] | `ApplyExpr`             | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?` |         |
 | \[75\] | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |           |
+| \[91\] | `ExprSingle`            | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 
 The `Expr`, `ApplyExpr` and `ConcatExpr` definitions are identical to the
 W3C Scripting Extension. The XPath grammar has the following modifications:
@@ -758,6 +760,24 @@ evaluates the right hand side (`rhs`) if the left hand side is true. This is
 equivalent to:
 >     if (lhs) then xs:boolean(rhs) else fn:false()
 
+### 3.14 Conditional Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[92\] | `TernaryIfExpr`                | ::= | `OrExpr "??" OrExpr "!!" OrExpr`          |         |
+
+The `TernaryIfExpr` is a new expression supported by BaseX 9.1. It is
+[proposal 2](https://github.com/expath/xpath-ng/pull/2) of the EXPath
+syntax extensions for XPath and XQuery.
+
+Given the `TernaryIfExpr`:
+
+    C ?? A !! B
+
+the equivalent `IfExpr` is:
+
+    if (C) then A else B
+
 ## 4 Modules and Prologs
 
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -851,6 +871,10 @@ These changes include support for:
 1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
 1.  Saxon Vendor Extensions;
 1.  XQuery IntelliJ Plugin Vendor Extensions.
+
+__NOTE:__ This is an incomplete list of EBNF symbols, as the XQuery IntelliJ
+Plugin does not currently support XPath (it only supports XPath exprssions
+that are a part of XQuery).
 
 | Ref     | Symbol                  |     | Expression                          | Options              |
 |---------|-------------------------|-----|-------------------------------------|----------------------|
@@ -982,6 +1006,8 @@ These changes include support for:
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
 | \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
 | \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |
+| \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
+| \[92\]   | `TernaryIfExpr`                | ::= | `OrExpr "??" OrExpr "!!" OrExpr`    |                       |
 
 ### A.3 Reserved Function Names
 
@@ -1094,6 +1120,9 @@ in this document:
 1.  [Non-Deterministic Function Calls](#371-non-deterministic-function-calls) \[BaseX 8.4\]
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 
+BaseX implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
+1.  [Ternary If](#314-conditional-expressions) \[BaseX 9.1\]
+
 ### C.2 MarkLogic Vendor Extensions
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
@@ -1170,9 +1199,12 @@ differences to the XQuery 1.0 Recommendation, described in this document:
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
+1.  [Ternary If](#314-conditional-expressions)
+    \[[Proposal 2](https://github.com/expath/xpath-ng/pull/2)\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
     \[[Proposal 5](https://github.com/expath/xpath-ng/pull/5)\] -- focus functions
-1.  [Union Type](#2121-union-type) \[[Proposal 6](https://github.com/expath/xpath-ng/pull/6)\]
+1.  [Union Type](#2121-union-type)
+    \[[Proposal 6](https://github.com/expath/xpath-ng/pull/6)\]
 
 ## D Error and Warning Conditions
 
