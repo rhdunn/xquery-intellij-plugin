@@ -15,6 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.tests
 
+import com.intellij.credentialStore.PasswordSafeSettings
+import com.intellij.ide.passwordSafe.PasswordSafe
+import com.intellij.ide.passwordSafe.impl.PasswordSafeImpl
+import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.util.Disposer
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
@@ -45,12 +51,22 @@ private class ProcessorTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         initApplication()
+        Extensions.registerAreaClass("IDEA_PROJECT", null)
+        myProject = MockProjectEx(testRootDisposable)
+        registerApplicationService(PasswordSafe::class.java, PasswordSafeImpl(PasswordSafeSettings()))
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
         provider.close()
+    }
+
+    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
+        PlatformLiteFixture.getApplication().registerService(aClass, `object`)
+        Disposer.register(myProject, com.intellij.openapi.Disposable {
+            PlatformLiteFixture.getApplication().picoContainer.unregisterComponent(aClass.name)
+        })
     }
 
     @Test @DisplayName("version") fun version() {
