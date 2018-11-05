@@ -1013,6 +1013,7 @@ class SyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.TERNARY_IF).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.TERNARY_ELSE).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ELVIS).size, `is`(0))
     }
 
     @Test

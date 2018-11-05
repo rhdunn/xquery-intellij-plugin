@@ -139,6 +139,7 @@ object XQueryTokenType {
 
     val TERNARY_IF = IElementType("XQUERY_TERNARY_IF_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal
     val TERNARY_ELSE = IElementType("XQUERY_TERNARY_ELSE_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal
+    val ELVIS = IElementType("XQUERY_ELVIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal
 
     val K_AFTER = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AFTER") // Update Facility 1.0
     val K_ALL = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALL") // Full Text 1.0

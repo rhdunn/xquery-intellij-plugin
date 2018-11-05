@@ -703,4 +703,12 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "??", XQueryTokenType.TERNARY_IF)
         matchSingleToken(lexer, "!!", XQueryTokenType.TERNARY_ELSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
+    fun elvis() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?!", XQueryTokenType.ELVIS)
+    }
 }

@@ -669,6 +669,9 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 } else if (c == '?'.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.TERNARY_IF
+                } else if (c == '!'.toInt()) {
+                    mTokenRange.match()
+                    XQueryTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
                 } else {
                     XQueryTokenType.OPTIONAL
                 }

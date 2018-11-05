@@ -764,11 +764,12 @@ equivalent to:
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[92\] | `TernaryIfExpr`                | ::= | `OrExpr "??" OrExpr "!!" OrExpr`          |         |
+| \[92\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
+| \[93\] | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
 
-The `TernaryIfExpr` is a new expression supported by BaseX 9.1. It is
-[proposal 2](https://github.com/expath/xpath-ng/pull/2) of the EXPath
-syntax extensions for XPath and XQuery.
+The `TernaryIfExpr` and `ElvisExpr` are new expressions supported by BaseX 9.1.
+They are defined in [proposal 2](https://github.com/expath/xpath-ng/pull/2) of
+the EXPath syntax extensions for XPath and XQuery.
 
 Given the `TernaryIfExpr`:
 
@@ -777,6 +778,15 @@ Given the `TernaryIfExpr`:
 the equivalent `IfExpr` is:
 
     if (C) then A else B
+
+Given the `ElvisExpr`:
+
+    A ?: B
+
+the equivalent `IfExpr` is:
+
+    let $a := A
+    return if (exists($a)) then $a else B
 
 ## 4 Modules and Prologs
 
@@ -1007,7 +1017,8 @@ These changes include support for:
 | \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
 | \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |
 | \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
-| \[92\]   | `TernaryIfExpr`                | ::= | `OrExpr "??" OrExpr "!!" OrExpr`    |                       |
+| \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
+| \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                       |
 
 ### A.3 Reserved Function Names
 
@@ -1121,7 +1132,8 @@ in this document:
 1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
 
 BaseX implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
-1.  [Ternary If](#314-conditional-expressions) \[BaseX 9.1\]
+1.  [Elvis](#314-conditional-expressions) expressions \[BaseX 9.1\]
+1.  [Ternary If](#314-conditional-expressions) expressions \[BaseX 9.1\]
 
 ### C.2 MarkLogic Vendor Extensions
 The MarkLogic XQuery Processor supports the following vendor extensions described
@@ -1199,8 +1211,8 @@ differences to the XQuery 1.0 Recommendation, described in this document:
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
-1.  [Ternary If](#314-conditional-expressions)
-    \[[Proposal 2](https://github.com/expath/xpath-ng/pull/2)\]
+1.  [Ternary If](#314-conditional-expressions) and [Elvis](#314-conditional-expressions)
+    expressions \[[Proposal 2](https://github.com/expath/xpath-ng/pull/2)\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
     \[[Proposal 5](https://github.com/expath/xpath-ng/pull/5)\] -- focus functions
 1.  [Union Type](#2121-union-type)
