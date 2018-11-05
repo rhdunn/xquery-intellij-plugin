@@ -36,9 +36,9 @@ internal class SaxonTransformerQueryError(e: TransformerException, classes: Saxo
 
     override val description: String? = e.message
 
-    override val module: String? = e.locator.systemId
+    override val module: String? = e.locator?.systemId
 
-    override val lineNumber: Int? = e.locator.lineNumber
+    override val lineNumber: Int? = e.locator?.lineNumber
 
-    override val columnNumber: Int? = e.locator.columnNumber
+    override val columnNumber: Int? = e.locator?.columnNumber
 }
