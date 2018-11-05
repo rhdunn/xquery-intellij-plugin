@@ -144,8 +144,10 @@ internal class SaxonClasses(path: File) {
                 tryXdmValue(value, "xs:double") ?: tryXdmValue(value, "xs:integer") ?: toXdmValue(value, "xs:decimal")
             }
             else -> {
-                val itemtype = itemTypeClass.getField(ATOMIC_ITEM_TYPE_NAMES[type]).get(itemTypeClass)
-                xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
+                ATOMIC_ITEM_TYPE_NAMES[type]?.let {
+                    val itemtype = itemTypeClass.getField(it).get(itemTypeClass)
+                    xdmAtomicValueClass.getConstructor(String::class.java, itemTypeClass).newInstance(value, itemtype)
+                } ?: throw UnsupportedOperationException()
             }
         }
     }
