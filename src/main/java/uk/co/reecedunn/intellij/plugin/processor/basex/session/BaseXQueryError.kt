@@ -28,7 +28,7 @@ class BaseXQueryError(msg: String) : QueryError() {
 
     override val description: String? = parts?.get(6)
 
-    override val module: String? = parts?.get(2)?.let { if (it == ".") null else it }
+    override val module: String? = parts?.get(2)?.let { if (it == "." || it.isEmpty()) null else it }
 
     override val lineNumber: Int? = parts?.get(3)?.toIntOrNull()
 
