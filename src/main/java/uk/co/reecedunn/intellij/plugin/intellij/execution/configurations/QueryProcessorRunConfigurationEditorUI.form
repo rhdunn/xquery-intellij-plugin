@@ -43,7 +43,7 @@
           <text resource-bundle="messages/XQueryBundle" key="xquery.configurations.processor.script-file.label"/>
         </properties>
       </component>
-      <component id="f0d30" class="com.intellij.openapi.ui.ComponentWithBrowseButton" binding="scriptFile" custom-create="true">
+      <component id="3151a" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="scriptFile" custom-create="true">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
