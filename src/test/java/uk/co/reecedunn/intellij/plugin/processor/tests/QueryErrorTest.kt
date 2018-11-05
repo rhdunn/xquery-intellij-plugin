@@ -45,6 +45,18 @@ class QueryErrorTest {
         }
 
         @Test
+        @DisplayName("with context as line/column")
+        fun withContextAsLineColumn() {
+            val e = BaseXQueryError("Stopped at line 1, column 7:\r\n[XPST0003] Incomplete expression.")
+            assertThat(e.standardCode, `is`("XPST0003"))
+            assertThat(e.vendorCode, `is`(nullValue()))
+            assertThat(e.description, `is`("Incomplete expression."))
+            assertThat(e.module, `is`(nullValue()))
+            assertThat(e.lineNumber, `is`(1))
+            assertThat(e.columnNumber, `is`(7))
+        }
+
+        @Test
         @DisplayName("without context")
         fun withoutContext() {
             val e = BaseXQueryError("[XPST0003] Unknown type: array-node().")

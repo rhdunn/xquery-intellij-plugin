@@ -17,12 +17,18 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
-private val RE_BASEX_EXCEPTION = "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
+private val RE_BASEX_EXCEPTION =
+    "^(Stopped at (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
+private val RE_BASEX_EXCEPTION_LINE_COL =
+    "^(Stopped at ()line ([0-9]+), column ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 
 class BaseXQueryError(msg: String) : QueryError() {
-    private val parts = RE_BASEX_EXCEPTION.matchEntire(msg)?.groupValues
+    private val parts by lazy {
+        RE_BASEX_EXCEPTION.matchEntire(msg)?.groupValues
+            ?: RE_BASEX_EXCEPTION_LINE_COL.matchEntire(msg)?.groupValues
+    }
 
-    override val standardCode: String = parts?.get(5)!!
+    override val standardCode: String = parts?.get(5) ?: throw RuntimeException("Unable to parse BaseX error message: $msg")
 
     override val vendorCode: String? = null
 
