@@ -149,7 +149,7 @@ declare function local:error(
             let $module := $frame/error:uri/text()
             let $line := $frame/error:line/text() cast as xs:integer?
             let $column := $frame/error:column/text() cast as xs:integer?
-            return <dbg:frame><dbg:module line="{$line}" column="{$column}">{$module}</dbg:module></dbg:frame>
+            return <dbg:frame><dbg:module line="{$line}" column="{$column + 1}">{$module}</dbg:module></dbg:frame>
         }</dbg:stack>
     </err:error>
 };

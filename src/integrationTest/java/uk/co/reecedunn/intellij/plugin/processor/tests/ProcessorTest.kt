@@ -665,24 +665,12 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("standard code")
         fun standardCode() {
             assertThat(parse("(1, 2,").standardCode, `is`("XPST0003"))
-
-            // This MarkLogic error does not include the standard code in the description.
-            assertThat(
-                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").standardCode,
-                anyOf(`is`("XQST0031"), `is`("XPST0003"), `is`("FOER0000"))
-            )
         }
 
         @Test
         @DisplayName("vendor code")
         fun vendorCode() {
             assertThat(parse("(1, 2,").vendorCode, anyOf(`is`("XDMP-UNEXPECTED"), `is`(nullValue())))
-
-            // This MarkLogic error does not include the standard code in the description.
-            assertThat(
-                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").vendorCode,
-                anyOf(`is`("XDMP-XQUERYVERSIONSWITCH"), nullValue())
-            )
         }
 
         @Test
@@ -695,21 +683,6 @@ private class ProcessorTest : PlatformLiteFixture() {
                     `is`("unexpected token: null"), // eXist-db
                     `is`("Unexpected token"), // MarkLogic
                     `is`("Expected an expression, but reached the end of the input") // Saxon
-                )
-            )
-        }
-
-        @Test
-        @DisplayName("description; MarkLogic XDMP-XQUERYVERSIONSWITCH error")
-        fun description_markLogicErrorCode() {
-            // This MarkLogic error does not include the standard code in the description.
-            assertThat(
-                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
-                anyOf(
-                    `is`("All modules in a module sequence must use the same XQuery version"), // BaseX
-                    `is`("expecting EOF, found ';'"), // eXist-db
-                    `is`("XQuery version '1.0-ml' not supported."), // MarkLogic
-                    `is`("Invalid XQuery version 1.0-ml") // Saxon
                 )
             )
         }
