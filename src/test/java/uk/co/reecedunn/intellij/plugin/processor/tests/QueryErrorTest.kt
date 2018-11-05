@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseXQueryError
+import uk.co.reecedunn.intellij.plugin.processor.existdb.rest.EXistDBQueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
@@ -49,6 +50,34 @@ class QueryErrorTest {
             assertThat(e.vendorCode, `is`(nullValue()))
             assertThat(e.description, `is`("Unknown type: array-node()."))
             assertThat(e.module, `is`(nullValue()))
+            assertThat(e.lineNumber, `is`(nullValue()))
+            assertThat(e.columnNumber, `is`(nullValue()))
+        }
+    }
+
+    @Nested
+    @DisplayName("eXist-db")
+    internal inner class EXistDB {
+        @Test
+        @DisplayName("with context")
+        fun withContext() {
+            val e = EXistDBQueryError("<?xml version=\"1.0\" ?><exception><path>/db</path><message>exerr:ERROR org.exist.xquery.XPathException: err:XPST0003 unexpected token: null [at line 1, column 7]\n</message></exception>")
+            assertThat(e.standardCode, `is`("XPST0003"))
+            assertThat(e.vendorCode, `is`(nullValue()))
+            assertThat(e.description, `is`("unexpected token: null"))
+            assertThat(e.module, `is`("/db"))
+            assertThat(e.lineNumber, `is`(1))
+            assertThat(e.columnNumber, `is`(7))
+        }
+
+        @Test
+        @DisplayName("type error")
+        fun typeError() {
+            val e = EXistDBQueryError("<?xml version=\"1.0\" ?><exception><path>/db</path><message>exerr:ERROR Type: xs:dateTimeStamp is not defined</message></exception>")
+            assertThat(e.standardCode, `is`("FOER0000"))
+            assertThat(e.vendorCode, `is`(nullValue()))
+            assertThat(e.description, `is`("xs:dateTimeStamp is not defined"))
+            assertThat(e.module, `is`("/db"))
             assertThat(e.lineNumber, `is`(nullValue()))
             assertThat(e.columnNumber, `is`(nullValue()))
         }
