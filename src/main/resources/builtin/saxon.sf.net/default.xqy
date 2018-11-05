@@ -13,7 +13,7 @@ declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare %a:since("saxon/pe", "9.2") %a:since("saxon/ee", "9.2") function saxon:adjust-to-civil-time($in as xs:dateTime, $tz as xs:string) as xs:dateTime? external; (: reqs PE or EE :)
-declare %a:since("saxon/pe", "9.8") function saxon:array-member($value as item()*) as jt:com.saxonica.functions.extfn.ArrayMemberValue external;
+declare %a:since("saxon/pe", "9.8") %a:since("saxon/ee", "9.8") function saxon:array-member($value as item()*) as jt:com.saxonica.functions.extfn.ArrayMemberValue external;
 declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:base64Binary-to-octets($input as xs:base64Binary) as xs:integer* external;
 declare %a:since("saxon/pe", "8.5") %a:since("saxon/ee", "8.5") function saxon:base64Binary-to-string($input as xs:base64Binary?, $encoding as xs:string) as xs:string external;
 declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:column-number() as xs:integer external;
@@ -65,4 +65,19 @@ declare %a:since("saxon/ee", "9.5") function saxon:schema($kind as xs:string, $n
 declare %a:since("saxon/pe", "9.5") %a:since("saxon/ee", "9.5") function saxon:send-mail($emailConfig as map(*), $subject as xs:string, $content as item()) as xs:boolean external;
 declare %a:since("saxon/pe", "9.5") %a:since("saxon/ee", "9.5") function saxon:send-mail($emailConfig as map(*), $subject as xs:string, $content as item(), $attachment as item()*) as xs:boolean external;
 declare %a:since("saxon/pe", "7.1") %a:since("saxon/ee", "7.1") %a:deprecated("saxon/pe", "9.6", "fn:serialize") %a:deprecated("saxon/ee", "9.6", "fn:serialize") function saxon:serialize($node as node(), $format as xs:string) as xs:string external;
-declare %a:since("saxon/pe", "7.1") %a:since("saxon/ee", "7,1") %a:deprecated("saxon/pe", "9.6", "fn:serialize") %a:deprecated("saxon/ee", "9.6", "fn:serialize") function saxon:serialize($node as node(), $format as element(xsl:output)) as xs:string external;
+declare %a:since("saxon/pe", "7.1") %a:since("saxon/ee", "7.1") %a:deprecated("saxon/pe", "9.6", "fn:serialize") %a:deprecated("saxon/ee", "9.6", "fn:serialize") function saxon:serialize($node as node(), $format as element(xsl:output)) as xs:string external;
+declare %a:since("saxon/pe", "8.9") %a:since("saxon/ee", "8.9") %a:deprecated("saxon/pe", "9.6", "fn:sort") %a:deprecated("saxon/ee", "9.6", "fn:sort") function saxon:sort($seq as item()*) as item()* external;
+declare %a:since("saxon/pe", "7.1") %a:since("saxon/ee", "7.1") %a:deprecated("saxon/pe", "9.6", "fn:sort") %a:deprecated("saxon/ee", "9.6", "fn:sort") function saxon:sort($seq as item()*, $sort-key as function(item()) as xs:anyAtomicType) as item()* external;
+declare %a:since("saxon/ee", "8.0") function saxon:stream($input as item()*) as item()* external;
+declare %a:since("saxon/pe", "8.4") %a:since("saxon/ee", "8.4") function saxon:string-to-base64Binary($in as xs:string?, $encoding as xs:string) as xs:base64Binary? external;
+declare %a:since("saxon/pe", "8.4") %a:since("saxon/ee", "8.4") function saxon:string-to-hexBinary($in as xs:string?, $encoding as xs:string) as xs:hexBinary? external;
+declare %a:since("saxon/pe", "8.1") %a:since("saxon/ee", "8.1") function saxon:string-to-utf8($name as xs:string) as xs:integer* external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:system-id() as xs:string external;
+declare %a:since("saxon/pe", "8.5") %a:since("saxon/ee", "8.5") function saxon:transform($stylesheet as jt:net.sf.saxon.PreparedStylesheet, $source as node()) as document-node() external;
+declare %a:since("saxon/pe", "8.5") %a:since("saxon/ee", "8.5") function saxon:transform($stylesheet as jt:net.sf.saxon.PreparedStylesheet, $source as node(), $params as item()*) as document-node() external;
+declare %a:since("saxon/pe", "9.5") %a:since("saxon/ee", "9.5") function saxon:type($item as item()?) as function(*)? external;
+declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") function saxon:type-annotation($item as item()?) as xs:QName? external;
+declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:unparsed-entities($doc as document-node()) as xs:string* external;
+declare %a:since("saxon/ee", "9.5") function saxon:validate($node as node()?) as map(xs:string, item()*)? external;
+declare %a:since("saxon/ee", "9.5") function saxon:validate($node as node()?, $options as map(xs:string, item()*)) as map(xs:string, item()*)? external;
+declare %a:since("saxon/ee", "9.5") function saxon:validate($node as node()?, $options as map(xs:string, item()*), $params as map(xs:string, item()*)) as map(xs:string, item()*)? external;
