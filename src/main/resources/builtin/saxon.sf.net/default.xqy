@@ -61,7 +61,7 @@ declare %a:since("saxon/pe", "7.1") %a:since("saxon/ee", "7.1") %a:deprecated("s
 declare %a:since("saxon/pe", "9.2") %a:since("saxon/ee", "9.2") function saxon:parse-html($html as xs:string) as document-node() external;
 declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") %a:deprecated("saxon/pe", "9.6", "fn:parse-xml") %a:deprecated("saxon/ee", "9.6", "fn:path") function saxon:path() as xs:string external;
 declare %a:since("saxon/pe", "8.0") %a:since("saxon/ee", "8.0") %a:deprecated("saxon/pe", "9.6", "fn:parse-xml") %a:deprecated("saxon/ee", "9.6", "fn:path") function saxon:path($node as node()) as xs:string external;
-declare %a:since("saxon/pe", "9.9") %a:since("saxon/ee", "9.9") function saxon:pedigree($in as function(*)) as tuple(function(*), xs:anyAtomicType?, xs:integer?)? external;
+declare %a:since("saxon/pe", "9.9") %a:since("saxon/ee", "9.9") function saxon:pedigree($in as function(*)) as tuple(container: function(*), key: anyAtomicType?, index: xs:integer?)? external;
 declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:print-stack() as xs:string external;
 declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:query($name as jt:net.sf.saxon.query.XQueryExpression?) as item()* external;
 declare %a:since("saxon/pe", "9.1") %a:since("saxon/ee", "9.1") function saxon:query($name as jt:net.sf.saxon.query.XQueryExpression?, $context-item as item()?) as item()* external;
