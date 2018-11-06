@@ -2585,12 +2585,14 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseSequenceTypeUnion(): Boolean {
-        val sequenceTypeOrUnionMarker = mark()
+        val sequenceTypeUnionMarker = mark()
         if (parseSequenceType()) {
             var haveErrors = false
+            var haveSequenceTypeUnion = false
 
             parseWhiteSpaceAndCommentTokens()
             while (matchTokenType(XQueryTokenType.UNION)) {
+                haveSequenceTypeUnion = true
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseSequenceType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
@@ -2599,10 +2601,13 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 parseWhiteSpaceAndCommentTokens()
             }
 
-            sequenceTypeOrUnionMarker.done(XQueryElementType.SEQUENCE_TYPE_UNION)
+            if (haveSequenceTypeUnion)
+                sequenceTypeUnionMarker.done(XQueryElementType.SEQUENCE_TYPE_UNION)
+            else
+                sequenceTypeUnionMarker.drop()
             return true
         }
-        sequenceTypeOrUnionMarker.drop()
+        sequenceTypeUnionMarker.drop()
         return false
     }
 

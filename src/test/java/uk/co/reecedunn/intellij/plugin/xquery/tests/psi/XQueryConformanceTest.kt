@@ -1739,22 +1739,6 @@ private class XQueryConformanceTest : ParserTestCase() {
                 `is`(XQueryTokenType.UNION))
     }
 
-    @Test
-    fun testSequenceTypeUnion_NoUnion() {
-        val file = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq")
-
-        val typeswitchExprPsi = file.descendants().filterIsInstance<XQueryTypeswitchExpr>().first()
-        val caseClausePsi = typeswitchExprPsi.children().filterIsInstance<XQueryCaseClause>().first()
-        val sequenceTypeUnionPsi = caseClausePsi.children().filterIsInstance<XQuerySequenceTypeUnion>().first()
-        val versioned = sequenceTypeUnionPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType.ANY_ITEM_TYPE))
-    }
-
     // endregion
     // region SimpleMapExpr
 
