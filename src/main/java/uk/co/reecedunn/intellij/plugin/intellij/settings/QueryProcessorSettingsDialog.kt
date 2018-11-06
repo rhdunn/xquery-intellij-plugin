@@ -21,8 +21,6 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
-import com.intellij.openapi.ui.ComponentWithBrowseButton
-import com.intellij.openapi.ui.TextComponentAccessor
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
@@ -124,15 +122,14 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
     // endregion
     // region Configuration File
 
-    private var configuration: ComponentWithBrowseButton<JTextField>? = null
+    private var configuration: TextFieldWithBrowseButton? = null
 
     private fun createConfigurationUI() {
-        configuration = ComponentWithBrowseButton(JTextField(), null)
+        configuration = TextFieldWithBrowseButton()
         configuration!!.addBrowseFolderListener(
             XQueryBundle.message("browser.choose.configuration"), null,
             project,
-            FileChooserDescriptorFactory.createSingleFileDescriptor(),
-            TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
+            FileChooserDescriptorFactory.createSingleFileDescriptor()
         )
     }
 
@@ -206,7 +203,7 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         name!!.text = configuration.name
         api!!.selectedItem = configuration.api
         jar!!.textField.text = configuration.jar
-        this.configuration!!.childComponent.text = configuration.configurationPath
+        this.configuration!!.textField.text = configuration.configurationPath
         if (configuration.connection != null) {
             standalone!!.isSelected = false
             hostname!!.text = configuration.connection!!.hostname
@@ -231,7 +228,7 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         configuration.name = name!!.textOrNull()
         configuration.api = api!!.selectedItem as QueryProcessorApi
         configuration.jar = jar!!.textField.textOrNull()
-        configuration.configurationPath = this.configuration!!.childComponent.textOrNull()
+        configuration.configurationPath = this.configuration!!.textField.textOrNull()
         if (!standalone!!.isSelected) {
             val dbPort = databasePort!!.text.toInt()
             val amPort = adminPort!!.text.toInt()
