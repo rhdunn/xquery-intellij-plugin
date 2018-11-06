@@ -44,3 +44,7 @@ interface XQueryConformance {
      */
     val conformanceElement: PsiElement
 }
+
+interface XQueryConformanceName {
+    val conformanceName: String
+}
