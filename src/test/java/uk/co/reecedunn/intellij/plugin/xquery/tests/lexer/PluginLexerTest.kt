@@ -709,6 +709,6 @@ class PluginLexerTest : LexerTestCase() {
     fun elvis() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "?!", XQueryTokenType.ELVIS)
+        matchSingleToken(lexer, "?:", XQueryTokenType.ELVIS)
     }
 }

@@ -879,6 +879,19 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement.node.elementType,
                 `is`(XQueryTokenType.OPTIONAL))
         }
+
+        @Test
+        @DisplayName("optional tuple field; compact whitespace")
+        fun optional_CompactWhitespace() {
+            val file = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.xq")
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as XQueryConformance
+
+            assertThat(conformance.requiresConformance.size, `is`(1))
+            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
+
+            assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.ELVIS)) // ?: with compact whitespace
+        }
     }
 
     @Test

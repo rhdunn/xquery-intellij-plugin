@@ -6210,10 +6210,16 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()
-            matchTokenType(XQueryTokenType.OPTIONAL)
+            val haveSeparator =
+                if (matchTokenType(XQueryTokenType.ELVIS)) // ?: without whitespace
+                    true
+                else {
+                    matchTokenType(XQueryTokenType.OPTIONAL)
+                    parseWhiteSpaceAndCommentTokens()
+                    matchTokenType(XQueryTokenType.QNAME_SEPARATOR)
+                }
 
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+            if (!haveSeparator) {
                 if (getTokenType() === XQueryTokenType.COMMA || getTokenType() === XQueryTokenType.PARENTHESIS_CLOSE) {
                     tupleFieldMarker.done(XQueryElementType.TUPLE_FIELD)
                     return true
