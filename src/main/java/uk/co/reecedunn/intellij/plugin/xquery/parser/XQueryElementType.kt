@@ -425,6 +425,11 @@ object XQueryElementType {
     val SIMPLE_INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType("XQUERY_SIMPLE_INLINE_FUNCTION_EXPR", PluginSimpleInlineFunctionExprImpl::class.java, XQuery)
 
     // endregion
+    // region EXPath XPath/XQuery NG
+
+    val TERNARY_IF_EXPR: IElementType = ICompositeElementType("XQUERY_TERNARY_IF_EXPR", PluginTernaryIfExprPsiImpl::class.java, XQuery)
+
+    // endregion
     // region XQuery IntelliJ Plugin
 
     val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", PluginCompatibilityAnnotationPsiImpl::class.java, XQuery)

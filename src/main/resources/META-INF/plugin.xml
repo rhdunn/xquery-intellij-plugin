@@ -23,6 +23,10 @@
       <li>Support Saxon 9.9 optional field names for tuples, and extensible tuples.</li>
       <li>Support <code>NCName</code> and <code>URIQualifiedName</code> types in the <code>union()</code> syntax.</li>
     </ol>
+    <p>BaseX Vendor Extensions:</p>
+    <ol>
+      <li>Support the BaseX 9.1 <code>TernaryIfExpr</code> conditional expressions.</li>
+    </ol>
     <p>XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:</p>
     <ol>
       <li>Support <code>empty()</code> syntax for <code>empty-sequence()</code>.</li>

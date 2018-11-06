@@ -1,0 +1,18 @@
+XQueryModuleImpl[FILE(0:12)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:12)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:12)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
+            PluginTernaryIfExprImpl[XQUERY_TERNARY_IF_EXPR(0:12)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(0:6)]
+                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:6)]
+                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('2')
+               LeafPsiElement[XQUERY_TERNARY_IF_TOKEN(6:8)]('??')
+               XPathOrExprImpl[XQUERY_OR_EXPR(8:9)]
+                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('3')
+               LeafPsiElement[XQUERY_TERNARY_ELSE_TOKEN(9:11)]('!!')
+               XPathOrExprImpl[XQUERY_OR_EXPR(11:12)]
+                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('4')

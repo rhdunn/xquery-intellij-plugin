@@ -1530,7 +1530,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 || parseAssignmentExpr()
                 || parseExitExpr()
                 || parseWhileExpr()
-                || parseOrExpr(parentType))
+                || parseTernaryIfExpr(parentType))
     }
 
     // endregion
@@ -3189,7 +3189,37 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr
+    // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
+
+    private fun parseTernaryIfExpr(type: IElementType?): Boolean {
+        val exprMarker = mark()
+        if (parseOrExpr(type)) {
+            parseWhiteSpaceAndCommentTokens()
+            if (matchTokenType(XQueryTokenType.TERNARY_IF)) {
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseOrExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "OrExpr"))
+                }
+
+                parseWhiteSpaceAndCommentTokens()
+                if (!matchTokenType(XQueryTokenType.TERNARY_ELSE)) {
+                    error(XQueryBundle.message("parser.error.expected", "!!"))
+                }
+
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseOrExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "OrExpr"))
+                }
+
+                exprMarker.done(XQueryElementType.TERNARY_IF_EXPR)
+            } else {
+                exprMarker.drop()
+            }
+            return true
+        }
+        exprMarker.drop()
+        return false
+    }
 
     private fun parseOrExpr(type: IElementType?): Boolean {
         val orExprMarker = mark()

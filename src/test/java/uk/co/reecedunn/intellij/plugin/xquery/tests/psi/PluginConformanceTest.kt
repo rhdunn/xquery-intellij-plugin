@@ -1196,4 +1196,17 @@ private class PluginConformanceTest : ParserTestCase() {
             )
         }
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
+    fun ternaryIfExpr() {
+        val file = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.xq")
+        val conformance = file.walkTree().filterIsInstance<PluginTernaryIfExpr>().first() as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.TERNARY_IF))
+    }
 }

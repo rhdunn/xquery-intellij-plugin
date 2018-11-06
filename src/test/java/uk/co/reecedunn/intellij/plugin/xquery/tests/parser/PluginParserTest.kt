@@ -2168,4 +2168,52 @@ private class PluginParserTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
+    internal inner class TernaryIfExpr {
+        @Test
+        @DisplayName("ternary if")
+        fun ternaryIf() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("ternary if; compact whitespace")
+        fun ternaryIf_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; missing token")
+        internal inner class MissingToken {
+            @Test
+            @DisplayName("missing then Expr")
+            fun missingThenExpr() {
+                val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingThenExpr.txt")
+                val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingThenExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing else operator")
+            fun missingElseOperator() {
+                val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseOperator.txt")
+                val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseOperator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing else Expr")
+            fun missingElseExpr() {
+                val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseExpr.txt")
+                val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
 }

@@ -11,6 +11,10 @@ Saxon Vendor Extensions:
 1.  Support Saxon 9.9 optional field names for tuples, and extensible tuples.
 1.  Support `NCName` and `URIQualifiedName` types in the `union()` syntax.
 
+BaseX Vendor Extensions:
+
+1.  Support the BaseX 9.1 `TernaryIfExpr` conditional expressions.
+
 XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:
 
 1.  Support `empty()` syntax for `empty-sequence()`.
