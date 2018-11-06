@@ -1222,4 +1222,17 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.TERNARY_IF))
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
+    fun elvisExpr() {
+        val file = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.xq")
+        val conformance = file.walkTree().filterIsInstance<PluginElvisExpr>().first() as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.ELVIS))
+    }
 }

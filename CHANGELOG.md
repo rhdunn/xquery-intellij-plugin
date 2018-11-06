@@ -14,6 +14,7 @@ Saxon Vendor Extensions:
 BaseX Vendor Extensions:
 
 1.  Support the BaseX 9.1 `TernaryIfExpr` conditional expressions.
+1.  Support the BaseX 9.1 `ElvisExpr` conditional expressions.
 
 XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:
 

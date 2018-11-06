@@ -428,6 +428,7 @@ object XQueryElementType {
     // region EXPath XPath/XQuery NG
 
     val TERNARY_IF_EXPR: IElementType = ICompositeElementType("XQUERY_TERNARY_IF_EXPR", PluginTernaryIfExprPsiImpl::class.java, XQuery)
+    val ELVIS_EXPR: IElementType = ICompositeElementType("XQUERY_ELVIS_EXPR", PluginElvisExprPsiImpl::class.java, XQuery)
 
     // endregion
     // region XQuery IntelliJ Plugin

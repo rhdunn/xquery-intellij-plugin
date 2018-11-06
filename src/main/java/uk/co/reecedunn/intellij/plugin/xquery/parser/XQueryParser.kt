@@ -3193,12 +3193,12 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseTernaryIfExpr(type: IElementType?): Boolean {
         val exprMarker = mark()
-        if (parseOrExpr(type)) {
+        if (parseElvisExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XQueryTokenType.TERNARY_IF)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseOrExpr(type)) {
-                    error(XQueryBundle.message("parser.error.expected", "OrExpr"))
+                if (!parseElvisExpr(null)) {
+                    error(XQueryBundle.message("parser.error.expected", "ElvisExpr"))
                 }
 
                 parseWhiteSpaceAndCommentTokens()
@@ -3207,11 +3207,31 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseOrExpr(type)) {
-                    error(XQueryBundle.message("parser.error.expected", "OrExpr"))
+                if (!parseElvisExpr(null)) {
+                    error(XQueryBundle.message("parser.error.expected", "ElvisExpr"))
                 }
 
                 exprMarker.done(XQueryElementType.TERNARY_IF_EXPR)
+            } else {
+                exprMarker.drop()
+            }
+            return true
+        }
+        exprMarker.drop()
+        return false
+    }
+
+    private fun parseElvisExpr(type: IElementType?): Boolean {
+        val exprMarker = mark()
+        if (parseOrExpr(type)) {
+            parseWhiteSpaceAndCommentTokens()
+            if (matchTokenType(XQueryTokenType.ELVIS)) {
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseOrExpr(null)) {
+                    error(XQueryBundle.message("parser.error.expected", "OrExpr"))
+                }
+
+                exprMarker.done(XQueryElementType.ELVIS_EXPR)
             } else {
                 exprMarker.drop()
             }
