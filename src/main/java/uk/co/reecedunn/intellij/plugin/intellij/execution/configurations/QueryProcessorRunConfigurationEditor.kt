@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsC
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
@@ -58,8 +57,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     SettingsUI<QueryProcessorRunConfiguration> {
     // region Query Processor
 
-    private var queryProcessor: JComboBox<QueryProcessorSettings>? = null
-    private var manageQueryProcessors: JButton? = null
+    private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettings>>? = null
 
     private fun createQueryProcessorUI() {
         val model = DefaultComboBoxModel<QueryProcessorSettings>()
@@ -67,30 +65,28 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
             model.addElement(processor)
         }
 
-        queryProcessor = ComboBox(model)
-        queryProcessor!!.renderer = QueryProcessorSettingsCellRenderer()
-
-        manageQueryProcessors = JButton()
-        manageQueryProcessors!!.addActionListener {
+        queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
+        queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
+        queryProcessor!!.addActionListener {
             val list = object : EditableListPanel<QueryProcessorSettings>(model) {
                 override fun add() {
                     val item = QueryProcessorSettings()
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.create(item)) {
-                        queryProcessor!!.addItem(item)
+                        queryProcessor!!.childComponent.addItem(item)
                         QueryProcessors.getInstance().addProcessor(item)
                     }
                 }
 
                 override fun edit(index: Int) {
-                    val item = queryProcessor!!.getItemAt(index)
+                    val item = queryProcessor!!.childComponent.getItemAt(index)
                     val dialog = QueryProcessorSettingsDialog(project)
                     if (dialog.edit(item))
                         QueryProcessors.getInstance().setProcessor(index, item)
                 }
 
                 override fun remove(index: Int) {
-                    queryProcessor!!.removeItemAt(index)
+                    queryProcessor!!.childComponent.removeItemAt(index)
                     QueryProcessors.getInstance().removeProcessor(index)
                 }
             }
@@ -137,7 +133,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     override var panel: JPanel? = null
 
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
-        if ((queryProcessor!!.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
+        if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
             return true
         if (scriptFile!!.textField.text != configuration.scriptFile)
             return true
@@ -145,12 +141,12 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     }
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
-        queryProcessor!!.selectedItem = configuration.processor
+        queryProcessor!!.childComponent.selectedItem = configuration.processor
         scriptFile!!.textField.text = configuration.scriptFile ?: ""
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
-        configuration.processorId = (queryProcessor!!.selectedItem as? QueryProcessorSettings?)?.id
+        configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
         configuration.scriptFile = scriptFile!!.textField.textOrNull()
     }
 
