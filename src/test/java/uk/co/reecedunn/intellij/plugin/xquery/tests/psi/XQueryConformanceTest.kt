@@ -2066,6 +2066,21 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     // endregion
 
+    @Test
+    @DisplayName("XQuery 3.1 EBNF (77) IfExpr")
+    fun ifExpr() {
+        val file = parseResource("tests/parser/xquery-1.0/IfExpr.xq")
+        val versioned = file.walkTree().filterIsInstance<XPathIfExpr>().first() as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(
+            versioned.conformanceElement.node.elementType,
+            `is`(XQueryTokenType.K_ELSE)
+        )
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
     internal inner class SequenceType {

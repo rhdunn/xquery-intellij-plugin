@@ -766,6 +766,14 @@ equivalent to:
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[92\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
 | \[93\] | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
+| \[94\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
+
+The `IfExpr` without the else branch is supported by BaseX 9.1. It is defined
+in [proposal 7](https://github.com/expath/xpath-ng/pull/7) of the EXPath syntax
+extensions for XPath and XQuery.
+
+When the else branch of an `IfExpr` is not present, an empty sequence is returned
+if the effective boolean value of the`IfExpr` condition evaluates to false.
 
 The `TernaryIfExpr` and `ElvisExpr` are new expressions supported by BaseX 9.1.
 They are defined in [proposal 2](https://github.com/expath/xpath-ng/pull/2) of
@@ -1019,6 +1027,7 @@ These changes include support for:
 | \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 | \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
 | \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                       |
+| \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 ### A.3 Reserved Function Names
 
@@ -1134,6 +1143,7 @@ in this document:
 BaseX implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Elvis](#314-conditional-expressions) expressions \[BaseX 9.1\]
 1.  [Ternary If](#314-conditional-expressions) expressions \[BaseX 9.1\]
+1.  [If Without Else](#314-conditional-expressions) expressions \[BaseX 9.1\]
 
 ### C.2 MarkLogic Vendor Extensions
 The MarkLogic XQuery Processor supports the following vendor extensions described
@@ -1217,6 +1227,8 @@ XQuery. The following proposals are supported by this plugin:
     \[[Proposal 5](https://github.com/expath/xpath-ng/pull/5)\] -- focus functions
 1.  [Union Type](#2121-union-type)
     \[[Proposal 6](https://github.com/expath/xpath-ng/pull/6)\]
+1.  [If Without Else](#314-conditional-expressions) expressions
+    \[[Proposal 7](https://github.com/expath/xpath-ng/pull/7)\]
 
 ## D Error and Warning Conditions
 

@@ -2645,14 +2645,11 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_ELSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "else"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+            if (matchTokenType(XQueryTokenType.K_ELSE)) { // else branch is optional in BaseX 9.1
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"))
+                }
             }
 
             ifExprMarker.done(XQueryElementType.IF_EXPR)

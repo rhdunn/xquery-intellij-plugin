@@ -2248,4 +2248,32 @@ private class PluginParserTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
+    internal inner class IfExpr {
+        @Test
+        @DisplayName("if without else")
+        fun ifWithoutElse() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("if without else; compact whitespace")
+        fun ifWithoutElse_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("if without else; nested")
+        fun ifWithoutElse_Nested() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_Nested.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_Nested.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

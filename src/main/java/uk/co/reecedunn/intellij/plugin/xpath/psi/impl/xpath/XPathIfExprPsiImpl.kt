@@ -17,6 +17,23 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
+import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XPathIfExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathIfExpr
+private val XQUERY10 = listOf<Version>()
+private val EXPATH7 = listOf(BaseX.VERSION_9_1)
+
+class XPathIfExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathIfExpr,
+    XQueryConformance {
+
+    override val requiresConformance: List<Version>
+        get() = if (conformanceElement === firstChild) EXPATH7 else XQUERY10
+
+    override val conformanceElement: PsiElement get() = findChildByType(XQueryTokenType.K_ELSE) ?: firstChild
+}

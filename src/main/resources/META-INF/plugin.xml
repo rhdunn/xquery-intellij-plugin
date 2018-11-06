@@ -27,6 +27,7 @@
     <ol>
       <li>Support the BaseX 9.1 <code>TernaryIfExpr</code> conditional expressions.</li>
       <li>Support the BaseX 9.1 <code>ElvisExpr</code> conditional expressions.</li>
+      <li>Support the BaseX 9.1 if expressions without else branches.</li>
     </ol>
     <p>XQuery Working Draft 02 May 2003 and MarkLogic 0.9-ml Support:</p>
     <ol>
