@@ -50,6 +50,7 @@ object HttpProtocolImportResolver : ImportPathResolver {
     override fun resolve(path: String): VirtualFile? {
         return when {
             path.endsWith("#") -> resolvePath("builtin/${path.substring(7, path.length - 1)}.xqy")
+            path.endsWith("/") -> resolvePath("builtin/${path.substring(7)}default.xqy")
             else -> resolvePath("builtin/${path.substring(7)}.xqy")
         }
     }

@@ -319,11 +319,11 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
             XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "res://saxon.sf.net/static-context/xquery.xqy"
             XQuery.REC_3_0_20140408 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "res://saxon.sf.net/static-context/xquery.xqy"
             XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
-                "res://www.w3.org/static-context/xquery.xqy"
+                "res://saxon.sf.net/static-context/xquery.xqy"
             else -> null
         }
     }

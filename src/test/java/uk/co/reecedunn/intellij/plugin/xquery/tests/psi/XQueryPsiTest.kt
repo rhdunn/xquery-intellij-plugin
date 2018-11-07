@@ -2169,6 +2169,18 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Test
+                @DisplayName("http:// file matching; as a directory (ending in '/')")
+                fun httpProtocolForDirectory() {
+                    val file = parseResource("tests/resolve/files/DefaultNamespaceDecl_HttpProtocol_Directory.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryDefaultNamespaceDecl>().toList()[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/saxon.sf.net/default.xqy"))
+                }
+
+                @Test
                 @DisplayName("http:// file missing")
                 fun httpProtocolMissing() {
                     val file = parseResource("tests/resolve/files/DefaultNamespaceDecl_HttpProtocol_FileNotFound.xq")
