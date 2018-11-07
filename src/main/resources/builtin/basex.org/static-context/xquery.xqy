@@ -89,4 +89,7 @@ declare namespace util = "http://basex.org/modules/util";
 declare namespace lazy = "http://basex.org/modules/lazy";
 declare namespace update = "http://basex.org/modules/update";
 
+(: BaseX 9.1 :)
+declare namespace ws = "http://basex.org/modules/ws";
+
 ()
