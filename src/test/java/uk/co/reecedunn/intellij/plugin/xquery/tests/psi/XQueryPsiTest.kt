@@ -2145,7 +2145,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("http:// file matching")
+                @DisplayName("http:// file matching; ending in name")
                 fun httpProtocol() {
                     val file = parseResource("tests/resolve/files/DefaultNamespaceDecl_HttpProtocol.xq")
                     val psi = file.walkTree().filterIsInstance<XQueryDefaultNamespaceDecl>().toList()[0]
@@ -2154,6 +2154,18 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(prologs.size, `is`(1))
 
                     assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/2005/xpath-functions/array.xqy"))
+                }
+
+                @Test
+                @DisplayName("http:// file matching; ending in name with '#'")
+                fun httpProtocolWithHash() {
+                    val file = parseResource("tests/resolve/files/DefaultNamespaceDecl_HttpProtocol_Hash.xq")
+                    val psi = file.walkTree().filterIsInstance<XQueryDefaultNamespaceDecl>().toList()[0]
+
+                    val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                    assertThat(prologs.size, `is`(1))
+
+                    assertThat(prologs[0].resourcePath(), endsWith("/builtin/www.w3.org/1999/02/22-rdf-syntax-ns.xqy"))
                 }
 
                 @Test

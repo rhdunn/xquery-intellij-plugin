@@ -48,8 +48,14 @@ object HttpProtocolImportResolver : ImportPathResolver {
     override fun match(path: String): Boolean = path.startsWith("http://")
 
     override fun resolve(path: String): VirtualFile? {
-        val resource = "builtin/${path.substringAfter("http://")}.xqy"
-        val file = ResourceVirtualFile.create(ResourceVirtualFile::class.java, resource)
+        return when {
+            path.endsWith("#") -> resolvePath("builtin/${path.substring(7, path.length - 1)}.xqy")
+            else -> resolvePath("builtin/${path.substring(7)}.xqy")
+        }
+    }
+
+    private fun resolvePath(path: String): VirtualFile? {
+        val file = ResourceVirtualFile.create(ResourceVirtualFile::class.java, path)
         return if (file.isValid) file else null
     }
 }

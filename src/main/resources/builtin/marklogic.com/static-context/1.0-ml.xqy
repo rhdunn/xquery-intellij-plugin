@@ -42,7 +42,7 @@ declare namespace xqe = "http://marklogic.com/xqe";
 declare namespace xqterr = "http://www.w3.org/2005/xqt-error";
 
 (: MarkLogic 7.0 :)
-import module namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#" at "res://www.w3.org/1999/02/22-rdf-syntax-ns.xqy";
+declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace sc = "http://marklogic.com/xdmp/schema-components";
 declare namespace sem = "http://marklogic.com/xdmp/semantics";
 declare namespace sql = "http://marklogic.com/xdmp/sql";
