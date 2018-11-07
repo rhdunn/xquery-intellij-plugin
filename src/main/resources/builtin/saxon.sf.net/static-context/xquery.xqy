@@ -26,4 +26,11 @@ declare namespace array = "http://www.w3.org/2005/xpath-functions/array";
 (: Saxon :)
 declare namespace saxon = "http://saxon.sf.net/";
 
+(: Saxon 9.5 :)
+declare namespace file = "http://expath.org/ns/file";
+
+(: Saxon 9.6 :)
+declare namespace arch = "http://expath.org/ns/archive";
+declare namespace bin = "http://expath.org/ns/binary";
+
 ()

@@ -19,6 +19,9 @@ declare option o:implements-module "basex/7.3 as expath-file/1.0-20120614";
 declare option o:implements-module "basex/7.8 as expath-file/1.0-20131203";
 declare option o:implements-module "basex/8.0 as expath-file/1.0-20150220";
 
+declare option o:implements-module "saxon/pe/9.5 as expath-file/1.0-20150220"; (: TODO: Map saxon versions to the correct file versions. :)
+declare option o:implements-module "saxon/ee/9.5 as expath-file/1.0-20150220"; (: TODO: Map saxon versions to the correct file versions. :)
+
 declare type append-params = (
     %a:since("expath-file", "1.0-20120614") for element(output:serialization-parameters) |
     %a:since("basex", "7.0") for item()

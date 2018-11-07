@@ -14,6 +14,9 @@ declare option o:requires "expath-binary/1.0";
 
 declare option o:implements-module "basex/7.8 as expath-binary/1.0-20131203";
 
+declare option o:implements-module "saxon/pe/9.6 as expath-binary/1.0-20131203";
+declare option o:implements-module "saxon/ee/9.6 as expath-binary/1.0-20131203";
+
 declare %a:since("expath-binary", "1.0-20131203") function bin:hex($in as xs:string?) as xs:base64Binary? external;
 declare %a:since("expath-binary", "1.0-20131203") function bin:bin($in as xs:string?) as xs:base64Binary? external;
 declare %a:since("expath-binary", "1.0-20131203") function bin:octal($in as xs:string?) as xs:base64Binary? external;
