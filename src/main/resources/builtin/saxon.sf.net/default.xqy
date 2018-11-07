@@ -1,4 +1,4 @@
-xquery version "1.0";
+xquery version "3.1";
 (:~
  : Saxon extension functions
  : @see http://www.saxonica.com/html/documentation/functions/saxon
