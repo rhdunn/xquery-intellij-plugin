@@ -235,3 +235,28 @@ object UpdateFacility : Versioned {
     override fun supportsDialect(dialect: Versioned): Boolean =
         dialect === this || dialect === XQuery
 }
+
+/**
+ * XQuery Formal Semantics
+ */
+object FormalSemantics : Versioned {
+    val REC_1_0_20070123 = Specification(
+        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/", this
+    )
+
+    val REC_1_0_20101214 = Specification(
+        "1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-semantics-20101214/", this
+    )
+
+    override val id get(): String = "xquery-semantics"
+
+    override val name get(): String = "XQuery Formal Semantics"
+
+    override val versions
+        get(): List<Version> = listOf(
+            REC_1_0_20070123,
+            REC_1_0_20101214
+        )
+
+    override fun supportsDialect(dialect: Versioned): Boolean = dialect === this
+}

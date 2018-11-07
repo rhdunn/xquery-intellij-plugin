@@ -24,13 +24,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.intellij.lang.EXistDB
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -1702,20 +1699,63 @@ private class XQueryConformanceTest : ParserTestCase() {
     // endregion
     // region ParenthesizedItemType
 
-    @Test
-    fun testParenthesizedItemType() {
-        val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
+    internal inner class ParenthesizedItemType {
+        @Test
+        @DisplayName("item type")
+        fun itemType() {
+            val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
 
-        val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
-        val versioned = parenthesizedItemTypePsi as XQueryConformance
+            val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
+            val versioned = parenthesizedItemTypePsi as XQueryConformance
 
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
+            assertThat(versioned.requiresConformance.size, `is`(2))
+            assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
+            assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.PARENTHESIS_OPEN))
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.PARENTHESIS_OPEN)
+            )
+        }
+
+        @Test
+        @DisplayName("empty sequence")
+        fun emptySequence() {
+            val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.xq")
+
+            val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
+            val versioned = parenthesizedItemTypePsi as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.PARENTHESIS_OPEN)
+            )
+        }
+
+        @Test
+        @DisplayName("occurrence indicator")
+        fun occurrenceIndicator() {
+            val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.xq")
+
+            val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
+            val versioned = parenthesizedItemTypePsi as XQueryConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(1))
+            assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
+
+            assertThat(versioned.conformanceElement, `is`(notNullValue()))
+            assertThat(
+                versioned.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.PARENTHESIS_OPEN)
+            )
+        }
     }
 
     // endregion

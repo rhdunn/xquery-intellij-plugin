@@ -6088,47 +6088,6 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         return false
     }
 
-    private fun parseItemType_as_SequenceType(): Boolean {
-        val sequenceTypeMarker = mark()
-        val emptySequenceMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE) || matchTokenType(XQueryTokenType.K_EMPTY)) {
-            emptySequenceMarker.error(XQueryBundle.message("parser.error.expected-not", "ItemType", "SequenceType"))
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                sequenceTypeMarker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
-                error(XQueryBundle.message("parser.error.expected", ")"))
-            }
-
-            sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
-            return true
-        } else if (parseItemType()) {
-            emptySequenceMarker.drop()
-
-            parseWhiteSpaceAndCommentTokens()
-
-            val occurrenceIndicatorMarker = mark()
-            if (parseOccurrenceIndicator()) {
-                occurrenceIndicatorMarker.error(XQueryBundle.message("parser.error.expected-not", "ItemType", "SequenceType"))
-                sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
-                return true
-            } else {
-                occurrenceIndicatorMarker.drop()
-                sequenceTypeMarker.drop()
-                return true
-            }
-        }
-
-        emptySequenceMarker.drop()
-        sequenceTypeMarker.drop()
-        return false
-    }
-
     private fun parseOccurrenceIndicator(): Boolean {
         return matchTokenType(XQueryTokenType.OPTIONAL) ||
                 matchTokenType(XQueryTokenType.STAR) ||
@@ -6402,7 +6361,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             var type = XQueryElementType.PARENTHESIZED_ITEM_TYPE
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseItemType_as_SequenceType()) {
+            if (!parseSequenceType()) {
                 error(XQueryBundle.message("parser.error.expected", "ItemType"))
                 haveErrors = true
             }

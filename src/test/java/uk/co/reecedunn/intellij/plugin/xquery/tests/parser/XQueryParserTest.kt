@@ -7039,51 +7039,68 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: ParenthesizedItemType
 
-    @Test
-    fun testParenthesizedItemType() {
-        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
+    internal inner class ParenthesizedItemType {
+        @Test
+        @DisplayName("parenthesized item type")
+        fun parenthesizedItemType() {
+            val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parenthesized item type; compact whitespace")
+        fun parenthesizedItemType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; missing token")
+        internal inner class MissingToken {
+            @Test
+            @DisplayName("missing item type")
+            fun missingItemType() {
+                val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingItemType.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingItemType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected =
+                    loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("error recovery; item type as sequence type")
+        internal inner class SequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun emptySequence() {
+                val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurrence indicator")
+            fun occurrenceIndicator() {
+                val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    @Test
-    fun testParenthesizedItemType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testParenthesizedItemType_MissingItemType() {
-        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingItemType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testParenthesizedItemType_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testParenthesizedItemType_EmptySequence() {
-        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testParenthesizedItemType_OccurrenceIndicator() {
-        val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
 
     @Test

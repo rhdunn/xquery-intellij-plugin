@@ -19,8 +19,7 @@ XQueryModuleImpl[FILE(0:57)]
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(26:27)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(28:44)]
-                     PsiErrorElementImpl[ERROR_ELEMENT(28:42)]('XPST0003: Expected 'ItemType', not 'SequenceType'.')
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE(28:42)]('empty-sequence')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE(28:42)]('empty-sequence')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(42:43)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(43:44)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')

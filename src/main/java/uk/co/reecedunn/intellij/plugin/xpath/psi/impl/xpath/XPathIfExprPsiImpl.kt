@@ -40,5 +40,5 @@ class XPathIfExprPsiImpl(node: ASTNode) :
 
     override val conformanceElement: PsiElement get() = findChildByType(XQueryTokenType.K_ELSE) ?: firstChild
 
-    override val conformanceName: String = XQueryBundle.message("construct.if-without-else")
+    override val conformanceName: String? = XQueryBundle.message("construct.if-without-else")
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,35 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.FormalSemantics
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceName
 
-class XPathParenthesizedItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParenthesizedItemType, XQueryConformance {
-    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val XQUERY3 = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val SEMANTICS = listOf(FormalSemantics.REC_1_0_20070123)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathParenthesizedItemType,
+    XQueryConformance,
+    XQueryConformanceName {
+
+    override val requiresConformance: List<Version>
+        get() = if (findChildByType<PsiElement>(XQueryElementType.SEQUENCE_TYPE) != null) SEMANTICS else XQUERY3
+
+    override val conformanceElement get(): PsiElement = firstChild
+
+    override val conformanceName: String?
+        get() {
+            return if (findChildByType<PsiElement>(XQueryElementType.SEQUENCE_TYPE) != null)
+                XQueryBundle.message("construct.parenthesized-sequence-type")
+            else
+                null
+        }
 }

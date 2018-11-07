@@ -46,5 +46,5 @@ interface XQueryConformance {
 }
 
 interface XQueryConformanceName {
-    val conformanceName: String
+    val conformanceName: String?
 }

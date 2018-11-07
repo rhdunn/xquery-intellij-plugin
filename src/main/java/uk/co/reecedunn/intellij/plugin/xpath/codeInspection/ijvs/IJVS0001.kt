@@ -66,9 +66,10 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md") {
 
             if (required.find { version -> product.conformsTo(productVersion, version) } == null) {
                 val context = versioned.conformanceElement
+                val name = (versioned as? XQueryConformanceName)?.conformanceName
                 val description =
-                    if (versioned is XQueryConformanceName)
-                        XQueryBundle.message("inspection.XPST0003.unsupported-construct-with-name.message", productVersion, required.joinToString(", or "), versioned.conformanceName)
+                    if (name != null)
+                        XQueryBundle.message("inspection.XPST0003.unsupported-construct-with-name.message", productVersion, required.joinToString(", or "), name)
                     else
                         XQueryBundle.message("inspection.XPST0003.unsupported-construct.message", productVersion, required.joinToString(", or "))
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
