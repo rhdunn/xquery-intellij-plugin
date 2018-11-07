@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:47)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                   LeafPsiElement[XQUERY_UNION_TOKEN(37:38)]('|')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected 'ItemType'.')
+                  PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected 'SequenceType'.')
                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(41:43)](':=')

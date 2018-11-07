@@ -6436,8 +6436,8 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseItemType_as_SequenceType()) {
-                    error(XQueryBundle.message("parser.error.expected", "ItemType"))
+                if (!parseSequenceType()) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                     haveErrors = true
                 }
             }

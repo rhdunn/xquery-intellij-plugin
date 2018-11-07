@@ -1927,7 +1927,7 @@ private class PluginParserTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("error recovery; item type as sequence type")
+        @DisplayName("sequence type")
         internal inner class ItemTypeAsSequenceType {
             @Test
             @DisplayName("empty sequence")
@@ -2013,7 +2013,7 @@ private class PluginParserTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("error recovery; item type as sequence type")
+        @DisplayName("sequence type")
         internal inner class ItemTypeAsSequenceType {
             @Test
             @DisplayName("empty sequence")
