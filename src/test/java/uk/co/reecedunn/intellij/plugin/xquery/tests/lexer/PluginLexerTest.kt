@@ -668,8 +668,8 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (87) TupleSequenceType")
-    fun tupleSequenceType() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
+    fun sequenceTypeList() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)

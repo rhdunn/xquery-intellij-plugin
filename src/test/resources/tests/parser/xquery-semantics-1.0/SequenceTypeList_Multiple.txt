@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:67)]
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               PluginTupleSequenceTypeImpl[XQUERY_TUPLE_SEQUENCE_TYPE(26:59)]
+               PluginSequenceTypeListImpl[XQUERY_SEQUENCE_TYPE_LIST(26:59)]
                   XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:36)]
                      XPathQNameImpl[XQUERY_QNAME(26:36)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(26:28)]('xs')
@@ -33,8 +33,7 @@ XQueryModuleImpl[FILE(0:67)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(48:49)]('XPST0003: Expected '|'.')
-                     LeafPsiElement[XQUERY_UNION_TOKEN(48:49)]('|')
+                  LeafPsiElement[XQUERY_COMMA_TOKEN(48:49)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
                   PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(50:58)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(50:54)]('item')

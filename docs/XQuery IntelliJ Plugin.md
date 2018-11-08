@@ -21,9 +21,9 @@ plugin-specific extensions are provided to support IntelliJ integration.
         - [2.1.2.5.3 Null Node Test](#21253-null-node-test)
         - [2.1.2.5.4 Array Node Test](#2154-array-node-test)
         - [2.1.2.5.5 Map Node Test](#21255-map-node-test)
-      - [2.1.2.6 Sequence Types](#2126-specialised-sequence-types)
-        - [2.1.2.6.1 Item Type Union](#21261-item-type-union)
-        - [2.1.2.6.2 Tuple Sequence Types](#21262-tuple-sequence-types)
+      - [2.1.2.6 Sequence Types](#2126-sequence-types)
+        - [2.1.2.6.1 Union](#21261-union)
+        - [2.1.2.6.2 List](#21262-list)
       - [2.1.2.7 Annotated Function Tests and Sequence Types](#2127-annotated-function-tests-and-sequence-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
@@ -289,10 +289,11 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[78\] | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
-| \[85\] | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| TupleSequenceType) ")"` |            |
+| \[87\] | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
+| \[78\] | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
+| \[85\] | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| SequenceTypeList) ")"` |             |
 
-###### 2.1.2.6.1 Item Type Union
+###### 2.1.2.6.1 Union
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -307,19 +308,20 @@ one of multiple disjoint types.
 >
 >     declare function load-json($filename as xs:string) as (map(*) | array(*)) external;
 
-###### 2.1.2.6.2 Tuple Sequence Types
+###### 2.1.2.6.2 List
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[87\] | `TupleSequenceType`            | ::= | `SequenceType ("," SequenceType)*`  |                       |
+| \[87\] | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
 
-The `TupleSequenceType` construct is an XQuery IntelliJ Plugin extension.
-This is used in the definition of built-in functions for parameters and
-return types that return sequence-based tuples.
+The `SequenceTypeList` construct is an XQuery IntelliJ Plugin extension that is
+based on the XQuery Formal Semantics specification. This is used in the
+definition of built-in functions for parameters and return types that return
+restricted sequence types.
 
-A typed sequence defines the type of each item in a sequence of a specified
-length. This is useful for defining sequence-based tuple return types such
-as rational or complex numbers.
+A restricted sequence defines the type of each item in a sequence of a specified
+length. This is useful for defining fixed-length sequence return types such as
+rational or complex numbers.
 
 > __Example:__
 >
@@ -1014,16 +1016,16 @@ These changes include support for:
 | \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
 | \[76\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
-| \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
+| \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
 | \[79\]   | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                 |
 | \[80\]   | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| SimpleInlineFunctionExpr` | | 
 | \[81\]   | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |                 |
 | \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
 | \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
 | \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
-| \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| TupleSequenceType) ")"` |            |
+| \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| SequenceTypeList) ")"` |             |
 | \[86\]   | `ItemTypeUnion`                | ::= | `SequenceType ("\|" SequenceType)* ")"` |                   |
-| \[87\]   | `TupleSequenceType`            | ::= | `SequenceType ("," SequenceType)*`  |                       |
+| \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
 | \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
 | \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |

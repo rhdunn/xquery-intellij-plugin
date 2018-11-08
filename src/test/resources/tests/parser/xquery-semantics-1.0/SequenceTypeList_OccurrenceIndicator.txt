@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:60)]
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               PluginTupleSequenceTypeImpl[XQUERY_TUPLE_SEQUENCE_TYPE(26:52)]
+               PluginSequenceTypeListImpl[XQUERY_SEQUENCE_TYPE_LIST(26:52)]
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:38)]
                      XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:36)]
                         XPathQNameImpl[XQUERY_QNAME(26:36)]

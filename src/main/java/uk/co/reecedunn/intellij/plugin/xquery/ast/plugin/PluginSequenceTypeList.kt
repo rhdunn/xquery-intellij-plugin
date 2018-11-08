@@ -20,4 +20,4 @@ import com.intellij.psi.PsiElement
 /**
  * An `TupleSequence` node in the XQuery AST.
  */
-interface PluginTupleSequenceType : PsiElement
+interface PluginSequenceTypeList : PsiElement

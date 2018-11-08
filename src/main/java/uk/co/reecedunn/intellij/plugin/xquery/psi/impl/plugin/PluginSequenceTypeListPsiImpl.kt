@@ -20,12 +20,12 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleSequenceType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class PluginTupleSequenceTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTupleSequenceType, XQueryConformance {
+class PluginSequenceTypeListPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginSequenceTypeList, XQueryConformance {
 
     override val requiresConformance get(): List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 
