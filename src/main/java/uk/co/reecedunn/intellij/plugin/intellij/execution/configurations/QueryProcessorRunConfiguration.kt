@@ -35,7 +35,7 @@ data class QueryProcessorRunConfigurationData(
 ) : RunConfigurationOptions()
 
 class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFactory, name: String) :
-    RunConfigurationBase<QueryProcessorRunConfigurationEditor>(project, factory, name),
+    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, name),
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
     // region Settings
 
