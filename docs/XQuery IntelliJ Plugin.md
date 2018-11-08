@@ -15,15 +15,16 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [2.1.2.2 Tuple Type](#2122-tuple-type)
       - [2.1.2.3 Binary Test](#2123-binary-test)
       - [2.1.2.4 Schema Kind Tests](#2124-schema-kind-tests)
-      - [2.1.2.5 Boolean Node Test](#2125-boolean-node-test)
-      - [2.1.2.6 Number Node Test](#2126-number-node-test)
-      - [2.1.2.7 Null Node Test](#2127-null-node-test)
-      - [2.1.2.8 Array Node Test](#2128-array-node-test)
-      - [2.1.2.9 Map Node Test](#2129-map-node-test)
-      - [2.1.2.10 Specialised Sequence Types](#21210-specialised-sequence-types)
-        - [2.1.2.10.1 Item Type Union](#212101-item-type-union)
-        - [2.1.2.10.2 Tuple Sequence Types](#212102-tuple-sequence-types)
-      - [2.1.2.11 Annotated Function Tests and Sequence Types](#21211-annotated-function-tests-and-sequence-types)
+      - [2.1.2.5 JSON Node Tests](#2125-json--node-tests)
+        - [2.1.2.5.1 Boolean Node Test](#21251-boolean-node-test)
+        - [2.1.2.5.2 Number Node Test](#21252-number-node-test)
+        - [2.1.2.5.3 Null Node Test](#21253-null-node-test)
+        - [2.1.2.5.4 Array Node Test](#2154-array-node-test)
+        - [2.1.2.5.5 Map Node Test](#21255-map-node-test)
+      - [2.1.2.6 Sequence Types](#2126-specialised-sequence-types)
+        - [2.1.2.6.1 Item Type Union](#21261-item-type-union)
+        - [2.1.2.6.2 Tuple Sequence Types](#21262-tuple-sequence-types)
+      - [2.1.2.7 Annotated Function Tests and Sequence Types](#2127-annotated-function-tests-and-sequence-types)
 - [3 Expressions](#3-expressions)
   - [3.1 Node Constructors](#31-node-constructors)
   - [3.2 Quantified Expressions](#32-quantified-expressions)
@@ -226,7 +227,9 @@ MarkLogic 7.0 provides `SchemaKindTest` types for working with XML Schema define
 types as part of its schema components built-in functions. MarkLogic 8.0 adds
 support for `SchemaFacetTest`.
 
-##### 2.1.2.5 Boolean Node Test
+##### 2.1.2.5 JSON Node Test
+
+##### 2.1.2.5.1 Boolean Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -238,7 +241,7 @@ MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
 and `false`) JSON values. The `NamedBooleanNodeTest` variant selects JSON
 boolean nodes in objects by the key name.
 
-##### 2.1.2.6 Number Node Test
+##### 2.1.2.5.2 Number Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -250,7 +253,7 @@ MarkLogic 8.0 provides `NumberNodeTest` types for working with numeric JSON
 values. The `NamedNumberNodeTest` variant selects JSON number nodes in objects
 by the key name.
 
-##### 2.1.2.7 Null Node Test
+##### 2.1.2.5.3 Null Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -261,7 +264,7 @@ by the key name.
 MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key name.
 
-##### 2.1.2.8 Array Node Test
+##### 2.1.2.5.4 Array Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -272,7 +275,7 @@ The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key na
 MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
 `NamedArrayNodeTest` variant selects JSON array nodes in objects by the key name.
 
-##### 2.1.2.9 Map Node Test
+##### 2.1.2.5.5 Map Node Test
 
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
@@ -283,13 +286,13 @@ MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
 MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 `NamedMapNodeTest` variant selects JSON object nodes in objects by the key name.
 
-##### 2.1.2.10 Specialised Sequence Types
+##### 2.1.2.6 Sequence Types
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[85\] | `ParenthesizedSequenceType`    | ::= | `ParenthesizedItemType \| ItemTypeUnion \| TupleSequenceType` | |
 
-###### 2.1.2.10.1 Item Type Union
+###### 2.1.2.6.1 Item Type Union
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -304,7 +307,7 @@ one of multiple disjoint types.
 >
 >     declare function load-json($filename as xs:string) as (map(*) | array(*)) external;
 
-###### 2.1.2.10.2 Tuple Sequence Types
+###### 2.1.2.6.2 Tuple Sequence Types
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
@@ -324,7 +327,7 @@ as rational or complex numbers.
 >
 >     declare type complex = (xs:double, xs:double);
 
-##### 2.1.2.11 Annotated Function Tests and Sequence Types
+##### 2.1.2.7 Annotated Function Tests and Sequence Types
 
 | Ref    | Symbol                        |     | Expression                          | Options |
 |--------|-------------------------------|-----|-------------------------------------|---------|
