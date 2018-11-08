@@ -658,13 +658,20 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
-    fun itemTypeUnion() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (85) ParenthesizedSequenceType")
+    fun parenthesizedSequenceType() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
+    fun sequenceTypeUnion() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
     }
 
     @Test
@@ -672,9 +679,7 @@ class PluginLexerTest : LexerTestCase() {
     fun sequenceTypeList() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test

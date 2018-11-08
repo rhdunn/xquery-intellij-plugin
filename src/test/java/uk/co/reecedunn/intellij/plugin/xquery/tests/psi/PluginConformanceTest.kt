@@ -31,12 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryCatchExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -1155,10 +1152,10 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
-    fun testItemTypeUnion() {
-        val file = parseResource("tests/parser/intellij-plugin/ItemTypeUnion.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginItemTypeUnion>().first() as XQueryConformance
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
+    fun testSequenceTypeUnion() {
+        val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.xq")
+        val conformance = file.walkTree().filterIsInstance<XQuerySequenceTypeUnion>().first() as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))

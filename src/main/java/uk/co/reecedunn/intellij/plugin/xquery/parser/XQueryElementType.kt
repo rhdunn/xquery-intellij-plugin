@@ -450,7 +450,6 @@ object XQueryElementType {
     val ANY_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_ANY_TEXT_TEST", PluginAnyTextTestPsiImpl::class.java, XQuery)
     val NAMED_TEXT_TEST: IElementType = ICompositeElementType("XQUERY_NAMED_TEXT_TEST", PluginNamedTextTestPsiImpl::class.java, XQuery)
 
-    val ITEM_TYPE_UNION: IElementType = ICompositeElementType("XQUERY_ITEM_TYPE_UNION", PluginItemTypeUnionPsiImpl::class.java, XQuery)
     val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType("XQUERY_SEQUENCE_TYPE_LIST", PluginSequenceTypeListPsiImpl::class.java, XQuery)
 
     // endregion

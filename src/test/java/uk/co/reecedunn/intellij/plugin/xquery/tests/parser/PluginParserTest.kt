@@ -1864,37 +1864,37 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (86) ItemTypeUnion")
-    internal inner class ItemTypeUnion {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
+    internal inner class SequenceTypeUnion {
         @Test
-        @DisplayName("item type union")
-        fun itemTypeUnion() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion.xq")
+        @DisplayName("sequence type union")
+        fun sequenceTypeUnion() {
+            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.txt")
+            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("item type union; compact whitespace")
-        fun itemTypeUnion_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_CompactWhitespace.xq")
+        fun sequenceTypeUnion_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("multiple")
         fun multiple() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple.xq")
+            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("multiple; compact whitespace")
         fun multiple_CompactWhitespace() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_Multiple_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -1904,25 +1904,25 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("missing item type")
             fun missingItemType() {
-                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.txt")
-                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingItemType.xq")
+                val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingItemType.txt")
+                val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingItemType.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("missing closing parenthesis")
             fun missingClosingParenthesis() {
-                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingClosingParenthesis.txt")
-                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MissingClosingParenthesis.xq")
+                val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
 
         @Test
-        @DisplayName("error recovery; mixed with sequence type list")
+        @DisplayName("mixed with sequence type list")
         fun mixedWithSequenceTypeList() {
-            val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithSequenceTypeList.txt")
-            val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_MixedWithSequenceTypeList.xq")
+            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MixedWithSequenceTypeList.txt")
+            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MixedWithSequenceTypeList.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -1932,16 +1932,16 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("empty sequence")
             fun emptySequence() {
-                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_EmptySequence.txt")
-                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_EmptySequence.xq")
+                val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_EmptySequence.txt")
+                val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_EmptySequence.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
             @Test
             @DisplayName("occurrence indicator")
             fun occurrenceIndicator() {
-                val expected = loadResource("tests/parser/intellij-plugin/ItemTypeUnion_OccurrenceIndicator.txt")
-                val actual = parseResource("tests/parser/intellij-plugin/ItemTypeUnion_OccurrenceIndicator.xq")
+                val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_OccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_OccurrenceIndicator.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
@@ -2005,10 +2005,10 @@ private class PluginParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("error recovery; mixed with item type union")
-        fun mixedWithItemTypeUnion() {
-            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MixedWithItemTypeUnion.txt")
-            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MixedWithItemTypeUnion.xq")
+        @DisplayName("mixed with sequence type union")
+        fun mixedWithSequenceTypeUnion() {
+            val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MixedWithSequenceTypeUnion.txt")
+            val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MixedWithSequenceTypeUnion.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 

@@ -6037,7 +6037,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseSequenceTypeUnion(): Boolean {
         val sequenceTypeUnionMarker = mark()
-        if (parseSequenceType()) {
+        if (parseSequenceTypeList()) {
             var haveErrors = false
             var haveSequenceTypeUnion = false
 
@@ -6045,7 +6045,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             while (matchTokenType(XQueryTokenType.UNION)) {
                 haveSequenceTypeUnion = true
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseSequenceType() && !haveErrors) {
+                if (!parseSequenceTypeList() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                     haveErrors = true
                 }
@@ -6059,6 +6059,33 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             return true
         }
         sequenceTypeUnionMarker.drop()
+        return false
+    }
+
+    private fun parseSequenceTypeList(): Boolean {
+        val sequenceTypeListMarker = mark()
+        if (parseSequenceType()) {
+            var haveErrors = false
+            var haveSequenceTypeList = false
+
+            parseWhiteSpaceAndCommentTokens()
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                haveSequenceTypeList = true
+                parseWhiteSpaceAndCommentTokens()
+                if (!parseSequenceType() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"))
+                    haveErrors = true
+                }
+                parseWhiteSpaceAndCommentTokens()
+            }
+
+            if (haveSequenceTypeList)
+                sequenceTypeListMarker.done(XQueryElementType.SEQUENCE_TYPE_LIST)
+            else
+                sequenceTypeListMarker.drop()
+            return true
+        }
+        sequenceTypeListMarker.drop()
         return false
     }
 
@@ -6105,7 +6132,7 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseUnionOrListSequenceType()) {
+            if (!parseSequenceTypeUnion()) {
                 error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 haveErrors = true
             }
@@ -6117,53 +6144,6 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             return true
         }
         return false
-    }
-
-    private fun parseUnionOrListSequenceType(): Boolean {
-        val marker = mark()
-        var type = XQueryElementType.PARENTHESIZED_ITEM_TYPE
-
-        parseWhiteSpaceAndCommentTokens()
-        if (!parseSequenceType()) {
-            error(XQueryBundle.message("parser.error.expected", "SequenceType"))
-        }
-
-        var haveNextItem = true
-        parseWhiteSpaceAndCommentTokens()
-        while (haveNextItem) {
-            val nextType: IElementType?
-
-            parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() === XQueryTokenType.UNION) {
-                nextType = XQueryElementType.ITEM_TYPE_UNION
-            } else if (getTokenType() === XQueryTokenType.COMMA) {
-                nextType = XQueryElementType.SEQUENCE_TYPE_LIST
-            } else {
-                haveNextItem = false
-                continue
-            }
-
-            if (type === XQueryElementType.PARENTHESIZED_ITEM_TYPE || type === nextType) {
-                type = nextType
-                advanceLexer()
-            } else {
-                val marker = mark()
-                advanceLexer()
-                if (nextType === XQueryElementType.ITEM_TYPE_UNION) {
-                    marker.error(XQueryBundle.message("parser.error.expected", "|"))
-                } else {
-                    marker.error(XQueryBundle.message("parser.error.expected", ","))
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!parseSequenceType()) {
-                error(XQueryBundle.message("parser.error.expected", "SequenceType"))
-            }
-        }
-
-        marker.done(type)
-        return true
     }
 
     // endregion

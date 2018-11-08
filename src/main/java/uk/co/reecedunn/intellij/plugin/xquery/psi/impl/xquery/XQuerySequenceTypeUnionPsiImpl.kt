@@ -18,24 +18,27 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-private val XQUERY10: List<Version> = listOf()
+private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, XQueryConformance {
-    override val requiresConformance get(): List<Version> {
-        if (conformanceElement === firstChild) {
-            return XQUERY10
-        }
-        return XQUERY30
-    }
+class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQuerySequenceTypeUnion,
+    XQueryConformance {
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.UNION) ?: firstChild
+    override val requiresConformance
+        get(): List<Version> {
+            return if (parent is XQueryCaseClause)
+                XQUERY30
+            else
+                SEMANTICS
+        }
+
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.UNION)!!
 }

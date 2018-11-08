@@ -289,18 +289,22 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[86\] | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)*` |               |
 | \[87\] | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
 | \[78\] | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
-| \[85\] | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| SequenceTypeList) ")"` |             |
+| \[85\] | `ParenthesizedSequenceType`    | ::= | `"(" SequenceTypeUnion ")"`         |                       |
 
 ###### 2.1.2.6.1 Union
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[86\] | `ItemTypeUnion`                | ::= | `SequenceType ("\|" SequenceType)*` |                       |
+| \[86\] | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)*` |               |
 
-The `ItemTypeUnion` construct is an XQuery IntelliJ Plugin extension that is
-based on the XQuery Formal Semantics specification. This is used in the
+A `SequenceTypeUnion` that is used in the case clause of a `TypeswitchExpr`
+and only contains sequence types is supported by XQuery 3.0.
+
+The extended uses of `SquenceTypeUnion` is an XQuery IntelliJ Plugin extension
+that is based on the XQuery Formal Semantics specification. This is used in the
 definition of built-in functions for parameters and return types that can have
 one of multiple disjoint types.
 
@@ -1023,8 +1027,8 @@ These changes include support for:
 | \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
 | \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
 | \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
-| \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| SequenceTypeList) ")"` |             |
-| \[86\]   | `ItemTypeUnion`                | ::= | `SequenceType ("\|" SequenceType)* ")"` |                   |
+| \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" SequenceTypeUnion ")"`               |                 |
+| \[86\]   | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)* ")"` |           |
 | \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                       |
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
 | \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
