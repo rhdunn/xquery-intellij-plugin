@@ -20,25 +20,15 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
-import org.apache.xmlbeans.impl.common.IOUtil
-import java.io.ByteArrayOutputStream
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.Charset
 
 class MockPsiManager(project: Project) : com.intellij.mock.MockPsiManager(project) {
-    @Throws(IOException::class)
-    private fun streamToString(stream: InputStream, charset: Charset): String {
-        val writer = ByteArrayOutputStream()
-        IOUtil.copyCompletely(stream, writer)
-        return String(writer.toByteArray(), charset)
-    }
-
     override fun findFile(file: VirtualFile): PsiFile? {
         try {
             val language = LanguageUtil.getLanguageForPsi(project, file) ?: return null
 
-            val content = streamToString(file.inputStream, file.charset)
+            val content = file.inputStream.decode(file.charset)
             return PsiFileFactory.getInstance(project).createFileFromText(file.name, language, content, true, false, false, file)
         } catch (e: IOException) {
             return null

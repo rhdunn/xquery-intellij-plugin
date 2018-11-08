@@ -15,32 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 
-import org.apache.http.auth.AuthScope
-import org.apache.http.auth.UsernamePasswordCredentials
-import org.apache.http.impl.client.BasicCredentialsProvider
-import org.apache.http.impl.client.HttpClients
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 
 class EXistDB : QueryProcessorInstanceManager {
     override fun create(): QueryProcessor {
-        // MarkLogic does not provide support for running as an in-memory instance.
+        // eXist-db does not provide support for running as an in-memory instance.
         throw UnsupportedOperationException()
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
-        val baseUrl = "http://${settings.hostname}:${settings.port}/exist/rest"
-
-        if (settings.username == null || settings.password == null) {
-            return EXistDBQueryProcessor(baseUrl, HttpClients.createDefault())
-        }
-
-        val credentials = BasicCredentialsProvider()
-        credentials.setCredentials(
-            AuthScope(settings.hostname, settings.port),
-            UsernamePasswordCredentials(settings.username, settings.password)
-        )
-        return EXistDBQueryProcessor(baseUrl, HttpClients.custom().setDefaultCredentialsProvider(credentials).build())
+        val baseUrl = "http://${settings.hostname}:${settings.databasePort}/exist/rest"
+        return EXistDBQueryProcessor(baseUrl, HttpConnection(settings))
     }
 }

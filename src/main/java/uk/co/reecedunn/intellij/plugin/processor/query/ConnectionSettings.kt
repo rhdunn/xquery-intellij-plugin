@@ -15,9 +15,28 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import com.intellij.credentialStore.CredentialAttributes
+import com.intellij.credentialStore.Credentials
+import com.intellij.ide.passwordSafe.PasswordSafe
+
 data class ConnectionSettings(
-    val hostname: String,
-    val port: Int,
-    val username: String?,
+    var hostname: String,
+    var databasePort: Int,
+    var adminPort: Int,
+    var username: String?
+) {
+    constructor(): this("", 0, 0, null)
+
+    private val serviceName: String get() = "uk.co.reecedunn.intellij.plugin.processor: $hostname:$databasePort"
+
     val password: String?
-)
+        get() {
+            val credentialAttributes = CredentialAttributes(serviceName, username)
+            return PasswordSafe.instance.get(credentialAttributes)?.getPasswordAsString()
+        }
+
+    fun setPassword(password: CharArray?) {
+        val credentialAttributes = CredentialAttributes(serviceName, username)
+        PasswordSafe.instance.set(credentialAttributes, password?.let { Credentials(username, it) })
+    }
+}

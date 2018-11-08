@@ -49,21 +49,18 @@ import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.PlatformLiteFixture
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
-import org.apache.xmlbeans.impl.common.IOUtil
 import org.jetbrains.annotations.NonNls
 import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
 import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.StringWriter
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
@@ -174,17 +171,10 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
         })
     }
 
-    @Throws(IOException::class)
-    private fun streamToString(stream: InputStream): String {
-        val writer = StringWriter()
-        IOUtil.copyCompletely(InputStreamReader(stream), writer)
-        return writer.toString()
-    }
-
     fun loadResource(resource: String): String? {
         val loader = ParsingTestCase::class.java.classLoader
         return try {
-            streamToString(loader.getResourceAsStream(resource))
+            loader.getResourceAsStream(resource).decode()
         } catch (e: IOException) {
             null
         }

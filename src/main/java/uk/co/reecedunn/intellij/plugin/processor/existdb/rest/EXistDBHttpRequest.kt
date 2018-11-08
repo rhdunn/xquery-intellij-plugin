@@ -18,12 +18,15 @@ package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.get
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
+internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
@@ -32,10 +35,10 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
         throw UnsupportedOperationException()
     }
 
-    override fun run(): Sequence<QueryResult> {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         val request = builder.build()
 
-        val response = client.execute(request)
+        val response =  connection.execute(request)
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -43,7 +46,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val client: Close
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        return sequenceOf(QueryResult(body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
+        sequenceOf(QueryResult(body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
     }
 
     override fun close() {

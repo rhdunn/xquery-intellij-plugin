@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,28 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
-import org.apache.commons.io.IOUtils
-import org.apache.xmlbeans.impl.common.IOUtil
-import java.io.IOException
 import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.StringWriter
-import java.nio.charset.Charset
 
 object Resources {
-    @Throws(IOException::class)
-    fun streamToString(stream: InputStream): String {
-        val writer = StringWriter()
-        IOUtil.copyCompletely(InputStreamReader(stream), writer)
-        return writer.toString()
-    }
-
     fun load(resource: String): InputStream? {
         val loader = Resources::class.java.classLoader
         return loader.getResourceAsStream(resource)
     }
-}
-
-fun InputStream.decode(charset: Charset = Charsets.UTF_8): String {
-    return String(IOUtils.toByteArray(this), charset)
 }

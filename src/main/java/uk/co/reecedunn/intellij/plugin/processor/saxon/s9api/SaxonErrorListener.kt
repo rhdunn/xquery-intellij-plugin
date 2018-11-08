@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
-abstract class QueryError : RuntimeException() {
-    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
+import javax.xml.transform.ErrorListener
+import javax.xml.transform.TransformerException
 
-    abstract val standardCode: String
+internal class SaxonErrorListener(var classes: SaxonClasses) : ErrorListener {
+    override fun warning(exception: TransformerException?) {
+    }
 
-    abstract val vendorCode: String?
+    override fun error(exception: TransformerException?) {
+    }
 
-    abstract val description: String?
-
-    abstract val module: String?
-
-    abstract val lineNumber: Int?
-
-    abstract val columnNumber: Int?
+    override fun fatalError(exception: TransformerException?) {
+        throw SaxonTransformerQueryError(exception!!, classes)
+    }
 }

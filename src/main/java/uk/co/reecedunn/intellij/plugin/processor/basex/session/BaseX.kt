@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
+import java.net.UnknownHostException
 
 class BaseX(path: File) : QueryProcessorInstanceManager {
     private val classes = BaseXClasses(path)
@@ -35,9 +36,12 @@ class BaseX(path: File) : QueryProcessorInstanceManager {
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
+        if (settings.hostname.isEmpty())
+            throw UnknownHostException("")
+
         val session = classes.clientSessionClass.getConstructor(
             String::class.java, Int::class.java, String::class.java, String::class.java
-        ).newInstance(settings.hostname, settings.port, settings.username, settings.password)
+        ).newInstance(settings.hostname, settings.databasePort, settings.username, settings.password)
         return BaseXQueryProcessor(session, classes)
     }
 }

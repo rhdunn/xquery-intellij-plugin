@@ -15,42 +15,70 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.tests
 
+import com.intellij.credentialStore.PasswordSafeSettings
+import com.intellij.ide.passwordSafe.PasswordSafe
+import com.intellij.ide.passwordSafe.impl.PasswordSafeImpl
+import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.util.Disposer
+import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertThrows
-import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseX
+import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import java.io.File
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import java.util.concurrent.ExecutionException
 
 @Suppress("Reformat")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery processor")
-class ProcessorTest {
+private class ProcessorTest : PlatformLiteFixture() {
     val home = System.getProperty("user.home")
     // Modify these for the processor being tested:
     val processorVersion = "9.0"
-    val provider = BaseX(File("$home/xquery/basex/basex-9.0/BaseX.jar"))
-    val processor: QueryProcessor = provider.create()
+    val provider = QueryProcessorSettings(
+        name = "Test Instance",
+        apiId = BaseXSession.id,
+        jar = "$home/xquery/basex/basex-9.0/BaseX.jar",
+        configurationPath =  null,
+        connection = null
+    )
+
+    @BeforeAll
+    override fun setUp() {
+        super.setUp()
+        initApplication()
+        Extensions.registerAreaClass("IDEA_PROJECT", null)
+        myProject = MockProjectEx(testRootDisposable)
+        registerApplicationService(PasswordSafe::class.java, PasswordSafeImpl(PasswordSafeSettings()))
+    }
 
     @AfterAll
-    fun tearDown() {
-        processor.close()
+    override fun tearDown() {
+        super.tearDown()
+        provider.close()
+    }
+
+    protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
+        PlatformLiteFixture.getApplication().registerService(aClass, `object`)
+        Disposer.register(myProject, com.intellij.openapi.Disposable {
+            PlatformLiteFixture.getApplication().picoContainer.unregisterComponent(aClass.name)
+        })
     }
 
     @Test @DisplayName("version") fun version() {
-        assertThat(processor.version, `is`(processorVersion))
+        assertThat(provider.session.version.execute().get(), `is`(processorVersion))
     }
 
     @Nested
     @DisplayName("return value type display name")
     internal inner class ReturnValues {
         private fun node(query: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = processor.eval(query, MimeTypes.XQUERY)
-            val items = q.run().toList()
+            val q = provider.session.eval(query, MimeTypes.XQUERY)
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -64,8 +92,8 @@ class ProcessorTest {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = processor.eval("\"$value\" cast as $type", MimeTypes.XQUERY)
-            val items = q.run().toList()
+            val q = provider.session.eval("\"$value\" cast as $type", MimeTypes.XQUERY)
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -90,16 +118,16 @@ class ProcessorTest {
         @DisplayName("sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = processor.eval("()", MimeTypes.XQUERY)
-                val items = q.run().toList()
+                val q = provider.session.eval("()", MimeTypes.XQUERY)
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(0))
             }
 
             @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
-                val q = processor.eval("(1, 2, 3)", MimeTypes.XQUERY)
-                val items = q.run().toList()
+                val q = provider.session.eval("(1, 2, 3)", MimeTypes.XQUERY)
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(3))
@@ -118,8 +146,8 @@ class ProcessorTest {
             }
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
-                val q = processor.eval("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", MimeTypes.XQUERY)
-                val items = q.run().toList()
+                val q = provider.session.eval("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", MimeTypes.XQUERY)
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(3))
@@ -287,10 +315,10 @@ class ProcessorTest {
     @DisplayName("bind variable")
     internal inner class BindVariableName {
         @Test @DisplayName("by NCName") fun ncname() {
-            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = provider.session.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", "2", "xs:integer")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -299,10 +327,10 @@ class ProcessorTest {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
-            val q = processor.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
+            val q = provider.session.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("Q{http://www.example.co.uk}x", "2", "xs:integer")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -311,10 +339,10 @@ class ProcessorTest {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by QName") fun qname() {
-            val q = processor.eval("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
+            val q = provider.session.eval("declare variable \$local:x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("local:x", "2", "xs:integer")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -324,10 +352,10 @@ class ProcessorTest {
         }
 
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = provider.session.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -337,10 +365,10 @@ class ProcessorTest {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = provider.session.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -362,10 +390,10 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+            val q = provider.session.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
             q.bindVariable("x", null, "empty-sequence()")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(0))
@@ -392,10 +420,10 @@ class ProcessorTest {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
+                val q = provider.session.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
                 q.bindVariable("x", "()", "empty-sequence()")
 
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -474,10 +502,10 @@ class ProcessorTest {
     @DisplayName("bind context item")
     internal inner class BindContextItem {
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = processor.eval("declare variable \$x external; \$x", MimeTypes.XQUERY)
-            q.bindVariable("x", value, type)
+            val q = provider.session.eval(".", MimeTypes.XQUERY)
+            q.bindContextItem(value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -487,10 +515,10 @@ class ProcessorTest {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = processor.eval(".", MimeTypes.XQUERY)
+            val q = provider.session.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(value, type)
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(1))
@@ -512,10 +540,10 @@ class ProcessorTest {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = processor.eval(".", MimeTypes.XQUERY)
+            val q = provider.session.eval(".", MimeTypes.XQUERY)
             q.bindContextItem(null, "empty-sequence()")
 
-            val items = q.run().toList()
+            val items = q.run().execute().get().toList()
             q.close()
 
             assertThat(items.size, `is`(0))
@@ -525,10 +553,10 @@ class ProcessorTest {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = processor.eval(".", MimeTypes.XQUERY)
+                val q = provider.session.eval(".", MimeTypes.XQUERY)
                 q.bindContextItem("()", "empty-sequence()")
 
-                val items = q.run().toList()
+                val items = q.run().execute().get().toList()
                 q.close()
 
                 assertThat(items.size, `is`(0))
@@ -624,8 +652,12 @@ class ProcessorTest {
     @DisplayName("error")
     internal inner class Error {
         fun parse(query: String): QueryError {
-            return assertThrows(QueryError::class.java) {
-                processor.eval(query, MimeTypes.XQUERY).use { it.run().toList() }
+            return Assertions.assertThrows(QueryError::class.java) {
+                try {
+                    provider.session.eval(query, MimeTypes.XQUERY).use { it.run().execute().get().toList() }
+                } catch (e: ExecutionException) {
+                    throw e.cause!!
+                }
             }
         }
 
@@ -633,24 +665,12 @@ class ProcessorTest {
         @DisplayName("standard code")
         fun standardCode() {
             assertThat(parse("(1, 2,").standardCode, `is`("XPST0003"))
-
-            // This MarkLogic error does not include the standard code in the description.
-            assertThat(
-                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").standardCode,
-                anyOf(`is`("XQST0031"), `is`("XPST0003"), `is`("FOER0000"))
-            )
         }
 
         @Test
         @DisplayName("vendor code")
         fun vendorCode() {
             assertThat(parse("(1, 2,").vendorCode, anyOf(`is`("XDMP-UNEXPECTED"), `is`(nullValue())))
-
-            // This MarkLogic error does not include the standard code in the description.
-            assertThat(
-                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").vendorCode,
-                anyOf(`is`("XDMP-XQUERYVERSIONSWITCH"), nullValue())
-            )
         }
 
         @Test
@@ -663,21 +683,6 @@ class ProcessorTest {
                     `is`("unexpected token: null"), // eXist-db
                     `is`("Unexpected token"), // MarkLogic
                     `is`("Expected an expression, but reached the end of the input") // Saxon
-                )
-            )
-        }
-
-        @Test
-        @DisplayName("description; MarkLogic XDMP-XQUERYVERSIONSWITCH error")
-        fun description_markLogicErrorCode() {
-            // This MarkLogic error does not include the standard code in the description.
-            assertThat(
-                parse("xquery version \"1.0-ml\"; 2 ; xquery version \"0.9-ml\"; 2").description,
-                anyOf(
-                    `is`("All modules in a module sequence must use the same XQuery version"), // BaseX
-                    `is`("expecting EOF, found ';'"), // eXist-db
-                    `is`("XQuery version '1.0-ml' not supported."), // MarkLogic
-                    `is`("Invalid XQuery version 1.0-ml") // Saxon
                 )
             )
         }

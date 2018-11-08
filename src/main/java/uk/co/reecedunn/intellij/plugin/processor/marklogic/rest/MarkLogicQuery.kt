@@ -19,14 +19,19 @@ import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemType
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
-internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: JsonObject, val client: CloseableHttpClient) :
+internal class MarkLogicQuery(
+    val builder: RequestBuilder, val queryParams: JsonObject, val connection: HttpConnection
+) :
     Query {
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -41,7 +46,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         throw UnsupportedOperationException()
     }
 
-    override fun run(): Sequence<QueryResult> {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
@@ -49,7 +54,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         builder.addParameter("vars", params.toString())
         val request = builder.build()
 
-        val response = client.execute(request)
+        val response = connection.execute(request)
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -58,7 +63,7 @@ internal class MarkLogicQuery(val builder: RequestBuilder, val queryParams: Json
         }
 
         val mime = MimeResponse(response.allHeaders, body)
-        return mime.parts.asSequence().mapIndexed { index, part ->
+        mime.parts.asSequence().mapIndexed { index, part ->
             if (part.getHeader("Content-Length")?.toInt() == 0)
                 null
             else {

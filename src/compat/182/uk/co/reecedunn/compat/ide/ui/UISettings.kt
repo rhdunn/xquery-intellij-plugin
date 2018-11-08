@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.compat.ide.ui
 
-import java.lang.RuntimeException
+import com.intellij.ide.ui.UISettings
 
-class UnsupportedQueryType(val mimetype: String) :
-    RuntimeException("Unsupported query type: ${mimetype}")
+// 1. IntelliJ >= 191 adds a NotRoamableUiSettings parameter.
+// 2. UISettings is declared final, so cannot be derived from.
+fun makeUISettings(): UISettings {
+    return UISettings()
+}

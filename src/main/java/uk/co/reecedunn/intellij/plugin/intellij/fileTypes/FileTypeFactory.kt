@@ -19,6 +19,6 @@ import com.intellij.openapi.fileTypes.FileTypeConsumer
 
 class FileTypeFactory : com.intellij.openapi.fileTypes.FileTypeFactory() {
     override fun createFileTypes(consumer: FileTypeConsumer) {
-        consumer.consume(XQueryFileType.INSTANCE, XQueryFileType.EXTENSIONS)
+        consumer.consume(XQueryFileType, XQueryFileType.EXTENSIONS)
     }
 }

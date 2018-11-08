@@ -16,10 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.core.parser
 
 import com.petebevin.markdown.MarkdownProcessor
-import org.apache.xmlbeans.impl.common.IOUtil
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.StringWriter
 
 /**
  * Convert Markdown text to HTML.
@@ -49,11 +47,5 @@ object Markdown {
         return "<html><body>\n$ret</body></html>"
     }
 
-    fun parse(text: InputStream): String = parse(streamToString(text))
-
-    private fun streamToString(stream: InputStream): String {
-        val writer = StringWriter()
-        IOUtil.copyCompletely(InputStreamReader(stream), writer)
-        return writer.toString()
-    }
+    fun parse(text: InputStream): String = parse(text.decode())
 }

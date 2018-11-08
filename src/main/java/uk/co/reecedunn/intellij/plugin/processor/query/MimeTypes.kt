@@ -16,5 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 object MimeTypes {
+    // xq;xqy;xquery -- standard defined extensions
+    // xql           -- XQuery Language (main) file [eXist-db; BaseX]
+    // xqu           -- XQuery file [BaseX]
+    private val XQUERY_SCRIPT_EXT = arrayOf("xq", "xqy", "xquery", "xql", "xqu")
+
     val XQUERY = "application/xquery"
+
+    fun extensions(mimetype: String): Array<String> {
+        return when (mimetype) {
+            XQUERY -> XQUERY_SCRIPT_EXT
+            else -> arrayOf()
+        }
+    }
 }

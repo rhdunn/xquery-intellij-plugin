@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui
 import javax.swing.JPanel
 
 interface SettingsUI<in Configuration> {
-    val panel: JPanel
+    var panel: JPanel?
 
     fun isModified(configuration: Configuration): Boolean
 

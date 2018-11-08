@@ -19,11 +19,15 @@ import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File
+import java.io.InputStream
+import javax.xml.transform.stream.StreamSource
 
-class Saxon(path: File) : QueryProcessorInstanceManager {
+class Saxon(path: File, private val config: InputStream?) : QueryProcessorInstanceManager {
     private val classes = SaxonClasses(path)
 
-    override fun create(): QueryProcessor = SaxonQueryProcessor(classes)
+    override fun create(): QueryProcessor {
+        return SaxonQueryProcessor(classes, config?.let { StreamSource(it) })
+    }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
         // Saxon does not provide support for running it as a database server.

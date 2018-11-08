@@ -16,17 +16,19 @@
 package uk.co.reecedunn.intellij.plugin.processor.existdb.rest
 
 import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
 
-internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHttpClient) : Query {
+internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) : Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
@@ -35,10 +37,10 @@ internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHt
         throw UnsupportedOperationException()
     }
 
-    override fun run(): Sequence<QueryResult> {
+    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         val request = builder.build()
 
-        val response = client.execute(request)
+        val response = connection.execute(request)
         val body = EntityUtils.toString(response.entity)
         response.close()
 
@@ -48,7 +50,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val client: CloseableHt
         }
 
         val result = XmlDocument.parse(body)
-        return result.root.children(EXIST_NS, "value").map { value ->
+        result.root.children(EXIST_NS, "value").map { value ->
             val type = value.getAttributeNS(EXIST_NS, "type")
             QueryResult.fromItemType(value.firstChild?.nodeValue ?: "", type)
         }

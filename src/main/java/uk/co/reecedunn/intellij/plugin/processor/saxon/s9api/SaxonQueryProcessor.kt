@@ -15,17 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.saxon.s9api
 
+import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
+import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classes: SaxonClasses) :
+internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
     QueryProcessor {
-    private val processor = classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
 
-    override val version: String by lazy {
+    private val processor by lazy {
+        if (source == null)
+            classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
+        else
+            classes.processorClass.getConstructor(Source::class.java).newInstance(source)
+    }
+
+    override val version: ExecutableOnPooledThread<String> = local_thread {
         val edition = classes.processorClass.getMethodOrNull("getSaxonEdition")?.invoke(processor) as? String
         val version = classes.processorClass.getMethod("getSaxonProductVersion").invoke(processor) as String
         edition?.let { "$it $version" } ?: version
@@ -33,15 +42,9 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses) :
 
     override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
 
-    override fun eval(query: String, mimetype: String): Query = classes.check {
-        when (mimetype) {
-            MimeTypes.XQUERY -> {
-                val compiler = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)
-                val executable =
-                    classes.xqueryCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
-                val evaluator = classes.xqueryExecutableClass.getMethod("load").invoke(executable)
-                SaxonXQueryRunner(evaluator, classes)
-            }
+    override fun eval(query: String, mimetype: String): Query {
+        return when (mimetype) {
+            MimeTypes.XQUERY -> SaxonXQueryRunner(processor, query, classes)
             else -> throw UnsupportedQueryType(mimetype)
         }
     }
