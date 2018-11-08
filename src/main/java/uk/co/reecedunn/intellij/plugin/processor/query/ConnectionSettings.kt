@@ -27,7 +27,7 @@ data class ConnectionSettings(
 ) {
     constructor(): this("", 0, 0, null)
 
-    private val serviceName: String = "uk.co.reecedunn.intellij.plugin.processor: $hostname:$databasePort"
+    private val serviceName: String get() = "uk.co.reecedunn.intellij.plugin.processor: $hostname:$databasePort"
 
     val password: String?
         get() {
