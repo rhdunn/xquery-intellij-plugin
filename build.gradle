@@ -42,7 +42,8 @@ buildscript {
     ext.compat_dir = { version ->
         if (version >= 191) return "src/compat/191"
         if (version == 183) return "src/compat/183"
-        else                return "src/compat/182"
+        if (version == 182) return "src/compat/182"
+        else                return "src/compat/181"
     }
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.2'
