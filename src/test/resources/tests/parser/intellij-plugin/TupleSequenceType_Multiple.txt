@@ -15,9 +15,9 @@ XQueryModuleImpl[FILE(0:67)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginTupleSequenceTypeImpl[XQUERY_TUPLE_SEQUENCE_TYPE(24:60)]
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+               PluginTupleSequenceTypeImpl[XQUERY_TUPLE_SEQUENCE_TYPE(26:59)]
                   XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:36)]
                      XPathQNameImpl[XQUERY_QNAME(26:36)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(26:28)]('xs')
@@ -42,7 +42,7 @@ XQueryModuleImpl[FILE(0:67)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(57:58)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(59:60)](')')
+               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(59:60)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(61:63)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')

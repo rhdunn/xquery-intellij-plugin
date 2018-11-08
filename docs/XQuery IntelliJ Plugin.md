@@ -290,13 +290,13 @@ MarkLogic 8.0 provides `MapNodeTest` types for working with JSON objects. The
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[78\] | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
-| \[85\] | `ParenthesizedSequenceType`    | ::= | `ItemTypeUnion \| TupleSequenceType` |                      |
+| \[85\] | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| TupleSequenceType) ")"` |            |
 
 ###### 2.1.2.6.1 Item Type Union
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[86\] | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"` |                       |
+| \[86\] | `ItemTypeUnion`                | ::= | `SequenceType ("\|" SequenceType)*` |                       |
 
 The `ItemTypeUnion` construct is an XQuery IntelliJ Plugin extension that is
 based on the XQuery Formal Semantics specification. This is used in the
@@ -311,7 +311,7 @@ one of multiple disjoint types.
 
 | Ref    | Symbol                         |     | Expression                          | Options               |
 |--------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[87\] | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
+| \[87\] | `TupleSequenceType`            | ::= | `SequenceType ("," SequenceType)*`  |                       |
 
 The `TupleSequenceType` construct is an XQuery IntelliJ Plugin extension.
 This is used in the definition of built-in functions for parameters and
@@ -1021,9 +1021,9 @@ These changes include support for:
 | \[82\]   | `PredefinedEntityRef`          | ::= | `EntityRef`                               |                 |
 | \[83\]   | `EntityRef`                    | ::= | \[[https://www.w3.org/TR/xml/#NT-EntityRef]()\] |           |
 | \[84\]   | `Name`                         | ::= | \[[https://www.w3.org/TR/xml/#NT-Name]()\] |                |
-| \[85\]   | `ParenthesizedSequenceType`    | ::= | `ItemTypeUnion \| TupleSequenceType` | |
-| \[86\]   | `ItemTypeUnion`                | ::= | `"(" ItemType ("\|" ItemType)* ")"`       |                 |
-| \[87\]   | `TupleSequenceType`            | ::= | `"(" ItemType ("," ItemType)* ")"`  |                       |
+| \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" (ItemTypeUnion \| TupleSequenceType) ")"` |            |
+| \[86\]   | `ItemTypeUnion`                | ::= | `SequenceType ("\|" SequenceType)* ")"` |                   |
+| \[87\]   | `TupleSequenceType`            | ::= | `SequenceType ("," SequenceType)*`  |                       |
 | \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                       |
 | \[89\]   | `AnnotatedFunctionOrSequence`  | ::= | `AnnotatedSequenceType \| FunctionTest` |                   |
 | \[90\]   | `AnnotatedSequenceType`        | ::= | `Annotation Annotation* "for" SequenceType` |               |

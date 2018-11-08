@@ -12,8 +12,8 @@ XQueryModuleImpl[FILE(0:51)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:18)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
-               PluginItemTypeUnionImpl[XQUERY_ITEM_TYPE_UNION(21:47)]
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(21:22)]('(')
+               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(21:22)]('(')
+               PluginItemTypeUnionImpl[XQUERY_ITEM_TYPE_UNION(22:46)]
                   XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(22:32)]
                      XPathQNameImpl[XQUERY_QNAME(22:32)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(22:24)]('xs')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:51)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(40:44)]('item')
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
+               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(47:49)](':=')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(49:50)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(49:50)]
