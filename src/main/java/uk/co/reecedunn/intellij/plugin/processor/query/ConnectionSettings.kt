@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
-import com.intellij.ide.passwordSafe.PasswordSafe
+import uk.co.reecedunn.compat.ide.passwordSafe.PasswordSafe
 
 data class ConnectionSettings(
     var hostname: String,
