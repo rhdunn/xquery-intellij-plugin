@@ -2,6 +2,14 @@
 
 ## 1.3 - (In Development)
 
+1.  Added support for the eXist-db XQuery database.
+1.  Initial support for running queries on the BaseX, eXist-db, MarkLogic and
+    Saxon XQuery processors.
+1.  Support for Saxon 9.9 and BaseX 9.1 syntax extensions (see below).
+1.  Support for the BaseX and Saxon built-in functions. Thanks to Bridger
+    Dyson-Smith for adding these.
+1.  Improved resolving imported modules, names, and functions (see below).
+
 Saxon Vendor Extensions:
 
 1.  Recognise Saxon `UnionType` constructs in `TypedMapTest` sequence types.
@@ -32,8 +40,10 @@ Static Context:
 1.  Add the `sql` namespace to the MarkLogic static context, added in MarkLogic 7.0.
 1.  Add support for the BaseX built-in functions and static context. Thanks to
     Bridger Dyson-Smith for providing the built-in function definitions.
-1.  Add support for EXPath and EXQuery module functions used by BaseX as built-in
-    functions and importable modules.
+1.  Add support for the Saxon built-in functions and static context. Thanks to
+    Bridger Dyson-Smith for providing the built-in function definitions.
+1.  Add support for EXPath and EXQuery module functions used by BaseX and Saxon
+    as built-in functions and importable modules.
 
 Module Import Resolution:
 

@@ -14,6 +14,13 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.3-dev:</h3>
+    <ol>
+      <li>Added support for the eXist-db XQuery database.</li>
+      <li>Initial support for running queries on the BaseX, eXist-db, MarkLogic and Saxon XQuery processors.</li>
+      <li>Support for Saxon 9.9 and BaseX 9.1 syntax extensions (see below).</li>
+      <li>Support for the BaseX and Saxon built-in functions. Thanks to Bridger Dyson-Smith for adding these.</li>
+      <li>Improved resolving imported modules, names, and functions (see below).</li>
+    </ol>
     <p>Saxon Vendor Extensions:</p>
     <ol>
       <li>Recognise Saxon <code>UnionType</code> constructs in <code>TypedMapTest</code> sequence types.</li>
@@ -42,7 +49,8 @@
     <ol>
       <li>Add the <code>sql</code> namespace to the MarkLogic static context, added in MarkLogic 7.0.</li>
       <li>Add support for the BaseX built-in functions and static context. Thanks to Bridger Dyson-Smith for providing the built-in function definitions.</li>
-      <li>Add support for EXPath and EXQuery module functions used by BaseX as built-in functions and importable modules.</li>
+      <li>Add support for the Saxon built-in functions and static context. Thanks to Bridger Dyson-Smith for providing the built-in function definitions.</li>
+      <li>Add support for EXPath and EXQuery module functions used by BaseX and Saxon as built-in functions and importable modules.</li>
     </ol>
     <p>Module Import Resolution:</p>
     <ol>
