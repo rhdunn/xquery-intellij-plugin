@@ -32,26 +32,26 @@ internal class BaseXClientQuery(val session: Any, val queryString: String, val c
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
-        classes.queryClass
+        classes.clientQueryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
             .invoke(query, name, value, mapType(type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        classes.queryClass
+        classes.clientQueryClass
             .getMethod("context", Any::class.java, String::class.java)
             .invoke(query, value, mapType(type))
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check {
-            BaseXQueryResultIterator(query, classes).asSequence()
+            BaseXQueryResultIterator(query, classes, classes.clientQueryClass).asSequence()
         }
     }
 
     override fun close() {
         if (basexQuery != null) {
-            classes.queryClass.getMethod("close").invoke(query)
+            classes.clientQueryClass.getMethod("close").invoke(query)
             basexQuery = null
         }
     }

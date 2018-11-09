@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses) : Iterator<QueryResult> {
+internal class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses, val queryClass: Class<*>) : Iterator<QueryResult> {
     override fun hasNext(): Boolean = classes.check {
-        classes.queryClass.getMethod("more").invoke(query) as Boolean
+        queryClass.getMethod("more").invoke(query) as Boolean
     }
 
     override fun next(): QueryResult {
-        val next = classes.queryClass.getMethod("next").invoke(query) as String?
-        val type = classes.queryClass.getMethodOrNull("type")?.invoke(query)
+        val next = queryClass.getMethod("next").invoke(query) as String?
+        val type = queryClass.getMethodOrNull("type")?.invoke(query)
         return QueryResult.fromItemType(next!!, type?.toString() ?: "item()")
     }
 }
