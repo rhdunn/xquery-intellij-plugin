@@ -23,8 +23,18 @@ import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-internal class BaseXLocalQueryProcessor(val session: Any, val classes: BaseXClasses) :
+internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClasses) :
     QueryProcessor {
+
+    private var basexSession: Any? = null
+    val session: Any
+        get() {
+            if (basexSession == null) {
+                basexSession = classes.localSessionClass.getConstructor(classes.contextClass).newInstance(context)
+            }
+            return basexSession!!
+        }
+
     override val version: ExecutableOnPooledThread<String> by cached {
         eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
             query.run().then { results -> results.first().value }
@@ -45,6 +55,9 @@ internal class BaseXLocalQueryProcessor(val session: Any, val classes: BaseXClas
     }
 
     override fun close() {
-        classes.sessionClass.getMethod("close").invoke(session)
+        if (basexSession != null) {
+            classes.sessionClass.getMethod("close").invoke(session)
+            basexSession = null
+        }
     }
 }
