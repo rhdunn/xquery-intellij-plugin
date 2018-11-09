@@ -25,7 +25,7 @@ internal class BaseXClientQuery(val session: Any, val queryString: String, val c
     val query: Any
         get() {
             if (basexQuery == null) {
-                basexQuery = classes.sessionClass.getMethod("query", String::class.java).invoke(session, queryString)
+                basexQuery = classes.clientSessionClass.getMethod("query", String::class.java).invoke(session, queryString)
             }
             return basexQuery!!
         }

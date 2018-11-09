@@ -25,7 +25,7 @@ internal class BaseXLocalQuery(val session: Any, val queryString: String, val cl
     val query: Any
         get() {
             if (basexQuery == null) {
-                basexQuery = classes.sessionClass.getMethod("query", String::class.java).invoke(session, queryString)
+                basexQuery = classes.localSessionClass.getMethod("query", String::class.java).invoke(session, queryString)
             }
             return basexQuery!!
         }

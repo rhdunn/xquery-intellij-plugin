@@ -56,7 +56,7 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
 
     override fun close() {
         if (basexSession != null) {
-            classes.sessionClass.getMethod("close").invoke(session)
+            classes.localSessionClass.getMethod("close").invoke(session)
             basexSession = null
         }
     }

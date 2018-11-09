@@ -45,6 +45,6 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
     }
 
     override fun close() {
-        classes.sessionClass.getMethod("close").invoke(session)
+        classes.clientSessionClass.getMethod("close").invoke(session)
     }
 }

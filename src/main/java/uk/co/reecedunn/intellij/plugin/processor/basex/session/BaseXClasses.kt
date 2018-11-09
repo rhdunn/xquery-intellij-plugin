@@ -24,7 +24,6 @@ internal class BaseXClasses(path: File) {
     val contextClass: Class<*>
     val localSessionClass: Class<*>
     val clientSessionClass: Class<*>
-    val sessionClass: Class<*>
     val queryClass: Class<*>
     val basexExceptionClass: Class<*>
 
@@ -35,8 +34,6 @@ internal class BaseXClasses(path: File) {
                 ?: loader.loadClass("org.basex.server.LocalSession")
         clientSessionClass = loader.loadClassOrNull("org.basex.api.client.ClientSession")
                 ?: loader.loadClass("org.basex.server.ClientSession")
-        sessionClass = loader.loadClassOrNull("org.basex.api.client.Session")
-                ?: loader.loadClass("org.basex.server.Session")
         queryClass = loader.loadClassOrNull("org.basex.api.client.Query")
                 ?: loader.loadClass("org.basex.server.Query")
         basexExceptionClass = loader.loadClass("org.basex.core.BaseXException")
