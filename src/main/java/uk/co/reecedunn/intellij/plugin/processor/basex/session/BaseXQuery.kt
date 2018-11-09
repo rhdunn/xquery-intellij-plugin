@@ -64,7 +64,9 @@ internal class BaseXQuery(val session: Any, val queryString: String, val classes
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
-        BaseXQueryResultIterator(query, classes).asSequence()
+        classes.check {
+            BaseXQueryResultIterator(query, classes).asSequence()
+        }
     }
 
     override fun close() {

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import java.lang.UnsupportedOperationException
 import java.net.UnknownHostException
 
 abstract class QueryError : RuntimeException() {
@@ -58,6 +59,8 @@ fun Throwable.toQueryUserMessage(): String {
             XQueryBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
         is HttpStatusException ->
             message!!
+        is UnsupportedOperationException ->
+            XQueryBundle.message("processor.exception.unsupported-operation")
         else ->
             throw this
     }
