@@ -1,141 +1,59 @@
-# IntelliJ XQuery Plugin
-
 [![Build Status](https://travis-ci.org/rhdunn/xquery-intellij-plugin.svg?branch=master)](https://travis-ci.org/rhdunn/xquery-intellij-plugin/master)
 [![codecov.io](https://codecov.io/github/rhdunn/xquery-intellij-plugin/coverage.svg)](https://codecov.io/github/rhdunn/xquery-intellij-plugin)
 [![JetBrains Plugin](https://img.shields.io/jetbrains/plugin/v/8612-xquery-intellij-plugin.svg)](https://plugins.jetbrains.com/plugin/8612-xquery-intellij-plugin)
 [![JetBrains Plugin Downloads](https://img.shields.io/jetbrains/plugin/d/8612-xquery-intellij-plugin.svg)](https://plugins.jetbrains.com/plugin/8612-xquery-intellij-plugin)
-[![License](https://img.shields.io/github/license/rhdunn/xquery-intellij-plugin.svg)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/rhdunn/xquery-intellij-plugin.svg)](https://github.com/rhdunn/xquery-intellij-plugin/issues)
+[![Apache 2.0 License](https://img.shields.io/github/license/rhdunn/xquery-intellij-plugin.svg)](LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/rhdunn/xquery-intellij-plugin.svg)](https://github.com/rhdunn/xquery-intellij-plugin/issues)
 
-- [Features](#features)
-  - [Language Support](#language-support)
-  - [Invalid Syntax Recovery](#invalid-syntax-recovery)
-  - [Warnings and Errors](#warnings-and-errors)
-  - [IntelliJ Integration](#intellij-integration)
-- [License Information](#license-information)
+<img src="images/syntax-highlighting.png" alt="Syntax Highlighting" width="70%" align="right"/>
 
-----------
+## IntelliJ XQuery Plugin
 
-This project provides XQuery support for the IntelliJ IDE.
+<img src="images/xquery-settings.png" alt="XQuery Settings" width="60%" align="right"/>
 
-_Supported IntelliJ Platforms:_ IntelliJ IDEA Community, IntelliJ IDEA Ultimate,
-PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
+This is a plugin for the IntelliJ IDE 2018.1 &ndash; 2018.3 that adds support
+for the XML Query (XQuery) language. This covers support for:
+1.  XQuery 1.0, 3.0, and 3.1.
+1.  XQuery and XPath Full Text
+1.  XQuery Update Facility 1.0, and 3.0
+1.  XQuery Scripting Extension
 
-_Supported IntelliJ Versions:_ 2018.1 - 2018.3
+##### Supported XQuery Implementations
 
-_Supported XQuery Implementations:_ BaseX, eXist-db, MarkLogic, Saxonica Saxon,
-W3C Specifications
+1.  [BaseX](docs/XQuery%20IntelliJ%20Plugin.md#c1-basex-vendor-extensions)
+    7.0 &ndash; 9.1
+1.  [eXist-db](docs/XQuery%20IntelliJ%20Plugin.md#c5-exist-db-extensions)
+    4.4
+1.  [MarkLogic](docs/XQuery%20IntelliJ%20Plugin.md#c2-marklogic-vendor-extensions)
+    8.0 &ndash; 9.0
+1.  [Saxon](docs/XQuery%20IntelliJ%20Plugin.md#c3-saxon-vendor-extensions)
+    9.4 &ndash; 9.9
 
-## Features
+##### Robust Language Support
 
-### Language Support
+<img src="images/error-messages.png" alt="Error Messages" width="60%" align="right"/>
 
-A robust, standard conforming XQuery syntax highlighter and parser with file encoding
-detection and error recovery. It supports the following W3C specifications:
+The plugin provides rock solid standards conforming XQuery language support.
+This features vendor extension support, recovery from invalid XQuery, and xqDoc
+syntax highlighting.
 
-*  XQuery 1.0, 3.0 and 3.1 core language;
-*  XQuery and XPath Full Text 1.0 and 3.0 for XQuery;
-*  XQuery Update Facility 1.0 and 3.0;
-*  XQuery Scripting Extension 1.0.
+The plugin can be configured to check that only XQuery syntax supported by an
+XQuery processor is used.
 
-![Syntax Highlighting](images/syntax-highlighting.png)
+##### IntelliJ Integration
 
-It supports the following XQuery syntax extensions:
+<img src="images/resolve-uriliteral.png" alt="Resolve URI Literals" width="60%" align="right"/>
 
-*  [BaseX](docs/XQuery%20IntelliJ%20Plugin.md#c1-basex-vendor-extensions) 7.8 and 8.5;
-*  [MarkLogic](docs/XQuery%20IntelliJ%20Plugin.md#c2-marklogic-vendor-extensions) 6.0, 7.0, and 8.0;
-*  [Saxon](docs/XQuery%20IntelliJ%20Plugin.md#c3-saxon-vendor-extensions) 9.4, and 9.8.
-
-It has support for xqDoc documentation comments.
-
-The plugin provides control over how XQuery dialects are interpreted.
-
-![XQuery Settings](images/xquery-settings.png)
-
-### Invalid Syntax Recovery
-
-When there is a syntax error in XQuery, this plugin will report that error. In
-addition to this, it will attempt to recover and resume parsing. If there are
-any errors, the parser will parse the next item as a new XQuery statement, and
-if the file is a library module it will keep additional statements in the library
-prolog so declared functions and variables remain visible outside the module.
-
-If there is a missing keyword or symbol that is in an unambiguous place to
-recover (such as a missing `then` keyword from an `if` statement), the parser
-will report that missing keyword or symbol and then continue as if it was
-present. This is not always possible, as given `if (true()) then else` the
-`else` keyword is actually an XPath expression to select an `NCName`, not part
-of the if statement.
-
-If a CDATA section is used outside of an XML block, the parser will report it
-and continue as if the CDATA section was a `text` node.
-
-If `=` is used instead of `:=`, the parser will report this error and treat it
-as if `:=` was used.
-
-If a `QName` contains whitespace between the prefix, `:`, and local name the
-plugin will report the error and continue as if the whitespace was not present.
-If a `QName` is missing a prefix or local name the parser will report this error
-and process the `QName` as if the prefix or local name were present, such as in
-`<a:></a:>`.
-
-If a `Wildcard` contains both a wildcard prefix and local name (`*:*`), the
-parser will report this error and treat both wildcards as part of the same
-wildcard node test.
-
-If an `element`, `attribute`, `processing-instructor`, or `namespace` constructor
-uses a string literal as the name (for example, `element "test" {}`), the error
-is reported and the name is treated as if it was a braced expression.
-
-If a parenthesized item type contains either an empty sequence or an occurrence
-indicator, an error is reported and the resulting sequence type is treated as
-the type associated with the parenthesized item type. For example,
-`let $x as (xs:int+) := 2 return $x`.
-
-### Warnings and Errors
-
-Helpful error messages for invalid XQuery constructs.
-
-![Error Messages](images/error-messages.png)
-
-Warnings for XQuery constructs that are valid in a different version or extension
-to the one configured in the project.
-
-![Require Different Version](images/require-different-version.png)
-
-### IntelliJ Integration
-
-Resolve URI string literals to the files they reference.
-
-![Resolve URI Literals](images/resolve-uriliteral.png)
-
-Resolve namespaces, functions and variables to their corresponding declarations.
-
-Code folding is supported for the following elements:
-
-*  Comment;
-*  DirElemConstructor;
-*  EnclosedExpr (including function bodies).
-
-Other supported IntelliJ features:
-
+The plugin provides integration with the following IntelliJ features:
+1.  Resolving URI string literal, function, and variable references.
+1.  Code folding.
+1.  TODO highlighting for XQuery and XML comments.
 1.  Find usages.
-2.  Paired brace matching.
-3.  Commenting code support.
+1.  Paired brace matching.
+1.  Commenting code.
 
-## Documents
-
-[XQuery IntelliJ Plugin](docs/XQuery%20IntelliJ%20Plugin.md) &mdash;
-The specification document for vendor and plugin extensions for XPath
-and XQuery supported by the XQuery IntelliJ Plugin.
-
-[XQuery IntelliJ Plugin Data Model](docs/XQuery%20IntelliJ%20Plugin%20Data%20Model.md)
-&mdash; The specification document for XPath and XQuery Data Model
-extensions used by the XQuery IntelliJ Plugin.
-
-## License Information
+-----
 
 Copyright (C) 2016-2018 Reece H. Dunn
 
-The IntelliJ XQuery Plugin is licensed under the [Apache 2.0](LICENSE)
-license.
+The IntelliJ XQuery Plugin is licensed under the [Apache 2.0](LICENSE) license.
