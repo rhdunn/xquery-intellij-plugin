@@ -39,10 +39,7 @@ internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) 
 
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
-            MimeTypes.XQUERY -> {
-                val ret = classes.sessionClass.getMethod("query", String::class.java).invoke(session, query)
-                BaseXQuery(ret, classes)
-            }
+            MimeTypes.XQUERY -> BaseXQuery(session, query, classes)
             else -> throw UnsupportedQueryType(mimetype)
         }
     }

@@ -40,8 +40,16 @@ private fun mapType(type: String?): String? {
         type
 }
 
-internal class BaseXQuery(val query: Any, val classes: BaseXClasses) :
-    Query {
+internal class BaseXQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : Query {
+    private var basexQuery: Any? = null
+    val query: Any
+        get() {
+            if (basexQuery == null) {
+                basexQuery = classes.sessionClass.getMethod("query", String::class.java).invoke(session, queryString)
+            }
+            return basexQuery!!
+        }
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.queryClass
@@ -60,6 +68,9 @@ internal class BaseXQuery(val query: Any, val classes: BaseXClasses) :
     }
 
     override fun close() {
-        classes.queryClass.getMethod("close").invoke(query)
+        if (basexQuery != null) {
+            classes.queryClass.getMethod("close").invoke(query)
+            basexQuery = null
+        }
     }
 }
