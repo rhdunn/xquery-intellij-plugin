@@ -18,16 +18,12 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.io.decode
-import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
-
-internal class BaseXQueryProcessor(val session: Any, val classes: BaseXClasses) :
+internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) :
     QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
         eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
