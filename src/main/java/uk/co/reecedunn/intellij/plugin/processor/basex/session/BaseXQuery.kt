@@ -17,28 +17,8 @@ package uk.co.reecedunn.intellij.plugin.processor.basex.session
 
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
-import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-
-private class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses) : Iterator<QueryResult> {
-    override fun hasNext(): Boolean = classes.check {
-        classes.queryClass.getMethod("more").invoke(query) as Boolean
-    }
-
-    override fun next(): QueryResult {
-        val next = classes.queryClass.getMethod("next").invoke(query) as String?
-        val type = classes.queryClass.getMethodOrNull("type")?.invoke(query)
-        return QueryResult.fromItemType(next!!, type?.toString() ?: "item()")
-    }
-}
-
-private fun mapType(type: String?): String? {
-    return if (type == "xs:dateTimeStamp") // BaseX does not support XML Schema 1.1 Part 2
-        "xs:dateTime"
-    else
-        type
-}
 
 internal class BaseXQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : Query {
     private var basexQuery: Any? = null

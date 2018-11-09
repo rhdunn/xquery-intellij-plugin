@@ -25,6 +25,13 @@ import java.net.UnknownHostException
 
 val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
 
+internal fun mapType(type: String?): String? {
+    return if (type == "xs:dateTimeStamp") // BaseX does not support XML Schema 1.1 Part 2
+        "xs:dateTime"
+    else
+        type
+}
+
 class BaseX(path: File) : QueryProcessorInstanceManager {
     private val classes = BaseXClasses(path)
     private val context =
