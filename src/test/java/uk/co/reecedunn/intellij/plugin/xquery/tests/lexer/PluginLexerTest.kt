@@ -716,4 +716,13 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "?:", XQueryTokenType.ELVIS)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    fun paramList() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, "...", XQueryTokenType.ELLIPSIS)
+    }
 }

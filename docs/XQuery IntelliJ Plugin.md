@@ -58,6 +58,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [4.2 Annotations](#42-annotations)
   - [4.3 Stylesheet Import](#43-stylesheet-import)
   - [4.4 Transactions](#44-transactions)
+  - [4.5 Function Declaration](#45-function-declaration)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 EBNF for XQuery 3.1 with Vendor Extensions](#a2-ebnf-for-xquery-31-with-vendor-extensions)
@@ -874,6 +875,20 @@ each transaction. Due to the way the syntax is constructed, MarkLogic
 transactions without a prolog will be parsed according to the Scripting Extension
 syntax.
 
+### 4.5 Function Declaration
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[95\] | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |         |
+
+\[Definition: *Variadic function arguments* match zero or more arguments at the
+end of the non-variadic arguments.\] Variadic function arguments are supported
+in proposal 1, version 2 of the EXPath syntax extensions for XPath and XQuery.
+
+When `...` is added after the last parameter in a parameter list, that parameter
+contains the arguments passed after the previous parameter as an `array`. If the
+variadic parameter is given a type, the elements in that array has that type.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1 with Vendor Extensions
@@ -1036,6 +1051,7 @@ These changes include support for:
 | \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
 | \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                       |
 | \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
+| \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |
 
 ### A.3 Reserved Function Names
 
@@ -1140,6 +1156,9 @@ __Working Drafts__
 
 ### B.5 EXPath References
 __XPath NG__
+*  EXPath. *Variadic Function Arguments*. Proposal 1, version 2. See
+   [https://github.com/expath/xpath-ng/blob/0dded843cf1e7e21d357c9360bf5faf5b9e1e129/variadic-function-arguments.md]().
+   Reece H. Dunn, 67 Bricks.
 *  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
    [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
    Michael Kay, Saxonica.
@@ -1250,6 +1269,7 @@ XQuery. The following proposals are supported by this plugin:
 1.  [Ternary If](#314-conditional-expressions) and [Elvis](#314-conditional-expressions)
     expressions \[Proposal 2\]
 1.  [Union Type](#2121-union-type) \[Proposal 6\]
+1.  [Variadic Function Arguments](#45-function-declaration) \[Proposal 1, version 2\]
 
 ## D Error and Warning Conditions
 

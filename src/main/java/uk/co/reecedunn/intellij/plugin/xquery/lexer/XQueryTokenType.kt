@@ -137,9 +137,10 @@ object XQueryTokenType {
     val STRING_INTERPOLATION_OPEN = IElementType("XQUERY_STRING_INTERPOLATION_OPEN_TOKEN", XQuery) // XQuery 3.1
     val STRING_INTERPOLATION_CLOSE = IElementType("XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN", XQuery) // XQuery 3.1
 
-    val TERNARY_IF = IElementType("XQUERY_TERNARY_IF_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal
-    val TERNARY_ELSE = IElementType("XQUERY_TERNARY_ELSE_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal
-    val ELVIS = IElementType("XQUERY_ELVIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal
+    val ELLIPSIS = IElementType("XQUERY_ELLIPSIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 1
+    val TERNARY_IF = IElementType("XQUERY_TERNARY_IF_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
+    val TERNARY_ELSE = IElementType("XQUERY_TERNARY_ELSE_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
+    val ELVIS = IElementType("XQUERY_ELVIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
 
     val K_AFTER = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AFTER") // Update Facility 1.0
     val K_ALL = IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALL") // Full Text 1.0

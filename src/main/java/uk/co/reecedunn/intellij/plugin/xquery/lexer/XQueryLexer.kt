@@ -303,7 +303,12 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 if (cc == CharacterClass.DOT) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.PARENT_SELECTOR
+                    if (mTokenRange.codePoint == '.'.toInt()) {
+                        mTokenRange.match()
+                        mType = XQueryTokenType.ELLIPSIS
+                    } else {
+                        mType = XQueryTokenType.PARENT_SELECTOR
+                    }
                     return
                 } else if (cc != CharacterClass.DIGIT) {
                     mType = XQueryTokenType.DOT
