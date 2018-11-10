@@ -9,7 +9,7 @@
 
 ## IntelliJ XQuery Plugin
 
-This is a plugin for the IntelliJ IDE 2018.1 &ndash; 2018.3 that adds support
+This is a plugin for IntelliJ IDE 2018.1 &ndash; 2018.3 that adds support
 for the XML Query (XQuery) language. This covers support for:
 1.  XQuery 1.0, 3.0, and 3.1;
 1.  XQuery and XPath Full Text;
