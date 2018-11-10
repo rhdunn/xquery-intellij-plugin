@@ -17,9 +17,11 @@ for the XML Query (XQuery) language. This covers support for:
 1.  XQuery Update Facility 1.0, and 3.0;
 1.  Vendor XQuery extensions.
 
+##### Supported XQuery Implementations
+
 <img src="images/xquery-settings.png" alt="XQuery Settings" width="60%" align="right"/>
 
-##### Supported XQuery Implementations
+This plugin provides support for the following implementations of XQuery:
 
 1.  [BaseX](docs/XQuery%20IntelliJ%20Plugin.md#c1-basex-vendor-extensions)
     7.0 &ndash; 9.1
@@ -29,6 +31,9 @@ for the XML Query (XQuery) language. This covers support for:
     8.0 &ndash; 9.0
 1.  [Saxon](docs/XQuery%20IntelliJ%20Plugin.md#c3-saxon-vendor-extensions)
     9.4 &ndash; 9.9
+
+The XQuery implementation, implementation version, XQuery version and dialect
+can be configured to provide checks for supported vendor extensions.
 
 ##### Robust Language Support
 
