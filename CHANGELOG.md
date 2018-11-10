@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.4 - (In Development)
+
 ## 1.3 - 2018-11-10
 
 1.  Added support for the eXist-db XQuery database.
