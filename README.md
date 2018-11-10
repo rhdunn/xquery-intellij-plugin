@@ -17,7 +17,7 @@ for the XML Query (XQuery) language. This covers support for:
 1.  XQuery Update Facility 1.0, and 3.0;
 1.  Vendor XQuery extensions.
 
-##### Supported XQuery Implementations
+#### Supported XQuery Implementations
 
 <img src="images/xquery-settings.png" alt="XQuery Settings" width="60%" align="right"/>
 
@@ -35,25 +35,24 @@ This plugin provides support for the following implementations of XQuery:
 The XQuery implementation, implementation version, XQuery version and dialect
 can be configured to provide checks for supported vendor extensions.
 
-##### Robust Language Support
+<img src="images/language-support.png" alt="Language Support" width="50%" align="right"/>
 
-<img src="images/error-messages.png" alt="Error Messages" width="60%" align="right"/>
+#### Language Support
 
-The plugin provides rock solid standards conforming XQuery language support.
-This features vendor extension support, recovery from invalid XQuery, and xqDoc
-syntax highlighting.
+The plugin provides rock solid standards conforming XQuery language support
+that includes W3C, vendor, and EXPath syntax extensions. This includes error
+recovery to handle common mistakes when writing XQuery code.
 
-The plugin can be configured to check that only XQuery syntax supported by an
-XQuery processor is used.
+The plugin has additional syntax highlighting for XML and XQuery comment todo
+statements, xqDoc comments, and QName prefices.
 
-##### IntelliJ Integration
+#### IntelliJ Integration
 
 <img src="images/resolve-uriliteral.png" alt="Resolve URI Literals" width="60%" align="right"/>
 
 The plugin provides integration with the following IntelliJ features:
 1.  Resolving URI string literal, function, and variable references.
 1.  Code folding.
-1.  TODO highlighting for XQuery and XML comments.
 1.  Find usages.
 1.  Paired brace matching.
 1.  Commenting code.
