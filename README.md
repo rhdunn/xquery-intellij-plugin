@@ -14,8 +14,8 @@ for the XML Query (XQuery) language. This covers support for:
 1.  XQuery 1.0, 3.0, and 3.1;
 1.  XQuery and XPath Full Text;
 1.  XQuery Scripting Extension;
-1.  Vendor XQuery extensions.
-1.  XQuery Update Facility 1.0, and 3.0;
+1.  Vendor XQuery extensions;
+1.  XQuery Update Facility 1.0, and 3.0.
 
 #### Supported XQuery Implementations
 
@@ -24,13 +24,13 @@ for the XML Query (XQuery) language. This covers support for:
 This plugin provides support for the following implementations of XQuery:
 
 1.  [BaseX](docs/XQuery%20IntelliJ%20Plugin.md#c1-basex-vendor-extensions)
-    7.0 &ndash; 9.1
+    7.0 &ndash; 9.1;
 1.  [eXist-db](docs/XQuery%20IntelliJ%20Plugin.md#c5-exist-db-extensions)
-    4.4
+    4.4;
 1.  [MarkLogic](docs/XQuery%20IntelliJ%20Plugin.md#c2-marklogic-vendor-extensions)
-    8.0 &ndash; 9.0
+    8.0 &ndash; 9.0;
 1.  [Saxon](docs/XQuery%20IntelliJ%20Plugin.md#c3-saxon-vendor-extensions)
-    9.4 &ndash; 9.9
+    9.4 &ndash; 9.9.
 
 The XQuery implementation, implementation version, XQuery version and dialect
 can be configured to provide checks for supported vendor extensions.
@@ -51,10 +51,10 @@ statements, xqDoc comments, and QName prefices.
 <img src="images/resolve-uriliteral.png" alt="Resolve URI Literals" width="60%" align="right"/>
 
 The plugin provides integration with the following IntelliJ features:
-1.  Resolving URI string literal, function, and variable references.
-1.  Code folding.
-1.  Find usages.
-1.  Paired brace matching.
+1.  Resolving URI string literal, function, and variable references;
+1.  Code folding;
+1.  Find usages;
+1.  Paired brace matching;
 1.  Commenting code.
 
 -----
