@@ -18,9 +18,13 @@ package uk.co.reecedunn.intellij.plugin.core.reflection
 import java.lang.reflect.Method
 
 fun Class<*>.getMethodOrNull(name: String, vararg parameterTypes: Class<*>): Method? {
-    try {
-        return getMethod(name, *parameterTypes)
+    return try {
+        getMethod(name, *parameterTypes)
     } catch (e: NoSuchMethodException) {
-        return null
+        null
     }
+}
+
+fun Class<*>.getAnyMethod(vararg names: String): Method {
+    return names.asSequence().map { name -> getMethodOrNull(name) }.filterNotNull().first()
 }
