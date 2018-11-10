@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.3 - (In Development)
+## 1.3 - 2018-11-10
 
 1.  Added support for the eXist-db XQuery database.
 1.  Initial support for running queries on the BaseX, eXist-db, MarkLogic and
