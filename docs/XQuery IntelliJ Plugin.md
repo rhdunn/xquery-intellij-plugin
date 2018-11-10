@@ -67,6 +67,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [B.2 BaseX References](#b2-basex-references)
   - [B.3 MarkLogic References](#b3-marklogic-references)
   - [B.4 Saxon References](#b4-saxon-references)
+  - [B.5 EXPath References](#b5-expath-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 BaseX Vendor Extensions](#c1-basex-vendor-extensions)
   - [C.2 MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
@@ -157,8 +158,7 @@ version.
 | \[22\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 
 The `UnionType` is a new sequence type supported by Saxon 9.8. It is
-[proposal 6](https://github.com/expath/xpath-ng/pull/6) of the EXPath
-syntax extensions for XPath and XQuery.
+proposal 6 of the EXPath syntax extensions for XPath and XQuery.
 
 A `UnionType` defines a union type whose members are the `EQName` types listed
 in the type definition. These types are restricted to being atomic types (that
@@ -555,8 +555,7 @@ be determined statically.
 | \[81\] | `SimpleInlineFunctionExpr`     | ::= | `"fn" "{" Expr "}"`                       |         |
 
 This is a Saxon 9.8 extension. It is a syntax variant of the focus
-function alternative for inline functions in
-[proposal 5](https://github.com/expath/xpath-ng/pull/5) of the EXPath
+function alternative for inline functions in proposal 5 of the EXPath
 syntax extensions for XPath and XQuery.
 
 The expression `fn{E}` is equivalent to:
@@ -778,15 +777,15 @@ equivalent to:
 | \[94\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is supported by BaseX 9.1. It is defined
-in [proposal 7](https://github.com/expath/xpath-ng/pull/7) of the EXPath syntax
-extensions for XPath and XQuery.
+in proposal 7 of the EXPath syntax extensions for XPath and XQuery.
 
-When the else branch of an `IfExpr` is not present, an empty sequence is returned
-if the effective boolean value of the`IfExpr` condition evaluates to false.
+When the else branch of an `IfExpr` is not present, an empty sequence is
+returned if the effective boolean value of the`IfExpr` condition evaluates
+to false.
 
 The `TernaryIfExpr` and `ElvisExpr` are new expressions supported by BaseX 9.1.
-They are defined in [proposal 2](https://github.com/expath/xpath-ng/pull/2) of
-the EXPath syntax extensions for XPath and XQuery.
+They are defined in proposal 2 of the EXPath syntax extensions for XPath and
+XQuery.
 
 Given the `TernaryIfExpr`:
 
@@ -1139,6 +1138,21 @@ __Working Drafts__
 *  Saxonica. *Short-circuit boolean operators*. See
    [http://saxonica.com/documentation/#!extensions/syntax-extensions/short-circuit]().
 
+### B.5 EXPath References
+__XPath NG__
+*  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
+   [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
+   Michael Kay, Saxonica.
+*  EXPath. *Concise Inline Function Syntax*. Proposal 5, version 1. See
+   [https://github.com/expath/xpath-ng/blob/95676fd84266c13c5a4ace01af69783dd017a5c9/concise-inline-functions.md]().
+   Michael Kay, Saxonica.
+*  EXPath. *Anonymous Union Types*. Proposal 6, version 1. See
+   [https://github.com/expath/xpath-ng/blob/9ff8fbf3bbc1f2f24b81671881154f35cb01bf28/union-types.md]().
+   Michael Kay, Saxonica.
+*  EXPath. *If Without Else*. Proposal 7, version 1. See
+   [https://github.com/expath/xpath-ng/blob/ef330f640be3617ecc5ec53868de84f7d34e0ac6/if-without-else-ChristianGruen.md]().
+   Christian Grün, BaseX GmbH.
+
 ## C Vendor Extensions
 
 ### C.1 BaseX Vendor Extensions
@@ -1230,14 +1244,12 @@ differences to the XQuery 1.0 Recommendation, described in this document:
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
-1.  [Ternary If](#314-conditional-expressions) and [Elvis](#314-conditional-expressions)
-    expressions \[[Proposal 2](https://github.com/expath/xpath-ng/pull/2)\]
+1.  [If Without Else](#314-conditional-expressions) expressions \[Proposal 7\]
 1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
-    \[[Proposal 5](https://github.com/expath/xpath-ng/pull/5)\] -- focus functions
-1.  [Union Type](#2121-union-type)
-    \[[Proposal 6](https://github.com/expath/xpath-ng/pull/6)\]
-1.  [If Without Else](#314-conditional-expressions) expressions
-    \[[Proposal 7](https://github.com/expath/xpath-ng/pull/7)\]
+    \[Proposal 5\] -- focus functions
+1.  [Ternary If](#314-conditional-expressions) and [Elvis](#314-conditional-expressions)
+    expressions \[Proposal 2\]
+1.  [Union Type](#2121-union-type) \[Proposal 6\]
 
 ## D Error and Warning Conditions
 
