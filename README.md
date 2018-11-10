@@ -14,8 +14,8 @@ for the XML Query (XQuery) language. This covers support for:
 1.  XQuery 1.0, 3.0, and 3.1;
 1.  XQuery and XPath Full Text;
 1.  XQuery Scripting Extension;
-1.  XQuery Update Facility 1.0, and 3.0;
 1.  Vendor XQuery extensions.
+1.  XQuery Update Facility 1.0, and 3.0;
 
 #### Supported XQuery Implementations
 
