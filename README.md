@@ -12,9 +12,9 @@
 This is a plugin for IntelliJ IDE 2018.1 &ndash; 2018.3 that adds support
 for the XML Query (XQuery) language. This covers support for:
 1.  XQuery 1.0, 3.0, and 3.1;
+1.  Vendor XQuery extensions;
 1.  XQuery and XPath Full Text;
 1.  XQuery Scripting Extension;
-1.  Vendor XQuery extensions;
 1.  XQuery Update Facility 1.0, and 3.0.
 
 #### Supported XQuery Implementations
@@ -40,8 +40,9 @@ can be configured to provide checks for supported vendor extensions.
 #### Language Support
 
 The plugin provides rock solid standards conforming XQuery language support
-that includes W3C, vendor, and EXPath syntax extensions. This includes error
-recovery to handle common mistakes when writing XQuery code.
+that includes W3C, vendor, and [EXPath](docs/EXPath%20XPath%20NG%20Implementation%20Report.md)
+syntax extensions. This includes error recovery to handle common mistakes when
+writing XQuery code.
 
 The plugin has additional syntax highlighting for XML and XQuery comment todo
 statements, xqDoc comments, and QName prefices.
