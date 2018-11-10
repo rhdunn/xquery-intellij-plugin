@@ -5,7 +5,7 @@
 [![Apache 2.0 License](https://img.shields.io/github/license/rhdunn/xquery-intellij-plugin.svg)](LICENSE)
 [![GitHub Issues](https://img.shields.io/github/issues/rhdunn/xquery-intellij-plugin.svg)](https://github.com/rhdunn/xquery-intellij-plugin/issues)
 
-<img src="images/syntax-highlighting.png" alt="Syntax Highlighting" width="70%" align="right"/>
+<img src="images/xquery-intellij-plugin.png" alt="Syntax Highlighting" width="70%" align="right"/>
 
 ## IntelliJ XQuery Plugin
 
