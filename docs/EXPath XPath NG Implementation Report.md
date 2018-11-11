@@ -5,7 +5,7 @@ proposals from the EXPath group in the XQuery IntelliJ Plugin.
 
 | REF | Name                                                                                           | Lexer               | Parser              | Static Context | Inspections |
 |----:|------------------------------------------------------------------------------------------------|---------------------|---------------------|----------------|-------------|
-|   1 | [Variadic Function Arguments](https://github.com/expath/xpath-ng/pull/1)                       | 1.4<sup>\[4\]</sup> | No                  | No             | No          |
+|   1 | [Variadic Function Arguments](https://github.com/expath/xpath-ng/pull/1)                       | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | No             | No          |
 |   2 | [Conditional Expressions](https://github.com/expath/xpath-ng/pull/2)                           | 1.3                 | 1.3<sup>\[1\]</sup> | n/a            | No          |
 |   3 | [Extensions to Unary and Binary Lookup Expressions](https://github.com/expath/xpath-ng/pull/3) | No                  | No                  | No             | No          |
 |   5 | [Concise Inline Function Syntax](https://github.com/expath/xpath-ng/pull/5)                    | 1.3<sup>\[2\]</sup> | 1.3<sup>\[2\]</sup> | n/a            | No          |

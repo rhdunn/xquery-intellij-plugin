@@ -2,6 +2,10 @@
 
 ## 1.4 - (In Development)
 
+EXPath Syntax Extensions:
+
+1.  Support the variadic function arguments proposal.
+
 ## 1.3 - 2018-11-10
 
 1.  Added support for the eXist-db XQuery database.

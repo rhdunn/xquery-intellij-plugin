@@ -1167,6 +1167,8 @@ internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (getTokenType() === XQueryTokenType.VARIABLE_INDICATOR) {
                 error(XQueryBundle.message("parser.error.expected", ","))
             } else if (!matchTokenType(XQueryTokenType.COMMA)) {
+                matchTokenType(XQueryTokenType.ELLIPSIS)
+
                 paramListMarker.done(XQueryElementType.PARAM_LIST)
                 return true
             }

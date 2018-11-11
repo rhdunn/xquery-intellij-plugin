@@ -2091,6 +2091,18 @@ private class XQueryConformanceTest : ParserTestCase() {
     // endregion
 
     @Test
+    @DisplayName("XQuery 3.1 EBNF (33) ParamList")
+    fun paramList() {
+        val file = parseResource("tests/parser/xquery-1.0/ParamList.xq")
+        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.PARAM))
+    }
+
+    @Test
     @DisplayName("XQuery 3.1 EBNF (77) IfExpr")
     fun ifExpr() {
         val file = parseResource("tests/parser/xquery-1.0/IfExpr.xq")

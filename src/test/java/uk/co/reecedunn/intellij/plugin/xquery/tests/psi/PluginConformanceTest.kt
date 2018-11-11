@@ -1245,4 +1245,17 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_IF))
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    fun paramList() {
+        val file = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.xq")
+        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_4))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.ELLIPSIS))
+    }
 }

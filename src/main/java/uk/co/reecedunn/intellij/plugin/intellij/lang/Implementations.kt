@@ -406,7 +406,8 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 // region XQuery IntelliJ Plugin (Internal XQuery Extensions)
 
 object XQueryIntelliJPlugin : Implementation("xijp", "XQuery IntelliJ Plugin", "https://github.com/rhdunn/xquery-intellij-plugin") {
-    val VERSION_1_3: Version = ProductVersion("1.3", this, "item type union")
+    val VERSION_1_3: Version = ProductVersion("1.3", this)
+    val VERSION_1_4: Version = ProductVersion("1.4", this)
 
     override val versions: List<Version> get() = listOf()
     override val products: List<Product> get() = listOf()

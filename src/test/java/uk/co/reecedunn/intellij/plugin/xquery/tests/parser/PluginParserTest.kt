@@ -2276,4 +2276,48 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    internal inner class ParamList {
+        @Test
+        @DisplayName("untyped")
+        fun untyped() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("untyped; compact whitespace")
+        fun untyped_compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("typed")
+        fun typed() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("typed; compact whitespace")
+        fun typed_compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple Params; on the last parameter")
+        fun multipleParams() {
+            val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Multiple_LastParam.txt")
+            val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Multiple_LastParam.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }
