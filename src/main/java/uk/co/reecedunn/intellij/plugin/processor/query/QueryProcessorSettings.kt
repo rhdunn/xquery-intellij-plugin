@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import uk.co.reecedunn.intellij.plugin.processor.impl.basex.session.BaseXSession
-import uk.co.reecedunn.intellij.plugin.processor.existdb.rest.EXistDBRest
+import uk.co.reecedunn.intellij.plugin.processor.impl.existdb.rest.EXistDBRest
 import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.saxon.s9api.SaxonS9API
 import java.io.Closeable
