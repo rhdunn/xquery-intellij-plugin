@@ -17,13 +17,12 @@ package uk.co.reecedunn.intellij.plugin.processor.marklogic.rest
 
 import com.google.gson.JsonObject
 import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
-import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.processor.impl.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemType

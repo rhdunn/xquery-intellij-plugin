@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.processor.impl.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor

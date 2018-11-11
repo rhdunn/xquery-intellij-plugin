@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
-import uk.co.reecedunn.intellij.plugin.processor.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.processor.impl.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 

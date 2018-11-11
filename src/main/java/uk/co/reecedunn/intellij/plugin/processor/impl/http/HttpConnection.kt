@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.http
+package uk.co.reecedunn.intellij.plugin.processor.impl.http
 
 import org.apache.http.auth.AuthScope
 import org.apache.http.auth.UsernamePasswordCredentials
