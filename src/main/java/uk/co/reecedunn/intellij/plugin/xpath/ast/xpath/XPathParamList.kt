@@ -16,10 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
+import com.intellij.util.Range
 
 /**
  * An XPath 3.0 and XQuery 1.0 `ParamList` node in the XQuery AST.
  */
 interface XPathParamList : PsiElement {
-    val arity: Int
+    val arity: Range<Int>
 }

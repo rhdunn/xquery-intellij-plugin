@@ -32,7 +32,10 @@ proposals from the EXPath group in the XQuery IntelliJ Plugin.
     proposal, based on the XQuery Formal Semantics 1.0 `Type` syntax.
 
 1.  XQuery IntelliJ 1.4 implements version 2 of the *Variadic Function Arguments*
-    proposal.
+    proposal. This changes the function arity from a scalar value to a range.
+    Given a parameter count P, a non-variadic function has an arity of `[P..P]`,
+    while a variadic function has an arity of `[P-1..INF]`. __NOTE:__ `P-1` is
+    used because a variadic parameter may contain 0 or more values.
 
 ## Lexer
 

@@ -28,5 +28,5 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
-    override val arity get(): Int = paramList?.arity ?: 0
+    override val arity get(): Int = paramList?.arity?.from ?: 0
 }

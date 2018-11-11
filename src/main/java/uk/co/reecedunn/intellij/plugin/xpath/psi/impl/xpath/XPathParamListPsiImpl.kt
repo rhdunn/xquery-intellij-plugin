@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
@@ -63,7 +64,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
         children().filterIsInstance<XPathParam>().map { param -> param as XPathVariableBinding }.toList() `is` Cacheable
     }
 
-    override val arity get(): Int = cachedArguments.get()!!.size
+    override val arity get(): Range<Int> = cachedArguments.get()!!.size.let { Range(it, it) }
 
     // endregion
 }
