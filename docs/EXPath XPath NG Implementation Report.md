@@ -3,20 +3,20 @@
 This document describes the implementation of the xpath-ng syntax extension
 proposals from the EXPath group in the XQuery IntelliJ Plugin.
 
-| REF | Name                                                                                           | Lexer               | Parser              | Static Context      | Error Conditions    |
-|----:|------------------------------------------------------------------------------------------------|---------------------|---------------------|---------------------|---------------------|
-|   1 | [Variadic Function Arguments](https://github.com/expath/xpath-ng/pull/1)                       | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> |
-|   2 | [Conditional Expressions](https://github.com/expath/xpath-ng/pull/2)                           | 1.3                 | 1.3<sup>\[1\]</sup> | n/a                 | No                  |
-|   3 | [Extensions to Unary and Binary Lookup Expressions](https://github.com/expath/xpath-ng/pull/3) | No                  | No                  | No                  | No                  |
-|   5 | [Concise Inline Function Syntax](https://github.com/expath/xpath-ng/pull/5)                    | 1.3<sup>\[2\]</sup> | 1.3<sup>\[2\]</sup> | n/a                 | No                  |
-|   6 | [Anonymous Union Types](https://github.com/expath/xpath-ng/pull/6)                             | 1.0                 | 1.0                 | n/a                 | No                  |
-|   7 | [If Without Else](https://github.com/expath/xpath-ng/pull/7)                                   | 1.3                 | 1.3                 | n/a                 | No                  |
-|   8 | [Sequence, Map, and Array Decomposition](https://github.com/expath/xpath-ng/pull/8)            | No                  | No                  | No                  | No                  |
-|   9 | [Annotation Declarations](https://github.com/expath/xpath-ng/pull/9)                           | No                  | No                  | No                  | No                  |
-|  10 | [Annotation Sequence Types](https://github.com/expath/xpath-ng/pull/10)                        | No                  | No                  | No                  | No                  |
-|  11 | [Restricted Sequences](https://github.com/expath/xpath-ng/pull/11)                             | 1.3<sup>\[3\]</sup> | 1.3<sup>\[3\]</sup> | No                  | No                  |
-|  12 | [Lift Single-Item Restrictions on Switch Cases](https://github.com/expath/xpath-ng/pull/12)    | No                  | No                  | No                  | No                  |
-|  13 | [Extended Element and Attribute Tests](https://github.com/expath/xpath-ng/pull/13)             | No                  | No                  | No                  | No                  |
+| REF | Name                                                                                           | Lexer               | Parser              | XDM (Data Model)    | Static Context      | Error Conditions    |
+|----:|------------------------------------------------------------------------------------------------|---------------------|---------------------|---------------------|---------------------|---------------------|
+|   1 | [Variadic Function Arguments](https://github.com/expath/xpath-ng/pull/1)                       | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> |
+|   2 | [Conditional Expressions](https://github.com/expath/xpath-ng/pull/2)                           | 1.3                 | 1.3<sup>\[1\]</sup> | n/a                 | n/a                 | No                  |
+|   3 | [Extensions to Unary and Binary Lookup Expressions](https://github.com/expath/xpath-ng/pull/3) | No                  | No                  | No                  | No                  | No                  |
+|   5 | [Concise Inline Function Syntax](https://github.com/expath/xpath-ng/pull/5)                    | 1.3<sup>\[2\]</sup> | 1.3<sup>\[2\]</sup> | No                  | n/a                 | No                  |
+|   6 | [Anonymous Union Types](https://github.com/expath/xpath-ng/pull/6)                             | 1.0                 | 1.0                 | No                  | n/a                 | No                  |
+|   7 | [If Without Else](https://github.com/expath/xpath-ng/pull/7)                                   | 1.3                 | 1.3                 | n/a                 | n/a                 | No                  |
+|   8 | [Sequence, Map, and Array Decomposition](https://github.com/expath/xpath-ng/pull/8)            | No                  | No                  | No                  | No                  | No                  |
+|   9 | [Annotation Declarations](https://github.com/expath/xpath-ng/pull/9)                           | No                  | No                  | No                  | No                  | No                  |
+|  10 | [Annotation Sequence Types](https://github.com/expath/xpath-ng/pull/10)                        | No                  | No                  | No                  | No                  | No                  |
+|  11 | [Restricted Sequences](https://github.com/expath/xpath-ng/pull/11)                             | 1.3<sup>\[3\]</sup> | 1.3<sup>\[3\]</sup> | No                  | No                  | No                  |
+|  12 | [Lift Single-Item Restrictions on Switch Cases](https://github.com/expath/xpath-ng/pull/12)    | No                  | No                  | No                  | No                  | No                  |
+|  13 | [Extended Element and Attribute Tests](https://github.com/expath/xpath-ng/pull/13)             | No                  | No                  | No                  | No                  | No                  |
 
 1.  The *Conditional Expressions* proposal defines an elvis operator token
     (`?:`) that causes an ambiguity with the Saxon 9.9 optional `TupleField`
@@ -71,11 +71,22 @@ parts).
 The PSI tree nodes implement a conformance interface that describes which
 specifications and vendor implementations support the language construct.
 
+## XDM (XQuery and XPath Data Model)
+
+The plugin implements the XDM and associated functionality (XMLSchema datatypes,
+casting rules, subtype judgement, etc.) where needed to implement the static
+context, error condition checking, and additional static analysis.
+
+The plugin defines interfaces for the XDM types and implements these on the
+PSI tree nodes that correspond to the EBNF symbols. For example, the
+`IntegerLiteral` PSI node implements an interface corresponding to the
+`xs:integer` XMLSchema type.
+
 ## Static Context
 
-The plugin uses the elements of the PSI tree to provide information about the
-static context that they relate to. For example, a `NamespaceDecl` PSI node
-will provide information about the namespace it declares.
+The plugin uses the elements of the PSI tree and the XDM to provide information
+about the static context that they relate to. For example, a `NamespaceDecl`
+PSI node will provide information about the namespace it declares.
 
 The static context is implemented as a function for each of the static
 context types (statically known functions, etc.). These functions start at
