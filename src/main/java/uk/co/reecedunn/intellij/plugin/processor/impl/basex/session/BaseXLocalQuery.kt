@@ -13,45 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.basex.session
+package uk.co.reecedunn.intellij.plugin.processor.impl.basex.session
 
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class BaseXClientQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : Query {
+internal class BaseXLocalQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : Query {
     private var basexQuery: Any? = null
     val query: Any
         get() {
             if (basexQuery == null) {
-                basexQuery = classes.clientSessionClass.getMethod("query", String::class.java).invoke(session, queryString)
+                basexQuery = classes.localSessionClass.getMethod("query", String::class.java).invoke(session, queryString)
             }
             return basexQuery!!
         }
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
-        classes.clientQueryClass
+        classes.localQueryClass
             .getMethod("bind", String::class.java, Any::class.java, String::class.java)
             .invoke(query, name, value, mapType(type))
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        classes.clientQueryClass
+        classes.localQueryClass
             .getMethod("context", Any::class.java, String::class.java)
             .invoke(query, value, mapType(type))
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check {
-            BaseXQueryResultIterator(query, classes, classes.clientQueryClass).asSequence()
+            BaseXQueryResultIterator(query, classes, classes.localQueryClass).asSequence()
         }
     }
 
     override fun close() {
         if (basexQuery != null) {
-            classes.clientQueryClass.getMethod("close").invoke(query)
+            classes.localQueryClass.getMethod("close").invoke(query)
             basexQuery = null
         }
     }

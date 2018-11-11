@@ -26,7 +26,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.processor.basex.session.BaseXSession
+import uk.co.reecedunn.intellij.plugin.processor.impl.basex.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
