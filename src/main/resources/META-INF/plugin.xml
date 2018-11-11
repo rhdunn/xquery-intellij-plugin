@@ -18,6 +18,14 @@
     <ol>
       <li>Support the variadic function arguments proposal.</li>
     </ol>
+    <p>Function Resolution:</p>
+    <ol>
+      <li>Correctly match functions with variadic function arguments.</li>
+    </ol>
+    <p>Inspections:</p>
+    <ol>
+      <li>XPST0017: Fix the arity check for variadic functions.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

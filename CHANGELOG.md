@@ -6,6 +6,14 @@ EXPath Syntax Extensions:
 
 1.  Support the variadic function arguments proposal.
 
+Function Resolution:
+
+1.  Correctly match functions with variadic function arguments.
+
+Inspections:
+
+1.  XPST0017: Fix the arity check for variadic functions.
+
 ## 1.3 - 2018-11-10
 
 1.  Added support for the eXist-db XQuery database.

@@ -178,6 +178,18 @@ private class XPathStaticContextTest : ParserTestCase() {
                     assertThat(decls[1].arity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
+
+                @Test
+                @DisplayName("variadic")
+                fun variadic() {
+                    val qname = parse<XPathEQName>("fn:concat()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
+                }
             }
 
             @Nested
@@ -261,6 +273,18 @@ private class XPathStaticContextTest : ParserTestCase() {
                     assertThat(decls[1].arity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
+
+                @Test
+                @DisplayName("variadic")
+                fun variadic() {
+                    val qname = parse<XPathEQName>("fn:concat#3")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
+                }
             }
 
             @Nested
@@ -343,6 +367,18 @@ private class XPathStaticContextTest : ParserTestCase() {
 
                     assertThat(decls[1].arity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
+                }
+
+                @Test
+                @DisplayName("variadic")
+                fun variadic() {
+                    val qname = parse<XPathEQName>("() => fn:concat()")[0]
+
+                    val decls = qname.staticallyKnownFunctions().toList()
+                    assertThat(decls.size, `is`(1))
+
+                    assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
+                    assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }
 
