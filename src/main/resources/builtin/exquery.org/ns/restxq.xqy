@@ -23,17 +23,13 @@ declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:P
 declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:PUT() external;
 declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:PUT($body-param as xs:string) external;
 
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation %a:variadic function rest:consumes($mimetype as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:cookie-param($name as xs:string, $param-reference as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation %a:variadic function rest:cookie-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:form-param($name as xs:string, $param-reference as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation %a:variadic function rest:form-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:header-param($name as xs:string, $param-reference as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation %a:variadic function rest:header-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string) external;
+declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:consumes($mimetype1 as xs:string, $mimetypes as xs:string ...) external;
+declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:cookie-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string ...) external;
+declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:form-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string ...) external;
+declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:header-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string ...) external;
 declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:path($path as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation %a:variadic function rest:produces($mimetype as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:query-param($name as xs:string, $param-reference as xs:string) external;
-declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation %a:variadic function rest:query-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string) external;
+declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:produces($mimetype1 as xs:string, $mimetypes as xs:string ...) external;
+declare %a:since("exquery-restxq", "1.0-20160321") %a:annotation function rest:query-param($name as xs:string, $param-reference as xs:string, $default-value as xs:string ...) external;
 
 declare %a:since("exquery-restxq", "1.0-20160321") function rest:resource-functions() as document-node(element(rest:resource-functions)) external;
 declare %a:since("exquery-restxq", "1.0-20160321") %a:since("basex", "7.7") function rest:base-uri() as xs:anyURI external;

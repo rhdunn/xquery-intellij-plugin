@@ -46,7 +46,7 @@ declare %a:since("marklogic", "5.0") function xdmp:amp-roles($namespace-uri as x
 declare %a:since("marklogic", "5.0") function xdmp:and64($x as xs:unsignedLong, $y as xs:unsignedLong) as xs:unsignedLong external;
 declare %a:since("marklogic", "6.0") function xdmp:annotation($function as function(*), $name as xs:QName) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:apply($function as xdmp:function) as item()* external;
-declare %a:since("marklogic", "5.0") %a:variadic function xdmp:apply($function as xdmp:function, $params as item()*) as item()* external;
+declare %a:since("marklogic", "5.0") function xdmp:apply($function as xdmp:function, $params as item()*...) as item()* external;
 declare %a:since("marklogic", "5.0") function xdmp:architecture() as xs:string external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:arrayValues($array as json:array) as item()* external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function xdmp:arrayValues($array as json:array, $flatten as xs:boolean) as item()* external;

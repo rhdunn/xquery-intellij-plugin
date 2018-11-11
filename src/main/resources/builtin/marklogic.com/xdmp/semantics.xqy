@@ -16,7 +16,7 @@ declare %a:since("marklogic", "7.0") function sem:binding() as sem:binding exter
 declare %a:since("marklogic", "7.0") function sem:binding($map as element(json:object)) as sem:binding external;
 declare %a:since("marklogic", "8.0") function sem:bnode() as sem:blank external;
 declare %a:since("marklogic", "8.0") function sem:bnode($value as xs:anyAtomicType) as sem:blank external;
-declare %a:since("marklogic", "7.0") %a:variadic function sem:coalesce($parameter as item()*) as item()* external;
+declare %a:since("marklogic", "7.0") function sem:coalesce($parameters as item()*...) as item()* external;
 declare %a:since("marklogic", "7.0") function sem:datatype($value as xs:anyAtomicType) as sem:iri external;
 declare %a:since("marklogic", "8.0") function sem:default-graph-iri() as sem:iri external;
 declare %a:since("marklogic", "8.0") function sem:graph-add-permissions($graph as sem:iri, $permissions as element(sec:permission)*) as empty-sequence() external;
