@@ -3,7 +3,7 @@
 This document describes the implementation of the xpath-ng syntax extension
 proposals from the EXPath group in the XQuery IntelliJ Plugin.
 
-| REF | Name                                                                                           | Lexer               | Parser              | Static Context      | Inspections         |
+| REF | Name                                                                                           | Lexer               | Parser              | Static Context      | Error Conditions    |
 |----:|------------------------------------------------------------------------------------------------|---------------------|---------------------|---------------------|---------------------|
 |   1 | [Variadic Function Arguments](https://github.com/expath/xpath-ng/pull/1)                       | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> | 1.4<sup>\[4\]</sup> |
 |   2 | [Conditional Expressions](https://github.com/expath/xpath-ng/pull/2)                           | 1.3                 | 1.3<sup>\[1\]</sup> | n/a                 | No                  |
@@ -35,7 +35,9 @@ proposals from the EXPath group in the XQuery IntelliJ Plugin.
     proposal. This changes the function arity from a scalar value to a range.
     Given a parameter count P, a non-variadic function has an arity of `[P..P]`,
     while a variadic function has an arity of `[P-1..INF]`. __NOTE:__ `P-1` is
-    used because a variadic parameter may contain 0 or more values.
+    used because a variadic parameter may contain 0 or more values. The plugin
+    correctly handles the arity checks in `XPST0017` and when locating the
+    function to navigate to.
 
 ## Lexer
 
@@ -80,8 +82,13 @@ context types (statically known functions, etc.). These functions start at
 the current location in the PSI tree and walk the tree in reverse looking for
 the relevant static context information.
 
-## Inspections
+## Error Conditions
 
-The plugin implements inspections for various error conditions defined in the
-XPath/XQuery specifications. These use the IntelliJ inspection framework to
-traverse the PSI tree and report any errors that are found. 
+The IntelliJ IDE provides an inspection API that allows a plugin to run checks
+that a user has enabled on the code by traversing the PSI tree and reporting
+on any errors and warnings identified.
+
+The plugin uses the inspection API to implement various XPath and XQuery error
+conditions that it can check statically such as `XPST0017` (unknown function
+name, or incorrect arity) and `XQST0118` (direct element constructors with a
+mismatched open and close tag name).
