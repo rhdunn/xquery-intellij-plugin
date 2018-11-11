@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.model
 
+import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
@@ -159,7 +160,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -171,10 +172,10 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
 
-                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].arity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
             }
@@ -190,7 +191,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -206,7 +207,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
             }
@@ -222,7 +223,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -242,7 +243,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -254,10 +255,10 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
 
-                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].arity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
             }
@@ -273,7 +274,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -289,7 +290,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
             }
@@ -305,7 +306,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -325,7 +326,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -337,10 +338,10 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
 
-                    assertThat(decls[1].arity, `is`(1))
+                    assertThat(decls[1].arity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
             }
@@ -356,7 +357,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -372,7 +373,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
             }
@@ -388,7 +389,7 @@ private class XPathStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(0))
+                    assertThat(decls[0].arity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }

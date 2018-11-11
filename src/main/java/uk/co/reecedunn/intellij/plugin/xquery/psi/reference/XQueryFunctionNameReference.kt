@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val arity = (element.parent as? XPathFunctionReference)?.arity ?: -1
-        return element.staticallyKnownFunctions().firstOrNull { f -> f.arity == arity }
+        return element.staticallyKnownFunctions().firstOrNull { f -> f.arity.isWithin(arity) }
     }
 
     override fun getVariants(): Array<Any> {

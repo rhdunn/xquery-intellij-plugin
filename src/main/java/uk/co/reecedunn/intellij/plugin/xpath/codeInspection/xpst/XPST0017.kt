@@ -48,7 +48,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md") {
             } else {
                 // 2. The number of arguments does not match the arity of a function signature in the static context.
                 val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
-                if (declarations.firstOrNull { f -> f.arity == arity } == null) {
+                if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
                     val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
                     val decl = ref.functionName?.element!!
                     descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))

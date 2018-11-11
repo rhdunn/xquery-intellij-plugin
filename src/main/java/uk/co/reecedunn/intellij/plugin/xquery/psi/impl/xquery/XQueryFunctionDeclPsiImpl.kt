@@ -17,16 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 
+private val ARITY_ZERO = Range(0, 0)
+
 class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl {
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
     override val functionName: XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
-    override val arity get(): Int = paramList?.arity?.from ?: 0
+    override val arity get(): Range<Int> = paramList?.arity ?: ARITY_ZERO
 }

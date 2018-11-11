@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.PsiElement
+import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -2282,7 +2283,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("empty ParamList")
             fun emptyParamList() {
                 val decl = parse<XQueryFunctionDecl>("declare function fn:true() external;")[0]
-                assertThat(decl.arity, `is`(0))
+                assertThat(decl.arity, `is`(Range(0, 0)))
 
                 val qname = decl.functionName!!
                 assertThat(qname.prefix!!.data, `is`("fn"))
@@ -2294,7 +2295,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("non-empty ParamList")
             fun nonEmptyParamList() {
                 val decl = parse<XQueryFunctionDecl>("declare function test(\$one, \$two) external;")[0]
-                assertThat(decl.arity, `is`(2))
+                assertThat(decl.arity, `is`(Range(2, 2)))
 
                 val qname = decl.functionName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -2306,7 +2307,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("invalid EQName")
             fun invalidEQName() {
                 val decl = parse<XQueryFunctionDecl>("declare function :true() external;")[0]
-                assertThat(decl.arity, `is`(0))
+                assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.functionName, `is`(nullValue()))
             }
 

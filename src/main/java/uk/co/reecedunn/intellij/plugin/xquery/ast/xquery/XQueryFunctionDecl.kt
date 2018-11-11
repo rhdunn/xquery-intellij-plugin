@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
+import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 
 /**
@@ -24,5 +25,5 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 interface XQueryFunctionDecl : PsiElement {
     val functionName: XsQNameValue?
 
-    val arity: Int
+    val arity: Range<Int>
 }
