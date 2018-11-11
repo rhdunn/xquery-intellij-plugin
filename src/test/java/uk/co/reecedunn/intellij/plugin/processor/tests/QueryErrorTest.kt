@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.processor.impl.basex.session.BaseXQueryError
 import uk.co.reecedunn.intellij.plugin.processor.impl.existdb.rest.EXistDBQueryError
-import uk.co.reecedunn.intellij.plugin.processor.marklogic.rest.MarkLogicQueryError
+import uk.co.reecedunn.intellij.plugin.processor.impl.marklogic.rest.MarkLogicQueryError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - QueryError")
 class QueryErrorTest {
