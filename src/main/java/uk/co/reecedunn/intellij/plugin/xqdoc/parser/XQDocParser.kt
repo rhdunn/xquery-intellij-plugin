@@ -72,7 +72,7 @@ class XQDocParser(comment: CharSequence) {
     }
 
     private fun parseDescription() {
-        elementType = XQDocElementType.DESCRIPTION
+        elementType = XQDocElementType.DESCRIPTION_LINE
         text = lexer.tokenText
         textRange = Range(lexer.tokenStart, lexer.tokenEnd)
         state = STATE_EOF

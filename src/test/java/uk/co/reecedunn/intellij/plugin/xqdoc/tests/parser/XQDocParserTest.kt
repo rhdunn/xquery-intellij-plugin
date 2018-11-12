@@ -89,7 +89,7 @@ class XQDocParserTest {
             assertThat(parser.textRange, `is`(nullValue()))
 
             assertThat(parser.next(), `is`(true))
-            assertThat(parser.elementType, `is`(XQDocElementType.DESCRIPTION))
+            assertThat(parser.elementType, `is`(XQDocElementType.DESCRIPTION_LINE))
             assertThat(parser.text, `is`("Lorem ipsum dolor"))
             assertThat(parser.textRange, `is`(Range(1, 18)))
 

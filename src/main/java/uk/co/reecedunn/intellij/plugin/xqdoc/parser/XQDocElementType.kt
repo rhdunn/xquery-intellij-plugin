@@ -19,5 +19,5 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
 object XQDocElementType {
-    val DESCRIPTION = IElementType("XQDOC_DESCRIPTION", XQuery)
+    val DESCRIPTION_LINE = IElementType("XQDOC_DESCRIPTION_LINE", XQuery)
 }
