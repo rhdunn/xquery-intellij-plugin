@@ -67,9 +67,6 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG)[0], `is`(SyntaxHighlighter.COMMENT))
 
-        assertThat(highlighter.getTokenHighlights(XQDocTokenType.COMMENT_CONTENTS).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQDocTokenType.COMMENT_CONTENTS)[0], `is`(SyntaxHighlighter.COMMENT))
-
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.XQDOC_COMMENT_MARKER).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.XQDOC_COMMENT_MARKER)[0], `is`(SyntaxHighlighter.COMMENT))
 

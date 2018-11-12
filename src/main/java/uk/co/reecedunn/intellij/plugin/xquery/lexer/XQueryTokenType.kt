@@ -373,7 +373,6 @@ object XQueryTokenType {
             XML_ELEMENT_CONTENTS)
 
     val COMMENT_TOKENS = TokenSet.create(
-            XQDocTokenType.COMMENT_CONTENTS,
             XQDocTokenType.CONTENTS,
             COMMENT,
             XML_COMMENT)

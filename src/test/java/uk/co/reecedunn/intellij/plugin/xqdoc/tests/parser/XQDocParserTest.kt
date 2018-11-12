@@ -61,10 +61,11 @@ class XQDocParserTest {
         }
 
         @Test
-        @DisplayName("xquery comment")
-        fun xqueryComment() {
+        @DisplayName("single line")
+        fun singleLine() {
             val parser = XQDocParser("Lorem ipsum dolor")
             matchStart(parser, false)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Lorem ipsum dolor", Range(0, 17))
             matchEof(parser)
         }
     }

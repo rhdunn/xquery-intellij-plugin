@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016; 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
 object XQDocTokenType {
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
+    val TRIM = IElementType("XQDOC_TRIM", XQuery)
 
     val XQDOC_COMMENT_MARKER = IElementType("XQDOC_COMMENT_MARKER", XQuery)
-
-    val COMMENT_CONTENTS = IElementType("XQDOC_COMMENT_CONTENTS", XQuery)
     val CONTENTS = IElementType("XQDOC_CONTENTS", XQuery)
-
-    val TRIM = IElementType("XQDOC_TRIM", XQuery)
 
     val TAG_MARKER = IElementType("XQDOC_TAG_MARKER", XQuery)
     val TAG = IElementType("XQDOC_TAG", XQuery)

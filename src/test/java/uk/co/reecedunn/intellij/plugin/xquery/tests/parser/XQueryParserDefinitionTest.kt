@@ -68,8 +68,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     fun testCommentTokens() {
         val parserDefinition = XQueryParserDefinition()
         val tokens = parserDefinition.commentTokens
-        assertThat(tokens.types.size, `is`(4))
-        assertThat(tokens.contains(XQDocTokenType.COMMENT_CONTENTS), `is`(true))
+        assertThat(tokens.types.size, `is`(3))
         assertThat(tokens.contains(XQDocTokenType.CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.COMMENT), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.XML_COMMENT), `is`(true))

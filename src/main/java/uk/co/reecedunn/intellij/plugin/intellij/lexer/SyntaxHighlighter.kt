@@ -81,7 +81,6 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.XML_COMMENT_END_TAG ||
             type === XQueryTokenType.XML_COMMENT ||
             type === XQueryTokenType.XML_COMMENT_START_TAG ||
-            type === XQDocTokenType.COMMENT_CONTENTS ||
             type === XQDocTokenType.XQDOC_COMMENT_MARKER ||
             type === XQDocTokenType.CONTENTS ||
             type === XQDocTokenType.TRIM ||

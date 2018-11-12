@@ -55,7 +55,7 @@ class XQDocLexerTest : LexerTestCase() {
         val lexer = XQDocLexer()
 
         lexer.start("Lorem ipsum dolor.")
-        matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XQDocTokenType.COMMENT_CONTENTS)
+        matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XQDocTokenType.CONTENTS)
         matchToken(lexer, "", 0, 18, 18, null)
     }
 

@@ -128,7 +128,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
             else -> {
                 mTokenRange.seek(mTokenRange.bufferEnd)
-                mType = XQDocTokenType.COMMENT_CONTENTS
+                mType = XQDocTokenType.CONTENTS
             }
         }
     }
