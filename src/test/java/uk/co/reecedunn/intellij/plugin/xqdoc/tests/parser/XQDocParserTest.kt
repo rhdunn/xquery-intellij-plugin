@@ -15,38 +15,88 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.tests.parser
 
+import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocElementType
 import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
 
 @DisplayName("xqDoc - Parser")
 class XQDocParserTest {
-    @Test
-    @DisplayName("empty comment")
-    fun emptyComment() {
-        val parser = XQDocParser("")
-        assertThat(parser.isXQDoc, `is`(false))
+    @Nested
+    @DisplayName("xquery comment")
+    internal inner class XQueryComment {
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val parser = XQDocParser("")
+            assertThat(parser.isXQDoc, `is`(false))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
 
-        assertThat(parser.next(), `is`(false))
+            assertThat(parser.next(), `is`(false))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("xquery comment")
+        fun xqueryComment() {
+            val parser = XQDocParser("Lorem ipsum dolor")
+            assertThat(parser.isXQDoc, `is`(false))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
+
+            assertThat(parser.next(), `is`(false))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
+        }
     }
 
-    @Test
-    @DisplayName("xquery comment (no documentation)")
-    fun xqueryComment() {
-        val parser = XQDocParser("Lorem ipsum dolor")
-        assertThat(parser.isXQDoc, `is`(false))
+    @Nested
+    @DisplayName("description")
+    internal inner class Description {
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val parser = XQDocParser("~")
+            assertThat(parser.isXQDoc, `is`(true))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
 
-        assertThat(parser.next(), `is`(false))
-    }
+            assertThat(parser.next(), `is`(false))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
+        }
 
-    @Test
-    @DisplayName("xqdoc comment")
-    fun xqdocComment() {
-        val parser = XQDocParser("~Lorem ipsum dolor")
-        assertThat(parser.isXQDoc, `is`(true))
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val parser = XQDocParser("~Lorem ipsum dolor")
+            assertThat(parser.isXQDoc, `is`(true))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
 
-        assertThat(parser.next(), `is`(false))
+            assertThat(parser.next(), `is`(true))
+            assertThat(parser.elementType, `is`(XQDocElementType.DESCRIPTION))
+            assertThat(parser.text, `is`("Lorem ipsum dolor"))
+            assertThat(parser.textRange, `is`(Range(1, 18)))
+
+            assertThat(parser.next(), `is`(false))
+            assertThat(parser.elementType, `is`(nullValue()))
+            assertThat(parser.text, `is`(nullValue()))
+            assertThat(parser.textRange, `is`(nullValue()))
+        }
     }
 }
