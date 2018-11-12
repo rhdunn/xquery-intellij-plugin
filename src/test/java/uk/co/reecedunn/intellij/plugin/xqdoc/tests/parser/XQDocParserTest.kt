@@ -99,5 +99,16 @@ class XQDocParserTest {
             match(parser, XQDocElementType.DESCRIPTION_LINE, "One two three", Range(40, 53))
             matchEof(parser)
         }
+
+        @Test
+        @DisplayName("multiple lines; trim and whitespace")
+        fun multipleLines_TrimAndWhitespace() {
+            val parser = XQDocParser("~Lorem ipsum dolor\n : Alpha beta gamma\r\n : One two three")
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Lorem ipsum dolor", Range(1, 18))
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Alpha beta gamma", Range(22, 38))
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "One two three", Range(43, 56))
+            matchEof(parser)
+        }
     }
 }

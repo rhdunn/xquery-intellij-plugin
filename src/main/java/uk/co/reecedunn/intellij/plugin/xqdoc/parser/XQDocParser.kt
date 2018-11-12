@@ -37,6 +37,8 @@ class XQDocParser(comment: CharSequence) {
     fun next(): Boolean {
         if (lexer.tokenType == XQDocTokenType.TRIM)
             lexer.advance()
+        if (lexer.tokenType == XQDocTokenType.WHITE_SPACE)
+            lexer.advance()
 
         when (lexer.tokenType) {
             XQDocTokenType.CONTENTS -> parseDescription()
