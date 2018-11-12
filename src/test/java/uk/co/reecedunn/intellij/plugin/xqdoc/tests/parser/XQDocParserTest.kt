@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.tests.parser
 
+import com.intellij.psi.tree.IElementType
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
@@ -27,6 +28,27 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
 
 @DisplayName("xqDoc - Parser")
 class XQDocParserTest {
+    private fun matchStart(parser: XQDocParser, isXQDoc: Boolean) {
+        assertThat(parser.isXQDoc, `is`(isXQDoc))
+        assertThat(parser.elementType, `is`(nullValue()))
+        assertThat(parser.text, `is`(nullValue()))
+        assertThat(parser.textRange, `is`(nullValue()))
+    }
+
+    private fun match(parser: XQDocParser, elementType: IElementType, text: String, textRange: Range<Int>) {
+        assertThat(parser.next(), `is`(true))
+        assertThat(parser.elementType, `is`(elementType))
+        assertThat(parser.text, `is`(text))
+        assertThat(parser.textRange, `is`(textRange))
+    }
+
+    private fun matchEof(parser: XQDocParser) {
+        assertThat(parser.next(), `is`(false))
+        assertThat(parser.elementType, `is`(nullValue()))
+        assertThat(parser.text, `is`(nullValue()))
+        assertThat(parser.textRange, `is`(nullValue()))
+    }
+
     @Nested
     @DisplayName("xquery comment")
     internal inner class XQueryComment {
@@ -34,30 +56,16 @@ class XQDocParserTest {
         @DisplayName("empty")
         fun empty() {
             val parser = XQDocParser("")
-            assertThat(parser.isXQDoc, `is`(false))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
-
-            assertThat(parser.next(), `is`(false))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
+            matchStart(parser, false)
+            matchEof(parser)
         }
 
         @Test
         @DisplayName("xquery comment")
         fun xqueryComment() {
             val parser = XQDocParser("Lorem ipsum dolor")
-            assertThat(parser.isXQDoc, `is`(false))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
-
-            assertThat(parser.next(), `is`(false))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
+            matchStart(parser, false)
+            matchEof(parser)
         }
     }
 
@@ -68,35 +76,17 @@ class XQDocParserTest {
         @DisplayName("empty")
         fun empty() {
             val parser = XQDocParser("~")
-            assertThat(parser.isXQDoc, `is`(true))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
-
-            assertThat(parser.next(), `is`(false))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
+            matchStart(parser, true)
+            matchEof(parser)
         }
 
         @Test
         @DisplayName("single line")
         fun singleLine() {
             val parser = XQDocParser("~Lorem ipsum dolor")
-            assertThat(parser.isXQDoc, `is`(true))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
-
-            assertThat(parser.next(), `is`(true))
-            assertThat(parser.elementType, `is`(XQDocElementType.DESCRIPTION_LINE))
-            assertThat(parser.text, `is`("Lorem ipsum dolor"))
-            assertThat(parser.textRange, `is`(Range(1, 18)))
-
-            assertThat(parser.next(), `is`(false))
-            assertThat(parser.elementType, `is`(nullValue()))
-            assertThat(parser.text, `is`(nullValue()))
-            assertThat(parser.textRange, `is`(nullValue()))
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Lorem ipsum dolor", Range(1, 18))
+            matchEof(parser)
         }
     }
 }
