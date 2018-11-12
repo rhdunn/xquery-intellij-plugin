@@ -20,16 +20,8 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
-// region State Constants
-
-private const val STATE_EOF = -1
-private const val STATE_DESCRIPTION = 1
-
-// endregion
-
 class XQDocParser(comment: CharSequence) {
     private val lexer = XQDocLexer()
-    private var state = 0
 
     val isXQDoc: Boolean
 
@@ -43,8 +35,11 @@ class XQDocParser(comment: CharSequence) {
         private set
 
     fun next(): Boolean {
-        when (state) {
-            STATE_DESCRIPTION -> parseDescription()
+        if (lexer.tokenType == XQDocTokenType.TRIM)
+            lexer.advance()
+
+        when (lexer.tokenType) {
+            XQDocTokenType.CONTENTS -> parseDescription()
             else -> {
                 elementType = null
                 text = null
@@ -60,14 +55,8 @@ class XQDocParser(comment: CharSequence) {
         if (lexer.tokenType === XQDocTokenType.XQDOC_COMMENT_MARKER) {
             isXQDoc = true
             lexer.advance()
-            if (lexer.tokenType == null) {
-                state = STATE_EOF
-            } else {
-                state = STATE_DESCRIPTION
-            }
         } else {
             isXQDoc = false
-            state = STATE_EOF
         }
     }
 
@@ -75,6 +64,6 @@ class XQDocParser(comment: CharSequence) {
         elementType = XQDocElementType.DESCRIPTION_LINE
         text = lexer.tokenText
         textRange = Range(lexer.tokenStart, lexer.tokenEnd)
-        state = STATE_EOF
+        lexer.advance()
     }
 }
