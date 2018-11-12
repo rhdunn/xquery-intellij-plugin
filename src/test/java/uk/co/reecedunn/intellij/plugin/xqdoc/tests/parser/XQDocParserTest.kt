@@ -132,5 +132,32 @@ class XQDocParserTest {
             match(parser, XQDocElementType.DESCRIPTION_LINE, "Alpha beta gamma", Range(26, 42))
             matchEof(parser)
         }
+
+        @Test
+        @DisplayName("blank line at start; trim only")
+        fun blankLineAtStart_Trim() {
+            val parser = XQDocParser("~\n :Lorem ipsum dolor")
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Lorem ipsum dolor", Range(4, 21))
+            matchEof(parser)
+        }
+
+        @Test
+        @DisplayName("blank line at start; trim and whitespace")
+        fun blankLineAtStart_TrimAndWhitespace() {
+            val parser = XQDocParser("~\n : Lorem ipsum dolor")
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Lorem ipsum dolor", Range(5, 22))
+            matchEof(parser)
+        }
+
+        @Test
+        @DisplayName("blank line at start; multiple")
+        fun blankLineAtStart_Multiple() {
+            val parser = XQDocParser("~\n : \n : Lorem ipsum dolor")
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Lorem ipsum dolor", Range(9, 26))
+            matchEof(parser)
+        }
     }
 }

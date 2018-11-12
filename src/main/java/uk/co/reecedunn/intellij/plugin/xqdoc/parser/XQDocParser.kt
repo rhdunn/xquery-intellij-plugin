@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 class XQDocParser(comment: CharSequence) {
     private val lexer = XQDocLexer()
+    private var startOfComment = true
 
     val isXQDoc: Boolean
 
@@ -35,10 +36,13 @@ class XQDocParser(comment: CharSequence) {
         private set
 
     fun next(): Boolean {
-        if (lexer.tokenType == XQDocTokenType.TRIM)
-            lexer.advance()
-        if (lexer.tokenType == XQDocTokenType.WHITE_SPACE)
-            lexer.advance()
+        do {
+            if (lexer.tokenType == XQDocTokenType.TRIM)
+                lexer.advance()
+            if (lexer.tokenType == XQDocTokenType.WHITE_SPACE)
+                lexer.advance()
+        } while (lexer.tokenType == XQDocTokenType.TRIM && startOfComment)
+        startOfComment = false
 
         when (lexer.tokenType) {
             XQDocTokenType.CONTENTS -> parseDescriptionLine()
