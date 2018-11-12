@@ -41,7 +41,8 @@ class XQDocParser(comment: CharSequence) {
             lexer.advance()
 
         when (lexer.tokenType) {
-            XQDocTokenType.CONTENTS -> parseDescription()
+            XQDocTokenType.CONTENTS -> parseDescriptionLine()
+            XQDocTokenType.TRIM -> parseEmptyDescriptionLine()
             else -> {
                 elementType = null
                 text = null
@@ -62,7 +63,14 @@ class XQDocParser(comment: CharSequence) {
         }
     }
 
-    private fun parseDescription() {
+    private fun parseEmptyDescriptionLine() {
+        elementType = XQDocElementType.DESCRIPTION_LINE
+        text = ""
+        textRange = Range(lexer.tokenStart, lexer.tokenStart)
+        lexer.advance()
+    }
+
+    private fun parseDescriptionLine() {
         elementType = XQDocElementType.DESCRIPTION_LINE
         text = lexer.tokenText
         textRange = Range(lexer.tokenStart, lexer.tokenEnd)
