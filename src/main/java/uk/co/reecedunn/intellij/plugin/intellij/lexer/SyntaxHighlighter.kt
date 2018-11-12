@@ -31,127 +31,137 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getHighlightingLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
-            XQueryLexer(), 0x50000000, 0,
-            STATE_MAYBE_DIR_ELEM_CONSTRUCTOR,
-            XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
+            XQueryLexer(), 0x50000000, 0, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
         )
         lexer.addState(
-            XQueryLexer(), 0x60000000, 0,
-            STATE_START_DIR_ELEM_CONSTRUCTOR,
-            XQueryTokenType.DIRELEM_OPEN_XML_TAG
+            XQueryLexer(), 0x60000000, 0, STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
         )
-        lexer.addState(XQDocLexer(), 0x70000000,
-            STATE_XQUERY_COMMENT,
-            XQueryTokenType.COMMENT
+        lexer.addState(
+            XQDocLexer(), 0x70000000, STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT
         )
         return lexer
     }
 
     override fun getTokenHighlights(type: IElementType): Array<TextAttributesKey> {
-        if (type === XQueryTokenType.INTEGER_LITERAL ||
-                type === XQueryTokenType.DECIMAL_LITERAL ||
-                type === XQueryTokenType.DOUBLE_LITERAL ||
-                type === XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
-        ) {
+        if (
+            type === XQueryTokenType.INTEGER_LITERAL ||
+            type === XQueryTokenType.DECIMAL_LITERAL ||
+            type === XQueryTokenType.DOUBLE_LITERAL ||
+            type === XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+        )
             return NUMBER_KEYS
-        } else if (type === XQueryTokenType.STRING_LITERAL_START ||
-                type === XQueryTokenType.STRING_LITERAL_CONTENTS ||
-                type === XQueryTokenType.STRING_LITERAL_END ||
-                type === XQueryTokenType.STRING_CONSTRUCTOR_START ||
-                type === XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS ||
-                type === XQueryTokenType.STRING_CONSTRUCTOR_END ||
-                type === XQueryTokenType.BRACED_URI_LITERAL_START ||
-                type === XQueryTokenType.BRACED_URI_LITERAL_END
-        ) {
+        else if (
+            type === XQueryTokenType.STRING_LITERAL_START ||
+            type === XQueryTokenType.STRING_LITERAL_CONTENTS ||
+            type === XQueryTokenType.STRING_LITERAL_END ||
+            type === XQueryTokenType.STRING_CONSTRUCTOR_START ||
+            type === XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS ||
+            type === XQueryTokenType.STRING_CONSTRUCTOR_END ||
+            type === XQueryTokenType.BRACED_URI_LITERAL_START ||
+            type === XQueryTokenType.BRACED_URI_LITERAL_END
+        )
             return STRING_KEYS
-        } else if (type === XQueryTokenType.ESCAPED_CHARACTER) {
+        else if (type === XQueryTokenType.ESCAPED_CHARACTER)
             return ESCAPED_CHARACTER_KEYS
-        } else if (type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
-                type === XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
-                type === XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
-                type === XQueryTokenType.CHARACTER_REFERENCE
-        ) {
+        else if (
+            type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
+            type === XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
+            type === XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
+            type === XQueryTokenType.CHARACTER_REFERENCE
+        )
             return ENTITY_REFERENCE_KEYS
-        } else if (type === XQueryTokenType.BAD_CHARACTER) {
+        else if (type === XQueryTokenType.BAD_CHARACTER)
             return BAD_CHARACTER_KEYS
-        } else if (type === XQueryTokenType.NCNAME) {
+        else if (type === XQueryTokenType.NCNAME)
             return IDENTIFIER_KEYS
-        } else if (type === XQueryTokenType.COMMENT_START_TAG ||
-                type === XQueryTokenType.COMMENT ||
-                type === XQueryTokenType.COMMENT_END_TAG ||
-                type === XQueryTokenType.XML_COMMENT_END_TAG ||
-                type === XQueryTokenType.XML_COMMENT ||
-                type === XQueryTokenType.XML_COMMENT_START_TAG ||
-                type === XQDocTokenType.COMMENT_CONTENTS ||
-                type === XQDocTokenType.XQDOC_COMMENT_MARKER ||
-                type === XQDocTokenType.CONTENTS ||
-                type === XQDocTokenType.TRIM ||
-                type === XQDocTokenType.XML_ELEMENT_CONTENTS) {
+        else if (
+            type === XQueryTokenType.COMMENT_START_TAG ||
+            type === XQueryTokenType.COMMENT ||
+            type === XQueryTokenType.COMMENT_END_TAG ||
+            type === XQueryTokenType.XML_COMMENT_END_TAG ||
+            type === XQueryTokenType.XML_COMMENT ||
+            type === XQueryTokenType.XML_COMMENT_START_TAG ||
+            type === XQDocTokenType.COMMENT_CONTENTS ||
+            type === XQDocTokenType.XQDOC_COMMENT_MARKER ||
+            type === XQDocTokenType.CONTENTS ||
+            type === XQDocTokenType.TRIM ||
+            type === XQDocTokenType.XML_ELEMENT_CONTENTS
+        )
             return COMMENT_KEYS
-        } else if (type === XQueryTokenType.K_PRIVATE ||
-                type === XQueryTokenType.K_PUBLIC ||
-                type === XQueryTokenType.K_SIMPLE ||
-                type === XQueryTokenType.K_SEQUENTIAL ||
-                type === XQueryTokenType.K_UPDATING ||
-                type === XQueryTokenType.ANNOTATION_INDICATOR
-        ) {
+        else if (
+            type === XQueryTokenType.K_PRIVATE ||
+            type === XQueryTokenType.K_PUBLIC ||
+            type === XQueryTokenType.K_SIMPLE ||
+            type === XQueryTokenType.K_SEQUENTIAL ||
+            type === XQueryTokenType.K_UPDATING ||
+            type === XQueryTokenType.ANNOTATION_INDICATOR
+        )
             return ANNOTATION_KEYS
-        } else if (type is IXQueryKeywordOrNCNameType) {
+        else if (type is IXQueryKeywordOrNCNameType)
             return KEYWORD_KEYS
-        } else if (type === XQueryTokenType.OPEN_XML_TAG ||
-                type === XQueryTokenType.END_XML_TAG ||
-                type === XQueryTokenType.CLOSE_XML_TAG ||
-                type === XQueryTokenType.SELF_CLOSING_XML_TAG ||
-                type === XQueryTokenType.XML_WHITE_SPACE
-        ) {
+        else if (
+            type === XQueryTokenType.OPEN_XML_TAG ||
+            type === XQueryTokenType.END_XML_TAG ||
+            type === XQueryTokenType.CLOSE_XML_TAG ||
+            type === XQueryTokenType.SELF_CLOSING_XML_TAG ||
+            type === XQueryTokenType.XML_WHITE_SPACE
+        )
             return XML_TAG_KEYS
-        } else if (type === XQueryTokenType.XML_TAG_NCNAME || type === XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
+        else if (type === XQueryTokenType.XML_TAG_NCNAME || type === XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
             return XML_TAG_NAME_KEYS
-        } else if (type === XQueryTokenType.XML_EQUAL ||
-                type === XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
-                type === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
-        ) {
+        else if (
+            type === XQueryTokenType.XML_EQUAL ||
+            type === XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
+            type === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
+        )
             return XML_ATTRIBUTE_NAME_KEYS
-        } else if (type === XQueryTokenType.XML_ATTRIBUTE_VALUE_START ||
-                type === XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
-                type === XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE ||
-                type === XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE ||
-                type === XQueryTokenType.XML_ATTRIBUTE_VALUE_END
-        ) {
+        else if (
+            type === XQueryTokenType.XML_ATTRIBUTE_VALUE_START ||
+            type === XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
+            type === XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE ||
+            type === XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE ||
+            type === XQueryTokenType.XML_ATTRIBUTE_VALUE_END
+        )
             return XML_ATTRIBUTE_VALUE_KEYS
-        } else if (type === XQueryTokenType.XML_ESCAPED_CHARACTER) {
+        else if (type === XQueryTokenType.XML_ESCAPED_CHARACTER)
             return XML_ESCAPED_CHARACTER_KEYS
-        } else if (type === XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE || type === XQueryTokenType.XML_CHARACTER_REFERENCE) {
+        else if (
+            type === XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ||
+            type === XQueryTokenType.XML_CHARACTER_REFERENCE
+        )
             return XML_ENTITY_REFERENCE_KEYS
-        } else if (type === XQDocTokenType.TAG_MARKER ||
-                type === XQDocTokenType.TAG ||
-                type === XQDocTokenType.T_AUTHOR ||
-                type === XQDocTokenType.T_DEPRECATED ||
-                type === XQDocTokenType.T_ERROR ||
-                type === XQDocTokenType.T_PARAM ||
-                type === XQDocTokenType.T_RETURN ||
-                type === XQDocTokenType.T_SEE ||
-                type === XQDocTokenType.T_SINCE ||
-                type === XQDocTokenType.T_VERSION) {
+        else if (
+            type === XQDocTokenType.TAG_MARKER ||
+            type === XQDocTokenType.TAG ||
+            type === XQDocTokenType.T_AUTHOR ||
+            type === XQDocTokenType.T_DEPRECATED ||
+            type === XQDocTokenType.T_ERROR ||
+            type === XQDocTokenType.T_PARAM ||
+            type === XQDocTokenType.T_RETURN ||
+            type === XQDocTokenType.T_SEE ||
+            type === XQDocTokenType.T_SINCE ||
+            type === XQDocTokenType.T_VERSION
+        )
             return XQDOC_TAG_KEYS
-        } else if (type === XQDocTokenType.VARIABLE_INDICATOR || type === XQDocTokenType.NCNAME) {
+        else if (type === XQDocTokenType.VARIABLE_INDICATOR || type === XQDocTokenType.NCNAME)
             return XQDOC_TAG_VALUE_KEYS
-        } else if (type === XQDocTokenType.OPEN_XML_TAG ||
-                type === XQDocTokenType.END_XML_TAG ||
-                type === XQDocTokenType.CLOSE_XML_TAG ||
-                type === XQDocTokenType.SELF_CLOSING_XML_TAG ||
-                type === XQDocTokenType.XML_TAG ||
-                type === XQDocTokenType.XML_EQUAL ||
-                type === XQDocTokenType.XML_ATTRIBUTE_VALUE_START ||
-                type === XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
-                type === XQDocTokenType.XML_ATTRIBUTE_VALUE_END ||
-                type === XQDocTokenType.PREDEFINED_ENTITY_REFERENCE ||
-                type === XQDocTokenType.PARTIAL_ENTITY_REFERENCE ||
-                type === XQDocTokenType.EMPTY_ENTITY_REFERENCE ||
-                type === XQDocTokenType.CHARACTER_REFERENCE ||
-                type === XQDocTokenType.INVALID) {
+        else if (
+            type === XQDocTokenType.OPEN_XML_TAG ||
+            type === XQDocTokenType.END_XML_TAG ||
+            type === XQDocTokenType.CLOSE_XML_TAG ||
+            type === XQDocTokenType.SELF_CLOSING_XML_TAG ||
+            type === XQDocTokenType.XML_TAG ||
+            type === XQDocTokenType.XML_EQUAL ||
+            type === XQDocTokenType.XML_ATTRIBUTE_VALUE_START ||
+            type === XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
+            type === XQDocTokenType.XML_ATTRIBUTE_VALUE_END ||
+            type === XQDocTokenType.PREDEFINED_ENTITY_REFERENCE ||
+            type === XQDocTokenType.PARTIAL_ENTITY_REFERENCE ||
+            type === XQDocTokenType.EMPTY_ENTITY_REFERENCE ||
+            type === XQDocTokenType.CHARACTER_REFERENCE ||
+            type === XQDocTokenType.INVALID
+        )
             return XQDOC_MARKUP_KEYS
-        }
         return SyntaxHighlighterBase.EMPTY
     }
 
