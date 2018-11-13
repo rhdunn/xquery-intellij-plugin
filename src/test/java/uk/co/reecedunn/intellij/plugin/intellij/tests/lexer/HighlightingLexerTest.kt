@@ -48,7 +48,8 @@ class HighlightingLexerTest : LexerTestCase() {
 
         lexer.start("(: Test :)")
         matchToken(lexer, "(:", 0x00000000 or 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-        matchToken(lexer, " Test ", 0x70000000 or 0, 2, 8, XQDocTokenType.CONTENTS)
+        matchToken(lexer, " ", 0x70000000 or 8, 2, 3, XQDocTokenType.WHITE_SPACE)
+        matchToken(lexer, "Test ", 0x70000000 or 11, 3, 8, XQDocTokenType.CONTENTS)
         matchToken(lexer, ":)", 0x00000000 or 4, 8, 10, XQueryTokenType.COMMENT_END_TAG)
         matchToken(lexer, "", 0x00000000 or 0, 10, 10, null)
     }
