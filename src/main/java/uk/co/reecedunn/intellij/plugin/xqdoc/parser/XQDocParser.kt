@@ -23,6 +23,17 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 private val DESCRIPTION_LINE_TOKENS = TokenSet.create(
     XQDocTokenType.CONTENTS,
+    XQDocTokenType.WHITE_SPACE,
+    XQDocTokenType.OPEN_XML_TAG,
+    XQDocTokenType.END_XML_TAG,
+    XQDocTokenType.CLOSE_XML_TAG,
+    XQDocTokenType.SELF_CLOSING_XML_TAG,
+    XQDocTokenType.XML_TAG,
+    XQDocTokenType.XML_EQUAL,
+    XQDocTokenType.XML_ATTRIBUTE_VALUE_START,
+    XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS,
+    XQDocTokenType.XML_ATTRIBUTE_VALUE_END,
+    XQDocTokenType.XML_ELEMENT_CONTENTS,
     XQDocTokenType.CHARACTER_REFERENCE,
     XQDocTokenType.PREDEFINED_ENTITY_REFERENCE,
     XQDocTokenType.PARTIAL_ENTITY_REFERENCE,

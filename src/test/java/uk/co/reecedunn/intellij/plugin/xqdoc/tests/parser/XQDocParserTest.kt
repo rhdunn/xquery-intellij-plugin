@@ -276,4 +276,26 @@ class XQDocParserTest {
             matchEof(parser)
         }
     }
+
+    @Nested
+    @DisplayName("element")
+    internal inner class DirElemConstructor {
+        @Test
+        @DisplayName("in xquery comment")
+        fun xqueryComment() {
+            val parser = XQDocParser("Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta")
+            matchStart(parser, false)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta", Range(0, 54))
+            matchEof(parser)
+        }
+
+        @Test
+        @DisplayName("in xqdoc comment")
+        fun xqdocComment() {
+            val parser = XQDocParser("~Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta")
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta", Range(1, 55))
+            matchEof(parser)
+        }
+    }
 }
