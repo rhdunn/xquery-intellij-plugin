@@ -22,6 +22,10 @@
     <ol>
       <li>Correctly match functions with variadic function arguments.</li>
     </ol>
+    <p>IntelliJ Integration:</p>
+    <ol>
+      <li>Display the first comment line when the comment is folded.</li>
+    </ol>
     <p>Inspections:</p>
     <ol>
       <li>XPST0017: Fix the arity check for variadic functions.</li>

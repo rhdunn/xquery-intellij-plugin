@@ -10,6 +10,10 @@ Function Resolution:
 
 1.  Correctly match functions with variadic function arguments.
 
+IntelliJ Integration:
+
+1.  Display the first comment line when the comment is folded.
+
 Inspections:
 
 1.  XPST0017: Fix the arity check for variadic functions.
