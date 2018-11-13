@@ -32,6 +32,7 @@ private const val STATE_ATTRIBUTE_VALUE_APOS = 7
 private const val STATE_TRIM = 8
 private const val STATE_PARAM_TAG_CONTENTS_START = 9
 private const val STATE_PARAM_TAG_VARNAME = 10
+private const val STATE_XQUERY_CONTENTS = 11
 
 // endregion
 // region Special Tag Names
@@ -127,8 +128,9 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 pushState(STATE_TRIM)
             }
             else -> {
-                mTokenRange.seek(mTokenRange.bufferEnd)
-                mType = XQDocTokenType.CONTENTS
+                pushState(STATE_XQUERY_CONTENTS)
+                pushState(STATE_TRIM)
+                advance()
             }
         }
     }
@@ -155,6 +157,33 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                         return
                     }
                     CodePointRange.END_OF_BUFFER, '<'.toInt(), '&'.toInt() -> {
+                        mType = XQDocTokenType.CONTENTS
+                        return
+                    }
+                    else -> {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                }
+        }
+    }
+
+    private fun stateXQueryContents() {
+        var c = mTokenRange.codePoint
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
+                pushState(STATE_TRIM)
+                stateTrim()
+            }
+            else -> while (true)
+                when (c) {
+                    '\n'.toInt(), '\r'.toInt() -> { // U+000A, U+000D
+                        pushState(STATE_TRIM)
+                        mType = XQDocTokenType.CONTENTS
+                        return
+                    }
+                    CodePointRange.END_OF_BUFFER -> {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
@@ -414,6 +443,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             STATE_TRIM -> stateTrim()
             STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
             STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
+            STATE_XQUERY_CONTENTS -> stateXQueryContents()
             else -> throw AssertionError("Invalid state: $state")
         }
     }

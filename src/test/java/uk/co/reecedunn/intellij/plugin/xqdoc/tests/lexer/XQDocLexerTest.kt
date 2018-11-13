@@ -49,18 +49,38 @@ class XQDocLexerTest : LexerTestCase() {
         }
     }
 
-    @Test
-    @DisplayName("CommentContents")
-    fun testCommentContents() {
-        val lexer = XQDocLexer()
+    @Nested
+    @DisplayName("xquery comment")
+    internal inner class XQueryComment {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val lexer = XQDocLexer()
 
-        lexer.start("Lorem ipsum dolor.")
-        matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 0, 18, 18, null)
+            lexer.start("Lorem ipsum dolor.")
+            matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "", 0, 18, 18, null)
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val lexer = XQDocLexer()
+
+            lexer.start("Lorem ipsum dolor\n : Alpha beta gamma\n : One two three")
+            matchToken(lexer, "Lorem ipsum dolor", 11, 0, 17, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "\n :", 8, 17, 20, XQDocTokenType.TRIM)
+            matchToken(lexer, " ", 8, 20, 21, XQDocTokenType.WHITE_SPACE)
+            matchToken(lexer, "Alpha beta gamma", 11, 21, 37, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "\n :", 8, 37, 40, XQDocTokenType.TRIM)
+            matchToken(lexer, " ", 8, 40, 41, XQDocTokenType.WHITE_SPACE)
+            matchToken(lexer, "One two three", 11, 41, 54, XQDocTokenType.CONTENTS)
+            matchToken(lexer, "", 11, 54, 54, null)
+        }
     }
 
     @Nested
-    @DisplayName("XQDocComment")
+    @DisplayName("xqdoc comment")
     internal inner class XQDocComment {
         @Test
         @DisplayName("Contents")
