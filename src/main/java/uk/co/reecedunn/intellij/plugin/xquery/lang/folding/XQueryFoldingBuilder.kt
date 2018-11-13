@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -108,8 +109,21 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         return when (node.psi) {
             is XPathEnclosedExpr ->
                 "{...}"
-            is XPathComment ->
-                "(...)"
+            is XPathComment -> {
+                val text = node.text
+                val parser =
+                    if (text.endsWith(":)"))
+                        XQDocParser(text.subSequence(2, text.length - 2))
+                    else
+                        XQDocParser(text.subSequence(2, text.length))
+                if (parser.next()) {
+                    if (parser.isXQDoc)
+                        "(:~ ${parser.text} :)"
+                    else
+                        "(: ${parser.text} :)"
+                } else
+                    "(:...:)"
+            }
             else ->
                 "..."
         }

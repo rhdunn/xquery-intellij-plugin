@@ -273,6 +273,28 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("multiple lines; empty text")
+        fun testComment_MultiLine_EmptyText() {
+            val file = parseResource("tests/folding/Comment_Empty.xq")
+            val builder = XQueryFoldingBuilder()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(5))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(:...:)"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
         @DisplayName("multiple lines")
         fun testComment_MultiLine() {
             val file = parseResource("tests/folding/Comment_MultiLine.xq")
@@ -288,9 +310,75 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].group, `is`(nullValue()))
             assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
             assertThat(descriptors[0].range.startOffset, `is`(0))
-            assertThat(descriptors[0].range.endOffset, `is`(18))
+            assertThat(descriptors[0].range.endOffset, `is`(34))
 
-            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(...)"))
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(: Lorem ipsum. :)"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple lines; xqdoc")
+        fun testComment_MultiLine_XQDoc() {
+            val file = parseResource("tests/folding/Comment_MultiLine_XQDoc.xq")
+            val builder = XQueryFoldingBuilder()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(35))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(:~ Lorem ipsum. :)"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple lines; incomplete")
+        fun testComment_MultiLine_Incomplete() {
+            val file = parseResource("tests/folding/Comment_MultiLine_Incomplete.xq")
+            val builder = XQueryFoldingBuilder()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(15))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(: Lorem ipsum. :)"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple lines; incomplete; xqdoc")
+        fun testComment_MultiLine_Incomplete_XQDoc() {
+            val file = parseResource("tests/folding/Comment_MultiLine_Incomplete_XQDoc.xq")
+            val builder = XQueryFoldingBuilder()
+
+            val descriptors = builder.buildFoldRegions(file, getDocument(file), false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(16))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("(:~ Lorem ipsum. :)"))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
         }
     }
