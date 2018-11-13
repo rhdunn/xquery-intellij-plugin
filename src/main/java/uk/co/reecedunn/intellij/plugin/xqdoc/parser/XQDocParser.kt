@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 private val DESCRIPTION_LINE_TOKENS = TokenSet.create(
     XQDocTokenType.CONTENTS,
+    XQDocTokenType.CHARACTER_REFERENCE,
     XQDocTokenType.PREDEFINED_ENTITY_REFERENCE,
     XQDocTokenType.PARTIAL_ENTITY_REFERENCE,
     XQDocTokenType.EMPTY_ENTITY_REFERENCE
