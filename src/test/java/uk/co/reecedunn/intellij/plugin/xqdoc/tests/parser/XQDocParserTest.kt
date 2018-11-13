@@ -232,4 +232,26 @@ class XQDocParserTest {
             matchEof(parser)
         }
     }
+
+    @Nested
+    @DisplayName("PredefinedEntityRef")
+    internal inner class PredefinedEntityRef {
+        @Test
+        @DisplayName("in xquery comment")
+        fun xqueryComment() {
+            val parser = XQDocParser("Alpha &amp; Beta &amp Gamma &; Delta") // valid; partial; empty
+            matchStart(parser, false)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Alpha &amp; Beta &amp Gamma &; Delta", Range(0, 36))
+            matchEof(parser)
+        }
+
+        @Test
+        @DisplayName("in xqdoc comment")
+        fun xqdocComment() {
+            val parser = XQDocParser("~Alpha &amp; Beta &amp Gamma &; Delta") // valid; partial; empty
+            matchStart(parser, true)
+            match(parser, XQDocElementType.DESCRIPTION_LINE, "Alpha &amp; Beta &amp Gamma &; Delta", Range(1, 37))
+            matchEof(parser)
+        }
+    }
 }
