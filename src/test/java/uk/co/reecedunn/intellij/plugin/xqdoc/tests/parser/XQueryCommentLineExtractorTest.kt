@@ -22,23 +22,23 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
 
-@DisplayName("xqDoc - Parser")
-class XQDocParserTest {
-    private fun matchStart(parser: XQDocParser, isXQDoc: Boolean) {
+@DisplayName("IntelliJ - Custom Language Support - Code Folding - XQueryCommentLineExtractor")
+class XQueryCommentLineExtractorTest {
+    private fun matchStart(parser: XQueryCommentLineExtractor, isXQDoc: Boolean) {
         assertThat(parser.isXQDoc, `is`(isXQDoc))
         assertThat(parser.text, `is`(nullValue()))
         assertThat(parser.textRange, `is`(nullValue()))
     }
 
-    private fun match(parser: XQDocParser, text: String, textRange: Range<Int>) {
+    private fun match(parser: XQueryCommentLineExtractor, text: String, textRange: Range<Int>) {
         assertThat(parser.next(), `is`(true))
         assertThat(parser.text, `is`(text))
         assertThat(parser.textRange, `is`(textRange))
     }
 
-    private fun matchEof(parser: XQDocParser) {
+    private fun matchEof(parser: XQueryCommentLineExtractor) {
         assertThat(parser.next(), `is`(false))
         assertThat(parser.text, `is`(nullValue()))
         assertThat(parser.textRange, `is`(nullValue()))
@@ -50,7 +50,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("empty")
         fun empty() {
-            val parser = XQDocParser("")
+            val parser = XQueryCommentLineExtractor("")
             matchStart(parser, false)
             matchEof(parser)
         }
@@ -58,7 +58,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("single line")
         fun singleLine() {
-            val parser = XQDocParser("Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("Lorem ipsum dolor")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(0, 17))
             matchEof(parser)
@@ -67,7 +67,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("multiple lines; trim only")
         fun multipleLines_Trim() {
-            val parser = XQDocParser("Lorem ipsum dolor\n Alpha beta gamma\r\n :One two three")
+            val parser = XQueryCommentLineExtractor("Lorem ipsum dolor\n Alpha beta gamma\r\n :One two three")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(0, 17))
             match(parser, "Alpha beta gamma", Range(19, 35))
@@ -78,7 +78,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("multiple lines; trim and whitespace")
         fun multipleLines_TrimAndWhitespace() {
-            val parser = XQDocParser("Lorem ipsum dolor\n : Alpha beta gamma\r\n : One two three")
+            val parser = XQueryCommentLineExtractor("Lorem ipsum dolor\n : Alpha beta gamma\r\n : One two three")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(0, 17))
             match(parser, "Alpha beta gamma", Range(21, 37))
@@ -89,7 +89,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line; trim only")
         fun blankLine_Trim() {
-            val parser = XQDocParser("Lorem ipsum dolor\n \n Alpha beta gamma")
+            val parser = XQueryCommentLineExtractor("Lorem ipsum dolor\n \n Alpha beta gamma")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(0, 17))
             match(parser, "", Range(19, 19))
@@ -100,7 +100,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line; trim and whitespace")
         fun blankLine_TrimAndWhitespace() {
-            val parser = XQDocParser("Lorem ipsum dolor\n : \n : Alpha beta gamma")
+            val parser = XQueryCommentLineExtractor("Lorem ipsum dolor\n : \n : Alpha beta gamma")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(0, 17))
             match(parser, "", Range(21, 21))
@@ -111,7 +111,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line at start; trim only")
         fun blankLineAtStart_Trim() {
-            val parser = XQDocParser("\n :Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("\n :Lorem ipsum dolor")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(3, 20))
             matchEof(parser)
@@ -120,7 +120,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line at start; trim and whitespace")
         fun blankLineAtStart_TrimAndWhitespace() {
-            val parser = XQDocParser("\n : Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("\n : Lorem ipsum dolor")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(4, 21))
             matchEof(parser)
@@ -129,7 +129,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line at start; multiple")
         fun blankLineAtStart_Multiple() {
-            val parser = XQDocParser("\n : \n : Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("\n : \n : Lorem ipsum dolor")
             matchStart(parser, false)
             match(parser, "Lorem ipsum dolor", Range(8, 25))
             matchEof(parser)
@@ -142,7 +142,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("empty")
         fun empty() {
-            val parser = XQDocParser("~")
+            val parser = XQueryCommentLineExtractor("~")
             matchStart(parser, true)
             matchEof(parser)
         }
@@ -150,7 +150,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("single line")
         fun singleLine() {
-            val parser = XQDocParser("~Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("~Lorem ipsum dolor")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(1, 18))
             matchEof(parser)
@@ -159,7 +159,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("multiple lines; trim only")
         fun multipleLines_Trim() {
-            val parser = XQDocParser("~Lorem ipsum dolor\n Alpha beta gamma\r\n :One two three")
+            val parser = XQueryCommentLineExtractor("~Lorem ipsum dolor\n Alpha beta gamma\r\n :One two three")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(1, 18))
             match(parser, "Alpha beta gamma", Range(20, 36))
@@ -170,7 +170,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("multiple lines; trim and whitespace")
         fun multipleLines_TrimAndWhitespace() {
-            val parser = XQDocParser("~Lorem ipsum dolor\n : Alpha beta gamma\r\n : One two three")
+            val parser = XQueryCommentLineExtractor("~Lorem ipsum dolor\n : Alpha beta gamma\r\n : One two three")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(1, 18))
             match(parser, "Alpha beta gamma", Range(22, 38))
@@ -181,7 +181,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line; trim only")
         fun blankLine_Trim() {
-            val parser = XQDocParser("~Lorem ipsum dolor\n \n Alpha beta gamma")
+            val parser = XQueryCommentLineExtractor("~Lorem ipsum dolor\n \n Alpha beta gamma")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(1, 18))
             match(parser, "", Range(20, 20))
@@ -192,7 +192,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line; trim and whitespace")
         fun blankLine_TrimAndWhitespace() {
-            val parser = XQDocParser("~Lorem ipsum dolor\n : \n : Alpha beta gamma")
+            val parser = XQueryCommentLineExtractor("~Lorem ipsum dolor\n : \n : Alpha beta gamma")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(1, 18))
             match(parser, "", Range(22, 22))
@@ -203,7 +203,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line at start; trim only")
         fun blankLineAtStart_Trim() {
-            val parser = XQDocParser("~\n :Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("~\n :Lorem ipsum dolor")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(4, 21))
             matchEof(parser)
@@ -212,7 +212,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line at start; trim and whitespace")
         fun blankLineAtStart_TrimAndWhitespace() {
-            val parser = XQDocParser("~\n : Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("~\n : Lorem ipsum dolor")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(5, 22))
             matchEof(parser)
@@ -221,7 +221,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("blank line at start; multiple")
         fun blankLineAtStart_Multiple() {
-            val parser = XQDocParser("~\n : \n : Lorem ipsum dolor")
+            val parser = XQueryCommentLineExtractor("~\n : \n : Lorem ipsum dolor")
             matchStart(parser, true)
             match(parser, "Lorem ipsum dolor", Range(9, 26))
             matchEof(parser)
@@ -234,7 +234,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("in xquery comment")
         fun xqueryComment() {
-            val parser = XQDocParser("Alpha &amp; Beta &amp Gamma &; Delta") // valid; partial; empty
+            val parser = XQueryCommentLineExtractor("Alpha &amp; Beta &amp Gamma &; Delta") // valid; partial; empty
             matchStart(parser, false)
             match(parser, "Alpha &amp; Beta &amp Gamma &; Delta", Range(0, 36))
             matchEof(parser)
@@ -243,7 +243,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("in xqdoc comment")
         fun xqdocComment() {
-            val parser = XQDocParser("~Alpha &amp; Beta &amp Gamma &; Delta") // valid; partial; empty
+            val parser = XQueryCommentLineExtractor("~Alpha &amp; Beta &amp Gamma &; Delta") // valid; partial; empty
             matchStart(parser, true)
             match(parser, "Alpha &amp; Beta &amp Gamma &; Delta", Range(1, 37))
             matchEof(parser)
@@ -256,7 +256,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("in xquery comment")
         fun xqueryComment() {
-            val parser = XQDocParser("Alpha&#20;Beta")
+            val parser = XQueryCommentLineExtractor("Alpha&#20;Beta")
             matchStart(parser, false)
             match(parser, "Alpha&#20;Beta", Range(0, 14))
             matchEof(parser)
@@ -265,7 +265,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("in xqdoc comment")
         fun xqdocComment() {
-            val parser = XQDocParser("~Alpha&#20;Beta")
+            val parser = XQueryCommentLineExtractor("~Alpha&#20;Beta")
             matchStart(parser, true)
             match(parser, "Alpha&#20;Beta", Range(1, 15))
             matchEof(parser)
@@ -278,7 +278,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("in xquery comment")
         fun xqueryComment() {
-            val parser = XQDocParser("Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta")
+            val parser = XQueryCommentLineExtractor("Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta")
             matchStart(parser, false)
             match(parser, "Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta", Range(0, 54))
             matchEof(parser)
@@ -287,7 +287,7 @@ class XQDocParserTest {
         @Test
         @DisplayName("in xqdoc comment")
         fun xqdocComment() {
-            val parser = XQDocParser("~Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta")
+            val parser = XQueryCommentLineExtractor("~Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta")
             matchStart(parser, true)
             match(parser, "Alpha <one lorem='ipsum'>Beta</one> Gamma <two/> Delta", Range(1, 55))
             matchEof(parser)

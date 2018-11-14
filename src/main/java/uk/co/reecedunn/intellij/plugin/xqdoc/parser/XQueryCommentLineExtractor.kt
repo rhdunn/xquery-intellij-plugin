@@ -39,7 +39,7 @@ private val DESCRIPTION_LINE_TOKENS = TokenSet.create(
     XQDocTokenType.EMPTY_ENTITY_REFERENCE
 )
 
-class XQDocParser(private val comment: CharSequence) {
+class XQueryCommentLineExtractor(private val comment: CharSequence) {
     private val lexer = XQDocLexer()
     private var startOfComment = true
 

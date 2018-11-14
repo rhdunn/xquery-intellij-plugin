@@ -24,7 +24,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -113,9 +113,9 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
                 val text = node.text
                 val parser =
                     if (text.endsWith(":)"))
-                        XQDocParser(text.subSequence(2, text.length - 2))
+                        XQueryCommentLineExtractor(text.subSequence(2, text.length - 2))
                     else
-                        XQDocParser(text.subSequence(2, text.length))
+                        XQueryCommentLineExtractor(text.subSequence(2, text.length))
                 if (parser.next()) {
                     if (parser.isXQDoc)
                         "(:~ ${parser.text} :)"
