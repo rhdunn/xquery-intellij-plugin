@@ -41,7 +41,7 @@ class XQueryParserDefinition : ParserDefinition {
         return lexer
     }
 
-    override fun createParser(project: Project): PsiParser = XQueryPsiParser()
+    override fun createParser(project: Project): PsiParser = XQueryParser()
 
     override fun getFileNodeType(): IFileElementType = XQueryElementType.FILE
 

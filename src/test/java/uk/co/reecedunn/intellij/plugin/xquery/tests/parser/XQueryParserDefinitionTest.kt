@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -45,7 +45,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     @DisplayName("createParser")
     fun testParser() {
         val parserDefinition = XQueryParserDefinition()
-        assertThat(parserDefinition.createParser(myProject).javaClass.name, `is`(XQueryPsiParser::class.java.name))
+        assertThat(parserDefinition.createParser(myProject).javaClass.name, `is`(XQueryParser::class.java.name))
     }
 
     @Test
