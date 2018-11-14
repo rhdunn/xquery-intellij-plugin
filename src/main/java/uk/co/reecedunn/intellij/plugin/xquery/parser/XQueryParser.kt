@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.parser
 
+import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
+import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
@@ -23,6 +25,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+
+class XQueryPsiParser : PsiParser {
+    override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
+        val rootMarker = builder.mark()
+        XQueryParser(builder).parse()
+        rootMarker.done(root)
+        return builder.treeBuilt
+    }
+}
 
 private enum class KindTest {
     ANY_TEST,
@@ -62,7 +73,7 @@ private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
  * for details of the grammar implemented by this parser.
  */
 @Suppress("FunctionName")
-internal class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
+private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Main Interface
 
     fun parse() {
