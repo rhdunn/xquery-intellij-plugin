@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
  * does not change the `VersionDecl` representation, so this
  * interface is used for both XQuery 1.0 and XQuery 3.0
  * `VersionDecl` nodes. Validation is handled by the
- * [uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser].
+ * [uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserImpl].
  */
 interface XQueryVersionDecl : PsiElement {
     /**

@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 class XQueryPsiParser : PsiParser {
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
         val rootMarker = builder.mark()
-        XQueryParser(builder).parse()
+        XQueryParserImpl(builder).parse()
         rootMarker.done(root)
         return builder.treeBuilt
     }
@@ -73,7 +73,7 @@ private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
  * for details of the grammar implemented by this parser.
  */
 @Suppress("FunctionName")
-private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
+private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Main Interface
 
     fun parse() {
@@ -318,7 +318,7 @@ private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             when (nextState) {
-                XQueryParser.PrologDeclState.NOT_MATCHED -> if (parseInvalidConstructs && getTokenType() != null) {
+                XQueryParserImpl.PrologDeclState.NOT_MATCHED -> if (parseInvalidConstructs && getTokenType() != null) {
                     if (!parseWhiteSpaceAndCommentTokens()) {
                         error(XQueryBundle.message("parser.error.unexpected-token"))
                         if (!parseExprSingle()) advanceLexer()
@@ -331,10 +331,10 @@ private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     prologMarker.done(XQueryElementType.PROLOG)
                     return true
                 }
-                XQueryParser.PrologDeclState.HEADER_STATEMENT, XQueryParser.PrologDeclState.UNKNOWN_STATEMENT -> if (state == PrologDeclState.NOT_MATCHED) {
+                XQueryParserImpl.PrologDeclState.HEADER_STATEMENT, XQueryParserImpl.PrologDeclState.UNKNOWN_STATEMENT -> if (state == PrologDeclState.NOT_MATCHED) {
                     state = PrologDeclState.HEADER_STATEMENT
                 }
-                XQueryParser.PrologDeclState.BODY_STATEMENT -> if (state != PrologDeclState.BODY_STATEMENT) {
+                XQueryParserImpl.PrologDeclState.BODY_STATEMENT -> if (state != PrologDeclState.BODY_STATEMENT) {
                     state = PrologDeclState.BODY_STATEMENT
                 }
             }
@@ -1329,7 +1329,7 @@ private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
         parseWhiteSpaceAndCommentTokens()
         while (true)
             when (parseBlockVarDecl()) {
-                XQueryParser.ParseStatus.MATCHED -> {
+                XQueryParserImpl.ParseStatus.MATCHED -> {
                     if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                         error(XQueryBundle.message("parser.error.expected", ";"))
                         if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
@@ -1338,11 +1338,11 @@ private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     }
                     parseWhiteSpaceAndCommentTokens()
                 }
-                XQueryParser.ParseStatus.MATCHED_WITH_ERRORS -> {
+                XQueryParserImpl.ParseStatus.MATCHED_WITH_ERRORS -> {
                     matchTokenType(XQueryTokenType.SEPARATOR)
                     parseWhiteSpaceAndCommentTokens()
                 }
-                XQueryParser.ParseStatus.NOT_MATCHED -> {
+                XQueryParserImpl.ParseStatus.NOT_MATCHED -> {
                     blockDeclsMarker.done(XQueryElementType.BLOCK_DECLS)
                     return true
                 }
@@ -1448,12 +1448,12 @@ private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             val marker = mark()
             when (parseTransactionSeparator()) {
-                XQueryParser.TransactionType.WITH_PROLOG -> {
+                XQueryParserImpl.TransactionType.WITH_PROLOG -> {
                     // MarkLogic transaction containing a Prolog/Module statement.
                     marker.rollbackTo()
                     return true
                 }
-                XQueryParser.TransactionType.WITHOUT_PROLOG -> {
+                XQueryParserImpl.TransactionType.WITHOUT_PROLOG -> {
                     if (type !== XQueryElementType.QUERY_BODY) {
                         // Scripting Extension: Use a Separator as part of the ApplyExpr.
                         marker.rollbackTo()
@@ -1464,7 +1464,7 @@ private class XQueryParser(builder: PsiBuilder) : PsiTreeParser(builder) {
                     }
                     parseWhiteSpaceAndCommentTokens()
                 }
-                XQueryParser.TransactionType.NONE -> {
+                XQueryParserImpl.TransactionType.NONE -> {
                     marker.rollbackTo()
                     if (haveConcatExpr) {
                         if (type !== XQueryElementType.QUERY_BODY) {
