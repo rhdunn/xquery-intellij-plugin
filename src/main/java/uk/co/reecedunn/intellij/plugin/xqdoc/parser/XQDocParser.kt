@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.parser
 
-import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
@@ -46,9 +45,6 @@ class XQDocParser(private val comment: CharSequence) {
 
     val isXQDoc: Boolean
 
-    var elementType: IElementType? = null
-        private set
-
     var text: CharSequence? = null
         private set
 
@@ -68,7 +64,6 @@ class XQDocParser(private val comment: CharSequence) {
             XQDocTokenType.CONTENTS -> parseDescriptionLine()
             XQDocTokenType.TRIM -> parseEmptyDescriptionLine()
             else -> {
-                elementType = null
                 text = null
                 textRange = null
                 return false
@@ -88,7 +83,6 @@ class XQDocParser(private val comment: CharSequence) {
     }
 
     private fun parseEmptyDescriptionLine() {
-        elementType = XQDocElementType.DESCRIPTION_LINE
         text = ""
         textRange = Range(lexer.tokenStart, lexer.tokenStart)
         lexer.advance()
@@ -102,7 +96,6 @@ class XQDocParser(private val comment: CharSequence) {
             lexer.advance()
         }
 
-        elementType = XQDocElementType.DESCRIPTION_LINE
         text = comment.subSequence(start, end)
         textRange = Range(start, end)
     }
