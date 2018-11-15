@@ -17,44 +17,27 @@ package uk.co.reecedunn.intellij.plugin.core.parser
 
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 
 open class PsiTreeParser(private val builder: PsiBuilder) {
     // region Parser Helper Functions
 
     protected fun matchTokenType(type: IElementType): Boolean {
-        if (builder.tokenType === type) {
-            builder.advanceLexer()
-            return true
-        }
-        return false
+        return builder.matchTokenType(type)
     }
 
     protected fun matchTokenTypeWithMarker(type: IElementType): PsiBuilder.Marker? {
-        if (builder.tokenType === type) {
-            val marker = mark()
-            builder.advanceLexer()
-            return marker
-        }
-        return null
+        return builder.matchTokenTypeWithMarker(type)
     }
 
     protected fun matchTokenTypeWithMarker(type1: IElementType, type2: IElementType): PsiBuilder.Marker? {
-        if (builder.tokenType === type1 || builder.tokenType === type2) {
-            val marker = mark()
-            builder.advanceLexer()
-            return marker
-        }
-        return null
+        return builder.matchTokenTypeWithMarker(type1, type2)
     }
 
     protected fun errorOnTokenType(type: IElementType, message: String): Boolean {
-        if (builder.tokenType === type) {
-            val errorMarker = mark()
-            builder.advanceLexer()
-            errorMarker.error(message)
-            return true
-        }
-        return false
+        return builder.errorOnTokenType(type, message)
     }
 
     // endregion
