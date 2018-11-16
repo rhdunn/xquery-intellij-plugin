@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
+import com.intellij.openapi.fileTypes.LanguageFileType
+import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 
 /**
  * XML Schema Definition Language (XSD)
@@ -67,6 +69,8 @@ object XPath : Language("XPathREC"), Versioned {
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = "XPath"
+
+    override fun getAssociatedFileType(): LanguageFileType? = XPathFileType
 
     override val id: String = "xpath"
 
