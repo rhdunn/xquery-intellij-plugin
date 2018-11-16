@@ -88,7 +88,7 @@ object XPath : Language("XPathREC"), Versioned {
 /**
  * XQuery
  */
-object XQuery : Language("XQuery", "application/xquery"), Versioned {
+object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery"), Versioned {
     // region 1.0
 
     val WD_1_0_20030502 = DraftSpecification(
