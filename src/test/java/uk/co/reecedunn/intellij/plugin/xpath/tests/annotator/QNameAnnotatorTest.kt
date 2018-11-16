@@ -176,6 +176,72 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
         }
+
+        @Test
+        @DisplayName("whitespace in QName; before ':'")
+        fun whitespaceInQName_beforeColon() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
+
+        @Test
+        @DisplayName("whitespace in QName; after ':'")
+        fun whitespaceInQName_afterColon() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
+
+        @Test
+        @DisplayName("whitespace in QName; before and after ':'")
+        fun whitespaceInQName_beforeAndAfterColon() {
+            val file = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.xq")
+            val annotations = annotateTree(file, QNameAnnotator())
+            assertThat(annotations.size, `is`(2))
+
+            assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[0].startOffset, `is`(15))
+            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].message, `is`(nullValue()))
+            assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
+            assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
+
+            assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
+            assertThat(annotations[1].startOffset, `is`(15))
+            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].message, `is`(nullValue()))
+            assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
+            assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
+        }
     }
 
     @Nested
