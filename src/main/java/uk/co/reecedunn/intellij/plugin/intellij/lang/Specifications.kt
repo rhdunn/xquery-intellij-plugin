@@ -43,9 +43,12 @@ object XmlSchema : Versioned {
 }
 
 /**
- * XPath
+ * XML Path Language
+ *
+ * NOTE: The 'XPath' language ID is used by the IntelliJ plugin for the built-in
+ * XPath 1.0 and 2.0 support. Using that causes those plugins to fail.
  */
-object XPath : Language("XPathREC"), Versioned {
+object XPath : Language("XMLPath"), Versioned {
     val REC_1_0_19991116 = Specification(
         "1.0-19991116", 1.0, 19991116, "1.0", "https://www.w3.org/TR/1999/REC-xpath-19991116/", this
     )
@@ -86,7 +89,7 @@ object XPath : Language("XPathREC"), Versioned {
 }
 
 /**
- * XQuery
+ * XML Query Language
  */
 object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery"), Versioned {
     // region 1.0

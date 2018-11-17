@@ -40,9 +40,9 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
 
-    <!-- XML Query Language Support -->
+    <!-- XML Path Language Support -->
 
-    <lang.ast.factory language="XPathREC" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
+    <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
 
     <!-- XML Query Language Support -->
 
