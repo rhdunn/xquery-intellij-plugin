@@ -48,8 +48,8 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
         if (
             type === XPathTokenType.INTEGER_LITERAL ||
             type === XPathTokenType.DECIMAL_LITERAL ||
-            type === XQueryTokenType.DOUBLE_LITERAL ||
-            type === XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+            type === XPathTokenType.DOUBLE_LITERAL ||
+            type === XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
         )
             return NUMBER_KEYS
         else if (

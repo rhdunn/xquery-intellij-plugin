@@ -4164,10 +4164,10 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseNumericLiteral(): Boolean {
-        if (matchTokenType(XPathTokenType.INTEGER_LITERAL) || matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
+        if (matchTokenType(XPathTokenType.INTEGER_LITERAL) || matchTokenType(XPathTokenType.DOUBLE_LITERAL)) {
             return true
         } else if (matchTokenType(XPathTokenType.DECIMAL_LITERAL)) {
-            errorOnTokenType(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"))
+            errorOnTokenType(XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"))
             return true
         }
         return false

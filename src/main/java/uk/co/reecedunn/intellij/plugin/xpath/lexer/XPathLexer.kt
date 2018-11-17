@@ -19,11 +19,17 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
+// region State Constants
+
+private const val STATE_DOUBLE_EXPONENT = 3
+
+// endregion
+
 class XPathLexer : LexerImpl(STATE_DEFAULT) {
     // region States
 
     private fun stateDefault() {
-        val c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint
         val cc = CharacterClass.getCharClass(c)
         when (cc) {
             CharacterClass.DOT -> {
@@ -31,6 +37,25 @@ class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
                 mType = XPathTokenType.DECIMAL_LITERAL
+                c = mTokenRange.codePoint
+                if (c == 'e'.toInt() || c == 'E'.toInt()) {
+                    mTokenRange.save()
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                    if (c == '+'.toInt() || c == '-'.toInt()) {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
+                        mTokenRange.match()
+                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                            mTokenRange.match()
+                        mType = XPathTokenType.DOUBLE_LITERAL
+                    } else {
+                        pushState(STATE_DOUBLE_EXPONENT)
+                        mTokenRange.restore()
+                    }
+                }
             }
             CharacterClass.DIGIT -> {
                 mTokenRange.match()
@@ -43,6 +68,25 @@ class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     XPathTokenType.DECIMAL_LITERAL
                 } else {
                     XPathTokenType.INTEGER_LITERAL
+                }
+                c = mTokenRange.codePoint
+                if (c == 'e'.toInt() || c == 'E'.toInt()) {
+                    mTokenRange.save()
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                    if (c == '+'.toInt() || c == '-'.toInt()) {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
+                        mTokenRange.match()
+                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                            mTokenRange.match()
+                        mType = XPathTokenType.DOUBLE_LITERAL
+                    } else {
+                        pushState(STATE_DOUBLE_EXPONENT)
+                        mTokenRange.restore()
+                    }
                 }
             }
             CharacterClass.WHITESPACE -> {
@@ -59,12 +103,23 @@ class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
     }
 
+    private fun stateDoubleExponent() {
+        mTokenRange.match()
+        val c = mTokenRange.codePoint
+        if (c == '+'.toInt() || c == '-'.toInt()) {
+            mTokenRange.match()
+        }
+        mType = XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+        popState()
+    }
+
     // endregion
     // region Lexer
 
     override fun advance() {
         when (nextState()) {
             STATE_DEFAULT -> stateDefault()
+            STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
             else -> throw AssertionError("Invalid state: $state")
         }
     }

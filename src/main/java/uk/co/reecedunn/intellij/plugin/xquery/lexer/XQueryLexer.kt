@@ -334,7 +334,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.match()
                         while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                             mTokenRange.match()
-                        mType = XQueryTokenType.DOUBLE_LITERAL
+                        mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
                         mTokenRange.restore()
@@ -366,7 +366,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.match()
                         while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                             mTokenRange.match()
-                        mType = XQueryTokenType.DOUBLE_LITERAL
+                        mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
                         mTokenRange.restore()
@@ -746,7 +746,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
         if (c == '+'.toInt() || c == '-'.toInt()) {
             mTokenRange.match()
         }
-        mType = XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+        mType = XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
         popState()
     }
 

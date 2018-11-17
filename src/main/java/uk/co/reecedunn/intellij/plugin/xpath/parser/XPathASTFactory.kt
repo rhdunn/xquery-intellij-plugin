@@ -22,6 +22,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl
 
 class XPathASTFactory : ASTFactory() {
@@ -31,6 +32,7 @@ class XPathASTFactory : ASTFactory() {
         return when (type) {
             XPathTokenType.INTEGER_LITERAL -> XPathIntegerLiteralImpl(type, text)
             XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
+            XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
             else -> LeafPsiElement(type, text)
         }
     }
