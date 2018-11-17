@@ -35,7 +35,7 @@ class XPathLexerTest : LexerTestCase() {
     internal inner class LexerTest {
         @Test
         @DisplayName("invalid state")
-        fun testInvalidState() {
+        fun invalidState() {
             val lexer = createLexer()
 
             val e = assertThrows(AssertionError::class.java) { lexer.start("123", 0, 3, 4096) }
@@ -44,7 +44,7 @@ class XPathLexerTest : LexerTestCase() {
 
         @Test
         @DisplayName("empty buffer")
-        fun testEmptyBuffer() {
+        fun emptyBuffer() {
             val lexer = createLexer()
 
             lexer.start("")
@@ -53,7 +53,7 @@ class XPathLexerTest : LexerTestCase() {
 
         @Test
         @DisplayName("bad characters")
-        fun testBadCharacters() {
+        fun badCharacters() {
             val lexer = createLexer()
 
             lexer.start("~\uFFFE\u0000\uFFFF")
@@ -63,5 +63,31 @@ class XPathLexerTest : LexerTestCase() {
             matchToken(lexer, "\uFFFF", 0, 3, 4, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "", 0, 4, 4, null)
         }
+    }
+
+    @Test
+    @DisplayName("XML 1.0 EBNF (3) S")
+    fun s() {
+        val lexer = createLexer()
+
+        lexer.start(" ")
+        matchToken(lexer, " ", 0, 0, 1, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "", 0, 1, 1, null)
+
+        lexer.start("\t")
+        matchToken(lexer, "\t", 0, 0, 1, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "", 0, 1, 1, null)
+
+        lexer.start("\r")
+        matchToken(lexer, "\r", 0, 0, 1, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "", 0, 1, 1, null)
+
+        lexer.start("\n")
+        matchToken(lexer, "\n", 0, 0, 1, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "", 0, 1, 1, null)
+
+        lexer.start("   \t  \r\n ")
+        matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "", 0, 9, 9, null)
     }
 }

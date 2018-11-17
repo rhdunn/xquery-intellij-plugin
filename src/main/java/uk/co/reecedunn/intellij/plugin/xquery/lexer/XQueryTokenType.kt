@@ -24,8 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 
 object XQueryTokenType {
-    val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
-
     val UNEXPECTED_END_OF_BLOCK = IElementType("XQUERY_UNEXPECTED_END_OF_BLOCK_TOKEN", XQuery)
 
     val COMMENT = IElementType("XQUERY_COMMENT_TOKEN", XQuery)

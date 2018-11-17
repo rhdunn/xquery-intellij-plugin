@@ -296,7 +296,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
-                mType = XQueryTokenType.WHITE_SPACE
+                mType = XPathTokenType.WHITE_SPACE
             }
             CharacterClass.DOT -> {
                 mTokenRange.save()
@@ -909,7 +909,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
-                mType = XQueryTokenType.WHITE_SPACE
+                mType = XPathTokenType.WHITE_SPACE
             }
             CharacterClass.COLON -> {
                 mTokenRange.match()
@@ -956,7 +956,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
-                mType = XQueryTokenType.WHITE_SPACE
+                mType = XPathTokenType.WHITE_SPACE
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
             }
@@ -1258,7 +1258,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
-                mType = XQueryTokenType.WHITE_SPACE
+                mType = XPathTokenType.WHITE_SPACE
                 popState()
                 pushState(if (state == STATE_PROCESSING_INSTRUCTION) STATE_PROCESSING_INSTRUCTION_CONTENTS else STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT)
             }

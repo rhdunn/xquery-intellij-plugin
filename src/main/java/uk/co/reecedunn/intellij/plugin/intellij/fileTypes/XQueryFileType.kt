@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
 import java.nio.charset.UnsupportedCharsetException
 import javax.swing.Icon
@@ -59,7 +60,7 @@ object XQueryFileType : LanguageFileType(XQuery) {
     private fun matchWhiteSpaceOrComment(lexer: Lexer, required: Boolean): Boolean {
         var matched = false
         while (true) {
-            matched = if (lexer.tokenType === XQueryTokenType.WHITE_SPACE) {
+            matched = if (lexer.tokenType === XPathTokenType.WHITE_SPACE) {
                 lexer.advance()
                 true
             } else if (lexer.tokenType === XQueryTokenType.COMMENT_START_TAG) {

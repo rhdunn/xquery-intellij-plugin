@@ -3823,7 +3823,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (pragmaMarker != null) {
             var haveErrors = false
 
-            matchTokenType(XQueryTokenType.WHITE_SPACE)
+            matchTokenType(XPathTokenType.WHITE_SPACE)
             if (!parseEQName(XQueryElementType.QNAME)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
@@ -3831,7 +3831,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             // NOTE: The XQuery grammar requires pragma contents if the EQName
             // is followed by a space token, but implementations make it optional.
-            matchTokenType(XQueryTokenType.WHITE_SPACE)
+            matchTokenType(XPathTokenType.WHITE_SPACE)
             matchTokenType(XQueryTokenType.PRAGMA_CONTENTS)
 
             if (!matchTokenType(XQueryTokenType.PRAGMA_END) && !haveErrors) {
@@ -4775,7 +4775,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             error(XQueryBundle.message("parser.error.unexpected-closing-tag"))
             matchTokenType(XQueryTokenType.CLOSE_XML_TAG)
             parseQName(XQueryElementType.QNAME)
-            matchTokenType(XQueryTokenType.WHITE_SPACE)
+            matchTokenType(XPathTokenType.WHITE_SPACE)
             matchTokenType(XQueryTokenType.GREATER_THAN)
 
             elementMarker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
@@ -4878,7 +4878,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (piMarker != null) {
             var haveErrors = false
 
-            if (matchTokenType(XQueryTokenType.WHITE_SPACE)) {
+            if (matchTokenType(XPathTokenType.WHITE_SPACE)) {
                 error(XQueryBundle.message("parser.error.unexpected-whitespace"))
                 haveErrors = true
             }
@@ -4888,7 +4888,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 haveErrors = true
             }
 
-            matchTokenType(XQueryTokenType.WHITE_SPACE)
+            matchTokenType(XPathTokenType.WHITE_SPACE)
             if (!matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-pi-contents"))
                 haveErrors = true
@@ -7575,7 +7575,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseWhiteSpaceAndCommentTokens(): Boolean {
         var skipped = false
         while (true) {
-            if (getTokenType() === XQueryTokenType.WHITE_SPACE || getTokenType() === XQueryTokenType.XML_WHITE_SPACE) {
+            if (getTokenType() === XPathTokenType.WHITE_SPACE || getTokenType() === XQueryTokenType.XML_WHITE_SPACE) {
                 skipped = true
                 advanceLexer()
             } else if (getTokenType() === XQueryTokenType.COMMENT_START_TAG) {

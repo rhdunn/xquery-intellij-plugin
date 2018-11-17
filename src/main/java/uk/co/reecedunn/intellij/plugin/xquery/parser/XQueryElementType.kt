@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
@@ -453,6 +454,4 @@ object XQueryElementType {
     val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType("XQUERY_SEQUENCE_TYPE_LIST", PluginSequenceTypeListPsiImpl::class.java, XQuery)
 
     // endregion
-
-    val WHITESPACE_OR_COMMENT = TokenSet.create(XQueryTokenType.WHITE_SPACE, XQueryElementType.COMMENT)
 }

@@ -20,4 +20,5 @@ import com.intellij.psi.tree.IElementType
 
 object XPathTokenType {
     val BAD_CHARACTER: IElementType = TokenType.BAD_CHARACTER
+    val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
 }

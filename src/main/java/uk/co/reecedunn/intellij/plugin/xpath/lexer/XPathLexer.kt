@@ -26,6 +26,12 @@ class XPathLexer : LexerImpl(STATE_DEFAULT) {
         val c = mTokenRange.codePoint
         val cc = CharacterClass.getCharClass(c)
         when (cc) {
+            CharacterClass.WHITESPACE -> {
+                mTokenRange.match()
+                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
+                    mTokenRange.match()
+                mType = XPathTokenType.WHITE_SPACE
+            }
             CharacterClass.END_OF_BUFFER -> mType = null
             else -> {
                 mTokenRange.match()
