@@ -17,15 +17,15 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.STATE_DOUBLE_EXPONENT
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 // region State Constants
 
 private const val STATE_STRING_LITERAL_QUOTE = 1
 private const val STATE_STRING_LITERAL_APOSTROPHE = 2
-private const val STATE_DOUBLE_EXPONENT = 3
 const val STATE_XQUERY_COMMENT = 4
 private const val STATE_XML_COMMENT = 5
 private const val STATE_UNEXPECTED_END_OF_BLOCK = 6
@@ -285,7 +285,7 @@ private val KEYWORDS = mapOf(
 
 // endregion
 
-class XQueryLexer : LexerImpl(STATE_DEFAULT) {
+class XQueryLexer : XPathLexer() {
     // region States
 
     private fun stateDefault(mState: Int) {
@@ -738,16 +738,6 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             }
             mType = XQueryTokenType.STRING_LITERAL_CONTENTS
         }
-    }
-
-    private fun stateDoubleExponent() {
-        mTokenRange.match()
-        val c = mTokenRange.codePoint
-        if (c == '+'.toInt() || c == '-'.toInt()) {
-            mTokenRange.match()
-        }
-        mType = XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
-        popState()
     }
 
     private fun stateXQueryComment() {
@@ -1545,7 +1535,6 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
             STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
             STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
-            STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
             STATE_XQUERY_COMMENT -> stateXQueryComment()
             STATE_XML_COMMENT, STATE_XML_COMMENT_ELEM_CONTENT -> stateXmlComment()
             STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
@@ -1562,7 +1551,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             STATE_BRACED_URI_LITERAL, STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
             STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
             STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
-            else -> throw AssertionError("Invalid state: $state")
+            else -> super.advance()
         }
     }
 

@@ -21,11 +21,11 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 // region State Constants
 
-private const val STATE_DOUBLE_EXPONENT = 3
+const val STATE_DOUBLE_EXPONENT = 3
 
 // endregion
 
-class XPathLexer : LexerImpl(STATE_DEFAULT) {
+open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     // region States
 
     private fun stateDefault() {
