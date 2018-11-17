@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
+import com.intellij.lang.Language
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
-class IKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName, XQuery) {
+class IKeywordOrNCNameType(@NonNls debugName: String, language: Language, type: KeywordType = KeywordType.KEYWORD) :
+    INCNameType(debugName, language) {
+
     val keywordType: KeywordType = type
 
     enum class KeywordType {
@@ -29,8 +31,4 @@ class IKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNa
         MARKLOGIC70_RESERVED_FUNCTION_NAME,
         MARKLOGIC80_RESERVED_FUNCTION_NAME
     }
-
-    constructor(@NonNls debugName: String) : this(debugName,
-        KeywordType.KEYWORD
-    )
 }
