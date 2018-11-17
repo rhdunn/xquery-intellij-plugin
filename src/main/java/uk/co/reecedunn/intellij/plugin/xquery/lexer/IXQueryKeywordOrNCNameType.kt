@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 
 class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName) {
     val keywordType: KeywordType = type

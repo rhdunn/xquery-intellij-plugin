@@ -21,7 +21,7 @@ import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle

@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 
 object XQueryTokenType {
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
