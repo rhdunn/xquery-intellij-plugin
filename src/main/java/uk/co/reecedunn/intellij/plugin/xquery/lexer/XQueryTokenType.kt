@@ -72,7 +72,6 @@ object XQueryTokenType {
     val PRAGMA_BEGIN = IElementType("XQUERY_PRAGMA_BEGIN_TOKEN", XQuery)
     val PRAGMA_END = IElementType("XQUERY_PRAGMA_END_TOKEN", XQuery)
 
-    val DECIMAL_LITERAL = IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XQuery)
     val DOUBLE_LITERAL = IElementType("XQUERY_DOUBLE_LITERAL_TOKEN", XQuery)
     val PARTIAL_DOUBLE_LITERAL_EXPONENT = IElementType("XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN", XQuery)
 
@@ -380,7 +379,7 @@ object XQueryTokenType {
 
     val LITERAL_TOKENS = TokenSet.create(
         XPathTokenType.INTEGER_LITERAL,
-        DECIMAL_LITERAL,
+        XPathTokenType.DECIMAL_LITERAL,
         DOUBLE_LITERAL,
         PARTIAL_DOUBLE_LITERAL_EXPONENT
     )

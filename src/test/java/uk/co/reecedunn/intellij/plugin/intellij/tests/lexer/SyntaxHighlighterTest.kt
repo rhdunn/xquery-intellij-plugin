@@ -89,8 +89,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.INTEGER_LITERAL).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.INTEGER_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.DECIMAL_LITERAL).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.DECIMAL_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.DECIMAL_LITERAL).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.DECIMAL_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOUBLE_LITERAL).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOUBLE_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))

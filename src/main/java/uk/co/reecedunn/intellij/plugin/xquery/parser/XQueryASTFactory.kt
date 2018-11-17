@@ -21,7 +21,6 @@ import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.PsiCommentImpl
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -41,8 +40,6 @@ class XQueryASTFactory : ASTFactory() {
             return XQueryDirWhiteSpaceImpl(text)
         } else if (type === XQueryTokenType.COMMENT || type === XQueryTokenType.XML_COMMENT) {
             return PsiCommentImpl(type, text)
-        } else if (type === XQueryTokenType.DECIMAL_LITERAL) {
-            return XPathDecimalLiteralImpl(type, text)
         } else if (type === XQueryTokenType.DOUBLE_LITERAL) {
             return XPathDoubleLiteralImpl(type, text)
         } else if (type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE || type === XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE) {

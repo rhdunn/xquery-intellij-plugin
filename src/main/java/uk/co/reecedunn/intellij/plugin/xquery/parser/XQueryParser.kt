@@ -4166,7 +4166,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseNumericLiteral(): Boolean {
         if (matchTokenType(XPathTokenType.INTEGER_LITERAL) || matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
             return true
-        } else if (matchTokenType(XQueryTokenType.DECIMAL_LITERAL)) {
+        } else if (matchTokenType(XPathTokenType.DECIMAL_LITERAL)) {
             errorOnTokenType(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"))
             return true
         }

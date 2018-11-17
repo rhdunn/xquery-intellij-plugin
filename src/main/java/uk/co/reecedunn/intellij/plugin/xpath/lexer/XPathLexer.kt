@@ -26,11 +26,24 @@ class XPathLexer : LexerImpl(STATE_DEFAULT) {
         val c = mTokenRange.codePoint
         val cc = CharacterClass.getCharClass(c)
         when (cc) {
+            CharacterClass.DOT -> {
+                mTokenRange.match()
+                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                    mTokenRange.match()
+                mType = XPathTokenType.DECIMAL_LITERAL
+            }
             CharacterClass.DIGIT -> {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
-                mType = XPathTokenType.INTEGER_LITERAL
+                mType = if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DOT) {
+                    mTokenRange.match()
+                    while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                        mTokenRange.match()
+                    XPathTokenType.DECIMAL_LITERAL
+                } else {
+                    XPathTokenType.INTEGER_LITERAL
+                }
             }
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()

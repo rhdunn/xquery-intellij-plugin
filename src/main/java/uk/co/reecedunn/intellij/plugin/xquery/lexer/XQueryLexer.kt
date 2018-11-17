@@ -316,7 +316,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                     return
                 } else {
                     mTokenRange.restore()
-                    mType = XQueryTokenType.DECIMAL_LITERAL
+                    mType = XPathTokenType.DECIMAL_LITERAL
                 }
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
@@ -349,7 +349,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                     mTokenRange.match()
                     while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                         mTokenRange.match()
-                    XQueryTokenType.DECIMAL_LITERAL
+                    XPathTokenType.DECIMAL_LITERAL
                 } else {
                     XPathTokenType.INTEGER_LITERAL
                 }

@@ -100,4 +100,27 @@ class XPathLexerTest : LexerTestCase() {
         matchToken(lexer, "1234", 0, 0, 4, XPathTokenType.INTEGER_LITERAL)
         matchToken(lexer, "", 0, 4, 4, null)
     }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (72) DecimalLiteral")
+    fun decimalLiteral() {
+        val lexer = createLexer()
+
+        lexer.start("47.")
+        matchToken(lexer, "47.", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
+        matchToken(lexer, "", 0, 3, 3, null)
+
+        lexer.start("1.234")
+        matchToken(lexer, "1.234", 0, 0, 5, XPathTokenType.DECIMAL_LITERAL)
+        matchToken(lexer, "", 0, 5, 5, null)
+
+        lexer.start(".25")
+        matchToken(lexer, ".25", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
+        matchToken(lexer, "", 0, 3, 3, null)
+
+        lexer.start(".1.2")
+        matchToken(lexer, ".1", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
+        matchToken(lexer, ".2", 0, 2, 4, XPathTokenType.DECIMAL_LITERAL)
+        matchToken(lexer, "", 0, 4, 4, null)
+    }
 }

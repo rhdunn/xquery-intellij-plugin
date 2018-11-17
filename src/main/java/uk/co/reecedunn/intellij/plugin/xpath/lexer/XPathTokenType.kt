@@ -24,4 +24,5 @@ object XPathTokenType {
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
 
     val INTEGER_LITERAL = IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XPath) // XPath 2.0
+    val DECIMAL_LITERAL = IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XPath) // XPath 2.0
 }
