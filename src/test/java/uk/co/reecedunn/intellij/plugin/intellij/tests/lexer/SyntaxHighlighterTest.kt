@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SyntaxHighlighter")
@@ -40,8 +41,8 @@ class SyntaxHighlighterTest {
     fun testTokenHighlights_BadCharacter() {
         val highlighter = SyntaxHighlighter()
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER)[0], `is`(SyntaxHighlighter.BAD_CHARACTER))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BAD_CHARACTER).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BAD_CHARACTER)[0], `is`(SyntaxHighlighter.BAD_CHARACTER))
     }
 
     @Test

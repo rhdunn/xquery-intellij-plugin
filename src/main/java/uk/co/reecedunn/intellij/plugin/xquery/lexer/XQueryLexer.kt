@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 // region State Constants
 
@@ -707,7 +708,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             }
             else -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.BAD_CHARACTER
+                mType = XPathTokenType.BAD_CHARACTER
             }
         }
     }
@@ -727,7 +728,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             matchEntityReference(if (type == '"') STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
         } else if (c == '{'.toInt() && type == '}') {
             mTokenRange.match()
-            mType = XQueryTokenType.BAD_CHARACTER
+            mType = XPathTokenType.BAD_CHARACTER
         } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
         } else {
@@ -1086,7 +1087,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.END_OF_BUFFER -> mType = null
             else -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.BAD_CHARACTER
+                mType = XPathTokenType.BAD_CHARACTER
             }
         }
     }
@@ -1121,7 +1122,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             }
         } else if (c == '<'.toInt()) {
             mTokenRange.match()
-            mType = XQueryTokenType.BAD_CHARACTER
+            mType = XPathTokenType.BAD_CHARACTER
         } else if (c == '&'.toInt()) {
             matchEntityReference(if (type == '"') STATE_DIR_ATTRIBUTE_VALUE_QUOTE else STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
         } else if (c == CodePointRange.END_OF_BUFFER) {
@@ -1228,7 +1229,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                     mType = XQueryTokenType.INVALID
                 }
             } else {
-                mType = XQueryTokenType.BAD_CHARACTER
+                mType = XPathTokenType.BAD_CHARACTER
             }
         } else if (c == '&'.toInt()) {
             matchEntityReference(STATE_DIR_ELEM_CONTENT)
@@ -1287,7 +1288,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.END_OF_BUFFER -> mType = null
             else -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.BAD_CHARACTER
+                mType = XPathTokenType.BAD_CHARACTER
             }
         }
     }

@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XQueryParser : PsiParser {
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
@@ -4842,7 +4843,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return true
             } else if (matchTokenType(XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"))
-            } else if (errorOnTokenType(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
+            } else if (errorOnTokenType(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XPathTokenType.BAD_CHARACTER)) {
                 //
             } else if (parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) || errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr"))) {
                 //
@@ -4893,9 +4894,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 haveErrors = true
             }
 
-            while (matchTokenType(XQueryTokenType.BAD_CHARACTER) ||
-                    matchTokenType(XQueryTokenType.NCNAME) ||
-                    matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)) {
+            while (
+                matchTokenType(XPathTokenType.BAD_CHARACTER) ||
+                matchTokenType(XQueryTokenType.NCNAME) ||
+                matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+            ) {
                 //
             }
 
@@ -4914,13 +4917,15 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val elemContentMarker = mark()
         var matched = false
         while (true) {
-            if (matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
-                    matchTokenType(XQueryTokenType.BAD_CHARACTER) ||
-                    matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.ESCAPED_CHARACTER) ||
-                    errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")) ||
-                    errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
+            if (
+                matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
+                matchTokenType(XPathTokenType.BAD_CHARACTER) ||
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
+                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER) ||
+                errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")) ||
+                errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))
+            ) {
                 matched = true
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"))
@@ -7323,7 +7328,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return true
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"))
-            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
+            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XPathTokenType.BAD_CHARACTER)) {
                 //
             } else {
                 stringMarker.done(type)
@@ -7533,7 +7538,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 return true
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"))
-            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
+            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XPathTokenType.BAD_CHARACTER)) {
                 //
             } else {
                 stringMarker.done(XQueryElementType.BRACED_URI_LITERAL)

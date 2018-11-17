@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
@@ -97,10 +98,10 @@ class XQueryLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("~\uFFFE\u0000\uFFFF")
-            matchToken(lexer, "~", 0, 0, 1, XQueryTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\uFFFE", 0, 1, 2, XQueryTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\u0000", 0, 2, 3, XQueryTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\uFFFF", 0, 3, 4, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "~", 0, 0, 1, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "\uFFFE", 0, 1, 2, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "\u0000", 0, 2, 3, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "\uFFFF", 0, 3, 4, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "", 0, 4, 4, null)
         }
     }
@@ -1297,7 +1298,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "{", 13, 5, 6, XQueryTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 15, 6, 7, XQueryTokenType.INTEGER_LITERAL)
             matchToken(lexer, "}", 15, 7, 8, XQueryTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "<", 13, 8, 9, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "<", 13, 8, 9, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "&", 13, 9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
             matchToken(
                 lexer,
@@ -1322,16 +1323,9 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "{", 14, 5, 6, XQueryTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 16, 6, 7, XQueryTokenType.INTEGER_LITERAL)
             matchToken(lexer, "}", 16, 7, 8, XQueryTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "<", 14, 8, 9, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "<", 14, 8, 9, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "&", 14, 9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(
-                lexer,
-                " \u3053\u3093\u3070\u3093\u306F.",
-                14,
-                10,
-                17,
-                XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-            )
+            matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 14, 10, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
             matchToken(lexer, "}", 14, 17, 18, XQueryTokenType.BLOCK_CLOSE)
             matchToken(lexer, "'", 14, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
             matchToken(lexer, "", 11, 19, 19, null)
@@ -1590,7 +1584,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "{", 17, 7, 8, XQueryTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 18, 8, 9, XQueryTokenType.INTEGER_LITERAL)
             matchToken(lexer, "}", 18, 9, 10, XQueryTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "<", 17, 10, 11, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "<", 17, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "&", 17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS)
             matchToken(lexer, "}", 17, 19, 20, XQueryTokenType.BLOCK_CLOSE)
@@ -1715,9 +1709,9 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
             matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
             matchToken(lexer, "<?", 17, 3, 5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-            matchToken(lexer, "*", 23, 5, 6, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "*", 23, 5, 6, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "?", 23, 6, 7, XQueryTokenType.INVALID)
-            matchToken(lexer, "$", 23, 7, 8, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "$", 23, 7, 8, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "?>", 23, 8, 10, XQueryTokenType.PROCESSING_INSTRUCTION_END)
             matchToken(lexer, "</", 17, 10, 12, XQueryTokenType.CLOSE_XML_TAG)
             matchToken(lexer, "a", 12, 12, 13, XQueryTokenType.XML_TAG_NCNAME)
@@ -2067,9 +2061,9 @@ class XQueryLexerTest : LexerTestCase() {
 
         lexer.start("<?*?$?>")
         matchToken(lexer, "<?", 0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchToken(lexer, "*", 21, 2, 3, XQueryTokenType.BAD_CHARACTER)
+        matchToken(lexer, "*", 21, 2, 3, XPathTokenType.BAD_CHARACTER)
         matchToken(lexer, "?", 21, 3, 4, XQueryTokenType.INVALID)
-        matchToken(lexer, "$", 21, 4, 5, XQueryTokenType.BAD_CHARACTER)
+        matchToken(lexer, "$", 21, 4, 5, XPathTokenType.BAD_CHARACTER)
         matchToken(lexer, "?>", 21, 5, 7, XQueryTokenType.PROCESSING_INSTRUCTION_END)
         matchToken(lexer, "", 0, 7, 7, null)
 
@@ -3333,8 +3327,8 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("Q{A\"\"B''C{{D}}E}")
             matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "A\"\"B''C", 26, 2, 9, XQueryTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "{", 26, 9, 10, XQueryTokenType.BAD_CHARACTER)
-            matchToken(lexer, "{", 26, 10, 11, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "{", 26, 9, 10, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "D", 26, 11, 12, XQueryTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "}", 26, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "}", 0, 13, 14, XQueryTokenType.BLOCK_CLOSE)
@@ -3366,8 +3360,8 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("Q{A\"\"B''C{{D}}E}", 0, 16, 8)
             matchToken(lexer, "Q{", 8, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "A\"\"B''C", 31, 2, 9, XQueryTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "{", 31, 9, 10, XQueryTokenType.BAD_CHARACTER)
-            matchToken(lexer, "{", 31, 10, 11, XQueryTokenType.BAD_CHARACTER)
+            matchToken(lexer, "{", 31, 9, 10, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "{", 31, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "D", 31, 11, 12, XQueryTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "}", 31, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "}E}", 9, 13, 16, XQueryTokenType.PRAGMA_CONTENTS)

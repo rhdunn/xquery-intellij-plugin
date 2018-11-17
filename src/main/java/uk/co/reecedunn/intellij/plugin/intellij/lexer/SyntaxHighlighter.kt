@@ -24,6 +24,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
@@ -71,7 +72,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.CHARACTER_REFERENCE
         )
             return ENTITY_REFERENCE_KEYS
-        else if (type === XQueryTokenType.BAD_CHARACTER)
+        else if (type === XPathTokenType.BAD_CHARACTER)
             return BAD_CHARACTER_KEYS
         else if (type === XQueryTokenType.NCNAME)
             return IDENTIFIER_KEYS
