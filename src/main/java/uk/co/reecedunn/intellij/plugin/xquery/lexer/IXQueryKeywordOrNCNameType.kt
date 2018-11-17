@@ -16,9 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 
-class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName) {
+class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName, XQuery) {
     val keywordType: KeywordType = type
 
     enum class KeywordType {

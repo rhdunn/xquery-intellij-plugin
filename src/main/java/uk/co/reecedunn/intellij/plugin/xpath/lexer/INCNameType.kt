@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016; 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
+import com.intellij.lang.Language
 import com.intellij.psi.tree.IElementType
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
-open class INCNameType(@NonNls debugName: String) : IElementType(debugName, XQuery)
+open class INCNameType(@NonNls debugName: String, language: Language) : IElementType(debugName, language)
