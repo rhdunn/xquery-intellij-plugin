@@ -23,11 +23,14 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.compat.ide.ui.makeUISettings
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -40,7 +43,8 @@ private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModu
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         registerApplicationService(UISettings::class.java, makeUISettings())
 
-        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
     }
 
     @AfterAll

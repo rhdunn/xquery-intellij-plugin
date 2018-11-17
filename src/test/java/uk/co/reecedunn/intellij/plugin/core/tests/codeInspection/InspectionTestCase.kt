@@ -26,10 +26,13 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
@@ -45,7 +48,8 @@ abstract class InspectionTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryP
         registerApplicationService(SmartPointerManager::class.java, MockSmartPointerManager())
         registerApplicationService(InspectionManager::class.java, InspectionManagerEx(myProject))
 
-        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
     }
 
     @AfterAll

@@ -26,10 +26,13 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
@@ -37,7 +40,8 @@ abstract class AnnotatorTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryPa
     override fun setUp() {
         super.setUp()
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, language!!, XQueryASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
     }
 
     @AfterAll
