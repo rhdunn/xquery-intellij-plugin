@@ -90,4 +90,14 @@ class XPathLexerTest : LexerTestCase() {
         matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "", 0, 9, 9, null)
     }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
+    fun integerLiteral() {
+        val lexer = createLexer()
+
+        lexer.start("1234")
+        matchToken(lexer, "1234", 0, 0, 4, XPathTokenType.INTEGER_LITERAL)
+        matchToken(lexer, "", 0, 4, 4, null)
+    }
 }

@@ -86,8 +86,8 @@ class SyntaxHighlighterTest {
     fun testTokenHighlights_Number() {
         val highlighter = SyntaxHighlighter()
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.INTEGER_LITERAL).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.INTEGER_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DECIMAL_LITERAL).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DECIMAL_LITERAL)[0], `is`(SyntaxHighlighter.NUMBER))

@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 // region XML Entities
 
@@ -3579,7 +3580,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery Scripting Extension 1.0 requires ';' at the end of each statement.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.INTEGER_LITERAL))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
                 }
 
                 @Test

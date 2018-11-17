@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
@@ -92,7 +93,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val parserDefinition = XQueryParserDefinition()
 
         // foreign ASTNode
-        val e = Assertions.assertThrows(AssertionError::class.java) { parserDefinition.createElement(MockASTNode(XQueryTokenType.INTEGER_LITERAL)) }
+        val e = Assertions.assertThrows(AssertionError::class.java) { parserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL)) }
         assertThat(e.message, `is`("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."))
     }
 

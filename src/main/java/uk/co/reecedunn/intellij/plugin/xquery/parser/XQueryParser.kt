@@ -4164,7 +4164,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseNumericLiteral(): Boolean {
-        if (matchTokenType(XQueryTokenType.INTEGER_LITERAL) || matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
+        if (matchTokenType(XPathTokenType.INTEGER_LITERAL) || matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
             return true
         } else if (matchTokenType(XQueryTokenType.DECIMAL_LITERAL)) {
             errorOnTokenType(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"))
@@ -4374,7 +4374,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+            if (!matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
                 error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"))
             }
 
@@ -4487,7 +4487,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseKeySpecifier(): Boolean {
         val keySpecifierMarker = mark()
         if (matchTokenType(XQueryTokenType.STAR) ||
-                matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
+                matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
                 parseEQName(XQueryElementType.NCNAME) ||
                 parseParenthesizedExpr()) {
 
@@ -5401,7 +5401,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (type === XQueryElementType.FT_LITERAL_RANGE) {
-                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                if (!matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
                     error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"))
                 }
             } else {
@@ -5426,7 +5426,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (type === XQueryElementType.FT_LITERAL_RANGE) {
-                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
+                if (!matchTokenType(XPathTokenType.INTEGER_LITERAL) && !haveError) {
                     error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"))
                 }
             } else {
@@ -5445,7 +5445,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (type === XQueryElementType.FT_LITERAL_RANGE) {
-                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                if (!matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
                     error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"))
                     haveError = true
                 }
@@ -5464,7 +5464,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (type === XQueryElementType.FT_LITERAL_RANGE) {
-                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
+                if (!matchTokenType(XPathTokenType.INTEGER_LITERAL) && !haveError) {
                     error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"))
                 }
             } else {
@@ -7454,7 +7454,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                     }
                     parseWildcardIndicator()
                     isWildcard = true
-                } else if (getTokenType() === XQueryTokenType.INTEGER_LITERAL) {
+                } else if (getTokenType() === XPathTokenType.INTEGER_LITERAL) {
                     // The user has started the local name with a number, so treat it as part of the QName.
                     val errorMarker = mark()
                     advanceLexer()

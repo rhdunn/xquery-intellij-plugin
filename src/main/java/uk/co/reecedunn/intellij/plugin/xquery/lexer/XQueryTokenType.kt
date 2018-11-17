@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 object XQueryTokenType {
     val UNEXPECTED_END_OF_BLOCK = IElementType("XQUERY_UNEXPECTED_END_OF_BLOCK_TOKEN", XQuery)
@@ -71,7 +72,6 @@ object XQueryTokenType {
     val PRAGMA_BEGIN = IElementType("XQUERY_PRAGMA_BEGIN_TOKEN", XQuery)
     val PRAGMA_END = IElementType("XQUERY_PRAGMA_END_TOKEN", XQuery)
 
-    val INTEGER_LITERAL = IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XQuery)
     val DECIMAL_LITERAL = IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XQuery)
     val DOUBLE_LITERAL = IElementType("XQUERY_DOUBLE_LITERAL_TOKEN", XQuery)
     val PARTIAL_DOUBLE_LITERAL_EXPONENT = IElementType("XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN", XQuery)
@@ -366,19 +366,22 @@ object XQueryTokenType {
     val K_ZERO_DIGIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT", XQuery) // XQuery 3.0
 
     val STRING_LITERAL_TOKENS = TokenSet.create(
-            STRING_LITERAL_CONTENTS,
-            STRING_CONSTRUCTOR_CONTENTS,
-            XML_ATTRIBUTE_VALUE_CONTENTS,
-            XML_ELEMENT_CONTENTS)
+        STRING_LITERAL_CONTENTS,
+        STRING_CONSTRUCTOR_CONTENTS,
+        XML_ATTRIBUTE_VALUE_CONTENTS,
+        XML_ELEMENT_CONTENTS
+    )
 
     val COMMENT_TOKENS = TokenSet.create(
-            XQDocTokenType.CONTENTS,
-            COMMENT,
-            XML_COMMENT)
+        XQDocTokenType.CONTENTS,
+        COMMENT,
+        XML_COMMENT
+    )
 
     val LITERAL_TOKENS = TokenSet.create(
-            INTEGER_LITERAL,
-            DECIMAL_LITERAL,
-            DOUBLE_LITERAL,
-            PARTIAL_DOUBLE_LITERAL_EXPONENT)
+        XPathTokenType.INTEGER_LITERAL,
+        DECIMAL_LITERAL,
+        DOUBLE_LITERAL,
+        PARTIAL_DOUBLE_LITERAL_EXPONENT
+    )
 }

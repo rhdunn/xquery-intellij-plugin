@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -30,7 +31,7 @@ class XPathASTFactoryTest {
     @DisplayName("createComposite")
     fun createComposite() {
         val factory = XPathASTFactory()
-        assertThat(factory.createComposite(XQueryTokenType.INTEGER_LITERAL)!!.javaClass.name, `is`(CompositeElement::class.java.name))
+        assertThat(factory.createComposite(XPathTokenType.INTEGER_LITERAL)!!.javaClass.name, `is`(CompositeElement::class.java.name))
     }
 
     @Test

@@ -351,7 +351,7 @@ class XQueryLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.match()
                     XQueryTokenType.DECIMAL_LITERAL
                 } else {
-                    XQueryTokenType.INTEGER_LITERAL
+                    XPathTokenType.INTEGER_LITERAL
                 }
                 c = mTokenRange.codePoint
                 if (c == 'e'.toInt() || c == 'E'.toInt()) {

@@ -46,7 +46,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
 
     override fun getTokenHighlights(type: IElementType): Array<TextAttributesKey> {
         if (
-            type === XQueryTokenType.INTEGER_LITERAL ||
+            type === XPathTokenType.INTEGER_LITERAL ||
             type === XQueryTokenType.DECIMAL_LITERAL ||
             type === XQueryTokenType.DOUBLE_LITERAL ||
             type === XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT

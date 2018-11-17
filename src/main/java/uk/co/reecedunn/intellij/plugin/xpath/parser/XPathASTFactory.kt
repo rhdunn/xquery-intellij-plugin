@@ -20,12 +20,15 @@ import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl
 
 class XPathASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
 
     override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? {
         return when (type) {
+            XPathTokenType.INTEGER_LITERAL -> XPathIntegerLiteralImpl(type, text)
             else -> LeafPsiElement(type, text)
         }
     }

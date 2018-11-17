@@ -17,8 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 
 object XPathTokenType {
     val BAD_CHARACTER: IElementType = TokenType.BAD_CHARACTER
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
+
+    val INTEGER_LITERAL = IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XPath) // XPath 2.0
 }
