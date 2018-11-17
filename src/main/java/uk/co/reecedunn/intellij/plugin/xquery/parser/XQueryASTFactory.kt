@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralI
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
@@ -57,7 +57,8 @@ class XQueryASTFactory : ASTFactory() {
         } else if (type === XQueryTokenType.NCNAME ||
                 type === XQueryTokenType.XML_TAG_NCNAME ||
                 type === XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
-                type is IXQueryKeywordOrNCNameType) {
+                type is IKeywordOrNCNameType
+        ) {
             return XmlNCNameImpl(type, text)
         }
 

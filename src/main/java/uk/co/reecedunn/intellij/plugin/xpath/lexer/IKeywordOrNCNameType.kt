@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lexer
+package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 
-class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName, XQuery) {
+class IKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName, XQuery) {
     val keywordType: KeywordType = type
 
     enum class KeywordType {
@@ -31,5 +30,7 @@ class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) :
         MARKLOGIC80_RESERVED_FUNCTION_NAME
     }
 
-    constructor(@NonNls debugName: String) : this(debugName, KeywordType.KEYWORD)
+    constructor(@NonNls debugName: String) : this(debugName,
+        KeywordType.KEYWORD
+    )
 }

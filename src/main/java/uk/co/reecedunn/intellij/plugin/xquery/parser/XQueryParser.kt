@@ -22,7 +22,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
@@ -145,7 +145,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 val marker = mark()
                 advanceLexer()
                 parseWhiteSpaceAndCommentTokens()
-                haveProlog = getTokenType() is IXQueryKeywordOrNCNameType
+                haveProlog = getTokenType() is IKeywordOrNCNameType
                 marker.rollbackTo()
             }
 
@@ -1204,7 +1204,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             paramMarker.done(XQueryElementType.PARAM)
             return true
-        } else if (getTokenType() === XQueryTokenType.NCNAME || getTokenType() is IXQueryKeywordOrNCNameType || getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+        } else if (getTokenType() === XQueryTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
             error(XQueryBundle.message("parser.error.expected", "$"))
             parseEQName(XQueryElementType.QNAME)
 
@@ -4268,13 +4268,13 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseFunctionCall(): Boolean {
-        if (getTokenType() is IXQueryKeywordOrNCNameType) {
-            val type = getTokenType() as IXQueryKeywordOrNCNameType?
+        if (getTokenType() is IKeywordOrNCNameType) {
+            val type = getTokenType() as IKeywordOrNCNameType?
             when (type!!.keywordType) {
-                IXQueryKeywordOrNCNameType.KeywordType.KEYWORD, IXQueryKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
+                IKeywordOrNCNameType.KeywordType.KEYWORD, IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
                 }
-                IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME, IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> return false
-                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME, IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
+                IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> return false
+                IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
                     // Don't keep the MarkLogic Schema/JSON parseTree here as KindTest is not anchored to the correct parent
                     // at this point.
                     val testMarker = mark()
