@@ -32,6 +32,8 @@ const val STATE_BRACED_URI_LITERAL = 26
 // endregion
 
 private val KEYWORDS = mapOf(
+    "ancestor" to XPathTokenType.K_ANCESTOR, // XPath 2.0
+    "ancestor-or-self" to XPathTokenType.K_ANCESTOR_OR_SELF, // XPath 2.0
     "and" to XPathTokenType.K_AND, // XPath 2.0
     "as" to XPathTokenType.K_AS, // XPath 2.0
     "attribute" to XPathTokenType.K_ATTRIBUTE, // XPath 2.0
@@ -63,6 +65,9 @@ private val KEYWORDS = mapOf(
     "ne" to XPathTokenType.K_NE, // XPath 2.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 2.0
+    "parent" to XPathTokenType.K_PARENT, // XPath 2.0
+    "preceding" to XPathTokenType.K_PRECEDING, // XPath 2.0
+    "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "self" to XPathTokenType.K_SELF, // XPath 2.0
@@ -95,14 +100,16 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.COLON -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == ')'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.COMMENT_END_TAG
-                } else if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.AXIS_SEPARATOR
-                } else {
-                    XPathTokenType.QNAME_SEPARATOR
+                mType = when (c) {
+                    ')'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.COMMENT_END_TAG
+                    }
+                    ':'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.AXIS_SEPARATOR
+                    }
+                    else -> XPathTokenType.QNAME_SEPARATOR
                 }
             }
             CharacterClass.COMMA -> {

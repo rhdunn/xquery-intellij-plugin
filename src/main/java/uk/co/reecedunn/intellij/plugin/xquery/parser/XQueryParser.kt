@@ -4031,12 +4031,13 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseReverseAxis(): Boolean {
         val reverseAxisMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_PARENT) ||
-                matchTokenType(XQueryTokenType.K_ANCESTOR) ||
-                matchTokenType(XQueryTokenType.K_ANCESTOR_OR_SELF) ||
-                matchTokenType(XQueryTokenType.K_PRECEDING) ||
-                matchTokenType(XQueryTokenType.K_PRECEDING_SIBLING)) {
-
+        if (
+            matchTokenType(XPathTokenType.K_PARENT) ||
+            matchTokenType(XPathTokenType.K_ANCESTOR) ||
+            matchTokenType(XPathTokenType.K_ANCESTOR_OR_SELF) ||
+            matchTokenType(XPathTokenType.K_PRECEDING) ||
+            matchTokenType(XPathTokenType.K_PRECEDING_SIBLING)
+        ) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
                 reverseAxisMarker.rollbackTo()

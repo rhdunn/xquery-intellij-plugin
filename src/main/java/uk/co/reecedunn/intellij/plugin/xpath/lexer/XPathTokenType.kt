@@ -46,6 +46,8 @@ object XPathTokenType {
     // endregion
     // region Keywords
 
+    val K_ANCESTOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR", XPath) // XPath 2.0
+    val K_ANCESTOR_OR_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF", XPath) // XPath 2.0
     val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XPath) // XPath 2.0
     val K_AS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
     val K_ATTRIBUTE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
@@ -77,6 +79,9 @@ object XPathTokenType {
     val K_NE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NE", XPath) // XPath 2.0
     val K_OF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OF", XPath) // XPath 2.0
     val K_OR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OR", XPath) // XPath 2.0
+    val K_PARENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT", XPath) // XPath 2.0
+    val K_PRECEDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING", XPath) // XPath 2.0
+    val K_PRECEDING_SIBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING", XPath) // XPath 2.0
     val K_RETURN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN", XPath) // XPath 2.0
     val K_SATISFIES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES", XPath) // XPath 2.0
     val K_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF", XPath) // XPath 2.0

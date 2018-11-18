@@ -789,14 +789,14 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (76) ReverseAxis")
-    fun testReverseAxis() {
+    fun reverseAxis() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "parent", XQueryTokenType.K_PARENT)
-        matchSingleToken(lexer, "ancestor", XQueryTokenType.K_ANCESTOR)
-        matchSingleToken(lexer, "preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING)
-        matchSingleToken(lexer, "preceding", XQueryTokenType.K_PRECEDING)
-        matchSingleToken(lexer, "ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF)
+        matchSingleToken(lexer, "ancestor", XPathTokenType.K_ANCESTOR)
+        matchSingleToken(lexer, "ancestor-or-self", XPathTokenType.K_ANCESTOR_OR_SELF)
+        matchSingleToken(lexer, "parent", XPathTokenType.K_PARENT)
+        matchSingleToken(lexer, "preceding", XPathTokenType.K_PRECEDING)
+        matchSingleToken(lexer, "preceding-sibling", XPathTokenType.K_PRECEDING_SIBLING)
         matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
     }
 

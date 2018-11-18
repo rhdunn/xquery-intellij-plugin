@@ -102,8 +102,6 @@ object XQueryTokenType {
     val K_AFTER = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AFTER", XQuery) // Update Facility 1.0
     val K_ALL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALL", XQuery) // Full Text 1.0
     val K_ALLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALLOWING", XQuery) // XQuery 3.0
-    val K_ANCESTOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR", XQuery)
-    val K_ANCESTOR_OR_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF", XQuery)
     val K_ANDALSO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANDALSO", XQuery) // Saxon 9.9
     val K_ANY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANY", XQuery) // Full Text 1.0
     val K_ARRAY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY", XQuery) // XQuery 3.1
@@ -208,13 +206,10 @@ object XQueryTokenType {
     val K_ORELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE", XQuery) // Saxon 9.9
     val K_PARAGRAPH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPH", XQuery) // Full Text 1.0
     val K_PARAGRAPHS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPHS", XQuery) // Full Text 1.0
-    val K_PARENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT", XQuery)
     val K_PATTERN_SEPARATOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PATTERN_SEPARATOR", XQuery) // XQuery 3.0
     val K_PER_MILLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PER_MILLE", XQuery) // XQuery 3.0
     val K_PERCENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PERCENT", XQuery) // XQuery 3.0
     val K_PHRASE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PHRASE", XQuery) // Full Text 1.0
-    val K_PRECEDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING", XQuery)
-    val K_PRECEDING_SIBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING", XQuery)
     val K_PRESERVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE", XQuery)
     val K_PRIVATE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRIVATE", XQuery) // MarkLogic 6.0
     val K_PREVIOUS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PREVIOUS", XQuery) // XQuery 3.0

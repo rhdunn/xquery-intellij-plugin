@@ -54,8 +54,6 @@ private val KEYWORDS = mapOf(
         "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
         "all" to XQueryTokenType.K_ALL, // Full Text 1.0
         "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
-        "ancestor" to XQueryTokenType.K_ANCESTOR,
-        "ancestor-or-self" to XQueryTokenType.K_ANCESTOR_OR_SELF,
         "andAlso" to XQueryTokenType.K_ANDALSO, // Saxon 9.9
         "any" to XQueryTokenType.K_ANY, // Full Text 1.0
         "array" to XQueryTokenType.K_ARRAY, // XQuery 3.1
@@ -160,13 +158,10 @@ private val KEYWORDS = mapOf(
         "orElse" to XQueryTokenType.K_ORELSE, // Saxon 9.9
         "paragraph" to XQueryTokenType.K_PARAGRAPH, // Full Text 1.0
         "paragraphs" to XQueryTokenType.K_PARAGRAPHS, // Full Text 1.0
-        "parent" to XQueryTokenType.K_PARENT,
         "pattern-separator" to XQueryTokenType.K_PATTERN_SEPARATOR, // XQuery 3.0
         "per-mille" to XQueryTokenType.K_PER_MILLE, // XQuery 3.0
         "percent" to XQueryTokenType.K_PERCENT, // XQuery 3.0
         "phrase" to XQueryTokenType.K_PHRASE, // Full Text 1.0
-        "preceding" to XQueryTokenType.K_PRECEDING,
-        "preceding-sibling" to XQueryTokenType.K_PRECEDING_SIBLING,
         "preserve" to XQueryTokenType.K_PRESERVE,
         "previous" to XQueryTokenType.K_PREVIOUS, // XQuery 3.0
         "private" to XQueryTokenType.K_PRIVATE, // MarkLogic 6.0
