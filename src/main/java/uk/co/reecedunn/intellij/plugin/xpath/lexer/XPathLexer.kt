@@ -32,6 +32,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
+            CharacterClass.COLON -> {
+                mTokenRange.match()
+                mType = XPathTokenType.QNAME_SEPARATOR
+            }
             CharacterClass.DOT -> {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)

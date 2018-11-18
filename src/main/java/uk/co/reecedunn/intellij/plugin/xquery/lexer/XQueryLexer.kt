@@ -430,7 +430,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.ASSIGN_EQUAL
                 } else {
-                    XQueryTokenType.QNAME_SEPARATOR
+                    XPathTokenType.QNAME_SEPARATOR
                 }
             }
             CharacterClass.HASH -> {
@@ -903,7 +903,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.COLON -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.QNAME_SEPARATOR
+                mType = XPathTokenType.QNAME_SEPARATOR
                 popState()
                 pushState(STATE_PRAGMA_QNAME)
             }
@@ -952,7 +952,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.COLON -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.QNAME_SEPARATOR
+                mType = XPathTokenType.QNAME_SEPARATOR
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()

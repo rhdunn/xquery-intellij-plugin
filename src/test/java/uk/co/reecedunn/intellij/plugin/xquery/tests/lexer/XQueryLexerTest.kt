@@ -680,7 +680,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "(#", 0, 0, 2, XQueryTokenType.PRAGMA_BEGIN)
         matchToken(lexer, "  ", 8, 2, 4, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "let", 8, 4, 7, XPathTokenType.NCNAME)
-        matchToken(lexer, ":", 9, 7, 8, XQueryTokenType.QNAME_SEPARATOR)
+        matchToken(lexer, ":", 9, 7, 8, XPathTokenType.QNAME_SEPARATOR)
         matchToken(lexer, "for", 9, 8, 11, XPathTokenType.NCNAME)
         matchToken(lexer, "  ", 9, 11, 13, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "6^gkgw~*#g", 10, 13, 23, XQueryTokenType.PRAGMA_CONTENTS)
@@ -725,7 +725,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         lexer.start("(#:let 2#)")
         matchToken(lexer, "(#", 0, 0, 2, XQueryTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, ":", 8, 2, 3, XQueryTokenType.QNAME_SEPARATOR)
+        matchToken(lexer, ":", 8, 2, 3, XPathTokenType.QNAME_SEPARATOR)
         matchToken(lexer, "let", 9, 3, 6, XPathTokenType.NCNAME)
         matchToken(lexer, " ", 9, 6, 7, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "2", 10, 7, 8, XQueryTokenType.PRAGMA_CONTENTS)
@@ -813,7 +813,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "*", XQueryTokenType.STAR)
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
@@ -1002,7 +1002,7 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<one:two/>", 0, 10, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 29, 0, 1, XQueryTokenType.LESS_THAN)
             matchToken(lexer, "one", 29, 1, 4, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 29, 4, 5, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "two", 29, 5, 8, XPathTokenType.NCNAME)
             matchToken(lexer, "/>", 29, 8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 29, 10, 10, null)
@@ -1010,7 +1010,7 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<one:two>", 0, 9, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
             matchToken(lexer, "<", 29, 0, 1, XQueryTokenType.LESS_THAN)
             matchToken(lexer, "one", 29, 1, 4, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 29, 4, 5, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "two", 29, 5, 8, XPathTokenType.NCNAME)
             matchToken(lexer, ">", 29, 8, 9, XQueryTokenType.GREATER_THAN)
             matchToken(lexer, "", 29, 9, 9, null)
@@ -1019,7 +1019,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "<", 29, 0, 1, XQueryTokenType.LESS_THAN)
             matchToken(lexer, "  ", 29, 1, 3, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "one", 29, 3, 6, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 29, 6, 7, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "two", 29, 7, 10, XPathTokenType.NCNAME)
             matchToken(lexer, "  ", 29, 10, 12, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "", 29, 12, 12, null)
@@ -1106,7 +1106,7 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<one:two//*/>")
             matchToken(lexer, "<", 0x50000000 or 29, 0, 1, XQueryTokenType.LESS_THAN)
             matchToken(lexer, "one", 0x50000000 or 29, 1, 4, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 0x50000000 or 29, 4, 5, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 0x50000000 or 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "two", 0x50000000 or 29, 5, 8, XPathTokenType.NCNAME)
             matchToken(lexer, "//", 0, 8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH)
             matchToken(lexer, "*", 0, 10, 11, XQueryTokenType.STAR)
@@ -1119,7 +1119,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XQueryTokenType.LESS_THAN)
             matchToken(lexer, " ", 0x50000000 or 29, 3, 4, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "fn", 0x50000000 or 29, 4, 6, XQueryTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "abs", 0x50000000 or 29, 7, 10, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0x50000000 or 29, 10, 11, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "(", 0, 11, 12, XQueryTokenType.PARENTHESIS_OPEN)
@@ -1130,7 +1130,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XQueryTokenType.LESS_THAN)
             matchToken(lexer, "fn", 0x50000000 or 29, 3, 5, XQueryTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "abs", 0x50000000 or 29, 6, 9, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0x50000000 or 29, 9, 10, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "(", 0, 10, 11, XQueryTokenType.PARENTHESIS_OPEN)
@@ -1142,7 +1142,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XQueryTokenType.LESS_THAN)
             matchToken(lexer, " ", 0x50000000 or 29, 3, 4, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "fn", 0x50000000 or 29, 4, 6, XQueryTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "abs", 0x50000000 or 29, 7, 10, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0x50000000 or 29, 10, 11, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "#", 0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR)
@@ -1153,7 +1153,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XQueryTokenType.LESS_THAN)
             matchToken(lexer, "fn", 0x50000000 or 29, 3, 5, XQueryTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XQueryTokenType.QNAME_SEPARATOR)
+            matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "abs", 0x50000000 or 29, 6, 9, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0x50000000 or 29, 9, 10, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "#", 0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR)
@@ -2891,13 +2891,13 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (154) QName")
-    fun testQName() {
+    @DisplayName("XQuery 1.0 EBNF (154) QName ; Namespaces in XML 1.0 EBNF (7) QName")
+    fun qname() {
         val lexer = createLexer()
 
         lexer.start("one:two")
         matchToken(lexer, "one", 0, 0, 3, XPathTokenType.NCNAME)
-        matchToken(lexer, ":", 0, 3, 4, XQueryTokenType.QNAME_SEPARATOR)
+        matchToken(lexer, ":", 0, 3, 4, XPathTokenType.QNAME_SEPARATOR)
         matchToken(lexer, "two", 0, 4, 7, XPathTokenType.NCNAME)
         matchToken(lexer, "", 0, 7, 7, null)
     }
@@ -3585,7 +3585,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testMapConstructorEntry() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
@@ -159,7 +160,7 @@ class PluginLexerTest : LexerTestCase() {
     fun mapConstructorEntry() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
     }
 
@@ -211,7 +212,7 @@ class PluginLexerTest : LexerTestCase() {
     fun tupleField() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
@@ -616,7 +617,7 @@ class PluginLexerTest : LexerTestCase() {
     fun wildcard() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test

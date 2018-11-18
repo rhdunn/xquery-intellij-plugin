@@ -20,9 +20,10 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-private val ASSIGNMENT = TokenSet.create(XQueryTokenType.QNAME_SEPARATOR, XQueryTokenType.ASSIGN_EQUAL)
+private val ASSIGNMENT = TokenSet.create(XPathTokenType.QNAME_SEPARATOR, XQueryTokenType.ASSIGN_EQUAL)
 
 class XPathMapConstructorEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathMapConstructorEntry {
     override val separator get(): PsiElement =

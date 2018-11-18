@@ -219,7 +219,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", ";"))
                 }
-                if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+                if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
                     advanceLexer()
                 }
                 return true
@@ -286,7 +286,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (!haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", ";"))
                 }
-                if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+                if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
                     advanceLexer()
                 }
                 return true
@@ -343,7 +343,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (nextState != PrologDeclState.NOT_MATCHED) {
                 if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                     error(XQueryBundle.message("parser.error.expected", ";"))
-                    if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+                    if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
                         advanceLexer()
                     }
                 }
@@ -435,7 +435,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (matchTokenType(XQueryTokenType.COMMA)) continue
             if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) continue
             if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) continue
-            if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) continue
+            if (matchTokenType(XPathTokenType.QNAME_SEPARATOR)) continue
             if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) continue
             if (matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) continue
 
@@ -1205,7 +1205,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             paramMarker.done(XQueryElementType.PARAM)
             return true
-        } else if (getTokenType() === XPathTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+        } else if (getTokenType() === XPathTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
             error(XQueryBundle.message("parser.error.expected", "$"))
             parseEQName(XQueryElementType.QNAME)
 
@@ -1333,7 +1333,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 XQueryParserImpl.ParseStatus.MATCHED -> {
                     if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                         error(XQueryBundle.message("parser.error.expected", ";"))
-                        if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+                        if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
                             advanceLexer()
                         }
                     }
@@ -1354,7 +1354,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val blockVarDeclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE)
         if (blockVarDeclMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() === XQueryTokenType.PARENTHESIS_OPEN || getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+            if (getTokenType() === XQueryTokenType.PARENTHESIS_OPEN || getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
                 // 'declare' used as a function name.
                 blockVarDeclMarker.rollbackTo()
                 return ParseStatus.NOT_MATCHED
@@ -4669,7 +4669,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR) && !matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+            if (!matchTokenType(XPathTokenType.QNAME_SEPARATOR) && !matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
                 error(XQueryBundle.message("parser.error.expected-map-entry-assign"))
                 haveError = true
             }
@@ -6270,7 +6270,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 else {
                     matchTokenType(XQueryTokenType.OPTIONAL)
                     parseWhiteSpaceAndCommentTokens()
-                    matchTokenType(XQueryTokenType.QNAME_SEPARATOR)
+                    matchTokenType(XPathTokenType.QNAME_SEPARATOR)
                 }
 
             if (!haveSeparator) {
@@ -7387,9 +7387,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                         qnameMarker.done(XQueryElementType.NCNAME)
                     }
                     return true
-                } else if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR ||
-                        getTokenType() === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-                        getTokenType() === XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
+                } else if (
+                    getTokenType() === XPathTokenType.QNAME_SEPARATOR ||
+                    getTokenType() === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+                    getTokenType() === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+                ) {
                     beforeMarker.error(XQueryBundle.message(if (isWildcard) "parser.error.wildcard.whitespace-before-local-part" else "parser.error.qname.whitespace-before-local-part"))
                 } else {
                     beforeMarker.drop()
@@ -7400,9 +7402,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             // endregion
 
-            if (getTokenType() === XQueryTokenType.QNAME_SEPARATOR ||
-                    getTokenType() === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-                    getTokenType() === XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
+            if (
+                getTokenType() === XPathTokenType.QNAME_SEPARATOR ||
+                getTokenType() === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+                getTokenType() === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+            ) {
                 // region QNameSeparator := ":"
 
                 val nameMarker = mark()
@@ -7487,9 +7491,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             return true
         }
 
-        if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR) ||
-                matchTokenType(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) ||
-                matchTokenType(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)) {
+        if (
+            matchTokenType(XPathTokenType.QNAME_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+        ) {
             parseWhiteSpaceAndCommentTokens()
             if (getTokenType() is INCNameType || getTokenType() === XQueryTokenType.STAR) {
                 advanceLexer()

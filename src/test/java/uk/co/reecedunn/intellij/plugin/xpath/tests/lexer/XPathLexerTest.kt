@@ -259,6 +259,18 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (78) QName ; Namespaces in XML 1.0 EBNF (7) QName")
+    fun qname() {
+        val lexer = createLexer()
+
+        lexer.start("one:two")
+        matchToken(lexer, "one", 0, 0, 3, XPathTokenType.NCNAME)
+        matchToken(lexer, ":", 0, 3, 4, XPathTokenType.QNAME_SEPARATOR)
+        matchToken(lexer, "two", 0, 4, 7, XPathTokenType.NCNAME)
+        matchToken(lexer, "", 0, 7, 7, null)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (79) NCName ; Namespaces in XML 1.0 EBNF (4) NCName")
     fun ncname() {
         val lexer = createLexer()
