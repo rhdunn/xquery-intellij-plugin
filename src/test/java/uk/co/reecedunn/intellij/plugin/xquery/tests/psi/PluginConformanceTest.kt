@@ -1241,7 +1241,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_IF))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_IF))
     }
 
     @Test

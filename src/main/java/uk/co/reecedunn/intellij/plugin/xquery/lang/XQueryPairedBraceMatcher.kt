@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 private val BRACE_PAIRS = arrayOf(
     BracePair(XQueryTokenType.BLOCK_OPEN, XQueryTokenType.BLOCK_CLOSE, true), // { ... }
     BracePair(XQueryTokenType.SQUARE_OPEN, XQueryTokenType.SQUARE_CLOSE, false), // [ ... ]
-    BracePair(XQueryTokenType.PARENTHESIS_OPEN, XQueryTokenType.PARENTHESIS_CLOSE, false), // ( ... )
+    BracePair(XPathTokenType.PARENTHESIS_OPEN, XPathTokenType.PARENTHESIS_CLOSE, false), // ( ... )
     BracePair(XPathTokenType.COMMENT_START_TAG, XPathTokenType.COMMENT_END_TAG, false), // (: ... :)
     BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG, false), // < ... />
     BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.END_XML_TAG, false), // < ... >

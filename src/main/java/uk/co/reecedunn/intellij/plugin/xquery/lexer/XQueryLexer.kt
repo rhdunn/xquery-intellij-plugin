@@ -106,7 +106,6 @@ private val KEYWORDS = mapOf(
         "document-node" to XQueryTokenType.K_DOCUMENT_NODE,
         "element" to XQueryTokenType.K_ELEMENT,
         "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
-        "else" to XQueryTokenType.K_ELSE,
         "empty" to XQueryTokenType.K_EMPTY,
         "empty-sequence" to XQueryTokenType.K_EMPTY_SEQUENCE,
         "encoding" to XQueryTokenType.K_ENCODING,
@@ -135,7 +134,6 @@ private val KEYWORDS = mapOf(
         "grouping-separator" to XQueryTokenType.K_GROUPING_SEPARATOR, // XQuery 3.0
         "gt" to XQueryTokenType.K_GT,
         "idiv" to XQueryTokenType.K_IDIV,
-        "if" to XQueryTokenType.K_IF,
         "import" to XQueryTokenType.K_IMPORT,
         "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
         "inherit" to XQueryTokenType.K_INHERIT,
@@ -234,7 +232,6 @@ private val KEYWORDS = mapOf(
         "stylesheet" to XQueryTokenType.K_STYLESHEET, // MarkLogic 6.0
         "switch" to XQueryTokenType.K_SWITCH, // XQuery 3.0
         "text" to XQueryTokenType.K_TEXT,
-        "then" to XQueryTokenType.K_THEN,
         "thesaurus" to XQueryTokenType.K_THESAURUS, // Full Text 1.0
         "times" to XQueryTokenType.K_TIMES, // Full Text 1.0
         "to" to XQueryTokenType.K_TO,
@@ -398,12 +395,12 @@ class XQueryLexer : XPathLexer() {
                     mType = XQueryTokenType.PRAGMA_BEGIN
                     pushState(STATE_PRAGMA_PRE_QNAME)
                 } else {
-                    mType = XQueryTokenType.PARENTHESIS_OPEN
+                    mType = XPathTokenType.PARENTHESIS_OPEN
                 }
             }
             CharacterClass.PARENTHESIS_CLOSE -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.PARENTHESIS_CLOSE
+                mType = XPathTokenType.PARENTHESIS_CLOSE
             }
             CharacterClass.COLON -> {
                 mTokenRange.match()

@@ -72,8 +72,6 @@ object XQueryTokenType {
     val EMPTY_ENTITY_REFERENCE = IElementType("XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN", XQuery)
 
     val INVALID = IElementType("XQUERY_INVALID_TOKEN", XQuery)
-    val PARENTHESIS_OPEN = IElementType("XQUERY_PARENTHESIS_OPEN_TOKEN", XQuery)
-    val PARENTHESIS_CLOSE = IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XQuery)
     val NOT_EQUAL = IElementType("XQUERY_NOT_EQUAL_TOKEN", XQuery)
     val STAR = IElementType("XQUERY_STAR_TOKEN", XQuery)
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XQuery)
@@ -172,7 +170,6 @@ object XQueryTokenType {
     val K_DOCUMENT_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_ELEMENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_ELEMENT_DECL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT_DECL_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
-    val K_ELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE", XQuery)
     val K_EMPTY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY", XQuery)
     val K_EMPTY_SEQUENCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_ENCODING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING", XQuery)
@@ -201,7 +198,6 @@ object XQueryTokenType {
     val K_GROUPING_SEPARATOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUPING_SEPARATOR", XQuery) // XQuery 3.0
     val K_GT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GT", XQuery)
     val K_IDIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IDIV", XQuery)
-    val K_IF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IF", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_IMPORT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT", XQuery)
     val K_INFINITY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INFINITY", XQuery) // XQuery 3.0
     val K_INHERIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INHERIT", XQuery)
@@ -300,7 +296,6 @@ object XQueryTokenType {
     val K_STYLESHEET = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STYLESHEET", XQuery) // MarkLogic 6.0
     val K_SWITCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SWITCH", XQuery, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XQuery 3.0
     val K_TEXT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
-    val K_THEN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN", XQuery)
     val K_THESAURUS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THESAURUS", XQuery) // Full Text 1.0
     val K_TIMES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TIMES", XQuery) // Full Text 1.0
     val K_TO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO", XQuery)

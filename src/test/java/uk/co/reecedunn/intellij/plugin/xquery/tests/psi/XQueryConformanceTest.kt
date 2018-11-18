@@ -175,8 +175,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.PARENTHESIS_OPEN))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
     }
 
     @Test
@@ -192,8 +191,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.PARENTHESIS_OPEN))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
     }
 
     // endregion
@@ -1711,10 +1709,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.PARENTHESIS_OPEN)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
         }
 
         @Test
@@ -1729,10 +1724,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.PARENTHESIS_OPEN)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
         }
 
         @Test
@@ -1747,10 +1739,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.PARENTHESIS_OPEN)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
         }
     }
 
@@ -2107,10 +2096,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(
-            versioned.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_ELSE)
-        )
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_ELSE))
     }
 
     @Nested

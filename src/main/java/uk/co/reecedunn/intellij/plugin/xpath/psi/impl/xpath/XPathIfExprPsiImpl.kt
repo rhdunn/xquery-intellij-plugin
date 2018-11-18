@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceName
 
@@ -38,7 +38,7 @@ class XPathIfExprPsiImpl(node: ASTNode) :
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) EXPATH7 else XQUERY10
 
-    override val conformanceElement: PsiElement get() = findChildByType(XQueryTokenType.K_ELSE) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_ELSE) ?: firstChild
 
     override val conformanceName: String? = XQueryBundle.message("construct.if-without-else")
 }
