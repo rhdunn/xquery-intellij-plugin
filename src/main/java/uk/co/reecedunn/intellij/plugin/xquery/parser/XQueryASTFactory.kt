@@ -45,10 +45,10 @@ class XQueryASTFactory : ASTFactory() {
             return XQueryCharRefImpl(type, text)
         } else if (type === XQueryTokenType.ESCAPED_CHARACTER || type === XQueryTokenType.XML_ESCAPED_CHARACTER) {
             return XPathEscapeCharacterImpl(type, text)
-        } else if (type === XQueryTokenType.NCNAME ||
-                type === XQueryTokenType.XML_TAG_NCNAME ||
-                type === XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
-                type is IKeywordOrNCNameType
+        } else if (
+            type === XQueryTokenType.XML_TAG_NCNAME ||
+            type === XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
+            type is IKeywordOrNCNameType
         ) {
             return XmlNCNameImpl(type, text)
         }

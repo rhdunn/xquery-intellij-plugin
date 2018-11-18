@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Error Conditions")
@@ -100,7 +101,7 @@ private class XPathInspectionTest : InspectionTestCase() {
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
                 assertThat(problems[0].descriptionTemplate, `is`("XPST0081: Cannot resolve namespace prefix."))
-                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("xdmp"))
             }
 
@@ -117,7 +118,7 @@ private class XPathInspectionTest : InspectionTestCase() {
 
                 assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
                 assertThat(problems[0].descriptionTemplate, `is`("XPST0081: Cannot resolve namespace prefix."))
-                assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.NCNAME))
+                assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.NCNAME))
                 assertThat(problems[0].psiElement.text, `is`("x"))
             }
         }

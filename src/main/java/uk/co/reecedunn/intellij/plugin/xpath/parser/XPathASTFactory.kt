@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 
 class XPathASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
@@ -33,6 +34,7 @@ class XPathASTFactory : ASTFactory() {
             XPathTokenType.INTEGER_LITERAL -> XPathIntegerLiteralImpl(type, text)
             XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
             XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
+            XPathTokenType.NCNAME -> XmlNCNameImpl(type, text)
             else -> LeafPsiElement(type, text)
         }
     }

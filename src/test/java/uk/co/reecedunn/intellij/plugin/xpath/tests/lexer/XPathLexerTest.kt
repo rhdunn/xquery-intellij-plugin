@@ -257,4 +257,24 @@ class XPathLexerTest : LexerTestCase() {
             matchToken(lexer, "", 0, 2, 2, null)
         }
     }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (79) NCName ; Namespaces in XML 1.0 EBNF (4) NCName")
+    fun ncname() {
+        val lexer = createLexer()
+
+        lexer.start("test x b2b F.G a-b g\u0330d")
+        matchToken(lexer, "test", 0, 0, 4, XPathTokenType.NCNAME)
+        matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "x", 0, 5, 6, XPathTokenType.NCNAME)
+        matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "b2b", 0, 7, 10, XPathTokenType.NCNAME)
+        matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "F.G", 0, 11, 14, XPathTokenType.NCNAME)
+        matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "a-b", 0, 15, 18, XPathTokenType.NCNAME)
+        matchToken(lexer, " ", 0, 18, 19, XPathTokenType.WHITE_SPACE)
+        matchToken(lexer, "g\u0330d", 0, 19, 22, XPathTokenType.NCNAME)
+        matchToken(lexer, "", 0, 22, 22, null)
+    }
 }

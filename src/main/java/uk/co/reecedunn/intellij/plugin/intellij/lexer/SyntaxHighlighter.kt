@@ -74,7 +74,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             return ENTITY_REFERENCE_KEYS
         else if (type === XPathTokenType.BAD_CHARACTER)
             return BAD_CHARACTER_KEYS
-        else if (type === XQueryTokenType.NCNAME)
+        else if (type === XPathTokenType.NCNAME)
             return IDENTIFIER_KEYS
         else if (
             type === XQueryTokenType.COMMENT_START_TAG ||

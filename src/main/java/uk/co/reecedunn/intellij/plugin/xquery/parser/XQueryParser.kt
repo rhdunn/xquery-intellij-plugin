@@ -428,7 +428,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseUnknownDecl(): Boolean {
         while (true) {
             if (parseWhiteSpaceAndCommentTokens()) continue
-            if (matchTokenType(XQueryTokenType.NCNAME)) continue
+            if (matchTokenType(XPathTokenType.NCNAME)) continue
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) continue
 
             if (matchTokenType(XQueryTokenType.EQUAL)) continue
@@ -1205,7 +1205,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             paramMarker.done(XQueryElementType.PARAM)
             return true
-        } else if (getTokenType() === XQueryTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
+        } else if (getTokenType() === XPathTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XQueryTokenType.QNAME_SEPARATOR) {
             error(XQueryBundle.message("parser.error.expected", "$"))
             parseEQName(XQueryElementType.QNAME)
 
@@ -4896,7 +4896,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             while (
                 matchTokenType(XPathTokenType.BAD_CHARACTER) ||
-                matchTokenType(XQueryTokenType.NCNAME) ||
+                matchTokenType(XPathTokenType.NCNAME) ||
                 matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
             ) {
                 //

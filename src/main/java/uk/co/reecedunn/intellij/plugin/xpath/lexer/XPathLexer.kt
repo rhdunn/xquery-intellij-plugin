@@ -30,7 +30,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     private fun stateDefault() {
         var c = mTokenRange.codePoint
-        val cc = CharacterClass.getCharClass(c)
+        var cc = CharacterClass.getCharClass(c)
         when (cc) {
             CharacterClass.DOT -> {
                 mTokenRange.match()
@@ -88,6 +88,21 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.restore()
                     }
                 }
+            }
+            CharacterClass.NAME_START_CHAR -> {
+                mTokenRange.match()
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                while (
+                    cc == CharacterClass.NAME_START_CHAR ||
+                    cc == CharacterClass.DIGIT ||
+                    cc == CharacterClass.DOT ||
+                    cc == CharacterClass.HYPHEN_MINUS ||
+                    cc == CharacterClass.NAME_CHAR
+                ) {
+                    mTokenRange.match()
+                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                }
+                mType = XPathTokenType.NCNAME
             }
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()

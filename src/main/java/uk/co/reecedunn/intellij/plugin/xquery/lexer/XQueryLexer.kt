@@ -395,7 +395,7 @@ class XQueryLexer : XPathLexer() {
                         mTokenRange.match()
                         cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                     }
-                    mType = KEYWORDS[tokenText] ?: XQueryTokenType.NCNAME
+                    mType = KEYWORDS[tokenText] ?: XPathTokenType.NCNAME
                 }
             }
             CharacterClass.PARENTHESIS_OPEN -> {
@@ -925,7 +925,7 @@ class XQueryLexer : XPathLexer() {
                         mTokenRange.match()
                         cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                     }
-                    mType = XQueryTokenType.NCNAME
+                    mType = XPathTokenType.NCNAME
                     popState()
                     pushState(STATE_PRAGMA_QNAME)
                 }
@@ -965,7 +965,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                mType = XQueryTokenType.NCNAME
+                mType = XPathTokenType.NCNAME
             }
             else -> {
                 popState()
@@ -1263,7 +1263,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                mType = XQueryTokenType.NCNAME
+                mType = XPathTokenType.NCNAME
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
