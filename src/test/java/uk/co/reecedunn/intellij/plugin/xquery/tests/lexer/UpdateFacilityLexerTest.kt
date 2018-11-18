@@ -126,7 +126,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test

@@ -360,7 +360,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testFLWORExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -458,7 +458,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -469,7 +469,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "case", XQueryTokenType.K_CASE)
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -3127,7 +3127,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testReturnClause() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -3139,7 +3139,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -3148,7 +3148,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "case", XQueryTokenType.K_CASE)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test

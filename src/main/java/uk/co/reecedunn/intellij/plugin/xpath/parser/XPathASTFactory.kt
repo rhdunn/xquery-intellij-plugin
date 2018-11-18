@@ -21,6 +21,7 @@ import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.PsiCommentImpl
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
@@ -39,6 +40,7 @@ class XPathASTFactory : ASTFactory() {
             XPathTokenType.ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
             XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
             XPathTokenType.NCNAME -> XmlNCNameImpl(type, text)
+            is IKeywordOrNCNameType -> XmlNCNameImpl(type, text)
             else -> LeafPsiElement(type, text)
         }
     }

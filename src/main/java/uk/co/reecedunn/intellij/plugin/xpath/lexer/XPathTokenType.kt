@@ -25,6 +25,11 @@ object XPathTokenType {
     val COMMA = IElementType("XQUERY_COMMA_TOKEN", XPath) // XPath 2.0
 
     // endregion
+    // region Keywords
+
+    val K_RETURN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN", XPath) // XPath 2.0
+
+    // endregion
     // region Terminal Symbols
 
     val INTEGER_LITERAL = IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XPath) // XPath 2.0

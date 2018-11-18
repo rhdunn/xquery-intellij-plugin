@@ -1566,7 +1566,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             flworExprMarker.done(XQueryElementType.FLWOR_EXPR)
             return true
-        } else if (errorOnTokenType(XQueryTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
+        } else if (errorOnTokenType(XPathTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
             parseWhiteSpaceAndCommentTokens()
             return if (getTokenType() !== XQueryTokenType.PARENTHESIS_OPEN && parseExprSingle()) {
                 flworExprMarker.drop()
@@ -1596,7 +1596,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseReturnClause(): Boolean {
         val returnClauseMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_RETURN)) {
+        if (matchTokenType(XPathTokenType.K_RETURN)) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle()) {
                 error(XQueryBundle.message("parser.error.expected-expression"))
@@ -2418,7 +2418,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
@@ -2451,7 +2451,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
         if (haveCase) {
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
@@ -2551,7 +2551,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
@@ -2582,7 +2582,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
@@ -3039,7 +3039,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }

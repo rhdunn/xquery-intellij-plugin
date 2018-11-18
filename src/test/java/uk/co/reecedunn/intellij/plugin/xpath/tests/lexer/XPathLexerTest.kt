@@ -66,14 +66,6 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (2) Expr")
-    fun expr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-    }
-
-    @Test
     @DisplayName("XML 1.0 EBNF (3) S")
     fun s() {
         val lexer = createLexer()
@@ -97,6 +89,22 @@ class XPathLexerTest : LexerTestCase() {
         lexer.start("   \t  \r\n ")
         matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "", 0, 9, 9, null)
+    }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (2) Expr")
+    fun expr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
+    @DisplayName("XQuery 2.0 EBNF (4) ForExpr")
+    fun forExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test

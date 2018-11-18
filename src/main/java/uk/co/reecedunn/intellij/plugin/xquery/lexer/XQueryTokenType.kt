@@ -274,7 +274,6 @@ object XQueryTokenType {
     val K_RELATIONSHIP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP", XQuery) // Full Text 1.0
     val K_RENAME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RENAME", XQuery) // Update Facility 1.0
     val K_REPLACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REPLACE", XQuery) // Update Facility 1.0
-    val K_RETURN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN", XQuery)
     val K_RETURNING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURNING", XQuery) // Scripting Extension 1.0
     val K_REVALIDATION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REVALIDATION", XQuery) // Update Facility 1.0
     val K_SAME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SAME", XQuery) // Full Text 1.0

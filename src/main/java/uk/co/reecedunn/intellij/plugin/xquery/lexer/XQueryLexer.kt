@@ -49,7 +49,6 @@ const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
 private const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
 
 // endregion
-// region Keywords
 
 private val KEYWORDS = mapOf(
         "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
@@ -208,7 +207,6 @@ private val KEYWORDS = mapOf(
         "relationship" to XQueryTokenType.K_RELATIONSHIP, // Full Text 1.0
         "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0
         "replace" to XQueryTokenType.K_REPLACE, // Update Facility 1.0
-        "return" to XQueryTokenType.K_RETURN,
         "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
         "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
         "same" to XQueryTokenType.K_SAME, // Full Text 1.0
@@ -276,10 +274,12 @@ private val KEYWORDS = mapOf(
         "xquery" to XQueryTokenType.K_XQUERY,
         "zero-digit" to XQueryTokenType.K_ZERO_DIGIT) // XQuery 3.0
 
-// endregion
-
 class XQueryLexer : XPathLexer() {
     // region States
+
+    override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {
+        return KEYWORDS[name] ?: super.ncnameToKeyword(name)
+    }
 
     private fun stateDefault(mState: Int) {
         var c = mTokenRange.codePoint
@@ -388,7 +388,7 @@ class XQueryLexer : XPathLexer() {
                         mTokenRange.match()
                         cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                     }
-                    mType = KEYWORDS[tokenText] ?: XPathTokenType.NCNAME
+                    mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
             CharacterClass.PARENTHESIS_OPEN -> {

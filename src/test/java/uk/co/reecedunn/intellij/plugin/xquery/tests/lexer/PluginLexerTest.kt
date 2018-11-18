@@ -80,7 +80,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -90,7 +90,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
