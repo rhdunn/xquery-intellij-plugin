@@ -50,7 +50,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode) :
                     (child as XQueryPredefinedEntityRef).entityRef.value
                 XQueryTokenType.CHARACTER_REFERENCE ->
                     (child as XQueryCharRef).codepoint.toString()
-                XQueryTokenType.ESCAPED_CHARACTER ->
+                XPathTokenType.ESCAPED_CHARACTER ->
                     (child as XPathEscapeCharacter).unescapedValue
                 else ->
                     child.text

@@ -64,7 +64,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.BRACED_URI_LITERAL_END
         )
             return STRING_KEYS
-        else if (type === XQueryTokenType.ESCAPED_CHARACTER)
+        else if (type === XPathTokenType.ESCAPED_CHARACTER)
             return ESCAPED_CHARACTER_KEYS
         else if (
             type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||

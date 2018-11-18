@@ -4922,7 +4922,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 matchTokenType(XPathTokenType.BAD_CHARACTER) ||
                 matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER) ||
+                matchTokenType(XPathTokenType.ESCAPED_CHARACTER) ||
                 errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")) ||
                 errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))
             ) {
@@ -7322,7 +7322,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
                 matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)
+                matchTokenType(XPathTokenType.ESCAPED_CHARACTER)
             ) {
                 //
             } else if (matchTokenType(XPathTokenType.STRING_LITERAL_END)) {

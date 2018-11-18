@@ -135,8 +135,8 @@ class SyntaxHighlighterTest {
     fun testTokenHighlights_EscapedCharacter() {
         val highlighter = SyntaxHighlighter()
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ESCAPED_CHARACTER).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ESCAPED_CHARACTER)[0], `is`(SyntaxHighlighter.ESCAPED_CHARACTER))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ESCAPED_CHARACTER).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ESCAPED_CHARACTER)[0], `is`(SyntaxHighlighter.ESCAPED_CHARACTER))
     }
 
     @Test

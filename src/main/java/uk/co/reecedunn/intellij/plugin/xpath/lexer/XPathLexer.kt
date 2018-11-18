@@ -151,8 +151,13 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var c = mTokenRange.codePoint
         if (c == type.toInt()) {
             mTokenRange.match()
-            mType = XPathTokenType.STRING_LITERAL_END
-            popState()
+            if (mTokenRange.codePoint == type.toInt()) {
+                mTokenRange.match()
+                mType = XPathTokenType.ESCAPED_CHARACTER
+            } else {
+                mType = XPathTokenType.STRING_LITERAL_END
+                popState()
+            }
         } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
         } else {

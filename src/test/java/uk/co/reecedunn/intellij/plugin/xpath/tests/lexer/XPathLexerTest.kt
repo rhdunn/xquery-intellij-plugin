@@ -259,7 +259,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 1.0 EBNF (74) StringLiteral")
+    @DisplayName("XPath 2.0 EBNF (74) StringLiteral")
     internal inner class StringLiteral {
         @Test
         @DisplayName("string literal")
@@ -301,6 +301,34 @@ class XPathLexerTest : LexerTestCase() {
             matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
             matchToken(lexer, "", 0, 13, 13, null)
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (75) EscapeQuot")
+        fun escapeQuot() {
+            val lexer = createLexer()
+
+            lexer.start("\"One\"\"Two\"")
+            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "\"\"", 1, 4, 6, XPathTokenType.ESCAPED_CHARACTER)
+            matchToken(lexer, "Two", 1, 6, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "\"", 1, 9, 10, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 10, 10, null)
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (76) EscapeApos")
+        fun escapeApos() {
+            val lexer = createLexer()
+
+            lexer.start("'One''Two'")
+            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "One", 2, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "''", 2, 4, 6, XPathTokenType.ESCAPED_CHARACTER)
+            matchToken(lexer, "Two", 2, 6, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "'", 2, 9, 10, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 10, 10, null)
         }
     }
 

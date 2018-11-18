@@ -43,7 +43,7 @@ class XQueryASTFactory : ASTFactory() {
             return XQueryPredefinedEntityRefImpl(type, text)
         } else if (type === XQueryTokenType.CHARACTER_REFERENCE || type === XQueryTokenType.XML_CHARACTER_REFERENCE) {
             return XQueryCharRefImpl(type, text)
-        } else if (type === XQueryTokenType.ESCAPED_CHARACTER || type === XQueryTokenType.XML_ESCAPED_CHARACTER) {
+        } else if (type === XQueryTokenType.XML_ESCAPED_CHARACTER) {
             return XPathEscapeCharacterImpl(type, text)
         } else if (
             type === XQueryTokenType.XML_TAG_NCNAME ||

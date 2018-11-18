@@ -713,7 +713,7 @@ class XQueryLexer : XPathLexer() {
             mTokenRange.match()
             if (mTokenRange.codePoint == type.toInt() && type != '}') {
                 mTokenRange.match()
-                mType = XQueryTokenType.ESCAPED_CHARACTER
+                mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
                 mType = if (type == '}') XQueryTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
                 popState()
@@ -1081,7 +1081,7 @@ class XQueryLexer : XPathLexer() {
             mTokenRange.match()
             if (mTokenRange.codePoint == '{'.toInt()) {
                 mTokenRange.match()
-                mType = XQueryTokenType.ESCAPED_CHARACTER
+                mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
                 mType = XQueryTokenType.BLOCK_OPEN
                 pushState(STATE_DEFAULT_ELEM_CONTENT)
@@ -1090,7 +1090,7 @@ class XQueryLexer : XPathLexer() {
             mTokenRange.match()
             mType = if (mTokenRange.codePoint == '}'.toInt()) {
                 mTokenRange.match()
-                XQueryTokenType.ESCAPED_CHARACTER
+                XPathTokenType.ESCAPED_CHARACTER
             } else {
                 XQueryTokenType.BLOCK_CLOSE
             }
