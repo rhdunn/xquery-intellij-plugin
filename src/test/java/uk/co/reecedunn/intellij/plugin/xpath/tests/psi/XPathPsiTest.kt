@@ -171,6 +171,42 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("whitespace in QName; before ':'")
+            fun whitespaceInQName_beforeColon() {
+                val qname = parse<XPathQName>("xs :string")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("string"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("whitespace in QName; after ':'")
+            fun whitespaceInQName_afterColon() {
+                val qname = parse<XPathQName>("xs: string")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("string"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
+            @DisplayName("whitespace in QName; before and after ':'")
+            fun whitespaceInQName_beforeAndAfterColon() {
+                val qname = parse<XPathQName>("xs : string")[0] as XsQNameValue
+
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("xs"))
+                assertThat(qname.localName!!.data, `is`("string"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+            }
+
+            @Test
             @DisplayName("expand; namespace prefix in statically-known namespaces")
             fun expandToExistingNamespace() {
                 val qname = parse<XPathQName>("xs:test")[0] as XsQNameValue
