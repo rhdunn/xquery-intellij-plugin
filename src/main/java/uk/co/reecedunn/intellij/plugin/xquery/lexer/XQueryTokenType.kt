@@ -243,7 +243,6 @@ object XQueryTokenType {
     val K_OF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OF", XQuery)
     val K_ONLY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ONLY", XQuery) // XQuery 3.0
     val K_OPTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OPTION", XQuery)
-    val K_OR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OR", XQuery)
     val K_ORDER = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER", XQuery)
     val K_ORDERED = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED", XQuery)
     val K_ORDERING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING", XQuery)

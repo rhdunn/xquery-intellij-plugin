@@ -37,6 +37,7 @@ private val KEYWORDS = mapOf(
     "for" to XPathTokenType.K_FOR, // XPath 2.0
     "if" to XPathTokenType.K_IF, // XPath 2.0
     "in" to XPathTokenType.K_IN, // XPath 2.0
+    "or" to XPathTokenType.K_OR, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0

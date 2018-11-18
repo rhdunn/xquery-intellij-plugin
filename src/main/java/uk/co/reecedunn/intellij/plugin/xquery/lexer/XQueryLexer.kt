@@ -179,7 +179,6 @@ private val KEYWORDS = mapOf(
         "of" to XQueryTokenType.K_OF,
         "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
         "option" to XQueryTokenType.K_OPTION,
-        "or" to XQueryTokenType.K_OR,
         "order" to XQueryTokenType.K_ORDER,
         "ordered" to XQueryTokenType.K_ORDERED,
         "ordering" to XQueryTokenType.K_ORDERING,

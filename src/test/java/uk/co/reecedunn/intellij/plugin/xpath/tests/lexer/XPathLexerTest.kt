@@ -132,7 +132,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (45) IfExpr")
+    @DisplayName("XPath 2.0 EBNF (7) IfExpr")
     fun ifExpr() {
         val lexer = createLexer()
 
@@ -141,6 +141,14 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "then", XPathTokenType.K_THEN)
         matchSingleToken(lexer, "else", XPathTokenType.K_ELSE)
+    }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (8) OrExpr")
+    fun orExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
     }
 
     @Test

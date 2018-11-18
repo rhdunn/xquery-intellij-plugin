@@ -486,10 +486,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (46) OrExpr")
-    fun testOrExpr() {
+    fun orExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "or", XQueryTokenType.K_OR)
+        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
     }
 
     @Test

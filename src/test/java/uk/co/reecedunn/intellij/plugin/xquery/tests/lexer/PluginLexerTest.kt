@@ -644,7 +644,7 @@ class PluginLexerTest : LexerTestCase() {
     fun orExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "or", XQueryTokenType.K_OR)
+        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
         matchSingleToken(lexer, "orElse", XQueryTokenType.K_ORELSE)
     }
 

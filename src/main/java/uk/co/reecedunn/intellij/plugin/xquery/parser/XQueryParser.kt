@@ -3234,7 +3234,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val orExprMarker = mark()
         if (parseAndExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.K_OR) || matchTokenType(XQueryTokenType.K_ORELSE)) {
+            while (matchTokenType(XPathTokenType.K_OR) || matchTokenType(XQueryTokenType.K_ORELSE)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseAndExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AndExpr"))
