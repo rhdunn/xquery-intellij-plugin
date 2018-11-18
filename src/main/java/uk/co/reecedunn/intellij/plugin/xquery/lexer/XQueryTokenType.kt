@@ -179,7 +179,6 @@ object XQueryTokenType {
     val K_END = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_END", XQuery) // XQuery 3.0
     val K_EQ = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EQ", XQuery)
     val K_ENTIRE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENTIRE", XQuery) // Full Text 1.0
-    val K_EVERY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY", XQuery)
     val K_EXACTLY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXACTLY", XQuery) // Full Text 1.0
     val K_EXCEPT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXCEPT", XQuery)
     val K_EXIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXIT", XQuery) // Scripting Extension 1.0
@@ -274,7 +273,6 @@ object XQueryTokenType {
     val K_RETURNING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURNING", XQuery) // Scripting Extension 1.0
     val K_REVALIDATION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REVALIDATION", XQuery) // Update Facility 1.0
     val K_SAME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SAME", XQuery) // Full Text 1.0
-    val K_SATISFIES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES", XQuery)
     val K_SCHEMA = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA", XQuery)
     val K_SCHEMA_ATTRIBUTE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_SCHEMA_COMPONENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_COMPONENT_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
@@ -293,7 +291,6 @@ object XQueryTokenType {
     val K_SIMPLE_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE_TYPE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_SKIP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SKIP", XQuery) // Update Facility 1.0
     val K_SLIDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SLIDING", XQuery) // XQuery 3.0
-    val K_SOME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME", XQuery)
     val K_STABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STABLE", XQuery)
     val K_START = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_START", XQuery) // XQuery 3.0
     val K_STEMMING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STEMMING", XQuery) // Full Text 1.0

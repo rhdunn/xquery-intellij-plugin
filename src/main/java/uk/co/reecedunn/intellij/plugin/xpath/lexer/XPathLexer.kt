@@ -32,9 +32,12 @@ const val STATE_BRACED_URI_LITERAL = 26
 // endregion
 
 private val KEYWORDS = mapOf(
+    "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
     "in" to XPathTokenType.K_IN, // XPath 2.0
-    "return" to XPathTokenType.K_RETURN // XPath 2.0
+    "return" to XPathTokenType.K_RETURN, // XPath 2.0
+    "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
+    "some" to XPathTokenType.K_SOME // XPath 2.0
 )
 
 open class XPathLexer : LexerImpl(STATE_DEFAULT) {

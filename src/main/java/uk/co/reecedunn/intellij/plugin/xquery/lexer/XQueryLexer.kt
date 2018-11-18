@@ -113,7 +113,6 @@ private val KEYWORDS = mapOf(
         "end" to XQueryTokenType.K_END, // XQuery 3.0
         "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0
         "eq" to XQueryTokenType.K_EQ,
-        "every" to XQueryTokenType.K_EVERY,
         "exactly" to XQueryTokenType.K_EXACTLY, // Full Text 1.0
         "except" to XQueryTokenType.K_EXCEPT,
         "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
@@ -208,7 +207,6 @@ private val KEYWORDS = mapOf(
         "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
         "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
         "same" to XQueryTokenType.K_SAME, // Full Text 1.0
-        "satisfies" to XQueryTokenType.K_SATISFIES,
         "schema" to XQueryTokenType.K_SCHEMA,
         "schema-attribute" to XQueryTokenType.K_SCHEMA_ATTRIBUTE,
         "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
@@ -227,7 +225,6 @@ private val KEYWORDS = mapOf(
         "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0
         "skip" to XQueryTokenType.K_SKIP, // Update Facility 1.0
         "sliding" to XQueryTokenType.K_SLIDING, // XQuery 3.0
-        "some" to XQueryTokenType.K_SOME,
         "stable" to XQueryTokenType.K_STABLE,
         "start" to XQueryTokenType.K_START, // XQuery 3.0
         "stemming" to XQueryTokenType.K_STEMMING, // Full Text 1.0

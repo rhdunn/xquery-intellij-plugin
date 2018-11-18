@@ -437,15 +437,15 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (42) QuantifiedExpr")
-    fun testQuantifiedExpr() {
+    fun quantifiedExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "some", XQueryTokenType.K_SOME)
-        matchSingleToken(lexer, "every", XQueryTokenType.K_EVERY)
+        matchSingleToken(lexer, "some", XPathTokenType.K_SOME)
+        matchSingleToken(lexer, "every", XPathTokenType.K_EVERY)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "in", XPathTokenType.K_IN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "satisfies", XQueryTokenType.K_SATISFIES)
+        matchSingleToken(lexer, "satisfies", XPathTokenType.K_SATISFIES)
     }
 
     @Test

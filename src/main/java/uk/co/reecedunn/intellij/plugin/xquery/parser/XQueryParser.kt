@@ -2307,7 +2307,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Grammar :: Expr :: QuantifiedExpr
 
     private fun parseQuantifiedExpr(): Boolean {
-        val quantifiedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SOME, XQueryTokenType.K_EVERY)
+        val quantifiedExprMarker = matchTokenTypeWithMarker(XPathTokenType.K_SOME, XPathTokenType.K_EVERY)
         if (quantifiedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (parseQuantifiedExprBinding(true)) {
@@ -2321,7 +2321,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             var haveErrors = false
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_SATISFIES)) {
+            if (!matchTokenType(XPathTokenType.K_SATISFIES)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "satisfies"))
                 haveErrors = true
             }
