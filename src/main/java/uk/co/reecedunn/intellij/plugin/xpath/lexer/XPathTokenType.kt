@@ -36,6 +36,8 @@ object XPathTokenType {
     val LESS_THAN_OR_EQUAL = IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XPath) // XPath 2.0
     val GREATER_THAN = IElementType("XQUERY_GREATER_THAN_TOKEN", XPath) // XPath 2.0
     val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 2.0
+    val NODE_BEFORE = IElementType("XQUERY_NODE_BEFORE_TOKEN", XPath) // XPath 2.0
+    val NODE_AFTER = IElementType("XQUERY_NODE_AFTER_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords
@@ -57,6 +59,7 @@ object XPathTokenType {
     val K_IN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IN", XPath) // XPath 2.0
     val K_INSTANCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSTANCE", XPath) // XPath 2.0
     val K_INTERSECT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTERSECT", XPath) // XPath 2.0
+    val K_IS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS", XPath) // XPath 2.0
     val K_LE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE", XPath) // XPath 2.0
     val K_LT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT", XPath) // XPath 2.0
     val K_MOD = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOD", XPath) // XPath 2.0

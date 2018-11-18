@@ -49,6 +49,7 @@ private val KEYWORDS = mapOf(
     "in" to XPathTokenType.K_IN, // XPath 2.0
     "instance" to XPathTokenType.K_INSTANCE, // XPath 2.0
     "intersect" to XPathTokenType.K_INTERSECT, // XPath 2.0
+    "is" to XPathTokenType.K_IS, // XPath 2.0
     "le" to XPathTokenType.K_LE, // XPath 2.0
     "lt" to XPathTokenType.K_LT, // XPath 2.0
     "mod" to XPathTokenType.K_MOD, // XPath 2.0
@@ -168,11 +169,16 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.GREATER_THAN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == '='.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.GREATER_THAN_OR_EQUAL
-                } else {
-                    XPathTokenType.GREATER_THAN
+                mType = when (c) {
+                    '>'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.NODE_AFTER
+                    }
+                    '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.GREATER_THAN_OR_EQUAL
+                    }
+                    else -> XPathTokenType.GREATER_THAN
                 }
             }
             CharacterClass.HYPHEN_MINUS -> {
@@ -182,11 +188,16 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.LESS_THAN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                mType = if (c == '='.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.LESS_THAN_OR_EQUAL
-                } else {
-                    XPathTokenType.LESS_THAN
+                mType = when (c) {
+                    '<'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.NODE_BEFORE
+                    }
+                    '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.LESS_THAN_OR_EQUAL
+                    }
+                    else -> XPathTokenType.LESS_THAN
                 }
             }
             CharacterClass.NAME_START_CHAR -> {

@@ -629,12 +629,12 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (62) NodeComp")
-    fun testNodeComp() {
+    fun nodeComp() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "is", XQueryTokenType.K_IS)
-        matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE)
-        matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER)
+        matchSingleToken(lexer, "is", XPathTokenType.K_IS)
+        matchSingleToken(lexer, "<<", XPathTokenType.NODE_BEFORE)
+        matchSingleToken(lexer, ">>", XPathTokenType.NODE_AFTER)
     }
 
     @Test
@@ -974,7 +974,7 @@ class XQueryLexerTest : LexerTestCase() {
             val lexer = createXQueryLexer()
 
             lexer.start("<<a")
-            matchToken(lexer, "<<", 0, 0, 2, XQueryTokenType.NODE_BEFORE)
+            matchToken(lexer, "<<", 0, 0, 2, XPathTokenType.NODE_BEFORE)
             matchToken(lexer, "a", 0, 2, 3, XPathTokenType.NCNAME)
             matchToken(lexer, "", 0, 3, 3, null)
 
@@ -1166,7 +1166,7 @@ class XQueryLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("<<a")
-            matchToken(lexer, "<<", 0, 0, 2, XQueryTokenType.NODE_BEFORE)
+            matchToken(lexer, "<<", 0, 0, 2, XPathTokenType.NODE_BEFORE)
             matchToken(lexer, "a", 0, 2, 3, XPathTokenType.NCNAME)
             matchToken(lexer, "", 0, 3, 3, null)
 

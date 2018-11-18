@@ -3750,9 +3750,9 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseNodeComp(): Boolean {
-        return matchTokenType(XQueryTokenType.K_IS) ||
-                matchTokenType(XQueryTokenType.NODE_BEFORE) ||
-                matchTokenType(XQueryTokenType.NODE_AFTER)
+        return matchTokenType(XPathTokenType.K_IS) ||
+                matchTokenType(XPathTokenType.NODE_BEFORE) ||
+                matchTokenType(XPathTokenType.NODE_AFTER)
     }
 
     private fun parseSingleType(): Boolean {

@@ -85,8 +85,6 @@ object XQueryTokenType {
     val SQUARE_OPEN = IElementType("XQUERY_SQUARE_OPEN_TOKEN", XQuery)
     val SQUARE_CLOSE = IElementType("XQUERY_SQUARE_CLOSE_TOKEN", XQuery)
     val PARENT_SELECTOR = IElementType("XQUERY_PARENT_SELECTOR_TOKEN", XQuery)
-    val NODE_BEFORE = IElementType("XQUERY_NODE_BEFORE_TOKEN", XQuery)
-    val NODE_AFTER = IElementType("XQUERY_NODE_AFTER_TOKEN", XQuery)
 
     val CONCATENATION = IElementType("XQUERY_CONCATENATION", XQuery) // XQuery 3.0
     val MAP_OPERATOR = IElementType("XQUERY_MAP_OPERATOR_TOKEN", XQuery) // XQuery 3.0
@@ -185,7 +183,6 @@ object XQueryTokenType {
     val K_INSERT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT", XQuery) // Update Facility 1.0
     val K_INTO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTO", XQuery) // Update Facility 1.0
     val K_INVOKE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE", XQuery) // Update Facility 3.0
-    val K_IS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS", XQuery)
     val K_ITEM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ITEM", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_LANGUAGE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LANGUAGE", XQuery) // Full Text 1.0
     val K_LAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST", XQuery) // Update Facility 1.0

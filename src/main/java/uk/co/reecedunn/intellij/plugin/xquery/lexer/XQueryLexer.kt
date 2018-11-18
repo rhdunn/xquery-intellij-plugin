@@ -131,7 +131,6 @@ private val KEYWORDS = mapOf(
         "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
         "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
         "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
-        "is" to XQueryTokenType.K_IS,
         "item" to XQueryTokenType.K_ITEM,
         "language" to XQueryTokenType.K_LANGUAGE, // Full Text 1.0
         "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
@@ -472,7 +471,7 @@ class XQueryLexer : XPathLexer() {
                     } else {
                         mTokenRange.seek(position)
                         mTokenRange.match()
-                        XQueryTokenType.NODE_BEFORE
+                        XPathTokenType.NODE_BEFORE
                     }
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
@@ -542,7 +541,7 @@ class XQueryLexer : XPathLexer() {
                 c = mTokenRange.codePoint
                 mType = if (c == '>'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.NODE_AFTER
+                    XPathTokenType.NODE_AFTER
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
                     XPathTokenType.GREATER_THAN_OR_EQUAL
