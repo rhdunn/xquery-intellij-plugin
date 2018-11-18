@@ -30,6 +30,12 @@ object XPathTokenType {
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 2.0
     val STAR = IElementType("XQUERY_STAR_TOKEN", XPath) // XPath 2.0
     val UNION = IElementType("XQUERY_UNION_TOKEN", XPath) // XPath 2.0
+    val EQUAL = IElementType("XQUERY_EQUAL_TOKEN", XPath) // XPath 2.0
+    val NOT_EQUAL = IElementType("XQUERY_NOT_EQUAL_TOKEN", XPath) // XPath 2.0
+    val LESS_THAN = IElementType("XQUERY_LESS_THAN_TOKEN", XPath) // XPath 2.0
+    val LESS_THAN_OR_EQUAL = IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XPath) // XPath 2.0
+    val GREATER_THAN = IElementType("XQUERY_GREATER_THAN_TOKEN", XPath) // XPath 2.0
+    val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords

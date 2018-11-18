@@ -416,7 +416,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 mType = if (mTokenRange.codePoint == '='.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.NOT_EQUAL
+                    XPathTokenType.NOT_EQUAL
                 } else if (mTokenRange.codePoint == '!'.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
@@ -474,7 +474,7 @@ class XQueryLexer : XPathLexer() {
                     mType = if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
                         // For when adding a DirElemConstructor before another one -- i.e. <<a/>
                         mTokenRange.seek(position)
-                        XQueryTokenType.LESS_THAN
+                        XPathTokenType.LESS_THAN
                     } else {
                         mTokenRange.seek(position)
                         mTokenRange.match()
@@ -482,7 +482,7 @@ class XQueryLexer : XPathLexer() {
                     }
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.LESS_THAN_OR_EQUAL
+                    mType = XPathTokenType.LESS_THAN_OR_EQUAL
                 } else if (c == '?'.toInt()) {
                     mTokenRange.match()
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
@@ -537,7 +537,7 @@ class XQueryLexer : XPathLexer() {
                     }
                 } else {
                     if (mState == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
-                        mType = XQueryTokenType.LESS_THAN
+                        mType = XPathTokenType.LESS_THAN
                     } else {
                         matchOpenXmlTag()
                     }
@@ -551,9 +551,9 @@ class XQueryLexer : XPathLexer() {
                     XQueryTokenType.NODE_AFTER
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.GREATER_THAN_OR_EQUAL
+                    XPathTokenType.GREATER_THAN_OR_EQUAL
                 } else {
-                    XQueryTokenType.GREATER_THAN
+                    XPathTokenType.GREATER_THAN
                 }
             }
             CharacterClass.EQUAL -> {
@@ -563,7 +563,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.ARROW
                 } else {
-                    XQueryTokenType.EQUAL
+                    XPathTokenType.EQUAL
                 }
             }
             CharacterClass.CURLY_BRACE_OPEN -> {
@@ -1349,7 +1349,7 @@ class XQueryLexer : XPathLexer() {
 
         if (!matchQName()) {
             mTokenRange.restore()
-            mType = XQueryTokenType.LESS_THAN
+            mType = XPathTokenType.LESS_THAN
             return
         }
 

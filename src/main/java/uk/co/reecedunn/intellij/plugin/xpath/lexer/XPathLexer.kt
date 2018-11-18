@@ -148,9 +148,40 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
                 }
             }
+            CharacterClass.EQUAL -> {
+                mTokenRange.match()
+                mType = XPathTokenType.EQUAL
+            }
+            CharacterClass.EXCLAMATION_MARK -> {
+                mTokenRange.match()
+                if (mTokenRange.codePoint == '='.toInt()) {
+                    mTokenRange.match()
+                    mType = XPathTokenType.NOT_EQUAL
+                }
+            }
+            CharacterClass.GREATER_THAN -> {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                mType = if (c == '='.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.GREATER_THAN_OR_EQUAL
+                } else {
+                    XPathTokenType.GREATER_THAN
+                }
+            }
             CharacterClass.HYPHEN_MINUS -> {
                 mTokenRange.match()
                 mType = XPathTokenType.MINUS
+            }
+            CharacterClass.LESS_THAN -> {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                if (c == '='.toInt()) {
+                    mTokenRange.match()
+                    mType = XPathTokenType.LESS_THAN_OR_EQUAL
+                } else {
+                    mType = XPathTokenType.LESS_THAN
+                }
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()

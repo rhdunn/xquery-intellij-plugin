@@ -40,7 +40,7 @@ class PluginLexerTest : LexerTestCase() {
     fun dirAttribute() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL)
+        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
 
     @Test
@@ -171,7 +171,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
-        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL)
+        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
 
     @Test
