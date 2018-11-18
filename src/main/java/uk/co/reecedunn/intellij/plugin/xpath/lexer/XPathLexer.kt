@@ -27,6 +27,7 @@ const val STATE_STRING_LITERAL_APOSTROPHE = 2
 const val STATE_DOUBLE_EXPONENT = 3
 const val STATE_XQUERY_COMMENT = 4
 const val STATE_UNEXPECTED_END_OF_BLOCK = 6
+const val STATE_BRACED_URI_LITERAL = 26
 
 // endregion
 
@@ -121,17 +122,23 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (
-                    cc == CharacterClass.NAME_START_CHAR ||
-                    cc == CharacterClass.DIGIT ||
-                    cc == CharacterClass.DOT ||
-                    cc == CharacterClass.HYPHEN_MINUS ||
-                    cc == CharacterClass.NAME_CHAR
-                ) {
+                if (c == 'Q'.toInt() && cc == CharacterClass.CURLY_BRACE_OPEN) {
                     mTokenRange.match()
-                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                    mType = XPathTokenType.BRACED_URI_LITERAL_START
+                    pushState(STATE_BRACED_URI_LITERAL)
+                } else {
+                    while (
+                        cc == CharacterClass.NAME_START_CHAR ||
+                        cc == CharacterClass.DIGIT ||
+                        cc == CharacterClass.DOT ||
+                        cc == CharacterClass.HYPHEN_MINUS ||
+                        cc == CharacterClass.NAME_CHAR
+                    ) {
+                        mTokenRange.match()
+                        cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                    }
+                    mType = XPathTokenType.NCNAME
                 }
-                mType = XPathTokenType.NCNAME
             }
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()
@@ -151,13 +158,16 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var c = mTokenRange.codePoint
         if (c == type.toInt()) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == type.toInt()) {
+            if (mTokenRange.codePoint == type.toInt() && type != '}') {
                 mTokenRange.match()
                 mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
-                mType = XPathTokenType.STRING_LITERAL_END
+                mType = if (type == '}') XPathTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
                 popState()
             }
+        } else if (c == '{'.toInt() && type == '}') {
+            mTokenRange.match()
+            mType = XPathTokenType.BAD_CHARACTER
         } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
         } else {
@@ -245,6 +255,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
             STATE_XQUERY_COMMENT -> stateXQueryComment()
             STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
+            STATE_BRACED_URI_LITERAL -> stateStringLiteral('}')
             else -> throw AssertionError("Invalid state: $state")
         }
     }

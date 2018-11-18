@@ -42,7 +42,6 @@ private const val STATE_PROCESSING_INSTRUCTION_CONTENTS = 22
 private const val STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23
 private const val STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24
 private const val STATE_DIR_ATTRIBUTE_LIST = 25
-private const val STATE_BRACED_URI_LITERAL = 26
 private const val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
 private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
 const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
@@ -378,7 +377,7 @@ class XQueryLexer : XPathLexer() {
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 if (c == 'Q'.toInt() && cc == CharacterClass.CURLY_BRACE_OPEN) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.BRACED_URI_LITERAL_START
+                    mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
                 } else {
                     while (cc == CharacterClass.NAME_START_CHAR ||
@@ -715,7 +714,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
-                mType = if (type == '}') XQueryTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
+                mType = if (type == '}') XPathTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
                 popState()
             }
         } else if (c == '&'.toInt()) {
@@ -851,7 +850,7 @@ class XQueryLexer : XPathLexer() {
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 if (c == 'Q'.toInt() && cc == CharacterClass.CURLY_BRACE_OPEN) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.BRACED_URI_LITERAL_START
+                    mType = XPathTokenType.BRACED_URI_LITERAL_START
                     popState()
                     pushState(STATE_PRAGMA_QNAME)
                     pushState(STATE_BRACED_URI_LITERAL_PRAGMA)
@@ -1483,7 +1482,7 @@ class XQueryLexer : XPathLexer() {
             STATE_DIR_ELEM_CONTENT -> stateDirElemContent()
             STATE_PROCESSING_INSTRUCTION, STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(state)
             STATE_PROCESSING_INSTRUCTION_CONTENTS, STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> stateProcessingInstructionContents()
-            STATE_BRACED_URI_LITERAL, STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
+            STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
             STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
             STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
             else -> super.advance()

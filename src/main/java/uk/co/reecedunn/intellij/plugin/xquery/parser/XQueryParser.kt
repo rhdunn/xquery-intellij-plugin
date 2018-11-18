@@ -7535,7 +7535,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseBracedURILiteral(): Boolean {
-        val stringMarker = matchTokenTypeWithMarker(XQueryTokenType.BRACED_URI_LITERAL_START)
+        val stringMarker = matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
         while (stringMarker != null) {
             if (
                 matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
@@ -7543,7 +7543,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)
             ) {
                 //
-            } else if (matchTokenType(XQueryTokenType.BRACED_URI_LITERAL_END)) {
+            } else if (matchTokenType(XPathTokenType.BRACED_URI_LITERAL_END)) {
                 stringMarker.done(XQueryElementType.BRACED_URI_LITERAL)
                 return true
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {

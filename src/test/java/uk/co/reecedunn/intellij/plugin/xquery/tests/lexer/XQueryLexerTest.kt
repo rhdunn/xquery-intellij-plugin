@@ -3308,29 +3308,29 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class BracedURILiteral {
         @Test
         @DisplayName("braced uri literal")
-        fun testBracedURILiteral() {
+        fun bracedURILiteral() {
             val lexer = createLexer()
 
             matchSingleToken(lexer, "Q", XPathTokenType.NCNAME)
 
             lexer.start("Q{")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "", 26, 2, 2, null)
 
             lexer.start("Q{Hello World}")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "Hello World", 26, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 0, 14, 14, null)
 
             // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
             lexer.start("Q{A\"\"B''C{{D}}E}")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "A\"\"B''C", 26, 2, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "{", 26, 9, 10, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "D", 26, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "}", 0, 13, 14, XQueryTokenType.BLOCK_CLOSE)
             matchToken(lexer, "E", 0, 14, 15, XPathTokenType.NCNAME)
             matchToken(lexer, "}", 0, 15, 16, XQueryTokenType.BLOCK_CLOSE)
@@ -3339,7 +3339,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         @Test
         @DisplayName("braced uri literal in Pragma")
-        fun testBracedURILiteral_Pragma() {
+        fun inPragma() {
             val lexer = createLexer()
 
             lexer.start("Q", 0, 1, 8)
@@ -3347,23 +3347,23 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "", 9, 1, 1, null)
 
             lexer.start("Q{", 0, 2, 8)
-            matchToken(lexer, "Q{", 8, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 8, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "", 31, 2, 2, null)
 
             lexer.start("Q{Hello World}", 0, 14, 8)
-            matchToken(lexer, "Q{", 8, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 8, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "Hello World", 31, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 31, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 31, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 9, 14, 14, null)
 
             // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
             lexer.start("Q{A\"\"B''C{{D}}E}", 0, 16, 8)
-            matchToken(lexer, "Q{", 8, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 8, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "A\"\"B''C", 31, 2, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "{", 31, 9, 10, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "{", 31, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "D", 31, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 31, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 31, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "}E}", 9, 13, 16, XQueryTokenType.PRAGMA_CONTENTS)
             matchToken(lexer, "", 6, 16, 16, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 16, 16, null)
@@ -3371,7 +3371,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         @Test
         @DisplayName("XQuery 3.0 EBNF (203) PredefinedEntityRef")
-        fun testBracedURILiteral_PredefinedEntityRef() {
+        fun predefinedEntityRef() {
             val lexer = createLexer()
 
             // NOTE: The predefined entity reference names are not validated by the lexer, as some
@@ -3379,7 +3379,7 @@ class XQueryLexerTest : LexerTestCase() {
             // the parser allows proper validation errors to be generated.
 
             lexer.start("Q{One&abc;&aBc;&Abc;&ABC;&a4;&a;Two}")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "One", 26, 2, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "&abc;", 26, 5, 10, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
             matchToken(lexer, "&aBc;", 26, 10, 15, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
@@ -3388,132 +3388,132 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "&a4;", 26, 25, 29, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
             matchToken(lexer, "&a;", 26, 29, 32, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
             matchToken(lexer, "Two", 26, 32, 35, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 35, 36, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 35, 36, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 0, 36, 36, null)
 
             lexer.start("Q{&}")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "&", 26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "}", 26, 3, 4, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 3, 4, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 0, 4, 4, null)
 
             lexer.start("Q{&abc!}")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "&abc", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, "!", 26, 6, 7, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 7, 8, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 7, 8, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 0, 8, 8, null)
 
             lexer.start("Q{& }")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "&", 26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, " ", 26, 3, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 4, 5, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 4, 5, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 0, 5, 5, null)
 
             lexer.start("Q{&")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "&", 26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, "", 26, 3, 3, null)
 
             lexer.start("Q{&abc")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "&abc", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, "", 26, 6, 6, null)
 
             lexer.start("Q{&;}")
-            matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
             matchToken(lexer, "&;", 26, 2, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "}", 26, 4, 5, XQueryTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 26, 4, 5, XPathTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "", 0, 5, 5, null)
         }
 
         @Nested
         @DisplayName("XQuery 1.0 EBNF (153) CharRef")
-        internal inner class BracedURILiteral_CharRef {
+        internal inner class CharRef {
             @Test
             @DisplayName("octal")
-            fun testBracedURILiteral_CharRef_Octal() {
+            fun octal() {
                 val lexer = createLexer()
 
                 lexer.start("Q{One&#20;Two}")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "One", 26, 2, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
                 matchToken(lexer, "&#20;", 26, 5, 10, XQueryTokenType.CHARACTER_REFERENCE)
                 matchToken(lexer, "Two", 26, 10, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 14, 14, null)
 
                 lexer.start("Q{&#}")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "}", 26, 4, 5, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 4, 5, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 5, 5, null)
 
                 lexer.start("Q{&# }")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, " ", 26, 4, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 5, 6, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 5, 6, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 6, 6, null)
 
                 lexer.start("Q{&#")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, "", 26, 4, 4, null)
 
                 lexer.start("Q{&#12")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#12", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, "", 26, 6, 6, null)
 
                 lexer.start("Q{&#;}")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#;", 26, 2, 5, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "}", 26, 5, 6, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 5, 6, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 6, 6, null)
             }
 
             @Test
             @DisplayName("hexadecimal")
-            fun testBracedURILiteral_CharRef_Hexadecimal() {
+            fun hexadecimal() {
                 val lexer = createLexer()
 
                 lexer.start("Q{One&#x20;&#xae;&#xDC;Two}")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "One", 26, 2, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
                 matchToken(lexer, "&#x20;", 26, 5, 11, XQueryTokenType.CHARACTER_REFERENCE)
                 matchToken(lexer, "&#xae;", 26, 11, 17, XQueryTokenType.CHARACTER_REFERENCE)
                 matchToken(lexer, "&#xDC;", 26, 17, 23, XQueryTokenType.CHARACTER_REFERENCE)
                 matchToken(lexer, "Two", 26, 23, 26, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 26, 27, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 26, 27, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 27, 27, null)
 
                 lexer.start("Q{&#x}")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "}", 26, 5, 6, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 5, 6, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 6, 6, null)
 
                 lexer.start("Q{&#x }")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, " ", 26, 5, 6, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 6, 7, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 6, 7, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 7, 7, null)
 
                 lexer.start("Q{&#x")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, "", 26, 5, 5, null)
 
                 lexer.start("Q{&#x12")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#x12", 26, 2, 7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, "", 26, 7, 7, null)
 
                 lexer.start("Q{&#x;&#x2G;&#x2g;&#xg2;}")
-                matchToken(lexer, "Q{", 0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START)
+                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
                 matchToken(lexer, "&#x;", 26, 2, 6, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
                 matchToken(lexer, "&#x2", 26, 6, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, "G;", 26, 10, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
@@ -3521,7 +3521,7 @@ class XQueryLexerTest : LexerTestCase() {
                 matchToken(lexer, "g;", 26, 16, 18, XPathTokenType.STRING_LITERAL_CONTENTS)
                 matchToken(lexer, "&#x", 26, 18, 21, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
                 matchToken(lexer, "g2;", 26, 21, 24, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 24, 25, XQueryTokenType.BRACED_URI_LITERAL_END)
+                matchToken(lexer, "}", 26, 24, 25, XPathTokenType.BRACED_URI_LITERAL_END)
                 matchToken(lexer, "", 0, 25, 25, null)
             }
         }

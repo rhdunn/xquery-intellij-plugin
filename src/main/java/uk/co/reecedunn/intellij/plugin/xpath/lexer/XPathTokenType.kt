@@ -32,6 +32,9 @@ object XPathTokenType {
     val STRING_LITERAL_END = IElementType("XQUERY_STRING_LITERAL_END_TOKEN", XPath) // XPath 2.0
     val ESCAPED_CHARACTER = IElementType("XQUERY_ESCAPED_CHARACTER_TOKEN", XPath) // XPath 2.0 EscapeQuot ; XPath 2.0 EscapeApos ; XQuery 1.0 CommonContent
 
+    val BRACED_URI_LITERAL_START = IElementType("XQUERY_BRACED_URI_LITERAL_START_TOKEN", XPath) // XPath 3.0
+    val BRACED_URI_LITERAL_END = IElementType("XQUERY_BRACED_URI_LITERAL_END_TOKEN", XPath) // XPath 3.0
+
     val COMMENT = IElementType("XQUERY_COMMENT_TOKEN", XPath) // XPath 2.0
     val COMMENT_START_TAG = IElementType("XQUERY_COMMENT_START_TAG_TOKEN", XPath) // XPath 2.0
     val COMMENT_END_TAG = IElementType("XQUERY_COMMENT_END_TAG_TOKEN", XPath) // XPath 2.0

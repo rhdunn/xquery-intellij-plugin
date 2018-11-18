@@ -123,11 +123,11 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_CONSTRUCTOR_END).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_CONSTRUCTOR_END)[0], `is`(SyntaxHighlighter.STRING))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_START).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_START)[0], `is`(SyntaxHighlighter.STRING))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_START).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_START)[0], `is`(SyntaxHighlighter.STRING))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_END).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_END)[0], `is`(SyntaxHighlighter.STRING))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_END).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_END)[0], `is`(SyntaxHighlighter.STRING))
     }
 
     @Test

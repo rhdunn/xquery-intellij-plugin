@@ -304,6 +304,26 @@ class XPathLexerTest : LexerTestCase() {
         }
 
         @Test
+        @DisplayName("open brace - bad character in BracedURILiteral, not StringLiteral")
+        fun openBrace() {
+            val lexer = createLexer()
+
+            // '{' is a bad character in BracedURILiterals, but not string literals.
+            lexer.start("\"{\"")
+            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "{", 1, 1, 2, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "\"", 1, 2, 3, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 3, 3, null)
+
+            // '{' is a bad character in BracedURILiterals, but not string literals.
+            lexer.start("'{'")
+            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "{", 2, 1, 2, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "'", 2, 2, 3, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 3, 3, null)
+        }
+
+        @Test
         @DisplayName("XPath 2.0 EBNF (75) EscapeQuot")
         fun escapeQuot() {
             val lexer = createLexer()
@@ -431,5 +451,40 @@ class XPathLexerTest : LexerTestCase() {
         matchToken(lexer, " ", 0, 18, 19, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "g\u0330d", 0, 19, 22, XPathTokenType.NCNAME)
         matchToken(lexer, "", 0, 22, 22, null)
+    }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
+    internal inner class BracedURILiteral {
+        @Test
+        @DisplayName("braced uri literal")
+        fun bracedURILiteral() {
+            val lexer = createLexer()
+
+            matchSingleToken(lexer, "Q", XPathTokenType.NCNAME)
+
+            lexer.start("Q{")
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "", 26, 2, 2, null)
+
+            lexer.start("Q{Hello World}")
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "Hello World", 26, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "", 0, 14, 14, null)
+
+            // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
+            lexer.start("Q{A\"\"B''C{{D}}E}")
+            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
+            matchToken(lexer, "A\"\"B''C", 26, 2, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "{", 26, 9, 10, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "D", 26, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "}", 26, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
+            matchToken(lexer, "}", 0, 13, 14, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "E", 0, 14, 15, XPathTokenType.NCNAME)
+            matchToken(lexer, "}", 0, 15, 16, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "", 0, 16, 16, null)
+        }
     }
 }
