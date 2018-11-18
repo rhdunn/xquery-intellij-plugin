@@ -38,6 +38,8 @@ object XPathTokenType {
     val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 2.0
     val NODE_BEFORE = IElementType("XQUERY_NODE_BEFORE_TOKEN", XPath) // XPath 2.0
     val NODE_AFTER = IElementType("XQUERY_NODE_AFTER_TOKEN", XPath) // XPath 2.0
+    val DIRECT_DESCENDANTS_PATH = IElementType("XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN", XPath) // XPath 2.0
+    val ALL_DESCENDANTS_PATH = IElementType("XQUERY_ALL_DESCENDANTS_PATH_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords

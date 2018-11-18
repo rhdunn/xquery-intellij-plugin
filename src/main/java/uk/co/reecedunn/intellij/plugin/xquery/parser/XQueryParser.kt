@@ -3875,13 +3875,13 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parsePathExpr(type: IElementType?): Boolean {
         val pathExprMarker = mark()
-        if (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH)) {
+        if (matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH)) {
             parseWhiteSpaceAndCommentTokens()
             parseRelativePathExpr(null)
 
             pathExprMarker.done(XQueryElementType.PATH_EXPR)
             return true
-        } else if (matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
+        } else if (matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH)) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseRelativePathExpr(null)) {
                 error(XQueryBundle.message("parser.error.expected", "RelativePathExpr"))
@@ -3902,7 +3902,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseStepExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveRelativePathExpr = false
-            while (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH) || matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
+            while (matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) || matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseStepExpr(null)) {
                     error(XQueryBundle.message("parser.error.expected", "StepExpr"))

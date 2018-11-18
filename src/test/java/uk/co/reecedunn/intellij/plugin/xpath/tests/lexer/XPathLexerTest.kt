@@ -297,6 +297,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (25) PathExpr")
+    fun pathExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

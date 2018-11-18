@@ -747,11 +747,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (68) PathExpr")
-    fun testPathExpr() {
+    fun pathExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH)
-        matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH)
+        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
     }
 
     @Test
@@ -759,8 +759,8 @@ class XQueryLexerTest : LexerTestCase() {
     fun testRelativePathExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH)
-        matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH)
+        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
     }
 
     @Test
@@ -919,14 +919,14 @@ class XQueryLexerTest : LexerTestCase() {
 
             lexer.start("<one:two/*/>")
             matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "/", 0, 8, 9, XQueryTokenType.DIRECT_DESCENDANTS_PATH)
+            matchToken(lexer, "/", 0, 8, 9, XPathTokenType.DIRECT_DESCENDANTS_PATH)
             matchToken(lexer, "*", 0, 9, 10, XPathTokenType.STAR)
             matchToken(lexer, "/>", 0, 10, 12, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 12, 12, null)
 
             lexer.start("<one:two//*/>")
             matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "//", 0, 8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH)
+            matchToken(lexer, "//", 0, 8, 10, XPathTokenType.ALL_DESCENDANTS_PATH)
             matchToken(lexer, "*", 0, 10, 11, XPathTokenType.STAR)
             matchToken(lexer, "/>", 0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 13, 13, null)
@@ -1108,7 +1108,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "one", 0x50000000 or 29, 1, 4, XPathTokenType.NCNAME)
             matchToken(lexer, ":", 0x50000000 or 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "two", 0x50000000 or 29, 5, 8, XPathTokenType.NCNAME)
-            matchToken(lexer, "//", 0, 8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH)
+            matchToken(lexer, "//", 0, 8, 10, XPathTokenType.ALL_DESCENDANTS_PATH)
             matchToken(lexer, "*", 0, 10, 11, XPathTokenType.STAR)
             matchToken(lexer, "/>", 0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 13, 13, null)

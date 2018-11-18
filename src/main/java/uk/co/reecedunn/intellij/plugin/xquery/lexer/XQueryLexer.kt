@@ -588,12 +588,12 @@ class XQueryLexer : XPathLexer() {
                 c = mTokenRange.codePoint
                 mType = if (c == '/'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.ALL_DESCENDANTS_PATH
+                    XPathTokenType.ALL_DESCENDANTS_PATH
                 } else if (c == '>'.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.SELF_CLOSING_XML_TAG
                 } else {
-                    XQueryTokenType.DIRECT_DESCENDANTS_PATH
+                    XPathTokenType.DIRECT_DESCENDANTS_PATH
                 }
             }
             CharacterClass.AT_SIGN -> {

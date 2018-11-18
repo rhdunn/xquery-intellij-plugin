@@ -166,6 +166,16 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     mType = XPathTokenType.NOT_EQUAL
                 }
             }
+            CharacterClass.FORWARD_SLASH -> {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                mType = if (c == '/'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.ALL_DESCENDANTS_PATH
+                } else {
+                    XPathTokenType.DIRECT_DESCENDANTS_PATH
+                }
+            }
             CharacterClass.GREATER_THAN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
