@@ -293,7 +293,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
@@ -335,7 +335,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testParam() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
@@ -368,9 +368,9 @@ class XQueryLexerTest : LexerTestCase() {
     fun testForClause() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "for", XQueryTokenType.K_FOR)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
@@ -380,7 +380,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
@@ -389,7 +389,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "let", XQueryTokenType.K_LET)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
@@ -442,8 +442,8 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "some", XQueryTokenType.K_SOME)
         matchSingleToken(lexer, "every", XQueryTokenType.K_EVERY)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "satisfies", XQueryTokenType.K_SATISFIES)
     }
@@ -457,7 +457,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
@@ -467,7 +467,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "case", XQueryTokenType.K_CASE)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
@@ -830,7 +830,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testVarRef() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
@@ -3025,7 +3025,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testWindowClause() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "for", XQueryTokenType.K_FOR)
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
     }
 
     @Test
@@ -3035,8 +3035,8 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "tumbling", XQueryTokenType.K_TUMBLING)
         matchSingleToken(lexer, "window", XQueryTokenType.K_WINDOW)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
     }
 
     @Test
@@ -3046,8 +3046,8 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "sliding", XQueryTokenType.K_SLIDING)
         matchSingleToken(lexer, "window", XQueryTokenType.K_WINDOW)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
     }
 
     @Test
@@ -3074,7 +3074,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testWindowVars() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "previous", XQueryTokenType.K_PREVIOUS)
         matchSingleToken(lexer, "next", XQueryTokenType.K_NEXT)
     }
@@ -3085,7 +3085,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "count", XQueryTokenType.K_COUNT)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
@@ -3119,7 +3119,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testGroupingVariable() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test

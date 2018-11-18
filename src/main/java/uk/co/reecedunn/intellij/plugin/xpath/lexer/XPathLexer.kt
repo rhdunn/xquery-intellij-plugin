@@ -32,6 +32,8 @@ const val STATE_BRACED_URI_LITERAL = 26
 // endregion
 
 private val KEYWORDS = mapOf(
+    "for" to XPathTokenType.K_FOR, // XPath 2.0
+    "in" to XPathTokenType.K_IN, // XPath 2.0
     "return" to XPathTokenType.K_RETURN // XPath 2.0
 )
 
@@ -100,6 +102,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.restore()
                     }
                 }
+            }
+            CharacterClass.DOLLAR -> {
+                mTokenRange.match()
+                mType = XPathTokenType.VARIABLE_INDICATOR
             }
             CharacterClass.DOT -> {
                 mTokenRange.match()

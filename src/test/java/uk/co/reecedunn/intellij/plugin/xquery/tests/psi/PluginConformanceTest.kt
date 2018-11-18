@@ -1201,10 +1201,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
         }
     }
 

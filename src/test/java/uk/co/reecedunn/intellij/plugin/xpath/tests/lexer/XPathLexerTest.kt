@@ -108,6 +108,17 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 2.0 EBNF (5) SimpleForClause")
+    fun simpleForClause() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

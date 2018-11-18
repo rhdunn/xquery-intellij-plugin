@@ -75,7 +75,6 @@ object XQueryTokenType {
     val PARENTHESIS_OPEN = IElementType("XQUERY_PARENTHESIS_OPEN_TOKEN", XQuery)
     val PARENTHESIS_CLOSE = IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XQuery)
     val NOT_EQUAL = IElementType("XQUERY_NOT_EQUAL_TOKEN", XQuery)
-    val VARIABLE_INDICATOR = IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XQuery)
     val STAR = IElementType("XQUERY_STAR_TOKEN", XQuery)
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XQuery)
     val DOT = IElementType("XQUERY_DOT_TOKEN", XQuery)
@@ -190,7 +189,6 @@ object XQueryTokenType {
     val K_FN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FN", XQuery) // Saxon 9.8
     val K_FOLLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING", XQuery)
     val K_FOLLOWING_SIBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING", XQuery)
-    val K_FOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOR", XQuery)
     val K_FROM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FROM", XQuery) // Full Text 1.0
     val K_FT_OPTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FT_OPTION", XQuery) // Full Text 1.0
     val K_FTAND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTAND", XQuery) // Full Text 1.0
@@ -206,7 +204,6 @@ object XQueryTokenType {
     val K_IDIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IDIV", XQuery)
     val K_IF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IF", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_IMPORT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT", XQuery)
-    val K_IN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IN", XQuery)
     val K_INFINITY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INFINITY", XQuery) // XQuery 3.0
     val K_INHERIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INHERIT", XQuery)
     val K_INSENSITIVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSENSITIVE", XQuery) // Full Text 1.0

@@ -59,8 +59,8 @@ class PluginLexerTest : LexerTestCase() {
     fun quantifiedExprBinding() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
     }
 
     @Test
@@ -79,7 +79,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
@@ -89,7 +89,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
@@ -118,7 +118,7 @@ class PluginLexerTest : LexerTestCase() {
     fun blockVarDeclEntry() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
     }
 
@@ -282,7 +282,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "catch", XQueryTokenType.K_CATCH)
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -698,7 +698,7 @@ class PluginLexerTest : LexerTestCase() {
     fun annotatedSequenceType() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "for", XQueryTokenType.K_FOR)
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
     }
 
     @Test

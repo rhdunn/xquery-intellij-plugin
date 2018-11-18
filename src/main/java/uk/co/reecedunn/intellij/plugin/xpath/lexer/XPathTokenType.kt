@@ -23,10 +23,13 @@ object XPathTokenType {
     // region Symbols
 
     val COMMA = IElementType("XQUERY_COMMA_TOKEN", XPath) // XPath 2.0
+    val VARIABLE_INDICATOR = IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords
 
+    val K_FOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOR", XPath) // XPath 2.0
+    val K_IN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IN", XPath) // XPath 2.0
     val K_RETURN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN", XPath) // XPath 2.0
 
     // endregion

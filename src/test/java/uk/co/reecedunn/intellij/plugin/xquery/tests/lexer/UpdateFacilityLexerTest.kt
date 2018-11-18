@@ -122,7 +122,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "copy", XQueryTokenType.K_COPY)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY)

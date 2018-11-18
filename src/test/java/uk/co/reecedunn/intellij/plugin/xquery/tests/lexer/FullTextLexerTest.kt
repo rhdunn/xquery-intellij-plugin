@@ -50,7 +50,7 @@ class FullTextLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "score", XQueryTokenType.K_SCORE)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
@@ -94,7 +94,7 @@ class FullTextLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "not", XQueryTokenType.K_NOT)
-        matchSingleToken(lexer, "in", XQueryTokenType.K_IN)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
     }
 
     @Test

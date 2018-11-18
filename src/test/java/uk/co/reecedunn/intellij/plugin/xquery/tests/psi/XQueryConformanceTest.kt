@@ -1147,8 +1147,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
     }
 
     @Test
@@ -1167,8 +1166,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
     }
 
     @Test
@@ -1187,8 +1185,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
     }
 
     @Test
@@ -1208,8 +1205,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
     }
 
     @Test
@@ -1229,8 +1225,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
     }
 
     // endregion

@@ -123,7 +123,6 @@ private val KEYWORDS = mapOf(
         "fn" to XQueryTokenType.K_FN, // Saxon 9.8
         "following" to XQueryTokenType.K_FOLLOWING,
         "following-sibling" to XQueryTokenType.K_FOLLOWING_SIBLING,
-        "for" to XQueryTokenType.K_FOR,
         "from" to XQueryTokenType.K_FROM, // Full Text 1.0
         "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
         "ftand" to XQueryTokenType.K_FTAND, // Full Text 1.0
@@ -139,7 +138,6 @@ private val KEYWORDS = mapOf(
         "idiv" to XQueryTokenType.K_IDIV,
         "if" to XQueryTokenType.K_IF,
         "import" to XQueryTokenType.K_IMPORT,
-        "in" to XQueryTokenType.K_IN,
         "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
         "inherit" to XQueryTokenType.K_INHERIT,
         "insensitive" to XQueryTokenType.K_INSENSITIVE, // Full Text 1.0
@@ -449,7 +447,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.DOLLAR -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.VARIABLE_INDICATOR
+                mType = XPathTokenType.VARIABLE_INDICATOR
             }
             CharacterClass.ASTERISK -> {
                 mTokenRange.match()
