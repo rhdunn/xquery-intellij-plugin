@@ -88,6 +88,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 mType = XPathTokenType.STAR
             }
+            CharacterClass.AT_SIGN -> {
+                mTokenRange.match()
+                mType = XPathTokenType.ATTRIBUTE_SELECTOR
+            }
             CharacterClass.COLON -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint

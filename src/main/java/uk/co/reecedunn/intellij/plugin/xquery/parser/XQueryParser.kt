@@ -3991,7 +3991,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseAbbrevForwardStep(type: IElementType?): Boolean {
         val abbrevForwardStepMarker = mark()
-        val matched = matchTokenType(XQueryTokenType.ATTRIBUTE_SELECTOR)
+        val matched = matchTokenType(XPathTokenType.ATTRIBUTE_SELECTOR)
 
         parseWhiteSpaceAndCommentTokens()
         if (parseNodeTest(type)) {

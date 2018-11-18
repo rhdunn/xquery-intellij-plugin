@@ -781,10 +781,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (74) AbbrevForwardStep")
-    fun testAbbrevForwardStep() {
+    fun abbrevForwardStep() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR)
+        matchSingleToken(lexer, "@", XPathTokenType.ATTRIBUTE_SELECTOR)
     }
 
     @Test

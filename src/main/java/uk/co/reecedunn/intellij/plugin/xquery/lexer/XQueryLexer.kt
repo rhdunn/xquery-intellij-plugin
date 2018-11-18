@@ -590,7 +590,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.AT_SIGN -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.ATTRIBUTE_SELECTOR
+                mType = XPathTokenType.ATTRIBUTE_SELECTOR
             }
             CharacterClass.SQUARE_BRACE_OPEN -> {
                 mTokenRange.match()

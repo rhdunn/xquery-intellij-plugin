@@ -315,7 +315,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (30) ForwardAxis")
+    @DisplayName("XPath 2.0 EBNF (30) ForwardAxis")
     fun forwardAxis() {
         val lexer = createLexer()
 
@@ -328,6 +328,14 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
         matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+    }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (31) AbbrevForwardStep")
+    fun abbrevForwardStep() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "@", XPathTokenType.ATTRIBUTE_SELECTOR)
     }
 
     @Test

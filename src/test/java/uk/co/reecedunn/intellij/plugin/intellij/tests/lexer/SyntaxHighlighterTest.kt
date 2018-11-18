@@ -994,7 +994,7 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ASSIGN_EQUAL).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.DIRECT_DESCENDANTS_PATH).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ALL_DESCENDANTS_PATH).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ATTRIBUTE_SELECTOR).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ATTRIBUTE_SELECTOR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SQUARE_OPEN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SQUARE_CLOSE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARENT_SELECTOR).size, `is`(0))
