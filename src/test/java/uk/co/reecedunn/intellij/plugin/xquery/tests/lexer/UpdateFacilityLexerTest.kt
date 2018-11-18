@@ -101,7 +101,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "replace", XQueryTokenType.K_REPLACE)
         matchSingleToken(lexer, "value", XQueryTokenType.K_VALUE)
-        matchSingleToken(lexer, "of", XQueryTokenType.K_OF)
+        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
         matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
         matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
     }

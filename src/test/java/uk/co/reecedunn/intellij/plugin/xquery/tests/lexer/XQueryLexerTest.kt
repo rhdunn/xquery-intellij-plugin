@@ -548,11 +548,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (54) InstanceofExpr")
-    fun testInstanceofExpr() {
+    fun instanceofExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "instance", XQueryTokenType.K_INSTANCE)
-        matchSingleToken(lexer, "of", XQueryTokenType.K_OF)
+        matchSingleToken(lexer, "instance", XPathTokenType.K_INSTANCE)
+        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
     }
 
     @Test

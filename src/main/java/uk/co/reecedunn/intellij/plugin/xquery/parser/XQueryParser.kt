@@ -2894,7 +2894,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XQueryTokenType.K_VALUE)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_OF)) {
+                if (!matchTokenType(XPathTokenType.K_OF)) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "of"))
                     haveErrors = true
                 }
@@ -3522,11 +3522,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val instanceofExprMarker = mark()
         if (parseTreatExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_INSTANCE)) {
+            if (matchTokenType(XPathTokenType.K_INSTANCE)) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_OF)) {
+                if (!matchTokenType(XPathTokenType.K_OF)) {
                     haveErrors = true
                     error(XQueryBundle.message("parser.error.expected-keyword", "of"))
                 }
@@ -3536,7 +3536,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 }
                 instanceofExprMarker.done(XQueryElementType.INSTANCEOF_EXPR)
-            } else if (getTokenType() === XQueryTokenType.K_OF) {
+            } else if (getTokenType() === XPathTokenType.K_OF) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "instance"))
                 advanceLexer()
 

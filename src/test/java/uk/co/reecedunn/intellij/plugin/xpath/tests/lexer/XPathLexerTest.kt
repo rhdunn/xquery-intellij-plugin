@@ -197,12 +197,21 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (53) IntersectExceptExpr")
+    @DisplayName("XPath 2.0 EBNF (15) IntersectExceptExpr")
     fun intersectExceptExpr() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "intersect", XPathTokenType.K_INTERSECT)
         matchSingleToken(lexer, "except", XPathTokenType.K_EXCEPT)
+    }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (16) InstanceofExpr")
+    fun instanceofExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "instance", XPathTokenType.K_INSTANCE)
+        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
     }
 
     @Test

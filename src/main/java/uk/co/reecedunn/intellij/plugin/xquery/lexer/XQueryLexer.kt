@@ -135,7 +135,6 @@ private val KEYWORDS = mapOf(
         "inherit" to XQueryTokenType.K_INHERIT,
         "insensitive" to XQueryTokenType.K_INSENSITIVE, // Full Text 1.0
         "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
-        "instance" to XQueryTokenType.K_INSTANCE,
         "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
         "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
         "is" to XQueryTokenType.K_IS,
@@ -170,7 +169,6 @@ private val KEYWORDS = mapOf(
         "number-node" to XQueryTokenType.K_NUMBER_NODE, // MarkLogic 8.0
         "object-node" to XQueryTokenType.K_OBJECT_NODE, // MarkLogic 8.0
         "occurs" to XQueryTokenType.K_OCCURS, // Full Text 1.0
-        "of" to XQueryTokenType.K_OF,
         "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
         "option" to XQueryTokenType.K_OPTION,
         "order" to XQueryTokenType.K_ORDER,

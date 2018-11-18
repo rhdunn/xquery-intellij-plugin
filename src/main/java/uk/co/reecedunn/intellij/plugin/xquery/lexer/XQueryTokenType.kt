@@ -195,7 +195,6 @@ object XQueryTokenType {
     val K_INHERIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INHERIT", XQuery)
     val K_INSENSITIVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSENSITIVE", XQuery) // Full Text 1.0
     val K_INSERT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT", XQuery) // Update Facility 1.0
-    val K_INSTANCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSTANCE", XQuery)
     val K_INTO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTO", XQuery) // Update Facility 1.0
     val K_INVOKE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE", XQuery) // Update Facility 3.0
     val K_IS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS", XQuery)
@@ -230,7 +229,6 @@ object XQueryTokenType {
     val K_NUMBER_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_OBJECT_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_OCCURS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OCCURS", XQuery) // Full Text 1.0
-    val K_OF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OF", XQuery)
     val K_ONLY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ONLY", XQuery) // XQuery 3.0
     val K_OPTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OPTION", XQuery)
     val K_ORDER = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER", XQuery)
