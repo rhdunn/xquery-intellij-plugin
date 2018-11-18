@@ -566,10 +566,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (56) CastableExpr")
-    fun testCastableExpr() {
+    fun castableExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "castable", XQueryTokenType.K_CASTABLE)
+        matchSingleToken(lexer, "castable", XPathTokenType.K_CASTABLE)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 

@@ -224,6 +224,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (18) CastableExpr")
+    fun castableExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "castable", XPathTokenType.K_CASTABLE)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

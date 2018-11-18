@@ -74,7 +74,6 @@ private val KEYWORDS = mapOf(
         "by" to XQueryTokenType.K_BY,
         "case" to XQueryTokenType.K_CASE,
         "cast" to XQueryTokenType.K_CAST,
-        "castable" to XQueryTokenType.K_CASTABLE,
         "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
         "child" to XQueryTokenType.K_CHILD,
         "collation" to XQueryTokenType.K_COLLATION,

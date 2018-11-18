@@ -3590,7 +3590,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val castableExprMarker = mark()
         if (parseCastExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_CASTABLE)) {
+            if (matchTokenType(XPathTokenType.K_CASTABLE)) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens()
