@@ -74,7 +74,7 @@ class HighlightingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         lexer.start("Q{Hello World}", 2, 14, 0x00000000 or 26)
-        matchToken(lexer, "Hello World", 26, 2, 13, XQueryTokenType.STRING_LITERAL_CONTENTS)
+        matchToken(lexer, "Hello World", 26, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
         matchToken(lexer, "}", 26, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END)
         matchToken(lexer, "", 0, 14, 14, null)
     }

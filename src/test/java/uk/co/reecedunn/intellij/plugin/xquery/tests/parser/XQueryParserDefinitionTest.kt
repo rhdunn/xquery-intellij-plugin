@@ -81,7 +81,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val parserDefinition = XQueryParserDefinition()
         val tokens = parserDefinition.stringLiteralElements
         assertThat(tokens.types.size, `is`(4))
-        assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_CONTENTS), `is`(true))
+        assertThat(tokens.contains(XPathTokenType.STRING_LITERAL_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.XML_ELEMENT_CONTENTS), `is`(true))

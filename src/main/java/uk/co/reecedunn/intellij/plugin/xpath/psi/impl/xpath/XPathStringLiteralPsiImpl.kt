@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsString
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
@@ -43,7 +44,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode) :
     protected val cachedContent = CacheableProperty {
         children().map { child ->
             when (child.node.elementType) {
-                XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
+                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
                     null
                 XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
                     (child as XQueryPredefinedEntityRef).entityRef.value

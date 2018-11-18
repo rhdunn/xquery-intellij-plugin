@@ -54,9 +54,9 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
         )
             return NUMBER_KEYS
         else if (
-            type === XQueryTokenType.STRING_LITERAL_START ||
-            type === XQueryTokenType.STRING_LITERAL_CONTENTS ||
-            type === XQueryTokenType.STRING_LITERAL_END ||
+            type === XPathTokenType.STRING_LITERAL_START ||
+            type === XPathTokenType.STRING_LITERAL_CONTENTS ||
+            type === XPathTokenType.STRING_LITERAL_END ||
             type === XQueryTokenType.STRING_CONSTRUCTOR_START ||
             type === XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS ||
             type === XQueryTokenType.STRING_CONSTRUCTOR_END ||

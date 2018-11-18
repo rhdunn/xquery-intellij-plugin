@@ -79,14 +79,14 @@ object XQueryFileType : LanguageFileType(XQuery) {
     }
 
     private fun matchString(lexer: Lexer, defaultValue: String?): String? {
-        if (lexer.tokenType !== XQueryTokenType.STRING_LITERAL_START)
+        if (lexer.tokenType !== XPathTokenType.STRING_LITERAL_START)
             return defaultValue
         lexer.advance()
-        if (lexer.tokenType !== XQueryTokenType.STRING_LITERAL_CONTENTS)
+        if (lexer.tokenType !== XPathTokenType.STRING_LITERAL_CONTENTS)
             return defaultValue
         val match = lexer.tokenText
         lexer.advance()
-        if (lexer.tokenType !== XQueryTokenType.STRING_LITERAL_END)
+        if (lexer.tokenType !== XPathTokenType.STRING_LITERAL_END)
             return defaultValue
         lexer.advance()
         return match

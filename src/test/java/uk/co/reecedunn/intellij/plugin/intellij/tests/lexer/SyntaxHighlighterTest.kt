@@ -105,14 +105,14 @@ class SyntaxHighlighterTest {
     fun testTokenHighlights_String() {
         val highlighter = SyntaxHighlighter()
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START)[0], `is`(SyntaxHighlighter.STRING))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_START).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_START)[0], `is`(SyntaxHighlighter.STRING))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_CONTENTS).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_CONTENTS)[0], `is`(SyntaxHighlighter.STRING))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_CONTENTS).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_CONTENTS)[0], `is`(SyntaxHighlighter.STRING))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END)[0], `is`(SyntaxHighlighter.STRING))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_END).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_END)[0], `is`(SyntaxHighlighter.STRING))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_CONSTRUCTOR_START).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_CONSTRUCTOR_START)[0], `is`(SyntaxHighlighter.STRING))

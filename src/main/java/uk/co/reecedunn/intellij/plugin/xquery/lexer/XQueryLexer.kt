@@ -22,8 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
 // region State Constants
 
-private const val STATE_STRING_LITERAL_QUOTE = 1
-private const val STATE_STRING_LITERAL_APOSTROPHE = 2
 private const val STATE_XML_COMMENT = 5
 private const val STATE_CDATA_SECTION = 7
 private const val STATE_PRAGMA_PRE_QNAME = 8
@@ -372,7 +370,7 @@ class XQueryLexer : XPathLexer() {
             CharacterClass.END_OF_BUFFER -> mType = null
             CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.STRING_LITERAL_START
+                mType = XPathTokenType.STRING_LITERAL_START
                 pushState(if (cc == CharacterClass.QUOTE) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
             }
             CharacterClass.NAME_START_CHAR -> {
@@ -709,7 +707,7 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateStringLiteral(type: Char) {
+    override fun stateStringLiteral(type: Char) {
         var c = mTokenRange.codePoint
         if (c == type.toInt()) {
             mTokenRange.match()
@@ -717,7 +715,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 mType = XQueryTokenType.ESCAPED_CHARACTER
             } else {
-                mType = if (type == '}') XQueryTokenType.BRACED_URI_LITERAL_END else XQueryTokenType.STRING_LITERAL_END
+                mType = if (type == '}') XQueryTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
                 popState()
             }
         } else if (c == '&'.toInt()) {
@@ -732,7 +730,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
             }
-            mType = XQueryTokenType.STRING_LITERAL_CONTENTS
+            mType = XPathTokenType.STRING_LITERAL_CONTENTS
         }
     }
 
@@ -1474,8 +1472,6 @@ class XQueryLexer : XPathLexer() {
     override fun advance() {
         when (nextState()) {
             STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
-            STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
-            STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
             STATE_XML_COMMENT, STATE_XML_COMMENT_ELEM_CONTENT -> stateXmlComment()
             STATE_CDATA_SECTION, STATE_CDATA_SECTION_ELEM_CONTENT -> stateCDataSection()
             STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()

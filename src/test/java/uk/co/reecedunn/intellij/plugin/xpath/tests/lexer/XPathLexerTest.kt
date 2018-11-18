@@ -259,6 +259,52 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (74) StringLiteral")
+    internal inner class StringLiteral {
+        @Test
+        @DisplayName("string literal")
+        fun stringLiteral() {
+            val lexer = createLexer()
+
+            lexer.start("\"")
+            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "", 1, 1, 1, null)
+
+            lexer.start("\"Hello World\"")
+            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "Hello World", 1, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 13, 13, null)
+
+            lexer.start("'")
+            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "", 2, 1, 1, null)
+
+            lexer.start("'Hello World'")
+            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
+            matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 13, 13, null)
+        }
+
+        @Test
+        @DisplayName("initial state")
+        fun initialState() {
+            val lexer = createLexer()
+
+            lexer.start("\"Hello World\"", 1, 13, 1)
+            matchToken(lexer, "Hello World", 1, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 13, 13, null)
+
+            lexer.start("'Hello World'", 1, 13, 2)
+            matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
+            matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
+            matchToken(lexer, "", 0, 13, 13, null)
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
     internal inner class Comment {
         @Test

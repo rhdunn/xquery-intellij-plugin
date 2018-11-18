@@ -1117,7 +1117,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+            if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                 // DefaultNamespaceDecl with missing 'default' keyword.
                 error(XQueryBundle.message("parser.error.expected", "("))
                 parseStringLiteral(XQueryElementType.STRING_LITERAL)
@@ -5005,7 +5005,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (elementMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(XQueryElementType.STRING_LITERAL)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
@@ -5029,7 +5029,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (attributeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(XQueryElementType.STRING_LITERAL)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
@@ -5053,7 +5053,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
-                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(XQueryElementType.STRING_LITERAL)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
@@ -5107,7 +5107,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (piMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseQName(XQueryElementType.NCNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                if (getTokenType() === XQueryTokenType.STRING_LITERAL_START) {
+                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(XQueryElementType.STRING_LITERAL)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
@@ -7316,14 +7316,16 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Lexical Structure :: Terminal Symbols
 
     private fun parseStringLiteral(type: IElementType): Boolean {
-        val stringMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_LITERAL_START)
+        val stringMarker = matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)
         while (stringMarker != null) {
-            if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
-                    matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)) {
+            if (
+                matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
+                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)
+            ) {
                 //
-            } else if (matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
+            } else if (matchTokenType(XPathTokenType.STRING_LITERAL_END)) {
                 stringMarker.done(type)
                 return true
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
@@ -7535,9 +7537,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseBracedURILiteral(): Boolean {
         val stringMarker = matchTokenTypeWithMarker(XQueryTokenType.BRACED_URI_LITERAL_START)
         while (stringMarker != null) {
-            if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
-                    matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)) {
+            if (
+                matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)
+            ) {
                 //
             } else if (matchTokenType(XQueryTokenType.BRACED_URI_LITERAL_END)) {
                 stringMarker.done(XQueryElementType.BRACED_URI_LITERAL)

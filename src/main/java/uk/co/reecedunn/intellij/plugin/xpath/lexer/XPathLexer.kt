@@ -22,6 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 // region State Constants
 
+const val STATE_STRING_LITERAL_QUOTE = 1
+const val STATE_STRING_LITERAL_APOSTROPHE = 2
 const val STATE_DOUBLE_EXPONENT = 3
 const val STATE_XQUERY_COMMENT = 4
 const val STATE_UNEXPECTED_END_OF_BLOCK = 6
@@ -111,6 +113,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
                 }
             }
+            CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
+                mTokenRange.match()
+                mType = XPathTokenType.STRING_LITERAL_START
+                pushState(if (cc == CharacterClass.QUOTE) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
+            }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
@@ -137,6 +144,23 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 mType = XPathTokenType.BAD_CHARACTER
             }
+        }
+    }
+
+    protected open fun stateStringLiteral(type: Char) {
+        var c = mTokenRange.codePoint
+        if (c == type.toInt()) {
+            mTokenRange.match()
+            mType = XPathTokenType.STRING_LITERAL_END
+            popState()
+        } else if (c == CodePointRange.END_OF_BUFFER) {
+            mType = null
+        } else {
+            while (c != type.toInt() && c != CodePointRange.END_OF_BUFFER && c != '&'.toInt() && !(type == '}' && c == '{'.toInt())) {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+            }
+            mType = XPathTokenType.STRING_LITERAL_CONTENTS
         }
     }
 
@@ -211,6 +235,8 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     override fun advance() {
         when (nextState()) {
             STATE_DEFAULT -> stateDefault()
+            STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
+            STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
             STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
             STATE_XQUERY_COMMENT -> stateXQueryComment()
             STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
