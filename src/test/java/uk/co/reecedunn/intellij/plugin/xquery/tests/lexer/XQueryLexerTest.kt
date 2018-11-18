@@ -530,11 +530,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (52) UnionExpr")
-    fun testUnionExpr() {
+    fun unionExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "union", XQueryTokenType.K_UNION)
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
+        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
+        matchSingleToken(lexer, "|", XPathTokenType.UNION)
     }
 
     @Test
@@ -3156,7 +3156,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testSequenceTypeUnion() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
+        matchSingleToken(lexer, "|", XPathTokenType.UNION)
     }
 
     @Test
@@ -3184,7 +3184,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCatchErrorList() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
+        matchSingleToken(lexer, "|", XPathTokenType.UNION)
     }
 
     @Test

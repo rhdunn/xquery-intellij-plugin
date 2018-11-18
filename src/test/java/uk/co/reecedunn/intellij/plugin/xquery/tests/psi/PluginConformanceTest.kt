@@ -916,8 +916,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UNION))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_UNION))
     }
 
     @Nested
@@ -1158,7 +1157,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.UNION))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.UNION))
     }
 
     @Test

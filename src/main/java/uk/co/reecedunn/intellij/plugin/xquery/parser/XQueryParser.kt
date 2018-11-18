@@ -2750,7 +2750,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val catchErrorListMarker = mark()
         if (parseNameTest(null)) {
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.UNION)) {
+            while (matchTokenType(XPathTokenType.UNION)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseNameTest(null)) {
                     error(XQueryBundle.message("parser.error.expected", "NameTest"))
@@ -3476,7 +3476,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseIntersectExceptExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveUnionExpr = false
-            while (matchTokenType(XQueryTokenType.K_UNION) || matchTokenType(XQueryTokenType.UNION)) {
+            while (matchTokenType(XPathTokenType.K_UNION) || matchTokenType(XPathTokenType.UNION)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseIntersectExceptExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "IntersectExceptExpr"))
@@ -5915,7 +5915,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseFTStopWordsInclExcl(): Boolean {
-        val stopWordsInclExclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNION, XQueryTokenType.K_EXCEPT)
+        val stopWordsInclExclMarker = matchTokenTypeWithMarker(XPathTokenType.K_UNION, XQueryTokenType.K_EXCEPT)
         if (stopWordsInclExclMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseFTStopWords()) {
@@ -6063,7 +6063,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveSequenceTypeUnion = false
 
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.UNION)) {
+            while (matchTokenType(XPathTokenType.UNION)) {
                 haveSequenceTypeUnion = true
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseSequenceTypeList() && !haveErrors) {
@@ -6298,7 +6298,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseUnionType(): Boolean {
-        val unionTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNION)
+        val unionTypeMarker = matchTokenTypeWithMarker(XPathTokenType.K_UNION)
         if (unionTypeMarker != null) {
             var haveError = false
 
@@ -6443,7 +6443,8 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                if (getTokenType() === XQueryTokenType.UNION ||
+                if (
+                    getTokenType() === XPathTokenType.UNION ||
                     getTokenType() === XPathTokenType.COMMA
                 ) {
                     parenthesizedItemTypeMarker.rollbackTo() // parenthesized sequence type

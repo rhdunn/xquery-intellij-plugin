@@ -339,7 +339,7 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTStopWordsInclExcl() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "union", XQueryTokenType.K_UNION)
+        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
         matchSingleToken(lexer, "except", XQueryTokenType.K_EXCEPT)
     }
 

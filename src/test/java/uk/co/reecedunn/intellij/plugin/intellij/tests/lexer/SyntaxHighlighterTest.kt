@@ -758,8 +758,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNASSIGNABLE).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNASSIGNABLE)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNION).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNION)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_UNION).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_UNION)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNORDERED).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNORDERED)[0], `is`(SyntaxHighlighter.KEYWORD))
@@ -987,7 +987,7 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.GREATER_THAN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.LESS_THAN_OR_EQUAL).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.GREATER_THAN_OR_EQUAL).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.UNION).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.UNION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPTIONAL).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.AXIS_SEPARATOR).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.QNAME_SEPARATOR).size, `is`(0))

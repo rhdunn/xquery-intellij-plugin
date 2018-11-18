@@ -46,7 +46,8 @@ private val KEYWORDS = mapOf(
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0
     "then" to XPathTokenType.K_THEN, // XPath 2.0
-    "to" to XPathTokenType.K_TO // XPath 2.0
+    "to" to XPathTokenType.K_TO, // XPath 2.0
+    "union" to XPathTokenType.K_UNION // XPath 2.0
 )
 
 open class XPathLexer : LexerImpl(STATE_DEFAULT) {
@@ -187,6 +188,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 mType = XPathTokenType.STRING_LITERAL_START
                 pushState(if (cc == CharacterClass.QUOTE) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
+            }
+            CharacterClass.VERTICAL_BAR -> {
+                mTokenRange.match()
+                mType = XPathTokenType.UNION
             }
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()

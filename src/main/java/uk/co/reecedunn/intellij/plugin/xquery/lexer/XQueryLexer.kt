@@ -237,7 +237,6 @@ private val KEYWORDS = mapOf(
         "type" to XQueryTokenType.K_TYPE, // XQuery 3.0
         "typeswitch" to XQueryTokenType.K_TYPESWITCH,
         "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // Scripting Extension 1.0
-        "union" to XQueryTokenType.K_UNION,
         "unordered" to XQueryTokenType.K_UNORDERED,
         "update" to XQueryTokenType.K_UPDATE, // BaseX 7.8
         "updating" to XQueryTokenType.K_UPDATING, // Update Facility 1.0
@@ -596,7 +595,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.CONCATENATION
                 } else {
-                    XQueryTokenType.UNION
+                    XPathTokenType.UNION
                 }
             }
             CharacterClass.FORWARD_SLASH -> {

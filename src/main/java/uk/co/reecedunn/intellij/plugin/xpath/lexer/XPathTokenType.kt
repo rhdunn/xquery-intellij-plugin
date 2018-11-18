@@ -29,6 +29,7 @@ object XPathTokenType {
     val PLUS = IElementType("XQUERY_PLUS_TOKEN", XPath) // XPath 2.0
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 2.0
     val STAR = IElementType("XQUERY_STAR_TOKEN", XPath) // XPath 2.0
+    val UNION = IElementType("XQUERY_UNION_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords
@@ -48,6 +49,7 @@ object XPathTokenType {
     val K_SOME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME", XPath) // XPath 2.0
     val K_THEN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN", XPath) // XPath 2.0
     val K_TO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0
+    val K_UNION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNION", XPath) // XPath 2.0
 
     // endregion
     // region Terminal Symbols

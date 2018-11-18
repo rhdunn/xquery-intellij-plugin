@@ -82,7 +82,6 @@ object XQueryTokenType {
     val GREATER_THAN = IElementType("XQUERY_GREATER_THAN_TOKEN", XQuery)
     val LESS_THAN_OR_EQUAL = IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XQuery)
     val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XQuery)
-    val UNION = IElementType("XQUERY_UNION_TOKEN", XQuery)
     val OPTIONAL = IElementType("XQUERY_OPTIONAL_TOKEN", XQuery)
     val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XQuery)
     val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XQuery)
@@ -298,7 +297,6 @@ object XQueryTokenType {
     val K_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPE", XQuery) // XQuery 3.0
     val K_TYPESWITCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_UNASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE", XQuery) // Scripting Extension 1.0
-    val K_UNION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNION", XQuery)
     val K_UNORDERED = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED", XQuery)
     val K_UPDATE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATE", XQuery) // BaseX 7.8
     val K_UPDATING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATING", XQuery) // Update Facility 1.0

@@ -190,7 +190,7 @@ class PluginLexerTest : LexerTestCase() {
     fun unionType() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "union", XQueryTokenType.K_UNION)
+        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -672,7 +672,7 @@ class PluginLexerTest : LexerTestCase() {
     fun sequenceTypeUnion() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION)
+        matchSingleToken(lexer, "|", XPathTokenType.UNION)
     }
 
     @Test
