@@ -242,6 +242,25 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
+    fun unaryExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
+        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
+
+        lexer.start("++")
+        matchToken(lexer, "+", 0, 0, 1, XPathTokenType.PLUS)
+        matchToken(lexer, "+", 0, 1, 2, XPathTokenType.PLUS)
+        matchToken(lexer, "", 0, 2, 2, null)
+
+        lexer.start("--")
+        matchToken(lexer, "-", 0, 0, 1, XPathTokenType.MINUS)
+        matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
+        matchToken(lexer, "", 0, 2, 2, null)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

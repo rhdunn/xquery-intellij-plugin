@@ -584,7 +584,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (58) UnaryExpr")
-    fun testUnaryExpr() {
+    fun unaryExpr() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "+", XPathTokenType.PLUS)
