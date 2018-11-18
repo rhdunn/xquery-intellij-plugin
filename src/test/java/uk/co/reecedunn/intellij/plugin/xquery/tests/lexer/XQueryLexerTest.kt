@@ -575,10 +575,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (57) CastExpr")
-    fun testCastExpr() {
+    fun castExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "cast", XQueryTokenType.K_CAST)
+        matchSingleToken(lexer, "cast", XPathTokenType.K_CAST)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 

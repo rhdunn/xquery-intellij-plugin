@@ -3617,7 +3617,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val castExprMarker = mark()
         if (parseTransformWithExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_CAST)) {
+            if (matchTokenType(XPathTokenType.K_CAST)) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens()

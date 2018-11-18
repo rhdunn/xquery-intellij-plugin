@@ -36,6 +36,7 @@ object XPathTokenType {
 
     val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XPath) // XPath 2.0
     val K_AS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
+    val K_CAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CAST", XPath) // XPath 2.0
     val K_CASTABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASTABLE", XPath) // XPath 2.0
     val K_DIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV", XPath) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0

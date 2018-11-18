@@ -73,7 +73,6 @@ private val KEYWORDS = mapOf(
         "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
         "by" to XQueryTokenType.K_BY,
         "case" to XQueryTokenType.K_CASE,
-        "cast" to XQueryTokenType.K_CAST,
         "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
         "child" to XQueryTokenType.K_CHILD,
         "collation" to XQueryTokenType.K_COLLATION,

@@ -133,7 +133,6 @@ object XQueryTokenType {
     val K_BOUNDARY_SPACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE", XQuery)
     val K_BY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY", XQuery)
     val K_CASE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE", XQuery)
-    val K_CAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CAST", XQuery)
     val K_CATCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CATCH", XQuery) // XQuery 3.0
     val K_CHILD = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CHILD", XQuery)
     val K_COLLATION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COLLATION", XQuery)
