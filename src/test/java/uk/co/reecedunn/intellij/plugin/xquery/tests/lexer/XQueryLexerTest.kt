@@ -616,15 +616,15 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (61) ValueComp")
-    fun testValueComp() {
+    fun valueComp() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "eq", XQueryTokenType.K_EQ)
-        matchSingleToken(lexer, "ne", XQueryTokenType.K_NE)
-        matchSingleToken(lexer, "lt", XQueryTokenType.K_LT)
-        matchSingleToken(lexer, "le", XQueryTokenType.K_LE)
-        matchSingleToken(lexer, "gt", XQueryTokenType.K_GT)
-        matchSingleToken(lexer, "ge", XQueryTokenType.K_GE)
+        matchSingleToken(lexer, "eq", XPathTokenType.K_EQ)
+        matchSingleToken(lexer, "ne", XPathTokenType.K_NE)
+        matchSingleToken(lexer, "lt", XPathTokenType.K_LT)
+        matchSingleToken(lexer, "le", XPathTokenType.K_LE)
+        matchSingleToken(lexer, "gt", XPathTokenType.K_GT)
+        matchSingleToken(lexer, "ge", XPathTokenType.K_GE)
     }
 
     @Test

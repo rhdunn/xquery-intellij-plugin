@@ -159,7 +159,6 @@ object XQueryTokenType {
     val K_EMPTY_SEQUENCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_ENCODING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING", XQuery)
     val K_END = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_END", XQuery) // XQuery 3.0
-    val K_EQ = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EQ", XQuery)
     val K_ENTIRE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENTIRE", XQuery) // Full Text 1.0
     val K_EXACTLY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXACTLY", XQuery) // Full Text 1.0
     val K_EXIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXIT", XQuery) // Scripting Extension 1.0
@@ -176,11 +175,9 @@ object XQueryTokenType {
     val K_FTOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTOR", XQuery) // Full Text 1.0
     val K_FUNCTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION", XQuery, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME)
     val K_FUZZY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUZZY", XQuery) // BaseX 6.1
-    val K_GE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GE", XQuery)
     val K_GREATEST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST", XQuery)
     val K_GROUP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUP", XQuery) // XQuery 3.0
     val K_GROUPING_SEPARATOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUPING_SEPARATOR", XQuery) // XQuery 3.0
-    val K_GT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GT", XQuery)
     val K_IMPORT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT", XQuery)
     val K_INFINITY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INFINITY", XQuery) // XQuery 3.0
     val K_INHERIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INHERIT", XQuery)
@@ -193,12 +190,10 @@ object XQueryTokenType {
     val K_LANGUAGE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LANGUAGE", XQuery) // Full Text 1.0
     val K_LAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST", XQuery) // Update Facility 1.0
     val K_LAX = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX", XQuery)
-    val K_LE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE", XQuery)
     val K_LEAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST", XQuery)
     val K_LET = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET", XQuery)
     val K_LEVELS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEVELS", XQuery) // Full Text 1.0
     val K_LOWERCASE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LOWERCASE", XQuery) // Full Text 1.0
-    val K_LT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT", XQuery)
     val K_MAP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MAP", XQuery) // XQuery 3.1
     val K_MINUS_SIGN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN", XQuery) // XQuery 3.0
     val K_MODIFY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY", XQuery) // Update Facility 1.0
@@ -207,7 +202,6 @@ object XQueryTokenType {
     val K_NAMESPACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE", XQuery)
     val K_NAMESPACE_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XQuery 3.0
     val K_NAN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN", XQuery) // XQuery 3.0
-    val K_NE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NE", XQuery)
     val K_NEXT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NEXT", XQuery) // XQuery 3.0
     val K_NO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO", XQuery) // Full Text 1.0
     val K_NO_INHERIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT", XQuery)

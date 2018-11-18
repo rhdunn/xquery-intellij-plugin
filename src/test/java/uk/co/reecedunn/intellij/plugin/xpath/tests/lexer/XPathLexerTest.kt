@@ -274,6 +274,19 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (23) ValueComp")
+    fun valueComp() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "eq", XPathTokenType.K_EQ)
+        matchSingleToken(lexer, "ne", XPathTokenType.K_NE)
+        matchSingleToken(lexer, "lt", XPathTokenType.K_LT)
+        matchSingleToken(lexer, "le", XPathTokenType.K_LE)
+        matchSingleToken(lexer, "gt", XPathTokenType.K_GT)
+        matchSingleToken(lexer, "ge", XPathTokenType.K_GE)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

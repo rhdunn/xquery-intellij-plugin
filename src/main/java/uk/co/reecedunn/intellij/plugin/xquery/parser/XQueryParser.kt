@@ -3741,12 +3741,12 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseValueComp(): Boolean {
-        return matchTokenType(XQueryTokenType.K_EQ) ||
-                matchTokenType(XQueryTokenType.K_NE) ||
-                matchTokenType(XQueryTokenType.K_LT) ||
-                matchTokenType(XQueryTokenType.K_LE) ||
-                matchTokenType(XQueryTokenType.K_GT) ||
-                matchTokenType(XQueryTokenType.K_GE)
+        return matchTokenType(XPathTokenType.K_EQ) ||
+                matchTokenType(XPathTokenType.K_NE) ||
+                matchTokenType(XPathTokenType.K_LT) ||
+                matchTokenType(XPathTokenType.K_LE) ||
+                matchTokenType(XPathTokenType.K_GT) ||
+                matchTokenType(XPathTokenType.K_GE)
     }
 
     private fun parseNodeComp(): Boolean {

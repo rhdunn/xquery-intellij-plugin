@@ -356,8 +356,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ENTIRE).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ENTIRE)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EQ).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EQ)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EQ).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EQ)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EVERY).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EVERY)[0], `is`(SyntaxHighlighter.KEYWORD))
@@ -410,8 +410,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FUZZY).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FUZZY)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GE).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GE)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GE)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GREATEST).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GREATEST)[0], `is`(SyntaxHighlighter.KEYWORD))
@@ -422,8 +422,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GROUPING_SEPARATOR).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GROUPING_SEPARATOR)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GT).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_GT)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GT)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IDIV).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IDIV)[0], `is`(SyntaxHighlighter.KEYWORD))
@@ -473,8 +473,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LAX).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LAX)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LE).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LE)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LE)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LEAST).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LEAST)[0], `is`(SyntaxHighlighter.KEYWORD))
@@ -488,8 +488,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LOWERCASE).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LOWERCASE)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LT).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_LT)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LT)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MAP).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MAP)[0], `is`(SyntaxHighlighter.KEYWORD))
@@ -518,8 +518,8 @@ class SyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NAN).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NAN)[0], `is`(SyntaxHighlighter.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NE).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NE)[0], `is`(SyntaxHighlighter.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NE)[0], `is`(SyntaxHighlighter.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NEXT).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NEXT)[0], `is`(SyntaxHighlighter.KEYWORD))

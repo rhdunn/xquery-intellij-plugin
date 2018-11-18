@@ -106,7 +106,6 @@ private val KEYWORDS = mapOf(
         "encoding" to XQueryTokenType.K_ENCODING,
         "end" to XQueryTokenType.K_END, // XQuery 3.0
         "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0
-        "eq" to XQueryTokenType.K_EQ,
         "exactly" to XQueryTokenType.K_EXACTLY, // Full Text 1.0
         "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
         "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
@@ -122,11 +121,9 @@ private val KEYWORDS = mapOf(
         "ftor" to XQueryTokenType.K_FTOR, // Full Text 1.0
         "function" to XQueryTokenType.K_FUNCTION,
         "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
-        "ge" to XQueryTokenType.K_GE,
         "greatest" to XQueryTokenType.K_GREATEST,
         "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
         "grouping-separator" to XQueryTokenType.K_GROUPING_SEPARATOR, // XQuery 3.0
-        "gt" to XQueryTokenType.K_GT,
         "import" to XQueryTokenType.K_IMPORT,
         "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
         "inherit" to XQueryTokenType.K_INHERIT,
@@ -139,12 +136,10 @@ private val KEYWORDS = mapOf(
         "language" to XQueryTokenType.K_LANGUAGE, // Full Text 1.0
         "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
         "lax" to XQueryTokenType.K_LAX,
-        "le" to XQueryTokenType.K_LE,
         "least" to XQueryTokenType.K_LEAST,
         "let" to XQueryTokenType.K_LET,
         "levels" to XQueryTokenType.K_LEVELS, // Full Text 1.0
         "lowercase" to XQueryTokenType.K_LOWERCASE, // Full Text 1.0
-        "lt" to XQueryTokenType.K_LT,
         "map" to XQueryTokenType.K_MAP, // XQuery 3.1
         "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
         "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
@@ -153,7 +148,6 @@ private val KEYWORDS = mapOf(
         "namespace" to XQueryTokenType.K_NAMESPACE,
         "namespace-node" to XQueryTokenType.K_NAMESPACE_NODE, // XQuery 3.0
         "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
-        "ne" to XQueryTokenType.K_NE,
         "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
         "no" to XQueryTokenType.K_NO, // Full Text 1.0
         "no-inherit" to XQueryTokenType.K_NO_INHERIT,

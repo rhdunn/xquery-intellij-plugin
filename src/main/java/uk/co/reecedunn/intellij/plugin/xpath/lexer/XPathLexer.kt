@@ -38,15 +38,21 @@ private val KEYWORDS = mapOf(
     "castable" to XPathTokenType.K_CASTABLE, // XPath 2.0
     "div" to XPathTokenType.K_DIV, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
+    "eq" to XPathTokenType.K_EQ, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "except" to XPathTokenType.K_EXCEPT, // XPath 2.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
+    "ge" to XPathTokenType.K_GE, // XPath 2.0
+    "gt" to XPathTokenType.K_GT, // XPath 2.0
     "idiv" to XPathTokenType.K_IDIV, // XPath 2.0
     "if" to XPathTokenType.K_IF, // XPath 2.0
     "in" to XPathTokenType.K_IN, // XPath 2.0
     "instance" to XPathTokenType.K_INSTANCE, // XPath 2.0
     "intersect" to XPathTokenType.K_INTERSECT, // XPath 2.0
+    "le" to XPathTokenType.K_LE, // XPath 2.0
+    "lt" to XPathTokenType.K_LT, // XPath 2.0
     "mod" to XPathTokenType.K_MOD, // XPath 2.0
+    "ne" to XPathTokenType.K_NE, // XPath 2.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
@@ -176,11 +182,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             CharacterClass.LESS_THAN -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == '='.toInt()) {
+                mType = if (c == '='.toInt()) {
                     mTokenRange.match()
-                    mType = XPathTokenType.LESS_THAN_OR_EQUAL
+                    XPathTokenType.LESS_THAN_OR_EQUAL
                 } else {
-                    mType = XPathTokenType.LESS_THAN
+                    XPathTokenType.LESS_THAN
                 }
             }
             CharacterClass.NAME_START_CHAR -> {
