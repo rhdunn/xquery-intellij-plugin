@@ -756,7 +756,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (69) RelativePathExpr")
-    fun testRelativePathExpr() {
+    fun relativePathExpr() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
