@@ -77,7 +77,6 @@ object XQueryTokenType {
     val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XQuery)
     val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XQuery)
     val OPTIONAL = IElementType("XQUERY_OPTIONAL_TOKEN", XQuery)
-    val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XQuery)
     val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XQuery)
     val ATTRIBUTE_SELECTOR = IElementType("XQUERY_ATTRIBUTE_SELECTOR_TOKEN", XQuery)
     val SQUARE_OPEN = IElementType("XQUERY_SQUARE_OPEN_TOKEN", XQuery)
@@ -113,7 +112,6 @@ object XQueryTokenType {
     val K_ASCENDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASCENDING", XQuery)
     val K_ASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE", XQuery) // Scripting Extension 1.0
     val K_AT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT", XQuery)
-    val K_ATTRIBUTE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_ATTRIBUTE_DECL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_BASE_URI = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI", XQuery)
     val K_BEFORE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE", XQuery) // Update Facility 1.0
@@ -124,7 +122,6 @@ object XQueryTokenType {
     val K_BY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY", XQuery)
     val K_CASE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE", XQuery)
     val K_CATCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CATCH", XQuery) // XQuery 3.0
-    val K_CHILD = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CHILD", XQuery)
     val K_COLLATION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COLLATION", XQuery)
     val K_COMMENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMMENT", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_COMPLEX_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMPLEX_TYPE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
@@ -140,8 +137,6 @@ object XQueryTokenType {
     val K_DECLARE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECLARE", XQuery)
     val K_DEFAULT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DEFAULT", XQuery)
     val K_DELETE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DELETE", XQuery) // Update Facility 1.0
-    val K_DESCENDANT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT", XQuery)
-    val K_DESCENDANT_OR_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF", XQuery)
     val K_DESCENDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDING", XQuery)
     val K_DIACRITICS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIACRITICS", XQuery) // Full Text 1.0
     val K_DIFFERENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIFFERENT", XQuery) // Full Text 1.0
@@ -162,8 +157,6 @@ object XQueryTokenType {
     val K_EXTERNAL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXTERNAL", XQuery)
     val K_FIRST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FIRST", XQuery) // Update Facility 1.0
     val K_FN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FN", XQuery) // Saxon 9.8
-    val K_FOLLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING", XQuery)
-    val K_FOLLOWING_SIBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING", XQuery)
     val K_FROM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FROM", XQuery) // Full Text 1.0
     val K_FT_OPTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FT_OPTION", XQuery) // Full Text 1.0
     val K_FTAND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTAND", XQuery) // Full Text 1.0
@@ -194,7 +187,6 @@ object XQueryTokenType {
     val K_MODIFY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY", XQuery) // Update Facility 1.0
     val K_MODULE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE", XQuery)
     val K_MOST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOST", XQuery) // Full Text 1.0
-    val K_NAMESPACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE", XQuery)
     val K_NAMESPACE_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XQuery 3.0
     val K_NAN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN", XQuery) // XQuery 3.0
     val K_NEXT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NEXT", XQuery) // XQuery 3.0
@@ -245,7 +237,6 @@ object XQueryTokenType {
     val K_SCHEMA_ROOT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_SCHEMA_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_TYPE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_SCORE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCORE", XQuery) // Full Text 1.0
-    val K_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF", XQuery)
     val K_SENSITIVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENSITIVE", XQuery) // Full Text 1.0
     val K_SENTENCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCE", XQuery) // Full Text 1.0
     val K_SENTENCES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCES", XQuery) // Full Text 1.0

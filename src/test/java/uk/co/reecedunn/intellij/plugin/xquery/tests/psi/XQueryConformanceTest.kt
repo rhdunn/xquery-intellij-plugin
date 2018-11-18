@@ -289,8 +289,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NAMESPACE))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_NAMESPACE))
     }
 
     // endregion
@@ -968,8 +967,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ATTRIBUTE))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_ATTRIBUTE))
     }
 
     @Test
@@ -982,8 +980,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_CHILD))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_CHILD))
     }
 
     @Test
@@ -996,8 +993,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_DESCENDANT))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_DESCENDANT))
     }
 
     @Test
@@ -1010,8 +1006,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_DESCENDANT_OR_SELF))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_DESCENDANT_OR_SELF))
     }
 
     @Test
@@ -1024,8 +1019,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOLLOWING))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOLLOWING))
     }
 
     @Test
@@ -1038,8 +1032,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOLLOWING_SIBLING))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOLLOWING_SIBLING))
     }
 
     @Test
@@ -1052,8 +1045,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_SELF))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_SELF))
     }
 
     // endregion

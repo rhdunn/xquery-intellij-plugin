@@ -257,7 +257,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
+            if (!matchTokenType(XPathTokenType.K_NAMESPACE)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "namespace"))
                 haveErrors = true
             }
@@ -449,7 +449,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (matchTokenType(XQueryTokenType.K_ITEM)) continue
             if (matchTokenType(XQueryTokenType.K_LAX)) continue
             if (matchTokenType(XQueryTokenType.K_LEAST)) continue
-            if (matchTokenType(XQueryTokenType.K_NAMESPACE)) continue
+            if (matchTokenType(XPathTokenType.K_NAMESPACE)) continue
             if (matchTokenType(XQueryTokenType.K_NO_INHERIT)) continue
             if (matchTokenType(XQueryTokenType.K_NO_PRESERVE)) continue
             if (matchTokenType(XQueryTokenType.K_ORDER)) continue
@@ -471,7 +471,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
+            if (!matchTokenType(XPathTokenType.K_NAMESPACE)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "namespace"))
                 haveErrors = true
             }
@@ -488,7 +488,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseNamespaceDecl(state: PrologDeclState): Boolean {
-        val errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE)
+        val errorMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop()
@@ -829,7 +829,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseSchemaPrefix(): Boolean {
         var haveErrors = false
-        val schemaPrefixMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE)
+        val schemaPrefixMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (schemaPrefixMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseQName(XQueryElementType.NCNAME)) {
@@ -857,7 +857,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NAMESPACE) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_NAMESPACE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "namespace"))
                 haveErrors = true
             }
@@ -896,7 +896,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             advanceLexer()
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
+            if (matchTokenType(XPathTokenType.K_NAMESPACE)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseQName(XQueryElementType.NCNAME)) {
                     error(XQueryBundle.message("parser.error.expected-ncname"))
@@ -3965,18 +3965,19 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseForwardAxis(): Boolean {
         val forwardAxisMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_ATTRIBUTE) ||
-                matchTokenType(XQueryTokenType.K_CHILD) ||
-                matchTokenType(XQueryTokenType.K_DESCENDANT) ||
-                matchTokenType(XQueryTokenType.K_DESCENDANT_OR_SELF) ||
-                matchTokenType(XQueryTokenType.K_FOLLOWING) ||
-                matchTokenType(XQueryTokenType.K_FOLLOWING_SIBLING) ||
-                matchTokenType(XQueryTokenType.K_NAMESPACE) ||
-                matchTokenType(XQueryTokenType.K_PROPERTY) ||
-                matchTokenType(XQueryTokenType.K_SELF)) {
-
+        if (
+            matchTokenType(XPathTokenType.K_ATTRIBUTE) ||
+            matchTokenType(XPathTokenType.K_CHILD) ||
+            matchTokenType(XPathTokenType.K_DESCENDANT) ||
+            matchTokenType(XPathTokenType.K_DESCENDANT_OR_SELF) ||
+            matchTokenType(XPathTokenType.K_FOLLOWING) ||
+            matchTokenType(XPathTokenType.K_FOLLOWING_SIBLING) ||
+            matchTokenType(XPathTokenType.K_NAMESPACE) ||
+            matchTokenType(XQueryTokenType.K_PROPERTY) ||
+            matchTokenType(XPathTokenType.K_SELF)
+        ) {
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
+            if (!matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
                 forwardAxisMarker.rollbackTo()
                 return false
             }
@@ -4037,7 +4038,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 matchTokenType(XQueryTokenType.K_PRECEDING_SIBLING)) {
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
+            if (!matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
                 reverseAxisMarker.rollbackTo()
                 return false
             }
@@ -5028,7 +5029,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseCompAttrConstructor(): Boolean {
-        val attributeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE)
+        val attributeMarker = matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
         if (attributeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
@@ -5052,7 +5053,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseCompNamespaceConstructor(): Boolean {
-        val namespaceMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE)
+        val namespaceMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
@@ -6720,7 +6721,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseAttributeTest(): Boolean {
-        val attributeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE)
+        val attributeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
         if (attributeTestMarker != null) {
             var haveErrors = false
 

@@ -369,10 +369,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NAMESPACE)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_NAMESPACE))
         }
 
         @Test

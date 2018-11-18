@@ -63,7 +63,6 @@ private val KEYWORDS = mapOf(
         "ascending" to XQueryTokenType.K_ASCENDING,
         "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
         "at" to XQueryTokenType.K_AT,
-        "attribute" to XQueryTokenType.K_ATTRIBUTE,
         "attribute-decl" to XQueryTokenType.K_ATTRIBUTE_DECL, // MarkLogic 7.0
         "base-uri" to XQueryTokenType.K_BASE_URI,
         "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
@@ -74,7 +73,6 @@ private val KEYWORDS = mapOf(
         "by" to XQueryTokenType.K_BY,
         "case" to XQueryTokenType.K_CASE,
         "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
-        "child" to XQueryTokenType.K_CHILD,
         "collation" to XQueryTokenType.K_COLLATION,
         "comment" to XQueryTokenType.K_COMMENT,
         "complex-type" to XQueryTokenType.K_COMPLEX_TYPE, // MarkLogic 7.0
@@ -90,8 +88,6 @@ private val KEYWORDS = mapOf(
         "declare" to XQueryTokenType.K_DECLARE,
         "default" to XQueryTokenType.K_DEFAULT,
         "delete" to XQueryTokenType.K_DELETE, // Update Facility 1.0
-        "descendant" to XQueryTokenType.K_DESCENDANT,
-        "descendant-or-self" to XQueryTokenType.K_DESCENDANT_OR_SELF,
         "descending" to XQueryTokenType.K_DESCENDING,
         "diacritics" to XQueryTokenType.K_DIACRITICS, // Full Text 1.0
         "different" to XQueryTokenType.K_DIFFERENT, // Full Text 1.0
@@ -112,8 +108,6 @@ private val KEYWORDS = mapOf(
         "external" to XQueryTokenType.K_EXTERNAL,
         "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
         "fn" to XQueryTokenType.K_FN, // Saxon 9.8
-        "following" to XQueryTokenType.K_FOLLOWING,
-        "following-sibling" to XQueryTokenType.K_FOLLOWING_SIBLING,
         "from" to XQueryTokenType.K_FROM, // Full Text 1.0
         "ft-option" to XQueryTokenType.K_FT_OPTION, // Full Text 1.0
         "ftand" to XQueryTokenType.K_FTAND, // Full Text 1.0
@@ -144,7 +138,6 @@ private val KEYWORDS = mapOf(
         "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
         "module" to XQueryTokenType.K_MODULE,
         "most" to XQueryTokenType.K_MOST, // Full Text 1.0
-        "namespace" to XQueryTokenType.K_NAMESPACE,
         "namespace-node" to XQueryTokenType.K_NAMESPACE_NODE, // XQuery 3.0
         "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
         "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
@@ -195,7 +188,6 @@ private val KEYWORDS = mapOf(
         "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0
         "schema-type" to XQueryTokenType.K_SCHEMA_TYPE, // MarkLogic 7.0
         "score" to XQueryTokenType.K_SCORE, // Full Text 1.0
-        "self" to XQueryTokenType.K_SELF,
         "sensitive" to XQueryTokenType.K_SENSITIVE, // Full Text 1.0
         "sentence" to XQueryTokenType.K_SENTENCE, // Full Text 1.0
         "sentences" to XQueryTokenType.K_SENTENCES, // Full Text 1.0
@@ -388,7 +380,7 @@ class XQueryLexer : XPathLexer() {
                     XPathTokenType.COMMENT_END_TAG
                 } else if (c == ':'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.AXIS_SEPARATOR
+                    XPathTokenType.AXIS_SEPARATOR
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.ASSIGN_EQUAL

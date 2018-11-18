@@ -122,7 +122,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "module", XQueryTokenType.K_MODULE)
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
 
@@ -140,7 +140,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
 
@@ -164,7 +164,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
 
@@ -264,12 +264,12 @@ class XQueryLexerTest : LexerTestCase() {
     fun testSchemaPrefix() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
 
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
     }
 
     @Test
@@ -282,7 +282,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
 
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
 
@@ -765,17 +765,18 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (73) ForwardAxis")
-    fun testForwardAxis() {
+    fun forwardAxis() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "child", XQueryTokenType.K_CHILD)
-        matchSingleToken(lexer, "descendant", XQueryTokenType.K_DESCENDANT)
-        matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "self", XQueryTokenType.K_SELF)
-        matchSingleToken(lexer, "descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF)
-        matchSingleToken(lexer, "following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING)
-        matchSingleToken(lexer, "following", XQueryTokenType.K_FOLLOWING)
-        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR)
+        // NOTE: XQuery does not support the XPath 'namespace::' forward axis.
+        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
+        matchSingleToken(lexer, "child", XPathTokenType.K_CHILD)
+        matchSingleToken(lexer, "descendant", XPathTokenType.K_DESCENDANT)
+        matchSingleToken(lexer, "descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
+        matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
+        matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
+        matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
+        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
@@ -796,7 +797,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING)
         matchSingleToken(lexer, "preceding", XQueryTokenType.K_PRECEDING)
         matchSingleToken(lexer, "ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF)
-        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR)
+        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
@@ -2188,7 +2189,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCompAttrConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE)
+        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
@@ -2316,7 +2317,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testAttributeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE)
+        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -3237,7 +3238,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCompNamespaceConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }

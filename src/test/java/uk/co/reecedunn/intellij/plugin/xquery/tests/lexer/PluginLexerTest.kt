@@ -220,16 +220,16 @@ class PluginLexerTest : LexerTestCase() {
     fun forwardAxis() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "child", XQueryTokenType.K_CHILD)
-        matchSingleToken(lexer, "descendant", XQueryTokenType.K_DESCENDANT)
-        matchSingleToken(lexer, "descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF)
-        matchSingleToken(lexer, "following", XQueryTokenType.K_FOLLOWING)
-        matchSingleToken(lexer, "following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING)
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "property", XQueryTokenType.K_PROPERTY)
-        matchSingleToken(lexer, "self", XQueryTokenType.K_SELF)
-        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR)
+        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
+        matchSingleToken(lexer, "child", XPathTokenType.K_CHILD)
+        matchSingleToken(lexer, "descendant", XPathTokenType.K_DESCENDANT)
+        matchSingleToken(lexer, "descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
+        matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
+        matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE) // XPath and MarkLogic
+        matchSingleToken(lexer, "property", XQueryTokenType.K_PROPERTY) // MarkLogic
+        matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
+        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
