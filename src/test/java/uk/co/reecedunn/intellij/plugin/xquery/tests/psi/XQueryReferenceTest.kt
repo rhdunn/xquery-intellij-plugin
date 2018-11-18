@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiReference
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -27,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

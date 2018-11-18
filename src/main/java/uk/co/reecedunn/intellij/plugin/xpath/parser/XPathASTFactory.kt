@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 
 class XPathASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)

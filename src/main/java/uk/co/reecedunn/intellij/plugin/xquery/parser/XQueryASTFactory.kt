@@ -21,11 +21,11 @@ import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.PsiCommentImpl
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryCharRefImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryPredefinedEntityRefImpl
 

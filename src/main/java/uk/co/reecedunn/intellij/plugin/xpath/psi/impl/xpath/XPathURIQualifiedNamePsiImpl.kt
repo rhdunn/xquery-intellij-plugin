@@ -23,12 +23,11 @@ import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 
 class XPathURIQualifiedNamePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
