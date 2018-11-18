@@ -132,6 +132,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
                 }
             }
+            CharacterClass.HYPHEN_MINUS -> {
+                mTokenRange.match()
+                mType = XPathTokenType.MINUS
+            }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
@@ -167,6 +171,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 } else {
                     mType = XPathTokenType.PARENTHESIS_OPEN
                 }
+            }
+            CharacterClass.PLUS -> {
+                mTokenRange.match()
+                mType = XPathTokenType.PLUS
             }
             CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
                 mTokenRange.match()

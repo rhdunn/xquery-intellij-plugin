@@ -26,6 +26,8 @@ object XPathTokenType {
     val VARIABLE_INDICATOR = IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 2.0
     val PARENTHESIS_OPEN = IElementType("XQUERY_PARENTHESIS_OPEN_TOKEN", XPath) // XPath 2.0
     val PARENTHESIS_CLOSE = IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XPath) // XPath 2.0
+    val PLUS = IElementType("XQUERY_PLUS_TOKEN", XPath) // XPath 2.0
+    val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords

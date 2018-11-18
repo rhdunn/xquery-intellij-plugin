@@ -510,11 +510,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (50) AdditiveExpr")
-    fun testAdditiveExpr() {
+    fun additiveExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "+", XQueryTokenType.PLUS)
-        matchSingleToken(lexer, "-", XQueryTokenType.MINUS)
+        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
+        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
     }
 
     @Test
@@ -587,17 +587,17 @@ class XQueryLexerTest : LexerTestCase() {
     fun testUnaryExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "+", XQueryTokenType.PLUS)
-        matchSingleToken(lexer, "-", XQueryTokenType.MINUS)
+        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
+        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
 
         lexer.start("++")
-        matchToken(lexer, "+", 0, 0, 1, XQueryTokenType.PLUS)
-        matchToken(lexer, "+", 0, 1, 2, XQueryTokenType.PLUS)
+        matchToken(lexer, "+", 0, 0, 1, XPathTokenType.PLUS)
+        matchToken(lexer, "+", 0, 1, 2, XPathTokenType.PLUS)
         matchToken(lexer, "", 0, 2, 2, null)
 
         lexer.start("--")
-        matchToken(lexer, "-", 0, 0, 1, XQueryTokenType.MINUS)
-        matchToken(lexer, "-", 0, 1, 2, XQueryTokenType.MINUS)
+        matchToken(lexer, "-", 0, 0, 1, XPathTokenType.MINUS)
+        matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
         matchToken(lexer, "", 0, 2, 2, null)
     }
 
@@ -1976,8 +1976,8 @@ class XQueryLexerTest : LexerTestCase() {
 
             // Unary Minus
             lexer.start("--")
-            matchToken(lexer, "-", 0, 0, 1, XQueryTokenType.MINUS)
-            matchToken(lexer, "-", 0, 1, 2, XQueryTokenType.MINUS)
+            matchToken(lexer, "-", 0, 0, 1, XPathTokenType.MINUS)
+            matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
             matchToken(lexer, "", 0, 2, 2, null)
 
             matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG)
@@ -2248,7 +2248,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
         matchSingleToken(lexer, "*", XQueryTokenType.STAR)
-        matchSingleToken(lexer, "+", XQueryTokenType.PLUS)
+        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
     }
 
     @Test

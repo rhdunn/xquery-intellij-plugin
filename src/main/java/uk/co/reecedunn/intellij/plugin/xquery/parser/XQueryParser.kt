@@ -3425,7 +3425,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseMultiplicativeExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveAdditativeExpr = false
-            while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
+            while (matchTokenType(XPathTokenType.PLUS) || matchTokenType(XPathTokenType.MINUS)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseMultiplicativeExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "MultiplicativeExpr"))
@@ -3708,7 +3708,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseUnaryExpr(type: IElementType?): Boolean {
         val pathExprMarker = mark()
         var matched = false
-        while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
+        while (matchTokenType(XPathTokenType.PLUS) || matchTokenType(XPathTokenType.MINUS)) {
             parseWhiteSpaceAndCommentTokens()
             matched = true
         }
@@ -6142,7 +6142,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     private fun parseOccurrenceIndicator(): Boolean {
         return matchTokenType(XQueryTokenType.OPTIONAL) ||
                 matchTokenType(XQueryTokenType.STAR) ||
-                matchTokenType(XQueryTokenType.PLUS)
+                matchTokenType(XPathTokenType.PLUS)
     }
 
     private fun parseParenthesizedSequenceType(): Boolean {

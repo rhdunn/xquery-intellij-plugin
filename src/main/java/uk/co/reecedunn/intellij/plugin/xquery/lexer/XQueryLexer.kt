@@ -446,7 +446,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.PLUS -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.PLUS
+                mType = XPathTokenType.PLUS
             }
             CharacterClass.COMMA -> {
                 mTokenRange.match()
@@ -463,10 +463,10 @@ class XQueryLexer : XPathLexer() {
                         XQueryTokenType.XML_COMMENT_END_TAG
                     } else {
                         mTokenRange.restore()
-                        XQueryTokenType.MINUS
+                        XPathTokenType.MINUS
                     }
                 } else {
-                    XQueryTokenType.MINUS
+                    XPathTokenType.MINUS
                 }
             }
             CharacterClass.SEMICOLON -> {
