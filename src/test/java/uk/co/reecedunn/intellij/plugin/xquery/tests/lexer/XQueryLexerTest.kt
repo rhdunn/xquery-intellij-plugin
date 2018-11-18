@@ -539,11 +539,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (53) IntersectExceptExpr")
-    fun testIntersectExceptExpr() {
+    fun intersectExceptExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "intersect", XQueryTokenType.K_INTERSECT)
-        matchSingleToken(lexer, "except", XQueryTokenType.K_EXCEPT)
+        matchSingleToken(lexer, "intersect", XPathTokenType.K_INTERSECT)
+        matchSingleToken(lexer, "except", XPathTokenType.K_EXCEPT)
     }
 
     @Test

@@ -36,10 +36,12 @@ private val KEYWORDS = mapOf(
     "div" to XPathTokenType.K_DIV, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
+    "except" to XPathTokenType.K_EXCEPT, // XPath 2.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
     "idiv" to XPathTokenType.K_IDIV, // XPath 2.0
     "if" to XPathTokenType.K_IF, // XPath 2.0
     "in" to XPathTokenType.K_IN, // XPath 2.0
+    "intersect" to XPathTokenType.K_INTERSECT, // XPath 2.0
     "mod" to XPathTokenType.K_MOD, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0

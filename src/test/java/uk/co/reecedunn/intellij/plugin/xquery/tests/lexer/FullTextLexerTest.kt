@@ -340,7 +340,7 @@ class FullTextLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
-        matchSingleToken(lexer, "except", XQueryTokenType.K_EXCEPT)
+        matchSingleToken(lexer, "except", XPathTokenType.K_EXCEPT)
     }
 
     @Test

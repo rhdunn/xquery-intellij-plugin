@@ -171,7 +171,6 @@ object XQueryTokenType {
     val K_EQ = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EQ", XQuery)
     val K_ENTIRE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENTIRE", XQuery) // Full Text 1.0
     val K_EXACTLY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXACTLY", XQuery) // Full Text 1.0
-    val K_EXCEPT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXCEPT", XQuery)
     val K_EXIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXIT", XQuery) // Scripting Extension 1.0
     val K_EXPONENT_SEPARATOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR", XQuery) // XQuery 3.1
     val K_EXTERNAL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXTERNAL", XQuery)
@@ -197,7 +196,6 @@ object XQueryTokenType {
     val K_INSENSITIVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSENSITIVE", XQuery) // Full Text 1.0
     val K_INSERT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT", XQuery) // Update Facility 1.0
     val K_INSTANCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSTANCE", XQuery)
-    val K_INTERSECT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTERSECT", XQuery)
     val K_INTO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTO", XQuery) // Update Facility 1.0
     val K_INVOKE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE", XQuery) // Update Facility 3.0
     val K_IS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS", XQuery)

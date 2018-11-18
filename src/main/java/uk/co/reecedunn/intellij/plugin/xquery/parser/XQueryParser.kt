@@ -3499,7 +3499,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseInstanceofExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveIntersectExceptExpr = false
-            while (matchTokenType(XQueryTokenType.K_INTERSECT) || matchTokenType(XQueryTokenType.K_EXCEPT)) {
+            while (matchTokenType(XPathTokenType.K_INTERSECT) || matchTokenType(XPathTokenType.K_EXCEPT)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseInstanceofExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "InstanceofExpr"))
@@ -5915,7 +5915,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseFTStopWordsInclExcl(): Boolean {
-        val stopWordsInclExclMarker = matchTokenTypeWithMarker(XPathTokenType.K_UNION, XQueryTokenType.K_EXCEPT)
+        val stopWordsInclExclMarker = matchTokenTypeWithMarker(XPathTokenType.K_UNION, XPathTokenType.K_EXCEPT)
         if (stopWordsInclExclMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseFTStopWords()) {

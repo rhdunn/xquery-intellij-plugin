@@ -111,7 +111,6 @@ private val KEYWORDS = mapOf(
         "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0
         "eq" to XQueryTokenType.K_EQ,
         "exactly" to XQueryTokenType.K_EXACTLY, // Full Text 1.0
-        "except" to XQueryTokenType.K_EXCEPT,
         "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
         "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
         "external" to XQueryTokenType.K_EXTERNAL,
@@ -137,7 +136,6 @@ private val KEYWORDS = mapOf(
         "insensitive" to XQueryTokenType.K_INSENSITIVE, // Full Text 1.0
         "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
         "instance" to XQueryTokenType.K_INSTANCE,
-        "intersect" to XQueryTokenType.K_INTERSECT,
         "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
         "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
         "is" to XQueryTokenType.K_IS,
