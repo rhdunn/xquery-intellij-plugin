@@ -50,14 +50,14 @@ class SyntaxHighlighterTest {
     fun testTokenHighlights_Comment() {
         val highlighter = SyntaxHighlighter()
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_START_TAG).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_START_TAG)[0], `is`(SyntaxHighlighter.COMMENT))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_START_TAG).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_START_TAG)[0], `is`(SyntaxHighlighter.COMMENT))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT)[0], `is`(SyntaxHighlighter.COMMENT))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT)[0], `is`(SyntaxHighlighter.COMMENT))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_END_TAG).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_END_TAG)[0], `is`(SyntaxHighlighter.COMMENT))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_END_TAG).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_END_TAG)[0], `is`(SyntaxHighlighter.COMMENT))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_START_TAG).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_START_TAG)[0], `is`(SyntaxHighlighter.COMMENT))

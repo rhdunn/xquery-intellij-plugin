@@ -7584,12 +7584,12 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (getTokenType() === XPathTokenType.WHITE_SPACE || getTokenType() === XQueryTokenType.XML_WHITE_SPACE) {
                 skipped = true
                 advanceLexer()
-            } else if (getTokenType() === XQueryTokenType.COMMENT_START_TAG) {
+            } else if (getTokenType() === XPathTokenType.COMMENT_START_TAG) {
                 skipped = true
                 val commentMarker = mark()
                 advanceLexer()
                 // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
-                if (getTokenType() === XQueryTokenType.COMMENT_END_TAG) {
+                if (getTokenType() === XPathTokenType.COMMENT_END_TAG) {
                     advanceLexer()
                     commentMarker.done(XQueryElementType.COMMENT)
                 } else {
@@ -7597,7 +7597,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                     commentMarker.done(XQueryElementType.COMMENT)
                     error(XQueryBundle.message("parser.error.incomplete-comment"))
                 }
-            } else if (getTokenType() === XQueryTokenType.COMMENT_END_TAG) {
+            } else if (getTokenType() === XPathTokenType.COMMENT_END_TAG) {
                 skipped = true
                 val errorMarker = mark()
                 advanceLexer()

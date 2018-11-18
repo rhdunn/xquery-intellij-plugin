@@ -37,7 +37,7 @@ class XQueryASTFactory : ASTFactory() {
     override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? {
         if (type === XQueryTokenType.XML_WHITE_SPACE) {
             return XQueryDirWhiteSpaceImpl(text)
-        } else if (type === XQueryTokenType.COMMENT || type === XQueryTokenType.XML_COMMENT) {
+        } else if (type === XQueryTokenType.XML_COMMENT) {
             return PsiCommentImpl(type, text)
         } else if (type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE || type === XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE) {
             return XQueryPredefinedEntityRefImpl(type, text)

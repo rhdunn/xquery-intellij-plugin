@@ -18,17 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.STATE_DOUBLE_EXPONENT
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
 // region State Constants
 
 private const val STATE_STRING_LITERAL_QUOTE = 1
 private const val STATE_STRING_LITERAL_APOSTROPHE = 2
-const val STATE_XQUERY_COMMENT = 4
 private const val STATE_XML_COMMENT = 5
-private const val STATE_UNEXPECTED_END_OF_BLOCK = 6
 private const val STATE_CDATA_SECTION = 7
 private const val STATE_PRAGMA_PRE_QNAME = 8
 private const val STATE_PRAGMA_QNAME = 9
@@ -403,7 +399,7 @@ class XQueryLexer : XPathLexer() {
                 c = mTokenRange.codePoint
                 if (c == ':'.toInt()) {
                     mTokenRange.match()
-                    mType = XQueryTokenType.COMMENT_START_TAG
+                    mType = XPathTokenType.COMMENT_START_TAG
                     pushState(STATE_XQUERY_COMMENT)
                 } else if (c == '#'.toInt()) {
                     mTokenRange.match()
@@ -422,7 +418,7 @@ class XQueryLexer : XPathLexer() {
                 c = mTokenRange.codePoint
                 mType = if (c == ')'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.COMMENT_END_TAG
+                    XPathTokenType.COMMENT_END_TAG
                 } else if (c == ':'.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.AXIS_SEPARATOR
@@ -740,56 +736,6 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateXQueryComment() {
-        var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-            return
-        } else if (c == ':'.toInt()) {
-            mTokenRange.save()
-            mTokenRange.match()
-            if (mTokenRange.codePoint == ')'.toInt()) {
-                mTokenRange.match()
-                mType = XQueryTokenType.COMMENT_END_TAG
-                popState()
-                return
-            } else {
-                mTokenRange.restore()
-            }
-        }
-
-        var depth = 1
-        while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
-                mTokenRange.match()
-                mType = XQueryTokenType.COMMENT
-                popState()
-                pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                return
-            } else if (c == '('.toInt()) {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == ':'.toInt()) {
-                    mTokenRange.match()
-                    ++depth
-                }
-            } else if (c == ':'.toInt()) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == ')'.toInt()) {
-                    mTokenRange.match()
-                    if (--depth == 0) {
-                        mTokenRange.restore()
-                        mType = XQueryTokenType.COMMENT
-                        return
-                    }
-                }
-            } else {
-                mTokenRange.match()
-            }
-            c = mTokenRange.codePoint
-        }
-    }
-
     private fun stateXmlComment() {
         var c = mTokenRange.codePoint
         if (c == CodePointRange.END_OF_BUFFER) {
@@ -836,11 +782,6 @@ class XQueryLexer : XPathLexer() {
             }
             c = mTokenRange.codePoint
         }
-    }
-
-    private fun stateUnexpectedEndOfBlock() {
-        mType = XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-        popState()
     }
 
     private fun stateCDataSection() {
@@ -1535,9 +1476,7 @@ class XQueryLexer : XPathLexer() {
             STATE_DEFAULT, STATE_DEFAULT_ATTRIBUTE_QUOT, STATE_DEFAULT_ATTRIBUTE_APOSTROPHE, STATE_DEFAULT_ELEM_CONTENT, STATE_DEFAULT_STRING_INTERPOLATION, STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
             STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
             STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
-            STATE_XQUERY_COMMENT -> stateXQueryComment()
             STATE_XML_COMMENT, STATE_XML_COMMENT_ELEM_CONTENT -> stateXmlComment()
-            STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
             STATE_CDATA_SECTION, STATE_CDATA_SECTION_ELEM_CONTENT -> stateCDataSection()
             STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
             STATE_PRAGMA_QNAME -> statePragmaQName()

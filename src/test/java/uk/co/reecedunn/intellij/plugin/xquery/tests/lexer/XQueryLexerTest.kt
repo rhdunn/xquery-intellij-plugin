@@ -700,7 +700,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
         matchToken(lexer, " ", 9, 5, 6, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "2", 10, 6, 7, XQueryTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "", 6, 7, 7, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+        matchToken(lexer, "", 6, 7, 7, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
         matchToken(lexer, "", 0, 7, 7, null)
 
         lexer.start("(#let ")
@@ -720,7 +720,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "(#", 0, 0, 2, XQueryTokenType.PRAGMA_BEGIN)
         matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
         matchToken(lexer, "~~~", 9, 5, 8, XQueryTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "", 6, 8, 8, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+        matchToken(lexer, "", 6, 8, 8, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
         matchToken(lexer, "", 0, 8, 8, null)
 
         lexer.start("(#:let 2#)")
@@ -741,7 +741,7 @@ class XQueryLexerTest : LexerTestCase() {
         lexer.start("(#~~~")
         matchToken(lexer, "(#", 0, 0, 2, XQueryTokenType.PRAGMA_BEGIN)
         matchToken(lexer, "~~~", 8, 2, 5, XQueryTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "", 6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+        matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
         matchToken(lexer, "", 0, 5, 5, null)
     }
 
@@ -1723,7 +1723,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "a", 23, 2, 3, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 23, 3, 4, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "?", 24, 4, 5, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
-            matchToken(lexer, "", 6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 17, 5, 5, null)
 
             lexer.start("<?a ", 0, 4, 17)
@@ -1985,13 +1985,13 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<!-- Test")
             matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
             matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 9, 9, null)
 
             lexer.start("<!-- Test --")
             matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
             matchToken(lexer, " Test --", 5, 4, 12, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 12, 12, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 12, 12, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 12, 12, null)
 
             lexer.start("<!-- Test -->")
@@ -2009,13 +2009,13 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<!---")
             matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
             matchToken(lexer, "-", 5, 4, 5, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 5, 5, null)
 
             lexer.start("<!----")
             matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
             matchToken(lexer, "--", 5, 4, 6, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 6, 6, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 6, 6, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 6, 6, null)
         }
 
@@ -2026,7 +2026,7 @@ class XQueryLexerTest : LexerTestCase() {
 
             lexer.start("<!-- Test", 4, 9, 5)
             matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 9, 9, null)
 
             lexer.start("<!-- Test -->", 4, 13, 5)
@@ -2072,7 +2072,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchToken(lexer, "a", 21, 2, 3, XPathTokenType.NCNAME)
         matchToken(lexer, " ", 21, 3, 4, XPathTokenType.WHITE_SPACE)
         matchToken(lexer, "?", 22, 4, 5, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
-        matchToken(lexer, "", 6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+        matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
         matchToken(lexer, "", 0, 5, 5, null)
 
         lexer.start("<?a ")
@@ -2112,13 +2112,13 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<![CDATA[ Test")
             matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
             matchToken(lexer, " Test", 7, 9, 14, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 14, 14, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 14, 14, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 14, 14, null)
 
             lexer.start("<![CDATA[ Test ]]")
             matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
             matchToken(lexer, " Test ]]", 7, 9, 17, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 17, 17, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 17, 17, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 17, 17, null)
 
             lexer.start("<![CDATA[ Test ]]>")
@@ -2136,13 +2136,13 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<![CDATA[]")
             matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
             matchToken(lexer, "]", 7, 9, 10, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 10, 10, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 10, 10, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 10, 10, null)
 
             lexer.start("<![CDATA[]]")
             matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
             matchToken(lexer, "]]", 7, 9, 11, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 11, 11, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 11, 11, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 11, 11, null)
         }
 
@@ -2153,7 +2153,7 @@ class XQueryLexerTest : LexerTestCase() {
 
             lexer.start("<![CDATA[ Test", 9, 14, 7)
             matchToken(lexer, " Test", 7, 9, 14, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 14, 14, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 14, 14, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 14, 14, null)
 
             lexer.start("<![CDATA[ Test ]]>", 9, 18, 7)
@@ -2826,66 +2826,66 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class Comment {
         @Test
         @DisplayName("comment")
-        fun testComment() {
+        fun comment() {
             val lexer = createLexer()
 
-            matchSingleToken(lexer, "(:", 4, XQueryTokenType.COMMENT_START_TAG)
-            matchSingleToken(lexer, ":)", 0, XQueryTokenType.COMMENT_END_TAG)
+            matchSingleToken(lexer, "(:", 4, XPathTokenType.COMMENT_START_TAG)
+            matchSingleToken(lexer, ":)", 0, XPathTokenType.COMMENT_END_TAG)
 
             lexer.start("(: Test :")
-            matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
+            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 9, 9, null)
 
             lexer.start("(: Test :)")
-            matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Test ", 4, 2, 8, XQueryTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, "", 0, 10, 10, null)
 
             lexer.start("(::Test::)")
-            matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-            matchToken(lexer, ":Test:", 4, 2, 8, XQueryTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, ":Test:", 4, 2, 8, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, "", 0, 10, 10, null)
 
             lexer.start("(:\nMultiline\nComment\n:)")
-            matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-            matchToken(lexer, "\nMultiline\nComment\n", 4, 2, 21, XQueryTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 21, 23, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, "\nMultiline\nComment\n", 4, 2, 21, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 21, 23, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, "", 0, 23, 23, null)
 
             lexer.start("(: Outer (: Inner :) Outer :)")
-            matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Outer (: Inner :) Outer ", 4, 2, 27, XQueryTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 27, 29, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Outer (: Inner :) Outer ", 4, 2, 27, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 27, 29, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, "", 0, 29, 29, null)
 
             lexer.start("(: Outer ( : Inner :) Outer :)")
-            matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Outer ( : Inner ", 4, 2, 19, XQueryTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 19, 21, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Outer ( : Inner ", 4, 2, 19, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 19, 21, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, " ", 0, 21, 22, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "Outer", 0, 22, 27, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0, 27, 28, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ":)", 0, 28, 30, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, ":)", 0, 28, 30, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, "", 0, 30, 30, null)
         }
 
         @Test
         @DisplayName("initial state")
-        fun testComment_InitialState() {
+        fun initialState() {
             val lexer = createLexer()
 
             lexer.start("(: Test :", 2, 9, 4)
-            matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
+            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 9, 9, null)
 
             lexer.start("(: Test :)", 2, 10, 4)
-            matchToken(lexer, " Test ", 4, 2, 8, XQueryTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XQueryTokenType.COMMENT_END_TAG)
+            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
             matchToken(lexer, "", 0, 10, 10, null)
         }
     }
@@ -3365,7 +3365,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "D", 31, 11, 12, XQueryTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "}", 31, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END)
             matchToken(lexer, "}E}", 9, 13, 16, XQueryTokenType.PRAGMA_CONTENTS)
-            matchToken(lexer, "", 6, 16, 16, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 6, 16, 16, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
             matchToken(lexer, "", 0, 16, 16, null)
         }
 
@@ -3623,13 +3623,13 @@ class XQueryLexerTest : LexerTestCase() {
         lexer.start("``[")
         matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
         matchToken(lexer, "", 27, 3, 3, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-        matchToken(lexer, "", 6, 3, 3, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+        matchToken(lexer, "", 6, 3, 3, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
         matchToken(lexer, "", 0, 3, 3, null)
 
         lexer.start("``[One]Two]`")
         matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
         matchToken(lexer, "One]Two]`", 27, 3, 12, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-        matchToken(lexer, "", 6, 12, 12, XQueryTokenType.UNEXPECTED_END_OF_BLOCK)
+        matchToken(lexer, "", 6, 12, 12, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
         matchToken(lexer, "", 0, 12, 12, null)
 
         lexer.start("``[One]Two]``")

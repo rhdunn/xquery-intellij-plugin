@@ -19,13 +19,14 @@ import com.intellij.lang.BracePair
 import com.intellij.lang.PairedBraceMatcher
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 private val BRACE_PAIRS = arrayOf(
     BracePair(XQueryTokenType.BLOCK_OPEN, XQueryTokenType.BLOCK_CLOSE, true), // { ... }
     BracePair(XQueryTokenType.SQUARE_OPEN, XQueryTokenType.SQUARE_CLOSE, false), // [ ... ]
     BracePair(XQueryTokenType.PARENTHESIS_OPEN, XQueryTokenType.PARENTHESIS_CLOSE, false), // ( ... )
-    BracePair(XQueryTokenType.COMMENT_START_TAG, XQueryTokenType.COMMENT_END_TAG, false), // (: ... :)
+    BracePair(XPathTokenType.COMMENT_START_TAG, XPathTokenType.COMMENT_END_TAG, false), // (: ... :)
     BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG, false), // < ... />
     BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.END_XML_TAG, false), // < ... >
     BracePair(XQueryTokenType.CLOSE_XML_TAG, XQueryTokenType.END_XML_TAG, false), // </ ... >

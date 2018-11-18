@@ -19,6 +19,7 @@ import com.intellij.lang.ASTFactory
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import com.intellij.psi.impl.source.tree.PsiCommentImpl
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
@@ -34,6 +35,7 @@ class XPathASTFactory : ASTFactory() {
             XPathTokenType.INTEGER_LITERAL -> XPathIntegerLiteralImpl(type, text)
             XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
             XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
+            XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
             XPathTokenType.NCNAME -> XmlNCNameImpl(type, text)
             else -> LeafPsiElement(type, text)
         }

@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 // region State Constants
 
 const val STATE_DOUBLE_EXPONENT = 3
+const val STATE_XQUERY_COMMENT = 4
+const val STATE_UNEXPECTED_END_OF_BLOCK = 6
 
 // endregion
 
@@ -32,9 +35,24 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
+            CharacterClass.PARENTHESIS_OPEN -> {
+                mTokenRange.match()
+                c = mTokenRange.codePoint
+                if (c == ':'.toInt()) {
+                    mTokenRange.match()
+                    mType = XPathTokenType.COMMENT_START_TAG
+                    pushState(STATE_XQUERY_COMMENT)
+                }
+            }
             CharacterClass.COLON -> {
                 mTokenRange.match()
-                mType = XPathTokenType.QNAME_SEPARATOR
+                c = mTokenRange.codePoint
+                mType = if (c == ')'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.COMMENT_END_TAG
+                } else {
+                    XPathTokenType.QNAME_SEPARATOR
+                }
             }
             CharacterClass.DOT -> {
                 mTokenRange.match()
@@ -132,6 +150,61 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         popState()
     }
 
+    private fun stateXQueryComment() {
+        var c = mTokenRange.codePoint
+        if (c == CodePointRange.END_OF_BUFFER) {
+            mType = null
+            return
+        } else if (c == ':'.toInt()) {
+            mTokenRange.save()
+            mTokenRange.match()
+            if (mTokenRange.codePoint == ')'.toInt()) {
+                mTokenRange.match()
+                mType = XPathTokenType.COMMENT_END_TAG
+                popState()
+                return
+            } else {
+                mTokenRange.restore()
+            }
+        }
+
+        var depth = 1
+        while (true) {
+            if (c == CodePointRange.END_OF_BUFFER) {
+                mTokenRange.match()
+                mType = XPathTokenType.COMMENT
+                popState()
+                pushState(STATE_UNEXPECTED_END_OF_BLOCK)
+                return
+            } else if (c == '('.toInt()) {
+                mTokenRange.match()
+                if (mTokenRange.codePoint == ':'.toInt()) {
+                    mTokenRange.match()
+                    ++depth
+                }
+            } else if (c == ':'.toInt()) {
+                mTokenRange.save()
+                mTokenRange.match()
+                if (mTokenRange.codePoint == ')'.toInt()) {
+                    mTokenRange.match()
+                    if (--depth == 0) {
+                        mTokenRange.restore()
+                        mType = XPathTokenType.COMMENT
+                        return
+                    }
+                }
+            } else {
+                mTokenRange.match()
+            }
+            c = mTokenRange.codePoint
+        }
+    }
+
+    private fun stateUnexpectedEndOfBlock() {
+        mType = XPathTokenType.UNEXPECTED_END_OF_BLOCK
+        popState()
+    }
+
     // endregion
     // region Lexer
 
@@ -139,6 +212,8 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         when (nextState()) {
             STATE_DEFAULT -> stateDefault()
             STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
+            STATE_XQUERY_COMMENT -> stateXQueryComment()
+            STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
             else -> throw AssertionError("Invalid state: $state")
         }
     }

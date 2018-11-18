@@ -63,12 +63,12 @@ object XQueryFileType : LanguageFileType(XQuery) {
             matched = if (lexer.tokenType === XPathTokenType.WHITE_SPACE) {
                 lexer.advance()
                 true
-            } else if (lexer.tokenType === XQueryTokenType.COMMENT_START_TAG) {
+            } else if (lexer.tokenType === XPathTokenType.COMMENT_START_TAG) {
                 lexer.advance()
-                if (lexer.tokenType === XQueryTokenType.COMMENT) {
+                if (lexer.tokenType === XPathTokenType.COMMENT) {
                     lexer.advance()
                 }
-                if (lexer.tokenType === XQueryTokenType.COMMENT_END_TAG) {
+                if (lexer.tokenType === XPathTokenType.COMMENT_END_TAG) {
                     lexer.advance()
                 }
                 true

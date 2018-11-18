@@ -258,6 +258,75 @@ class XPathLexerTest : LexerTestCase() {
         }
     }
 
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+    internal inner class Comment {
+        @Test
+        @DisplayName("comment")
+        fun comment() {
+            val lexer = createLexer()
+
+            matchSingleToken(lexer, "(:", 4, XPathTokenType.COMMENT_START_TAG)
+            matchSingleToken(lexer, ":)", 0, XPathTokenType.COMMENT_END_TAG)
+
+            lexer.start("(: Test :")
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
+            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 0, 9, 9, null)
+
+            lexer.start("(: Test :)")
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "", 0, 10, 10, null)
+
+            lexer.start("(::Test::)")
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, ":Test:", 4, 2, 8, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "", 0, 10, 10, null)
+
+            lexer.start("(:\nMultiline\nComment\n:)")
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, "\nMultiline\nComment\n", 4, 2, 21, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 21, 23, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "", 0, 23, 23, null)
+
+            lexer.start("(: Outer (: Inner :) Outer :)")
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Outer (: Inner :) Outer ", 4, 2, 27, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 27, 29, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "", 0, 29, 29, null)
+
+            lexer.start("(: Outer ( : Inner :) Outer :)")
+            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
+            matchToken(lexer, " Outer ( : Inner ", 4, 2, 19, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 19, 21, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, " ", 0, 21, 22, XPathTokenType.WHITE_SPACE)
+            matchToken(lexer, "Outer", 0, 22, 27, XPathTokenType.NCNAME)
+            matchToken(lexer, " ", 0, 27, 28, XPathTokenType.WHITE_SPACE)
+            matchToken(lexer, ":)", 0, 28, 30, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "", 0, 30, 30, null)
+        }
+
+        @Test
+        @DisplayName("initial state")
+        fun initialState() {
+            val lexer = createLexer()
+
+            lexer.start("(: Test :", 2, 9, 4)
+            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
+            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            matchToken(lexer, "", 0, 9, 9, null)
+
+            lexer.start("(: Test :)", 2, 10, 4)
+            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
+            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
+            matchToken(lexer, "", 0, 10, 10, null)
+        }
+    }
+
     @Test
     @DisplayName("XPath 2.0 EBNF (78) QName ; Namespaces in XML 1.0 EBNF (7) QName")
     fun qname() {

@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
@@ -25,12 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 object XQueryTokenType {
-    val UNEXPECTED_END_OF_BLOCK = IElementType("XQUERY_UNEXPECTED_END_OF_BLOCK_TOKEN", XQuery)
-
-    val COMMENT = IElementType("XQUERY_COMMENT_TOKEN", XQuery)
-    val COMMENT_START_TAG = IElementType("XQUERY_COMMENT_START_TAG_TOKEN", XQuery)
-    val COMMENT_END_TAG = IElementType("XQUERY_COMMENT_END_TAG_TOKEN", XQuery)
-
     val XML_COMMENT = IElementType("XQUERY_XML_COMMENT_TOKEN", XQuery)
     val XML_COMMENT_START_TAG = IElementType("XQUERY_XML_COMMENT_START_TAG_TOKEN", XQuery)
     val XML_COMMENT_END_TAG = IElementType("XQUERY_XML_COMMENT_END_TAG_TOKEN", XQuery)
@@ -367,7 +360,7 @@ object XQueryTokenType {
 
     val COMMENT_TOKENS = TokenSet.create(
         XQDocTokenType.CONTENTS,
-        COMMENT,
+        XPathTokenType.COMMENT,
         XML_COMMENT
     )
 

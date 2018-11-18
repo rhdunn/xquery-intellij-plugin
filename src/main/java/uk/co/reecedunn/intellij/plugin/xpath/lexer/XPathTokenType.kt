@@ -26,8 +26,14 @@ object XPathTokenType {
     val INTEGER_LITERAL = IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XPath) // XPath 2.0
     val DECIMAL_LITERAL = IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XPath) // XPath 2.0
     val DOUBLE_LITERAL = IElementType("XQUERY_DOUBLE_LITERAL_TOKEN", XPath) // XPath 2.0
-    val PARTIAL_DOUBLE_LITERAL_EXPONENT = IElementType("XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN", XPath) // XPath 2.0 (error reporting & recovery)
+
+    val COMMENT = IElementType("XQUERY_COMMENT_TOKEN", XPath) // XPath 2.0
+    val COMMENT_START_TAG = IElementType("XQUERY_COMMENT_START_TAG_TOKEN", XPath) // XPath 2.0
+    val COMMENT_END_TAG = IElementType("XQUERY_COMMENT_END_TAG_TOKEN", XPath) // XPath 2.0
 
     val NCNAME: IElementType = INCNameType("XQUERY_NCNAME_TOKEN", XPath) // Namespaces in XML 1.0
     val QNAME_SEPARATOR = IElementType("XQUERY_QNAME_SEPARATOR_TOKEN", XPath) // Namespaces in XML 1.0
+
+    val PARTIAL_DOUBLE_LITERAL_EXPONENT = IElementType("XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN", XPath) // Error reporting & recovery
+    val UNEXPECTED_END_OF_BLOCK = IElementType("XQUERY_UNEXPECTED_END_OF_BLOCK_TOKEN", XPath) // Error reporting & recovery
 }
