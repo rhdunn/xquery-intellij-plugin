@@ -45,7 +45,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
 
@@ -66,7 +66,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
     fun testInsertExprTargetChoice() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "first", XQueryTokenType.K_FIRST)
         matchSingleToken(lexer, "last", XQueryTokenType.K_LAST)
         matchSingleToken(lexer, "into", XQueryTokenType.K_INTO)
@@ -113,7 +113,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "rename", XQueryTokenType.K_RENAME)
         matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test

@@ -33,6 +33,7 @@ const val STATE_BRACED_URI_LITERAL = 26
 
 private val KEYWORDS = mapOf(
     "and" to XPathTokenType.K_AND, // XPath 2.0
+    "as" to XPathTokenType.K_AS, // XPath 2.0
     "div" to XPathTokenType.K_DIV, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
@@ -51,6 +52,7 @@ private val KEYWORDS = mapOf(
     "some" to XPathTokenType.K_SOME, // XPath 2.0
     "then" to XPathTokenType.K_THEN, // XPath 2.0
     "to" to XPathTokenType.K_TO, // XPath 2.0
+    "treat" to XPathTokenType.K_TREAT, // XPath 2.0
     "union" to XPathTokenType.K_UNION // XPath 2.0
 )
 

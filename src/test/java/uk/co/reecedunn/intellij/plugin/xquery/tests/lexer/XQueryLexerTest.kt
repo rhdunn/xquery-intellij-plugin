@@ -318,7 +318,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
 
@@ -468,7 +468,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "case", XQueryTokenType.K_CASE)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
@@ -557,11 +557,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (55) TreatExpr")
-    fun testTreatExpr() {
+    fun treatExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "treat", XQueryTokenType.K_TREAT)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "treat", XPathTokenType.K_TREAT)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test
@@ -570,7 +570,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "castable", XQueryTokenType.K_CASTABLE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test
@@ -579,7 +579,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "cast", XQueryTokenType.K_CAST)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test
@@ -2228,7 +2228,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testTypeDeclaration() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test
@@ -3006,7 +3006,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "context", XQueryTokenType.K_CONTEXT)
         matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
     }
@@ -3258,7 +3258,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test
@@ -3291,7 +3291,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test

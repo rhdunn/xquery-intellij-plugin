@@ -252,7 +252,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
         matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }

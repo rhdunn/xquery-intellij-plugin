@@ -60,7 +60,6 @@ private val KEYWORDS = mapOf(
         "any" to XQueryTokenType.K_ANY, // Full Text 1.0
         "array" to XQueryTokenType.K_ARRAY, // XQuery 3.1
         "array-node" to XQueryTokenType.K_ARRAY_NODE, // MarkLogic 8.0
-        "as" to XQueryTokenType.K_AS,
         "ascending" to XQueryTokenType.K_ASCENDING,
         "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
         "at" to XQueryTokenType.K_AT,
@@ -226,7 +225,6 @@ private val KEYWORDS = mapOf(
         "thesaurus" to XQueryTokenType.K_THESAURUS, // Full Text 1.0
         "times" to XQueryTokenType.K_TIMES, // Full Text 1.0
         "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
-        "treat" to XQueryTokenType.K_TREAT,
         "try" to XQueryTokenType.K_TRY, // XQuery 3.0
         "tumbling" to XQueryTokenType.K_TUMBLING, // XQuery 3.0
         "tuple" to XQueryTokenType.K_TUPLE, // Saxon 9.8

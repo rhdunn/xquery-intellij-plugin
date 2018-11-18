@@ -947,7 +947,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_AS)) {
+            if (matchTokenType(XPathTokenType.K_AS)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseItemType()) {
                     error(XQueryBundle.message("parser.error.expected", "ItemType"))
@@ -1139,7 +1139,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_AS)) {
+            if (matchTokenType(XPathTokenType.K_AS)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseSequenceType()) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
@@ -2538,7 +2538,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_AS) && !haveErrors) {
+                if (!matchTokenType(XPathTokenType.K_AS) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "as"))
                     haveErrors = true
                 }
@@ -2813,7 +2813,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseInsertExprTargetChoice(): Boolean {
         val insertExprTargetChoiceMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_AS)) {
+        if (matchTokenType(XPathTokenType.K_AS)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -2957,7 +2957,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_AS) && !haveErrors) {
+            if (!matchTokenType(XPathTokenType.K_AS) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "as"))
                 haveErrors = true
             }
@@ -3556,11 +3556,11 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val treatExprMarker = mark()
         if (parseCastableExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_TREAT)) {
+            if (matchTokenType(XPathTokenType.K_TREAT)) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_AS)) {
+                if (!matchTokenType(XPathTokenType.K_AS)) {
                     haveErrors = true
                     error(XQueryBundle.message("parser.error.expected-keyword", "as"))
                 }
@@ -3570,7 +3570,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 }
                 treatExprMarker.done(XQueryElementType.TREAT_EXPR)
-            } else if (getTokenType() === XQueryTokenType.K_AS && type !== XQueryElementType.SOURCE_EXPR && type !== XQueryElementType.TARGET_EXPR) {
+            } else if (getTokenType() === XPathTokenType.K_AS && type !== XQueryElementType.SOURCE_EXPR && type !== XQueryElementType.TARGET_EXPR) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
                 advanceLexer()
 
@@ -3594,7 +3594,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_AS)) {
+                if (!matchTokenType(XPathTokenType.K_AS)) {
                     haveErrors = true
                     error(XQueryBundle.message("parser.error.expected-keyword", "as"))
                 }
@@ -3621,7 +3621,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_AS)) {
+                if (!matchTokenType(XPathTokenType.K_AS)) {
                     haveErrors = true
                     error(XQueryBundle.message("parser.error.expected-keyword", "as"))
                 }
@@ -3782,7 +3782,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var blockOpen = BlockOpen.REQUIRED
             if (matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT)) {
                 blockOpen = BlockOpen.OPTIONAL
-            } else if (matchTokenType(XQueryTokenType.K_AS) || matchTokenType(XQueryTokenType.K_TYPE)) {
+            } else if (matchTokenType(XPathTokenType.K_AS) || matchTokenType(XQueryTokenType.K_TYPE)) {
                 blockOpen = BlockOpen.OPTIONAL
 
                 parseWhiteSpaceAndCommentTokens()
@@ -4421,7 +4421,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_AS)) {
+            if (matchTokenType(XPathTokenType.K_AS)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseSequenceType()) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
@@ -6043,7 +6043,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     // region Grammar :: TypeDeclaration
 
     private fun parseTypeDeclaration(): Boolean {
-        if (matchTokenType(XQueryTokenType.K_AS)) {
+        if (matchTokenType(XPathTokenType.K_AS)) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseSequenceType()) {
                 error(XQueryBundle.message("parser.error.expected", "SequenceType"))
@@ -6406,7 +6406,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() === XQueryTokenType.K_AS) {
+            if (getTokenType() === XPathTokenType.K_AS) {
                 if (type === KindTest.ANY_TEST && !haveErrors) {
                     val errorMarker = mark()
                     advanceLexer()

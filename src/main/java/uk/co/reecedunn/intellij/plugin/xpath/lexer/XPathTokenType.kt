@@ -35,6 +35,7 @@ object XPathTokenType {
     // region Keywords
 
     val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XPath) // XPath 2.0
+    val K_AS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
     val K_DIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV", XPath) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0
     val K_EVERY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
@@ -52,6 +53,7 @@ object XPathTokenType {
     val K_SATISFIES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES", XPath) // XPath 2.0
     val K_SOME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME", XPath) // XPath 2.0
     val K_THEN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN", XPath) // XPath 2.0
+    val K_TREAT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT", XPath) // XPath 2.0
     val K_TO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0
     val K_UNION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNION", XPath) // XPath 2.0
 

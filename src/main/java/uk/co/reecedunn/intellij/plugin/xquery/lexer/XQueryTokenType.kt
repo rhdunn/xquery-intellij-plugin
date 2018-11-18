@@ -120,7 +120,6 @@ object XQueryTokenType {
     val K_ANY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANY", XQuery) // Full Text 1.0
     val K_ARRAY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY", XQuery) // XQuery 3.1
     val K_ARRAY_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
-    val K_AS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS", XQuery)
     val K_ASCENDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASCENDING", XQuery)
     val K_ASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE", XQuery) // Scripting Extension 1.0
     val K_AT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT", XQuery)
@@ -286,7 +285,6 @@ object XQueryTokenType {
     val K_THESAURUS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THESAURUS", XQuery) // Full Text 1.0
     val K_TIMES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TIMES", XQuery) // Full Text 1.0
     val K_TRANSFORM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM", XQuery) // Update Facility 3.0
-    val K_TREAT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT", XQuery)
     val K_TRY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRY", XQuery) // XQuery 3.0
     val K_TUMBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUMBLING", XQuery) // XQuery 3.0
     val K_TUPLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUPLE", XQuery) // Saxon 9.8

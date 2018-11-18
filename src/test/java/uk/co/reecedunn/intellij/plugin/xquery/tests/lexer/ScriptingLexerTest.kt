@@ -58,7 +58,7 @@ class ScriptingLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
 
         matchSingleToken(lexer, "sequential", XQueryTokenType.K_SEQUENTIAL)
