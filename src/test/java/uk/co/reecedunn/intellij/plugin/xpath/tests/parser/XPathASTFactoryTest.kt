@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - XPath ASTFactory")
 class XPathASTFactoryTest {
@@ -38,6 +37,6 @@ class XPathASTFactoryTest {
     @DisplayName("createLeaf")
     fun createLeaf() {
         val factory = XPathASTFactory()
-        assertThat(factory.createLeaf(XQueryTokenType.COMMA, ",")!!.javaClass.name, `is`(LeafPsiElement::class.java.name))
+        assertThat(factory.createLeaf(XPathTokenType.COMMA, ",")!!.javaClass.name, `is`(LeafPsiElement::class.java.name))
     }
 }

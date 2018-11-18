@@ -20,6 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
@@ -123,7 +124,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "copy", XQueryTokenType.K_COPY)
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY)
         matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
     }
@@ -155,7 +156,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "invoke", XQueryTokenType.K_INVOKE)
         matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 }

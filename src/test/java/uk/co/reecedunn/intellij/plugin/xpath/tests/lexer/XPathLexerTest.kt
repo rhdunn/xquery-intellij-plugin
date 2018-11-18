@@ -66,6 +66,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (2) Expr")
+    fun expr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
     @DisplayName("XML 1.0 EBNF (3) S")
     fun s() {
         val lexer = createLexer()

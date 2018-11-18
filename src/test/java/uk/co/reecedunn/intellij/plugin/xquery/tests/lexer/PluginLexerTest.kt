@@ -50,7 +50,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "some", XQueryTokenType.K_SOME)
         matchSingleToken(lexer, "every", XQueryTokenType.K_EVERY)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "satisfies", XQueryTokenType.K_SATISFIES)
     }
 
@@ -110,7 +110,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Test
@@ -181,7 +181,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -192,7 +192,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "union", XQueryTokenType.K_UNION)
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -203,7 +203,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "tuple", XQueryTokenType.K_TUPLE)
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -541,7 +541,7 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
         matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
 
@@ -680,7 +680,7 @@ class PluginLexerTest : LexerTestCase() {
     fun sequenceTypeList() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Test
@@ -723,7 +723,7 @@ class PluginLexerTest : LexerTestCase() {
     fun paramList() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "...", XQueryTokenType.ELLIPSIS)
     }
 }

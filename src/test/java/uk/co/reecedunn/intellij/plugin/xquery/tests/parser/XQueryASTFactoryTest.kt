@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 
@@ -37,6 +38,6 @@ class XQueryASTFactoryTest {
     @DisplayName("createLeaf")
     fun createLeaf() {
         val factory = XQueryASTFactory()
-        assertThat(factory.createLeaf(XQueryTokenType.COMMA, ",")!!.javaClass.name, `is`(LeafPsiElement::class.java.name))
+        assertThat(factory.createLeaf(XPathTokenType.COMMA, ",")!!.javaClass.name, `is`(LeafPsiElement::class.java.name))
     }
 }

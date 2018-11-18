@@ -77,7 +77,6 @@ object XQueryTokenType {
     val NOT_EQUAL = IElementType("XQUERY_NOT_EQUAL_TOKEN", XQuery)
     val VARIABLE_INDICATOR = IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XQuery)
     val STAR = IElementType("XQUERY_STAR_TOKEN", XQuery)
-    val COMMA = IElementType("XQUERY_COMMA_TOKEN", XQuery)
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XQuery)
     val DOT = IElementType("XQUERY_DOT_TOKEN", XQuery)
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery)

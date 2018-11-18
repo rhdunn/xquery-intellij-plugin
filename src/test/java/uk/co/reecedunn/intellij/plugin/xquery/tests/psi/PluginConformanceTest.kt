@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -1174,7 +1175,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.COMMA))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.COMMA))
     }
 
     @Nested

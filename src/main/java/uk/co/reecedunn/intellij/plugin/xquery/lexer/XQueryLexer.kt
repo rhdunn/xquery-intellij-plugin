@@ -461,7 +461,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.COMMA -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.COMMA
+                mType = XPathTokenType.COMMA
             }
             CharacterClass.HYPHEN_MINUS -> {
                 mTokenRange.match()

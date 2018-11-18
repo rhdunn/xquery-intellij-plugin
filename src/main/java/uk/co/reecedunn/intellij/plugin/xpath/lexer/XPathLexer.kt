@@ -38,15 +38,6 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
-            CharacterClass.PARENTHESIS_OPEN -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                if (c == ':'.toInt()) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.COMMENT_START_TAG
-                    pushState(STATE_XQUERY_COMMENT)
-                }
-            }
             CharacterClass.COLON -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
@@ -57,29 +48,17 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     XPathTokenType.QNAME_SEPARATOR
                 }
             }
-            CharacterClass.DOT -> {
+            CharacterClass.COMMA -> {
                 mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                    mTokenRange.match()
-                mType = XPathTokenType.DECIMAL_LITERAL
+                mType = XPathTokenType.COMMA
+            }
+            CharacterClass.PARENTHESIS_OPEN -> {
+                mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c == 'e'.toInt() || c == 'E'.toInt()) {
-                    mTokenRange.save()
+                if (c == ':'.toInt()) {
                     mTokenRange.match()
-                    c = mTokenRange.codePoint
-                    if (c == '+'.toInt() || c == '-'.toInt()) {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
-                        mTokenRange.match()
-                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                            mTokenRange.match()
-                        mType = XPathTokenType.DOUBLE_LITERAL
-                    } else {
-                        pushState(STATE_DOUBLE_EXPONENT)
-                        mTokenRange.restore()
-                    }
+                    mType = XPathTokenType.COMMENT_START_TAG
+                    pushState(STATE_XQUERY_COMMENT)
                 }
             }
             CharacterClass.DIGIT -> {
@@ -114,10 +93,30 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
                 }
             }
-            CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
+            CharacterClass.DOT -> {
                 mTokenRange.match()
-                mType = XPathTokenType.STRING_LITERAL_START
-                pushState(if (cc == CharacterClass.QUOTE) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
+                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                    mTokenRange.match()
+                mType = XPathTokenType.DECIMAL_LITERAL
+                c = mTokenRange.codePoint
+                if (c == 'e'.toInt() || c == 'E'.toInt()) {
+                    mTokenRange.save()
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                    if (c == '+'.toInt() || c == '-'.toInt()) {
+                        mTokenRange.match()
+                        c = mTokenRange.codePoint
+                    }
+                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
+                        mTokenRange.match()
+                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                            mTokenRange.match()
+                        mType = XPathTokenType.DOUBLE_LITERAL
+                    } else {
+                        pushState(STATE_DOUBLE_EXPONENT)
+                        mTokenRange.restore()
+                    }
+                }
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
@@ -139,6 +138,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
                     mType = XPathTokenType.NCNAME
                 }
+            }
+            CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
+                mTokenRange.match()
+                mType = XPathTokenType.STRING_LITERAL_START
+                pushState(if (cc == CharacterClass.QUOTE) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
             }
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()
