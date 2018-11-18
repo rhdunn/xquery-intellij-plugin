@@ -120,7 +120,6 @@ object XQueryTokenType {
     val K_ALLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALLOWING", XQuery) // XQuery 3.0
     val K_ANCESTOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR", XQuery)
     val K_ANCESTOR_OR_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF", XQuery)
-    val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XQuery)
     val K_ANDALSO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANDALSO", XQuery) // Saxon 9.9
     val K_ANY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANY", XQuery) // Full Text 1.0
     val K_ARRAY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY", XQuery) // XQuery 3.1

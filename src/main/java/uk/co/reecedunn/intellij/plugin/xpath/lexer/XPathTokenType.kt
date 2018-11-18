@@ -30,6 +30,7 @@ object XPathTokenType {
     // endregion
     // region Keywords
 
+    val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XPath) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0
     val K_EVERY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
     val K_FOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOR", XPath) // XPath 2.0

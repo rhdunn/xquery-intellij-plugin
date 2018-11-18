@@ -56,7 +56,6 @@ private val KEYWORDS = mapOf(
         "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
         "ancestor" to XQueryTokenType.K_ANCESTOR,
         "ancestor-or-self" to XQueryTokenType.K_ANCESTOR_OR_SELF,
-        "and" to XQueryTokenType.K_AND,
         "andAlso" to XQueryTokenType.K_ANDALSO, // Saxon 9.9
         "any" to XQueryTokenType.K_ANY, // Full Text 1.0
         "array" to XQueryTokenType.K_ARRAY, // XQuery 3.1

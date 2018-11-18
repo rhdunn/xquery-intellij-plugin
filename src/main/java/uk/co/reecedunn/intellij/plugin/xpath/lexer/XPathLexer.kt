@@ -32,6 +32,7 @@ const val STATE_BRACED_URI_LITERAL = 26
 // endregion
 
 private val KEYWORDS = mapOf(
+    "and" to XPathTokenType.K_AND, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0

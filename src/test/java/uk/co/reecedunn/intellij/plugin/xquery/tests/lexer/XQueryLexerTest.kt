@@ -494,10 +494,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (47) AndExpr")
-    fun testAndExpr() {
+    fun andExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "and", XQueryTokenType.K_AND)
+        matchSingleToken(lexer, "and", XPathTokenType.K_AND)
     }
 
     @Test
