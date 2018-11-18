@@ -160,6 +160,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (11) RangeExpr")
+    fun rangeExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

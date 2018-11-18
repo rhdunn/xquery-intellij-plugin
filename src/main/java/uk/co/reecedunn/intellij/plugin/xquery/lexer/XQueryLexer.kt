@@ -232,7 +232,6 @@ private val KEYWORDS = mapOf(
         "text" to XQueryTokenType.K_TEXT,
         "thesaurus" to XQueryTokenType.K_THESAURUS, // Full Text 1.0
         "times" to XQueryTokenType.K_TIMES, // Full Text 1.0
-        "to" to XQueryTokenType.K_TO,
         "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
         "treat" to XQueryTokenType.K_TREAT,
         "try" to XQueryTokenType.K_TRY, // XQuery 3.0

@@ -296,7 +296,6 @@ object XQueryTokenType {
     val K_TEXT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_THESAURUS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THESAURUS", XQuery) // Full Text 1.0
     val K_TIMES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TIMES", XQuery) // Full Text 1.0
-    val K_TO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO", XQuery)
     val K_TRANSFORM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM", XQuery) // Update Facility 3.0
     val K_TREAT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT", XQuery)
     val K_TRY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRY", XQuery) // XQuery 3.0

@@ -164,7 +164,7 @@ class FullTextLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "least", XQueryTokenType.K_LEAST)
         matchSingleToken(lexer, "most", XQueryTokenType.K_MOST)
         matchSingleToken(lexer, "from", XQueryTokenType.K_FROM)
-        matchSingleToken(lexer, "to", XQueryTokenType.K_TO)
+        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
     }
 
     @Test
@@ -308,7 +308,7 @@ class FullTextLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "most", XQueryTokenType.K_MOST)
 
         matchSingleToken(lexer, "from", XQueryTokenType.K_FROM)
-        matchSingleToken(lexer, "to", XQueryTokenType.K_TO)
+        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
     }
 
     @Test

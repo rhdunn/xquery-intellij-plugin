@@ -502,10 +502,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (49) RangeExpr")
-    fun testRangeExpr() {
+    fun rangeExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "to", XQueryTokenType.K_TO)
+        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
     }
 
     @Test

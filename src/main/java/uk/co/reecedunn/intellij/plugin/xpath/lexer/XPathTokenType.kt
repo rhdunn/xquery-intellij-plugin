@@ -41,6 +41,7 @@ object XPathTokenType {
     val K_SATISFIES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES", XPath) // XPath 2.0
     val K_SOME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME", XPath) // XPath 2.0
     val K_THEN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN", XPath) // XPath 2.0
+    val K_TO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0
 
     // endregion
     // region Terminal Symbols

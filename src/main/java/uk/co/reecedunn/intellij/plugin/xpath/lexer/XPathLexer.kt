@@ -42,7 +42,8 @@ private val KEYWORDS = mapOf(
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0
-    "then" to XPathTokenType.K_THEN // XPath 2.0
+    "then" to XPathTokenType.K_THEN, // XPath 2.0
+    "to" to XPathTokenType.K_TO // XPath 2.0
 )
 
 open class XPathLexer : LexerImpl(STATE_DEFAULT) {

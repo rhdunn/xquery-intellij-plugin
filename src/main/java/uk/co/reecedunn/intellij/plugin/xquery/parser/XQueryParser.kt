@@ -3405,7 +3405,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val rangeExprMarker = mark()
         if (parseAdditiveExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.K_TO)) {
+            if (matchTokenType(XPathTokenType.K_TO)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseAdditiveExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"))
@@ -5457,7 +5457,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_TO) && !haveError) {
+            if (!matchTokenType(XPathTokenType.K_TO) && !haveError) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "to"))
                 haveError = true
             }
