@@ -40,7 +40,7 @@ private val XQUERY10_WD_EMPTY: List<Version> = listOf(
 private val OCCURRENCE_INDICATOR = TokenSet.create(
     XPathTokenType.PLUS,
     XQueryTokenType.OPTIONAL,
-    XQueryTokenType.STAR
+    XPathTokenType.STAR
 )
 
 class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, XQueryConformance {

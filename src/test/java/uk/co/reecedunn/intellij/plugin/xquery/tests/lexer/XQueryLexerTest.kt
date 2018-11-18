@@ -519,13 +519,13 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (51) MultiplicativeExpr")
-    fun testMultiplicativeExpr() {
+    fun multiplicativeExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
-        matchSingleToken(lexer, "div", XQueryTokenType.K_DIV)
-        matchSingleToken(lexer, "idiv", XQueryTokenType.K_IDIV)
-        matchSingleToken(lexer, "mod", XQueryTokenType.K_MOD)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        matchSingleToken(lexer, "div", XPathTokenType.K_DIV)
+        matchSingleToken(lexer, "idiv", XPathTokenType.K_IDIV)
+        matchSingleToken(lexer, "mod", XPathTokenType.K_MOD)
     }
 
     @Test
@@ -812,7 +812,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testWildcard() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
     }
 
@@ -920,14 +920,14 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("<one:two/*/>")
             matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
             matchToken(lexer, "/", 0, 8, 9, XQueryTokenType.DIRECT_DESCENDANTS_PATH)
-            matchToken(lexer, "*", 0, 9, 10, XQueryTokenType.STAR)
+            matchToken(lexer, "*", 0, 9, 10, XPathTokenType.STAR)
             matchToken(lexer, "/>", 0, 10, 12, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 12, 12, null)
 
             lexer.start("<one:two//*/>")
             matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
             matchToken(lexer, "//", 0, 8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH)
-            matchToken(lexer, "*", 0, 10, 11, XQueryTokenType.STAR)
+            matchToken(lexer, "*", 0, 10, 11, XPathTokenType.STAR)
             matchToken(lexer, "/>", 0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 13, 13, null)
 
@@ -1109,7 +1109,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, ":", 0x50000000 or 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "two", 0x50000000 or 29, 5, 8, XPathTokenType.NCNAME)
             matchToken(lexer, "//", 0, 8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH)
-            matchToken(lexer, "*", 0, 10, 11, XQueryTokenType.STAR)
+            matchToken(lexer, "*", 0, 10, 11, XPathTokenType.STAR)
             matchToken(lexer, "/>", 0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG)
             matchToken(lexer, "", 0, 13, 13, null)
 
@@ -2247,7 +2247,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, "+", XPathTokenType.PLUS)
     }
 
@@ -2326,7 +2326,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testAttribNameOrWildcard() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
     }
 
     @Test
@@ -2355,7 +2355,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testElementNameOrWildcard() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
     }
 
     @Test
@@ -3278,7 +3278,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -3566,7 +3566,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testKeySpecifier() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
     }
 
     @Test
@@ -3718,7 +3718,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -3740,7 +3740,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 

@@ -3448,10 +3448,12 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseUnionExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveMultiplicativeExpr = false
-            while (matchTokenType(XQueryTokenType.STAR) ||
-                    matchTokenType(XQueryTokenType.K_DIV) ||
-                    matchTokenType(XQueryTokenType.K_IDIV) ||
-                    matchTokenType(XQueryTokenType.K_MOD)) {
+            while (
+                matchTokenType(XPathTokenType.STAR) ||
+                matchTokenType(XPathTokenType.K_DIV) ||
+                matchTokenType(XPathTokenType.K_IDIV) ||
+                matchTokenType(XPathTokenType.K_MOD)
+            ) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseUnionExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "UnionExpr"))
@@ -4486,11 +4488,12 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseKeySpecifier(): Boolean {
         val keySpecifierMarker = mark()
-        if (matchTokenType(XQueryTokenType.STAR) ||
-                matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-                parseEQName(XQueryElementType.NCNAME) ||
-                parseParenthesizedExpr()) {
-
+        if (
+            matchTokenType(XPathTokenType.STAR) ||
+            matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
+            parseEQName(XQueryElementType.NCNAME) ||
+            parseParenthesizedExpr()
+        ) {
             keySpecifierMarker.done(XQueryElementType.KEY_SPECIFIER)
             return true
         }
@@ -6141,7 +6144,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseOccurrenceIndicator(): Boolean {
         return matchTokenType(XQueryTokenType.OPTIONAL) ||
-                matchTokenType(XQueryTokenType.STAR) ||
+                matchTokenType(XPathTokenType.STAR) ||
                 matchTokenType(XPathTokenType.PLUS)
     }
 
@@ -6239,7 +6242,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (matchTokenType(XQueryTokenType.STAR)) {
+                if (matchTokenType(XPathTokenType.STAR)) {
                     isExtensible = true
                 } else if (!parseTupleField() && !haveError) {
                     error(XQueryBundle.message("parser.error.expected-either", "NCName", "*"))
@@ -6378,7 +6381,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.STAR)) {
+            if (matchTokenType(XPathTokenType.STAR)) {
                 //
             } else if (parseSequenceType()) {
                 type = KindTest.TYPED_TEST
@@ -6468,7 +6471,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.STAR)) {
+            if (matchTokenType(XPathTokenType.STAR)) {
                 type = XQueryElementType.ANY_MAP_TEST
             } else if (parseUnionType() || parseAtomicOrUnionType()) {
                 parseWhiteSpaceAndCommentTokens()
@@ -6524,7 +6527,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.STAR)) {
+            if (matchTokenType(XPathTokenType.STAR)) {
                 type = XQueryElementType.ANY_ARRAY_TEST
             } else if (parseSequenceType()) {
                 type = XQueryElementType.TYPED_ARRAY_TEST
@@ -6578,7 +6581,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // MarkLogic 8.0
                 type = XQueryElementType.NAMED_KIND_TEST
             } else {
-                matchTokenType(XQueryTokenType.STAR) // MarkLogic 8.0
+                matchTokenType(XPathTokenType.STAR) // MarkLogic 8.0
                 type = XQueryElementType.ANY_KIND_TEST
             }
 
@@ -6637,7 +6640,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 type = XQueryElementType.NAMED_TEXT_TEST
             } else {
                 type = XQueryElementType.ANY_TEXT_TEST
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0
+                errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -6754,7 +6757,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseAttribNameOrWildcard(): Boolean {
-        return matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ATTRIBUTE_NAME)
+        return matchTokenType(XPathTokenType.STAR) || parseEQName(XQueryElementType.ATTRIBUTE_NAME)
     }
 
     private fun parseSchemaAttributeTest(): Boolean {
@@ -6827,7 +6830,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseElementNameOrWildcard(): Boolean {
-        return matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)
+        return matchTokenType(XPathTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)
     }
 
     private fun parseSchemaElementTest(): Boolean {
@@ -7138,10 +7141,10 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 // array-node() tests in a document-node test do not allow `StringLiteral` or `*`
                 // tokens, but accept them here to recover when used incorrectly.
                 parseStringLiteral(XQueryElementType.STRING_LITERAL)
-                matchTokenType(XQueryTokenType.STAR)
+                matchTokenType(XPathTokenType.STAR)
             } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 type = XQueryElementType.NAMED_ARRAY_NODE_TEST
-            } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            } else if (errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
                 type = XQueryElementType.ANY_ARRAY_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
             } else {
@@ -7176,7 +7179,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 type = XQueryElementType.NAMED_BOOLEAN_NODE_TEST
             } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
+                errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
                 type = XQueryElementType.ANY_BOOLEAN_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
             } else {
@@ -7220,10 +7223,10 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 // object-node() tests in a document-node test do not allow `StringLiteral` or `*`
                 // tokens, but accept them here to recover when used incorrectly.
                 parseStringLiteral(XQueryElementType.STRING_LITERAL)
-                matchTokenType(XQueryTokenType.STAR)
+                matchTokenType(XPathTokenType.STAR)
             } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 type = XQueryElementType.NAMED_MAP_NODE_TEST
-            } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            } else if (errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
                 type = XQueryElementType.ANY_MAP_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
             } else {
@@ -7258,7 +7261,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 type = XQueryElementType.NAMED_NULL_NODE_TEST
             } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
+                errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
                 type = XQueryElementType.ANY_NULL_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
             } else {
@@ -7293,7 +7296,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 type = XQueryElementType.NAMED_NUMBER_NODE_TEST
             } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
+                errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
                 type = XQueryElementType.ANY_NUMBER_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
             } else {
@@ -7359,7 +7362,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
         val qnameMarker = mark()
-        var isWildcard = getTokenType() === XQueryTokenType.STAR
+        var isWildcard = getTokenType() === XPathTokenType.STAR
         if (getTokenType() is INCNameType || isWildcard) {
             // region QNameOrWildcardPrefix := (NCName | "*")
 
@@ -7450,7 +7453,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
                 if (getTokenType() is INCNameType) {
                     advanceLexer()
-                } else if (getTokenType() === XQueryTokenType.STAR) {
+                } else if (getTokenType() === XPathTokenType.STAR) {
                     if (type === XQueryElementType.WILDCARD) {
                         if (isWildcard) {
                             error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
@@ -7499,7 +7502,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             matchTokenType(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
         ) {
             parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() is INCNameType || getTokenType() === XQueryTokenType.STAR) {
+            if (getTokenType() is INCNameType || getTokenType() === XPathTokenType.STAR) {
                 advanceLexer()
             }
             if (type === XQueryElementType.NCNAME) {
@@ -7525,7 +7528,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseWildcardIndicator(): Boolean {
-        if (getTokenType() === XQueryTokenType.STAR) {
+        if (getTokenType() === XPathTokenType.STAR) {
             val marker = mark()
             advanceLexer()
             marker.done(XQueryElementType.WILDCARD_INDICATOR)
@@ -7564,7 +7567,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseBracedURILiteral()) {
             if (getTokenType() is INCNameType) {
                 advanceLexer()
-            } else if (getTokenType() === XQueryTokenType.STAR) {
+            } else if (getTokenType() === XPathTokenType.STAR) {
                 if (type === XQueryElementType.WILDCARD) {
                     parseWildcardIndicator()
                     qnameMarker.done(XQueryElementType.WILDCARD)

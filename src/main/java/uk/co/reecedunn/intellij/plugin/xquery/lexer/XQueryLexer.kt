@@ -100,7 +100,6 @@ private val KEYWORDS = mapOf(
         "different" to XQueryTokenType.K_DIFFERENT, // Full Text 1.0
         "digit" to XQueryTokenType.K_DIGIT, // XQuery 3.0
         "distance" to XQueryTokenType.K_DISTANCE, // Full Text 1.0
-        "div" to XQueryTokenType.K_DIV,
         "document" to XQueryTokenType.K_DOCUMENT,
         "document-node" to XQueryTokenType.K_DOCUMENT_NODE,
         "element" to XQueryTokenType.K_ELEMENT,
@@ -132,7 +131,6 @@ private val KEYWORDS = mapOf(
         "group" to XQueryTokenType.K_GROUP, // XQuery 3.0
         "grouping-separator" to XQueryTokenType.K_GROUPING_SEPARATOR, // XQuery 3.0
         "gt" to XQueryTokenType.K_GT,
-        "idiv" to XQueryTokenType.K_IDIV,
         "import" to XQueryTokenType.K_IMPORT,
         "infinity" to XQueryTokenType.K_INFINITY, // XQuery 3.0
         "inherit" to XQueryTokenType.K_INHERIT,
@@ -155,7 +153,6 @@ private val KEYWORDS = mapOf(
         "lt" to XQueryTokenType.K_LT,
         "map" to XQueryTokenType.K_MAP, // XQuery 3.1
         "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
-        "mod" to XQueryTokenType.K_MOD,
         "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
         "module" to XQueryTokenType.K_MODULE,
         "most" to XQueryTokenType.K_MOST, // Full Text 1.0
@@ -442,7 +439,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.ASTERISK -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.STAR
+                mType = XPathTokenType.STAR
             }
             CharacterClass.PLUS -> {
                 mTokenRange.match()

@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
@@ -41,7 +41,7 @@ class XPathAnyKindTestPsiImpl(node: ASTNode) :
             return MARKLOGIC80
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.STAR) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.STAR) ?: firstChild
 
     // endregion
 }

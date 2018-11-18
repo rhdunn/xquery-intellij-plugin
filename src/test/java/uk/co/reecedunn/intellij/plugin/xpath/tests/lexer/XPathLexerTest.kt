@@ -177,6 +177,17 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (13) MultiplicativeExpr")
+    fun multiplicativeExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        matchSingleToken(lexer, "div", XPathTokenType.K_DIV)
+        matchSingleToken(lexer, "idiv", XPathTokenType.K_IDIV)
+        matchSingleToken(lexer, "mod", XPathTokenType.K_MOD)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

@@ -28,16 +28,20 @@ object XPathTokenType {
     val PARENTHESIS_CLOSE = IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XPath) // XPath 2.0
     val PLUS = IElementType("XQUERY_PLUS_TOKEN", XPath) // XPath 2.0
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 2.0
+    val STAR = IElementType("XQUERY_STAR_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords
 
     val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XPath) // XPath 2.0
+    val K_DIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV", XPath) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0
     val K_EVERY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
     val K_FOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOR", XPath) // XPath 2.0
+    val K_IDIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IDIV", XPath) // XPath 2.0
     val K_IF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IF", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_IN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IN", XPath) // XPath 2.0
+    val K_MOD = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOD", XPath) // XPath 2.0
     val K_OR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OR", XPath) // XPath 2.0
     val K_RETURN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN", XPath) // XPath 2.0
     val K_SATISFIES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES", XPath) // XPath 2.0

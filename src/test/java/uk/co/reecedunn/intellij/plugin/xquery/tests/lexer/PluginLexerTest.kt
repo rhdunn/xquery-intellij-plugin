@@ -552,7 +552,7 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
@@ -625,7 +625,7 @@ class PluginLexerTest : LexerTestCase() {
     fun wildcardIndicator() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
     }
 
     @Test

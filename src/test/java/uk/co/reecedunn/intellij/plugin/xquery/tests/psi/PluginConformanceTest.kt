@@ -86,8 +86,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.STAR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.STAR))
     }
 
     @Test
@@ -843,10 +842,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.STAR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.STAR))
         }
     }
 

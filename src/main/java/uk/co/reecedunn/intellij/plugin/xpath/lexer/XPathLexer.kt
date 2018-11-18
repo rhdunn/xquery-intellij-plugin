@@ -33,11 +33,14 @@ const val STATE_BRACED_URI_LITERAL = 26
 
 private val KEYWORDS = mapOf(
     "and" to XPathTokenType.K_AND, // XPath 2.0
+    "div" to XPathTokenType.K_DIV, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
+    "idiv" to XPathTokenType.K_IDIV, // XPath 2.0
     "if" to XPathTokenType.K_IF, // XPath 2.0
     "in" to XPathTokenType.K_IN, // XPath 2.0
+    "mod" to XPathTokenType.K_MOD, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
@@ -57,6 +60,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
+            CharacterClass.ASTERISK -> {
+                mTokenRange.match()
+                mType = XPathTokenType.STAR
+            }
             CharacterClass.COLON -> {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
