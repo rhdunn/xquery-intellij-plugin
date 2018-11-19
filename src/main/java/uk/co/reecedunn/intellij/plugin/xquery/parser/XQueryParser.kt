@@ -6600,7 +6600,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseDocumentTest(): Boolean {
-        val documentTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DOCUMENT_NODE)
+        val documentTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_DOCUMENT_NODE)
         if (documentTestMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {

@@ -92,7 +92,6 @@ private val KEYWORDS = mapOf(
         "digit" to XQueryTokenType.K_DIGIT, // XQuery 3.0
         "distance" to XQueryTokenType.K_DISTANCE, // Full Text 1.0
         "document" to XQueryTokenType.K_DOCUMENT,
-        "document-node" to XQueryTokenType.K_DOCUMENT_NODE,
         "element" to XQueryTokenType.K_ELEMENT,
         "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
         "empty" to XQueryTokenType.K_EMPTY,
