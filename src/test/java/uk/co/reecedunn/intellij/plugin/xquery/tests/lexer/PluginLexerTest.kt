@@ -509,7 +509,7 @@ class PluginLexerTest : LexerTestCase() {
     fun curlyArrayConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
         matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
     }
 

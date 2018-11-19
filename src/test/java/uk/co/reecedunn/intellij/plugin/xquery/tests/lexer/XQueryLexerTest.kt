@@ -3609,10 +3609,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (176) CurlyArrayConstructor")
-    fun testCurlyArrayConstructor() {
+    fun curlyArrayConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
@@ -3747,7 +3747,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testAnyArrayTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -3758,7 +3758,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testTypedArrayTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

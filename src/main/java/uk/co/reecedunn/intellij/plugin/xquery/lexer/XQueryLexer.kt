@@ -56,7 +56,6 @@ private val KEYWORDS = mapOf(
         "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
         "andAlso" to XQueryTokenType.K_ANDALSO, // Saxon 9.9
         "any" to XQueryTokenType.K_ANY, // Full Text 1.0
-        "array" to XQueryTokenType.K_ARRAY, // XQuery 3.1
         "array-node" to XQueryTokenType.K_ARRAY_NODE, // MarkLogic 8.0
         "ascending" to XQueryTokenType.K_ASCENDING,
         "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0

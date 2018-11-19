@@ -61,6 +61,7 @@ object XPathTokenType {
     val K_ANCESTOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR", XPath) // XPath 1.0
     val K_ANCESTOR_OR_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF", XPath) // XPath 1.0
     val K_AND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND", XPath) // XPath 1.0
+    val K_ARRAY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY", XPath) // XPath 3.1
     val K_AS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
     val K_ATTRIBUTE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_CAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CAST", XPath) // XPath 2.0

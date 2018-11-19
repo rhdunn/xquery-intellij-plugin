@@ -1169,4 +1169,14 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (75) CurlyArrayConstructor")
+    fun curlyArrayConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    }
 }
