@@ -1209,4 +1209,15 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
+    fun anyArrayTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }
