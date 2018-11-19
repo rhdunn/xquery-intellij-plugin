@@ -2332,7 +2332,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (130) AttribNameOrWildcard")
-    fun testAttribNameOrWildcard() {
+    fun attribNameOrWildcard() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
