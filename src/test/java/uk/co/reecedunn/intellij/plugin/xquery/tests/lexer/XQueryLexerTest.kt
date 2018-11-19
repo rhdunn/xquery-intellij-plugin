@@ -2209,7 +2209,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCompCommentConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "comment", XQueryTokenType.K_COMMENT)
+        matchSingleToken(lexer, "comment", XPathTokenType.K_COMMENT)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
@@ -2301,11 +2301,11 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (127) CompTest")
-    fun testCommentTest() {
+    @DisplayName("XQuery 1.0 EBNF (127) CommentTest")
+    fun commentTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "comment", XQueryTokenType.K_COMMENT)
+        matchSingleToken(lexer, "comment", XPathTokenType.K_COMMENT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

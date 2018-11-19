@@ -5093,7 +5093,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseCompCommentConstructor(): Boolean {
-        val commentMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COMMENT)
+        val commentMarker = matchTokenTypeWithMarker(XPathTokenType.K_COMMENT)
         if (commentMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
@@ -6658,7 +6658,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseCommentTest(): Boolean {
-        val commentTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COMMENT)
+        val commentTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_COMMENT)
         if (commentTestMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {

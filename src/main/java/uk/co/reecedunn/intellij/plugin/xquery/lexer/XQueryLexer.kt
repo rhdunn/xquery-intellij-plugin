@@ -72,7 +72,6 @@ private val KEYWORDS = mapOf(
         "case" to XQueryTokenType.K_CASE,
         "catch" to XQueryTokenType.K_CATCH, // XQuery 3.0
         "collation" to XQueryTokenType.K_COLLATION,
-        "comment" to XQueryTokenType.K_COMMENT,
         "complex-type" to XQueryTokenType.K_COMPLEX_TYPE, // MarkLogic 7.0
         "construction" to XQueryTokenType.K_CONSTRUCTION,
         "contains" to XQueryTokenType.K_CONTAINS, // Full Text 1.0

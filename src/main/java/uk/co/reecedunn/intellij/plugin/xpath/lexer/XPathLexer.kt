@@ -40,6 +40,7 @@ private val KEYWORDS = mapOf(
     "cast" to XPathTokenType.K_CAST, // XPath 2.0
     "castable" to XPathTokenType.K_CASTABLE, // XPath 2.0
     "child" to XPathTokenType.K_CHILD, // XPath 2.0
+    "comment" to XPathTokenType.K_COMMENT, // XPath 2.0
     "descendant" to XPathTokenType.K_DESCENDANT, // XPath 2.0
     "descendant-or-self" to XPathTokenType.K_DESCENDANT_OR_SELF, // XPath 2.0
     "div" to XPathTokenType.K_DIV, // XPath 2.0
