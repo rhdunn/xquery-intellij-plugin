@@ -360,6 +360,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (37) Wildcard")
+    fun wildcard() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

@@ -810,7 +810,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (80) Wildcard")
-    fun testWildcard() {
+    fun wildcard() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
