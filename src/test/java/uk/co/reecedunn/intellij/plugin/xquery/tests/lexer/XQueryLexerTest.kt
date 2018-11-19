@@ -2252,7 +2252,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (120) OccurrenceIndicator")
-    fun testOccurrenceIndicator() {
+    fun occurrenceIndicator() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)

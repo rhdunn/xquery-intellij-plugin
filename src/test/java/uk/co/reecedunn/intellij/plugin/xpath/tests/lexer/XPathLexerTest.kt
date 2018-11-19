@@ -431,6 +431,16 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (51) OccurrenceIndicator")
+    fun occurrenceIndicator() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()
