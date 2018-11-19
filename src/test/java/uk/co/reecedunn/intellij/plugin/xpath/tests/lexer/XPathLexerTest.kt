@@ -386,6 +386,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (46) ParenthesizedExpr")
+    fun parenthesizedExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()
