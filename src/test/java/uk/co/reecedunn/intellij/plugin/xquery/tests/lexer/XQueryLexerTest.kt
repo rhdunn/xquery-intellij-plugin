@@ -3198,10 +3198,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (86) StringConcatExpr")
-    fun testStringConcatExpr() {
+    fun stringConcatExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "||", XQueryTokenType.CONCATENATION)
+        matchSingleToken(lexer, "||", XPathTokenType.CONCATENATION)
     }
 
     @Test

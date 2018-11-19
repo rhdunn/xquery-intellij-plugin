@@ -3382,7 +3382,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         if (parseRangeExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveStringConcatExpr = false
-            while (matchTokenType(XQueryTokenType.CONCATENATION)) {
+            while (matchTokenType(XPathTokenType.CONCATENATION)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseRangeExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "RangeExpr"))

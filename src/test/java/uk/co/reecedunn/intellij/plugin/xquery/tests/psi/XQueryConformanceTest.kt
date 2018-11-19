@@ -1786,7 +1786,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.CONCATENATION))
+                `is`(XPathTokenType.CONCATENATION))
     }
 
     // endregion

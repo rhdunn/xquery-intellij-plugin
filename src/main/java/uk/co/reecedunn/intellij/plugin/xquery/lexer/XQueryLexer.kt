@@ -554,7 +554,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 mType = if (mTokenRange.codePoint == '|'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.CONCATENATION
+                    XPathTokenType.CONCATENATION
                 } else {
                     XPathTokenType.UNION
                 }

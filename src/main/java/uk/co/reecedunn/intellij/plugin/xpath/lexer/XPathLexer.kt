@@ -328,7 +328,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
             CharacterClass.VERTICAL_BAR -> {
                 mTokenRange.match()
-                mType = XPathTokenType.UNION
+                mType = if (mTokenRange.codePoint == '|'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.CONCATENATION
+                } else {
+                    XPathTokenType.UNION
+                }
             }
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()

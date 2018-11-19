@@ -74,7 +74,6 @@ object XQueryTokenType {
     val INVALID = IElementType("XQUERY_INVALID_TOKEN", XQuery)
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery)
 
-    val CONCATENATION = IElementType("XQUERY_CONCATENATION", XQuery) // XQuery 3.0
     val MAP_OPERATOR = IElementType("XQUERY_MAP_OPERATOR_TOKEN", XQuery) // XQuery 3.0
     val FUNCTION_REF_OPERATOR = IElementType("XQUERY_FUNCTION_REF_OPERATOR_TOKEN", XQuery) // XQuery 3.0
     val ANNOTATION_INDICATOR = IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery) // XQuery 3.0

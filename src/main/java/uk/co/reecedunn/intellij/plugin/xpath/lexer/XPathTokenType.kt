@@ -22,34 +22,35 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 object XPathTokenType {
     // region Symbols
 
+    val ALL_DESCENDANTS_PATH = IElementType("XQUERY_ALL_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
+    val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
+    val ATTRIBUTE_SELECTOR = IElementType("XQUERY_ATTRIBUTE_SELECTOR_TOKEN", XPath) // XPath 1.0
+    val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XPath) // XPath 2.0
+    val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
+    val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
     val COMMA = IElementType("XQUERY_COMMA_TOKEN", XPath) // XPath 1.0
-    val VARIABLE_INDICATOR = IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 1.0
-    val PARENTHESIS_OPEN = IElementType("XQUERY_PARENTHESIS_OPEN_TOKEN", XPath) // XPath 1.0
-    val PARENTHESIS_CLOSE = IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XPath) // XPath 1.0
-    val PLUS = IElementType("XQUERY_PLUS_TOKEN", XPath) // XPath 1.0
-    val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 1.0
-    val STAR = IElementType("XQUERY_STAR_TOKEN", XPath) // XPath 1.0
-    val UNION = IElementType("XQUERY_UNION_TOKEN", XPath) // XPath 1.0
+    val CONCATENATION = IElementType("XQUERY_CONCATENATION", XPath) // XPath 3.0
+    val DIRECT_DESCENDANTS_PATH = IElementType("XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
+    val DOT = IElementType("XQUERY_DOT_TOKEN", XPath) // XPath 1.0
     val EQUAL = IElementType("XQUERY_EQUAL_TOKEN", XPath) // XPath 1.0
-    val NOT_EQUAL = IElementType("XQUERY_NOT_EQUAL_TOKEN", XPath) // XPath 1.0
-    val LESS_THAN = IElementType("XQUERY_LESS_THAN_TOKEN", XPath) // XPath 1.0
-    val LESS_THAN_OR_EQUAL = IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
     val GREATER_THAN = IElementType("XQUERY_GREATER_THAN_TOKEN", XPath) // XPath 1.0
     val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
-    val NODE_BEFORE = IElementType("XQUERY_NODE_BEFORE_TOKEN", XPath) // XPath 2.0
+    val LESS_THAN = IElementType("XQUERY_LESS_THAN_TOKEN", XPath) // XPath 1.0
+    val LESS_THAN_OR_EQUAL = IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
+    val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 1.0
     val NODE_AFTER = IElementType("XQUERY_NODE_AFTER_TOKEN", XPath) // XPath 2.0
-    val DIRECT_DESCENDANTS_PATH = IElementType("XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
-    val ALL_DESCENDANTS_PATH = IElementType("XQUERY_ALL_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
-    val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XPath) // XPath 2.0
-    val ATTRIBUTE_SELECTOR = IElementType("XQUERY_ATTRIBUTE_SELECTOR_TOKEN", XPath) // XPath 1.0
-    val PARENT_SELECTOR = IElementType("XQUERY_PARENT_SELECTOR_TOKEN", XPath) // XPath 1.0
-    val SQUARE_OPEN = IElementType("XQUERY_SQUARE_OPEN_TOKEN", XPath) // XPath 1.0
-    val SQUARE_CLOSE = IElementType("XQUERY_SQUARE_CLOSE_TOKEN", XPath) // XPath 1.0
-    val DOT = IElementType("XQUERY_DOT_TOKEN", XPath) // XPath 1.0
+    val NODE_BEFORE = IElementType("XQUERY_NODE_BEFORE_TOKEN", XPath) // XPath 2.0
+    val NOT_EQUAL = IElementType("XQUERY_NOT_EQUAL_TOKEN", XPath) // XPath 1.0
     val OPTIONAL = IElementType("XQUERY_OPTIONAL_TOKEN", XPath) // XPath 2.0
-    val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
-    val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
-    val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
+    val PARENT_SELECTOR = IElementType("XQUERY_PARENT_SELECTOR_TOKEN", XPath) // XPath 1.0
+    val PARENTHESIS_CLOSE = IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XPath) // XPath 1.0
+    val PARENTHESIS_OPEN = IElementType("XQUERY_PARENTHESIS_OPEN_TOKEN", XPath) // XPath 1.0
+    val PLUS = IElementType("XQUERY_PLUS_TOKEN", XPath) // XPath 1.0
+    val SQUARE_CLOSE = IElementType("XQUERY_SQUARE_CLOSE_TOKEN", XPath) // XPath 1.0
+    val SQUARE_OPEN = IElementType("XQUERY_SQUARE_OPEN_TOKEN", XPath) // XPath 1.0
+    val STAR = IElementType("XQUERY_STAR_TOKEN", XPath) // XPath 1.0
+    val UNION = IElementType("XQUERY_UNION_TOKEN", XPath) // XPath 1.0
+    val VARIABLE_INDICATOR = IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 1.0
 
     // endregion
     // region Keywords

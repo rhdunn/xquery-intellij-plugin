@@ -979,6 +979,14 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
+    @Test
+    @DisplayName("XPath 3.0 EBNF (19) StringConcatExpr")
+    fun stringConcatExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "||", XPathTokenType.CONCATENATION)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {
