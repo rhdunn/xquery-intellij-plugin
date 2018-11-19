@@ -2219,7 +2219,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCompPIConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION)
+        matchSingleToken(lexer, "processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
@@ -2312,10 +2312,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (128) PITest")
-    fun testPITest() {
+    fun piTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION)
+        matchSingleToken(lexer, "processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

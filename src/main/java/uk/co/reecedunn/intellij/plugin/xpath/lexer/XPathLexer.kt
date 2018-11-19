@@ -73,6 +73,7 @@ private val KEYWORDS = mapOf(
     "parent" to XPathTokenType.K_PARENT, // XPath 2.0
     "preceding" to XPathTokenType.K_PRECEDING, // XPath 2.0
     "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 2.0
+    "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "self" to XPathTokenType.K_SELF, // XPath 2.0
