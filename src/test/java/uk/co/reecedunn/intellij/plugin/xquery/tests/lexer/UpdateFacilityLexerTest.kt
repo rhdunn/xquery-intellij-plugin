@@ -123,7 +123,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "copy", XQueryTokenType.K_COPY)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY)
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)

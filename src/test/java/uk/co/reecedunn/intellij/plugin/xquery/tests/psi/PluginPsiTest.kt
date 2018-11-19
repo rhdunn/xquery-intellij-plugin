@@ -281,7 +281,7 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("Saxon")
             fun saxon() {
                 val entry = parse<XPathMapConstructorEntry>("map { \"1\" := \"one\" }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
             }
         }
     }

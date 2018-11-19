@@ -3316,7 +3316,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
                 }
 
                 @Test
@@ -3426,7 +3426,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
                 }
             }
         }

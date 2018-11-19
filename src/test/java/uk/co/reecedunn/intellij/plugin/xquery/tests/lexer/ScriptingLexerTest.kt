@@ -45,7 +45,7 @@ class ScriptingLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "assignable", XQueryTokenType.K_ASSIGNABLE)
         matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
 
@@ -114,7 +114,7 @@ class ScriptingLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
@@ -124,7 +124,7 @@ class ScriptingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test

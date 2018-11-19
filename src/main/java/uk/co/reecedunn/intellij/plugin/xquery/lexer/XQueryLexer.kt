@@ -367,7 +367,7 @@ class XQueryLexer : XPathLexer() {
                     XPathTokenType.AXIS_SEPARATOR
                 } else if (c == '='.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.ASSIGN_EQUAL
+                    XPathTokenType.ASSIGN_EQUAL
                 } else {
                     XPathTokenType.QNAME_SEPARATOR
                 }

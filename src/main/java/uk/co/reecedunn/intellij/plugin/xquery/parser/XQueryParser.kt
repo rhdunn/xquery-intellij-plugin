@@ -434,7 +434,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (matchTokenType(XPathTokenType.EQUAL)) continue
             if (matchTokenType(XPathTokenType.COMMA)) continue
             if (matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) continue
-            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) continue
+            if (matchTokenType(XPathTokenType.ASSIGN_EQUAL)) continue
             if (matchTokenType(XPathTokenType.QNAME_SEPARATOR)) continue
             if (matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) continue
             if (matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) continue
@@ -956,14 +956,14 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
+            if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"))
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
+                if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
                     parseWhiteSpaceAndCommentTokens()
                     if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-expression"))
@@ -1082,14 +1082,14 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             parseTypeDeclaration()
 
             parseWhiteSpaceAndCommentTokens()
-            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) || { haveErrors = haveErrors or errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
+            if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = haveErrors or errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"))
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                if (matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                     parseWhiteSpaceAndCommentTokens()
                     if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-expression"))
@@ -1252,7 +1252,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.EQUAL) && !{ haveErrors = errorOnTokenType(XQueryTokenType.ASSIGN_EQUAL, XQueryBundle.message("parser.error.expected", "=")); haveErrors }()) {
+            if (!matchTokenType(XPathTokenType.EQUAL) && !{ haveErrors = errorOnTokenType(XPathTokenType.ASSIGN_EQUAL, XQueryBundle.message("parser.error.expected", "=")); haveErrors }()) {
                 error(XQueryBundle.message("parser.error.expected", "="))
                 haveErrors = true
             }
@@ -1400,7 +1400,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             "parser.error.expected-variable-assign-scripting-no-type-decl"
 
         parseWhiteSpaceAndCommentTokens()
-        if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message(errorMessage)); haveErrors }()) {
+        if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message(errorMessage)); haveErrors }()) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-expression"))
@@ -1815,7 +1815,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             parseWhiteSpaceAndCommentTokens()
             if (errorOnTokenType(XPathTokenType.EQUAL, errorMessage)) {
                 haveErrors = true
-            } else if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
+            } else if (!matchTokenType(XPathTokenType.ASSIGN_EQUAL) && !haveErrors) {
                 error(errorMessage)
                 haveErrors = true
             }
@@ -2149,7 +2149,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 parseWhiteSpaceAndCommentTokens()
                 if (errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected", ":="))) {
                     haveErrors = true
-                } else if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                } else if (!matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                     error(XQueryBundle.message("parser.error.expected", ":="))
                     haveErrors = true
                 }
@@ -2159,7 +2159,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                     error(XQueryBundle.message("parser.error.expected-expression"))
                     haveErrors = true
                 }
-            } else if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected", ":=")); haveErrors }()) {
+            } else if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected", ":=")); haveErrors }()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"))
@@ -3012,7 +3012,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 parseWhiteSpaceAndCommentTokens()
                 if (errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected", ":="))) {
                     haveErrors = true
-                } else if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                } else if (!matchTokenType(XPathTokenType.ASSIGN_EQUAL) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", ":="))
                     haveErrors = true
                 }
@@ -3087,7 +3087,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+            if (!matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                 // VarRef construct -- handle in the OrExpr parser for the correct AST.
                 assignmentExprMarker.rollbackTo()
                 return false
@@ -4674,7 +4674,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.QNAME_SEPARATOR) && !matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+            if (!matchTokenType(XPathTokenType.QNAME_SEPARATOR) && !matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                 error(XQueryBundle.message("parser.error.expected-map-entry-assign"))
                 haveError = true
             }

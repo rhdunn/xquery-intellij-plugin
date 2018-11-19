@@ -49,6 +49,7 @@ object XPathTokenType {
     val OPTIONAL = IElementType("XQUERY_OPTIONAL_TOKEN", XPath) // XPath 2.0
     val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
     val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
+    val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
 
     // endregion
     // region Keywords

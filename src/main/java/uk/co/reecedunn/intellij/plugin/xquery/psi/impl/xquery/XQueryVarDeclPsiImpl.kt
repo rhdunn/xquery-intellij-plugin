@@ -50,7 +50,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     }
 
     override val conformanceElement get(): PsiElement {
-        val element = findChildByType<PsiElement>(XQueryTokenType.ASSIGN_EQUAL)
+        val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
         var previous: PsiElement? = element?.prevSibling
         while (previous != null && (previous.node.elementType === XQueryElementType.COMMENT || previous.node.elementType === XPathTokenType.WHITE_SPACE)) {
             previous = previous.prevSibling

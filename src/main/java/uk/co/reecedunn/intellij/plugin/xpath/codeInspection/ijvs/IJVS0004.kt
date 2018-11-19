@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class IJVS0004 : Inspection("ijvs/IJVS0004.md") {
     private fun conformsTo(element: XPathMapConstructorEntry, productVersion: Version?): Boolean {
@@ -39,7 +40,7 @@ class IJVS0004 : Inspection("ijvs/IJVS0004.md") {
         }
         val isSaxonExtension =
             productVersion?.kind === Saxon && productVersion.value >= 9.4 && productVersion.value <= 9.7
-        return conformanceElement.node.elementType === XQueryTokenType.ASSIGN_EQUAL == isSaxonExtension
+        return conformanceElement.node.elementType === XPathTokenType.ASSIGN_EQUAL == isSaxonExtension
     }
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {

@@ -294,7 +294,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
 
@@ -390,7 +390,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "let", XPathTokenType.K_LET)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
@@ -3017,7 +3017,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test
@@ -3119,7 +3119,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testGroupingSpec() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, "collation", XQueryTokenType.K_COLLATION)
     }
 

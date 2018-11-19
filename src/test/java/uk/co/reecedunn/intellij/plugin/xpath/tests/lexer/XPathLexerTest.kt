@@ -970,6 +970,15 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
+    @Test
+    @DisplayName("XPath 3.0 EBNF (13) SimpleLetBinding")
+    fun simpleLetBinding() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {

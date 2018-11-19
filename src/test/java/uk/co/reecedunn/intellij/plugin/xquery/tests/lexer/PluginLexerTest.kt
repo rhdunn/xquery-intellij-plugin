@@ -119,7 +119,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test
@@ -161,7 +161,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test

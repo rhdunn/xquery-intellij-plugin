@@ -21,12 +21,11 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingAssignmentExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class ScriptingAssignmentExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingAssignmentExpr, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(Scripting.NOTE_1_0_20140918)
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.ASSIGN_EQUAL) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.ASSIGN_EQUAL) ?: firstChild
 }

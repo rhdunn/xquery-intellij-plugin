@@ -120,6 +120,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         mTokenRange.match()
                         XPathTokenType.AXIS_SEPARATOR
                     }
+                    '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.ASSIGN_EQUAL
+                    }
                     else -> XPathTokenType.QNAME_SEPARATOR
                 }
             }

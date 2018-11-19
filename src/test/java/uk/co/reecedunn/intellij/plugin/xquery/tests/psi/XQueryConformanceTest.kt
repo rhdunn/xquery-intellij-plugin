@@ -2010,7 +2010,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.ASSIGN_EQUAL))
+                `is`(XPathTokenType.ASSIGN_EQUAL))
     }
 
     // endregion
