@@ -3225,7 +3225,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (121) ArgumentList")
-    fun testArgumentList() {
+    fun argumentList() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
