@@ -1040,6 +1040,16 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
+    @Test
+    @DisplayName("XPath 3.0 EBNF (76) NamespaceNodeTest")
+    fun namespaceNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "namespace-node", XPathTokenType.K_NAMESPACE_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {

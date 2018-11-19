@@ -166,7 +166,6 @@ object XQueryTokenType {
     val K_MODIFY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY", XQuery) // Update Facility 1.0
     val K_MODULE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE", XQuery)
     val K_MOST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOST", XQuery) // Full Text 1.0
-    val K_NAMESPACE_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XQuery 3.0
     val K_NAN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN", XQuery) // XQuery 3.0
     val K_NEXT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NEXT", XQuery) // XQuery 3.0
     val K_NO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO", XQuery) // Full Text 1.0

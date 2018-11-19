@@ -3272,10 +3272,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (177) NamespaceNodeTest")
-    fun testNamespaceNodeTest() {
+    fun namespaceNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "namespace-node", XQueryTokenType.K_NAMESPACE_NODE)
+        matchSingleToken(lexer, "namespace-node", XPathTokenType.K_NAMESPACE_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

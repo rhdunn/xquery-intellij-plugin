@@ -6678,7 +6678,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseNamespaceNodeTest(): Boolean {
-        val namespaceTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE_NODE)
+        val namespaceTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE_NODE)
         if (namespaceTestMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {

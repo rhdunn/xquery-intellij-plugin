@@ -129,7 +129,6 @@ private val KEYWORDS = mapOf(
         "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
         "module" to XQueryTokenType.K_MODULE,
         "most" to XQueryTokenType.K_MOST, // Full Text 1.0
-        "namespace-node" to XQueryTokenType.K_NAMESPACE_NODE, // XQuery 3.0
         "NaN" to XQueryTokenType.K_NAN, // XQuery 3.0
         "next" to XQueryTokenType.K_NEXT, // XQuery 3.0
         "no" to XQueryTokenType.K_NO, // Full Text 1.0
