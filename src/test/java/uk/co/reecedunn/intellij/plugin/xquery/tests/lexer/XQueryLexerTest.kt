@@ -3591,7 +3591,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (171) MapConstructorEntry")
-    fun testMapConstructorEntry() {
+    fun mapConstructorEntry() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
