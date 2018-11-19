@@ -2322,7 +2322,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (129) AttributeTest")
-    fun testAttributeTest() {
+    fun attributeTest() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
