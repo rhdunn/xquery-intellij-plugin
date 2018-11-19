@@ -944,6 +944,15 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
+    @Test
+    @DisplayName("XQuery 2.0 EBNF (10) SimpleForBinding")
+    fun simpleForBinding() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {
