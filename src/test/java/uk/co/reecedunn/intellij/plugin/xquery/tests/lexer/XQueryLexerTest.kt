@@ -3599,7 +3599,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
-    fun testSquareArrayConstructor() {
+    fun squareArrayConstructor() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)

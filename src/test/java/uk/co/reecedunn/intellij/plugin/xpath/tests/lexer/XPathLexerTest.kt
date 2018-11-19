@@ -1159,4 +1159,14 @@ class XPathLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (74) SquareArrayConstructor")
+    fun squareArrayConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
+    }
 }
