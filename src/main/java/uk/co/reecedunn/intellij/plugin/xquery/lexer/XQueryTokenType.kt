@@ -80,7 +80,6 @@ object XQueryTokenType {
     val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XQuery)
     val SQUARE_OPEN = IElementType("XQUERY_SQUARE_OPEN_TOKEN", XQuery)
     val SQUARE_CLOSE = IElementType("XQUERY_SQUARE_CLOSE_TOKEN", XQuery)
-    val PARENT_SELECTOR = IElementType("XQUERY_PARENT_SELECTOR_TOKEN", XQuery)
 
     val CONCATENATION = IElementType("XQUERY_CONCATENATION", XQuery) // XQuery 3.0
     val MAP_OPERATOR = IElementType("XQUERY_MAP_OPERATOR_TOKEN", XQuery) // XQuery 3.0

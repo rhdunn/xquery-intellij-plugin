@@ -42,6 +42,7 @@ object XPathTokenType {
     val ALL_DESCENDANTS_PATH = IElementType("XQUERY_ALL_DESCENDANTS_PATH_TOKEN", XPath) // XPath 2.0
     val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XPath) // XPath 2.0
     val ATTRIBUTE_SELECTOR = IElementType("XQUERY_ATTRIBUTE_SELECTOR_TOKEN", XPath) // XPath 2.0
+    val PARENT_SELECTOR = IElementType("XQUERY_PARENT_SELECTOR_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords

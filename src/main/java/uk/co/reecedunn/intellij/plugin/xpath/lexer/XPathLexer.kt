@@ -154,6 +154,15 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
             CharacterClass.DOT -> {
                 mTokenRange.match()
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                if (cc == CharacterClass.DOT) {
+                    mTokenRange.match()
+                    mType = XPathTokenType.PARENT_SELECTOR
+                    return
+                } else {
+                    mType = XPathTokenType.DECIMAL_LITERAL
+                }
+
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
                 mType = XPathTokenType.DECIMAL_LITERAL

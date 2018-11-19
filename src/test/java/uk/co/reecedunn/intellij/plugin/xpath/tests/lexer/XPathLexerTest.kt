@@ -352,6 +352,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (34) AbbrevReverseStep")
+    fun abbrevReverseStep() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

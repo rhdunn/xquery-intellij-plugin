@@ -258,7 +258,7 @@ class XQueryLexer : XPathLexer() {
                         mTokenRange.match()
                         mType = XQueryTokenType.ELLIPSIS
                     } else {
-                        mType = XQueryTokenType.PARENT_SELECTOR
+                        mType = XPathTokenType.PARENT_SELECTOR
                     }
                     return
                 } else if (cc != CharacterClass.DIGIT) {

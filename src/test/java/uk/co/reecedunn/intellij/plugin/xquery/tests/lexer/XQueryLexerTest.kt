@@ -802,10 +802,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (77) AbbrevReverseStep")
-    fun testAbbrevReverseStep() {
+    fun abbrevReverseStep() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR)
+        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
     }
 
     @Test
