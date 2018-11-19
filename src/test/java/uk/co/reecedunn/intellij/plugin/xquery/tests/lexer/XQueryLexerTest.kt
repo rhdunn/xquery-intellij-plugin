@@ -2262,10 +2262,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (121) ItemType")
-    fun testItemType() {
+    fun itemType() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
+        matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -3014,7 +3014,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "context", XQueryTokenType.K_CONTEXT)
-        matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
+        matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)

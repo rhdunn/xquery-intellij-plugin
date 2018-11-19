@@ -122,7 +122,6 @@ private val KEYWORDS = mapOf(
         "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
         "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
         "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
-        "item" to XQueryTokenType.K_ITEM,
         "language" to XQueryTokenType.K_LANGUAGE, // Full Text 1.0
         "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
         "lax" to XQueryTokenType.K_LAX,

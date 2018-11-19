@@ -59,6 +59,7 @@ private val KEYWORDS = mapOf(
     "instance" to XPathTokenType.K_INSTANCE, // XPath 2.0
     "intersect" to XPathTokenType.K_INTERSECT, // XPath 2.0
     "is" to XPathTokenType.K_IS, // XPath 2.0
+    "item" to XPathTokenType.K_ITEM, // XPath 2.0
     "le" to XPathTokenType.K_LE, // XPath 2.0
     "lt" to XPathTokenType.K_LT, // XPath 2.0
     "mod" to XPathTokenType.K_MOD, // XPath 2.0

@@ -688,7 +688,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyItemType() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM)
+        matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

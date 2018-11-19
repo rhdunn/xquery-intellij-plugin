@@ -446,7 +446,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue
             if (matchTokenType(XQueryTokenType.K_GREATEST)) continue
             if (matchTokenType(XQueryTokenType.K_INHERIT)) continue
-            if (matchTokenType(XQueryTokenType.K_ITEM)) continue
+            if (matchTokenType(XPathTokenType.K_ITEM)) continue
             if (matchTokenType(XQueryTokenType.K_LAX)) continue
             if (matchTokenType(XQueryTokenType.K_LEAST)) continue
             if (matchTokenType(XPathTokenType.K_NAMESPACE)) continue
@@ -941,7 +941,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_ITEM)) {
+            if (!matchTokenType(XPathTokenType.K_ITEM)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "item"))
                 haveErrors = true
             }
@@ -6189,7 +6189,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseAnyItemType(): Boolean {
-        val itemTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ITEM)
+        val itemTypeMarker = matchTokenTypeWithMarker(XPathTokenType.K_ITEM)
         if (itemTypeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {

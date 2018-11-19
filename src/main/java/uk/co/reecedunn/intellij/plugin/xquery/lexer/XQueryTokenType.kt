@@ -165,7 +165,6 @@ object XQueryTokenType {
     val K_INSERT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT", XQuery) // Update Facility 1.0
     val K_INTO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTO", XQuery) // Update Facility 1.0
     val K_INVOKE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE", XQuery) // Update Facility 3.0
-    val K_ITEM = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ITEM", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_LANGUAGE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LANGUAGE", XQuery) // Full Text 1.0
     val K_LAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST", XQuery) // Update Facility 1.0
     val K_LAX = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX", XQuery)
