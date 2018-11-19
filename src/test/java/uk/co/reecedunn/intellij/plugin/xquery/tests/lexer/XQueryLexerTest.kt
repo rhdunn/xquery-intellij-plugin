@@ -3305,7 +3305,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (164) ParenthesizedItemType")
-    fun testParenthesizedItemType() {
+    fun parenthesizedItemType() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
