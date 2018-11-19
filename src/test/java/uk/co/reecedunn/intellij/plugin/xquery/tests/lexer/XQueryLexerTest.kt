@@ -3293,7 +3293,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (193) TypedFunctionTest")
-    fun testTypedFunctionTest() {
+    fun typedFunctionTest() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)

@@ -1061,6 +1061,18 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
+    @Test
+    @DisplayName("XPath 3.0 EBNF (92) TypedFunctionTest")
+    fun typedFunctionTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {
