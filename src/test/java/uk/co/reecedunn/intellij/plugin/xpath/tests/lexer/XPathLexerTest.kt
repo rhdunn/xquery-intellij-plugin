@@ -1124,4 +1124,12 @@ class XPathLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (53) Lookup")
+    fun lookup() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+    }
 }
