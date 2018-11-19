@@ -23,6 +23,7 @@ object XPathTokenType {
     // region Symbols
 
     val ALL_DESCENDANTS_PATH = IElementType("XQUERY_ALL_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
+    val ARROW = IElementType("XQUERY_ARROW_TOKEN", XPath) // XPath 3.1
     val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
     val ATTRIBUTE_SELECTOR = IElementType("XQUERY_ATTRIBUTE_SELECTOR_TOKEN", XPath) // XPath 1.0
     val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XPath) // XPath 2.0

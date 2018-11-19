@@ -3669,7 +3669,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveArrowExpr = false
 
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XQueryTokenType.ARROW)) {
+            while (matchTokenType(XPathTokenType.ARROW)) {
                 haveArrowExpr = true
 
                 parseWhiteSpaceAndCommentTokens()

@@ -1116,4 +1116,12 @@ class XPathLexerTest : LexerTestCase() {
             matchToken(lexer, "", 0, 16, 16, null)
         }
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (29) ArrowExpr")
+    fun arrowExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
+    }
 }

@@ -528,7 +528,7 @@ class XQueryLexer : XPathLexer() {
                 c = mTokenRange.codePoint
                 mType = if (c == '>'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.ARROW
+                    XPathTokenType.ARROW
                 } else {
                     XPathTokenType.EQUAL
                 }

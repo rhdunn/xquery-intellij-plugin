@@ -230,7 +230,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.ARROW))
+                `is`(XPathTokenType.ARROW))
     }
 
     // endregion

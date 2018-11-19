@@ -3556,10 +3556,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr")
-    fun testArrowExpr() {
+    fun arrowExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "=>", XQueryTokenType.ARROW)
+        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
     }
 
     @Test

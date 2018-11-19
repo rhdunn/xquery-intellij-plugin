@@ -218,7 +218,13 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
             CharacterClass.EQUAL -> {
                 mTokenRange.match()
-                mType = XPathTokenType.EQUAL
+                c = mTokenRange.codePoint
+                mType = if (c == '>'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.ARROW
+                } else {
+                    XPathTokenType.EQUAL
+                }
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
