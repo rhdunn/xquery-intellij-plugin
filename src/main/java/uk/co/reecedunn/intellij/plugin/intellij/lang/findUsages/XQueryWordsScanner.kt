@@ -20,8 +20,7 @@ import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
 class XQueryWordsScanner : WordsScanner {
     private val mLexer = XQueryLexer()
@@ -34,11 +33,11 @@ class XQueryWordsScanner : WordsScanner {
             mRange.start(fileText, mLexer.tokenStart, mLexer.tokenEnd)
 
             val type = mLexer.tokenType
-            if (XQueryTokenType.COMMENT_TOKENS.contains(type)) {
+            if (COMMENT_TOKENS.contains(type)) {
                 if (!processToken(processor, WordOccurrence.Kind.COMMENTS)) return
-            } else if (XQueryTokenType.STRING_LITERAL_TOKENS.contains(type)) {
+            } else if (STRING_LITERAL_TOKENS.contains(type)) {
                 if (!processToken(processor, WordOccurrence.Kind.LITERALS)) return
-            } else if (XQueryTokenType.LITERAL_TOKENS.contains(type)) {
+            } else if (LITERAL_TOKENS.contains(type)) {
                 mOccurrence.init(fileText, mLexer.tokenStart, mLexer.tokenEnd, WordOccurrence.Kind.CODE)
                 if (!processor.process(mOccurrence)) return
             } else {
