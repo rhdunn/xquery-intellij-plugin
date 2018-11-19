@@ -1198,4 +1198,15 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (107) TypedMapTest")
+    fun typedMapTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }

@@ -3733,7 +3733,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (212) TypedMapTest")
-    fun testTypedMapTest() {
+    fun typedMapTest() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
