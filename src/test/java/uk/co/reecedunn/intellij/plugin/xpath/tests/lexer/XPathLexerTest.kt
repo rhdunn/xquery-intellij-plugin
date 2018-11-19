@@ -548,6 +548,16 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 1.0 EBNF (66) SchemaElementTest")
+    fun schemaElementTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "schema-element", XPathTokenType.K_SCHEMA_ELEMENT)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

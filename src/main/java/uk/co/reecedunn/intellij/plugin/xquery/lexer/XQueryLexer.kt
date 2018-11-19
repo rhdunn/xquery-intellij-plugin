@@ -169,7 +169,6 @@ private val KEYWORDS = mapOf(
         "same" to XQueryTokenType.K_SAME, // Full Text 1.0
         "schema" to XQueryTokenType.K_SCHEMA,
         "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
-        "schema-element" to XQueryTokenType.K_SCHEMA_ELEMENT,
         "schema-facet" to XQueryTokenType.K_SCHEMA_FACET, // MarkLogic 8.0
         "schema-particle" to XQueryTokenType.K_SCHEMA_PARTICLE, // MarkLogic 7.0
         "schema-root" to XQueryTokenType.K_SCHEMA_ROOT, // MarkLogic 7.0

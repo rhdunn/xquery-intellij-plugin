@@ -2369,10 +2369,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (135) SchemaElementTest")
-    fun testSchemaElementTest() {
+    fun schemaElementTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "schema-element", XQueryTokenType.K_SCHEMA_ELEMENT)
+        matchSingleToken(lexer, "schema-element", XPathTokenType.K_SCHEMA_ELEMENT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
