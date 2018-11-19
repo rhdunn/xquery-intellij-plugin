@@ -179,7 +179,7 @@ class PluginLexerTest : LexerTestCase() {
     fun typedMapTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -538,7 +538,7 @@ class PluginLexerTest : LexerTestCase() {
     fun mapConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
         matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)

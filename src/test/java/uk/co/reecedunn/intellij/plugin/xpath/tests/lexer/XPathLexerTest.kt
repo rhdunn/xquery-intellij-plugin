@@ -1140,4 +1140,15 @@ class XPathLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (69) MapConstructor")
+    fun mapConstructor() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    }
 }

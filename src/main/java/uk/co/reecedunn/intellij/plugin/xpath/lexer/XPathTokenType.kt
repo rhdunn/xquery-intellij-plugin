@@ -93,6 +93,7 @@ object XPathTokenType {
     val K_LE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE", XPath) // XPath 2.0
     val K_LET = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET", XPath) // XPath 3.0 ; XQuery 1.0
     val K_LT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT", XPath) // XPath 2.0
+    val K_MAP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MAP", XPath) // XPath 3.1
     val K_MOD = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOD", XPath) // XPath 1.0
     val K_NAMESPACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE", XPath) // XPath 1.0
     val K_NAMESPACE_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE_NODE", XPath, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XPath 3.0

@@ -4630,7 +4630,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseMapConstructor(): Boolean {
-        var mapConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_MAP)
+        var mapConstructor = matchTokenTypeWithMarker(XPathTokenType.K_MAP)
         if (mapConstructor == null) {
             mapConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE)
         }
@@ -6462,7 +6462,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseMapTest(): Boolean {
-        val mapTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_MAP)
+        val mapTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_MAP)
         if (mapTestMarker != null) {
             var haveError = false
 

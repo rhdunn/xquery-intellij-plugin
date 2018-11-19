@@ -124,7 +124,6 @@ private val KEYWORDS = mapOf(
         "least" to XQueryTokenType.K_LEAST,
         "levels" to XQueryTokenType.K_LEVELS, // Full Text 1.0
         "lowercase" to XQueryTokenType.K_LOWERCASE, // Full Text 1.0
-        "map" to XQueryTokenType.K_MAP, // XQuery 3.1
         "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0
         "modify" to XQueryTokenType.K_MODIFY, // Update Facility 1.0
         "module" to XQueryTokenType.K_MODULE,

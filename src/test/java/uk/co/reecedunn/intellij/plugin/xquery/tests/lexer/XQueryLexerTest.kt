@@ -3580,10 +3580,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
-    fun testMapConstructor() {
+    fun mapConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
@@ -3725,7 +3725,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testAnyMapTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -3736,7 +3736,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testTypedMapTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
+        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)

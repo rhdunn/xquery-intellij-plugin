@@ -157,7 +157,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_MAP))
+                `is`(XPathTokenType.K_MAP))
     }
 
     // endregion
@@ -1606,7 +1606,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_MAP))
+                `is`(XPathTokenType.K_MAP))
     }
 
     // endregion
@@ -1910,7 +1910,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_MAP))
+                `is`(XPathTokenType.K_MAP))
     }
 
     // endregion
