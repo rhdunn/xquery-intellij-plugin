@@ -64,6 +64,7 @@ private val KEYWORDS = mapOf(
     "is" to XPathTokenType.K_IS, // XPath 2.0
     "item" to XPathTokenType.K_ITEM, // XPath 2.0
     "le" to XPathTokenType.K_LE, // XPath 2.0
+    "let" to XPathTokenType.K_LET, // XPath 3.0 ; XQuery 1.0
     "lt" to XPathTokenType.K_LT, // XPath 2.0
     "mod" to XPathTokenType.K_MOD, // XPath 1.0
     "namespace" to XPathTokenType.K_NAMESPACE, // XPath 1.0

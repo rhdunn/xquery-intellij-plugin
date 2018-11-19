@@ -1763,7 +1763,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
     private fun parseLetClause(): Boolean {
         val letClauseMarker = mark()
-        if (matchTokenType(XQueryTokenType.K_LET)) {
+        if (matchTokenType(XPathTokenType.K_LET)) {
             var isFirst = true
             do {
                 parseWhiteSpaceAndCommentTokens()

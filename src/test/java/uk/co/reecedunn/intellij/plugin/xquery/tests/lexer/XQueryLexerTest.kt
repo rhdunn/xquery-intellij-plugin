@@ -388,7 +388,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testLetClause() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "let", XQueryTokenType.K_LET)
+        matchSingleToken(lexer, "let", XPathTokenType.K_LET)
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)

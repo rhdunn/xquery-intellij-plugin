@@ -164,7 +164,6 @@ object XQueryTokenType {
     val K_LAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST", XQuery) // Update Facility 1.0
     val K_LAX = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX", XQuery)
     val K_LEAST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST", XQuery)
-    val K_LET = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET", XQuery)
     val K_LEVELS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEVELS", XQuery) // Full Text 1.0
     val K_LOWERCASE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LOWERCASE", XQuery) // Full Text 1.0
     val K_MAP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MAP", XQuery) // XQuery 3.1

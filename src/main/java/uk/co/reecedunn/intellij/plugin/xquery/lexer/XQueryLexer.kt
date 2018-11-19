@@ -123,7 +123,6 @@ private val KEYWORDS = mapOf(
         "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
         "lax" to XQueryTokenType.K_LAX,
         "least" to XQueryTokenType.K_LEAST,
-        "let" to XQueryTokenType.K_LET,
         "levels" to XQueryTokenType.K_LEVELS, // Full Text 1.0
         "lowercase" to XQueryTokenType.K_LOWERCASE, // Full Text 1.0
         "map" to XQueryTokenType.K_MAP, // XQuery 3.1

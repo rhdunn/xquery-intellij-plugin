@@ -945,7 +945,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (10) SimpleForBinding")
+    @DisplayName("XPath 3.0 EBNF (10) SimpleForBinding")
     fun simpleForBinding() {
         val lexer = createLexer()
 
@@ -954,11 +954,20 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (11) LetExpr")
+    @DisplayName("XPath 3.0 EBNF (11) LetExpr")
     fun letExpr() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+    }
+
+    @Test
+    @DisplayName("XPath 3.0 EBNF (12) SimpleLetClause")
+    fun simpleLetClause() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "let", XPathTokenType.K_LET)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Nested
