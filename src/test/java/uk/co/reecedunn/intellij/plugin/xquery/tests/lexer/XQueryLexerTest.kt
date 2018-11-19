@@ -3714,7 +3714,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup")
-    fun testUnaryLookup() {
+    fun unaryLookup() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)

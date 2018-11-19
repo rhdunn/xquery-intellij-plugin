@@ -1179,4 +1179,12 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (76) UnaryLookup")
+    fun unaryLookup() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+    }
 }
