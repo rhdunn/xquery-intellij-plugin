@@ -324,7 +324,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (27) ParamList")
-    fun testParamList() {
+    fun paramList() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
