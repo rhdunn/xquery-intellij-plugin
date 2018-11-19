@@ -100,7 +100,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 2.0 EBNF (4) ForExpr")
+    @DisplayName("XPath 2.0 EBNF (4) ForExpr")
     fun forExpr() {
         val lexer = createLexer()
 
@@ -108,7 +108,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 2.0 EBNF (5) SimpleForClause")
+    @DisplayName("XPath 2.0 EBNF (5) SimpleForClause")
     fun simpleForClause() {
         val lexer = createLexer()
 
@@ -119,7 +119,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 2.0 EBNF (6) QuantifiedExpr")
+    @DisplayName("XPath 2.0 EBNF (6) QuantifiedExpr")
     fun quantifiedExpr() {
         val lexer = createLexer()
 
@@ -540,7 +540,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (65) ElementNameOrWildcard")
+    @DisplayName("XPath 2.0 EBNF (65) ElementNameOrWildcard")
     fun elementNameOrWildcard() {
         val lexer = createLexer()
 
@@ -548,7 +548,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (66) SchemaElementTest")
+    @DisplayName("XPath 2.0 EBNF (66) SchemaElementTest")
     fun schemaElementTest() {
         val lexer = createLexer()
 
@@ -945,12 +945,20 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 2.0 EBNF (10) SimpleForBinding")
+    @DisplayName("XPath 2.0 EBNF (10) SimpleForBinding")
     fun simpleForBinding() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
         matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+    }
+
+    @Test
+    @DisplayName("XPath 2.0 EBNF (11) LetExpr")
+    fun letExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Nested
