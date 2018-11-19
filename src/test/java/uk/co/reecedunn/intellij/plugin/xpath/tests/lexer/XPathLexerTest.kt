@@ -378,6 +378,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (44) VarRef")
+    fun varRef() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()
