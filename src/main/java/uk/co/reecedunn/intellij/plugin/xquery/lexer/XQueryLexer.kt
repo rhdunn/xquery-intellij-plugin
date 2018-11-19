@@ -169,7 +169,6 @@ private val KEYWORDS = mapOf(
         "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
         "same" to XQueryTokenType.K_SAME, // Full Text 1.0
         "schema" to XQueryTokenType.K_SCHEMA,
-        "schema-attribute" to XQueryTokenType.K_SCHEMA_ATTRIBUTE,
         "schema-component" to XQueryTokenType.K_SCHEMA_COMPONENT, // MarkLogic 7.0
         "schema-element" to XQueryTokenType.K_SCHEMA_ELEMENT,
         "schema-facet" to XQueryTokenType.K_SCHEMA_FACET, // MarkLogic 8.0

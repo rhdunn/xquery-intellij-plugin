@@ -6764,7 +6764,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseSchemaAttributeTest(): Boolean {
-        val schemaAttributeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_ATTRIBUTE)
+        val schemaAttributeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ATTRIBUTE)
         if (schemaAttributeTestMarker != null) {
             var haveErrors = false
 

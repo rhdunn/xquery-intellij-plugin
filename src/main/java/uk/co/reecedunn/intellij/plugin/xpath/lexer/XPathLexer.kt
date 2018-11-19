@@ -76,6 +76,7 @@ private val KEYWORDS = mapOf(
     "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 2.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
+    "schema-attribute" to XPathTokenType.K_SCHEMA_ATTRIBUTE, // XPath 2.0
     "self" to XPathTokenType.K_SELF, // XPath 2.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0
     "text" to XPathTokenType.K_TEXT, // XPath 2.0
