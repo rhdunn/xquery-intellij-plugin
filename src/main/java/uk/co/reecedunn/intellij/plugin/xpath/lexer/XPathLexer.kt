@@ -65,6 +65,7 @@ private val KEYWORDS = mapOf(
     "mod" to XPathTokenType.K_MOD, // XPath 2.0
     "namespace" to XPathTokenType.K_NAMESPACE, // XPath 2.0
     "ne" to XPathTokenType.K_NE, // XPath 2.0
+    "node" to XPathTokenType.K_NODE, // XPath 2.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 2.0
     "parent" to XPathTokenType.K_PARENT, // XPath 2.0

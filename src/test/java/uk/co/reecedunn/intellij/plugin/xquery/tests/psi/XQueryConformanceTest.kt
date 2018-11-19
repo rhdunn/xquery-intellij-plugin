@@ -138,8 +138,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NODE))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_NODE))
     }
 
     // endregion

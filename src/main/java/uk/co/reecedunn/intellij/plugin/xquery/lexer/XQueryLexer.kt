@@ -140,7 +140,6 @@ private val KEYWORDS = mapOf(
         "no" to XQueryTokenType.K_NO, // Full Text 1.0
         "no-inherit" to XQueryTokenType.K_NO_INHERIT,
         "no-preserve" to XQueryTokenType.K_NO_PRESERVE,
-        "node" to XQueryTokenType.K_NODE,
         "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
         "non-deterministic" to XQueryTokenType.K_NON_DETERMINISTIC, // BaseX 8.4
         "not" to XQueryTokenType.K_NOT, // Full Text 1.0

@@ -80,7 +80,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "insert", XQueryTokenType.K_INSERT)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "nodes", XQueryTokenType.K_NODES)
     }
 
@@ -90,7 +90,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "delete", XQueryTokenType.K_DELETE)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "nodes", XQueryTokenType.K_NODES)
     }
 
@@ -102,7 +102,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "replace", XQueryTokenType.K_REPLACE)
         matchSingleToken(lexer, "value", XQueryTokenType.K_VALUE)
         matchSingleToken(lexer, "of", XPathTokenType.K_OF)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
     }
 
@@ -112,7 +112,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "rename", XQueryTokenType.K_RENAME)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 

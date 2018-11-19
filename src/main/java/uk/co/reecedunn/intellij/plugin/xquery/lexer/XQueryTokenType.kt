@@ -183,7 +183,6 @@ object XQueryTokenType {
     val K_NO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO", XQuery) // Full Text 1.0
     val K_NO_INHERIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT", XQuery)
     val K_NO_PRESERVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE", XQuery)
-    val K_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODE", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME)
     val K_NODES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODES", XQuery) // Update Facility 1.0
     val K_NON_DETERMINISTIC = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC", XQuery) // BaseX 8.4
     val K_NOT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NOT", XQuery) // Full Text 1.0

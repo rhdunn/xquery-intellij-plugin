@@ -2773,7 +2773,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
+            if (!matchTokenType(XPathTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
                 insertExprMarker.rollbackTo()
                 return false
             }
@@ -2866,7 +2866,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val deleteExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DELETE)
         if (deleteExprMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
+            if (!matchTokenType(XPathTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
                 deleteExprMarker.rollbackTo()
                 return false
             }
@@ -2902,7 +2902,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NODE)) {
+            if (!matchTokenType(XPathTokenType.K_NODE)) {
                 if (!haveValueOf) {
                     replaceExprMarker.rollbackTo()
                     return false
@@ -2945,7 +2945,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_NODE)) {
+            if (!matchTokenType(XPathTokenType.K_NODE)) {
                 renameExprMarker.rollbackTo()
                 return false
             }
@@ -6571,7 +6571,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseAnyKindTest(): Boolean {
-        val anyKindTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NODE)
+        val anyKindTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_NODE)
         if (anyKindTestMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {

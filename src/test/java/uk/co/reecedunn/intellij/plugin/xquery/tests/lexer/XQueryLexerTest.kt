@@ -2272,10 +2272,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (124) AnyKindTest")
-    fun testAnyKindTest() {
+    fun anyKindTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

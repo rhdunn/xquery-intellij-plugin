@@ -550,7 +550,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyKindTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -561,7 +561,7 @@ class PluginLexerTest : LexerTestCase() {
     fun namedKindTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
