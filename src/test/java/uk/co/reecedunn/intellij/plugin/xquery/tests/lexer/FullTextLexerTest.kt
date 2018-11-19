@@ -59,7 +59,7 @@ class FullTextLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "contains", XQueryTokenType.K_CONTAINS)
-        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
     }
 
     @Test

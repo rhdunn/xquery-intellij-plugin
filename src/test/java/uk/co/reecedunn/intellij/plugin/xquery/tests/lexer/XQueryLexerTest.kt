@@ -2199,7 +2199,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCompTextConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
@@ -2292,10 +2292,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (126) TextTest")
-    fun testTextTest() {
+    fun textTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

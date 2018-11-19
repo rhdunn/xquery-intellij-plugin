@@ -3333,7 +3333,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 var haveError = false
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!matchTokenType(XQueryTokenType.K_TEXT)) {
+                if (!matchTokenType(XPathTokenType.K_TEXT)) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "text"))
                     haveError = true
                 }
@@ -5078,7 +5078,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseCompTextConstructor(): Boolean {
-        val textMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TEXT)
+        val textMarker = matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
         if (textMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
@@ -6629,7 +6629,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseTextTest(): Boolean {
-        val textTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TEXT)
+        val textTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
         if (textTestMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {

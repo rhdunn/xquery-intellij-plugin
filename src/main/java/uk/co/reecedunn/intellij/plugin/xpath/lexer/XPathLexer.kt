@@ -76,6 +76,7 @@ private val KEYWORDS = mapOf(
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "self" to XPathTokenType.K_SELF, // XPath 2.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0
+    "text" to XPathTokenType.K_TEXT, // XPath 2.0
     "then" to XPathTokenType.K_THEN, // XPath 2.0
     "to" to XPathTokenType.K_TO, // XPath 2.0
     "treat" to XPathTokenType.K_TREAT, // XPath 2.0

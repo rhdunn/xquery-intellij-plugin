@@ -571,7 +571,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyTextTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -581,7 +581,7 @@ class PluginLexerTest : LexerTestCase() {
     fun namedTextTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT)
+        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

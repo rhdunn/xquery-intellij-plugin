@@ -95,6 +95,7 @@ object XPathTokenType {
     val K_SATISFIES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES", XPath) // XPath 2.0
     val K_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF", XPath) // XPath 2.0
     val K_SOME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME", XPath) // XPath 2.0
+    val K_TEXT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_THEN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN", XPath) // XPath 2.0
     val K_TREAT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT", XPath) // XPath 2.0
     val K_TO = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO", XPath) // XPath 2.0

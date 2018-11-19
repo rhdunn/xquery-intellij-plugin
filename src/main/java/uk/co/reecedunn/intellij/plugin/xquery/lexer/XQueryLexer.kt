@@ -195,7 +195,6 @@ private val KEYWORDS = mapOf(
         "strip" to XQueryTokenType.K_STRIP,
         "stylesheet" to XQueryTokenType.K_STYLESHEET, // MarkLogic 6.0
         "switch" to XQueryTokenType.K_SWITCH, // XQuery 3.0
-        "text" to XQueryTokenType.K_TEXT,
         "thesaurus" to XQueryTokenType.K_THESAURUS, // Full Text 1.0
         "times" to XQueryTokenType.K_TIMES, // Full Text 1.0
         "transform" to XQueryTokenType.K_TRANSFORM, // Update Facility 3.0
