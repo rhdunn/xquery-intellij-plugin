@@ -3235,7 +3235,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (135) ArgumentPlaceholder")
-    fun testArgumentPlaceholder() {
+    fun argumentPlaceholder() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
