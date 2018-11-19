@@ -3572,7 +3572,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (126) KeySpecifier")
-    fun testKeySpecifier() {
+    fun keySpecifier() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "*", XPathTokenType.STAR)

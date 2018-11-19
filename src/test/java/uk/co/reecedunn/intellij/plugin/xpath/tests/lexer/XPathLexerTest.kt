@@ -1132,4 +1132,12 @@ class XPathLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (54) KeySpecifier")
+    fun keySpecifier() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+    }
 }
