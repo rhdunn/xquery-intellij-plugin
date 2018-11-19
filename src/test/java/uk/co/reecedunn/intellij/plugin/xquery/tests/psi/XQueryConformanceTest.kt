@@ -1625,7 +1625,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.FUNCTION_REF_OPERATOR))
+                `is`(XPathTokenType.FUNCTION_REF_OPERATOR))
     }
 
     @Test
@@ -1641,7 +1641,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.FUNCTION_REF_OPERATOR))
+                `is`(XPathTokenType.FUNCTION_REF_OPERATOR))
     }
 
     @Test
@@ -1657,7 +1657,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.FUNCTION_REF_OPERATOR))
+                `is`(XPathTokenType.FUNCTION_REF_OPERATOR))
     }
 
     // endregion

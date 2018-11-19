@@ -1013,6 +1013,14 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
     }
 
+    @Test
+    @DisplayName("XPath 3.0 EBNF (63) NamedFunctionRef")
+    fun namedFunctionRef() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "#", XPathTokenType.FUNCTION_REF_OPERATOR)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {

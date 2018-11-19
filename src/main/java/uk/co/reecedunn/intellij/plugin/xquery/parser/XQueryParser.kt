@@ -4372,7 +4372,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val namedFunctionRefMarker = mark()
         if (parseEQName(XQueryElementType.QNAME)) {
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.FUNCTION_REF_OPERATOR)) {
+            if (!matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
                 namedFunctionRefMarker.rollbackTo()
                 return false
             }

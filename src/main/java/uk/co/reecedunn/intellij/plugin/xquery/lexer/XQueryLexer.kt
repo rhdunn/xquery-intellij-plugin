@@ -378,7 +378,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.PRAGMA_END
                 } else {
-                    XQueryTokenType.FUNCTION_REF_OPERATOR
+                    XPathTokenType.FUNCTION_REF_OPERATOR
                 }
             }
             CharacterClass.EXCLAMATION_MARK -> {

@@ -252,6 +252,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     else -> XPathTokenType.GREATER_THAN
                 }
             }
+            CharacterClass.HASH -> {
+                mTokenRange.match()
+                mType = XPathTokenType.FUNCTION_REF_OPERATOR
+            }
             CharacterClass.HYPHEN_MINUS -> {
                 mTokenRange.match()
                 mType = XPathTokenType.MINUS

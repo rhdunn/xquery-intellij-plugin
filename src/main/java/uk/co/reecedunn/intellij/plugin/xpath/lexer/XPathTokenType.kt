@@ -33,6 +33,7 @@ object XPathTokenType {
     val DIRECT_DESCENDANTS_PATH = IElementType("XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
     val DOT = IElementType("XQUERY_DOT_TOKEN", XPath) // XPath 1.0
     val EQUAL = IElementType("XQUERY_EQUAL_TOKEN", XPath) // XPath 1.0
+    val FUNCTION_REF_OPERATOR = IElementType("XQUERY_FUNCTION_REF_OPERATOR_TOKEN", XPath) // XPath 3.0
     val GREATER_THAN = IElementType("XQUERY_GREATER_THAN_TOKEN", XPath) // XPath 1.0
     val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
     val LESS_THAN = IElementType("XQUERY_LESS_THAN_TOKEN", XPath) // XPath 1.0

@@ -674,7 +674,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "#)", 0, XQueryTokenType.PRAGMA_END)
 
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR)
+        matchSingleToken(lexer, "#", XPathTokenType.FUNCTION_REF_OPERATOR)
 
         lexer.start("(#  let:for  6^gkgw~*#g#)")
         matchToken(lexer, "(#", 0, 0, 2, XQueryTokenType.PRAGMA_BEGIN)
@@ -950,14 +950,14 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
             matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "< fn:abs ", 0, 2, 11, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "#", 0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR)
+            matchToken(lexer, "#", 0, 11, 12, XPathTokenType.FUNCTION_REF_OPERATOR)
             matchToken(lexer, "", 0, 12, 12, null)
 
             lexer.start("1 <fn:abs #")
             matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
             matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "<fn:abs ", 0, 2, 10, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "#", 0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR)
+            matchToken(lexer, "#", 0, 10, 11, XPathTokenType.FUNCTION_REF_OPERATOR)
             matchToken(lexer, "", 0, 11, 11, null)
 
             lexer.start("1 < 2")
@@ -1146,7 +1146,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "abs", 0x50000000 or 29, 7, 10, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0x50000000 or 29, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "#", 0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR)
+            matchToken(lexer, "#", 0, 11, 12, XPathTokenType.FUNCTION_REF_OPERATOR)
             matchToken(lexer, "", 0, 12, 12, null)
 
             lexer.start("1 <fn:abs #")
@@ -1157,7 +1157,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XPathTokenType.QNAME_SEPARATOR)
             matchToken(lexer, "abs", 0x50000000 or 29, 6, 9, XPathTokenType.NCNAME)
             matchToken(lexer, " ", 0x50000000 or 29, 9, 10, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "#", 0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR)
+            matchToken(lexer, "#", 0, 10, 11, XPathTokenType.FUNCTION_REF_OPERATOR)
             matchToken(lexer, "", 0, 11, 11, null)
         }
 
@@ -3253,10 +3253,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (164) NamedFunctionRef")
-    fun testNamedFunctionRef() {
+    fun namedFunctionRef() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR)
+        matchSingleToken(lexer, "#", XPathTokenType.FUNCTION_REF_OPERATOR)
     }
 
     @Test
