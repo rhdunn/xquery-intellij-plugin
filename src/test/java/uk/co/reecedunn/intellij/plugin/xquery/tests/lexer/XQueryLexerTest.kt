@@ -332,7 +332,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (28) Param")
-    fun testParam() {
+    fun param() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
