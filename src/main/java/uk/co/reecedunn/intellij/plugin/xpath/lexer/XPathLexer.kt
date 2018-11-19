@@ -220,9 +220,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '='.toInt()) {
+                mType = if (mTokenRange.codePoint == '='.toInt()) {
                     mTokenRange.match()
-                    mType = XPathTokenType.NOT_EQUAL
+                    XPathTokenType.NOT_EQUAL
+                } else {
+                    XPathTokenType.MAP_OPERATOR
                 }
             }
             CharacterClass.FORWARD_SLASH -> {

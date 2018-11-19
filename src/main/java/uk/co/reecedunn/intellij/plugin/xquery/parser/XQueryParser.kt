@@ -3853,7 +3853,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
 
             parseWhiteSpaceAndCommentTokens()
             var haveSimpleMapExpr = false
-            while (matchTokenType(XQueryTokenType.MAP_OPERATOR)) {
+            while (matchTokenType(XPathTokenType.MAP_OPERATOR)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parsePathExpr(null) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "PathExpr"))

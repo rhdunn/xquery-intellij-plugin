@@ -1767,7 +1767,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.MAP_OPERATOR))
+                `is`(XPathTokenType.MAP_OPERATOR))
     }
 
     // endregion

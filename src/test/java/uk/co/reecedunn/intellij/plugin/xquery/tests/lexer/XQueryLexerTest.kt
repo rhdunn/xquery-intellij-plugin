@@ -3217,10 +3217,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (106) SimpleMapExpr")
-    fun testSimpleMapExpr() {
+    fun simpleMapExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR)
+        matchSingleToken(lexer, "!", XPathTokenType.MAP_OPERATOR)
     }
 
     @Test

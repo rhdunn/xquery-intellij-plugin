@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleMapExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
@@ -36,6 +36,5 @@ class XPathSimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
         return XQUERY30
     }
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.MAP_OPERATOR) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
 }

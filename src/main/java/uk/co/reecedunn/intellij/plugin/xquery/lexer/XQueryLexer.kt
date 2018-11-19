@@ -390,7 +390,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
                 } else {
-                    XQueryTokenType.MAP_OPERATOR // XQuery 3.0
+                    XPathTokenType.MAP_OPERATOR // XQuery 3.0
                 }
             }
             CharacterClass.DOLLAR -> {

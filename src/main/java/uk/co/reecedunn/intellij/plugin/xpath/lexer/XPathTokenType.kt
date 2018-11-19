@@ -37,6 +37,7 @@ object XPathTokenType {
     val GREATER_THAN_OR_EQUAL = IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
     val LESS_THAN = IElementType("XQUERY_LESS_THAN_TOKEN", XPath) // XPath 1.0
     val LESS_THAN_OR_EQUAL = IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XPath) // XPath 1.0
+    val MAP_OPERATOR = IElementType("XQUERY_MAP_OPERATOR_TOKEN", XPath) // XPath 3.0
     val MINUS = IElementType("XQUERY_MINUS_TOKEN", XPath) // XPath 1.0
     val NODE_AFTER = IElementType("XQUERY_NODE_AFTER_TOKEN", XPath) // XPath 2.0
     val NODE_BEFORE = IElementType("XQUERY_NODE_BEFORE_TOKEN", XPath) // XPath 2.0
