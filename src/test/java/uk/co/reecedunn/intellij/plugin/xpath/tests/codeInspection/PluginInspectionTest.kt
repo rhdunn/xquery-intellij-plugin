@@ -2482,7 +2482,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: W3C Working Draft does not support XQuery 1.0, or eXist-db 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY_SEQUENCE))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
                 }
 
                 @Test
@@ -2513,7 +2513,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '0.9-ml' does not support XQuery 1.0, or eXist-db 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY_SEQUENCE))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
                 }
 
                 @Test

@@ -96,7 +96,6 @@ private val KEYWORDS = mapOf(
         "element" to XQueryTokenType.K_ELEMENT,
         "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
         "empty" to XQueryTokenType.K_EMPTY,
-        "empty-sequence" to XQueryTokenType.K_EMPTY_SEQUENCE,
         "encoding" to XQueryTokenType.K_ENCODING,
         "end" to XQueryTokenType.K_END, // XQuery 3.0
         "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0

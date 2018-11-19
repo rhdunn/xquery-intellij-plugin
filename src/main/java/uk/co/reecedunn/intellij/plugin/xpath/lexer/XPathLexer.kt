@@ -44,6 +44,7 @@ private val KEYWORDS = mapOf(
     "descendant-or-self" to XPathTokenType.K_DESCENDANT_OR_SELF, // XPath 2.0
     "div" to XPathTokenType.K_DIV, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
+    "empty-sequence" to XPathTokenType.K_EMPTY_SEQUENCE, // XPath 2.0
     "eq" to XPathTokenType.K_EQ, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "except" to XPathTokenType.K_EXCEPT, // XPath 2.0

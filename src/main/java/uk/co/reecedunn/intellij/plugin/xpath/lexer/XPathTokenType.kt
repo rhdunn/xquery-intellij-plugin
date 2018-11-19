@@ -63,6 +63,7 @@ object XPathTokenType {
     val K_DESCENDANT_OR_SELF = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF", XPath) // XPath 2.0
     val K_DIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV", XPath) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0
+    val K_EMPTY_SEQUENCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_EQ = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EQ", XPath) // XPath 2.0
     val K_EVERY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
     val K_EXCEPT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXCEPT", XPath) // XPath 2.0

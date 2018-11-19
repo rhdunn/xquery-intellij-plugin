@@ -2100,10 +2100,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[1], `is`(EXistDB.VERSION_4_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_EMPTY_SEQUENCE)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
         }
 
         @Test
