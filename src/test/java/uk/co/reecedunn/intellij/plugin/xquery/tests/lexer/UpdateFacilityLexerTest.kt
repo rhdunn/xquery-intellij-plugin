@@ -144,8 +144,8 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM)
         matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test

@@ -126,6 +126,14 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 mType = XPathTokenType.COMMA
             }
+            CharacterClass.CURLY_BRACE_CLOSE -> {
+                mTokenRange.match()
+                mType = XPathTokenType.BLOCK_CLOSE
+            }
+            CharacterClass.CURLY_BRACE_OPEN -> {
+                mTokenRange.match()
+                mType = XPathTokenType.BLOCK_OPEN
+            }
             CharacterClass.DIGIT -> {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)

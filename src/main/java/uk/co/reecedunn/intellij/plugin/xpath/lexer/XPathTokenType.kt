@@ -47,6 +47,8 @@ object XPathTokenType {
     val SQUARE_CLOSE = IElementType("XQUERY_SQUARE_CLOSE_TOKEN", XPath) // XPath 1.0
     val DOT = IElementType("XQUERY_DOT_TOKEN", XPath) // XPath 1.0
     val OPTIONAL = IElementType("XQUERY_OPTIONAL_TOKEN", XPath) // XPath 2.0
+    val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
+    val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XPath) // XPath 3.0 ; XQuery 1.0
 
     // endregion
     // region Keywords

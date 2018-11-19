@@ -935,6 +935,15 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
+    @Test
+    @DisplayName("XPath 3.0 EBNF (5) EnclosedExpr")
+    fun enclosedExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    }
+
     @Nested
     @DisplayName("XPath 3.0 EBNF (100) BracedURILiteral")
     internal inner class BracedURILiteral {
@@ -963,9 +972,9 @@ class XPathLexerTest : LexerTestCase() {
             matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "D", 26, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "}", 26, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "}", 0, 13, 14, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "}", 0, 13, 14, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "E", 0, 14, 15, XPathTokenType.NCNAME)
-            matchToken(lexer, "}", 0, 15, 16, XPathTokenType.BAD_CHARACTER)
+            matchToken(lexer, "}", 0, 15, 16, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "", 0, 16, 16, null)
         }
     }

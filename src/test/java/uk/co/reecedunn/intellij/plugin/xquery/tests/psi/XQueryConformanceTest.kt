@@ -427,7 +427,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -460,7 +460,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -494,7 +494,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -528,7 +528,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -561,7 +561,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -595,7 +595,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -629,7 +629,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -662,7 +662,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -697,7 +697,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -730,7 +730,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -771,7 +771,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -808,7 +808,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -844,7 +844,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -878,7 +878,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -914,7 +914,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion
@@ -948,7 +948,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
     }
 
     // endregion

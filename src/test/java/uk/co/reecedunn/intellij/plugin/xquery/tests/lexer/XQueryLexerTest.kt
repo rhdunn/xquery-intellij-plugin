@@ -63,9 +63,9 @@ class XQueryLexerTest : LexerTestCase() {
             assertThat(lexer.state, `is`(1))
 
             lexer.start("} {\"")
-            matchToken(lexer, "}", 0, 0, 1, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 0, 0, 1, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "{", 0, 2, 3, XQueryTokenType.BLOCK_OPEN)
+            matchToken(lexer, "{", 0, 2, 3, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "\"", 0, 3, 4, XPathTokenType.STRING_LITERAL_START)
             matchToken(lexer, "", 1, 4, 4, null)
         }
@@ -76,9 +76,9 @@ class XQueryLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("} } ")
-            matchToken(lexer, "}", 0, 0, 1, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 0, 0, 1, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "}", 0, 2, 3, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 0, 2, 3, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
             matchToken(lexer, "", 0, 4, 4, null)
         }
@@ -340,11 +340,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (29) EnclosedExpr")
-    fun testEnclosedExpr() {
+    fun enclosedExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -643,8 +643,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -661,8 +661,8 @@ class XQueryLexerTest : LexerTestCase() {
     fun testExtensionExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -857,8 +857,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "ordered", XQueryTokenType.K_ORDERED)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -867,8 +867,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "unordered", XQueryTokenType.K_UNORDERED)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -1296,9 +1296,9 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("\"One {2}<& \u3053\u3093\u3070\u3093\u306F.\"", 0, 18, 11)
             matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
             matchToken(lexer, "One ", 13, 1, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "{", 13, 5, 6, XQueryTokenType.BLOCK_OPEN)
+            matchToken(lexer, "{", 13, 5, 6, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 15, 6, 7, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 15, 7, 8, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 15, 7, 8, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "<", 13, 8, 9, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "&", 13, 9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
             matchToken(
@@ -1321,13 +1321,13 @@ class XQueryLexerTest : LexerTestCase() {
             lexer.start("'One {2}<& \u3053\u3093\u3070\u3093\u306F.}'", 0, 19, 11)
             matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
             matchToken(lexer, "One ", 14, 1, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "{", 14, 5, 6, XQueryTokenType.BLOCK_OPEN)
+            matchToken(lexer, "{", 14, 5, 6, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 16, 6, 7, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 16, 7, 8, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 16, 7, 8, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "<", 14, 8, 9, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "&", 14, 9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 14, 10, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "}", 14, 17, 18, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 14, 17, 18, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "'", 14, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
             matchToken(lexer, "", 11, 19, 19, null)
         }
@@ -1582,13 +1582,13 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
             matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
             matchToken(lexer, "One ", 17, 3, 7, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "{", 17, 7, 8, XQueryTokenType.BLOCK_OPEN)
+            matchToken(lexer, "{", 17, 7, 8, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 18, 8, 9, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 18, 9, 10, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 18, 9, 10, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "<", 17, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "&", 17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
             matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "}", 17, 19, 20, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 17, 19, 20, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "</", 17, 20, 22, XQueryTokenType.CLOSE_XML_TAG)
             matchToken(lexer, "a", 12, 22, 23, XQueryTokenType.XML_TAG_NCNAME)
             matchToken(lexer, ">", 12, 23, 24, XQueryTokenType.END_XML_TAG)
@@ -2170,8 +2170,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "document", XQueryTokenType.K_DOCUMENT)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -2180,8 +2180,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -2190,8 +2190,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -2200,8 +2200,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -2210,8 +2210,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "comment", XPathTokenType.K_COMMENT)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -2220,8 +2220,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3174,8 +3174,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "try", XQueryTokenType.K_TRY)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3184,8 +3184,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "catch", XQueryTokenType.K_CATCH)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3211,8 +3211,8 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
         matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3247,8 +3247,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3340,9 +3340,9 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
             matchToken(lexer, "D", 26, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
             matchToken(lexer, "}", 26, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "}", 0, 13, 14, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 0, 13, 14, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "E", 0, 14, 15, XPathTokenType.NCNAME)
-            matchToken(lexer, "}", 0, 15, 16, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 0, 15, 16, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "", 0, 16, 16, null)
         }
 
@@ -3584,9 +3584,9 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3613,8 +3613,8 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -3667,9 +3667,9 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
             matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
             matchToken(lexer, "`", 17, 3, 4, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "{", 17, 4, 5, XQueryTokenType.BLOCK_OPEN)
+            matchToken(lexer, "{", 17, 4, 5, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 18, 5, 6, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 18, 6, 7, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 18, 6, 7, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "`", 17, 7, 8, XQueryTokenType.XML_ELEMENT_CONTENTS)
             matchToken(lexer, "</", 17, 8, 10, XQueryTokenType.CLOSE_XML_TAG)
             matchToken(lexer, "a", 12, 10, 11, XQueryTokenType.XML_TAG_NCNAME)
@@ -3685,12 +3685,12 @@ class XQueryLexerTest : LexerTestCase() {
             // String interpolation marker is only valid in string interpolation contexts.
             lexer.start("`{")
             matchToken(lexer, "`", 0, 0, 1, XQueryTokenType.INVALID)
-            matchToken(lexer, "{", 0, 1, 2, XQueryTokenType.BLOCK_OPEN)
+            matchToken(lexer, "{", 0, 1, 2, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "", 0, 2, 2, null)
 
             // String interpolation marker is only valid in string interpolation contexts.
             lexer.start("}`")
-            matchToken(lexer, "}", 0, 0, 1, XQueryTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "}", 0, 0, 1, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "`", 0, 1, 2, XQueryTokenType.INVALID)
             matchToken(lexer, "", 0, 2, 2, null)
         }

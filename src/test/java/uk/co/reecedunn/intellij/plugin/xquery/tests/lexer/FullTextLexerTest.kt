@@ -68,8 +68,8 @@ class FullTextLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "weight", XQueryTokenType.K_WEIGHT)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -119,8 +119,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTWordsValue() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -128,8 +128,8 @@ class FullTextLexerTest : LexerTestCase() {
     fun testFTExtensionSelection() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test

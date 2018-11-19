@@ -274,7 +274,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
         }
     }
 
@@ -950,7 +950,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
                 conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN)
+                `is`(XPathTokenType.BLOCK_OPEN)
             )
         }
     }

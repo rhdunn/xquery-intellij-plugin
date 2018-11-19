@@ -95,8 +95,8 @@ class ScriptingLexerTest : LexerTestCase() {
     fun testBlock() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test

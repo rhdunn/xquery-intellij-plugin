@@ -538,7 +538,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.CURLY_BRACE_OPEN -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.BLOCK_OPEN
+                mType = XPathTokenType.BLOCK_OPEN
                 pushState(mState)
             }
             CharacterClass.CURLY_BRACE_CLOSE -> {
@@ -547,7 +547,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.STRING_INTERPOLATION_CLOSE
                 } else {
-                    XQueryTokenType.BLOCK_CLOSE
+                    XPathTokenType.BLOCK_CLOSE
                 }
                 popState()
             }
@@ -984,7 +984,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 mType = XQueryTokenType.XML_ESCAPED_CHARACTER
             } else {
-                mType = XQueryTokenType.BLOCK_OPEN
+                mType = XPathTokenType.BLOCK_OPEN
                 pushState(if (type == '"') STATE_DEFAULT_ATTRIBUTE_QUOT else STATE_DEFAULT_ATTRIBUTE_APOSTROPHE)
             }
         } else if (c == '}'.toInt()) {
@@ -993,7 +993,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 XQueryTokenType.XML_ESCAPED_CHARACTER
             } else {
-                XQueryTokenType.BLOCK_CLOSE
+                XPathTokenType.BLOCK_CLOSE
             }
         } else if (c == '<'.toInt()) {
             mTokenRange.match()
@@ -1029,7 +1029,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
-                mType = XQueryTokenType.BLOCK_OPEN
+                mType = XPathTokenType.BLOCK_OPEN
                 pushState(STATE_DEFAULT_ELEM_CONTENT)
             }
         } else if (c == '}'.toInt()) {
@@ -1038,7 +1038,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 XPathTokenType.ESCAPED_CHARACTER
             } else {
-                XQueryTokenType.BLOCK_CLOSE
+                XPathTokenType.BLOCK_CLOSE
             }
         } else if (c == '<'.toInt()) {
             mTokenRange.match()
