@@ -163,7 +163,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
     }
@@ -315,7 +315,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
@@ -3261,10 +3261,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (165) InlineFunctionExpr")
-    fun testInlineFunctionExpr() {
+    fun inlineFunctionExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)
@@ -3285,7 +3285,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testAnyFunctionTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -3296,7 +3296,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testTypedFunctionTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)

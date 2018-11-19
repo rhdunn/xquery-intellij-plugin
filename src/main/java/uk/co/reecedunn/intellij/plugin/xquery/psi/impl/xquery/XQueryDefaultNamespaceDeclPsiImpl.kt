@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
@@ -55,7 +54,7 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
             return children().map { child ->
                 when (child.node.elementType) {
                     XPathTokenType.K_ELEMENT -> XPathNamespaceType.DefaultElementOrType
-                    XQueryTokenType.K_FUNCTION -> XPathNamespaceType.DefaultFunction
+                    XPathTokenType.K_FUNCTION -> XPathNamespaceType.DefaultFunction
                     else -> null
                 }
             }.filterNotNull().first()

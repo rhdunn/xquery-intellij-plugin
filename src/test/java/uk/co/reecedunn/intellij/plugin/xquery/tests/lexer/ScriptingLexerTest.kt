@@ -55,7 +55,7 @@ class ScriptingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "as", XPathTokenType.K_AS)

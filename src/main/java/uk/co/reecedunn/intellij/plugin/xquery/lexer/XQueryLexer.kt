@@ -107,7 +107,6 @@ private val KEYWORDS = mapOf(
         "ftand" to XQueryTokenType.K_FTAND, // Full Text 1.0
         "ftnot" to XQueryTokenType.K_FTNOT, // Full Text 1.0
         "ftor" to XQueryTokenType.K_FTOR, // Full Text 1.0
-        "function" to XQueryTokenType.K_FUNCTION,
         "fuzzy" to XQueryTokenType.K_FUZZY, // BaseX 6.1
         "greatest" to XQueryTokenType.K_GREATEST,
         "group" to XQueryTokenType.K_GROUP, // XQuery 3.0

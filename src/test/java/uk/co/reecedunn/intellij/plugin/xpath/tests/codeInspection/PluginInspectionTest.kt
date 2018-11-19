@@ -2990,7 +2990,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Reserved XQuery 3.0 keyword used as a function name.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
                 }
 
                 @Nested

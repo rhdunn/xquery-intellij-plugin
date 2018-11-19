@@ -144,7 +144,6 @@ object XQueryTokenType {
     val K_FTAND = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTAND", XQuery) // Full Text 1.0
     val K_FTNOT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTNOT", XQuery) // Full Text 1.0
     val K_FTOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTOR", XQuery) // Full Text 1.0
-    val K_FUNCTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION", XQuery, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME)
     val K_FUZZY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUZZY", XQuery) // BaseX 6.1
     val K_GREATEST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST", XQuery)
     val K_GROUP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUP", XQuery) // XQuery 3.0

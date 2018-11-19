@@ -109,7 +109,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
     }
 
     @Test
@@ -1061,7 +1061,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FUNCTION))
+                `is`(XPathTokenType.K_FUNCTION))
     }
 
     @Test
@@ -1878,7 +1878,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
     }
 
     @Test

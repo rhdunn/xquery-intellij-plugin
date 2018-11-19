@@ -443,7 +443,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             if (matchTokenType(XPathTokenType.K_ELEMENT)) continue
             if (matchTokenType(XQueryTokenType.K_EMPTY)) continue
             if (matchTokenType(XQueryTokenType.K_EXTERNAL)) continue
-            if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue
+            if (matchTokenType(XPathTokenType.K_FUNCTION)) continue
             if (matchTokenType(XQueryTokenType.K_GREATEST)) continue
             if (matchTokenType(XQueryTokenType.K_INHERIT)) continue
             if (matchTokenType(XPathTokenType.K_ITEM)) continue
@@ -467,7 +467,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseDefaultNamespaceDecl(): Boolean {
-        if (matchTokenType(XPathTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
+        if (matchTokenType(XPathTokenType.K_ELEMENT) || matchTokenType(XPathTokenType.K_FUNCTION)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -1107,7 +1107,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseFunctionDecl(functionDeclMarker: PsiBuilder.Marker, firstAnnotation: IElementType?): Boolean {
-        if (matchTokenType(XQueryTokenType.K_FUNCTION)) {
+        if (matchTokenType(XPathTokenType.K_FUNCTION)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -4399,7 +4399,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
             haveAnnotations = true
         }
 
-        if (matchTokenType(XQueryTokenType.K_FUNCTION)) {
+        if (matchTokenType(XPathTokenType.K_FUNCTION)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -6371,7 +6371,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseAnyOrTypedFunctionTest(): Boolean {
-        val functionTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FUNCTION)
+        val functionTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
         if (functionTestMarker != null) {
             var type: KindTest = KindTest.ANY_TEST
             var haveErrors = false

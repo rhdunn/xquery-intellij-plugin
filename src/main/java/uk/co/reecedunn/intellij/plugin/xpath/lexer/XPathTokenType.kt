@@ -79,6 +79,7 @@ object XPathTokenType {
     val K_FOLLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING", XPath) // XPath 1.0
     val K_FOLLOWING_SIBLING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING", XPath) // XPath 1.0
     val K_FOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOR", XPath) // XPath 2.0
+    val K_FUNCTION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION", XPath, IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME) // XPath 3.0 ; XQuery 1.0
     val K_GE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GE", XPath) // XPath 2.0
     val K_GT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GT", XPath) // XPath 2.0
     val K_IDIV = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IDIV", XPath) // XPath 2.0

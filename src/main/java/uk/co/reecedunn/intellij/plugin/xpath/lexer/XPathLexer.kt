@@ -54,6 +54,7 @@ private val KEYWORDS = mapOf(
     "following" to XPathTokenType.K_FOLLOWING, // XPath 1.0
     "following-sibling" to XPathTokenType.K_FOLLOWING_SIBLING, // XPath 1.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
+    "function" to XPathTokenType.K_FUNCTION, // XPath 3.0 ; XQuery 1.0
     "ge" to XPathTokenType.K_GE, // XPath 2.0
     "gt" to XPathTokenType.K_GT, // XPath 2.0
     "idiv" to XPathTokenType.K_IDIV, // XPath 2.0
