@@ -629,7 +629,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     XQueryTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
                 } else {
-                    XQueryTokenType.OPTIONAL
+                    XPathTokenType.OPTIONAL
                 }
             }
             CharacterClass.PERCENT -> {

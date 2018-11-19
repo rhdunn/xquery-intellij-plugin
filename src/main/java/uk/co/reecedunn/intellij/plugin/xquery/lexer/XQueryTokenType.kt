@@ -75,7 +75,6 @@ object XQueryTokenType {
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery)
     val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XQuery)
     val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XQuery)
-    val OPTIONAL = IElementType("XQUERY_OPTIONAL_TOKEN", XQuery)
     val ASSIGN_EQUAL = IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XQuery)
 
     val CONCATENATION = IElementType("XQUERY_CONCATENATION", XQuery) // XQuery 3.0

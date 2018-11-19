@@ -2225,6 +2225,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 1.0 EBNF (117) SingleType")
+    fun singleType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+    }
+
+    @Test
     @DisplayName("XQuery 1.0 EBNF (118) TypeDeclaration")
     fun testTypeDeclaration() {
         val lexer = createLexer()
@@ -2247,7 +2255,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testOccurrenceIndicator() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, "+", XPathTokenType.PLUS)
     }
@@ -2348,7 +2356,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
     }
 
     @Test
@@ -3230,7 +3238,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testArgumentPlaceholder() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
     }
 
     @Test
@@ -3559,7 +3567,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testLookup() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
     }
 
     @Test
@@ -3709,7 +3717,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testUnaryLookup() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL)
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
     }
 
     @Test

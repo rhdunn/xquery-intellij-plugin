@@ -212,8 +212,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.OPTIONAL))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.OPTIONAL))
     }
 
     // endregion
@@ -1589,8 +1588,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.OPTIONAL))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.OPTIONAL))
     }
 
     // endregion
@@ -1930,8 +1928,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.OPTIONAL))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.OPTIONAL))
     }
 
     // endregion

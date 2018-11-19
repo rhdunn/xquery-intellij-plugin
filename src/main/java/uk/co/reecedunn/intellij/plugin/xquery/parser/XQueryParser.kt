@@ -3759,7 +3759,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
         val singleTypeMarker = mark()
         if (parseEQName(XQueryElementType.SIMPLE_TYPE_NAME)) {
             parseWhiteSpaceAndCommentTokens()
-            matchTokenType(XQueryTokenType.OPTIONAL)
+            matchTokenType(XPathTokenType.OPTIONAL)
 
             singleTypeMarker.done(XQueryElementType.SINGLE_TYPE)
             return true
@@ -4356,7 +4356,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseArgumentPlaceholder(): Boolean {
-        val argumentPlaceholderMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL)
+        val argumentPlaceholderMarker = matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (argumentPlaceholderMarker != null) {
             argumentPlaceholderMarker.done(XQueryElementType.ARGUMENT_PLACEHOLDER)
             return true
@@ -4469,7 +4469,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseLookup(type: IElementType): Boolean {
-        val lookupMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL)
+        val lookupMarker = matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (lookupMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseKeySpecifier()) {
@@ -6145,7 +6145,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseOccurrenceIndicator(): Boolean {
-        return matchTokenType(XQueryTokenType.OPTIONAL) ||
+        return matchTokenType(XPathTokenType.OPTIONAL) ||
                 matchTokenType(XPathTokenType.STAR) ||
                 matchTokenType(XPathTokenType.PLUS)
     }
@@ -6273,7 +6273,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                 if (matchTokenType(XQueryTokenType.ELVIS)) // ?: without whitespace
                     true
                 else {
-                    matchTokenType(XQueryTokenType.OPTIONAL)
+                    matchTokenType(XPathTokenType.OPTIONAL)
                     parseWhiteSpaceAndCommentTokens()
                     matchTokenType(XPathTokenType.QNAME_SEPARATOR)
                 }
@@ -6813,7 +6813,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
                     }
 
                     parseWhiteSpaceAndCommentTokens()
-                    matchTokenType(XQueryTokenType.OPTIONAL)
+                    matchTokenType(XPathTokenType.OPTIONAL)
                 } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE && getTokenType() !== XQueryTokenType.K_EXTERNAL) {
                     error(XQueryBundle.message("parser.error.expected", ","))
                     haveErrors = true

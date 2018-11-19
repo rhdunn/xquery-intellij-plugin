@@ -867,8 +867,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
 
-            assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.OPTIONAL))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.OPTIONAL))
         }
 
         @Test

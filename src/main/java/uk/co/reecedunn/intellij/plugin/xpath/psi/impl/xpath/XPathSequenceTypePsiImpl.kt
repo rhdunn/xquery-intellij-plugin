@@ -39,7 +39,7 @@ private val XQUERY10_WD_EMPTY: List<Version> = listOf(
 
 private val OCCURRENCE_INDICATOR = TokenSet.create(
     XPathTokenType.PLUS,
-    XQueryTokenType.OPTIONAL,
+    XPathTokenType.OPTIONAL,
     XPathTokenType.STAR
 )
 

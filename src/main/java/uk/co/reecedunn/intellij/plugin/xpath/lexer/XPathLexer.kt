@@ -286,6 +286,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mTokenRange.match()
                 mType = XPathTokenType.PLUS
             }
+            CharacterClass.QUESTION_MARK -> {
+                mTokenRange.match()
+                mType = XPathTokenType.OPTIONAL
+            }
             CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
                 mTokenRange.match()
                 mType = XPathTokenType.STRING_LITERAL_START
