@@ -32,18 +32,18 @@ const val STATE_BRACED_URI_LITERAL = 26
 // endregion
 
 private val KEYWORDS = mapOf(
-    "ancestor" to XPathTokenType.K_ANCESTOR, // XPath 2.0
-    "ancestor-or-self" to XPathTokenType.K_ANCESTOR_OR_SELF, // XPath 2.0
-    "and" to XPathTokenType.K_AND, // XPath 2.0
+    "ancestor" to XPathTokenType.K_ANCESTOR, // XPath 1.0
+    "ancestor-or-self" to XPathTokenType.K_ANCESTOR_OR_SELF, // XPath 1.0
+    "and" to XPathTokenType.K_AND, // XPath 1.0
     "as" to XPathTokenType.K_AS, // XPath 2.0
-    "attribute" to XPathTokenType.K_ATTRIBUTE, // XPath 2.0
+    "attribute" to XPathTokenType.K_ATTRIBUTE, // XPath 1.0
     "cast" to XPathTokenType.K_CAST, // XPath 2.0
     "castable" to XPathTokenType.K_CASTABLE, // XPath 2.0
-    "child" to XPathTokenType.K_CHILD, // XPath 2.0
-    "comment" to XPathTokenType.K_COMMENT, // XPath 2.0
-    "descendant" to XPathTokenType.K_DESCENDANT, // XPath 2.0
-    "descendant-or-self" to XPathTokenType.K_DESCENDANT_OR_SELF, // XPath 2.0
-    "div" to XPathTokenType.K_DIV, // XPath 2.0
+    "child" to XPathTokenType.K_CHILD, // XPath 1.0
+    "comment" to XPathTokenType.K_COMMENT, // XPath 1.0
+    "descendant" to XPathTokenType.K_DESCENDANT, // XPath 1.0
+    "descendant-or-self" to XPathTokenType.K_DESCENDANT_OR_SELF, // XPath 1.0
+    "div" to XPathTokenType.K_DIV, // XPath 1.0
     "document-node" to XPathTokenType.K_DOCUMENT_NODE, // XPath 2.0
     "element" to XPathTokenType.K_ELEMENT, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
@@ -51,8 +51,8 @@ private val KEYWORDS = mapOf(
     "eq" to XPathTokenType.K_EQ, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0
     "except" to XPathTokenType.K_EXCEPT, // XPath 2.0
-    "following" to XPathTokenType.K_FOLLOWING, // XPath 2.0
-    "following-sibling" to XPathTokenType.K_FOLLOWING_SIBLING, // XPath 2.0
+    "following" to XPathTokenType.K_FOLLOWING, // XPath 1.0
+    "following-sibling" to XPathTokenType.K_FOLLOWING_SIBLING, // XPath 1.0
     "for" to XPathTokenType.K_FOR, // XPath 2.0
     "ge" to XPathTokenType.K_GE, // XPath 2.0
     "gt" to XPathTokenType.K_GT, // XPath 2.0
@@ -65,23 +65,23 @@ private val KEYWORDS = mapOf(
     "item" to XPathTokenType.K_ITEM, // XPath 2.0
     "le" to XPathTokenType.K_LE, // XPath 2.0
     "lt" to XPathTokenType.K_LT, // XPath 2.0
-    "mod" to XPathTokenType.K_MOD, // XPath 2.0
-    "namespace" to XPathTokenType.K_NAMESPACE, // XPath 2.0
+    "mod" to XPathTokenType.K_MOD, // XPath 1.0
+    "namespace" to XPathTokenType.K_NAMESPACE, // XPath 1.0
     "ne" to XPathTokenType.K_NE, // XPath 2.0
-    "node" to XPathTokenType.K_NODE, // XPath 2.0
+    "node" to XPathTokenType.K_NODE, // XPath 1.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
-    "or" to XPathTokenType.K_OR, // XPath 2.0
-    "parent" to XPathTokenType.K_PARENT, // XPath 2.0
-    "preceding" to XPathTokenType.K_PRECEDING, // XPath 2.0
-    "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 2.0
-    "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 2.0
+    "or" to XPathTokenType.K_OR, // XPath 1.0
+    "parent" to XPathTokenType.K_PARENT, // XPath 1.0
+    "preceding" to XPathTokenType.K_PRECEDING, // XPath 1.0
+    "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 1.0
+    "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 1.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "schema-attribute" to XPathTokenType.K_SCHEMA_ATTRIBUTE, // XPath 2.0
     "schema-element" to XPathTokenType.K_SCHEMA_ELEMENT, // XPath 2.0
-    "self" to XPathTokenType.K_SELF, // XPath 2.0
+    "self" to XPathTokenType.K_SELF, // XPath 1.0
     "some" to XPathTokenType.K_SOME, // XPath 2.0
-    "text" to XPathTokenType.K_TEXT, // XPath 2.0
+    "text" to XPathTokenType.K_TEXT, // XPath 1.0
     "then" to XPathTokenType.K_THEN, // XPath 2.0
     "to" to XPathTokenType.K_TO, // XPath 2.0
     "treat" to XPathTokenType.K_TREAT, // XPath 2.0

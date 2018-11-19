@@ -144,7 +144,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (8) OrExpr")
+    @DisplayName("XPath 1.0 EBNF (21) OrExpr ; XPath 2.0 EBNF (8) OrExpr")
     fun orExpr() {
         val lexer = createLexer()
 
@@ -152,7 +152,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (9) AndExpr")
+    @DisplayName("XPath 1.0 EBNF (22) AndExpr ; XPath 2.0 EBNF (9) AndExpr")
     fun andExpr() {
         val lexer = createLexer()
 
@@ -168,7 +168,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (12) AdditiveExpr")
+    @DisplayName("XPath 1.0 EBNF (25) AdditiveExpr ; XPath 2.0 EBNF (12) AdditiveExpr")
     fun additiveExpr() {
         val lexer = createLexer()
 
@@ -177,7 +177,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (13) MultiplicativeExpr")
+    @DisplayName("XPath 1.0 EBNF (26) MultiplicativeExpr ; XPath 1.0 EBNF (34) MultiplyOperator ; XPath 2.0 EBNF (13) MultiplicativeExpr")
     fun multiplicativeExpr() {
         val lexer = createLexer()
 
@@ -188,7 +188,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (14) UnionExpr")
+    @DisplayName("XPath 1.0 EBNF (18) UnionExpr ; XPath 2.0 EBNF (14) UnionExpr")
     fun unionExpr() {
         val lexer = createLexer()
 
@@ -242,7 +242,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
+    @DisplayName("XPath 1.0 EBNF (27) UnaryExpr ; XPath 2.0 EBNF (20) UnaryExpr")
     fun unaryExpr() {
         val lexer = createLexer()
 
@@ -261,7 +261,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (22) GeneralComp")
+    @DisplayName("XPath 1.0 EBNF (23) EqualityExpr ; XPath 1.0 EBNF (24) RelationalExpr ; XPath 2.0 EBNF (22) GeneralComp")
     fun generalComp() {
         val lexer = createLexer()
 
@@ -297,7 +297,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (25) PathExpr")
+    @DisplayName("XPath 1.0 EBNF (2) AbsoluteLocationPath ; XPath 1.0 EBNF (10) AbbreviatedAbsoluteLocationPath ; XPath 2.0 EBNF (25) PathExpr")
     fun pathExpr() {
         val lexer = createLexer()
 
@@ -306,7 +306,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (26) RelativePathExpr")
+    @DisplayName("XPath 1.0 EBNF (3) RelativeLocationPath ; XPath 1.0 EBNF (10) AbbreviatedRelativeLocationPath ; XPath 1.0 EBNF (16) PathExpr ; XPath 2.0 EBNF (26) RelativePathExpr")
     fun relativePathExpr() {
         val lexer = createLexer()
 
@@ -315,7 +315,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (30) ForwardAxis")
+    @DisplayName("XPath 1.0 EBNF (5) AxisSpecifier ; XPath 1.0 EBNF (6) AxisName ; XPath 2.0 EBNF (30) ForwardAxis")
     fun forwardAxis() {
         val lexer = createLexer()
 
@@ -331,7 +331,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (31) AbbrevForwardStep")
+    @DisplayName("XPath 1.0 EBNF (13) AbbreviatedAxisSpecifier ; XPath 2.0 EBNF (31) AbbrevForwardStep")
     fun abbrevForwardStep() {
         val lexer = createLexer()
 
@@ -339,7 +339,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (33) ReverseAxis")
+    @DisplayName("XPath 1.0 EBNF (5) AxisSpecifier ; XPath 1.0 EBNF (6) AxisName ; XPath 2.0 EBNF (33) ReverseAxis")
     fun reverseAxis() {
         val lexer = createLexer()
 
@@ -352,7 +352,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (34) AbbrevReverseStep")
+    @DisplayName("XPath 1.0 EBNF (12) AbbreviatedStep ; XPath 2.0 EBNF (34) AbbrevReverseStep")
     fun abbrevReverseStep() {
         val lexer = createLexer()
 
@@ -360,7 +360,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (37) Wildcard")
+    @DisplayName("XPath 1.0 EBNF (37) NameTest ; XPath 2.0 EBNF (37) Wildcard")
     fun wildcard() {
         val lexer = createLexer()
 
@@ -369,7 +369,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (40) Predicate")
+    @DisplayName("XPath 1.0 EBNF (8) Predicate ; XPath 2.0 EBNF (40) Predicate")
     fun predicate() {
         val lexer = createLexer()
 
@@ -378,7 +378,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (44) VarRef")
+    @DisplayName("XPath 1.0 EBNF (36) VariableReference ; XPath 2.0 EBNF (44) VarRef")
     fun varRef() {
         val lexer = createLexer()
 
@@ -386,7 +386,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (46) ParenthesizedExpr")
+    @DisplayName("XPath 1.0 EBNF (15) PrimaryExpr ; XPath 2.0 EBNF (46) ParenthesizedExpr")
     fun parenthesizedExpr() {
         val lexer = createLexer()
 
@@ -395,7 +395,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (47) ContextItemExpr")
+    @DisplayName("XPath 1.0 EBNF (12) AbbreviatedStep ; XPath 2.0 EBNF (47) ContextItemExpr")
     fun contextItemExpr() {
         val lexer = createLexer()
 
@@ -403,7 +403,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (48) FunctionCall")
+    @DisplayName("XPath 1.0 EBNF (16) FunctionCall ; XPath 2.0 EBNF (48) FunctionCall")
     fun functionCall() {
         val lexer = createLexer()
 
@@ -451,7 +451,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (55) AnyKindTest")
+    @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (55) AnyKindTest")
     fun anyKindTest() {
         val lexer = createLexer()
 
@@ -471,7 +471,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (57) TextTest")
+    @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (57) TextTest")
     fun textTest() {
         val lexer = createLexer()
 
@@ -481,7 +481,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (58) CommentTest")
+    @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (58) CommentTest")
     fun commentTest() {
         val lexer = createLexer()
 
@@ -491,7 +491,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (59) PITest")
+    @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (59) PITest")
     fun piTest() {
         val lexer = createLexer()
 
@@ -558,7 +558,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
+    @DisplayName("XPath 1.0 EBNF (30) Number ; XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()
 
@@ -568,7 +568,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 2.0 EBNF (72) DecimalLiteral")
+    @DisplayName("XPath 1.0 EBNF (30) Number ; XPath 2.0 EBNF (72) DecimalLiteral")
     fun decimalLiteral() {
         val lexer = createLexer()
 
@@ -725,7 +725,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 2.0 EBNF (74) StringLiteral")
+    @DisplayName("XPath 1.0 EBNF (29) Literal ; XPath 2.0 EBNF (74) StringLiteral")
     internal inner class StringLiteral {
         @Test
         @DisplayName("string literal")
