@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -53,7 +54,7 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
         get(): XPathNamespaceType {
             return children().map { child ->
                 when (child.node.elementType) {
-                    XQueryTokenType.K_ELEMENT -> XPathNamespaceType.DefaultElementOrType
+                    XPathTokenType.K_ELEMENT -> XPathNamespaceType.DefaultElementOrType
                     XQueryTokenType.K_FUNCTION -> XPathNamespaceType.DefaultFunction
                     else -> null
                 }

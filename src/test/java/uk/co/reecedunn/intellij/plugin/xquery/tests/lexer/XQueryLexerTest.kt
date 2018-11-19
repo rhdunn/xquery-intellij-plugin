@@ -162,7 +162,7 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
+        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
@@ -268,7 +268,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
 
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
+        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
     }
 
@@ -2179,7 +2179,7 @@ class XQueryLexerTest : LexerTestCase() {
     fun testCompElemConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
+        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
     }
@@ -2350,10 +2350,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (133) ElementTest")
-    fun testElementTest() {
+    fun elementTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT)
+        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
         matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
