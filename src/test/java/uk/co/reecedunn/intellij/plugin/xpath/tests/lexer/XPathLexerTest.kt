@@ -1220,4 +1220,14 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "*", XPathTokenType.STAR)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (110) TypedArrayTest")
+    fun typedArrayTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }

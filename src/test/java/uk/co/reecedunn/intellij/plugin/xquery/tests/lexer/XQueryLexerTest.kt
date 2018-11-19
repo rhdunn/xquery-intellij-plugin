@@ -3755,7 +3755,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (215) TypedArrayTest")
-    fun testTypedArrayTest() {
+    fun typedArrayTest() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
