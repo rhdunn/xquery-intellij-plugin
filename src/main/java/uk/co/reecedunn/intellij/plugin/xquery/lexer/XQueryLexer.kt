@@ -589,7 +589,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.SQUARE_BRACE_OPEN -> {
                 mTokenRange.match()
-                mType = XQueryTokenType.SQUARE_OPEN
+                mType = XPathTokenType.SQUARE_OPEN
             }
             CharacterClass.SQUARE_BRACE_CLOSE -> {
                 mTokenRange.match()
@@ -602,7 +602,7 @@ class XQueryLexer : XPathLexer() {
                         XQueryTokenType.CDATA_SECTION_END_TAG
                     } else {
                         mTokenRange.restore()
-                        XQueryTokenType.SQUARE_CLOSE
+                        XPathTokenType.SQUARE_CLOSE
                     }
                 } else if (c == '`'.toInt()) {
                     mTokenRange.match()
@@ -613,7 +613,7 @@ class XQueryLexer : XPathLexer() {
                         XQueryTokenType.INVALID
                     }
                 } else {
-                    mType = XQueryTokenType.SQUARE_CLOSE
+                    mType = XPathTokenType.SQUARE_CLOSE
                 }
             }
             CharacterClass.QUESTION_MARK -> {

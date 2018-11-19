@@ -43,6 +43,8 @@ object XPathTokenType {
     val AXIS_SEPARATOR = IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XPath) // XPath 2.0
     val ATTRIBUTE_SELECTOR = IElementType("XQUERY_ATTRIBUTE_SELECTOR_TOKEN", XPath) // XPath 2.0
     val PARENT_SELECTOR = IElementType("XQUERY_PARENT_SELECTOR_TOKEN", XPath) // XPath 2.0
+    val SQUARE_OPEN = IElementType("XQUERY_SQUARE_OPEN_TOKEN", XPath) // XPath 2.0
+    val SQUARE_CLOSE = IElementType("XQUERY_SQUARE_CLOSE_TOKEN", XPath) // XPath 2.0
 
     // endregion
     // region Keywords

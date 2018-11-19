@@ -819,11 +819,11 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (83) Predicate")
-    fun testPredicate() {
+    fun predicate() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "[", XQueryTokenType.SQUARE_OPEN)
-        matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE)
+        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
+        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
     }
 
     @Test
@@ -2101,11 +2101,11 @@ class XQueryLexerTest : LexerTestCase() {
             matchSingleToken(lexer, "<![CDATA", 0, XQueryTokenType.INVALID)
             matchSingleToken(lexer, "<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG)
 
-            matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE)
+            matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
 
             lexer.start("]]")
-            matchToken(lexer, "]", 0, 0, 1, XQueryTokenType.SQUARE_CLOSE)
-            matchToken(lexer, "]", 0, 1, 2, XQueryTokenType.SQUARE_CLOSE)
+            matchToken(lexer, "]", 0, 0, 1, XPathTokenType.SQUARE_CLOSE)
+            matchToken(lexer, "]", 0, 1, 2, XPathTokenType.SQUARE_CLOSE)
             matchToken(lexer, "", 0, 2, 2, null)
 
             matchSingleToken(lexer, "]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
@@ -3594,9 +3594,9 @@ class XQueryLexerTest : LexerTestCase() {
     fun testSquareArrayConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "[", XQueryTokenType.SQUARE_OPEN)
+        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE)
+        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
     }
 
     @Test
@@ -3617,7 +3617,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "`", XQueryTokenType.INVALID)
         matchSingleToken(lexer, "``", XQueryTokenType.INVALID)
 
-        matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE)
+        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
         matchSingleToken(lexer, "]`", XQueryTokenType.INVALID)
         matchSingleToken(lexer, "]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
 

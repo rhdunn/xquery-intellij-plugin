@@ -324,8 +324,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.SQUARE_OPEN))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.SQUARE_OPEN))
     }
 
     // endregion
