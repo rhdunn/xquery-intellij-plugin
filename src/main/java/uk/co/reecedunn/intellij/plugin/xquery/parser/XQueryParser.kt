@@ -4210,7 +4210,7 @@ private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
     }
 
     private fun parseContextItemExpr(): Boolean {
-        val contextItemExprMarker = matchTokenTypeWithMarker(XQueryTokenType.DOT)
+        val contextItemExprMarker = matchTokenTypeWithMarker(XPathTokenType.DOT)
         if (contextItemExprMarker != null) {
             contextItemExprMarker.done(XQueryElementType.CONTEXT_ITEM_EXPR)
             return true

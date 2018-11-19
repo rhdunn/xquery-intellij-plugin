@@ -262,7 +262,7 @@ class XQueryLexer : XPathLexer() {
                     }
                     return
                 } else if (cc != CharacterClass.DIGIT) {
-                    mType = XQueryTokenType.DOT
+                    mType = XPathTokenType.DOT
                     return
                 } else {
                     mTokenRange.restore()

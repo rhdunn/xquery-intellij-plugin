@@ -72,7 +72,6 @@ object XQueryTokenType {
     val EMPTY_ENTITY_REFERENCE = IElementType("XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN", XQuery)
 
     val INVALID = IElementType("XQUERY_INVALID_TOKEN", XQuery)
-    val DOT = IElementType("XQUERY_DOT_TOKEN", XQuery)
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery)
     val BLOCK_OPEN = IElementType("XQUERY_BLOCK_OPEN_TOKEN", XQuery)
     val BLOCK_CLOSE = IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XQuery)

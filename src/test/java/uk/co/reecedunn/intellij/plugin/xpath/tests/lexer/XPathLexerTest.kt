@@ -395,6 +395,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 2.0 EBNF (47) ContextItemExpr")
+    fun contextItemExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ".", XPathTokenType.DOT)
+    }
+
+    @Test
     @DisplayName("XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
         val lexer = createLexer()

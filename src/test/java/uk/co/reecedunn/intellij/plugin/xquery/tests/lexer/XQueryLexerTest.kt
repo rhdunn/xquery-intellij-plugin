@@ -845,10 +845,10 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (90) ContextItemExpr")
-    fun testContextItemExpr() {
+    fun contextItemExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ".", XQueryTokenType.DOT)
+        matchSingleToken(lexer, ".", XPathTokenType.DOT)
     }
 
     @Test
