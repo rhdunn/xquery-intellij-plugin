@@ -53,7 +53,9 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr \| AdditiveExpr '+' MultiplicativeExpr \| AdditiveExpr '-' MultiplicativeExpr` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
 | \[27\]  | `UnaryExpr`                       | ::= | `UnionExpr \| '-' UnaryExpr`        |                      |
+| \[36\]  | `VariableReference`               | ::= | `'$' QName`                         |                      |
 | \[37\]  | `NameTest`                        | ::= | `'*' \| NCName ':' '*' \| QName`    |                      |
+| \[38\]  | `NodeType`                        | ::= | `'comment' \| 'text' \| 'processing-instruction' \| 'node' | |
 
 ### A.2 Terminal Symbols
 
@@ -61,9 +63,9 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[29\]  | `Literal`                         | ::= | `'"' \[^"\]* '"' \| "'" \[^'\]* "'"` |                     |
 | \[30\]  | `Number`                          | ::= | `Digits ('.' Digits?)? \| '.' Digits |                     |
-| \[36\]  | `VariableReference`               | ::= | `'$' QName`                         |                      |
-| \[38\]  | `NodeType`                        | ::= | `'comment' \| 'text' \| 'processing-instruction' \| 'node' | |
-| \[39\]  | `ExprWhitespace`                  | ::= | `S`                                 |                      |
+| \[39\]  | `S`                               | ::= | \[[http://www.w3.org/TR/REC-xml#NT-S]()\]<sup><em>XML</em></sup> | /* xgc: xml-version */ |
+| \[40\]  | `QName`                           | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-QName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
+| \[41\]  | `NCName`                          | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-NCName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
 
 The following symbols are used only in the definition of terminal symbols; they
 are not terminal symbols in the grammar of A.1 EBNF.
@@ -95,7 +97,11 @@ __Core Specifications__
 This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
-1. Remove the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
+1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
-1. Inline the `MultiplyOperator` symbol into `MultiplicativeExpr`.
-1. Replace the FunctionName symbol with a reserved function names section.
+1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
+1. Replaced the `FunctionName` symbol with a reserved function names section.
+1. Replaced the `ExprWhitespace` symbol with a link to the `S` symbol from the
+   *XML* specification.
+1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
+   specification.
