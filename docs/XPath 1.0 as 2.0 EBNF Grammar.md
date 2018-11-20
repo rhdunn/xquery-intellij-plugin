@@ -40,7 +40,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `OrExpr`                            |                      |
-| \[15\]  | `PrimaryExpr`                     | ::= | `VariableReference \| '(' Expr ')' \| Literal \| Number \| FunctionCall` | |
+| \[15\]  | `PrimaryExpr`                     | ::= | `VariableReference \| '(' Expr ')' \| Literal \| NumericLiteral \| FunctionCall` | |
 | \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
 | \[17\]  | `Argument`                        | ::= | `Expr`                              |                      |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
@@ -57,12 +57,19 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[37\]  | `NameTest`                        | ::= | `'*' \| NCName ':' '*' \| QName`    |                      |
 | \[38\]  | `NodeType`                        | ::= | `'comment' \| 'text' \| 'processing-instruction' \| 'node' | |
 
+The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
+
+| Ref     | Symbol                            |     | Expression                          | Options              |
+|---------|-----------------------------------|-----|-------------------------------------|----------------------|
+| \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
+
 ### A.2 Terminal Symbols
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[29\]  | `Literal`                         | ::= | `'"' \[^"\]* '"' \| "'" \[^'\]* "'"` |                     |
-| \[30\]  | `Number`                          | ::= | `Digits ('.' Digits?)? \| '.' Digits |                     |
+| \[32\]  | `IntegerLiteral`                  | ::= | `Digits`                            |                      |
+| \[33\]  | `DecimalLiteral`                  | ::= | `("." Digits) \| (Digits "." \[0-9\]*)` | /* ws: explicit */ |
 | \[39\]  | `S`                               | ::= | \[[http://www.w3.org/TR/REC-xml#NT-S]()\]<sup><em>XML</em></sup> | /* xgc: xml-version */ |
 | \[40\]  | `QName`                           | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-QName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
 | \[41\]  | `NCName`                          | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-NCName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
@@ -105,3 +112,4 @@ grammar.
    *XML* specification.
 1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
    specification.
+1. Replaced `Number` with `NumbericLiteral` from XPath 2.0.
