@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 class XPathParserDefinition : ParserDefinition() {
     override fun createLexer(project: Project): Lexer = XPathLexer()
 
-    override fun createParser(project: Project): PsiParser = TODO()
+    override fun createParser(project: Project): PsiParser = XPathParser()
 
     override fun getFileNodeType(): IFileElementType = XPathElementType.XPATH
 

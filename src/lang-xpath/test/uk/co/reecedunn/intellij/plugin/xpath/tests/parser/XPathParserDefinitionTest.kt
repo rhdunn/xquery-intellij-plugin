@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 
@@ -42,7 +43,7 @@ private class XPathParserDefinitionTest : ParserTestCase() {
     @DisplayName("createParser")
     fun testParser() {
         val parserDefinition = XPathParserDefinition()
-        //assertThat(parserDefinition.createParser(myProject).javaClass.name, `is`(XPathParser::class.java.name))
+        assertThat(parserDefinition.createParser(myProject).javaClass.name, `is`(XPathParser::class.java.name))
     }
 
     @Test

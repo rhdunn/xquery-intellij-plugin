@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 
 class XQueryParser : PsiParser {
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
@@ -77,7 +78,7 @@ private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
  * for details of the grammar implemented by this parser.
  */
 @Suppress("FunctionName")
-private class XQueryParserImpl(private val builder: PsiBuilder) {
+private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() {
     // region Parser Helper Functions
 
     protected fun matchTokenType(type: IElementType): Boolean {
