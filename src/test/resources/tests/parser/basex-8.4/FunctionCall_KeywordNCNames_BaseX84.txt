@@ -7,5 +7,5 @@ XQueryModuleImpl[FILE(0:19)]
                   XPathNCNameImpl[XQUERY_NCNAME(0:17)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(0:17)]('non-deterministic')
                   XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(17:19)]
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(18:19)](')')

@@ -16,14 +16,14 @@ XQueryModuleImpl[FILE(0:86)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(34:36)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(37:67)]
-                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(37:38)]('"')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(38:66)]('http://www.example.com/de-CH')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(66:67)]('"')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(37:38)]('"')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(38:66)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(66:67)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
                      FTLiteralRangeImpl[XQUERY_FT_LITERAL_RANGE(68:77)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(68:75)]('exactly')
                         PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
-                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(76:77)]('2')
+                        XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(76:77)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEVELS(78:84)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')

@@ -6,14 +6,14 @@ XQueryModuleImpl[FILE(0:26)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTEXT(8:15)]('context')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(21:22)]('XPST0003: Missing ':=' variable assignment or 'external' keyword.')
-               LeafPsiElement[XQUERY_EQUAL_TOKEN(21:22)]('=')
+               LeafPsiElement[XPATH_EQUAL_TOKEN(21:22)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
             XQueryVarValueImpl[XQUERY_VAR_VALUE(23:25)]
                XPathOrExprImpl[XQUERY_OR_EXPR(23:25)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(23:24)]('2')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(23:24)]('2')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(25:26)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing query body.')

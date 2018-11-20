@@ -5,27 +5,27 @@ XQueryModuleImpl[FILE(0:39)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:39)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(17:19)]('fn')
-                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:24)]('true')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:24)]('true')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(29:39)]
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(29:30)]('{')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(29:30)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   XPathExprImpl[XQUERY_EXPR(31:39)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(31:38)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(31:38)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(31:37)]
-                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(31:32)]('"')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(32:36)]('true')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(36:37)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(31:32)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(32:36)]('true')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(36:37)]('"')
                            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
                   PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected '}'.')

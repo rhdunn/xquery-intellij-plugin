@@ -7,11 +7,11 @@ XQueryModuleImpl[FILE(0:56)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                         XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   FTSelectionImpl[XQUERY_FT_SELECTION(20:56)]
                      FTOrImpl[XQUERY_FT_OR(20:56)]
@@ -22,19 +22,19 @@ XQueryModuleImpl[FILE(0:56)]
                                     FTPrimaryImpl[XQUERY_FT_PRIMARY(20:56)]
                                        FTWordsImpl[XQUERY_FT_WORDS(20:32)]
                                           FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:31)]
-                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(20:21)]('{')
+                                             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                                              XPathExprImpl[XQUERY_EXPR(22:30)]
                                                 ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(22:30)]
                                                    XPathOrExprImpl[XQUERY_OR_EXPR(22:30)]
                                                       XPathVarRefImpl[XQUERY_VAR_REF(22:30)]
-                                                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
+                                                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                                                          XPathVarNameImpl[XQUERY_VAR_NAME(24:30)]
                                                             XPathNCNameImpl[XQUERY_NCNAME(24:30)]
                                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(30:31)]('}')
+                                             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                                        FTTimesImpl[XQUERY_FT_TIMES(32:56)]
                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
@@ -42,10 +42,10 @@ XQueryModuleImpl[FILE(0:56)]
                                           FTRangeImpl[XQUERY_FT_RANGE(39:51)]
                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FROM(39:43)]('from')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(44:45)]('2')
+                                             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(44:45)]('2')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TO(46:48)]('to')
+                                             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TO(46:48)]('to')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                                             XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(49:50)]('4')
+                                             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(49:50)]('4')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TIMES(51:56)]('times')

@@ -7,11 +7,11 @@ XQueryModuleImpl[FILE(0:32)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                         XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   FTSelectionImpl[XQUERY_FT_SELECTION(20:32)]
                      FTOrImpl[XQUERY_FT_OR(20:32)]
@@ -23,9 +23,9 @@ XQueryModuleImpl[FILE(0:32)]
                                        FTWordsImpl[XQUERY_FT_WORDS(20:28)]
                                           FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:27)]
                                              XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
-                                                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(20:21)]('"')
-                                                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
-                                                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
+                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
+                                                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(26:27)]('"')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FTOR(28:32)]('ftor')
                         PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected 'FTAnd'.')

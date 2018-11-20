@@ -7,18 +7,18 @@ XQueryModuleImpl[FILE(0:9)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
                         XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                  LeafPsiElement[XQUERY_PLUS_TOKEN(2:3)]('+')
+                  LeafPsiElement[XPATH_PLUS_TOKEN(2:3)]('+')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(4:6)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(4:6)]
                         XPathNCNameImpl[XQUERY_NCNAME(4:6)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:5)]('b')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('b')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  LeafPsiElement[XQUERY_MINUS_TOKEN(6:7)]('-')
+                  LeafPsiElement[XPATH_MINUS_TOKEN(6:7)]('-')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(8:9)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(8:9)]
                         XPathNCNameImpl[XQUERY_NCNAME(8:9)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:9)]('c')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('c')

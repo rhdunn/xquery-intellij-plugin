@@ -10,10 +10,10 @@ XQueryModuleImpl[FILE(0:42)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(21:41)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(21:29)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(30:31)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(30:31)]('$')
                XPathVarNameImpl[XQUERY_VAR_NAME(31:33)]
                   XPathNCNameImpl[XQUERY_NCNAME(31:33)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:32)]('x')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:32)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(33:41)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')

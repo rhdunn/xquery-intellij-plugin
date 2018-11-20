@@ -94,7 +94,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
 
         // foreign ASTNode
         val e = Assertions.assertThrows(AssertionError::class.java) { parserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL)) }
-        assertThat(e.message, `is`("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."))
+        assertThat(e.message, `is`("Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."))
     }
 
     @Test

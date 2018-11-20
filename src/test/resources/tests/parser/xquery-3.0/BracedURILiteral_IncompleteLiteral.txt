@@ -8,6 +8,6 @@ XQueryModuleImpl[FILE(0:31)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:31)]
                XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:31)]
-                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
-                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:31)]('onetwo "Test";')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:31)]('onetwo "Test";')
                PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Unclosed braced URI literal.')

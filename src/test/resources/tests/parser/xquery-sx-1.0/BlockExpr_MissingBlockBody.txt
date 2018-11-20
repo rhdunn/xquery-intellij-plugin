@@ -6,8 +6,8 @@ XQueryModuleImpl[FILE(0:9)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BLOCK(0:5)]('block')
                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                ScriptingBlockImpl[XQUERY_BLOCK(6:9)]
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(6:7)]('{')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(8:8)]
                   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing expression.')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(8:9)]('}')

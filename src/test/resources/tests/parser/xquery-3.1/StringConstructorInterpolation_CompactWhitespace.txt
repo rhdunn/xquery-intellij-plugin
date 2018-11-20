@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:21)]
                         XPathExprImpl[XQUERY_EXPR(9:10)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:10)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(9:10)]
-                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                                 XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')
                         LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(10:12)]('}`')
                      LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(12:18)](' Three')
                   LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(18:21)](']``')

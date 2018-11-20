@@ -8,16 +8,16 @@ XQueryModuleImpl[FILE(0:38)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:30)]
                XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:25)]
-                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
-                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                   LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(20:24)]('&two')
                   PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Invalid entity reference character.')
-                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(24:25)]('}')
-               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:30)]('three')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(24:25)]('}')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:30)]('three')
             PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(31:37)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(31:32)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(32:36)]('Test')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(36:37)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(31:32)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(32:36)]('Test')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(36:37)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(37:38)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing query body.')

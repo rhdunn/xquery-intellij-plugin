@@ -7,14 +7,14 @@ XQueryModuleImpl[FILE(0:63)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(4:9)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                      XPathExprImpl[XQUERY_EXPR(6:8)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(6:8)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(6:8)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('2')
                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(8:9)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:36)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
@@ -22,19 +22,19 @@ XQueryModuleImpl[FILE(0:63)]
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:31)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(16:30)]
                         XPathQNameImpl[XQUERY_QNAME(16:30)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:21)]('error')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(21:22)](':')
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(22:30)]('XQST0084')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:21)]('error')
+                           LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:30)]('XQST0084')
                      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:36)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(31:32)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(31:32)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                      XPathExprImpl[XQUERY_EXPR(33:35)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(33:35)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(33:35)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('2')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('2')
                               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(35:36)]('}')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(35:36)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(37:63)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(37:42)]('catch')
@@ -42,16 +42,16 @@ XQueryModuleImpl[FILE(0:63)]
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(43:58)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(43:57)]
                         XPathQNameImpl[XQUERY_QNAME(43:57)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:48)]('error')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(48:49)](':')
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(49:57)]('XQST0085')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(43:48)]('error')
+                           LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(48:49)](':')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(49:57)]('XQST0085')
                      PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(58:63)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(58:59)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(58:59)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
                      XPathExprImpl[XQUERY_EXPR(60:62)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(60:62)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(60:62)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(60:61)]('2')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(60:61)]('2')
                               PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(62:63)]('}')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(62:63)]('}')

@@ -6,15 +6,15 @@ XQueryModuleImpl[FILE(0:13)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BLOCK(0:5)]('block')
                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                ScriptingBlockImpl[XQUERY_BLOCK(6:13)]
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(6:7)]('{')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(8:8)]
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(8:12)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:12)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(8:12)]
                            XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(8:11)]
-                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+                              LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
+                              LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(12:13)]('}')

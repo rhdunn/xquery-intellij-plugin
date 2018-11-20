@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:47)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES(8:23)]('copy-namespaces')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE(24:35)]('no-preserve')
-            LeafPsiElement[XQUERY_COMMA_TOKEN(35:36)](',')
+            LeafPsiElement[XPATH_COMMA_TOKEN(35:36)](',')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT(36:46)]('no-inherit')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(46:47)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Missing query body.')

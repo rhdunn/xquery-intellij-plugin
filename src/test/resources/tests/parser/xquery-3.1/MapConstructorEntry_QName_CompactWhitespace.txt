@@ -4,22 +4,22 @@ XQueryModuleImpl[FILE(0:12)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
                XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:12)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(3:4)]('{')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
                   XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(4:11)]
                      XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(4:7)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(4:7)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(4:7)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(4:7)]
                                  XPathQNameImpl[XQUERY_QNAME(4:7)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:5)]('a')
-                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('b')
-                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(7:8)](':')
+                                    XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('a')
+                                    LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(5:6)](':')
+                                    XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('b')
+                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(7:8)](':')
                      XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(8:11)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(8:11)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(8:11)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(8:11)]
                                  XPathNCNameImpl[XQUERY_NCNAME(8:11)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:11)]('one')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                                    XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:11)]('one')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(11:12)]('}')

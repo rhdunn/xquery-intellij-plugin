@@ -7,10 +7,10 @@ XQueryModuleImpl[FILE(0:31)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathNCNameImpl[XQUERY_NCNAME(15:20)]
-               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:19)]('test')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:19)]('test')
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:31)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(20:21)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:30)]('Test Case')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(30:31)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:30)]('Test Case')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(30:31)]('"')
          PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Expected ';'.')

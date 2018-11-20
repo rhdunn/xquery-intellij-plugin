@@ -8,16 +8,16 @@ XQueryModuleImpl[FILE(0:34)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:26)]
                XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:25)]
-                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
-                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:24)]('one.two')
-                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(24:25)]('}')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:24)]('one.two')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(24:25)]('}')
                PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Wildcard local name after '}' in braced URI qualified name.')
                PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(25:26)]
-                  LeafPsiElement[XQUERY_STAR_TOKEN(25:26)]('*')
+                  LeafPsiElement[XPATH_STAR_TOKEN(25:26)]('*')
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(27:33)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(27:28)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(28:32)]('Test')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(32:33)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(27:28)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(28:32)]('Test')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(32:33)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(33:34)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Missing query body.')

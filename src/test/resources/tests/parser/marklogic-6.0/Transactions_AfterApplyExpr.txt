@@ -3,12 +3,12 @@ XQueryModuleImpl[FILE(0:53)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:1)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:1)]
-               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('2')
          PluginTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
             LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:4)]
             XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]
-               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('3')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)]('\n')
    PluginTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(4:6)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
@@ -21,12 +21,12 @@ XQueryModuleImpl[FILE(0:53)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(13:19)]('module')
             PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(20:50)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(20:21)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/other')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(49:50)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/other')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(50:51)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(51:52)]('\n')
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(52:53)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(52:53)]
             XPathOrExprImpl[XQUERY_OR_EXPR(52:53)]
-               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(52:53)]('4')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(52:53)]('4')

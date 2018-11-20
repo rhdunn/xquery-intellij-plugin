@@ -7,21 +7,21 @@ XQueryModuleImpl[FILE(0:60)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:59)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(19:53)]
                   XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(19:53)]
                      XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(19:50)]
-                        LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(19:21)]('Q{')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/test#')
-                        LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(49:50)]('}')
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(50:53)]('one')
+                        LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(19:21)]('Q{')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/test#')
+                        LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(49:50)]('}')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(50:53)]('one')
                PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
-               LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(54:56)](':=')
+               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(54:56)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(57:59)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(57:59)]
-                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(57:58)]('1')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(57:58)]('1')
                      PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(59:60)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(60:60)]('XPST0003: Missing query body.')

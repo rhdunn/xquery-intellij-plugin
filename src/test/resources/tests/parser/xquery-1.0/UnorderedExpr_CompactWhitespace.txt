@@ -6,9 +6,9 @@ XQueryModuleImpl[FILE(0:12)]
                XQueryUnorderedExprImpl[XQUERY_UNORDERED_EXPR(0:12)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(0:9)]('unordered')
                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(9:12)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(9:10)]('{')
                      XPathExprImpl[XQUERY_EXPR(10:11)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:11)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(10:11)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('1')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('1')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(11:12)]('}')

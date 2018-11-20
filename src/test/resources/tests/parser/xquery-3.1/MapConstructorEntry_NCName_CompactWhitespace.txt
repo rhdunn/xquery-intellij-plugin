@@ -4,16 +4,16 @@ XQueryModuleImpl[FILE(0:10)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:10)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:10)]
                XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:10)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(3:4)]('{')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
                   XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(4:9)]
                      XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(4:9)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(4:9)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(4:9)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(4:9)]
                                  XPathQNameImpl[XQUERY_QNAME(4:9)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:5)]('a')
-                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('one')
+                                    XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('a')
+                                    LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(5:6)](':')
+                                    XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('one')
                      PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(9:10)]('}')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(9:10)]('}')

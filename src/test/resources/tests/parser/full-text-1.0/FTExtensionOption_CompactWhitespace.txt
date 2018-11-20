@@ -13,10 +13,10 @@ XQueryModuleImpl[FILE(0:42)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(24:30)]('option')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   XPathNCNameImpl[XQUERY_NCNAME(31:35)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:35)]('test')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:35)]('test')
                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:41)]
-                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(35:36)]('"')
-                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(36:40)]('Test')
-                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(40:41)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:40)]('Test')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(40:41)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(42:42)]('XPST0003: Missing query body.')

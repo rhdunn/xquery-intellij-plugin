@@ -6,13 +6,13 @@ XQueryModuleImpl[FILE(0:27)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTEXT(8:15)]('context')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-            LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(21:23)](':=')
+            LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(21:23)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             XQueryVarValueImpl[XQUERY_VAR_VALUE(24:26)]
                XPathOrExprImpl[XQUERY_OR_EXPR(24:26)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(24:25)]('2')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(24:25)]('2')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(26:27)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Missing query body.')

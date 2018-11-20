@@ -4,6 +4,6 @@ XQueryModuleImpl[FILE(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:4)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:4)]
                XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]
-                  LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')
-                  XPathEscapeCharacterImpl[XQUERY_ESCAPED_CHARACTER_TOKEN(1:3)]('''')
-                  LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(0:1)](''')
+                  XPathEscapeCharacterImpl[XPATH_ESCAPED_CHARACTER_TOKEN(1:3)]('''')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(3:4)](''')

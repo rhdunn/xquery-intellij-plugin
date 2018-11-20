@@ -6,24 +6,24 @@ XQueryModuleImpl[FILE(0:18)]
                XQueryTryClauseImpl[XQUERY_TRY_CLAUSE(0:6)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
                   XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(3:6)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(3:4)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
                      XPathExprImpl[XQUERY_EXPR(4:5)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(4:5)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(4:5)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(5:6)]('}')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('2')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(5:6)]('}')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(6:18)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(6:11)]('catch')
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   XPathVarNameImpl[XQUERY_VAR_NAME(13:14)]
                      XPathNCNameImpl[XQUERY_NCNAME(13:14)]
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('e')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('e')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:18)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(15:16)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(15:16)]('{')
                      XPathExprImpl[XQUERY_EXPR(16:17)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:17)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(16:17)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(16:17)]('2')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(17:18)]('}')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('2')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')

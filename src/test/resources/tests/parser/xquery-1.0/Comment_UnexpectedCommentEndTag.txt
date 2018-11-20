@@ -1,3 +1,3 @@
 XQueryModuleImpl[FILE(0:2)]
    PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: End of comment marker found without a '(:' start of comment marker.')
-      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')
+      LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(0:2)](':)')

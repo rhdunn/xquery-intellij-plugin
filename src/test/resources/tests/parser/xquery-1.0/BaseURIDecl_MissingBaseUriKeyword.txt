@@ -6,9 +6,9 @@ XQueryModuleImpl[FILE(0:34)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable.')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(8:32)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(8:9)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(9:31)]('http://www.example.org')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(31:32)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(8:9)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(9:31)]('http://www.example.org')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(31:32)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(33:34)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Missing query body.')

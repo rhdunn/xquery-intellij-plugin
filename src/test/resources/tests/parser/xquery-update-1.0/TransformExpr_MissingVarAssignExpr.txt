@@ -5,11 +5,11 @@ XQueryModuleImpl[FILE(0:11)]
             UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:11)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(7:9)]
                   XPathNCNameImpl[XQUERY_NCNAME(7:9)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:8)]('x')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-               LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(9:11)](':=')
+               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(9:11)](':=')
                PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')

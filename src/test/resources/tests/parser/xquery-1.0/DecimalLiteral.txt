@@ -3,4 +3,4 @@ XQueryModuleImpl[FILE(0:7)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
-               XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
+               XPathDecimalLiteralImpl[XPATH_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')

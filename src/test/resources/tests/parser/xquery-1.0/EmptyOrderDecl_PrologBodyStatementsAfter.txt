@@ -20,10 +20,10 @@ XQueryModuleImpl[FILE(0:124)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(47:67)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(47:55)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(56:57)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(56:57)]('$')
                XPathVarNameImpl[XQUERY_VAR_NAME(57:59)]
                   XPathNCNameImpl[XQUERY_NCNAME(57:59)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(57:58)]('x')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(57:58)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(59:67)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(67:68)](';')
@@ -32,12 +32,12 @@ XQueryModuleImpl[FILE(0:124)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(69:76)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(77:98)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(77:85)]('function')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(77:85)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(85:86)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(86:87)]
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(86:87)]('y')
-               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(87:88)]('(')
-               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(88:89)](')')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(86:87)]('y')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(87:88)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(88:89)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(89:90)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(90:98)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(98:99)](';')
@@ -48,11 +48,11 @@ XQueryModuleImpl[FILE(0:124)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(108:114)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(114:115)](' ')
             XPathNCNameImpl[XQUERY_NCNAME(115:117)]
-               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(115:116)]('z')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(115:116)]('z')
                PsiWhiteSpaceImpl[WHITE_SPACE(116:117)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(117:123)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(117:118)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(118:122)]('test')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(122:123)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(117:118)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(118:122)]('test')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(122:123)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(123:124)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(124:124)]('XPST0003: Missing query body.')
