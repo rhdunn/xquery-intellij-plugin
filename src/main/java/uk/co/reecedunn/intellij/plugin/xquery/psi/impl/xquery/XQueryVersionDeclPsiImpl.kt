@@ -24,7 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -46,17 +47,17 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
 
         var previous = encoding.treePrev
-        while (previous.elementType === XQueryTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
+        while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
             previous = previous.treePrev
         }
 
         return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
     }
 
-    private fun getStringValueAfterKeyword(type: IXQueryKeywordOrNCNameType): XPathStringLiteral? {
+    private fun getStringValueAfterKeyword(type: IKeywordOrNCNameType): XPathStringLiteral? {
         for (child in node.getChildren(STRINGS)) {
             var previous = child.treePrev
-            while (previous.elementType === XQueryTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
+            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
                 previous = previous.treePrev
             }
 

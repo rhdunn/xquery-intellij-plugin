@@ -5,23 +5,23 @@ XQueryModuleImpl[FILE(0:25)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:25)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:25)]
                   XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:25)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(10:14)]('XPST0003: String literal should be wrapped in braces, or be a qualified name.')
                         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(10:14)]
-                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(10:11)]('"')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(11:13)]('id')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(13:14)]('"')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(10:11)]('"')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(11:13)]('id')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(13:14)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                      XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:25)]
-                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(15:16)]('{')
+                        LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(15:16)]('{')
                         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                         XPathExprImpl[XQUERY_EXPR(17:24)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(17:24)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(17:24)]
                                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(17:23)]
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(17:18)]('"')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(18:22)]('test')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(22:23)]('"')
+                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(17:18)]('"')
+                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(18:22)]('test')
+                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(22:23)]('"')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(24:25)]('}')
+                        LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(24:25)]('}')

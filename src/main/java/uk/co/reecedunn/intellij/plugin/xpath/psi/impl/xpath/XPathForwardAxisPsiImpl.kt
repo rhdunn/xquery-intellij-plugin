@@ -22,10 +22,11 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-private val MARKLOGIC_AXIS = TokenSet.create(XQueryTokenType.K_NAMESPACE, XQueryTokenType.K_PROPERTY)
+private val MARKLOGIC_AXIS = TokenSet.create(XPathTokenType.K_NAMESPACE, XQueryTokenType.K_PROPERTY)
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)

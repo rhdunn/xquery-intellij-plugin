@@ -6,21 +6,21 @@ XQueryModuleImpl[FILE(0:41)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTEXT(8:15)]('context')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(24:34)]
                XPathQNameImpl[XQUERY_QNAME(24:34)]
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(24:26)]('xs')
-                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(26:27)](':')
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(27:34)]('integer')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:26)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(26:27)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(27:34)]('integer')
             PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-            LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(35:37)](':=')
+            LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(35:37)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
             XQueryVarValueImpl[XQUERY_VAR_VALUE(38:40)]
                XPathOrExprImpl[XQUERY_OR_EXPR(38:40)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('2')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(38:39)]('2')
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(40:41)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(41:41)]('XPST0003: Missing query body.')

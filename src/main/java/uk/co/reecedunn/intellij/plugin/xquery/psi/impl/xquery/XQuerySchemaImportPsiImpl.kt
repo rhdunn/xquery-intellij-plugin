@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
@@ -35,7 +36,7 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
     override val namespaceType
         get(): XPathNamespaceType {
             return when (schemaPrefix?.firstChild?.node?.elementType) {
-                XQueryTokenType.K_NAMESPACE -> XPathNamespaceType.Prefixed
+                XPathTokenType.K_NAMESPACE -> XPathNamespaceType.Prefixed
                 else -> XPathNamespaceType.DefaultElementOrType
             }
         }

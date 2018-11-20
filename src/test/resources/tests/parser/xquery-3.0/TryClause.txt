@@ -7,12 +7,12 @@ XQueryModuleImpl[FILE(0:9)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(4:9)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                      XPathExprImpl[XQUERY_EXPR(6:8)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(6:8)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(6:8)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('2')
                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(8:9)]('}')
                PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'CatchClause'.')

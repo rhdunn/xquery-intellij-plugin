@@ -27,10 +27,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.compat.lang.ParserDefinition
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 
 class XQueryParserDefinition : ParserDefinition() {
@@ -47,9 +44,9 @@ class XQueryParserDefinition : ParserDefinition() {
 
     override fun getWhitespaceTokens(): TokenSet = TokenSet.EMPTY
 
-    override fun getCommentTokens(): TokenSet = XQueryTokenType.COMMENT_TOKENS
+    override fun getCommentTokens(): TokenSet = COMMENT_TOKENS
 
-    override fun getStringLiteralElements(): TokenSet = XQueryTokenType.STRING_LITERAL_TOKENS
+    override fun getStringLiteralElements(): TokenSet = STRING_LITERAL_TOKENS
 
     override fun createElement(node: ASTNode): PsiElement {
         val type = node.elementType

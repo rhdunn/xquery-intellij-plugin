@@ -4,8 +4,8 @@ XQueryModuleImpl[FILE(0:3)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:3)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:3)]
                XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:3)]
-                  LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
+                  LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(0:1)]('[')
                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                   XPathOrExprImpl[XQUERY_OR_EXPR(2:3)]
-                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('1')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('1')
                   PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected ']'.')

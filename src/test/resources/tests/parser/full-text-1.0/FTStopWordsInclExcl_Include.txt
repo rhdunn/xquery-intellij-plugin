@@ -17,17 +17,17 @@ XQueryModuleImpl[FILE(0:62)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                   FTStopWordsInclExclImpl[XQUERY_FT_STOP_WORDS_INCL_EXCL(43:60)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(43:48)]('union')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(43:48)]('union')
                      PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(49:60)]
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
+                        LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
-                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(51:52)]('"')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(52:57)]('lorem')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('"')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(51:52)]('"')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(52:57)]('lorem')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(57:58)]('"')
                         PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(59:60)](')')
+                        LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(59:60)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(61:62)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(62:62)]('XPST0003: Missing query body.')

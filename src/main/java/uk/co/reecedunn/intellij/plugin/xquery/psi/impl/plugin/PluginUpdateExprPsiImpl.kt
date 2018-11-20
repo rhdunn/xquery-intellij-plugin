@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
@@ -30,14 +31,14 @@ private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
 class PluginUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     PluginUpdateExpr, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        if (findChildByType<PsiElement>(XQueryTokenType.BLOCK_OPEN) != null) {
+        if (findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN) != null) {
             return BASEX85
         }
         return BASEX78
     }
 
     override val conformanceElement get(): PsiElement {
-        val element = findChildByType<PsiElement>(XQueryTokenType.BLOCK_OPEN)
+        val element = findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN)
         return element ?: findChildByType(XQueryTokenType.K_UPDATE) ?: firstChild
     }
 }

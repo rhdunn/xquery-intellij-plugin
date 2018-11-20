@@ -5,12 +5,12 @@ XQueryModuleImpl[FILE(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
                PluginBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:12)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(6:7)]('{')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
                   XPathExprImpl[XQUERY_EXPR(7:11)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(7:11)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(7:11)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(7:11)]
-                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(7:8)]('"')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(8:10)]('A0')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(10:11)]('"')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(7:8)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(8:10)]('A0')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(10:11)]('"')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(11:12)]('}')

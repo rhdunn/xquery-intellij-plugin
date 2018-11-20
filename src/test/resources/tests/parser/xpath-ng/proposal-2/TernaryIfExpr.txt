@@ -5,18 +5,18 @@ XQueryModuleImpl[FILE(0:16)]
             PluginTernaryIfExprImpl[XQUERY_TERNARY_IF_EXPR(0:16)]
                XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:7)]
-                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
                      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('2')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                LeafPsiElement[XQUERY_TERNARY_IF_TOKEN(7:9)]('??')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XPathOrExprImpl[XQUERY_OR_EXPR(10:12)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('3')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('3')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                LeafPsiElement[XQUERY_TERNARY_ELSE_TOKEN(12:14)]('!!')
                PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                XPathOrExprImpl[XQUERY_OR_EXPR(15:16)]
-                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(15:16)]('4')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(15:16)]('4')

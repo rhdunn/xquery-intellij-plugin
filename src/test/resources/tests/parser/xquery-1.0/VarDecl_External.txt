@@ -7,11 +7,11 @@ XQueryModuleImpl[FILE(0:33)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:32)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(19:23)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:23)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:22)]('one')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:22)]('one')
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(23:31)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')

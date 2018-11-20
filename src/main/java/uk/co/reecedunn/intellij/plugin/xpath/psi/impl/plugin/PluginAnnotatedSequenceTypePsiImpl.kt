@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
@@ -33,5 +33,5 @@ class PluginAnnotatedSequenceTypePsiImpl(node: ASTNode) :
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) XQUERY10 else PLUGIN13
 
-    override val conformanceElement: PsiElement get() = findChildByType(XQueryTokenType.K_FOR) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_FOR) ?: firstChild
 }

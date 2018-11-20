@@ -4,14 +4,14 @@ XQueryModuleImpl[FILE(0:10)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:10)]
             XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:10)]
                XQueryLetClauseImpl[XQUERY_LET_CLAUSE(0:10)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LET(0:3)]('let')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LET(0:3)]('let')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(4:10)]
-                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
+                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                      XPathVarNameImpl[XQUERY_VAR_NAME(6:8)]
                         XPathNCNameImpl[XQUERY_NCNAME(6:8)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('x')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                     LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(8:10)](':=')
+                     LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(8:10)](':=')
                      PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')

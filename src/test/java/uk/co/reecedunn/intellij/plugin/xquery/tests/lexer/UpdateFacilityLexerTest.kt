@@ -20,6 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
@@ -41,10 +42,10 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
 
@@ -65,7 +66,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
     fun testInsertExprTargetChoice() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "first", XQueryTokenType.K_FIRST)
         matchSingleToken(lexer, "last", XQueryTokenType.K_LAST)
         matchSingleToken(lexer, "into", XQueryTokenType.K_INTO)
@@ -79,7 +80,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "insert", XQueryTokenType.K_INSERT)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "nodes", XQueryTokenType.K_NODES)
     }
 
@@ -89,7 +90,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "delete", XQueryTokenType.K_DELETE)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "nodes", XQueryTokenType.K_NODES)
     }
 
@@ -100,8 +101,8 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "replace", XQueryTokenType.K_REPLACE)
         matchSingleToken(lexer, "value", XQueryTokenType.K_VALUE)
-        matchSingleToken(lexer, "of", XQueryTokenType.K_OF)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
+        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
         matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
     }
 
@@ -111,8 +112,8 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "rename", XQueryTokenType.K_RENAME)
-        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
     }
 
     @Test
@@ -121,11 +122,11 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "copy", XQueryTokenType.K_COPY)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY)
-        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN)
+        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
     }
 
     @Test
@@ -143,8 +144,8 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM)
         matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -154,8 +155,8 @@ class UpdateFacilityLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "invoke", XQueryTokenType.K_INVOKE)
         matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }

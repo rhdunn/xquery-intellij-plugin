@@ -4,5 +4,5 @@ XQueryModuleImpl[FILE(0:2)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:2)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:2)]
                XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:2)]
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1:2)](')')

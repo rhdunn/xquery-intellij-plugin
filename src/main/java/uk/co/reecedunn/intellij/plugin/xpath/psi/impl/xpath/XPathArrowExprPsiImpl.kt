@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
@@ -36,6 +36,5 @@ class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAr
         return XQUERY31
     }
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.ARROW) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.ARROW) ?: firstChild
 }

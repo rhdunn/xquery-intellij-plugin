@@ -5,10 +5,10 @@ XQueryModuleImpl[FILE(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:12)]
                   XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:6)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(4:6)]('::')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                     LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(4:6)]('::')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(6:12)]
                      XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(6:12)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(6:10)]('node')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(6:10)]('node')
+                        LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
+                        LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(11:12)](')')

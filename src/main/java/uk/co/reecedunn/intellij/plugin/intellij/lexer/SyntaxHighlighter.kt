@@ -23,6 +23,9 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.STATE_XQUERY_COMMENT
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
@@ -37,31 +40,31 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             XQueryLexer(), 0x60000000, 0, STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
         )
         lexer.addState(
-            XQDocLexer(), 0x70000000, STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT
+            XQDocLexer(), 0x70000000, STATE_XQUERY_COMMENT, XPathTokenType.COMMENT
         )
         return lexer
     }
 
     override fun getTokenHighlights(type: IElementType): Array<TextAttributesKey> {
         if (
-            type === XQueryTokenType.INTEGER_LITERAL ||
-            type === XQueryTokenType.DECIMAL_LITERAL ||
-            type === XQueryTokenType.DOUBLE_LITERAL ||
-            type === XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+            type === XPathTokenType.INTEGER_LITERAL ||
+            type === XPathTokenType.DECIMAL_LITERAL ||
+            type === XPathTokenType.DOUBLE_LITERAL ||
+            type === XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
         )
             return NUMBER_KEYS
         else if (
-            type === XQueryTokenType.STRING_LITERAL_START ||
-            type === XQueryTokenType.STRING_LITERAL_CONTENTS ||
-            type === XQueryTokenType.STRING_LITERAL_END ||
+            type === XPathTokenType.STRING_LITERAL_START ||
+            type === XPathTokenType.STRING_LITERAL_CONTENTS ||
+            type === XPathTokenType.STRING_LITERAL_END ||
             type === XQueryTokenType.STRING_CONSTRUCTOR_START ||
             type === XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS ||
             type === XQueryTokenType.STRING_CONSTRUCTOR_END ||
-            type === XQueryTokenType.BRACED_URI_LITERAL_START ||
-            type === XQueryTokenType.BRACED_URI_LITERAL_END
+            type === XPathTokenType.BRACED_URI_LITERAL_START ||
+            type === XPathTokenType.BRACED_URI_LITERAL_END
         )
             return STRING_KEYS
-        else if (type === XQueryTokenType.ESCAPED_CHARACTER)
+        else if (type === XPathTokenType.ESCAPED_CHARACTER)
             return ESCAPED_CHARACTER_KEYS
         else if (
             type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
@@ -70,14 +73,14 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.CHARACTER_REFERENCE
         )
             return ENTITY_REFERENCE_KEYS
-        else if (type === XQueryTokenType.BAD_CHARACTER)
+        else if (type === XPathTokenType.BAD_CHARACTER)
             return BAD_CHARACTER_KEYS
-        else if (type === XQueryTokenType.NCNAME)
+        else if (type === XPathTokenType.NCNAME)
             return IDENTIFIER_KEYS
         else if (
-            type === XQueryTokenType.COMMENT_START_TAG ||
-            type === XQueryTokenType.COMMENT ||
-            type === XQueryTokenType.COMMENT_END_TAG ||
+            type === XPathTokenType.COMMENT_START_TAG ||
+            type === XPathTokenType.COMMENT ||
+            type === XPathTokenType.COMMENT_END_TAG ||
             type === XQueryTokenType.XML_COMMENT_END_TAG ||
             type === XQueryTokenType.XML_COMMENT ||
             type === XQueryTokenType.XML_COMMENT_START_TAG ||
@@ -96,7 +99,7 @@ class SyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.ANNOTATION_INDICATOR
         )
             return ANNOTATION_KEYS
-        else if (type is IXQueryKeywordOrNCNameType)
+        else if (type is IKeywordOrNCNameType)
             return KEYWORD_KEYS
         else if (
             type === XQueryTokenType.OPEN_XML_TAG ||

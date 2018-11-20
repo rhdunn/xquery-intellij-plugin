@@ -19,9 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
@@ -40,5 +40,5 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
                 SEMANTICS
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.UNION)!!
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.UNION)!!
 }

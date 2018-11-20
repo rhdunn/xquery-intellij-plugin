@@ -11,22 +11,22 @@ XQueryModuleImpl[FILE(0:109)]
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:108)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(34:41)]('default')
-                  LeafPsiElement[XQUERY_COMMA_TOKEN(41:42)](',')
+                  LeafPsiElement[XPATH_COMMA_TOKEN(41:42)](',')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(42:74)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(42:44)]('at')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:74)]
-                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(44:45)]('"')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(73:74)]('"')
-                  LeafPsiElement[XQUERY_COMMA_TOKEN(74:75)](',')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(44:45)]('"')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(73:74)]('"')
+                  LeafPsiElement[XPATH_COMMA_TOKEN(74:75)](',')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(75:107)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(75:77)]('at')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(77:107)]
-                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(77:78)]('"')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(78:106)]('http://www.example.com/de-DE')
-                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(106:107)]('"')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(107:108)](')')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(77:78)]('"')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(78:106)]('http://www.example.com/de-DE')
+                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(106:107)]('"')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(107:108)](')')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(108:109)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(109:109)]('XPST0003: Missing query body.')

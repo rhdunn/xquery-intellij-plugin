@@ -20,6 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRUCTOR
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
@@ -43,8 +44,8 @@ class ScriptingLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "unassignable", XQueryTokenType.K_UNASSIGNABLE)
         matchSingleToken(lexer, "assignable", XQueryTokenType.K_ASSIGNABLE)
         matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
     }
 
@@ -54,10 +55,10 @@ class ScriptingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XQueryTokenType.K_AS)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
         matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
 
         matchSingleToken(lexer, "sequential", XQueryTokenType.K_SEQUENTIAL)
@@ -78,7 +79,7 @@ class ScriptingLexerTest : LexerTestCase() {
     fun testConcatExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Test
@@ -94,8 +95,8 @@ class ScriptingLexerTest : LexerTestCase() {
     fun testBlock() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE)
+        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
+        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
@@ -112,9 +113,9 @@ class ScriptingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Test
@@ -122,8 +123,8 @@ class ScriptingLexerTest : LexerTestCase() {
     fun testAssignmentExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test
@@ -141,7 +142,7 @@ class ScriptingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "while", XQueryTokenType.K_WHILE)
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }

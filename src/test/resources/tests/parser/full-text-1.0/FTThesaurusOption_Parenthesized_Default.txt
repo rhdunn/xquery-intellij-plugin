@@ -12,11 +12,11 @@ XQueryModuleImpl[FILE(0:47)]
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:45)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(44:45)](')')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(44:45)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(46:47)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Missing query body.')

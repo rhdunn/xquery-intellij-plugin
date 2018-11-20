@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
@@ -70,7 +71,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val tokens = parserDefinition.commentTokens
         assertThat(tokens.types.size, `is`(3))
         assertThat(tokens.contains(XQDocTokenType.CONTENTS), `is`(true))
-        assertThat(tokens.contains(XQueryTokenType.COMMENT), `is`(true))
+        assertThat(tokens.contains(XPathTokenType.COMMENT), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.XML_COMMENT), `is`(true))
     }
 
@@ -80,7 +81,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val parserDefinition = XQueryParserDefinition()
         val tokens = parserDefinition.stringLiteralElements
         assertThat(tokens.types.size, `is`(4))
-        assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_CONTENTS), `is`(true))
+        assertThat(tokens.contains(XPathTokenType.STRING_LITERAL_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS), `is`(true))
         assertThat(tokens.contains(XQueryTokenType.XML_ELEMENT_CONTENTS), `is`(true))
@@ -92,8 +93,8 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val parserDefinition = XQueryParserDefinition()
 
         // foreign ASTNode
-        val e = Assertions.assertThrows(AssertionError::class.java) { parserDefinition.createElement(MockASTNode(XQueryTokenType.INTEGER_LITERAL)) }
-        assertThat(e.message, `is`("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."))
+        val e = Assertions.assertThrows(AssertionError::class.java) { parserDefinition.createElement(MockASTNode(XPathTokenType.INTEGER_LITERAL)) }
+        assertThat(e.message, `is`("Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."))
     }
 
     @Test

@@ -5,5 +5,5 @@ XQueryModuleImpl[FILE(0:11)]
             UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(0:11)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(0:6)]('delete')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')

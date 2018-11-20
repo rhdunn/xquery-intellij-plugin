@@ -9,20 +9,20 @@ XQueryModuleImpl[FILE(0:74)]
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(10:45)]
                   XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(10:41)]
-                     LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(10:12)]('Q{')
-                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:40)]('http://www.example.com/test#')
-                     LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(40:41)]('}')
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:45)]('name')
+                     LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(10:12)]('Q{')
+                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(12:40)]('http://www.example.com/test#')
+                     LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(40:41)]('}')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(41:45)]('name')
                PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(46:73)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(46:54)]('function')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(46:54)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(55:60)]
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(55:59)]('test')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(55:59)]('test')
                   PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
-               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(60:61)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(60:61)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
-               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(62:63)](')')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(62:63)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(64:72)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')

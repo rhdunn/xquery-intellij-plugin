@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:35)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES(8:23)]('copy-namespaces')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected keyword: preserve, no-preserve.')
-            LeafPsiElement[XQUERY_COMMA_TOKEN(24:25)](',')
+            LeafPsiElement[XPATH_COMMA_TOKEN(24:25)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INHERIT(26:33)]('inherit')
             PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')

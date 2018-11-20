@@ -18,13 +18,10 @@ package uk.co.reecedunn.intellij.plugin.intellij.tests.lexer
 import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_XQUERY_COMMENT
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - Highlighting Lexer")
@@ -47,10 +44,10 @@ class HighlightingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         lexer.start("(: Test :)")
-        matchToken(lexer, "(:", 0x00000000 or 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
+        matchToken(lexer, "(:", 0x00000000 or 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
         matchToken(lexer, " ", 0x70000000 or 8, 2, 3, XQDocTokenType.WHITE_SPACE)
         matchToken(lexer, "Test ", 0x70000000 or 11, 3, 8, XQDocTokenType.CONTENTS)
-        matchToken(lexer, ":)", 0x00000000 or 4, 8, 10, XQueryTokenType.COMMENT_END_TAG)
+        matchToken(lexer, ":)", 0x00000000 or 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
         matchToken(lexer, "", 0x00000000 or 0, 10, 10, null)
     }
 
@@ -60,14 +57,14 @@ class HighlightingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         lexer.start("(:~\n@xqdoc comment:)")
-        matchToken(lexer, "(:", 0x00000000 or 0, 0, 2, XQueryTokenType.COMMENT_START_TAG)
+        matchToken(lexer, "(:", 0x00000000 or 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
         matchToken(lexer, "~", 0x70000000 or 0, 2, 3, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 0x70000000 or 8, 3, 4, XQDocTokenType.TRIM)
         matchToken(lexer, "@", 0x70000000 or 8, 4, 5, XQDocTokenType.TAG_MARKER)
         matchToken(lexer, "xqdoc", 0x70000000 or 2, 5, 10, XQDocTokenType.TAG)
         matchToken(lexer, " ", 0x70000000 or 2, 10, 11, XQDocTokenType.WHITE_SPACE)
         matchToken(lexer, "comment", 0x70000000 or 1, 11, 18, XQDocTokenType.CONTENTS)
-        matchToken(lexer, ":)", 0x00000000 or 4, 18, 20, XQueryTokenType.COMMENT_END_TAG)
+        matchToken(lexer, ":)", 0x00000000 or 4, 18, 20, XPathTokenType.COMMENT_END_TAG)
         matchToken(lexer, "", 0x00000000 or 0, 20, 20, null)
     }
 
@@ -77,8 +74,8 @@ class HighlightingLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         lexer.start("Q{Hello World}", 2, 14, 0x00000000 or 26)
-        matchToken(lexer, "Hello World", 26, 2, 13, XQueryTokenType.STRING_LITERAL_CONTENTS)
-        matchToken(lexer, "}", 26, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END)
+        matchToken(lexer, "Hello World", 26, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
+        matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
         matchToken(lexer, "", 0, 14, 14, null)
     }
 
@@ -91,7 +88,7 @@ class HighlightingLexerTest : LexerTestCase() {
         matchToken(lexer, "xqdoc", 0x70000000 or 2, 5, 10, XQDocTokenType.TAG)
         matchToken(lexer, " ", 0x70000000 or 2, 10, 11, XQDocTokenType.WHITE_SPACE)
         matchToken(lexer, "comment", 0x70000000 or 1, 11, 18, XQDocTokenType.CONTENTS)
-        matchToken(lexer, ":)", 0x00000000 or 4, 18, 20, XQueryTokenType.COMMENT_END_TAG)
+        matchToken(lexer, ":)", 0x00000000 or 4, 18, 20, XPathTokenType.COMMENT_END_TAG)
         matchToken(lexer, "", 0x00000000 or 0, 20, 20, null)
     }
 }

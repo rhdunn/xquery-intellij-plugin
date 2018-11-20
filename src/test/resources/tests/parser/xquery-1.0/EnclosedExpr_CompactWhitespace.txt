@@ -5,23 +5,23 @@ XQueryModuleImpl[FILE(0:35)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:34)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(17:19)]('fn')
-                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:24)]('true')
-               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
-               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(25:26)](')')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:24)]('true')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(25:26)](')')
                XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(26:34)]
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(26:27)]('{')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(26:27)]('{')
                   XPathExprImpl[XQUERY_EXPR(27:33)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(27:33)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(27:33)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(27:33)]
-                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(27:28)]('"')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(28:32)]('true')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(32:33)]('"')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(33:34)]('}')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(27:28)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(28:32)]('true')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(32:33)]('"')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(33:34)]('}')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(34:35)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Missing query body.')

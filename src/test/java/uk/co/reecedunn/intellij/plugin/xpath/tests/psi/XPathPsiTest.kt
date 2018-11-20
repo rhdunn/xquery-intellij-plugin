@@ -24,10 +24,11 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -1271,7 +1272,7 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("key, value")
             fun keyValue() {
                 val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
+                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
             }
 
             @Test

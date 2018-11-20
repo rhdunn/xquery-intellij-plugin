@@ -20,8 +20,8 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSequenceTypeList
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
@@ -29,5 +29,5 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
 
     override val requiresConformance get(): List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.COMMA)!!
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.COMMA)!!
 }

@@ -9,12 +9,12 @@ XQueryModuleImpl[FILE(0:30)]
             XPathNCNameImpl[XQUERY_NCNAME(15:17)]
                PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected qualified name or identifier, not a wildcard.')
                PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(15:16)]
-                  LeafPsiElement[XQUERY_STAR_TOKEN(15:16)]('*')
+                  LeafPsiElement[XPATH_STAR_TOKEN(15:16)]('*')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(17:28)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(17:18)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(18:27)]('Test Case')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(27:28)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(17:18)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(18:27)]('Test Case')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(27:28)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing query body.')

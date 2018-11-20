@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +21,23 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
 class XQueryCatchClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCatchClause, XQueryConformance {
-    override val requiresConformance get(): List<Version> {
-        if (isMarkLogicExtension) { // MarkLogic CatchClause
-            return MARKLOGIC60
+    override val requiresConformance
+        get(): List<Version> {
+            if (isMarkLogicExtension) { // MarkLogic CatchClause
+                return MARKLOGIC60
+            }
+            return XQUERY10 // XQuery 3.0 CatchClause -- handled by the TryClause conformance checks.
         }
-        return XQUERY10 // XQuery 3.0 CatchClause -- handled by the TryClause conformance checks.
-    }
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 
-    override val isMarkLogicExtension get(): Boolean =
-        findChildByType<PsiElement>(XQueryTokenType.PARENTHESIS_OPEN) != null
+    override val isMarkLogicExtension
+        get(): Boolean = findChildByType<PsiElement>(XPathTokenType.PARENTHESIS_OPEN) != null
 }

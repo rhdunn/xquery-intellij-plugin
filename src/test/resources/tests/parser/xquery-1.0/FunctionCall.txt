@@ -6,10 +6,10 @@ XQueryModuleImpl[FILE(0:11)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:11)]
                   XPathQNameImpl[XQUERY_QNAME(0:7)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
-                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('true')
+                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:7)]('true')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(8:11)]
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')

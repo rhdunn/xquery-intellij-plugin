@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -85,8 +86,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.STAR))
+        assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.STAR))
     }
 
     @Test
@@ -274,7 +274,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN))
+                `is`(XPathTokenType.BLOCK_OPEN))
         }
     }
 
@@ -369,10 +369,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_NAMESPACE)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_NAMESPACE))
         }
 
         @Test
@@ -842,10 +839,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.STAR)
-            )
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.STAR))
         }
     }
 
@@ -873,8 +867,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
 
-            assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.OPTIONAL))
+            assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.OPTIONAL))
         }
 
         @Test
@@ -919,8 +912,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_UNION))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_UNION))
     }
 
     @Nested
@@ -958,7 +950,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
                 conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.BLOCK_OPEN)
+                `is`(XPathTokenType.BLOCK_OPEN)
             )
         }
     }
@@ -978,10 +970,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_AS)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_AS))
         }
     }
 
@@ -1161,7 +1150,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.UNION))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.UNION))
     }
 
     @Test
@@ -1174,7 +1163,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.COMMA))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.COMMA))
     }
 
     @Nested
@@ -1200,10 +1189,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
 
-            assertThat(
-                versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_FOR)
-            )
+            assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.K_FOR))
         }
     }
 
@@ -1243,7 +1229,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_IF))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_IF))
     }
 
     @Test

@@ -4,22 +4,22 @@ XQueryModuleImpl[FILE(0:17)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:17)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:17)]
                XPathCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:17)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(6:17)]
-                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(6:7)]('{')
+                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      XPathExprImpl[XQUERY_EXPR(8:16)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:16)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(8:10)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('1')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                           LeafPsiElement[XQUERY_COMMA_TOKEN(10:11)](',')
+                           LeafPsiElement[XPATH_COMMA_TOKEN(10:11)](',')
                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                            XPathOrExprImpl[XQUERY_OR_EXPR(12:14)]
-                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('2')
+                              XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
                               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                           LeafPsiElement[XQUERY_COMMA_TOKEN(14:15)](',')
+                           LeafPsiElement[XPATH_COMMA_TOKEN(14:15)](',')
                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing expression.')
-                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(16:17)]('}')
+                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(16:17)]('}')

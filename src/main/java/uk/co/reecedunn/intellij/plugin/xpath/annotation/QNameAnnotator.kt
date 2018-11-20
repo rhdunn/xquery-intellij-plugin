@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
 
 class QNameAnnotator : Annotator {
@@ -61,11 +61,11 @@ class QNameAnnotator : Annotator {
             } else if (element.parent is XQueryAnnotation) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.ANNOTATION
-            } else if (localName.node.elementType is IXQueryKeywordOrNCNameType) {
+            } else if (localName.node.elementType is IKeywordOrNCNameType) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.IDENTIFIER
             } else if (localName is XPathNCName) {
-                if (localName.node.elementType is IXQueryKeywordOrNCNameType) {
+                if (localName.node.elementType is IKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                     holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.IDENTIFIER
                 }

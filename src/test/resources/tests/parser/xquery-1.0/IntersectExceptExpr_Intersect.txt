@@ -7,11 +7,11 @@ XQueryModuleImpl[FILE(0:13)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
                         XPathNCNameImpl[XQUERY_NCNAME(0:2)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INTERSECT(2:11)]('intersect')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INTERSECT(2:11)]('intersect')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(12:13)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(12:13)]
                         XPathNCNameImpl[XQUERY_NCNAME(12:13)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('b')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('b')

@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:19)]
                      XPathNCNameImpl[XQUERY_NCNAME(0:7)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
                         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            LeafPsiElement[XQUERY_COMMA_TOKEN(7:8)](',')
+            LeafPsiElement[XPATH_COMMA_TOKEN(7:8)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)]('\n')
             XPathOrExprImpl[XQUERY_OR_EXPR(9:19)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(9:19)]

@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val XQUERY10: List<Version> = listOf()
@@ -35,14 +35,13 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode):
     // region XQueryConformance
 
     override val requiresConformance get(): List<Version> {
-        if (findChildByType<PsiElement>(XQueryTokenType.K_FUNCTION) == null) {
+        if (findChildByType<PsiElement>(XPathTokenType.K_FUNCTION) == null) {
             return XQUERY10 // Annotation with a missing 'function' keyword.
         }
         return XQUERY30
     }
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.K_FUNCTION) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.K_FUNCTION) ?: firstChild
 
     // endregion
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016; 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lexer
+package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
+import com.intellij.lang.Language
+import com.intellij.psi.tree.IElementType
 import org.jetbrains.annotations.NonNls
 
-class IXQueryKeywordOrNCNameType(@NonNls debugName: String, type: KeywordType) : INCNameType(debugName) {
-    val keywordType: KeywordType = type
-
-    enum class KeywordType {
-        KEYWORD,
-        RESERVED_FUNCTION_NAME,
-        XQUERY30_RESERVED_FUNCTION_NAME,
-        SCRIPTING10_RESERVED_FUNCTION_NAME,
-        MARKLOGIC70_RESERVED_FUNCTION_NAME,
-        MARKLOGIC80_RESERVED_FUNCTION_NAME
-    }
-
-    constructor(@NonNls debugName: String) : this(debugName, KeywordType.KEYWORD)
-}
+open class INCNameType(@NonNls debugName: String, language: Language) : IElementType(debugName, language)

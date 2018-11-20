@@ -6,14 +6,14 @@ XQueryModuleImpl[FILE(0:18)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:18)]
                   XPathQNameImpl[XQUERY_QNAME(0:10)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
-                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:10)]('boolean')
+                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:10)]('boolean')
                   XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(10:18)]
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                      XPathArgumentImpl[XQUERY_ARGUMENT(11:17)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(11:17)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(11:17)]
-                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(11:12)]('"')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:16)]('true')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(16:17)]('"')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(17:18)](')')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(11:12)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(12:16)]('true')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(16:17)]('"')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(17:18)](')')

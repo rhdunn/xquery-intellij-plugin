@@ -9,13 +9,13 @@ XQueryModuleImpl[FILE(0:61)]
             XQuerySchemaPrefixImpl[XQUERY_SCHEMA_PREFIX(14:30)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(14:21)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(22:29)]('element')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(22:29)]('element')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: namespace.')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(30:59)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(30:31)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(31:58)]('http://www.example.com/test')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(58:59)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(30:31)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(31:58)]('http://www.example.com/test')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(58:59)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(61:61)]('XPST0003: Missing query body.')

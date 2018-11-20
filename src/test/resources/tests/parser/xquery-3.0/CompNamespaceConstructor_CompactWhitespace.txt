@@ -5,18 +5,18 @@ XQueryModuleImpl[FILE(0:20)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:20)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:20)]
                   XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:20)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      XQueryPrefixImpl[XQUERY_PREFIX(10:12)]
                         XPathNCNameImpl[XQUERY_NCNAME(10:12)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:12)]('ns')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:12)]('ns')
                      XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(12:20)]
-                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
+                        LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
                         XPathExprImpl[XQUERY_EXPR(13:19)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(13:19)]
                                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('test')
-                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
-                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
+                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(13:14)]('"')
+                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(14:18)]('test')
+                                    LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(18:19)]('"')
+                        LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(19:20)]('}')

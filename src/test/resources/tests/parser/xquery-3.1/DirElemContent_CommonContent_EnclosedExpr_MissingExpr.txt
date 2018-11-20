@@ -12,8 +12,8 @@ XQueryModuleImpl[FILE(0:11)]
                      XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:7)]
                         LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:4)]('1')
                         XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(4:6)]
-                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
-                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(5:6)]('}')
+                           LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
+                           LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(5:6)]('}')
                         LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(6:7)]('3')
                      LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(7:9)]('</')
                      XPathNCNameImpl[XQUERY_NCNAME(9:10)]

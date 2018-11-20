@@ -7,21 +7,21 @@ XQueryModuleImpl[FILE(0:42)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:41)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(19:21)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:21)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:20)]('x')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                XPathAnyMapTestImpl[XQUERY_ANY_MAP_TEST(24:31)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(24:27)]('map')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(24:27)]('map')
                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing qualified name, braced URI qualified name or '*'.')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(32:40)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')

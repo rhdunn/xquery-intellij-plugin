@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
 import java.nio.charset.UnsupportedCharsetException
 import javax.swing.Icon
@@ -59,15 +60,15 @@ object XQueryFileType : LanguageFileType(XQuery) {
     private fun matchWhiteSpaceOrComment(lexer: Lexer, required: Boolean): Boolean {
         var matched = false
         while (true) {
-            matched = if (lexer.tokenType === XQueryTokenType.WHITE_SPACE) {
+            matched = if (lexer.tokenType === XPathTokenType.WHITE_SPACE) {
                 lexer.advance()
                 true
-            } else if (lexer.tokenType === XQueryTokenType.COMMENT_START_TAG) {
+            } else if (lexer.tokenType === XPathTokenType.COMMENT_START_TAG) {
                 lexer.advance()
-                if (lexer.tokenType === XQueryTokenType.COMMENT) {
+                if (lexer.tokenType === XPathTokenType.COMMENT) {
                     lexer.advance()
                 }
-                if (lexer.tokenType === XQueryTokenType.COMMENT_END_TAG) {
+                if (lexer.tokenType === XPathTokenType.COMMENT_END_TAG) {
                     lexer.advance()
                 }
                 true
@@ -78,14 +79,14 @@ object XQueryFileType : LanguageFileType(XQuery) {
     }
 
     private fun matchString(lexer: Lexer, defaultValue: String?): String? {
-        if (lexer.tokenType !== XQueryTokenType.STRING_LITERAL_START)
+        if (lexer.tokenType !== XPathTokenType.STRING_LITERAL_START)
             return defaultValue
         lexer.advance()
-        if (lexer.tokenType !== XQueryTokenType.STRING_LITERAL_CONTENTS)
+        if (lexer.tokenType !== XPathTokenType.STRING_LITERAL_CONTENTS)
             return defaultValue
         val match = lexer.tokenText
         lexer.advance()
-        if (lexer.tokenType !== XQueryTokenType.STRING_LITERAL_END)
+        if (lexer.tokenType !== XPathTokenType.STRING_LITERAL_END)
             return defaultValue
         lexer.advance()
         return match

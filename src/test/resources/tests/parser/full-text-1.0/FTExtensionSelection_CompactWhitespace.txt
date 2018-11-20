@@ -7,11 +7,11 @@ XQueryModuleImpl[FILE(0:41)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                         XPathNCNameImpl[XQUERY_NCNAME(0:6)]
-                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                   FTSelectionImpl[XQUERY_FT_SELECTION(19:41)]
                      FTOrImpl[XQUERY_FT_OR(19:41)]
                         FTAndImpl[XQUERY_FT_AND(19:41)]
@@ -23,11 +23,11 @@ XQueryModuleImpl[FILE(0:41)]
                                           XQueryPragmaImpl[XQUERY_PRAGMA(19:32)]
                                              LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(19:21)]('(#')
                                              XPathNCNameImpl[XQUERY_NCNAME(21:26)]
-                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(21:25)]('test')
+                                                XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:25)]('test')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                                              LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(26:30)]('case')
                                              LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(30:32)]('#)')
-                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(32:33)]('{')
+                                          LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
                                           FTSelectionImpl[XQUERY_FT_SELECTION(33:40)]
                                              FTOrImpl[XQUERY_FT_OR(33:40)]
                                                 FTAndImpl[XQUERY_FT_AND(33:40)]
@@ -38,7 +38,7 @@ XQueryModuleImpl[FILE(0:41)]
                                                                FTWordsImpl[XQUERY_FT_WORDS(33:40)]
                                                                   FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(33:40)]
                                                                      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(33:34)]('"')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
-                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(39:40)]('"')
-                                          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(40:41)]('}')
+                                                                        LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(33:34)]('"')
+                                                                        LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(34:39)]('lorem')
+                                                                        LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')
+                                          LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(40:41)]('}')

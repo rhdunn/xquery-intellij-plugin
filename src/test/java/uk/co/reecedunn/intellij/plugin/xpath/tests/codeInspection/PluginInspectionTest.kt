@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 // region XML Entities
 
@@ -2481,7 +2482,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: W3C Working Draft does not support XQuery 1.0, or eXist-db 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY_SEQUENCE))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
                 }
 
                 @Test
@@ -2512,7 +2513,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '0.9-ml' does not support XQuery 1.0, or eXist-db 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY_SEQUENCE))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY_SEQUENCE))
                 }
 
                 @Test
@@ -2968,7 +2969,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Reserved XQuery 1.0 keyword used as a function name.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_IF))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_IF))
                 }
 
                 @Test
@@ -2989,7 +2990,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Reserved XQuery 3.0 keyword used as a function name.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_FUNCTION))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_FUNCTION))
                 }
 
                 @Nested
@@ -3315,7 +3316,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
                 }
 
                 @Test
@@ -3371,7 +3372,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
                 }
 
                 @Test
@@ -3425,7 +3426,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
                 }
             }
         }
@@ -3579,7 +3580,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery Scripting Extension 1.0 requires ';' at the end of each statement.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.INTEGER_LITERAL))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
                 }
 
                 @Test

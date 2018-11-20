@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
                XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
                   XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
                      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                     LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(5:7)]('::')
                   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Expected 'NodeTest'.')

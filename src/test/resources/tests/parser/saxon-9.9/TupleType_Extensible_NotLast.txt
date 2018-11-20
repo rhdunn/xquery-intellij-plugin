@@ -7,41 +7,41 @@ XQueryModuleImpl[FILE(0:50)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:49)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(19:21)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:21)]
-                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:20)]('x')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                PluginTupleTypeImpl[XQUERY_TUPLE_TYPE(24:43)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                   PluginTupleFieldImpl[XQUERY_TUPLE_FIELD(32:34)]
                      XPathNCNameImpl[XQUERY_NCNAME(32:33)]
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:33)]('a')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:33)]('a')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  LeafPsiElement[XQUERY_COMMA_TOKEN(34:35)](',')
+                  LeafPsiElement[XPATH_COMMA_TOKEN(34:35)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                  LeafPsiElement[XQUERY_STAR_TOKEN(36:37)]('*')
+                  LeafPsiElement[XPATH_STAR_TOKEN(36:37)]('*')
                   PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(38:39)]('XPST0003: Tuples cannot have named fields after extensible marker '*'.')
-                     LeafPsiElement[XQUERY_COMMA_TOKEN(38:39)](',')
+                     LeafPsiElement[XPATH_COMMA_TOKEN(38:39)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                   PluginTupleFieldImpl[XQUERY_TUPLE_FIELD(40:42)]
                      XPathNCNameImpl[XQUERY_NCNAME(40:41)]
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(40:41)]('b')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(40:41)]('b')
                      PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(42:43)](')')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(42:43)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-               LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(44:46)](':=')
+               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(44:46)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(47:49)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(47:49)]
-                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(47:48)]('1')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(47:48)]('1')
                      PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(49:50)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(50:50)]('XPST0003: Missing query body.')

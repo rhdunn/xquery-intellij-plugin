@@ -8,9 +8,9 @@ XQueryModuleImpl[FILE(0:28)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing qualified name or braced URI qualified name.')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:26)]
-               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:25)]('Test Case')
-               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(25:26)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(15:16)]('"')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(16:25)]('Test Case')
+               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(27:28)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Missing query body.')

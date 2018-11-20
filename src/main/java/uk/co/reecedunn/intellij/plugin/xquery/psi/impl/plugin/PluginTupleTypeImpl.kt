@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val SAXON98: List<Version> = listOf(Saxon.VERSION_9_8)
@@ -33,5 +33,5 @@ class PluginTupleTypeImpl(node: ASTNode) :
     override val requiresConformance
         get(): List<Version> = if (conformanceElement === firstChild) SAXON98 else SAXON99
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.STAR) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.STAR) ?: firstChild
 }

@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
@@ -273,14 +274,14 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("MarkLogic")
             fun markLogic() {
                 val entry = parse<XPathMapConstructorEntry>("object-node { \"1\" : \"one\" }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XQueryTokenType.QNAME_SEPARATOR))
+                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
             }
 
             @Test
             @DisplayName("Saxon")
             fun saxon() {
                 val entry = parse<XPathMapConstructorEntry>("map { \"1\" := \"one\" }")[0]
-                assertThat(entry.separator.node.elementType, `is`(XQueryTokenType.ASSIGN_EQUAL))
+                assertThat(entry.separator.node.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
             }
         }
     }

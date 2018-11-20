@@ -10,15 +10,15 @@ XQueryModuleImpl[FILE(0:32)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   XPathTypeNameImpl[XQUERY_TYPE_NAME(14:24)]
                      XPathQNameImpl[XQUERY_QNAME(14:24)]
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:16)]('xs')
-                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(16:17)](':')
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:24)]('boolean')
-                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(24:25)]('{')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:16)]('xs')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(16:17)](':')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:24)]('boolean')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(24:25)]('{')
                   XPathExprImpl[XQUERY_EXPR(25:31)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(25:31)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(25:31)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(25:31)]
-                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(25:26)]('"')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(26:30)]('true')
-                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(30:31)]('"')
-                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(31:32)]('}')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(25:26)]('"')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(26:30)]('true')
+                              LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(30:31)]('"')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(31:32)]('}')

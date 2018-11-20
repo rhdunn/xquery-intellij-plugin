@@ -5,13 +5,13 @@ XQueryModuleImpl[FILE(0:29)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:29)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(0:29)]
                   XPathSchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(0:29)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(0:14)]('schema-element')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(0:14)]('schema-element')
                      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                      XPathQNameImpl[XQUERY_QNAME(17:27)]
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:19)]('xs')
-                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:27)]('boolean')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:19)]('xs')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:27)]('boolean')
                      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
