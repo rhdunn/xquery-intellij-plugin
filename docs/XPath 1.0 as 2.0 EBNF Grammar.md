@@ -1,7 +1,7 @@
 # XPath 1.0 as 2.0 EBNF Grammar
 
-This software or document includes material copied from or derived from the
-XPath specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio, Beihang).
+This document includes material copied from or derived from the XPath
+specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio, Beihang).
 
 ## Abstract
 This document describes the XPath 1.0 EBNF grammar using the XPath 2.0
@@ -48,7 +48,7 @@ for precedence changes.
 | \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr \| EqualityExpr '=' RelationalExpr \| EqualityExpr '!=' RelationalExpr` | |
 | \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr \| RelationalExpr '<' AdditiveExpr \| RelationalExpr '>' AdditiveExpr \| RelationalExpr '<=' AdditiveExpr \| RelationalExpr '>=' AdditiveExpr` | |
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr \| AdditiveExpr '+' MultiplicativeExpr \| AdditiveExpr '-' MultiplicativeExpr` | |
-| \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr MultiplyOperator UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
+| \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
 | \[27\]  | `UnaryExpr`                       | ::= | `UnionExpr \| '-' UnaryExpr`        |                      |
 | \[37\]  | `NameTest`                        | ::= | `'*' \| NCName ':' '*' \| QName`    |                      |
 
@@ -69,7 +69,6 @@ are not terminal symbols in the grammar of A.1 EBNF.
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[31\]  | `Digits`                          | ::= | `[0-9]+`                            |                      |
-| \[34\]  | `MultiplyOperator`                | ::= | `'*'`                               |                      |
 
 ## B References
 
@@ -86,3 +85,4 @@ grammar.
 
 1. Remove the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
+1. Inline the `MultiplyOperator` symbol into `MultiplicativeExpr`.
