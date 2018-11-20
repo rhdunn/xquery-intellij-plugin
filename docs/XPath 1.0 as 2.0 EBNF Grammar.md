@@ -13,6 +13,7 @@ for precedence changes.
 - [A XPath Grammar](#a-xpath-grammar)
   - [A.1 EBNF](#a1-ebnf)
   - [A.2 Terminal Symbols](#a2-terminal-symbols)
+  - [A.3 Reserved Function Names](#a3-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
 - [C Change Log](#c-change-log)
@@ -20,6 +21,8 @@ for precedence changes.
 ## A XPath Grammar
 
 ### A.1 EBNF
+
+The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
@@ -38,7 +41,7 @@ for precedence changes.
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `OrExpr`                            |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `VariableReference \| '(' Expr ')' \| Literal \| Number \| FunctionCall` | |
-| \[16\]  | `FunctionCall`                    | ::= | `FunctionName '(' ( Argument ( ',' Argument )* )? ')'` |   |
+| \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
 | \[17\]  | `Argument`                        | ::= | `Expr`                              |                      |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
@@ -58,7 +61,6 @@ for precedence changes.
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[29\]  | `Literal`                         | ::= | `'"' \[^"\]* '"' \| "'" \[^'\]* "'"` |                     |
 | \[30\]  | `Number`                          | ::= | `Digits ('.' Digits?)? \| '.' Digits |                     |
-| \[35\]  | `FunctionName`                    | ::= | `QName - NodeType`                  |                      |
 | \[36\]  | `VariableReference`               | ::= | `'$' QName`                         |                      |
 | \[38\]  | `NodeType`                        | ::= | `'comment' \| 'text' \| 'processing-instruction' \| 'node' | |
 | \[39\]  | `ExprWhitespace`                  | ::= | `S`                                 |                      |
@@ -69,6 +71,16 @@ are not terminal symbols in the grammar of A.1 EBNF.
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[31\]  | `Digits`                          | ::= | `[0-9]+`                            |                      |
+
+### A.3 Reserved Function Names
+
+The following names are not allowed as function names in an unprefixed form
+because expression syntax takes precedence.
+
+*  `comment`
+*  `node`
+*  `processing-instruction`
+*  `text`
 
 ## B References
 
@@ -86,3 +98,4 @@ grammar.
 1. Remove the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inline the `MultiplyOperator` symbol into `MultiplicativeExpr`.
+1. Replace the FunctionName symbol with a reserved function names section.
