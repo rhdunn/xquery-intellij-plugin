@@ -15,6 +15,7 @@ for precedence changes.
   - [A.2 Terminal Symbols](#a2-terminal-symbols)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
+- [C Change Log](#c-change-log)
 
 ## A XPath Grammar
 
@@ -67,10 +68,7 @@ are not terminal symbols in the grammar of A.1 EBNF.
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[28\]  | `ExprToken`                       | ::= | `'(' \| ')' \| '[' \| ']' \| '.' \| '..' \| '@' \| ',' \| '::'` \| NameTest \| NodeType \| Operator \| FunctionName \| AxisName \| Literal \| Number \| VariableReference` | |
 | \[31\]  | `Digits`                          | ::= | `[0-9]+`                            |                      |
-| \[32\]  | `Operator`                        | ::= | `OperatorName \| MultiplyOperator \| '/' \| '//' \| '|' \| '+' \| '-' \| '=' \| '!=' \| '<' \| '<=' \| '>' \| '>='` | |
-| \[33\]  | `OperatorName`                    | ::= | `'and' \| 'or' \| 'mod' \| 'div'`   |                      |
 | \[34\]  | `MultiplyOperator`                | ::= | `'*'`                               |                      |
 
 ## B References
@@ -81,3 +79,10 @@ __Core Specifications__
    See [https://www.w3.org/TR/1999/REC-xpath-19991116/]().
 *  W3C. *XML Path Language (XPath) 2.0*. W3C Recommendation 14 December 2010.
    See [https://www.w3.org/TR/2010/REC-xpath20-20101214/]().
+
+## C Change Log
+This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
+grammar.
+
+1. Remove the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
+   referenced elsewhere in the XPath 1.0 grammar.
