@@ -6,6 +6,10 @@ xquery version "3.1";
  : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
  : @see https://www.w3.org/TR/201/REC-xpath-functions-31-20170321/
+ :
+ : This software includes material copied from or derived from the XPath and
+ : XQuery Functions and Operators 1.0 to 3.1 specifications. Copyright ©
+ : 2007-2017 W3C® (MIT, ERCIM, Keio, Beihang).
  :)
 module namespace fn = "http://www.w3.org/2005/xpath-functions";
 

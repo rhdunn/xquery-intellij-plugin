@@ -1,5 +1,9 @@
 # XQuery IntelliJ Plugin Data Model
 
+This document includes material copied from or derived from the XPath and
+XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,
+Beihang).
+
 ## Abstract
 This document defines the data model for vendor and plugin specific
 functionality that extends XQuery and associated W3C extensions. The

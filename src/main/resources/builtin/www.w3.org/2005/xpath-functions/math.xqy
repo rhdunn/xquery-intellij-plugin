@@ -2,7 +2,11 @@ xquery version "3.0";
 (:~
  : XPath and XQuery Functions and Operators: Trigonometric and exponential functions
  :
- : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/#trigonometry
+ : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/#trigonometry
+ :
+ : This software includes material copied from or derived from the XPath and
+ : XQuery Functions and Operators 3.0 specification. Copyright © 2017 W3C®
+ : (MIT, ERCIM, Keio, Beihang).
  :)
 module namespace math = "http://www.w3.org/2005/xpath-functions/math";
 

@@ -1,5 +1,8 @@
 # XPath 1.0 as 2.0 EBNF Grammar
 
+This software or document includes material copied from or derived from the
+XPath specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio, Beihang).
+
 ## Abstract
 This document describes the XPath 1.0 EBNF grammar using the XPath 2.0
 EBNF symbols. This is to make it easier to implement an XPath 1.0 parser

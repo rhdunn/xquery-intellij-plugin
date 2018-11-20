@@ -1,5 +1,9 @@
 # XQuery IntelliJ Plugin Functions and Operators
 
+This document includes material copied from or derived from the XPath and
+XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,
+Beihang).
+
 ## Abstract
 This document defines the functions, operators, annotations, and options
 used by the XQuery IntelliJ Plugin to implement the XQuery integration with

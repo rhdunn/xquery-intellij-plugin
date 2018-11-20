@@ -3,6 +3,10 @@ xquery version "3.1";
  : XPath and XQuery Functions and Operators: Functions that Operate on Maps
  :
  : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/
+ :
+ : This software includes material copied from or derived from the XPath and
+ : XQuery Functions and Operators 3.1 specifications. Copyright © 2017 W3C®
+ : (MIT, ERCIM, Keio, Beihang).
  :)
 module namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
