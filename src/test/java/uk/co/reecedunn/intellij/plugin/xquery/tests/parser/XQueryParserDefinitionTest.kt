@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import com.intellij.lang.ParserDefinition
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -109,12 +108,5 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false))
         assertThat(psiFile.javaClass.name, `is`(XQueryModuleImpl::class.java.name))
         assertThat(psiFile.fileType, `is`(XQueryFileType))
-    }
-
-    @Test
-    @DisplayName("spaceExistanceTypeBetweenTokens")
-    fun testSpaceExistanceTypeBetweenTokens() {
-        val parserDefinition = XQueryParserDefinition()
-        assertThat(parserDefinition.spaceExistenceTypeBetweenTokens(null, null), `is`(ParserDefinition.SpaceRequirements.MAY))
     }
 }
