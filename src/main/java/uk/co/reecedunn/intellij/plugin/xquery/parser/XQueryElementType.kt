@@ -17,14 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -32,8 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 
 object XQueryElementType {
-    val FILE = IFileElementType(XQuery)
-
     // region XQuery 1.0
 
     val CDATA_SECTION: IElementType = ICompositeElementType("XQUERY_CDATA_SECTION", XQueryCDataSectionPsiImpl::class.java, XQuery)
@@ -144,6 +139,8 @@ object XQueryElementType {
     val UNKNOWN_DECL: IElementType = ICompositeElementType("XQUERY_UNKNOWN_DECL", XQueryUnknownDeclPsiImpl::class.java, XQuery)
     val MODULE_DECL: IElementType = ICompositeElementType("XQUERY_MODULE_DECL", XQueryModuleDeclPsiImpl::class.java, XQuery)
     val VERSION_DECL: IElementType = ICompositeElementType("XQUERY_VERSION_DECL", XQueryVersionDeclPsiImpl::class.java, XQuery)
+
+    val MODULE = IFileElementType(XQuery)
     val MAIN_MODULE: IElementType = ICompositeElementType("XQUERY_MAIN_MODULE", XQueryMainModulePsiImpl::class.java, XQuery)
     val LIBRARY_MODULE: IElementType = ICompositeElementType("XQUERY_LIBRARY_MODULE", XQueryLibraryModulePsiImpl::class.java, XQuery)
 

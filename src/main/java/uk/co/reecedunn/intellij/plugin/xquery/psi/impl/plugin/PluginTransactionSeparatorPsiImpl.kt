@@ -35,7 +35,7 @@ private val XQUERY = listOf<Version>()
 class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     PluginTransactionSeparator, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        return if (parent.node.elementType === XQueryElementType.FILE) {
+        return if (parent.node.elementType === XQueryElementType.MODULE) {
             // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
             MARKLOGIC60
         } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
