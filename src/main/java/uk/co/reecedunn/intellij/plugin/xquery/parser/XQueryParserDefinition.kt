@@ -27,6 +27,8 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.compat.lang.ParserDefinition
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 
@@ -58,4 +60,26 @@ class XQueryParserDefinition : ParserDefinition() {
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = XQueryModuleImpl(viewProvider)
+
+    companion object {
+        val STRING_LITERAL_TOKENS = TokenSet.create(
+            XPathTokenType.STRING_LITERAL_CONTENTS,
+            XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS,
+            XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS,
+            XQueryTokenType.XML_ELEMENT_CONTENTS
+        )
+
+        val COMMENT_TOKENS = TokenSet.create(
+            XQDocTokenType.CONTENTS,
+            XPathTokenType.COMMENT,
+            XQueryTokenType.XML_COMMENT
+        )
+
+        val LITERAL_TOKENS = TokenSet.create(
+            XPathTokenType.INTEGER_LITERAL,
+            XPathTokenType.DECIMAL_LITERAL,
+            XPathTokenType.DOUBLE_LITERAL,
+            XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+        )
+    }
 }

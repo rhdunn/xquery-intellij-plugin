@@ -21,6 +21,9 @@ import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition.Companion.COMMENT_TOKENS
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition.Companion.LITERAL_TOKENS
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition.Companion.STRING_LITERAL_TOKENS
 
 class XQueryWordsScanner : WordsScanner {
     private val mLexer = XQueryLexer()
