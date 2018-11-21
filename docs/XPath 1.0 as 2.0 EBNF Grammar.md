@@ -17,6 +17,9 @@ for precedence changes.
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
 - [C Change Log](#c-change-log)
+  - [C.1 Substantive Changes](#c1-substantive-changes)
+  - [C.2 Editorial Changes](#c2-editorial-changes)
+- [D Differences Between XPath 1.0 and XPath 2.0](#d-differences-between-xpath-10-and-xpath-20)
 
 ## A XPath Grammar
 
@@ -104,12 +107,24 @@ __Core Specifications__
 This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
+### C.1 Substantive Changes
+1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`.
+1. Replaced the `FunctionName` symbol with a reserved function names section.
+
+### C.2 Editorial Changes
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
-1. Replaced the `FunctionName` symbol with a reserved function names section.
 1. Replaced the `ExprWhitespace` symbol with a link to the `S` symbol from the
    *XML* specification.
 1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
    specification.
-1. Replaced `Number` with `NumbericLiteral` from XPath 2.0.
+
+### D Differences Between XPath 1.0 and XPath 2.0
+The following is the list of features added to XPath 2.0 that are not present
+in XPath 1.0:
+
+1. Add support for `DoubleLiteral` in `NumericLiteral`.
+1. The following keywords have been added to the *Reserved Function Names* list:
+   `attribute`, `document-node`, `element`, `empty-sequence`, `if`, `item`,
+   `schema-attribute`, `schema-element`, and `typeswitch`.
