@@ -64,6 +64,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
+| \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
 
 ### A.2 Terminal Symbols
@@ -108,6 +109,7 @@ This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
 ### C.1 Substantive Changes
+1. Added the `XPath` symbol.
 1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`.
 1. Replaced the `FunctionName` symbol with a reserved function names section.
 
