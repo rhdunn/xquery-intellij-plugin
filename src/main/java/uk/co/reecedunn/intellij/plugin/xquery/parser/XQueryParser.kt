@@ -23,6 +23,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -117,7 +118,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         while (getTokenType() != null) {
             if (parseWhiteSpaceAndCommentTokens()) continue
             if (matched && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-eof"))
+                error(XPathBundle.message("parser.error.expected-eof"))
                 haveError = true
             }
 
@@ -131,7 +132,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             } else {
                 val errorMarker = mark()
                 advanceLexer()
-                errorMarker.error(XQueryBundle.message("parser.error.unexpected-token"))
+                errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
                 haveError = true
             }
         }
@@ -355,7 +356,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             when (nextState) {
                 XQueryParserImpl.PrologDeclState.NOT_MATCHED -> if (parseInvalidConstructs && getTokenType() != null) {
                     if (!parseWhiteSpaceAndCommentTokens()) {
-                        error(XQueryBundle.message("parser.error.unexpected-token"))
+                        error(XPathBundle.message("parser.error.unexpected-token"))
                         if (!parseExprSingle()) advanceLexer()
                     }
                 } else {

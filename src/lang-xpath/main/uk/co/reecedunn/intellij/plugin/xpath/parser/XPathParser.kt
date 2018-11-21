@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 
 /**
  * A unified XPath parser for different XPath versions and dialects.
@@ -31,6 +32,32 @@ open class XPathParser : PsiParser {
         return builder.treeBuilt
     }
 
-    open fun parse(builder: PsiBuilder) {
+    fun parse(builder: PsiBuilder) {
+        var matched = false
+        var haveError = false
+        while (builder.tokenType != null) {
+            if (matched && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected-eof"))
+                haveError = true
+            }
+
+            if (parse(builder, !matched && !haveError)) {
+                matched = true
+                continue
+            }
+
+            if (haveError) {
+                builder.advanceLexer()
+            } else {
+                val errorMarker = builder.mark()
+                builder.advanceLexer()
+                errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
+                haveError = true
+            }
+        }
+    }
+
+    open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        return false
     }
 }

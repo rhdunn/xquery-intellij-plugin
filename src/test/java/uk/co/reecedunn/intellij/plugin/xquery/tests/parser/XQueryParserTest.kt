@@ -32,43 +32,42 @@ private class XQueryParserTest : ParserTestCase() {
         return file.toPsiFile(myProject)!!
     }
 
-    // region Parser :: Empty Buffer
+    @Nested
+    @DisplayName("Parser")
+    internal inner class Parser {
+        @Test
+        @DisplayName("empty buffer")
+        fun emptyBuffer() {
+            val expected = "XQueryModuleImpl[FILE(0:0)]\n"
 
-    @Test
-    fun testEmptyBuffer() {
-        val expected = "XQueryModuleImpl[FILE(0:0)]\n"
+            assertThat(prettyPrintASTNode(parseText("")), `is`(expected))
+        }
 
-        assertThat(prettyPrintASTNode(parseText("")), `is`(expected))
-    }
+        @Test
+        @DisplayName("bad characters")
+        fun badCharacters() {
+            val expected =
+                    "XQueryModuleImpl[FILE(0:3)]\n" +
+                    "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n" +
+                    "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n" +
+                    "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n" +
+                    "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n" +
+                    "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n"
 
-    // endregion
-    // region Parser :: Bad Characters
+            assertThat(prettyPrintASTNode(parseText("~\uFFFE\uFFFF")), `is`(expected))
+        }
 
-    @Test
-    fun testBadCharacters() {
-        val expected =
-                "XQueryModuleImpl[FILE(0:3)]\n" +
-                "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n" +
-                "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n" +
-                "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n" +
-                "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n" +
-                "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n"
+        @Test
+        @DisplayName("invalid token")
+        fun testInvalidToken() {
+            val expected =
+                    "XQueryModuleImpl[FILE(0:2)]\n" +
+                    "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n" +
+                    "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unexpected token.')\n" +
+                    "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n"
 
-        assertThat(prettyPrintASTNode(parseText("~\uFFFE\uFFFF")), `is`(expected))
-    }
-
-    // endregion
-    // region Parser :: Invalid Token
-
-    @Test
-    fun testInvalidToken() {
-        val expected =
-                "XQueryModuleImpl[FILE(0:2)]\n" +
-                "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n" +
-                "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unexpected token.')\n" +
-                "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n"
-
-        assertThat(prettyPrintASTNode(parseText("<!")), `is`(expected))
+            assertThat(prettyPrintASTNode(parseText("<!")), `is`(expected))
+        }
     }
 
     // endregion
