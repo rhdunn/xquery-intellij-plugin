@@ -36,8 +36,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[5\]   | `AxisSpecifier`                   | ::= | `AxisName '::' \| AbbreviatedAxisSpecifier` |              |
 | \[6\]   | `AxisName`                        | ::= | `'ancestor' \| 'ancestor-or-self' \| 'attribute' \| 'child' \| 'descendant' \| 'descendant-or-self' \| 'following' \| 'following-sibling' \| 'namespace' \| 'parent' \| 'preceding' \| 'preceding-sibling' \| 'self'` | |
 | \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
-| \[8\]   | `Predicate`                       | ::= | `'[' PredicateExpr ']'`             |                      | 
-| \[9\]   | `PredicateExpr`                   | ::= | `Expr`                              |                      |
 | \[10\]  | `AbbreviatedAbsoluteLocationPath` | ::= | `'//' RelativeLocationPath`         |                      |
 | \[11\]  | `AbbreviatedRelativeLocationPath` | ::= | `RelativeLocationPath '//' Step`    |                      |	
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
@@ -65,6 +63,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
+| \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
 | \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
 | \[36\]  | `VarRef`                          | ::= | `'$' VarName`                       |                      |
@@ -126,6 +125,7 @@ grammar.
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
+1. Inlined the `PredicateExpr` symbol into `Predicate`.
 1. Replaced the `ExprWhitespace` symbol with a link to the `S` symbol from the
    *XML* specification.
 1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
