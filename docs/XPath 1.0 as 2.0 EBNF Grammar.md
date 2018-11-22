@@ -29,11 +29,11 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
-| \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest PredicateList \| AbbreviatedStep` | |
-| \[5\]   | `AxisSpecifier`                   | ::= | `ForwardAxis \| ReverseAxis \| AbbreviatedAxisSpecifier` | |
+| \[4\]   | `Step`                            | ::= | `AxisSpecifier PredicateList \| AbbreviatedStep` | |
+| \[5\]   | `AxisSpecifier`                   | ::= | `ForwardAxis NodeTest \| ReverseAxis NodeTest \| AbbreviatedAxisSpecifier` | |
 | \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
-| \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
+| \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'? NodeTest`                     |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
@@ -120,6 +120,7 @@ __Step Expressions__
 
 __Axis Steps__
 1. Split `AxisName` into `ForwardAxis` and `ReverseAxis`, and combine the keywords with the `::` token.
+1. Move `NodeTest` from `Step` to `AxisSpecifier`.
 
 __Filter Expressions__
 1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
