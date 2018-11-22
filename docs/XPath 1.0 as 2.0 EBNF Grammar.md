@@ -29,8 +29,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[1\]   | `LocationPath`                    | ::= | `RelativeLocationPath \| AbsoluteLocationPath` |           |
-| \[2\]   | `AbsoluteLocationPath`            | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath)` | |
+| \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step \| RelativeLocationPath '/' Step \| AbbreviatedRelativeLocationPath` | |
 | \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest Predicate* \| AbbreviatedStep` |   |
 | \[5\]   | `AxisSpecifier`                   | ::= | `AxisName '::' \| AbbreviatedAxisSpecifier` |              |
@@ -122,7 +121,7 @@ grammar.
 1. Moved the parenthesized primary expression into a `ParenthesizedExpr` symbol.
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
-1. Inlined the `AbbreviatedAbsoluteLocationPath` symbol into `AbsoluteLocationPath`.
+1. Inlined the `AbbreviatedAbsoluteLocationPath` and `AbsoluteLocationPath` symbols into `LocationPath`.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
 1. Inlined the `PredicateExpr` symbol into `Predicate`.
 1. Inlined the `Argument` symbol into `FunctionCall`.
