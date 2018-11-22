@@ -42,10 +42,9 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[11\]  | `AbbreviatedRelativeLocationPath` | ::= | `RelativeLocationPath '//' Step`    |                      |	
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
-| \[14\]  | `Expr`                            | ::= | `OrExpr`                            |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
-| \[17\]  | `Argument`                        | ::= | `Expr`                              |                      |
+| \[17\]  | `Argument`                        | ::= | `ExprSingle`                         |                     |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr \| FilterExpr Predicate` |                    |
@@ -64,6 +63,8 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
+| \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
+| \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
 | \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
 | \[36\]  | `VarRef`                          | ::= | `'$' VarName`                       |                      |
@@ -112,7 +113,7 @@ This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
 ### C.1 Substantive Changes
-1. Added the `XPath`, `Literal`, and `VarName` symbols from XPath 2.0.
+1. Added the `XPath`, `Expr`, `Literal`, and `VarName` symbols from XPath 2.0.
 1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`
    from XPath 2.0.
 1. Replaced the `FunctionName` symbol with a reserved function names section.
@@ -120,6 +121,7 @@ grammar.
 ### C.2 Editorial Changes
 1. Renamed `Literal` to `StringLiteral`.
 1. Renamed `VariableReference` to `VarRef`.
+1. Renamed `Expr` to `ExprSingle`.
 1. Moved the parenthesized primary expression into a `ParenthesizedExpr` symbol.
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
@@ -133,6 +135,8 @@ grammar.
 The following is the list of features added to XPath 2.0 that are not present
 in XPath 1.0:
 
+1. Allow multiple comma separated expressions in `Expr`.
+1. Support `ForExpr`, `QuantifiedExpr`, and `IfExpr` in single expressions.
 1. Added support for `DoubleLiteral` in `NumericLiteral`.
 1. Made the `Expr` in `ParenthesizedExpr` optional.
 
