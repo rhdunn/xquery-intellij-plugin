@@ -31,7 +31,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step \| RelativeLocationPath '/' Step \| AbbreviatedRelativeLocationPath` | |
-| \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest Predicate* \| AbbreviatedStep` |   |
+| \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest PredicateList \| AbbreviatedStep` | |
 | \[5\]   | `AxisSpecifier`                   | ::= | `AxisName '::' \| AbbreviatedAxisSpecifier` |              |
 | \[6\]   | `AxisName`                        | ::= | `'ancestor' \| 'ancestor-or-self' \| 'attribute' \| 'child' \| 'descendant' \| 'descendant-or-self' \| 'following' \| 'following-sibling' \| 'namespace' \| 'parent' \| 'preceding' \| 'preceding-sibling' \| 'self'` | |
 | \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
@@ -41,7 +41,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
-| \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr \| FilterExpr Predicate` |                    |
 | \[21\]  | `OrExpr`                          | ::= | `AndExpr \| OrExpr 'or' AndExpr`    |                      |
 | \[22\]  | `AndExpr`                         | ::= | `EqualityExpr \| AndExpr 'and' EqualityExpr` |             |
 | \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr \| EqualityExpr '=' RelationalExpr \| EqualityExpr '!=' RelationalExpr` | |
@@ -59,6 +58,8 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
+| \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
+| \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
 | \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
@@ -110,6 +111,7 @@ grammar.
 
 ### C.1 Substantive Changes
 1. Added the `XPath`, `Expr`, `Literal`, and `VarName` symbols from XPath 2.0.
+1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
 1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`
    from XPath 2.0.
 1. Replaced the `FunctionName` symbol with a reserved function names section.
