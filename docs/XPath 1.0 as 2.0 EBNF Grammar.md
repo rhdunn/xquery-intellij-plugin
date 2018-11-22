@@ -43,7 +43,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `OrExpr`                            |                      |
-| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| '(' Expr ')' \| FunctionCall` |      |
+| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
 | \[17\]  | `Argument`                        | ::= | `Expr`                              |                      |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
@@ -68,6 +68,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
 | \[36\]  | `VarRef`                          | ::= | `'$' VarName`                       |                      |
 | \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
+| \[45\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
 
 ### A.2 Terminal Symbols
 
@@ -119,6 +120,7 @@ grammar.
 ### C.2 Editorial Changes
 1. Renamed `Literal` to `StringLiteral`.
 1. Renamed `VariableReference` to `VarRef`.
+1. Moved the parenthesized primary expression into a `ParenthesizedExpr` symbol.
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
@@ -131,7 +133,17 @@ grammar.
 The following is the list of features added to XPath 2.0 that are not present
 in XPath 1.0:
 
-1. Add support for `DoubleLiteral` in `NumericLiteral`.
-1. The following keywords have been added to the *Reserved Function Names* list:
-   `attribute`, `document-node`, `element`, `empty-sequence`, `if`, `item`,
-   `schema-attribute`, `schema-element`, and `typeswitch`.
+1. Added support for `DoubleLiteral` in `NumericLiteral`.
+1. Made the `Expr` in `ParenthesizedExpr` optional.
+
+The following keywords have been added to the *Reserved Function Names* list:
+
+* `attribute`
+* `document-node`
+* `element`
+* `empty-sequence`
+* `if`
+* `item`
+* `schema-attribute`
+* `schema-element`
+* `typeswitch`
