@@ -43,7 +43,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `OrExpr`                            |                      |
-| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VariableReference \| '(' Expr ')' \| FunctionCall` | |
+| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| '(' Expr ')' \| FunctionCall` |      |
 | \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
 | \[17\]  | `Argument`                        | ::= | `Expr`                              |                      |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
@@ -56,7 +56,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr \| AdditiveExpr '+' MultiplicativeExpr \| AdditiveExpr '-' MultiplicativeExpr` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
 | \[27\]  | `UnaryExpr`                       | ::= | `UnionExpr \| '-' UnaryExpr`        |                      |
-| \[36\]  | `VariableReference`               | ::= | `'$' QName`                         |                      |
 | \[37\]  | `NameTest`                        | ::= | `'*' \| NCName ':' '*' \| QName`    |                      |
 | \[38\]  | `NodeType`                        | ::= | `'comment' \| 'text' \| 'processing-instruction' \| 'node' | |
 
@@ -67,6 +66,8 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
 | \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
+| \[36\]  | `VarRef`                          | ::= | `'$' VarName`                       |                      |
+| \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
 
 ### A.2 Terminal Symbols
 
@@ -110,12 +111,14 @@ This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
 ### C.1 Substantive Changes
-1. Added the `XPath` and `Literal` symbols.
-1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`.
+1. Added the `XPath`, `Literal`, and `VarName` symbols from XPath 2.0.
+1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`
+   from XPath 2.0.
 1. Replaced the `FunctionName` symbol with a reserved function names section.
 
 ### C.2 Editorial Changes
 1. Renamed `Literal` to `StringLiteral`.
+1. Renamed `VariableReference` to `VarRef`.
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
