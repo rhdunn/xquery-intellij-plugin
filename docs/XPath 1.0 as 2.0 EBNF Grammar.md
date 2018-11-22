@@ -30,10 +30,9 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
 | \[4\]   | `Step`                            | ::= | `AxisSpecifier PredicateList \| AbbreviatedStep` | |
-| \[5\]   | `AxisSpecifier`                   | ::= | `ForwardAxis NodeTest \| ReverseAxis NodeTest \| AbbreviatedAxisSpecifier` | |
+| \[5\]   | `AxisSpecifier`                   | ::= | `ForwardAxis NodeTest \| ReverseAxis NodeTest \| AbbrevForwardStep` | |
 | \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
-| \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'? NodeTest`                     |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
@@ -55,6 +54,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
+| \[13\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
 | \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
 | \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
@@ -120,7 +120,8 @@ __Step Expressions__
 
 __Axis Steps__
 1. Split `AxisName` into `ForwardAxis` and `ReverseAxis`, and combine the keywords with the `::` token.
-1. Move `NodeTest` from `Step` to `AxisSpecifier`.
+1. Moved `NodeTest` from `Step` to `AxisSpecifier`.
+1. Renamed `AbbreviatedAxisSpecifier` to `AbbrevForwardStep`.
 
 __Filter Expressions__
 1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
