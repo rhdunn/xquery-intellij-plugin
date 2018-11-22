@@ -17,8 +17,6 @@ for precedence changes.
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
 - [C Change Log](#c-change-log)
-  - [C.1 Substantive Changes](#c1-substantive-changes)
-  - [C.2 Editorial Changes](#c2-editorial-changes)
 - [D Differences Between XPath 1.0 and XPath 2.0](#d-differences-between-xpath-10-and-xpath-20)
 
 ## A XPath Grammar
@@ -109,30 +107,42 @@ __Core Specifications__
 This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
-### C.1 Substantive Changes
-1. Added the `XPath`, `Expr`, `Literal`, and `VarName` symbols from XPath 2.0.
-1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
-1. Replaced `Number` with `NumbericLiteral`, `IntegerLiteral`, and `DecimalLiteral`
-   from XPath 2.0.
-1. Replaced the `FunctionName` symbol with a reserved function names section.
-
-### C.2 Editorial Changes
-1. Renamed `Literal` to `StringLiteral`.
-1. Renamed `VariableReference` to `VarRef`.
+__XPath__
 1. Renamed `Expr` to `ExprSingle`.
-1. Moved the parenthesized primary expression into a `ParenthesizedExpr` symbol.
-1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
-   referenced elsewhere in the XPath 1.0 grammar.
+1. Added the `XPath` and `Expr` symbols from XPath 2.0.
+
+__Path Expressions__
 1. Inlined the `AbbreviatedAbsoluteLocationPath` and `AbsoluteLocationPath` symbols into `LocationPath`.
 1. Inlined the `AbbreviatedRelativeLocationPath` symbol into `RelativeLocationPath`.
-1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
-1. Inlined the `PredicateExpr` symbol into `Predicate`.
-1. Inlined the `Argument` symbol into `FunctionCall`.
+
+__Step Expressions__
+1. Moved `Predicate*` from `Step` into a `PredicateList` symbol.
+
+__Axis Steps__
 1. Split `AxisName` into `ForwardAxis` and `ReverseAxis`, and combine the keywords with the `::` token.
+
+__Filter Expressions__
+1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
+1. Inlined the `PredicateExpr` symbol into `Predicate`.
+
+__Primary Expressions__
+1. Renamed `VariableReference` to `VarRef`.
+1. Added the `Literal` and `VarName` symbols from XPath 2.0.
+1. Moved the parenthesized primary expression into a `ParenthesizedExpr` symbol.
+1. Inlined the `Argument` symbol into `FunctionCall`.
+
+__Terminal Symbols__
+1. Renamed `Literal` to `StringLiteral`.
+1. Replaced `Number` with `NumericLiteral`, `IntegerLiteral`, and `DecimalLiteral`
+   from XPath 2.0.
 1. Replaced the `ExprWhitespace` symbol with a link to the `S` symbol from the
    *XML* specification.
 1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
    specification.
+1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
+   referenced elsewhere in the XPath 1.0 grammar.
+1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
+1. Replaced the `FunctionName` symbol with a reserved function names section.
 
 ### D Differences Between XPath 1.0 and XPath 2.0
 The following is the list of features added to XPath 2.0 that are not present
