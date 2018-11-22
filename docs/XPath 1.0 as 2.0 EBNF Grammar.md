@@ -41,8 +41,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
-| \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
-| \[17\]  | `Argument`                        | ::= | `ExprSingle`                         |                     |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr \| FilterExpr Predicate` |                    |
@@ -69,6 +67,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[36\]  | `VarRef`                          | ::= | `'$' VarName`                       |                      |
 | \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
 | \[45\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
+| \[16\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` |      |
 
 ### A.2 Terminal Symbols
 
@@ -126,6 +125,7 @@ grammar.
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
 1. Inlined the `PredicateExpr` symbol into `Predicate`.
+1. Inlined the `Argument` symbol into `FunctionCall`.
 1. Replaced the `ExprWhitespace` symbol with a link to the `S` symbol from the
    *XML* specification.
 1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
