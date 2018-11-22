@@ -35,7 +35,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest Predicate* \| AbbreviatedStep` |   |
 | \[5\]   | `AxisSpecifier`                   | ::= | `AxisName '::' \| AbbreviatedAxisSpecifier` |              |
 | \[6\]   | `AxisName`                        | ::= | `'ancestor' \| 'ancestor-or-self' \| 'attribute' \| 'child' \| 'descendant' \| 'descendant-or-self' \| 'following' \| 'following-sibling' \| 'namespace' \| 'parent' \| 'preceding' \| 'preceding-sibling' \| 'self'` | |
-| \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' Literal ')'` | |
+| \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
 | \[8\]   | `Predicate`                       | ::= | `'[' PredicateExpr ']'`             |                      | 
 | \[9\]   | `PredicateExpr`                   | ::= | `Expr`                              |                      |
 | \[10\]  | `AbbreviatedAbsoluteLocationPath` | ::= | `'//' RelativeLocationPath`         |                      |
@@ -43,7 +43,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `OrExpr`                            |                      |
-| \[15\]  | `PrimaryExpr`                     | ::= | `VariableReference \| '(' Expr ')' \| Literal \| NumericLiteral \| FunctionCall` | |
+| \[15\]  | `PrimaryExpr`                     | ::= | `VariableReference \| '(' Expr ')' \| StringLiteral \| NumericLiteral \| FunctionCall` | |
 | \[16\]  | `FunctionCall`                    | ::= | `QName '(' ( Argument ( ',' Argument )* )? ')'` |          |
 | \[17\]  | `Argument`                        | ::= | `Expr`                              |                      |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
@@ -71,7 +71,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[29\]  | `Literal`                         | ::= | `'"' \[^"\]* '"' \| "'" \[^'\]* "'"` |                     |
+| \[29\]  | `StringLiteral`                   | ::= | `('"' \[^"\]* '"') \| ("'" \[^'\]* "'")` | /* ws: explicit */ |
 | \[32\]  | `IntegerLiteral`                  | ::= | `Digits`                            |                      |
 | \[33\]  | `DecimalLiteral`                  | ::= | `("." Digits) \| (Digits "." \[0-9\]*)` | /* ws: explicit */ |
 | \[39\]  | `S`                               | ::= | \[[http://www.w3.org/TR/REC-xml#NT-S]()\]<sup><em>XML</em></sup> | /* xgc: xml-version */ |
@@ -114,6 +114,7 @@ grammar.
 1. Replaced the `FunctionName` symbol with a reserved function names section.
 
 ### C.2 Editorial Changes
+1. Renamed `Literal` to `StringLiteral`.
 1. Removed the `ExprToken`, `Operator`, and `OperatorName` symbols that are not
    referenced elsewhere in the XPath 1.0 grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
