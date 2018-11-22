@@ -30,7 +30,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
-| \[3\]   | `RelativeLocationPath`            | ::= | `Step \| RelativeLocationPath "/" Step \| RelativeLocationPath "//" Step` | |
+| \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
 | \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest PredicateList \| AbbreviatedStep` | |
 | \[5\]   | `AxisSpecifier`                   | ::= | `AxisName '::' \| AbbreviatedAxisSpecifier` |              |
 | \[6\]   | `AxisName`                        | ::= | `'ancestor' \| 'ancestor-or-self' \| 'attribute' \| 'child' \| 'descendant' \| 'descendant-or-self' \| 'following' \| 'following-sibling' \| 'namespace' \| 'parent' \| 'preceding' \| 'preceding-sibling' \| 'self'` | |
