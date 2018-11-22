@@ -32,8 +32,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
 | \[4\]   | `Step`                            | ::= | `AxisSpecifier NodeTest PredicateList \| AbbreviatedStep` | |
-| \[5\]   | `AxisSpecifier`                   | ::= | `AxisName '::' \| AbbreviatedAxisSpecifier` |              |
-| \[6\]   | `AxisName`                        | ::= | `'ancestor' \| 'ancestor-or-self' \| 'attribute' \| 'child' \| 'descendant' \| 'descendant-or-self' \| 'following' \| 'following-sibling' \| 'namespace' \| 'parent' \| 'preceding' \| 'preceding-sibling' \| 'self'` | |
+| \[5\]   | `AxisSpecifier`                   | ::= | `ForwardAxis \| ReverseAxis \| AbbreviatedAxisSpecifier` | |
 | \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[13\]  | `AbbreviatedAxisSpecifier`        | ::= | `'@'?`                              |                      |
@@ -57,6 +56,8 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
+| \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
+| \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
 | \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
@@ -127,6 +128,7 @@ grammar.
 1. Inlined the `MultiplyOperator` symbol into `MultiplicativeExpr`.
 1. Inlined the `PredicateExpr` symbol into `Predicate`.
 1. Inlined the `Argument` symbol into `FunctionCall`.
+1. Split `AxisName` into `ForwardAxis` and `ReverseAxis`, and combine the keywords with the `::` token.
 1. Replaced the `ExprWhitespace` symbol with a link to the `S` symbol from the
    *XML* specification.
 1. Added links to the `NCName` and `QName` symbols from the *Namespaces in XML*
