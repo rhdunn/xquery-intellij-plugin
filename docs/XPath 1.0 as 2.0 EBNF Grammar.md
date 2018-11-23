@@ -25,15 +25,6 @@ for precedence changes.
 
 ### A.1 EBNF
 
-The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
-
-| Ref     | Symbol                            |     | Expression                          | Options              |
-|---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[12\]  | `AbbreviatedStep`                 | ::= | `'.'`                               |                      |
-| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
-
-The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
-
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
@@ -49,25 +40,27 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr ( "|" PathExpr )*`        |                      |
 | \[19\]  | `PathExpr`                        | ::= | `("/" RelativePathExpr?) \| ("//" RelativePathExpr) \| RelativePathExpr` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativePathExpr`                | ::= | `StepExpr (("/" \| "//") StepExpr)*` |                     |
-| \[4\]   | `StepExpr`                        | ::= | `AxisStep \| AbbreviatedStep \| FilterExpr` | /* xgc: filter-expr */ |
-| \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` | /* xgc: axis-step */ |
+| \[4\]   | `StepExpr`                        | ::= | `FilterExpr \| AxisStep`            | /* xgc: filter-expr */ |
+| \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
 | \[13\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
 | \[50\]  | `ReverseStep`                     | ::= | `(ReverseAxis NodeTest) \| AbbrevReverseStep` |            |
 | \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
-| \[56\]  | `AbbrevReverseStep`               | ::= | ".."                                |                      |
+| \[56\]  | `AbbrevReverseStep`               | ::= | ".."                                | /* xgc: predicate */ |
 | \[7\]   | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
 | \[37\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 | /* ws: explicit */   |
 | \[56\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           |                      |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
 | \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
+| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall` | |
 | \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
 | \[36\]  | `VarRef`                          | ::= | `"$" VarName`                       |                      |
 | \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
 | \[45\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
+| \[57\]  | `ContextItemExpr`                 | ::= | `"."`                               | /* xgc: predicate */ |
 | \[16\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` | /\* xgs: reserved-function-names \*/ /\* gn: parens \*/ |
 | \[51\]  | `KindTest`                        | ::= | `PITest \| CommentTest \| TextTest \| AnyKindTest` |       |
 | \[52\]  | `AnyKindTest`                     | ::= | `"node" "(" ")"`                    |                      |
@@ -86,8 +79,9 @@ __constraint: filter-expr__
 > including leading `/` and `//` tokens. These are allowed anywhere in a `PathExpr`
 > in XPath 2.0.
 
-__constraint: axis-step__
-> XPath 1.0 does not support an `AbbrevReverseStep` followed by a `Predicate`.
+__constraint: predicate__
+> XPath 1.0 does not support an `AbbrevReverseStep` or `ContextItemExpr` followed
+> by a `Predicate`.
 
 ### A.1.2 Grammar Notes
 This section contains general notes on the EBNF productions in addition to those
@@ -160,8 +154,9 @@ __Axis Steps__
 1. Moved `ReverseAxis NodeTest` into a `ReverseStep` symbol.
 1. Moved `PredicateList` into `AxisSpecifier`.
 1. Renamed `AxisSpecifier` to `AxisStep`.
-1. Used an `axis-step` extra-grammatical constraint to prevent `AbbrevReverseStep`
-   symbols followed by a `Predicate`.
+1. Used a `predicate` extra-grammatical constraint to prevent `AbbrevReverseStep`
+   symbols followed by a `Predicate` after moving `..` from `AbbreviatedStep` to
+   `AbbrevReverseStep`.
 
 __Node Tests__
 1. Move the `node` `NodeType` into an `AnyKindTest` symbol.
@@ -181,6 +176,9 @@ __Primary Expressions__
 1. Added the `Literal` and `VarName` symbols from XPath 2.0.
 1. Moved the parenthesized primary expression into a `ParenthesizedExpr` symbol.
 1. Inlined the `Argument` symbol into `FunctionCall`.
+1. Used a `predicate` extra-grammatical constraint to prevent `ContextItemExpr`
+   symbols followed by a `Predicate` after moving `.` from `AbbreviatedStep` to
+   `ContextItemExpr`.
 
 __Terminal Symbols__
 1. Renamed `Literal` to `StringLiteral`.
