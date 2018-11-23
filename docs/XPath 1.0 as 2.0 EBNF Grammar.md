@@ -31,10 +31,10 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
-| \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep`       |                      |
+| \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep \| FilterExpr` | /* xgc: filter-expr */ |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
-| \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr ( ("/" \| "//") RelativeLocationPath )*` | |
+| \[19\]  | `PathExpr`                        | ::= | `LocationPath`                      |                      |
 
 The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 
@@ -80,6 +80,11 @@ This section contains constraints on the EBNF productions in addition to those
 defined by XPath 2.0, which are required to parse legal sentences. The notes
 below are referenced from the right side of the production, with the notation:
 `/* xgc: <id> */`.
+
+__constraint: filter-expr__
+> XPath 1.0 only supports `FilterExpr` nodes at the start of a `PathExpr`,
+> including leading `/` and `//` tokens. These are allowed anywhere in a `PathExpr`
+> in XPath 2.0.
 
 ### A.1.2 Grammar Notes
 This section contains general notes on the EBNF productions in addition to those
@@ -139,6 +144,7 @@ __Path Expressions__
 1. Inlined the `AbbreviatedAbsoluteLocationPath` and `AbsoluteLocationPath` symbols into `LocationPath`.
 1. Inlined the `AbbreviatedRelativeLocationPath` symbol into `RelativeLocationPath`.
 1. Moved `Predicate*` from `Step` into a `PredicateList` symbol.
+1. Moved `FilterExpr` into `Step`, adding a `filter-expr` extra-grammatical constraint.
 
 __Axis Steps__
 1. Split `AxisName` into `ForwardAxis` and `ReverseAxis`, and combine the keywords with the `::` token.
