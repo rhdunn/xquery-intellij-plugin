@@ -34,7 +34,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
-| \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr \| RelationalExpr '<' AdditiveExpr \| RelationalExpr '>' AdditiveExpr \| RelationalExpr '<=' AdditiveExpr \| RelationalExpr '>=' AdditiveExpr` | |
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr \| AdditiveExpr '+' MultiplicativeExpr \| AdditiveExpr '-' MultiplicativeExpr` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
 | \[27\]  | `UnaryExpr`                       | ::= | `UnionExpr \| '-' UnaryExpr`        |                      |
@@ -49,6 +48,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[21\]  | `OrExpr`                          | ::= | `AndExpr ( "or" AndExpr )*`         |                      |
 | \[22\]  | `AndExpr`                         | ::= | `EqualityExpr ( "and" EqualityExpr )*` |                   |
 | \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* xp: xpath 1.0 */ |
+| \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr ( ("<" \| ">" \| "<=" \| ">=") AdditiveExpr )*` | /* xp: xpath 1.0 */ |
 | \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
@@ -172,6 +172,7 @@ in XPath 1.0:
 
 1. Allow multiple comma separated expressions in `Expr`.
 1. Support `ForExpr`, `QuantifiedExpr`, and `IfExpr` in single expressions.
+1. Support `ValueComp` and `NodeComp` comparisons.
 1. Support predicates on `..` steps; use `parent::*` in XPath 1.0.
 1. Added support for `DoubleLiteral` in `NumericLiteral`.
 1. Made the `Expr` in `ParenthesizedExpr` optional.
@@ -179,6 +180,11 @@ in XPath 1.0:
    and `SchemaAttributeTest`.
 1. Added support for `NCName` in `PITest`.
 1. Added support for `*:NCName` wildcards.
+
+The following are differences to XPath 1.0 that change how the expression is
+interpreted:
+
+1. Only allow one `GeneralComp` without an `or`/`and` expression.
 
 The following keywords have been added to the *Reserved Function Names* list:
 
