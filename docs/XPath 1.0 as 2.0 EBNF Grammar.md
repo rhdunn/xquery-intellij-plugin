@@ -29,7 +29,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
+| \[12\]  | `AbbreviatedStep`                 | ::= | `'.'`                               |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 
 The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
@@ -50,12 +50,13 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[19\]  | `PathExpr`                        | ::= | `("/" RelativePathExpr?) \| ("//" RelativePathExpr) \| RelativePathExpr` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativePathExpr`                | ::= | `StepExpr (("/" \| "//") StepExpr)*` |                     |
 | \[4\]   | `StepExpr`                        | ::= | `AxisStep \| AbbreviatedStep \| FilterExpr` | /* xgc: filter-expr */ |
-| \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
+| \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` | /* xgc: axis-step */ |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
 | \[13\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
-| \[50\]  | `ReverseStep`                     | ::= | `ReverseAxis NodeTest`              |                      |
+| \[50\]  | `ReverseStep`                     | ::= | `(ReverseAxis NodeTest) \| AbbrevReverseStep` |            |
 | \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
+| \[56\]  | `AbbrevReverseStep`               | ::= | ".."                                |                      |
 | \[7\]   | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
 | \[37\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 | /* ws: explicit */   |
 | \[56\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           |                      |
@@ -84,6 +85,9 @@ __constraint: filter-expr__
 > XPath 1.0 only supports `FilterExpr` nodes at the start of a `PathExpr`,
 > including leading `/` and `//` tokens. These are allowed anywhere in a `PathExpr`
 > in XPath 2.0.
+
+__constraint: axis-step__
+> XPath 1.0 does not support an `AbbrevReverseStep` followed by a `Predicate`.
 
 ### A.1.2 Grammar Notes
 This section contains general notes on the EBNF productions in addition to those
@@ -156,6 +160,8 @@ __Axis Steps__
 1. Moved `ReverseAxis NodeTest` into a `ReverseStep` symbol.
 1. Moved `PredicateList` into `AxisSpecifier`.
 1. Renamed `AxisSpecifier` to `AxisStep`.
+1. Used an `axis-step` extra-grammatical constraint to prevent `AbbrevReverseStep`
+   symbols followed by a `Predicate`.
 
 __Node Tests__
 1. Move the `node` `NodeType` into an `AnyKindTest` symbol.
