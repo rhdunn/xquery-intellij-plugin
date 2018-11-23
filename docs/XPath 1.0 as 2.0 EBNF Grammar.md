@@ -29,7 +29,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
 | \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep \| FilterExpr` | /* xgc: filter-expr */ |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
@@ -49,7 +48,8 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr ( "*" \| "div" \| "mod") UnaryExpr )*` |        |
 | \[27\]  | `UnaryExpr`                       | ::= | `"-"* UnionExpr`                    |                      |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr ( "|" PathExpr )*`        |                      |
-| \[19\]  | `PathExpr`                        | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
+| \[19\]  | `PathExpr`                        | ::= | `("/" RelativePathExpr?) \| ("//" RelativePathExpr) \| RelativePathExpr` | /* xgs: leading-lone-slash */ |
+| \[3\]   | `RelativePathExpr`                | ::= | `Step (("/" \| "//") Step)*`        |                      |
 | \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
@@ -145,6 +145,7 @@ __Path Expressions__
 1. Moved `Predicate*` from `Step` into a `PredicateList` symbol.
 1. Moved `FilterExpr` into `Step`, adding a `filter-expr` extra-grammatical constraint.
 1. Inlined the `LocationPath` symbol into `PathExpr`.
+1. Renamed `RelativeLocationPath` to `RelativePathExpr`.
 
 __Axis Steps__
 1. Split `AxisName` into `ForwardAxis` and `ReverseAxis`, and combine the keywords with the `::` token.
