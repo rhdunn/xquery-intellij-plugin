@@ -27,46 +27,46 @@ for precedence changes.
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
-| \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
-| \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
-| \[21\]  | `OrExpr`                          | ::= | `AndExpr ( "or" AndExpr )*`         |                      |
-| \[22\]  | `AndExpr`                         | ::= | `EqualityExpr ( "and" EqualityExpr )*` |                   |
-| \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* gn: comparison */ |
-| \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr ( ("<" \| ">" \| "<=" \| ">=") AdditiveExpr )*` | /* gn: comparison */ |
-| \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr ( ("+" \| "-") MultiplicativeExpr )*` | |
-| \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr ( "*" \| "div" \| "mod") UnaryExpr )*` |        |
-| \[27\]  | `UnaryExpr`                       | ::= | `"-"* UnionExpr`                    |                      |
-| \[18\]  | `UnionExpr`                       | ::= | `PathExpr ( "|" PathExpr )*`        |                      |
-| \[19\]  | `PathExpr`                        | ::= | `("/" RelativePathExpr?) \| ("//" RelativePathExpr) \| RelativePathExpr` | /* xgs: leading-lone-slash */ |
-| \[3\]   | `RelativePathExpr`                | ::= | `StepExpr (("/" \| "//") StepExpr)*` |                     |
-| \[4\]   | `StepExpr`                        | ::= | `FilterExpr \| AxisStep`            | /* xgc: filter-expr */ |
-| \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
-| \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
-| \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
-| \[13\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
-| \[50\]  | `ReverseStep`                     | ::= | `(ReverseAxis NodeTest) \| AbbrevReverseStep` |            |
-| \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
-| \[56\]  | `AbbrevReverseStep`               | ::= | ".."                                | /* xgc: predicate */ |
-| \[7\]   | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
-| \[37\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 | /* ws: explicit */   |
-| \[56\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           |                      |
-| \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
-| \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
-| \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
-| \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall` | |
-| \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
-| \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
-| \[36\]  | `VarRef`                          | ::= | `"$" VarName`                       |                      |
-| \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
-| \[45\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
-| \[57\]  | `ContextItemExpr`                 | ::= | `"."`                               | /* xgc: predicate */ |
-| \[16\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` | /\* xgs: reserved-function-names \*/ /\* gn: parens \*/ |
-| \[51\]  | `KindTest`                        | ::= | `PITest \| CommentTest \| TextTest \| AnyKindTest` |       |
-| \[52\]  | `AnyKindTest`                     | ::= | `"node" "(" ")"`                    |                      |
-| \[53\]  | `TextTest`                        | ::= | `"text" "(" ")"`                    |                      |
-| \[54\]  | `CommentTest`                     | ::= | `"comment" "(" ")"`                 |                      |
-| \[55\]  | `PITest`                          | ::= | `"processing-instruction" "(" StringLiteral? ")"` |        |
+| \[1\]   | `XPath`                           | ::= | `Expr`                              |                      |
+| \[2\]   | `Expr`                            | ::= | `ExprSingle`                        |                      |
+| \[3\]   | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
+| \[4\]   | `OrExpr`                          | ::= | `AndExpr ( "or" AndExpr )*`         |                      |
+| \[5\]   | `AndExpr`                         | ::= | `EqualityExpr ( "and" EqualityExpr )*` |                   |
+| \[6\]   | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* gn: comparison */ |
+| \[7\]   | `RelationalExpr`                  | ::= | `AdditiveExpr ( ("<" \| ">" \| "<=" \| ">=") AdditiveExpr )*` | /* gn: comparison */ |
+| \[8\]   | `AdditiveExpr`                    | ::= | `MultiplicativeExpr ( ("+" \| "-") MultiplicativeExpr )*` | |
+| \[9\]   | `MultiplicativeExpr`              | ::= | `UnaryExpr ( "*" \| "div" \| "mod") UnaryExpr )*` |        |
+| \[10\]  | `UnaryExpr`                       | ::= | `"-"* UnionExpr`                    |                      |
+| \[11\]  | `UnionExpr`                       | ::= | `PathExpr ( "|" PathExpr )*`        |                      |
+| \[12\]  | `PathExpr`                        | ::= | `("/" RelativePathExpr?) \| ("//" RelativePathExpr) \| RelativePathExpr` | /* xgs: leading-lone-slash */ |
+| \[13\]  | `RelativePathExpr`                | ::= | `StepExpr (("/" \| "//") StepExpr)*` |                     |
+| \[14\]  | `StepExpr`                        | ::= | `FilterExpr \| AxisStep`            | /* xgc: filter-expr */ |
+| \[15\]  | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
+| \[16\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
+| \[17\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
+| \[18\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
+| \[19\]  | `ReverseStep`                     | ::= | `(ReverseAxis NodeTest) \| AbbrevReverseStep` |            |
+| \[20\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
+| \[21\]  | `AbbrevReverseStep`               | ::= | ".."                                | /* xgc: predicate */ |
+| \[22\]  | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
+| \[23\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 | /* ws: explicit */   |
+| \[24\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           |                      |
+| \[25\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
+| \[26\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
+| \[27\]  | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
+| \[28\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall` | |
+| \[39\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
+| \[30\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
+| \[31\]  | `VarRef`                          | ::= | `"$" VarName`                       |                      |
+| \[32\]  | `VarName`                         | ::= | `QName`                             |                      |
+| \[33\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
+| \[34\]  | `ContextItemExpr`                 | ::= | `"."`                               | /* xgc: predicate */ |
+| \[35\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` | /\* xgs: reserved-function-names \*/ /\* gn: parens \*/ |
+| \[36\]  | `KindTest`                        | ::= | `PITest \| CommentTest \| TextTest \| AnyKindTest` |       |
+| \[37\]  | `AnyKindTest`                     | ::= | `"node" "(" ")"`                    |                      |
+| \[38\]  | `TextTest`                        | ::= | `"text" "(" ")"`                    |                      |
+| \[39\]  | `CommentTest`                     | ::= | `"comment" "(" ")"`                 |                      |
+| \[40\]  | `PITest`                          | ::= | `"processing-instruction" "(" StringLiteral? ")"` |        |
 
 ### A.1.1 Extra-grammatical Constraints
 This section contains constraints on the EBNF productions in addition to those
@@ -98,19 +98,19 @@ __grammar-note: comparison__
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[29\]  | `StringLiteral`                   | ::= | `('"' \[^"\]* '"') \| ("'" \[^'\]* "'")` | /* ws: explicit */ |
-| \[32\]  | `IntegerLiteral`                  | ::= | `Digits`                            |                      |
-| \[33\]  | `DecimalLiteral`                  | ::= | `("." Digits) \| (Digits "." \[0-9\]*)` | /* ws: explicit */ |
-| \[39\]  | `S`                               | ::= | \[[http://www.w3.org/TR/REC-xml#NT-S]()\]<sup><em>XML</em></sup> | /* xgc: xml-version */ |
-| \[40\]  | `QName`                           | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-QName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
-| \[41\]  | `NCName`                          | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-NCName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
+| \[41\]  | `StringLiteral`                   | ::= | `('"' \[^"\]* '"') \| ("'" \[^'\]* "'")` | /* ws: explicit */ |
+| \[42\]  | `IntegerLiteral`                  | ::= | `Digits`                            |                      |
+| \[43\]  | `DecimalLiteral`                  | ::= | `("." Digits) \| (Digits "." \[0-9\]*)` | /* ws: explicit */ |
+| \[44\]  | `S`                               | ::= | \[[http://www.w3.org/TR/REC-xml#NT-S]()\]<sup><em>XML</em></sup> | /* xgc: xml-version */ |
+| \[45\]  | `QName`                           | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-QName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
+| \[46\]  | `NCName`                          | ::= | \[[http://www.w3.org/TR/REC-xml-names/#NT-NCName]()\]<sup><em>Names</em></sup> | /* xgc: xml-version */ |
 
 The following symbols are used only in the definition of terminal symbols; they
 are not terminal symbols in the grammar of A.1 EBNF.
 
 | Ref     | Symbol                            |     | Expression                          | Options              |
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
-| \[31\]  | `Digits`                          | ::= | `[0-9]+`                            |                      |
+| \[47\]  | `Digits`                          | ::= | `[0-9]+`                            |                      |
 
 ### A.3 Reserved Function Names
 
