@@ -34,7 +34,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
-| \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr \| EqualityExpr '=' RelationalExpr \| EqualityExpr '!=' RelationalExpr` | |
 | \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr \| RelationalExpr '<' AdditiveExpr \| RelationalExpr '>' AdditiveExpr \| RelationalExpr '<=' AdditiveExpr \| RelationalExpr '>=' AdditiveExpr` | |
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr \| AdditiveExpr '+' MultiplicativeExpr \| AdditiveExpr '-' MultiplicativeExpr` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
@@ -49,6 +48,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
 | \[21\]  | `OrExpr`                          | ::= | `AndExpr ( "or" AndExpr )*`         |                      |
 | \[22\]  | `AndExpr`                         | ::= | `EqualityExpr ( "and" EqualityExpr )*` |                   |
+| \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* xp: xpath 1.0 */ |
 | \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
