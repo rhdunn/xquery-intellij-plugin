@@ -29,8 +29,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 |---------|-----------------------------------|-----|-------------------------------------|----------------------|
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
-| \[4\]   | `Step`                            | ::= | `AxisSpecifier PredicateList \| AbbreviatedStep` |         |
-| \[5\]   | `AxisSpecifier`                   | ::= | `ForwardStep \| ReverseStep`        |                      |
+| \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep`       |                      |
 | \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
@@ -53,6 +52,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[42\]  | `XPath`                           | ::= | `Expr`                              |                      |
 | \[14\]  | `Expr`                            | ::= | `ExprSingle`                        |                      |
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
+| \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
 | \[13\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
@@ -125,7 +125,9 @@ __Axis Steps__
 1. Moved `NodeTest` from `Step` to `AxisSpecifier`.
 1. Renamed `AbbreviatedAxisSpecifier` to `AbbrevForwardStep`.
 1. Added the `ForwardStep` symbol from XPath 2.0.
-1. Move `ReverseAxis NodeTest` into a `ReverseStep` symbol.
+1. Moved `ReverseAxis NodeTest` into a `ReverseStep` symbol.
+1. Moved `PredicateList` into `AxisSpecifier`.
+1. Renamed `AxisSpecifier` to `AxisStep`.
 
 __Filter Expressions__
 1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
