@@ -12,6 +12,8 @@ for precedence changes.
 ## Table of Contents
 - [A XPath Grammar](#a-xpath-grammar)
   - [A.1 EBNF](#a1-ebnf)
+    - [A.1.1 Extra-grammatical Constraints](#a11-extra-grammatical-constraints)
+    - [A.1.2 Grammar Notes](#a12-grammar-notes)
   - [A.2 Terminal Symbols](#a2-terminal-symbols)
   - [A.3 Reserved Function Names](#a3-reserved-function-names)
 - [B References](#b-references)
@@ -43,8 +45,8 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[46\]  | `ExprSingle`                      | ::= | `OrExpr`                            |                      |
 | \[21\]  | `OrExpr`                          | ::= | `AndExpr ( "or" AndExpr )*`         |                      |
 | \[22\]  | `AndExpr`                         | ::= | `EqualityExpr ( "and" EqualityExpr )*` |                   |
-| \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* xp: xpath 1.0 */ |
-| \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr ( ("<" \| ">" \| "<=" \| ">=") AdditiveExpr )*` | /* xp: xpath 1.0 */ |
+| \[23\]  | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* gn: comparison */ |
+| \[24\]  | `RelationalExpr`                  | ::= | `AdditiveExpr ( ("<" \| ">" \| "<=" \| ">=") AdditiveExpr )*` | /* gn: comparison */ |
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr ( ("+" \| "-") MultiplicativeExpr )*` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr ( "*" \| "div" \| "mod") UnaryExpr )*` |        |
 | \[27\]  | `UnaryExpr`                       | ::= | `"-"* UnionExpr`                    |                      |
@@ -72,6 +74,23 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[53\]  | `TextTest`                        | ::= | `"text" "(" ")"`                    |                      |
 | \[54\]  | `CommentTest`                     | ::= | `"comment" "(" ")"`                 |                      |
 | \[55\]  | `PITest`                          | ::= | `"processing-instruction" "(" StringLiteral? ")"` |        |
+
+### A.1.1 Extra-grammatical Constraints
+This section contains constraints on the EBNF productions in addition to those
+defined by XPath 2.0, which are required to parse legal sentences. The notes
+below are referenced from the right side of the production, with the notation:
+`/* xgc: <id> */`.
+
+### A.1.2 Grammar Notes
+This section contains general notes on the EBNF productions in addition to those
+defined by XPath 2.0, which may be helpful in understanding how to interpret and
+implement the EBNF. These notes are not normative. The notes below are referenced
+from the right side of the production, with the notation: `/* gn: <id> */`.
+
+__grammar-note: comparison__
+> These XPath 1.0 symbols are retained here as the XPath 2.0 replacement
+> (`ComparisonExpr`) only allows a single `GeneralComp` without an `or` or `and`
+> expression.
 
 ### A.2 Terminal Symbols
 
