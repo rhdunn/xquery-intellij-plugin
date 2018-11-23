@@ -41,7 +41,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr \| AdditiveExpr '+' MultiplicativeExpr \| AdditiveExpr '-' MultiplicativeExpr` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
 | \[27\]  | `UnaryExpr`                       | ::= | `UnionExpr \| '-' UnaryExpr`        |                      |
-| \[37\]  | `NameTest`                        | ::= | `'*' \| NCName ':' '*' \| QName`    |                      |
 
 The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 
@@ -57,15 +56,17 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[50\]  | `ReverseStep`                     | ::= | `ReverseAxis NodeTest`              |                      |
 | \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
 | \[7\]   | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
+| \[37\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 | /* ws: explicit */   |
+| \[56\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           |                      |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
 | \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
 | \[43\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
 | \[28\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
-| \[36\]  | `VarRef`                          | ::= | `'$' VarName`                       |                      |
+| \[36\]  | `VarRef`                          | ::= | `"$" VarName`                       |                      |
 | \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
 | \[45\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
-| \[16\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` |      |
+| \[16\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` | /\* xgs: reserved-function-names \*/ /\* gn: parens \*/ |
 | \[51\]  | `KindTest`                        | ::= | `PITest \| CommentTest \| TextTest \| AnyKindTest` |       |
 | \[52\]  | `AnyKindTest`                     | ::= | `"node" "(" ")"`                    |                      |
 | \[53\]  | `TextTest`                        | ::= | `"text" "(" ")"`                    |                      |
@@ -133,13 +134,14 @@ __Axis Steps__
 1. Moved `PredicateList` into `AxisSpecifier`.
 1. Renamed `AxisSpecifier` to `AxisStep`.
 
-__Kind Tests__
+__Node Tests__
 1. Move the `node` `NodeType` into an `AnyKindTest` symbol.
 1. Move the `text` `NodeType` into a `TextTest` symbol.
 1. Move the `comment` `NodeType` into a `CommentTest` symbol.
 1. Move the `processing-instruction` `NodeType` into a `PITest` symbol.
 1. Move the `processing-instruction` with a `StringLiteral` from `NodeTest` into the `PITest` symbol.
 1. Move `AnyKindTest`, `TextTest`, `CommentTest`, and `PITest` into a `KindTest` symbol.
+1. Split out the wildcard syntax from `NameTest` into a `Wildcard` symbol.
 
 __Filter Expressions__
 1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
@@ -175,7 +177,8 @@ in XPath 1.0:
 1. Made the `Expr` in `ParenthesizedExpr` optional.
 1. Added `DocumentTest`, `ElementTest`, `AttributeTest`, `SchemaElementTest`,
    and `SchemaAttributeTest`.
-1. Add support for `NCName` in `PITest`.
+1. Added support for `NCName` in `PITest`.
+1. Added support for `*:NCName` wildcards.
 
 The following keywords have been added to the *Reserved Function Names* list:
 
