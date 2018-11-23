@@ -30,7 +30,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[1\]   | `LocationPath`                    | ::= | `("/" RelativeLocationPath?) \| ("//" RelativeLocationPath) \| RelativeLocationPath` | /* xgs: leading-lone-slash */ |
 | \[3\]   | `RelativeLocationPath`            | ::= | `Step (("/" \| "//") Step)*`        |                      |
 | \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep`       |                      |
-| \[7\]   | `NodeTest`                        | ::= | `NameTest \| NodeType '(' ')' \| 'processing-instruction' '(' StringLiteral ')'` | |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
 | \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
@@ -43,7 +42,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr \| MultiplicativeExpr '*' UnaryExpr \| MultiplicativeExpr 'div' UnaryExpr \| MultiplicativeExpr 'mod' UnaryExpr` | |
 | \[27\]  | `UnaryExpr`                       | ::= | `UnionExpr \| '-' UnaryExpr`        |                      |
 | \[37\]  | `NameTest`                        | ::= | `'*' \| NCName ':' '*' \| QName`    |                      |
-| \[38\]  | `NodeType`                        | ::= | `'comment' \| 'text' \| 'processing-instruction' \| 'node' | |
 
 The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 
@@ -58,6 +56,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[13\]  | `AbbrevForwardStep`               | ::= | `'@'? NodeTest`                     |                      |
 | \[50\]  | `ReverseStep`                     | ::= | `ReverseAxis NodeTest`              |                      |
 | \[48\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
+| \[7\]   | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
 | \[20\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
 | \[46\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[8\]   | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
@@ -67,6 +66,11 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[44\]  | `VarName`                         | ::= | `QName`                             |                      |
 | \[45\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
 | \[16\]  | `FunctionCall`                    | ::= | `QName "(" ( ExprSingle ( "," ExprSingle )* )? ')'` |      |
+| \[51\]  | `KindTest`                        | ::= | `PITest \| CommentTest \| TextTest \| AnyKindTest` |       |
+| \[52\]  | `AnyKindTest`                     | ::= | `"node" "(" ")"`                    |                      |
+| \[53\]  | `TextTest`                        | ::= | `"text" "(" ")"`                    |                      |
+| \[54\]  | `CommentTest`                     | ::= | `"comment" "(" ")"`                 |                      |
+| \[55\]  | `PITest`                          | ::= | `"processing-instruction" "(" StringLiteral? ")"` |        |
 
 ### A.2 Terminal Symbols
 
@@ -129,6 +133,14 @@ __Axis Steps__
 1. Moved `PredicateList` into `AxisSpecifier`.
 1. Renamed `AxisSpecifier` to `AxisStep`.
 
+__Kind Tests__
+1. Move the `node` `NodeType` into an `AnyKindTest` symbol.
+1. Move the `text` `NodeType` into a `TextTest` symbol.
+1. Move the `comment` `NodeType` into a `CommentTest` symbol.
+1. Move the `processing-instruction` `NodeType` into a `PITest` symbol.
+1. Move the `processing-instruction` with a `StringLiteral` from `NodeTest` into the `PITest` symbol.
+1. Move `AnyKindTest`, `TextTest`, `CommentTest`, and `PITest` into a `KindTest` symbol.
+
 __Filter Expressions__
 1. Moved `Predicate*` from `FilterExpr` into a `PredicateList` symbol.
 1. Inlined the `PredicateExpr` symbol into `Predicate`.
@@ -161,6 +173,9 @@ in XPath 1.0:
 1. Support predicates on `..` steps; use `parent::*` in XPath 1.0.
 1. Added support for `DoubleLiteral` in `NumericLiteral`.
 1. Made the `Expr` in `ParenthesizedExpr` optional.
+1. Added `DocumentTest`, `ElementTest`, `AttributeTest`, `SchemaElementTest`,
+   and `SchemaAttributeTest`.
+1. Add support for `NCName` in `PITest`.
 
 The following keywords have been added to the *Reserved Function Names* list:
 
