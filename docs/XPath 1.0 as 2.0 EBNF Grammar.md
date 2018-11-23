@@ -32,7 +32,6 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep`       |                      |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
-| \[18\]  | `UnionExpr`                       | ::= | `PathExpr \| UnionExpr '|' PathExpr` |                     |	
 | \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
 
 The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
@@ -49,6 +48,7 @@ The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 | \[25\]  | `AdditiveExpr`                    | ::= | `MultiplicativeExpr ( ("+" \| "-") MultiplicativeExpr )*` | |
 | \[26\]  | `MultiplicativeExpr`              | ::= | `UnaryExpr ( "*" \| "div" \| "mod") UnaryExpr )*` |        |
 | \[27\]  | `UnaryExpr`                       | ::= | `"-"* UnionExpr`                    |                      |
+| \[18\]  | `UnionExpr`                       | ::= | `PathExpr ( "|" PathExpr )*`        |                      |
 | \[5\]   | `AxisStep`                        | ::= | `(ReverseStep \| ForwardStep) PredicateList` |             |
 | \[49\]  | `ForwardStep`                     | ::= | `(ForwardAxis NodeTest) \| AbbrevForwardStep` |            |
 | \[47\]  | `ForwardAxis`                     | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::")` | |
@@ -175,6 +175,8 @@ in XPath 1.0:
 1. Support `ValueComp` and `NodeComp` comparisons.
 1. Support range expressions (`RangeExpr`).
 1. Support `idiv` in multiplicative expressions (`MultiplicativeExpr`).
+1. Support `IntersectExceptExpr`, `InstanceofExpr`, `TreatExpr`, `CastableExpr`,
+   and `CastExpr`.
 1. Support `+` in unary expressions (`UnaryExpr`).
 1. Support predicates on `..` steps; use `parent::*` in XPath 1.0.
 1. Added support for `DoubleLiteral` in `NumericLiteral`.
