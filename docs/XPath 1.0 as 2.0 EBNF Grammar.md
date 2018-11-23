@@ -32,7 +32,7 @@ The following EBNF symbols are defined in terms of the XPath 1.0 grammar:
 | \[4\]   | `Step`                            | ::= | `AxisStep \| AbbreviatedStep`       |                      |
 | \[12\]  | `AbbreviatedStep`                 | ::= | `'.' \| '..'`                       |                      |
 | \[15\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| FunctionCall` | |
-| \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr \| FilterExpr '/' RelativeLocationPath \| FilterExpr '//' RelativeLocationPath` | |
+| \[19\]  | `PathExpr`                        | ::= | `LocationPath \| FilterExpr ( ("/" \| "//") RelativeLocationPath )*` | |
 
 The following EBNF symbols are defined in terms of the XPath 2.0 grammar:
 
@@ -114,15 +114,11 @@ __Core Specifications__
 This section documents the changes from the XPath 1.0 to XPath 2.0 EBNF
 grammar.
 
-__XPath__
+__Path Expressions__
 1. Renamed `Expr` to `ExprSingle`.
 1. Added the `XPath` and `Expr` symbols from XPath 2.0.
-
-__Path Expressions__
 1. Inlined the `AbbreviatedAbsoluteLocationPath` and `AbsoluteLocationPath` symbols into `LocationPath`.
 1. Inlined the `AbbreviatedRelativeLocationPath` symbol into `RelativeLocationPath`.
-
-__Step Expressions__
 1. Moved `Predicate*` from `Step` into a `PredicateList` symbol.
 
 __Axis Steps__
@@ -178,6 +174,7 @@ in XPath 1.0:
 1. Support `IntersectExceptExpr`, `InstanceofExpr`, `TreatExpr`, `CastableExpr`,
    and `CastExpr`.
 1. Support `+` in unary expressions (`UnaryExpr`).
+1. Support `FilterExpr` anywhere in a path expression, not just at the start.
 1. Support predicates on `..` steps; use `parent::*` in XPath 1.0.
 1. Added support for `DoubleLiteral` in `NumericLiteral`.
 1. Made the `Expr` in `ParenthesizedExpr` optional.
