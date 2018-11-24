@@ -136,6 +136,7 @@ dependencies {
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
+    integrationTestCompile project(':src:kotlin-hamcrest')
 
     integrationTestRuntime configurations.testRuntime
 }

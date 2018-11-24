@@ -24,8 +24,8 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.processor.impl.basex.session.BaseXSession
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
