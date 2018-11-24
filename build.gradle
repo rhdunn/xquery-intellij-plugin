@@ -135,6 +135,7 @@ dependencies {
     compile project(':src:kotlin-intellij')
 
     testCompile project(':src:kotlin-hamcrest')
+    testCompile project(':src:intellij-mock')
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
