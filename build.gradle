@@ -39,18 +39,10 @@ buildscript {
             "1.2.70"
     }
 
-    ext.compat_dir = { version ->
-        if (version >= 191) return "src/compat/191"
-        if (version == 183) return "src/compat/183"
-        if (version == 182) return "src/compat/182"
-        else                return "src/compat/181"
-    }
-
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.1'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_version(ext.idea_since_build.toInteger())
-    ext.compat_path = ext.compat_dir(ext.idea_since_build.toInteger())
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
@@ -133,6 +125,7 @@ task integrationTest(type: Test) {
 
 dependencies {
     compile project(':src:kotlin-intellij')
+    compile project(':src:intellij-compat')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
@@ -169,8 +162,6 @@ intellij {
 patchPluginXml {
     sinceBuild = idea_since_build
 }
-
-sourceSets.main.java.srcDirs += ext.compat_path
 
 jacocoTestReport {
     reports {
