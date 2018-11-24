@@ -19,6 +19,12 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
 
 abstract class ParserDefinition : com.intellij.lang.ParserDefinition {
+    @Suppress("DEPRECATION")
+    fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
+        return spaceExistanceTypeBetweenTokens(left, right)
+    }
+
+    @Deprecated("Deprecated in IntelliJ 2018.2.")
     override fun spaceExistanceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
         return ParserDefinition.SpaceRequirements.MAY
     }

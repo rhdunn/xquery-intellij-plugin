@@ -111,6 +111,6 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
     @DisplayName("spaceExistanceTypeBetweenTokens")
     fun testSpaceExistanceTypeBetweenTokens() {
         val parserDefinition = XQueryParserDefinition()
-        assertThat(parserDefinition.spaceExistanceTypeBetweenTokens(null, null), `is`(ParserDefinition.SpaceRequirements.MAY))
+        assertThat(parserDefinition.spaceExistenceTypeBetweenTokens(null, null), `is`(ParserDefinition.SpaceRequirements.MAY))
     }
 }
