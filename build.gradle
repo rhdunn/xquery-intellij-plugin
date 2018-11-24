@@ -67,7 +67,7 @@ plugins {
     id "org.jetbrains.intellij" version "0.3.12"
 }
 
-allprojects {
+configure(allprojects - project(':src')) {
     apply plugin: 'org.jetbrains.intellij'
     apply plugin: 'idea'
     apply plugin: 'kotlin'
@@ -132,6 +132,8 @@ task integrationTest(type: Test) {
 }
 
 dependencies {
+    testCompile project(':src:kotlin-hamcrest')
+
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
 
