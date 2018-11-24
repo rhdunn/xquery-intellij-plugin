@@ -24,6 +24,7 @@ import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -41,7 +42,10 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParse
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
-        myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
+
+        val manager = MockModuleManager(myProject)
+        manager.addModule(ResourceVirtualFile.create(ParserTestCase::class.java, "tests"))
+        myProject.registerService(ModuleManager::class.java, manager)
     }
 
     @AfterAll
