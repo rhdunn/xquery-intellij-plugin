@@ -93,6 +93,15 @@ allprojects {
             jvmTarget = "1.8"
         }
     }
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+        testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
+
+        testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
+    }
 }
 
 sourceSets {
@@ -108,13 +117,6 @@ task integrationTest(type: Test) {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
-
-    testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
-
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
 
