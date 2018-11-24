@@ -22,20 +22,17 @@ import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
 import java.io.StringReader
 import java.io.StringWriter
-import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-private class NodeListIterator(val nodes: NodeList): Iterator<Node> {
+private class NodeListIterator(val nodes: NodeList) : Iterator<Node> {
     private var current: Int = 0
 
-    override fun hasNext(): Boolean =
-        current != nodes.length
+    override fun hasNext(): Boolean = current != nodes.length
 
-    override fun next(): Node =
-        nodes.item(current++)
+    override fun next(): Node = nodes.item(current++)
 }
 
 fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()

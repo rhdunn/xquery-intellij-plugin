@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.reflection
+package uk.co.reecedunn.intellij.plugin.tests.psi
 
-fun ClassLoader.loadClassOrNull(classname: String): Class<*>? {
-    try {
-        return loadClass(classname)
-    } catch (e: ClassNotFoundException) {
-        return null
+import com.intellij.psi.PsiElement
+import com.intellij.testFramework.LightVirtualFileBase
+
+fun PsiElement.resourcePath(): String {
+    var file = containingFile.virtualFile
+    if (file is LightVirtualFileBase) {
+        file = file.originalFile
     }
+    return file.path.replace('\\', '/')
 }

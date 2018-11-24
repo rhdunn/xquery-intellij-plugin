@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType

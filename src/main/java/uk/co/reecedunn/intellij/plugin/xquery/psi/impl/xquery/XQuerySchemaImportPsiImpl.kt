@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQuerySchemaImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

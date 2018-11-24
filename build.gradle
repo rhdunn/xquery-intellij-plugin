@@ -132,6 +132,8 @@ task integrationTest(type: Test) {
 }
 
 dependencies {
+    compile project(':src:kotlin-intellij')
+
     testCompile project(':src:kotlin-hamcrest')
 
     integrationTestCompile configurations.testCompile

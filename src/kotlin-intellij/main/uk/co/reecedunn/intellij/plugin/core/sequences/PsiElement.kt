@@ -22,13 +22,12 @@ import java.util.*
 
 private class PsiElementTreeIterator(node: PsiElement?) : Iterator<PsiElement> {
     private val stack: Stack<PsiElement> = Stack()
+
     init {
         stack.push(node)
     }
 
-    override fun hasNext(): Boolean {
-        return !stack.isEmpty()
-    }
+    override fun hasNext(): Boolean = !stack.isEmpty()
 
     override fun next(): PsiElement {
         val current = stack.pop()
@@ -54,11 +53,11 @@ private class PsiElementTreeIterator(node: PsiElement?) : Iterator<PsiElement> {
     }
 }
 
-private class PsiElementIterator(private var node: PsiElement?,
-                                 private var walk: (PsiElement) -> PsiElement?) : Iterator<PsiElement> {
-    override fun hasNext(): Boolean {
-        return node != null
-    }
+private class PsiElementIterator(
+    private var node: PsiElement?,
+    private var walk: (PsiElement) -> PsiElement?
+) : Iterator<PsiElement> {
+    override fun hasNext(): Boolean = node != null
 
     override fun next(): PsiElement {
         val ret = node!!
@@ -67,21 +66,23 @@ private class PsiElementIterator(private var node: PsiElement?,
     }
 }
 
-class PsiElementReversibleSequence(private var node: PsiElement,
-                                   private var gen: (PsiElement) -> Iterator<PsiElement>,
-                                   private var rgen: (PsiElement) -> Iterator<PsiElement>) : Sequence<PsiElement> {
-    override fun iterator(): Iterator<PsiElement> =
-        gen(node)
+class PsiElementReversibleSequence(
+    private var node: PsiElement,
+    private var gen: (PsiElement) -> Iterator<PsiElement>,
+    private var rgen: (PsiElement) -> Iterator<PsiElement>
+) : Sequence<PsiElement> {
+    override fun iterator(): Iterator<PsiElement> = gen(node)
 
-    fun reversed(): PsiElementReversibleSequence =
-        PsiElementReversibleSequence(node, rgen, gen)
+    fun reversed(): PsiElementReversibleSequence {
+        return PsiElementReversibleSequence(node, rgen, gen)
+    }
 }
 
-private class PsiNotTokenIterator(private val nodes: Iterator<PsiElement>,
-                                  private val tokens: TokenSet) : Iterator<PsiElement?> {
-    override fun hasNext(): Boolean {
-        return nodes.hasNext()
-    }
+private class PsiNotTokenIterator(
+    private val nodes: Iterator<PsiElement>,
+    private val tokens: TokenSet
+) : Iterator<PsiElement?> {
+    override fun hasNext(): Boolean = nodes.hasNext()
 
     override fun next(): PsiElement? {
         val ret = nodes.next()
@@ -100,8 +101,18 @@ fun PsiElement.descendants(): Sequence<PsiElement> {
 
 fun PsiElement.children(): PsiElementReversibleSequence {
     return PsiElementReversibleSequence(this,
-        { e -> PsiElementIterator(e.firstChild, PsiElement::getNextSibling) },
-        { e -> PsiElementIterator(e.lastChild, PsiElement::getPrevSibling) })
+        { e ->
+            PsiElementIterator(
+                e.firstChild,
+                PsiElement::getNextSibling
+            )
+        },
+        { e ->
+            PsiElementIterator(
+                e.lastChild,
+                PsiElement::getPrevSibling
+            )
+        })
 }
 
 fun PsiElement.siblings(): Sequence<PsiElement> {
@@ -111,8 +122,8 @@ fun PsiElement.siblings(): Sequence<PsiElement> {
 fun PsiElement.walkTree(): PsiElementReversibleSequence {
     return PsiElementReversibleSequence(this,
         { element -> PsiElementTreeIterator(element) },
-        { element -> PsiElementIterator(element,
-            { e ->
+        { element ->
+            PsiElementIterator(element) { e ->
                 val parent = e.parent
                 // An element (file) with a directory as a parent may be part of a
                 // resource JAR file. This can cause the file to have a different
@@ -120,7 +131,7 @@ fun PsiElement.walkTree(): PsiElementReversibleSequence {
                 // result in prevSibling logging a "Cannot find element among its
                 // parent' children." error.
                 (if (parent is PsiDirectory) null else e.prevSibling) ?: parent
-            })
+            }
         })
 }
 
