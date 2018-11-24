@@ -67,9 +67,8 @@ plugins {
     id "org.jetbrains.intellij" version "0.3.12"
 }
 
-apply plugin: 'org.jetbrains.intellij'
-
 allprojects {
+    apply plugin: 'org.jetbrains.intellij'
     apply plugin: 'idea'
     apply plugin: 'kotlin'
     apply plugin: 'jacoco'
@@ -94,6 +93,10 @@ allprojects {
         }
     }
 
+    intellij {
+        version = idea_version
+    }
+
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -101,6 +104,18 @@ allprojects {
 
         testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")
         testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0$junit_milestone")
+    }
+
+    tasks {
+        // The IntelliJ gradle plugin adds the tasks for all subprojects. This
+        // does not make sense, and causes issues like performing the runIde
+        // task once for each subproject.
+        buildPlugin.enabled = false
+        prepareSandbox.enabled = false
+        prepareTestingSandbox.enabled = false
+        publishPlugin.enabled = false
+        runIde.enabled = false
+        verifyPlugin.enabled = false
     }
 }
 
@@ -123,8 +138,19 @@ dependencies {
     integrationTestRuntime configurations.testRuntime
 }
 
+tasks {
+    // The IntelliJ gradle plugin adds the tasks for all subprojects. This
+    // does not make sense, and causes issues like performing the runIde
+    // task once for each subproject.
+    buildPlugin.enabled = true
+    prepareSandbox.enabled = true
+    prepareTestingSandbox.enabled = true
+    publishPlugin.enabled = true
+    runIde.enabled = true
+    verifyPlugin.enabled = true
+}
+
 intellij {
-    version = idea_version
     println "Building for IntelliJ version '${version}', since build '${idea_since_build}'"
 
     updateSinceUntilBuild = true
