@@ -63,8 +63,10 @@ import java.io.IOException
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
-abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
-                                               vararg definitions: ParserDefinition) : PlatformLiteFixture() {
+abstract class ParsingTestCase<File : PsiFile>(
+    private var mFileExt: String?,
+    vararg definitions: ParserDefinition
+) : PlatformLiteFixture() {
     private var mFileFactory: PsiFileFactory? = null
 
     var language: Language? = null
@@ -77,9 +79,12 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
 
         // IntelliJ ParsingTestCase setUp
         initApplication()
-        val component = PlatformLiteFixture.getApplication().picoContainer.getComponentAdapter(ProgressManager::class.java.name)
+        val component =
+            PlatformLiteFixture.getApplication().picoContainer.getComponentAdapter(ProgressManager::class.java.name)
         if (component == null) {
-            PlatformLiteFixture.getApplication().picoContainer.registerComponent(object : AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
+            PlatformLiteFixture.getApplication().picoContainer.registerComponent(object :
+                AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
+
                 @Throws(PicoInitializationException::class, PicoIntrospectionException::class)
                 override fun getComponentInstance(container: PicoContainer): Any {
                     return ProgressManagerImpl()
@@ -95,17 +100,27 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
         val appContainer = PlatformLiteFixture.getApplication().picoContainer
-        PlatformLiteFixture.registerComponentInstance(appContainer, MessageBus::class.java, PlatformLiteFixture.getApplication().messageBus)
+        PlatformLiteFixture.registerComponentInstance(
+            appContainer, MessageBus::class.java, PlatformLiteFixture.getApplication().messageBus
+        )
         val editorFactory = MockEditorFactory()
         PlatformLiteFixture.registerComponentInstance(appContainer, EditorFactory::class.java, editorFactory)
-        PlatformLiteFixture.registerComponentInstance(appContainer, FileDocumentManager::class.java,
-                MockFileDocumentManagerImpl({ editorFactory.createDocument(it) }, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY))
-        PlatformLiteFixture.registerComponentInstance(appContainer, PsiDocumentManager::class.java, MockPsiDocumentManagerEx())
+        PlatformLiteFixture.registerComponentInstance(
+            appContainer, FileDocumentManager::class.java,
+            MockFileDocumentManagerImpl(
+                { editorFactory.createDocument(it) }, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY
+            )
+        )
+        PlatformLiteFixture.registerComponentInstance(
+            appContainer, PsiDocumentManager::class.java, MockPsiDocumentManagerEx()
+        )
 
         registerApplicationService(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
         registerApplicationService(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
         registerApplicationService(ReferenceProvidersRegistry::class.java, ReferenceProvidersRegistryImpl())
-        myProject.registerService(CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(psiManager)))
+        myProject.registerService(
+            CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(psiManager))
+        )
         myProject.registerService(PsiManager::class.java, psiManager)
         myProject.registerService(PsiFileFactory::class.java, mFileFactory!!)
         myProject.registerService(StartupManager::class.java, StartupManagerImpl(myProject))
@@ -132,9 +147,10 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
         mFileExt = extension
         addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
         PlatformLiteFixture.registerComponentInstance(
-                PlatformLiteFixture.getApplication().picoContainer,
-                FileTypeManager::class.java,
-                MockFileTypeManager(MockLanguageFileType(language!!, mFileExt)))
+            PlatformLiteFixture.getApplication().picoContainer,
+            FileTypeManager::class.java,
+            MockFileTypeManager(MockLanguageFileType(language!!, mFileExt))
+        )
     }
 
     protected fun <T> addExplicitExtension(instance: LanguageExtension<T>, language: Language, `object`: T) {
@@ -155,7 +171,9 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
         try {
             val epClass = Class.forName(epClassName)
             val epname = epClass.getField(epField)
-            val register = ParsingTestCase::class.java.getDeclaredMethod("registerExtensionPoint", ExtensionPointName::class.java, Class::class.java)
+            val register = ParsingTestCase::class.java.getDeclaredMethod(
+                "registerExtensionPoint", ExtensionPointName::class.java, Class::class.java
+            )
             register.invoke(this, epname.get(null), epClass)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
