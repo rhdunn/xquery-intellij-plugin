@@ -22,4 +22,10 @@ declare namespace math = "http://www.w3.org/2005/xpath-functions/math";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace array = "http://www.w3.org/2005/xpath-functions/array";
 
+(: eXist :)
+declare namespace html2wiki = "http://atomic.exist-db.org/xquery/html2wiki";
+declare namespace ext = "http://atomic.exist-db.org/xquery/extensions";
+declare namespace dates = "http://atomic.exist-db.org/xquery/dates";
+declare namespace cleanup = "http://atomic.exist-db.org/xquery/cleanup";
+declare namespace theme = "http://atomic.exist-db.org/xquery/atomic/theme";
 ()
