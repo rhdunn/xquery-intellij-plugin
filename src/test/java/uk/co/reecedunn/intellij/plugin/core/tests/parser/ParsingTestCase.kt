@@ -49,8 +49,6 @@ import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.PlatformLiteFixture
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.instanceOf
 import org.jetbrains.annotations.NonNls
 import org.picocontainer.PicoContainer
 import org.picocontainer.PicoInitializationException
@@ -58,15 +56,10 @@ import org.picocontainer.PicoIntrospectionException
 import org.picocontainer.defaults.AbstractComponentAdapter
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import java.io.IOException
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
@@ -249,10 +242,6 @@ abstract class ParsingTestCase<File : PsiFile>(private var mFileExt: String?,
 
     @Suppress("UNCHECKED_CAST")
     fun parseResource(resource: String): File {
-        // Check that the AST factories have been registered correctly.
-        assertThat(LanguageASTFactory.INSTANCE.forLanguage(XPath), `is`(instanceOf(XPathASTFactory::class.java)))
-        assertThat(LanguageASTFactory.INSTANCE.forLanguage(XQuery), `is`(instanceOf(XQueryASTFactory::class.java)))
-
         val file = ResourceVirtualFile.create(ParsingTestCase::class.java, resource)
         return file.toPsiFile(myProject)!!
     }
