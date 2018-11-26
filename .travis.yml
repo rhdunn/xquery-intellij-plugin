@@ -6,8 +6,8 @@ jdk:
 env:
   - IDEA_VERSION=LATEST-TRUNK-SNAPSHOT
   - IDEA_VERSION=LATEST-EAP-SNAPSHOT
-  - IDEA_VERSION=IC-2018.2 # Current
-  - IDEA_VERSION=IC-2018.1 # Previous
+  - IDEA_VERSION=IC-2018.3 # Current
+  - IDEA_VERSION=IC-2018.1 # Minimum Supported
 
 install: true
 
