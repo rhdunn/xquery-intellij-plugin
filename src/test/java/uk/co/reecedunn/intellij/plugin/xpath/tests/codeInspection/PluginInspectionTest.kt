@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
@@ -31,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // region XML Entities
 
@@ -2179,6 +2182,11 @@ private val HTML5_ENTITIES = listOf("\"",
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - Error and Warning Conditions")
 private class PluginInspectionTest : InspectionTestCase() {
+    fun parseResource(resource: String): XQueryModule {
+        val file = ResourceVirtualFile.create(PluginInspectionTest::class.java, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (D.1) Vendor-Specific Behaviour")
     internal inner class IJVSTest {

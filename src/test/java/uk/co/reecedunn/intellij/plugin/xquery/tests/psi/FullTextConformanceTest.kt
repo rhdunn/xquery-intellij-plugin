@@ -22,12 +22,15 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -35,6 +38,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery and XPath Full Text 3.0 - Implementation Conformance Checks")
 private class FullTextConformanceTest : ParserTestCase() {
+    fun parseResource(resource: String): XQueryModule {
+        val file = ResourceVirtualFile.create(FullTextConformanceTest::class.java, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     @Test
     @DisplayName("XQuery and XPath Full Text 1.0 EBNF (51) FTContainsExpr")
     fun testFTContainsExpr() {

@@ -25,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -35,6 +37,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
+    fun parseResource(resource: String): XQueryModule {
+        val file = ResourceVirtualFile.create(XQueryPsiTest::class.java, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 (2) Basics")
     internal inner class Basics {

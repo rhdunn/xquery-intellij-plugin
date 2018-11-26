@@ -23,11 +23,14 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -35,6 +38,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery Update Facility 3.0 - Implementation Conformance Checks")
 private class UpdateFacilityConformanceTest : ParserTestCase() {
+    fun parseResource(resource: String): XQueryModule {
+        val file = ResourceVirtualFile.create(UpdateFacilityConformanceTest::class.java, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     @Nested
     @DisplayName("XQuery Update Facility 3.0 EBNF (27) CompatibilityAnnotation")
     internal inner class CompatibilityAnnotation {

@@ -19,10 +19,18 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery and XPath Full Text 3.0 - Parser")
 private class FullTextParserTest : ParserTestCase() {
+    fun parseResource(resource: String): XQueryModule {
+        val file = ResourceVirtualFile.create(FullTextParserTest::class.java, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     // region Full Text 1.0 :: FTOptionDecl + FTMatchOptions
 
     @Test

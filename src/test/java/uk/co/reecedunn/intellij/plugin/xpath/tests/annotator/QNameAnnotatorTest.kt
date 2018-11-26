@@ -24,12 +24,20 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
+    fun parseResource(resource: String): XQueryModule {
+        val file = ResourceVirtualFile.create(QNameAnnotatorTest::class.java, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (123) NCName")
     internal inner class NCName {
