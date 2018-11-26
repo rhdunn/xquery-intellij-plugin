@@ -2,5 +2,6 @@ sourceSets.main.java.srcDirs += 'main'
 sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
+    compile project(':src:kotlin-hamcrest')
     compile project(':src:kotlin-intellij')
 }
