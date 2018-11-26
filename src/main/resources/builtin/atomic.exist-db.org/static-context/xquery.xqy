@@ -29,5 +29,7 @@ declare namespace dates = "http://atomic.exist-db.org/xquery/dates";
 declare namespace cleanup = "http://atomic.exist-db.org/xquery/cleanup";
 declare namespace theme = "http://atomic.exist-db.org/xquery/atomic/theme";
 declare namespace search = "http://atomic.exist-db.org/xquery/atomic/search";
+declare namespace image-link-generator = "http://atomic.exist-db.org/xquery/atomic/image-link-generator";
+declare namespace acl = "http://atomic.exist-db.org/xquery/atomic/acl";
 
 ()
