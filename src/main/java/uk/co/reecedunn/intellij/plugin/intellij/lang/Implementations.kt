@@ -26,7 +26,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 -> true
+        XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 -> true
         XQuery.REC_1_0_20070123 -> true // Recognises 1.0, processes as 3.0/3.1.
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuery.CR_3_1_20151217 -> productVersion.value in 8.2..8.5
@@ -107,8 +107,8 @@ private class EXistDBProduct(id: String, name: String, implementation: Implement
     }
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XmlSchema.REC_1_0_20041028 -> true
-        XmlSchema.REC_1_1_20120405 -> productVersion.value >= 4.3
+        XmlSchemaSpec.REC_1_0_20041028 -> true
+        XmlSchemaSpec.REC_1_1_20120405 -> productVersion.value >= 4.3
         XQuery.REC_3_0_20140408 -> true
         XQuery.CR_3_1_20151217 -> productVersion.value >= 3.0 && productVersion.value < 4.0
         XQuery.REC_3_1_20170321 -> productVersion.value >= 4.0
@@ -175,8 +175,8 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XmlSchema.REC_1_0_20041028 -> true
-        XmlSchema.REC_1_1_20120405 -> productVersion.value >= 9.0
+        XmlSchemaSpec.REC_1_0_20041028 -> true
+        XmlSchemaSpec.REC_1_1_20120405 -> productVersion.value >= 9.0
         XQuery.REC_1_0_20070123 -> true
         XQuery.MARKLOGIC_0_9 -> true
         XQuery.MARKLOGIC_1_0 -> true
@@ -252,7 +252,7 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
     }
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
+        XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 ->
             true
         XQuery.REC_1_0_20070123 -> true
         XQuery.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
@@ -339,7 +339,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean {
         return when (ref) {
-            XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
+            XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 ->
                 true
             XQuery.WD_1_0_20030502 ->
                 productVersion === W3C.WORKING_DRAFT

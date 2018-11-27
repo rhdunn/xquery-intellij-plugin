@@ -32,8 +32,8 @@ class ModelTest {
         @Test
         @DisplayName("Specification")
         fun testSpecification_DisplayName() {
-            assertThat(XmlSchema.REC_1_0_20041028.toString(), `is`("XML Schema Definition 1.0"))
-            assertThat(XmlSchema.REC_1_1_20120405.toString(), `is`("XML Schema Definition 1.1"))
+            assertThat(XmlSchemaSpec.REC_1_0_20041028.toString(), `is`("XML Schema Definition 1.0"))
+            assertThat(XmlSchemaSpec.REC_1_1_20120405.toString(), `is`("XML Schema Definition 1.1"))
 
             assertThat(XPathSpec.REC_1_0_19991116.toString(), `is`("XPath 1.0"))
 
@@ -96,8 +96,8 @@ class ModelTest {
         @Test
         @DisplayName("XMLSchema specification")
         fun testXmlSchema_SupportsDialect() {
-            val versioned = XmlSchema
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(true))
+            val versioned = XmlSchemaSpec
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(true))
             assertThat(versioned.supportsDialect(XQuery), `is`(false))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -115,7 +115,7 @@ class ModelTest {
         @DisplayName("XQuery specification")
         fun testXQuery_SupportsDialect() {
             val versioned = XQuery
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -133,7 +133,7 @@ class ModelTest {
         @DisplayName("XQuery and XPath Full Text specification")
         fun testFullText_SupportsDialect() {
             val versioned = FullText
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(true))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -151,7 +151,7 @@ class ModelTest {
         @DisplayName("XPath and XQuery Functions and Operators specification")
         fun testFunctionsAndOperators_SupportsDialect() {
             val versioned = FunctionsAndOperators
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(false))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(true))
@@ -169,7 +169,7 @@ class ModelTest {
         @DisplayName("XQuery Scripting Extension specification")
         fun testScripting_SupportsDialect() {
             val versioned = Scripting
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -187,7 +187,7 @@ class ModelTest {
         @DisplayName("XQuery Update Facility specification")
         fun testUpdateFacility_SupportsDialect() {
             val versioned = UpdateFacility
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -205,7 +205,7 @@ class ModelTest {
         @DisplayName("BaseX vendor implementation")
         fun testBaseX_SupportsDialect() {
             val versioned = BaseX
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(true))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -223,7 +223,7 @@ class ModelTest {
         @DisplayName("eXist-db vendor implementation")
         fun testEXistDB_SupportsDialect() {
             val versioned = EXistDB
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -241,7 +241,7 @@ class ModelTest {
         @DisplayName("MarkLogic vendor implementation")
         fun testMarkLogic_SupportsDialect() {
             val versioned = MarkLogic
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -259,7 +259,7 @@ class ModelTest {
         @DisplayName("Saxon vendor implementation")
         fun testSaxon_SupportsDialect() {
             val versioned = Saxon
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -277,7 +277,7 @@ class ModelTest {
         @DisplayName("W3C vendor implementation")
         fun testW3C_SupportsDialect() {
             val versioned = W3C
-            assertThat(versioned.supportsDialect(XmlSchema), `is`(false))
+            assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuery), `is`(false))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
@@ -560,8 +560,8 @@ class ModelTest {
                 for (version in BaseX.versions) {
                     // region Specification: XML Schema Definition Language (XSD)
 
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_0_20041028), `is`(true))
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_1_20120405), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405), `is`(true))
 
                     // endregion
                     // region Specification: XQuery
@@ -658,8 +658,8 @@ class ModelTest {
                 for (version in EXistDB.versions) {
                     // region Specification: XML Schema Definition Language (XSD)
 
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_0_20041028), `is`(true))
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_1_20120405), `is`(version.value >= 4.3))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405), `is`(version.value >= 4.3))
 
                     // endregion
                     // region Specification: XQuery
@@ -759,8 +759,8 @@ class ModelTest {
                 for (version in MarkLogic.versions) {
                     // region Specification: XML Schema Definition Language (XSD)
 
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_0_20041028), `is`(true))
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_1_20120405), `is`(version.value >= 9.0))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405), `is`(version.value >= 9.0))
 
                     // endregion
                     // region Specification: XQuery
@@ -848,8 +848,8 @@ class ModelTest {
                 for (version in Saxon.versions) {
                     // region Specification: XML Schema Definition Language (XSD)
 
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_0_20041028), `is`(true))
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_1_20120405), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405), `is`(true))
 
                     // endregion
                     // region Specification: XQuery
@@ -958,8 +958,8 @@ class ModelTest {
                 for (version in W3C.versions) {
                     // region Specification: XML Schema Definition Language (XSD)
 
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_0_20041028), `is`(true))
-                    assertThat(product.conformsTo(version, XmlSchema.REC_1_1_20120405), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_0_20041028), `is`(true))
+                    assertThat(product.conformsTo(version, XmlSchemaSpec.REC_1_1_20120405), `is`(true))
 
                     // endregion
                     // region Specification: XQuery

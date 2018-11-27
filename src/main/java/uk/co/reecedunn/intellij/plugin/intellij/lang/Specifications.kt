@@ -18,29 +18,6 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 
 /**
- * XML Schema Definition Language (XSD)
- */
-object XmlSchema : Versioned {
-    val REC_1_0_20041028 = Specification(
-        "1.0-20041028", 1.0, 20041028, "1.0", "https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/", this
-    )
-
-    val REC_1_1_20120405 = Specification(
-        "1.1-20120405", 1.1, 20120405, "1.1", "https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/", this
-    )
-
-    override val id get(): String = "xmlschema"
-
-    override val name get(): String = "XML Schema Definition"
-
-    override val versions
-        get(): List<Version> = listOf(
-            REC_1_0_20041028,
-            REC_1_1_20120405
-        )
-}
-
-/**
  * XML Query Language
  */
 object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery"), Versioned {

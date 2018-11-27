@@ -15,6 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
+object XmlSchemaSpec : Versioned {
+    val REC_1_0_20041028 = Specification(
+        "1.0-20041028", 1.0, 20041028, "1.0", "https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/", this
+    )
+
+    val REC_1_1_20120405 = Specification(
+        "1.1-20120405", 1.1, 20120405, "1.1", "https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/", this
+    )
+
+    override val id: String = "xmlschema"
+
+    override val name: String = "XML Schema Definition"
+
+    override val versions: List<Version> = listOf(
+        REC_1_0_20041028,
+        REC_1_1_20120405
+    )
+}
+
 object XPathSpec : Versioned {
     val REC_1_0_19991116 = Specification(
         "1.0-19991116", 1.0, 19991116, "1.0", "https://www.w3.org/TR/1999/REC-xpath-19991116/", this
@@ -35,6 +54,7 @@ object XPathSpec : Versioned {
     val REC_3_1_20170321 = Specification(
         "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-31-20170321/", this
     )
+
     override val id: String = "xpath"
 
     override val name: String = "XPath"
