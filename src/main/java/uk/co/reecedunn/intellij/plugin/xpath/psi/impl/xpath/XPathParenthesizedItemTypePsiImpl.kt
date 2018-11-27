@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val XQUERY3 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
-private val SEMANTICS = listOf(FormalSemantics.REC_1_0_20070123)
+private val SEMANTICS = listOf(FormalSemanticsSpec.REC_1_0_20070123)
 
 class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

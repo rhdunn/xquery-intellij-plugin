@@ -1716,7 +1716,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             val versioned = parenthesizedItemTypePsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
+            assertThat(versioned.requiresConformance[0], `is`(FormalSemanticsSpec.REC_1_0_20070123))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
@@ -1731,7 +1731,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             val versioned = parenthesizedItemTypePsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
+            assertThat(versioned.requiresConformance[0], `is`(FormalSemanticsSpec.REC_1_0_20070123))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))

@@ -182,6 +182,27 @@ object FunctionsAndOperatorsSpec : Versioned {
     )
 }
 
+object FormalSemanticsSpec : Versioned {
+    val REC_1_0_20070123 = Specification(
+        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/", this
+    )
+
+    val REC_1_0_20101214 = Specification(
+        "1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-semantics-20101214/", this
+    )
+
+    override val id: String = "xquery-semantics"
+
+    override val name: String = "XQuery Formal Semantics"
+
+    override val versions: List<Version> = listOf(
+        REC_1_0_20070123,
+        REC_1_0_20101214
+    )
+
+    override fun supportsDialect(dialect: Versioned): Boolean = dialect === this
+}
+
 object FullTextSpec : Versioned {
     // NOTE: The only changes from 1.0 to 3.0 are to support the changes in grammar from XQuery 1.0 to 3.0.
     val REC_1_0_20110317 = Specification(
