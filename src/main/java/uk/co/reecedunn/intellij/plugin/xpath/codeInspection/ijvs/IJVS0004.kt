@@ -27,11 +27,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class IJVS0004 : Inspection("ijvs/IJVS0004.md") {
+class IJVS0004 : Inspection("ijvs/IJVS0004.md", Resources) {
     private fun conformsTo(element: XPathMapConstructorEntry, productVersion: Version?): Boolean {
         val conformanceElement = element.separator
         if (conformanceElement === element.firstChild) {

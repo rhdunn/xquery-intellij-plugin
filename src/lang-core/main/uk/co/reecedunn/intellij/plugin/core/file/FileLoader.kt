@@ -13,17 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.codeInspection
+package uk.co.reecedunn.intellij.plugin.core.file
 
-import com.intellij.codeInspection.LocalInspectionTool
-import uk.co.reecedunn.intellij.plugin.core.file.FileLoader
-import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
+import java.io.InputStream
 
-abstract class Inspection(
-    private val descriptionPath: String,
-    private val loader: FileLoader
-) : LocalInspectionTool() {
-    override fun getStaticDescription(): String? {
-        return loader.load("inspections/en/$descriptionPath")?.let { Markdown.parse(it) }
-    }
+interface FileLoader {
+    fun load(resource: String): InputStream?
 }

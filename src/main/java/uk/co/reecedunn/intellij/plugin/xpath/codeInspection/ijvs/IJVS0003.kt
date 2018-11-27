@@ -28,9 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityR
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-class IJVS0003 : Inspection("ijvs/IJVS0003.md") {
+class IJVS0003 : Inspection("ijvs/IJVS0003.md", Resources) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 

@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
+import uk.co.reecedunn.intellij.plugin.core.file.FileLoader
 import java.io.InputStream
 
-object Resources {
-    fun load(resource: String): InputStream? {
+object Resources : FileLoader {
+    override fun load(resource: String): InputStream? {
         val loader = Resources::class.java.classLoader
         return loader.getResourceAsStream(resource)
     }

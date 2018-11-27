@@ -26,9 +26,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
+import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
-class XQST0118 : Inspection("xqst/XQST0118.md") {
+class XQST0118 : Inspection("xqst/XQST0118.md", Resources) {
     private fun displayName(eqname: XsQNameValue): String {
         if (eqname.prefix == null)
             return eqname.localName!!.data
