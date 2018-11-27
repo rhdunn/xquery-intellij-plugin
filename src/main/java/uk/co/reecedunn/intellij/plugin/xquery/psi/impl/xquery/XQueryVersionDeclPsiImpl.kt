@@ -28,14 +28,15 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL)
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
 
-class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, XQueryConformance {
+class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl,
+    VersionConformance {
     override val version get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
     override val encoding get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)

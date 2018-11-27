@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaRootTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class PluginSchemaRootTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginSchemaRootTest, XQueryConformance {
+class PluginSchemaRootTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginSchemaRootTest,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
 
     override val conformanceElement get(): PsiElement =

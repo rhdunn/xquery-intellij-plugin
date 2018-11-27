@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -30,7 +30,7 @@ private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.
 class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQuerySequenceTypeUnion,
-    XQueryConformance {
+    VersionConformance {
 
     override val requiresConformance
         get(): List<Version> {

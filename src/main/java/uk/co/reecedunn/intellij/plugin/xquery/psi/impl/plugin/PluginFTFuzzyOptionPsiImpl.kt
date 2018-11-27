@@ -21,10 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginFTFuzzyOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginFTFuzzyOption, XQueryConformance {
+    PluginFTFuzzyOption, VersionConformance {
     override val requiresConformance get(): List<Version> =
         listOf(BaseX.VERSION_6_1)
 

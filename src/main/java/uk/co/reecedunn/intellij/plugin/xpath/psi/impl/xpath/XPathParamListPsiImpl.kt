@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val PARAM_OR_VARIADIC = TokenSet.create(XQueryElementType.PARAM, XQueryTokenType.ELLIPSIS)
 private val XQUERY1: List<Version> = listOf()
@@ -40,8 +40,8 @@ private val EXPATH = listOf(XQueryIntelliJPlugin.VERSION_1_4)
 class XPathParamListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParamList,
-    XQueryConformance {
-    // region XQueryConformance
+    VersionConformance {
+    // region VersionConformance
 
     override val requiresConformance: List<Version>
         get() = if (conformanceElement.node.elementType == XQueryElementType.PARAM) XQUERY1 else EXPATH

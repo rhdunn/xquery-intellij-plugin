@@ -22,10 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginTypeDeclImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTypeDecl, XQueryConformance {
+    PluginTypeDecl, VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
 
     override val conformanceElement get(): PsiElement =

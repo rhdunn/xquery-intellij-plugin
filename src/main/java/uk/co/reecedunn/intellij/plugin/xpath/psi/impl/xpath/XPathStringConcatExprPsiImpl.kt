@@ -23,12 +23,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XPathStringConcatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringConcatExpr, XQueryConformance {
+class XPathStringConcatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringConcatExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         if (findChildByType<PsiElement>(XPathTokenType.CONCATENATION) == null) {
             return XQUERY10

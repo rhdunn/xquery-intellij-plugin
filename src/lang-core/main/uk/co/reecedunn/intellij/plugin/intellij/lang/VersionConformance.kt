@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi
+package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 
-interface XQueryConformance {
+interface VersionConformance {
     /**
      * Gets the list of specifications or product versions that this construct conforms to.
      *
@@ -39,12 +38,12 @@ interface XQueryConformance {
 
     /**
      * Gets the element on which to report any conformance errors.
-
+     *
      * @return The element to report errors on.
      */
     val conformanceElement: PsiElement
 }
 
-interface XQueryConformanceName {
+interface VersionConformanceName {
     val conformanceName: String?
 }

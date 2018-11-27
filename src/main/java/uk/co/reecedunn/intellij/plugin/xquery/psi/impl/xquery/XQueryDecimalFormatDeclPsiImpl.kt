@@ -24,12 +24,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalFormatDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
 private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
 
-class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDecimalFormatDecl, XQueryConformance {
+class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDecimalFormatDecl,
+    VersionConformance {
     override val requiresConformance get(): List<Version> =
         if (conformanceElement is XQueryDFPropertyName) XQUERY31 else XQUERY30
 

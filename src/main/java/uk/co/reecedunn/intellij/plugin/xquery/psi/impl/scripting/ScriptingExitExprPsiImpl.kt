@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingExitExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class ScriptingExitExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingExitExpr, XQueryConformance {
+class ScriptingExitExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingExitExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(Scripting.NOTE_1_0_20140918)
 
     override val conformanceElement get(): PsiElement =

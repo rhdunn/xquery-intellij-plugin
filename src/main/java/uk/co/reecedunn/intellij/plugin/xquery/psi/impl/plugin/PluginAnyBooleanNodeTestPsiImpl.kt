@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyBooleanNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class PluginAnyBooleanNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyBooleanNodeTest, XQueryConformance {
+class PluginAnyBooleanNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyBooleanNodeTest,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 
     override val conformanceElement get(): PsiElement = firstChild

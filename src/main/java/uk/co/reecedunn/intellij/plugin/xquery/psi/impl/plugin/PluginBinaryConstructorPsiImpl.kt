@@ -22,10 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryConstructor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginBinaryConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginBinaryConstructor, XQueryConformance {
+    PluginBinaryConstructor, VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
 
     override val conformanceElement get(): PsiElement =

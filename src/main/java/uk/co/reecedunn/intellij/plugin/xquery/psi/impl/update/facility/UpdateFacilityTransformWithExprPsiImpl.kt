@@ -23,9 +23,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityTransformWithExpr, XQueryConformance {
+class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityTransformWithExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(
         UpdateFacility.NOTE_3_0_20170124,
         BaseX.VERSION_8_5)

@@ -23,12 +23,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathCurlyArrayConstructor, XQueryConformance {
+class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathCurlyArrayConstructor,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         if (conformanceElement.node.elementType === XQueryTokenType.K_ARRAY_NODE) {
             return MARKLOGIC80

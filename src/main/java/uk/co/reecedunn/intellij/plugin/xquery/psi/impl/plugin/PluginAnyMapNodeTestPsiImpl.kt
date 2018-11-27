@@ -21,12 +21,12 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyMapNodeTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginAnyMapNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginAnyMapNodeTest,
-    XQueryConformance {
+    VersionConformance {
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 

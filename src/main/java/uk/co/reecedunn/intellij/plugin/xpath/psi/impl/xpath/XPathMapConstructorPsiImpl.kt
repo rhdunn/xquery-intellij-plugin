@@ -24,12 +24,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321, Saxon.VERSION_9_4)
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XPathMapConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathMapConstructor, XQueryConformance {
+class XPathMapConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathMapConstructor,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         if (conformanceElement.node.elementType === XQueryTokenType.K_OBJECT_NODE) {
             return MARKLOGIC80

@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
@@ -30,8 +30,8 @@ private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 class XPathAnyKindTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathAnyKindTest,
-    XQueryConformance {
-    // region XQueryConformance
+    VersionConformance {
+    // region VersionConformance
 
     override val requiresConformance
         get(): List<Version> {

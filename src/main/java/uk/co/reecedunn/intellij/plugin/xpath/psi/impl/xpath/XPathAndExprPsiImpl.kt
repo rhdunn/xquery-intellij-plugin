@@ -22,12 +22,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAndExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private var XQUERY10: List<Version> = listOf()
 private var SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
 
-class XPathAndExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAndExpr, XQueryConformance {
+class XPathAndExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAndExpr,
+    VersionConformance {
 
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) XQUERY10 else SAXON99

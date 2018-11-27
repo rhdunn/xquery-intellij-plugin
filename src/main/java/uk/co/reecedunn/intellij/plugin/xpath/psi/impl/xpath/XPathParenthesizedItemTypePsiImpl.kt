@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceName
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
 
 private val XQUERY3 = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 private val SEMANTICS = listOf(FormalSemantics.REC_1_0_20070123)
@@ -34,8 +34,8 @@ private val SEMANTICS = listOf(FormalSemantics.REC_1_0_20070123)
 class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParenthesizedItemType,
-    XQueryConformance,
-    XQueryConformanceName {
+    VersionConformance,
+    VersionConformanceName {
 
     override val requiresConformance: List<Version>
         get() = if (findChildByType<PsiElement>(XQueryElementType.SEQUENCE_TYPE) != null) SEMANTICS else XQUERY3

@@ -22,9 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class FTOptionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOptionDecl, XQueryConformance {
+class FTOptionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOptionDecl,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(FullText.REC_1_0_20110317)
 
     override val conformanceElement get(): PsiElement =

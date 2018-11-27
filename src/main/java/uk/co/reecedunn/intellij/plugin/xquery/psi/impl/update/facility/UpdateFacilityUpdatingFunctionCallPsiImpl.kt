@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityUpdatingFunctionCall
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityUpdatingFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityUpdatingFunctionCall, XQueryConformance {
+class UpdateFacilityUpdatingFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityUpdatingFunctionCall,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacility.NOTE_3_0_20170124)
 
     override val conformanceElement get(): PsiElement =

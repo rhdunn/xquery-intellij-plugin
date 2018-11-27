@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -56,7 +56,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.xq")
 
         val arrayTestPsi = file.walkTree().filterIsInstance<PluginAnyArrayNodeTest>().first()
-        val conformance = arrayTestPsi as XQueryConformance
+        val conformance = arrayTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -72,7 +72,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
 
         val booleanTestPsi = file.walkTree().filterIsInstance<PluginAnyBooleanNodeTest>().first()
-        val conformance = booleanTestPsi as XQueryConformance
+        val conformance = booleanTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -87,7 +87,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
 
         val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as XQueryConformance
+        val versioned = anyKindTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -102,7 +102,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
 
         val objectTestPsi = file.walkTree().filterIsInstance<PluginAnyMapNodeTest>().first()
-        val conformance = objectTestPsi as XQueryConformance
+        val conformance = objectTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -118,7 +118,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest.xq")
 
         val nullTestPsi = file.walkTree().filterIsInstance<PluginAnyNullNodeTest>().first()
-        val conformance = nullTestPsi as XQueryConformance
+        val conformance = nullTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -134,7 +134,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.xq")
 
         val numberTestPsi = file.walkTree().filterIsInstance<PluginAnyNumberNodeTest>().first()
-        val conformance = numberTestPsi as XQueryConformance
+        val conformance = numberTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -150,7 +150,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
 
         val arrayConstructorPsi = file.descendants().filterIsInstance<XPathArrayConstructor>().first()
-        val versioned = arrayConstructorPsi as XQueryConformance
+        val versioned = arrayConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -166,7 +166,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
 
         val attributeDeclTestPsi = file.walkTree().filterIsInstance<PluginAttributeDeclTest>().first()
-        val conformance = attributeDeclTestPsi as XQueryConformance
+        val conformance = attributeDeclTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -182,7 +182,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
 
         val binaryKindTestPsi = file.descendants().filterIsInstance<PluginBinaryConstructor>().first()
-        val conformance = binaryKindTestPsi as XQueryConformance
+        val conformance = binaryKindTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
@@ -199,7 +199,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
 
         val binaryKindTestPsi = file.walkTree().filterIsInstance<PluginBinaryTest>().first()
-        val conformance = binaryKindTestPsi as XQueryConformance
+        val conformance = binaryKindTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
@@ -216,7 +216,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
 
         val booleanConstructorPsi = file.descendants().filterIsInstance<PluginBooleanConstructor>().first()
-        val conformance = booleanConstructorPsi as XQueryConformance
+        val conformance = booleanConstructorPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -236,7 +236,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
             val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-            val versioned = catchClausePsi as XQueryConformance
+            val versioned = catchClausePsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -256,7 +256,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
             val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
             val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-            val versioned = enclosedExprPsi as XQueryConformance
+            val versioned = enclosedExprPsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -273,7 +273,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
             val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
             val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-            val versioned = enclosedExprPsi as XQueryConformance
+            val versioned = enclosedExprPsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(2))
             assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -296,7 +296,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val compatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = compatibilityAnnotationPsi as XQueryConformance
+            val conformance = compatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -316,7 +316,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val compatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = compatibilityAnnotationPsi as XQueryConformance
+            val conformance = compatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -335,7 +335,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
 
         val complexTypeTestPsi = file.walkTree().filterIsInstance<PluginComplexTypeTest>().first()
-        val conformance = complexTypeTestPsi as XQueryConformance
+        val conformance = complexTypeTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -351,7 +351,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
 
         val elementDeclTestPsi = file.walkTree().filterIsInstance<PluginElementDeclTest>().first()
-        val conformance = elementDeclTestPsi as XQueryConformance
+        val conformance = elementDeclTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -370,7 +370,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
 
             val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-            val versioned = forwardAxisPsi as XQueryConformance
+            val versioned = forwardAxisPsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -385,7 +385,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
 
             val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-            val versioned = forwardAxisPsi as XQueryConformance
+            val versioned = forwardAxisPsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -408,7 +408,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val primaryWithOptions = selection.descendants().filterIsInstance<FTPrimaryWithOptions>().first()
         val matchOptions = primaryWithOptions.children().filterIsInstance<FTMatchOptions>().first()
         val fuzzyOption = matchOptions.children().filterIsInstance<PluginFTFuzzyOption>().first()
-        val conformance = fuzzyOption as XQueryConformance
+        val conformance = fuzzyOption as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_6_1))
@@ -424,7 +424,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
 
         val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val versioned = objectConstructorPsi as XQueryConformance
+        val versioned = objectConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -440,7 +440,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")
 
         val arrayTestPsi = file.walkTree().filterIsInstance<PluginNamedArrayNodeTest>().first()
-        val conformance = arrayTestPsi as XQueryConformance
+        val conformance = arrayTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -456,7 +456,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
 
         val booleanTestPsi = file.walkTree().filterIsInstance<PluginNamedBooleanNodeTest>().first()
-        val conformance = booleanTestPsi as XQueryConformance
+        val conformance = booleanTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -471,7 +471,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
 
         val namedKindTestPsi = file.walkTree().filterIsInstance<PluginNamedKindTest>().first()
-        val versioned = namedKindTestPsi as XQueryConformance
+        val versioned = namedKindTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -487,7 +487,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest.xq")
 
         val objectTestPsi = file.walkTree().filterIsInstance<PluginNamedMapNodeTest>().first()
-        val conformance = objectTestPsi as XQueryConformance
+        val conformance = objectTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -503,7 +503,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest.xq")
 
         val nullTestPsi = file.walkTree().filterIsInstance<PluginNamedNullNodeTest>().first()
-        val conformance = nullTestPsi as XQueryConformance
+        val conformance = nullTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -519,7 +519,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
 
         val numberTestPsi = file.walkTree().filterIsInstance<PluginNamedNumberNodeTest>().first()
-        val conformance = numberTestPsi as XQueryConformance
+        val conformance = numberTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -535,7 +535,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
 
         val nonDeterministicFunctionCall = file.walkTree().filterIsInstance<PluginNonDeterministicFunctionCall>().first()
-        val conformance = nonDeterministicFunctionCall as XQueryConformance
+        val conformance = nonDeterministicFunctionCall as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_4))
@@ -551,7 +551,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
 
         val nullKindTestPsi = file.descendants().filterIsInstance<PluginNullConstructor>().first()
-        val conformance = nullKindTestPsi as XQueryConformance
+        val conformance = nullKindTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -567,7 +567,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
 
         val numberConstructorPsi = file.descendants().filterIsInstance<PluginNumberConstructor>().first()
-        val conformance = numberConstructorPsi as XQueryConformance
+        val conformance = numberConstructorPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -583,7 +583,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
 
         val schemaComponentTestPsi = file.walkTree().filterIsInstance<PluginSchemaComponentTest>().first()
-        val conformance = schemaComponentTestPsi as XQueryConformance
+        val conformance = schemaComponentTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -599,7 +599,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")
 
         val schemaFacetTestPsi = file.walkTree().filterIsInstance<PluginSchemaFacetTest>().first()
-        val conformance = schemaFacetTestPsi as XQueryConformance
+        val conformance = schemaFacetTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -615,7 +615,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
 
         val schemaParticleTestPsi = file.walkTree().filterIsInstance<PluginSchemaParticleTest>().first()
-        val conformance = schemaParticleTestPsi as XQueryConformance
+        val conformance = schemaParticleTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -631,7 +631,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
 
         val schemaRootTestPsi = file.walkTree().filterIsInstance<PluginSchemaRootTest>().first()
-        val conformance = schemaRootTestPsi as XQueryConformance
+        val conformance = schemaRootTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -647,7 +647,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
 
         val schemaTypeTestPsi = file.walkTree().filterIsInstance<PluginSchemaTypeTest>().first()
-        val conformance = schemaTypeTestPsi as XQueryConformance
+        val conformance = schemaTypeTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -663,7 +663,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
 
         val simpleTypeTestPsi = file.walkTree().filterIsInstance<PluginSimpleTypeTest>().first()
-        val conformance = simpleTypeTestPsi as XQueryConformance
+        val conformance = simpleTypeTestPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_7_0))
@@ -679,7 +679,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
 
         val stylesheetImportPsi = file.descendants().filterIsInstance<PluginStylesheetImport>().first()
-        val conformance = stylesheetImportPsi as XQueryConformance
+        val conformance = stylesheetImportPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -695,7 +695,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
 
         val textTestPsi = file.walkTree().filterIsInstance<XPathTextTest>().first()
-        val versioned = textTestPsi as XQueryConformance
+        val versioned = textTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
@@ -727,7 +727,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
-            val conformance = transactionSeparatorPsi as XQueryConformance
+            val conformance = transactionSeparatorPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -745,7 +745,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().first()
-            val conformance = transactionSeparatorPsi as XQueryConformance
+            val conformance = transactionSeparatorPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(3))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
@@ -766,7 +766,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
-            val conformance = transactionSeparatorPsi as XQueryConformance
+            val conformance = transactionSeparatorPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -784,7 +784,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
             val transactionSeparatorPsi = applyExpr.children().filterIsInstance<PluginTransactionSeparator>().last()
-            val conformance = transactionSeparatorPsi as XQueryConformance
+            val conformance = transactionSeparatorPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -801,7 +801,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
             val transactionSeparatorPsi = file.children().filterIsInstance<PluginTransactionSeparator>().first()
-            val conformance = transactionSeparatorPsi as XQueryConformance
+            val conformance = transactionSeparatorPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(2))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
@@ -824,7 +824,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
 
             val tupleTypePsi = file.walkTree().filterIsInstance<PluginTupleType>().first()
-            val conformance = tupleTypePsi as XQueryConformance
+            val conformance = tupleTypePsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
@@ -840,7 +840,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("extensible tuple type")
         fun extensible() {
             val file = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginTupleType>().first() as XQueryConformance
+            val conformance = file.walkTree().filterIsInstance<PluginTupleType>().first() as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -857,7 +857,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("tuple field")
         fun tupleField() {
             val file = parseResource("tests/parser/saxon-9.8/TupleField.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as XQueryConformance
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -869,7 +869,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("optional tuple field")
         fun optional() {
             val file = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as XQueryConformance
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -881,7 +881,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("optional tuple field; compact whitespace")
         fun optional_CompactWhitespace() {
             val file = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as XQueryConformance
+            val conformance = file.walkTree().filterIsInstance<PluginTupleField>().first() as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -897,7 +897,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
 
         val typeDeclPsi = file.descendants().filterIsInstance<PluginTypeDecl>().first()
-        val conformance = typeDeclPsi as XQueryConformance
+        val conformance = typeDeclPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
@@ -913,7 +913,7 @@ private class PluginConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/saxon-9.8/UnionType.xq")
 
         val unionTypePsi = file.walkTree().filterIsInstance<PluginUnionType>().first()
-        val conformance = unionTypePsi as XQueryConformance
+        val conformance = unionTypePsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
@@ -931,7 +931,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
 
             val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-            val conformance = updateExpr as XQueryConformance
+            val conformance = updateExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_7_8))
@@ -949,7 +949,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
 
             val updateExpr = file.descendants().filterIsInstance<PluginUpdateExpr>().first()
-            val conformance = updateExpr as XQueryConformance
+            val conformance = updateExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_8_5))
@@ -971,7 +971,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
 
             val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-            val versioned = validateExprPsi as XQueryConformance
+            val versioned = validateExprPsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(MarkLogic.VERSION_6_0))
@@ -988,7 +988,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("empty sequence; working draft syntax")
         fun emptySequence() {
             val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(3))
             assertThat(versioned.requiresConformance[0], `is`(XQuery.WD_1_0_20030502))
@@ -1009,7 +1009,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("or only")
         fun or() {
             val file = parseResource("tests/parser/xquery-1.0/OrExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1023,7 +1023,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("orElse only")
         fun orElse() {
             val file = parseResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1038,7 +1038,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("orElse first")
         fun orElseFirst() {
             val file = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1053,7 +1053,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("orElse last")
         fun orElseLast() {
             val file = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1072,7 +1072,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("and only")
         fun and() {
             val file = parseResource("tests/parser/xquery-1.0/AndExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1086,7 +1086,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("andAlso only")
         fun andAlso() {
             val file = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1101,7 +1101,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("andAlso first")
         fun andAlsoFirst() {
             val file = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1116,7 +1116,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("andAlso last")
         fun andAlsoLast() {
             val file = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1135,7 +1135,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("simple inline function expression")
         fun simpleInlineFunctionExpr() {
             val file = parseResource("tests/parser/saxon-9.8/SimpleInlineFunctionExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginSimpleInlineFunctionExpr>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<PluginSimpleInlineFunctionExpr>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
@@ -1151,7 +1151,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
     fun testSequenceTypeUnion() {
         val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.xq")
-        val conformance = file.walkTree().filterIsInstance<XQuerySequenceTypeUnion>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<XQuerySequenceTypeUnion>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
@@ -1164,7 +1164,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
     fun testSequenceTypeList() {
         val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
@@ -1191,7 +1191,7 @@ private class PluginConformanceTest : ParserTestCase() {
         @DisplayName("with annotations")
         fun withAnnotations() {
             val file = parseResource("tests/parser/intellij-plugin/AnnotatedSequenceType_KindTest.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginAnnotatedSequenceType>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<PluginAnnotatedSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
@@ -1204,7 +1204,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
     fun ternaryIfExpr() {
         val file = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginTernaryIfExpr>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<PluginTernaryIfExpr>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
@@ -1217,7 +1217,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
     fun elvisExpr() {
         val file = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.xq")
-        val conformance = file.walkTree().filterIsInstance<PluginElvisExpr>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<PluginElvisExpr>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
@@ -1230,7 +1230,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (94) IfExpr")
     fun ifExpr() {
         val file = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathIfExpr>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<XPathIfExpr>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
@@ -1243,7 +1243,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
     fun paramList() {
         val file = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_4))

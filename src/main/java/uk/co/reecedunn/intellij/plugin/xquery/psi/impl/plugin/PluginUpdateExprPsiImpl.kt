@@ -23,13 +23,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val BASEX78: List<Version> = listOf(BaseX.VERSION_7_8)
 private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
 
 class PluginUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginUpdateExpr, XQueryConformance {
+    PluginUpdateExpr, VersionConformance {
     override val requiresConformance get(): List<Version> {
         if (findChildByType<PsiElement>(XPathTokenType.BLOCK_OPEN) != null) {
             return BASEX85

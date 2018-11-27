@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleField
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val SAXON98: List<Version> = listOf()
 private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
@@ -35,7 +35,7 @@ private val OPTIONAL_TOKENS = TokenSet.create(
 )
 
 class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTupleField, XQueryConformance {
+    PluginTupleField, VersionConformance {
 
     override val requiresConformance
         get(): List<Version> = if (conformanceElement === firstChild) SAXON98 else SAXON99

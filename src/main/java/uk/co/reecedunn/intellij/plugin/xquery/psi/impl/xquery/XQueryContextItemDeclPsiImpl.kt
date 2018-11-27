@@ -22,9 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryContextItemDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class XQueryContextItemDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryContextItemDecl, XQueryConformance {
+class XQueryContextItemDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryContextItemDecl,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
     override val conformanceElement get(): PsiElement =

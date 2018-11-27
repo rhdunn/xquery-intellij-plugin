@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar, XQueryConformance {
+class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar,
+    VersionConformance {
     override val requiresConformance get(): List<Version> =
         listOf(FullText.REC_1_0_20110317)
 

@@ -26,10 +26,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceName
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
@@ -61,13 +61,13 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", Resources) {
         val xquery = file.XQueryVersion.getVersionOrDefault(file.project)
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XQueryConformance>().forEach { versioned ->
+        file.walkTree().filterIsInstance<VersionConformance>().forEach { versioned ->
             val required = versioned.requiresConformance
             if (required.isEmpty()) return@forEach
 
             if (required.find { version -> product.conformsTo(productVersion, version) } == null) {
                 val context = versioned.conformanceElement
-                val name = (versioned as? XQueryConformanceName)?.conformanceName
+                val name = (versioned as? VersionConformanceName)?.conformanceName
                 val description =
                     if (name != null)
                         XQueryBundle.message("inspection.XPST0003.unsupported-construct-with-name.message", productVersion, required.joinToString(", or "), name)

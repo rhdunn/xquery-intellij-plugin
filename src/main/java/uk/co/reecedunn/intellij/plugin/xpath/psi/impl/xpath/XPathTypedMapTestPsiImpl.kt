@@ -22,9 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest, XQueryConformance {
+class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321, Saxon.VERSION_9_4)
 
     override val conformanceElement get(): PsiElement =

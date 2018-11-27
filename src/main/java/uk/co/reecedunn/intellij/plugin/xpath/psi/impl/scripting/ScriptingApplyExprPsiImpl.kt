@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val SCRIPTING10 = listOf(Scripting.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
@@ -34,8 +34,8 @@ private val SEPARATOR_TOKENS = TokenSet.create(XQueryTokenType.SEPARATOR, XQuery
 open class ScriptingApplyExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     ScriptingApplyExpr,
-    XQueryConformance {
-    // region XQueryConformance
+    VersionConformance {
+    // region VersionConformance
 
     override val requiresConformance
         get(): List<Version> {

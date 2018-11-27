@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val VALIDATE_BY_TYPENAME = TokenSet.create(XPathTokenType.K_AS, XQueryTokenType.K_TYPE)
 
@@ -33,7 +33,8 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr, XQueryConformance {
+class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         val element = conformanceElement
         if (element !== firstChild) {

@@ -25,13 +25,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
 private val MARKLOGIC60: List<Version> = listOf(XQuery.REC_3_1_20170321, MarkLogic.VERSION_6_0)
 
-open class XPathEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnclosedExpr, XQueryConformance {
+open class XPathEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnclosedExpr,
+    VersionConformance {
     private fun previousVersionSupportsOptionalExpr(parent: PsiElement): Boolean =
         parent is XQueryCompPIConstructor ||
         parent is XQueryCompAttrConstructor ||

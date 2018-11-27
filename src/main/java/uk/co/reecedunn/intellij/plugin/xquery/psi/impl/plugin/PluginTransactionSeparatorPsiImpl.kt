@@ -26,14 +26,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
 private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9, Scripting.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
 
 class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    PluginTransactionSeparator, XQueryConformance {
+    PluginTransactionSeparator, VersionConformance {
     override val requiresConformance get(): List<Version> {
         return if (parent.node.elementType === XQueryElementType.MODULE) {
             // File-level TransactionSeparators are created when the following QueryBody has a Prolog.

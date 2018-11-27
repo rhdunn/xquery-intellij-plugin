@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAllowingEmpty
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class XQueryAllowingEmptyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAllowingEmpty, XQueryConformance {
+class XQueryAllowingEmptyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAllowingEmpty,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
     override val conformanceElement get(): PsiElement =

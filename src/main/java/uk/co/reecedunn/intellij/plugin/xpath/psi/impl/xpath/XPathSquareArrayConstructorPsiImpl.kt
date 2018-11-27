@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSquareArrayConstructor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class XPathSquareArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSquareArrayConstructor, XQueryConformance {
+class XPathSquareArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSquareArrayConstructor,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321)
 
     override val conformanceElement get(): PsiElement =

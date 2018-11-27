@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -57,7 +57,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
 
             val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
             val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -75,7 +75,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
 
             val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
             val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -94,7 +94,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
 
             val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
             val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -113,7 +113,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
 
             val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
             val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -132,7 +132,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
 
         val assignmentExpr = file.descendants().filterIsInstance<ScriptingAssignmentExpr>().first()
-        val conformance = assignmentExpr as XQueryConformance
+        val conformance = assignmentExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -150,7 +150,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
         val blockExpr = file.descendants().filterIsInstance<ScriptingBlockExpr>().first()
-        val conformance = blockExpr as XQueryConformance
+        val conformance = blockExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -170,7 +170,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val blockPsi = functionDeclPsi.children().filterIsInstance<ScriptingBlock>().first()
         val blockDeclsPsi = blockPsi.children().filterIsInstance<ScriptingBlockDecls>().first()
         val blockVarDeclPsi = blockDeclsPsi.children().filterIsInstance<ScriptingBlockVarDecl>().first()
-        val conformance = blockVarDeclPsi as XQueryConformance
+        val conformance = blockVarDeclPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -186,7 +186,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
 
         val exitExpr = file.descendants().filterIsInstance<ScriptingExitExpr>().first()
-        val conformance = exitExpr as XQueryConformance
+        val conformance = exitExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -207,7 +207,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val scriptingCompatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+            val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -227,7 +227,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val scriptingCompatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+            val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -249,7 +249,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -266,7 +266,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -283,7 +283,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -300,7 +300,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
             val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().last()
-            val conformance = applyExpr as XQueryConformance
+            val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -323,7 +323,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val scriptingCompatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+            val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -343,7 +343,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
             val scriptingCompatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
-            val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
+            val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
@@ -362,7 +362,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 
         val whileExpr = file.descendants().filterIsInstance<ScriptingWhileExpr>().first()
-        val conformance = whileExpr as XQueryConformance
+        val conformance = whileExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))

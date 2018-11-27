@@ -26,14 +26,14 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class XQueryTumblingWindowClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryTumblingWindowClause,
-    XQueryConformance,
+    VersionConformance,
     XPathVariableBinding {
-    // region XQueryConformance
+    // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 

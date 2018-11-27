@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLookup
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class XPathLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathLookup, XQueryConformance {
+class XPathLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathLookup,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321)
 
     override val conformanceElement get(): PsiElement =

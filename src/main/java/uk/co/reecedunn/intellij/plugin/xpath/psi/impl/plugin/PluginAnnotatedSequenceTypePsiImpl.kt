@@ -22,13 +22,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnnotatedSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val PLUGIN13: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 
 class PluginAnnotatedSequenceTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnnotatedSequenceType, XQueryConformance {
+    ASTWrapperPsiElement(node), PluginAnnotatedSequenceType,
+    VersionConformance {
 
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) XQUERY10 else PLUGIN13

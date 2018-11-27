@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityCopyModifyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityCopyModifyExpr, XQueryConformance {
+class UpdateFacilityCopyModifyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityCopyModifyExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacility.REC_1_0_20110317)
 
     override val conformanceElement get(): PsiElement =

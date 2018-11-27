@@ -30,14 +30,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathFunctionReference,
     XPathNamedFunctionRef,
-    XQueryConformance {
-    // region XQueryConformance
+    VersionConformance {
+    // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 

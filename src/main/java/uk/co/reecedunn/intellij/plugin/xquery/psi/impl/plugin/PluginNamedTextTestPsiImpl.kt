@@ -22,13 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedTextTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginNamedTextTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginNamedTextTest,
-    XQueryConformance {
-    // region XQueryConformance
+    VersionConformance {
+    // region VersionConformance
 
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_8_0)
 

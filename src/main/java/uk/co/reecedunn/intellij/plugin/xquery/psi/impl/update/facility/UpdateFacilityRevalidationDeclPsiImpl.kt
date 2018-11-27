@@ -22,9 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityRevalidationDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityRevalidationDecl, XQueryConformance {
+class UpdateFacilityRevalidationDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityRevalidationDecl,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacility.REC_1_0_20110317)
 
     override val conformanceElement get(): PsiElement =

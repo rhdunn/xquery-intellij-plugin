@@ -22,10 +22,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSequenceTypeList
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSequenceTypeList, XQueryConformance {
+    ASTWrapperPsiElement(node), PluginSequenceTypeList,
+    VersionConformance {
 
     override val requiresConformance get(): List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 

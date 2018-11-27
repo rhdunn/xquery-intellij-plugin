@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -49,7 +49,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
 
         val ftcontainsExprPsi = file.descendants().filterIsInstance<FTContainsExpr>().first()
-        val conformance = ftcontainsExprPsi as XQueryConformance
+        val conformance = ftcontainsExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
@@ -67,7 +67,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
         val scoreVarPsi = forBindingPsi.children().filterIsInstance<FTScoreVar>().first()
-        val conformance = scoreVarPsi as XQueryConformance
+        val conformance = scoreVarPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
@@ -83,7 +83,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")
 
         val ftoptionDeclPsi = file.descendants().filterIsInstance<FTOptionDecl>().first()
-        val conformance = ftoptionDeclPsi as XQueryConformance
+        val conformance = ftoptionDeclPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))

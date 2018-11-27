@@ -22,12 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-class XQueryCatchClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCatchClause, XQueryConformance {
+class XQueryCatchClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCatchClause,
+    VersionConformance {
     override val requiresConformance
         get(): List<Version> {
             if (isMarkLogicExtension) { // MarkLogic CatchClause

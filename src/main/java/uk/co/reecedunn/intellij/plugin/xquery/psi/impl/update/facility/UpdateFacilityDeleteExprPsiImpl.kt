@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, XQueryConformance {
+class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacility.REC_1_0_20110317)
 
     override val conformanceElement get(): PsiElement =

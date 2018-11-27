@@ -23,12 +23,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321, MarkLogic.VERSION_9_0)
 
-class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowExpr, XQueryConformance {
+class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
             return XQUERY10

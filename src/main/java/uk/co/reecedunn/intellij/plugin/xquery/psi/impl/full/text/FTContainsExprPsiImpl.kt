@@ -22,12 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val FULL_TEXT: List<Version> = listOf(FullText.REC_1_0_20110317)
 private val XQUERY: List<Version> = listOf()
 
-class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr, XQueryConformance {
+class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         return if (conformanceElement.node.elementType == XQueryTokenType.K_CONTAINS)
             FULL_TEXT

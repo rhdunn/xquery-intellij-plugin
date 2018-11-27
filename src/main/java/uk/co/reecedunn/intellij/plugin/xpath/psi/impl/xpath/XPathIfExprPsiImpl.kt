@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceName
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
 
 private val XQUERY10 = listOf<Version>()
 private val EXPATH7 = listOf(BaseX.VERSION_9_1)
@@ -32,8 +32,8 @@ private val EXPATH7 = listOf(BaseX.VERSION_9_1)
 class XPathIfExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathIfExpr,
-    XQueryConformance,
-    XQueryConformanceName {
+    VersionConformance,
+    VersionConformanceName {
 
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) EXPATH7 else XQUERY10

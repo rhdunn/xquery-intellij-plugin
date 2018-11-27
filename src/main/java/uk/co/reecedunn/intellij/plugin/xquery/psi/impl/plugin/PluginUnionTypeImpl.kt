@@ -21,9 +21,10 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class PluginUnionTypeImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUnionType, XQueryConformance {
+class PluginUnionTypeImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUnionType,
+    VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_9_8)
 
     override val conformanceElement get(): PsiElement =

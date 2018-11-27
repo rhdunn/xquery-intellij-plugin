@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -53,7 +53,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
         val allowingEmptyPsi = forBindingPsi.children().filterIsInstance<XQueryAllowingEmpty>().first()
-        val versioned = allowingEmptyPsi as XQueryConformance
+        val versioned = allowingEmptyPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -72,7 +72,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val annotationPsi = annotatedDeclPsi.children().filterIsInstance<XQueryAnnotation>().first()
-        val versioned = annotationPsi as XQueryConformance
+        val versioned = annotationPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -91,7 +91,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/AnyArrayTest.xq")
 
         val anyArrayTestPsi = file.walkTree().filterIsInstance<XPathAnyArrayTest>().first()
-        val versioned = anyArrayTestPsi as XQueryConformance
+        val versioned = anyArrayTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -109,7 +109,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq")
 
         val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
-        val versioned = anyFunctionTestPsi as XQueryConformance
+        val versioned = anyFunctionTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -124,7 +124,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/FunctionTest.xq")
 
         val anyFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
-        val versioned = anyFunctionTestPsi as XQueryConformance
+        val versioned = anyFunctionTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -140,7 +140,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq")
 
         val anyKindTestPsi = file.walkTree().filterIsInstance<XPathAnyKindTest>().first()
-        val versioned = anyKindTestPsi as XQueryConformance
+        val versioned = anyKindTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -156,7 +156,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/AnyMapTest.xq")
 
         val anyMapTestPsi = file.walkTree().filterIsInstance<XPathAnyMapTest>().first()
-        val versioned = anyMapTestPsi as XQueryConformance
+        val versioned = anyMapTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -176,7 +176,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        val versioned = argumentListPsi as XQueryConformance
+        val versioned = argumentListPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -190,7 +190,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
         val argumentListPsi = postfixExprPsi.children().filterIsInstance<XPathArgumentList>().first()
-        val versioned = argumentListPsi as XQueryConformance
+        val versioned = argumentListPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -211,7 +211,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         val argumentPsi = argumentListPsi.children().filterIsInstance<XPathArgument>().first()
         val argumentPlaceholderPsi = argumentPsi.descendants().filterIsInstance<XPathArgumentPlaceholder>().first()
-        val versioned = argumentPlaceholderPsi as XQueryConformance
+        val versioned = argumentPlaceholderPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -229,7 +229,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val versioned = arrowExprPsi as XQueryConformance
+        val versioned = arrowExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -250,7 +250,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
         val qnamePsi = optionDeclPsi.children().filterIsInstance<XPathURIQualifiedName>().first()
         val bracedURILiteralPsi = qnamePsi.descendants().filterIsInstance<XPathBracedURILiteral>().first()
-        val versioned = bracedURILiteralPsi as XQueryConformance
+        val versioned = bracedURILiteralPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -270,7 +270,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val versioned = catchClausePsi as XQueryConformance
+        val versioned = catchClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -287,7 +287,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
 
         val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
-        val versioned = compNamespaceConstructorPsi as XQueryConformance
+        val versioned = compNamespaceConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -305,7 +305,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/ContextItemDecl.xq")
 
         val contextItemDeclPsi = file.descendants().filterIsInstance<XQueryContextItemDecl>().first()
-        val versioned = contextItemDeclPsi as XQueryConformance
+        val versioned = contextItemDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -323,7 +323,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor.xq")
 
         val squareArrayConstructorPsi = file.descendants().filterIsInstance<XPathSquareArrayConstructor>().first()
-        val versioned = squareArrayConstructorPsi as XQueryConformance
+        val versioned = squareArrayConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -340,7 +340,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")
 
         val curlyArrayConstructorPsi = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
-        val versioned = curlyArrayConstructorPsi as XQueryConformance
+        val versioned = curlyArrayConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -358,7 +358,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl.xq")
 
         val decimalFormatDeclPsi = file.descendants().filterIsInstance<XQueryDecimalFormatDecl>().first()
-        val versioned = decimalFormatDeclPsi as XQueryConformance
+        val versioned = decimalFormatDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -373,7 +373,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.xq")
 
         val decimalFormatDeclPsi = file.descendants().filterIsInstance<XQueryDecimalFormatDecl>().first()
-        val versioned = decimalFormatDeclPsi as XQueryConformance
+        val versioned = decimalFormatDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -388,7 +388,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq")
 
         val decimalFormatDeclPsi = file.descendants().filterIsInstance<XQueryDecimalFormatDecl>().first()
-        val versioned = decimalFormatDeclPsi as XQueryConformance
+        val versioned = decimalFormatDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -410,7 +410,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
         val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -426,7 +426,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
         val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -446,7 +446,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compAttrConstructorPsi = file.descendants().filterIsInstance<XQueryCompAttrConstructor>().first()
         val enclosedExprPsi = compAttrConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -461,7 +461,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compAttrConstructorPsi = file.descendants().filterIsInstance<XQueryCompAttrConstructor>().first()
         val enclosedExprPsi = compAttrConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -479,7 +479,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compCommentConstructorPsi = file.descendants().filterIsInstance<XQueryCompCommentConstructor>().first()
         val enclosedExprPsi = compCommentConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -494,7 +494,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compCommentConstructorPsi = file.descendants().filterIsInstance<XQueryCompCommentConstructor>().first()
         val enclosedExprPsi = compCommentConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -513,7 +513,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compDocConstructorPsi = file.descendants().filterIsInstance<XQueryCompDocConstructor>().first()
         val enclosedExprPsi = compDocConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -528,7 +528,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compDocConstructorPsi = file.descendants().filterIsInstance<XQueryCompDocConstructor>().first()
         val enclosedExprPsi = compDocConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -547,7 +547,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compElemConstructorPsi = file.descendants().filterIsInstance<XQueryCompElemConstructor>().first()
         val enclosedContentExprPsi = compElemConstructorPsi.children().filterIsInstance<XQueryEnclosedContentExpr>().first()
-        val versioned = enclosedContentExprPsi as XQueryConformance
+        val versioned = enclosedContentExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -562,7 +562,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compElemConstructorPsi = file.descendants().filterIsInstance<XQueryCompElemConstructor>().first()
         val enclosedContentExprPsi = compElemConstructorPsi.children().filterIsInstance<XQueryEnclosedContentExpr>().first()
-        val versioned = enclosedContentExprPsi as XQueryConformance
+        val versioned = enclosedContentExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -580,7 +580,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
         val enclosedExprPsi = compNamespaceConstructorPsi.children().filterIsInstance<XQueryEnclosedPrefixExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -595,7 +595,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
         val enclosedExprPsi = compNamespaceConstructorPsi.children().filterIsInstance<XQueryEnclosedPrefixExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -614,7 +614,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
         val enclosedExprPsi = compNamespaceConstructorPsi.children().filterIsInstance<XQueryEnclosedUriExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -629,7 +629,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
         val enclosedExprPsi = compNamespaceConstructorPsi.children().filterIsInstance<XQueryEnclosedUriExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -648,7 +648,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compPIConstructorPsi = file.descendants().filterIsInstance<XQueryCompPIConstructor>().first()
         val enclosedExprPsi = compPIConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -663,7 +663,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compPIConstructorPsi = file.descendants().filterIsInstance<XQueryCompPIConstructor>().first()
         val enclosedExprPsi = compPIConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -681,7 +681,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compTextConstructorPsi = file.descendants().filterIsInstance<XQueryCompTextConstructor>().first()
         val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -696,7 +696,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val compTextConstructorPsi = file.descendants().filterIsInstance<XQueryCompTextConstructor>().first()
         val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -716,7 +716,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
         val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -731,7 +731,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
         val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -752,7 +752,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val dirAttributePsi = dirAttributeListPsi.children().filterIsInstance<PluginDirAttribute>().first()
         val dirAttributeValuePsi = dirAttributePsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
         val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -770,7 +770,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val dirAttributePsi = dirAttributeListPsi.children().filterIsInstance<PluginDirAttribute>().first()
         val dirAttributeValuePsi = dirAttributePsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
         val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -791,7 +791,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirElemContentPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirElemContent>().first()
         val enclosedExprPsi = dirElemContentPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -807,7 +807,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirElemContentPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirElemContent>().first()
         val enclosedExprPsi = dirElemContentPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -828,7 +828,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -844,7 +844,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -863,7 +863,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val orderedExprPsi = file.descendants().filterIsInstance<XQueryOrderedExpr>().first()
         val enclosedExprPsi = orderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -878,7 +878,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val orderedExprPsi = file.descendants().filterIsInstance<XQueryOrderedExpr>().first()
         val enclosedExprPsi = orderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -898,7 +898,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val tryClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryTryClause>().first()
         val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -914,7 +914,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val tryClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryTryClause>().first()
         val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -933,7 +933,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val unorderedExprPsi = file.descendants().filterIsInstance<XQueryUnorderedExpr>().first()
         val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -948,7 +948,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val unorderedExprPsi = file.descendants().filterIsInstance<XQueryUnorderedExpr>().first()
         val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as XQueryConformance
+        val versioned = enclosedExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -966,7 +966,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -979,7 +979,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -992,7 +992,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1005,7 +1005,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1018,7 +1018,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1031,7 +1031,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1044,7 +1044,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformance
+        val versioned = forwardAxisPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1060,7 +1060,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq")
 
         val inlineFunctionExprPsi = file.descendants().filterIsInstance<XPathInlineFunctionExpr>().first()
-        val versioned = inlineFunctionExprPsi as XQueryConformance
+        val versioned = inlineFunctionExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1076,7 +1076,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq")
 
         val inlineFunctionExprPsi = file.descendants().filterIsInstance<XPathInlineFunctionExpr>().first()
-        val versioned = inlineFunctionExprPsi as XQueryConformance
+        val versioned = inlineFunctionExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1094,7 +1094,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
         val tumblingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQueryTumblingWindowClause>().first()
-        val versioned = tumblingWindowClausePsi as XQueryConformance
+        val versioned = tumblingWindowClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1113,7 +1113,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
         val slidingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQuerySlidingWindowClause>().first()
-        val versioned = slidingWindowClausePsi as XQueryConformance
+        val versioned = slidingWindowClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1136,7 +1136,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryForClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1155,7 +1155,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryForClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1174,7 +1174,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryForClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1193,7 +1193,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryForClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1213,7 +1213,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryForClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[3]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1235,7 +1235,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryLetClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1255,7 +1255,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryLetClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1275,7 +1275,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryLetClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1295,7 +1295,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryLetClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1316,7 +1316,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryLetClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1339,7 +1339,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryOrderByClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1359,7 +1359,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryOrderByClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1379,7 +1379,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryOrderByClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1399,7 +1399,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryOrderByClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[4]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1419,7 +1419,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryOrderByClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1442,7 +1442,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryWhereClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1462,7 +1462,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryWhereClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1482,7 +1482,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryWhereClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[3]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1502,7 +1502,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryWhereClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1523,7 +1523,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryWhereClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2]
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1546,7 +1546,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryCountClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1569,7 +1569,7 @@ private class XQueryConformanceTest : ParserTestCase() {
                 instanceOf<PsiElement>(XQueryGroupByClause::class.java))
 
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as XQueryConformance
+        val versioned = intermediateClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1588,7 +1588,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
         val lookupPsi = postfixExprPsi.children().filterIsInstance<XPathLookup>().first()
-        val versioned = lookupPsi as XQueryConformance
+        val versioned = lookupPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -1605,7 +1605,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructor.xq")
 
         val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val versioned = objectConstructorPsi as XQueryConformance
+        val versioned = objectConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -1624,7 +1624,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq")
 
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformance
+        val versioned = namedFunctionRefPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1640,7 +1640,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
 
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformance
+        val versioned = namedFunctionRefPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1656,7 +1656,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq")
 
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformance
+        val versioned = namedFunctionRefPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1675,7 +1675,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/NamespaceNodeTest.xq")
 
         val namespaceNodeTestPsi = file.walkTree().filterIsInstance<XPathNamespaceNodeTest>().first()
-        val versioned = namespaceNodeTestPsi as XQueryConformance
+        val versioned = namespaceNodeTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1697,7 +1697,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq")
 
             val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
-            val versioned = parenthesizedItemTypePsi as XQueryConformance
+            val versioned = parenthesizedItemTypePsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(2))
             assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1713,7 +1713,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_EmptySequence.xq")
 
             val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
-            val versioned = parenthesizedItemTypePsi as XQueryConformance
+            val versioned = parenthesizedItemTypePsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
@@ -1728,7 +1728,7 @@ private class XQueryConformanceTest : ParserTestCase() {
             val file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_OccurrenceIndicator.xq")
 
             val parenthesizedItemTypePsi = file.walkTree().filterIsInstance<XPathParenthesizedItemType>().first()
-            val versioned = parenthesizedItemTypePsi as XQueryConformance
+            val versioned = parenthesizedItemTypePsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(1))
             assertThat(versioned.requiresConformance[0], `is`(FormalSemantics.REC_1_0_20070123))
@@ -1748,7 +1748,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val typeswitchExprPsi = file.descendants().filterIsInstance<XQueryTypeswitchExpr>().first()
         val caseClausePsi = typeswitchExprPsi.children().filterIsInstance<XQueryCaseClause>().first()
         val sequenceTypeUnionPsi = caseClausePsi.children().filterIsInstance<XQuerySequenceTypeUnion>().first()
-        val versioned = sequenceTypeUnionPsi as XQueryConformance
+        val versioned = sequenceTypeUnionPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1766,7 +1766,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq")
 
         val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
-        val versioned = simpleMapExprPsi as XQueryConformance
+        val versioned = simpleMapExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1785,7 +1785,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq")
 
         val stringConcatExprPsi = file.descendants().filterIsInstance<XPathStringConcatExpr>().first()
-        val versioned = stringConcatExprPsi as XQueryConformance
+        val versioned = stringConcatExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1804,7 +1804,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/StringConstructor.xq")
 
         val stringConstructorPsi = file.descendants().filterIsInstance<XQueryStringConstructor>().first()
-        val versioned = stringConstructorPsi as XQueryConformance
+        val versioned = stringConstructorPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -1822,7 +1822,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
 
         val switchExprPsi = file.descendants().filterIsInstance<XQuerySwitchExpr>().first()
-        val versioned = switchExprPsi as XQueryConformance
+        val versioned = switchExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1841,7 +1841,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/CatchClause.xq")
 
         val tryClausePsi = file.descendants().filterIsInstance<XQueryTryClause>().first()
-        val versioned = tryClausePsi as XQueryConformance
+        val versioned = tryClausePsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1860,7 +1860,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/TypedArrayTest.xq")
 
         val typedArrayTestPsi = file.walkTree().filterIsInstance<XPathTypedArrayTest>().first()
-        val versioned = typedArrayTestPsi as XQueryConformance
+        val versioned = typedArrayTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -1878,7 +1878,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
 
         val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
-        val versioned = typedFunctionTestPsi as XQueryConformance
+        val versioned = typedFunctionTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1893,7 +1893,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.xq")
 
         val typedFunctionTestPsi = file.walkTree().filterIsInstance<XPathFunctionTest>().first()
-        val versioned = typedFunctionTestPsi as XQueryConformance
+        val versioned = typedFunctionTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1909,7 +1909,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq")
 
         val typedMapTestPsi = file.walkTree().filterIsInstance<XPathTypedMapTest>().first()
-        val versioned = typedMapTestPsi as XQueryConformance
+        val versioned = typedMapTestPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -1928,7 +1928,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq")
 
         val unaryLookupPsi = file.walkTree().filterIsInstance<XPathUnaryLookup>().first()
-        val versioned = unaryLookupPsi as XQueryConformance
+        val versioned = unaryLookupPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
@@ -1945,7 +1945,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq")
 
         val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-        val versioned = validateExprPsi as XQueryConformance
+        val versioned = validateExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1959,7 +1959,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq")
 
         val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-        val versioned = validateExprPsi as XQueryConformance
+        val versioned = validateExprPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -1979,7 +1979,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val versioned = varDeclPsi as XQueryConformance
+        val versioned = varDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -1994,7 +1994,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val versioned = varDeclPsi as XQueryConformance
+        val versioned = varDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -2009,7 +2009,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val versioned = varDeclPsi as XQueryConformance
+        val versioned = varDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -2028,7 +2028,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        val versioned = versionDeclPsi as XQueryConformance
+        val versioned = versionDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -2042,7 +2042,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        val versioned = versionDeclPsi as XQueryConformance
+        val versioned = versionDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -2056,7 +2056,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        val versioned = versionDeclPsi as XQueryConformance
+        val versioned = versionDeclPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
         assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_0_20140408))
@@ -2072,7 +2072,7 @@ private class XQueryConformanceTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (33) ParamList")
     fun paramList() {
         val file = parseResource("tests/parser/xquery-1.0/ParamList.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as XQueryConformance
+        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(0))
 
@@ -2084,7 +2084,7 @@ private class XQueryConformanceTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (77) IfExpr")
     fun ifExpr() {
         val file = parseResource("tests/parser/xquery-1.0/IfExpr.xq")
-        val versioned = file.walkTree().filterIsInstance<XPathIfExpr>().first() as XQueryConformance
+        val versioned = file.walkTree().filterIsInstance<XPathIfExpr>().first() as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -2099,7 +2099,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @DisplayName("empty sequence; recommendation syntax")
         fun emptySequence() {
             val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(2))
             assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_1_0_20070123))
@@ -2113,7 +2113,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @DisplayName("occurrence indicator; one or more")
         fun occurrenceIndicator_oneOrMore() {
             val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -2128,7 +2128,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @DisplayName("occurrence indicator; optional")
         fun occurrenceIndicator_optional() {
             val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
 
@@ -2143,7 +2143,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @DisplayName("occurrence indicator; zero or more")
         fun occurrenceIndicator_zeroOrMore() {
             val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as XQueryConformance
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
 

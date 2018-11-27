@@ -24,14 +24,15 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val MARKLOGIC_AXIS = TokenSet.create(XPathTokenType.K_NAMESPACE, XQueryTokenType.K_PROPERTY)
 
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-class XPathForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForwardAxis, XQueryConformance {
+class XPathForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForwardAxis,
+    VersionConformance {
     override val requiresConformance get(): List<Version> {
         val node = node.findChildByType(MARKLOGIC_AXIS)
         if (node != null) {

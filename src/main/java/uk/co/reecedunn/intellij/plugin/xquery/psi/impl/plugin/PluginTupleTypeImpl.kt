@@ -22,13 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTupleType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val SAXON98: List<Version> = listOf(Saxon.VERSION_9_8)
 private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
 
 class PluginTupleTypeImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTupleType, XQueryConformance {
+    ASTWrapperPsiElement(node), PluginTupleType, VersionConformance {
 
     override val requiresConformance
         get(): List<Version> = if (conformanceElement === firstChild) SAXON98 else SAXON99

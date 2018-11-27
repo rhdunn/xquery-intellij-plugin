@@ -22,12 +22,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginTernaryIfExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginTernaryIfExpr,
-    XQueryConformance {
+    VersionConformance {
 
     override val requiresConformance get(): List<Version> = listOf(BaseX.VERSION_9_1)
 
