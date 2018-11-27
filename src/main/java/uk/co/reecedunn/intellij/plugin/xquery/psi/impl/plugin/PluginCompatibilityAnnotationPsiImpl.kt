@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -29,8 +29,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val MARKLOGIC_60 = listOf(MarkLogic.VERSION_6_0)
 private val SCRIPTING_10 = listOf(Scripting.NOTE_1_0_20140918)
-private val UPDATE_10 = listOf(UpdateFacility.REC_1_0_20110317)
-private val UPDATE_30 = listOf(UpdateFacility.NOTE_3_0_20170124)
+private val UPDATE_10 = listOf(UpdateFacilitySpec.REC_1_0_20110317)
+private val UPDATE_30 = listOf(UpdateFacilitySpec.NOTE_3_0_20170124)
 
 class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginCompatibilityAnnotation,
     VersionConformance {

@@ -33,33 +33,7 @@ object Scripting : Versioned {
         )
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this || dialect === UpdateFacility || dialect === XQuerySpec
-}
-
-/**
- * XQuery Update Facility
- */
-object UpdateFacility : Versioned {
-    val REC_1_0_20110317 = Specification(
-        "1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/", this
-    )
-
-    val NOTE_3_0_20170124 = Specification(
-        "3.0-20170124", 3.0, 20170124, "3.0", "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/", this
-    )
-
-    override val id get(): String = "xquery-update"
-
-    override val name get(): String = "XQuery Update Facility"
-
-    override val versions
-        get(): List<Version> = listOf(
-            REC_1_0_20110317,
-            NOTE_3_0_20170124
-        )
-
-    override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this || dialect === XQuerySpec
+        dialect === this || dialect === UpdateFacilitySpec || dialect === XQuerySpec
 }
 
 /**

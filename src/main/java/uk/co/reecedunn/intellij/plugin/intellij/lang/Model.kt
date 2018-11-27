@@ -21,7 +21,7 @@ var DIALECTS: List<Versioned> = listOf(
     // W3C Standard Dialects
     XQuerySpec,
     FullTextSpec,
-    UpdateFacility,
+    UpdateFacilitySpec,
     Scripting,
     // Vendor Dialects
     BaseX,

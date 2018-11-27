@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformWithExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityTransformWithExpr,
     VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(
-        UpdateFacility.NOTE_3_0_20170124,
+        UpdateFacilitySpec.NOTE_3_0_20170124,
         BaseX.VERSION_8_5)
 
     override val conformanceElement get(): PsiElement =

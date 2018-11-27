@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnno
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
@@ -57,7 +57,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
             val conformance = compatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+            assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -77,7 +77,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
             val conformance = compatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
+            assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.NOTE_3_0_20170124))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -96,7 +96,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = deleteExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -117,7 +117,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
             val conformance = compatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+            assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -136,7 +136,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = insertExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -152,7 +152,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = renameExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -168,7 +168,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = replaceExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -184,7 +184,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = revalidationDeclPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -200,7 +200,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = transformExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -216,7 +216,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = transformWithExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.NOTE_3_0_20170124))
         assertThat(conformance.requiresConformance[1], `is`(BaseX.VERSION_8_5))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
@@ -233,7 +233,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         val conformance = updatingFunctionCallPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(UpdateFacility.NOTE_3_0_20170124))
+        assertThat(conformance.requiresConformance[0], `is`(UpdateFacilitySpec.NOTE_3_0_20170124))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,

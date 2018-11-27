@@ -32,15 +32,15 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         XQuerySpec.CR_3_1_20151217 -> productVersion.value in 8.2..8.5
         XQuerySpec.REC_3_1_20170321 -> productVersion.value >= 8.6
         FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 -> true
-        UpdateFacility.REC_1_0_20110317 -> true
-        UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
+        UpdateFacilitySpec.REC_1_0_20110317 -> true
+        UpdateFacilitySpec.NOTE_3_0_20170124 -> productVersion.value >= 8.5
         FunctionsAndOperatorsSpec.REC_3_0_20140408 -> productVersion.value >= 7.7
         FunctionsAndOperatorsSpec.REC_3_1_20170321 -> productVersion.value >= 8.6
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY: List<Versioned> = listOf(BaseX, XQuerySpec, FullTextSpec, UpdateFacility)
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(BaseX, XQuerySpec, FullTextSpec, UpdateFacilitySpec)
 
     @Suppress("PropertyName")
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
@@ -77,7 +77,7 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override val products: List<Product> = listOf(BASEX)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this || dialect === FullTextSpec || dialect === UpdateFacility || dialect === XQuerySpec
+        dialect === this || dialect === FullTextSpec || dialect === UpdateFacilitySpec || dialect === XQuerySpec
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
@@ -262,17 +262,17 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQuerySpec.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
         XQuerySpec.CR_3_1_20151217 -> productVersion === Saxon.VERSION_9_7
         XQuerySpec.REC_3_1_20170321 -> productVersion.value >= 9.8
-        UpdateFacility.REC_1_0_20110317 -> this !== Saxon.HE && this !== Saxon.PE
+        UpdateFacilitySpec.REC_1_0_20110317 -> this !== Saxon.HE && this !== Saxon.PE
         FunctionsAndOperatorsSpec.REC_1_0_20070123 -> true
         FunctionsAndOperatorsSpec.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
         FunctionsAndOperatorsSpec.REC_3_1_20170321 -> productVersion.value >= 9.8
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
-    // UpdateFacility support requires EE (http://www.saxonica.com/products/feature-matrix-9-8.xml)
+    // UpdateFacilitySpec support requires EE (http://www.saxonica.com/products/feature-matrix-9-8.xml)
     // Saxon extensions require PE or EE (http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions)
     @Suppress("PropertyName")
-    val FLAVOURS_EE: List<Versioned> = listOf(Saxon, XQuerySpec, UpdateFacility)
+    val FLAVOURS_EE: List<Versioned> = listOf(Saxon, XQuerySpec, UpdateFacilitySpec)
 
     @Suppress("PropertyName")
     val FLAVOURS_PE: List<Versioned> = listOf(Saxon, XQuerySpec)
@@ -321,7 +321,7 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override val products: List<Product> = listOf(HE, PE, EE, EE_T, EE_Q, EE_V)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this || dialect === UpdateFacility || dialect === XQuerySpec
+        dialect === this || dialect === UpdateFacilitySpec || dialect === XQuerySpec
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
@@ -356,7 +356,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
                 productVersion === W3C.SECOND_EDITION
             FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 ->
                 productVersion === W3C.FIRST_EDITION
-            UpdateFacility.REC_1_0_20110317, UpdateFacility.NOTE_3_0_20170124 ->
+            UpdateFacilitySpec.REC_1_0_20110317, UpdateFacilitySpec.NOTE_3_0_20170124 ->
                 productVersion === W3C.FIRST_EDITION
             Scripting.NOTE_1_0_20140918 ->
                 productVersion === W3C.FIRST_EDITION
@@ -369,10 +369,10 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
     }
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacility, Scripting)
+    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacilitySpec, Scripting)
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacility)
+    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacilitySpec)
 
     @Suppress("PropertyName")
     val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuerySpec)

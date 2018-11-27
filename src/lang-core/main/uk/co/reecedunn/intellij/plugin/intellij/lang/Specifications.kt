@@ -153,28 +153,6 @@ object XQuerySpec : Versioned {
         versionsForXQuery(xquery).firstOrNull { spec -> product.conformsTo(version, spec) }
 }
 
-object FullTextSpec : Versioned {
-    // NOTE: The only changes from 1.0 to 3.0 are to support the changes in grammar from XQuery 1.0 to 3.0.
-    val REC_1_0_20110317 = Specification(
-        "1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/", this
-    )
-
-    val REC_3_0_20151124 = Specification(
-        "3.0-20151124", 3.0, 20151124, "3.0", "https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/", this
-    )
-
-    override val id: String = "xpath-full-text"
-
-    override val name: String = "XQuery and XPath Full Text"
-
-    override val versions: List<Version> = listOf(
-        REC_1_0_20110317,
-        REC_3_0_20151124
-    )
-
-    override fun supportsDialect(dialect: Versioned): Boolean = dialect === this || dialect === XQuerySpec
-}
-
 object FunctionsAndOperatorsSpec : Versioned {
     val REC_1_0_20070123 = Specification(
         "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/", this
@@ -202,4 +180,48 @@ object FunctionsAndOperatorsSpec : Versioned {
         REC_3_0_20140408,
         REC_3_1_20170321
     )
+}
+
+object FullTextSpec : Versioned {
+    // NOTE: The only changes from 1.0 to 3.0 are to support the changes in grammar from XQuery 1.0 to 3.0.
+    val REC_1_0_20110317 = Specification(
+        "1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/", this
+    )
+
+    val REC_3_0_20151124 = Specification(
+        "3.0-20151124", 3.0, 20151124, "3.0", "https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/", this
+    )
+
+    override val id: String = "xpath-full-text"
+
+    override val name: String = "XQuery and XPath Full Text"
+
+    override val versions: List<Version> = listOf(
+        REC_1_0_20110317,
+        REC_3_0_20151124
+    )
+
+    override fun supportsDialect(dialect: Versioned): Boolean = dialect === this || dialect === XQuerySpec
+}
+
+object UpdateFacilitySpec : Versioned {
+    val REC_1_0_20110317 = Specification(
+        "1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/", this
+    )
+
+    val NOTE_3_0_20170124 = Specification(
+        "3.0-20170124", 3.0, 20170124, "3.0", "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/", this
+    )
+
+    override val id: String = "xquery-update"
+
+    override val name: String = "XQuery Update Facility"
+
+    override val versions: List<Version> = listOf(
+        REC_1_0_20110317,
+        NOTE_3_0_20170124
+    )
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === XQuerySpec
 }

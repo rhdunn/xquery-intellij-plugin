@@ -19,13 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityRenameExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class UpdateFacilityRenameExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityRenameExpr,
     VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(UpdateFacility.REC_1_0_20110317)
+    override val requiresConformance get(): List<Version> = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
     override val conformanceElement get(): PsiElement =
         firstChild
