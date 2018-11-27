@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
-import uk.co.reecedunn.intellij.plugin.intellij.lang.FullText
+import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
@@ -52,7 +52,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         val conformance = ftcontainsExprPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -70,7 +70,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         val conformance = scoreVarPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -86,7 +86,7 @@ private class FullTextConformanceTest : ParserTestCase() {
         val conformance = ftoptionDeclPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(FullText.REC_1_0_20110317))
+        assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,

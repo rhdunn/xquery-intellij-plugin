@@ -31,7 +31,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         XQuerySpec.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuerySpec.CR_3_1_20151217 -> productVersion.value in 8.2..8.5
         XQuerySpec.REC_3_1_20170321 -> productVersion.value >= 8.6
-        FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 -> true
+        FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
         UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
         FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 7.7
@@ -40,7 +40,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
     }
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY: List<Versioned> = listOf(BaseX, XQuerySpec, FullText, UpdateFacility)
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(BaseX, XQuerySpec, FullTextSpec, UpdateFacility)
 
     @Suppress("PropertyName")
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
@@ -77,7 +77,7 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override val products: List<Product> = listOf(BASEX)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-        dialect === this || dialect === FullText || dialect === UpdateFacility || dialect === XQuerySpec
+        dialect === this || dialect === FullTextSpec || dialect === UpdateFacility || dialect === XQuerySpec
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         return when (xqueryVersion) {
@@ -354,7 +354,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
                 productVersion === W3C.FIRST_EDITION
             XQuerySpec.REC_1_0_20101214 ->
                 productVersion === W3C.SECOND_EDITION
-            FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 ->
+            FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 ->
                 productVersion === W3C.FIRST_EDITION
             UpdateFacility.REC_1_0_20110317, UpdateFacility.NOTE_3_0_20170124 ->
                 productVersion === W3C.FIRST_EDITION
@@ -369,10 +369,10 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
     }
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuerySpec, FullText, UpdateFacility, Scripting)
+    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacility, Scripting)
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuerySpec, FullText, UpdateFacility)
+    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacility)
 
     @Suppress("PropertyName")
     val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuerySpec)

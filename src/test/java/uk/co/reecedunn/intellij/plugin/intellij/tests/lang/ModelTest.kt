@@ -41,7 +41,7 @@ class ModelTest {
             assertThat(XQuerySpec.REC_1_0_20070123.toString(), `is`("XQuery 1.0"))
             assertThat(XQuerySpec.MARKLOGIC_0_9.toString(), `is`("XQuery 0.9-ml"))
 
-            assertThat(FullText.REC_1_0_20110317.toString(), `is`("XQuery and XPath Full Text 1.0"))
+            assertThat(FullTextSpec.REC_1_0_20110317.toString(), `is`("XQuery and XPath Full Text 1.0"))
 
             assertThat(
                 FunctionsAndOperators.REC_1_0_20070123.toString(),
@@ -99,7 +99,7 @@ class ModelTest {
             val versioned = XmlSchemaSpec
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(true))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -117,7 +117,7 @@ class ModelTest {
             val versioned = XQuerySpec
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -132,10 +132,10 @@ class ModelTest {
         @Test
         @DisplayName("XQuery and XPath Full Text specification")
         fun testFullText_SupportsDialect() {
-            val versioned = FullText
+            val versioned = FullTextSpec
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(true))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(true))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -153,7 +153,7 @@ class ModelTest {
             val versioned = FunctionsAndOperators
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(true))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -171,7 +171,7 @@ class ModelTest {
             val versioned = Scripting
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(true))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
@@ -189,7 +189,7 @@ class ModelTest {
             val versioned = UpdateFacility
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
@@ -207,7 +207,7 @@ class ModelTest {
             val versioned = BaseX
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(true))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(true))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
@@ -225,7 +225,7 @@ class ModelTest {
             val versioned = EXistDB
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -243,7 +243,7 @@ class ModelTest {
             val versioned = MarkLogic
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -261,7 +261,7 @@ class ModelTest {
             val versioned = Saxon
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(true))
@@ -279,7 +279,7 @@ class ModelTest {
             val versioned = W3C
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
             assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
-            assertThat(versioned.supportsDialect(FullText), `is`(false))
+            assertThat(versioned.supportsDialect(FullTextSpec), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
             assertThat(versioned.supportsDialect(UpdateFacility), `is`(false))
@@ -577,8 +577,8 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery and XPath Full Text
 
-                    assertThat(product.conformsTo(version, FullText.REC_1_0_20110317), `is`(true))
-                    assertThat(product.conformsTo(version, FullText.REC_3_0_20151124), `is`(true))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(true))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(true))
 
                     // endregion
                     // region Specification: XQuery and XPath Functions and Operators
@@ -675,8 +675,8 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery and XPath Full Text
 
-                    assertThat(product.conformsTo(version, FullText.REC_1_0_20110317), `is`(false))
-                    assertThat(product.conformsTo(version, FullText.REC_3_0_20151124), `is`(false))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(false))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Functions and Operators
@@ -776,8 +776,8 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery and XPath Full Text
 
-                    assertThat(product.conformsTo(version, FullText.REC_1_0_20110317), `is`(false))
-                    assertThat(product.conformsTo(version, FullText.REC_3_0_20151124), `is`(false))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(false))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Functions and Operators
@@ -869,8 +869,8 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery and XPath Full Text
 
-                    assertThat(product.conformsTo(version, FullText.REC_1_0_20110317), `is`(false))
-                    assertThat(product.conformsTo(version, FullText.REC_3_0_20151124), `is`(false))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(false))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Functions and Operators
@@ -975,8 +975,8 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery and XPath Full Text
 
-                    assertThat(product.conformsTo(version, FullText.REC_1_0_20110317), `is`(version.value == 1.0))
-                    assertThat(product.conformsTo(version, FullText.REC_3_0_20151124), `is`(version.value == 1.0))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_1_0_20110317), `is`(version.value == 1.0))
+                    assertThat(product.conformsTo(version, FullTextSpec.REC_3_0_20151124), `is`(version.value == 1.0))
 
                     // endregion
                     // region Specification: XQuery and XPath Functions and Operators
@@ -1170,14 +1170,14 @@ class ModelTest {
                     assertThat(flavours.size, `is`(4))
                     assertThat(flavours[0], `is`(BaseX))
                     assertThat(flavours[1], `is`(XQuerySpec))
-                    assertThat(flavours[2], `is`(FullText))
+                    assertThat(flavours[2], `is`(FullTextSpec))
                     assertThat(flavours[3], `is`(UpdateFacility))
 
                     flavours = product.flavoursForXQueryVersion(version, "3.1")
                     assertThat(flavours.size, `is`(4))
                     assertThat(flavours[0], `is`(BaseX))
                     assertThat(flavours[1], `is`(XQuerySpec))
-                    assertThat(flavours[2], `is`(FullText))
+                    assertThat(flavours[2], `is`(FullTextSpec))
                     assertThat(flavours[3], `is`(UpdateFacility))
 
                     flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
@@ -1286,7 +1286,7 @@ class ModelTest {
                     if (version.value == 1.0) {
                         assertThat(flavours.size, `is`(4))
                         assertThat(flavours[0], `is`(XQuerySpec))
-                        assertThat(flavours[1], `is`(FullText))
+                        assertThat(flavours[1], `is`(FullTextSpec))
                         assertThat(flavours[2], `is`(UpdateFacility))
                         assertThat(flavours[3], `is`(Scripting))
                     } else {
@@ -1298,7 +1298,7 @@ class ModelTest {
                     if (version.value == 1.0) {
                         assertThat(flavours.size, `is`(3))
                         assertThat(flavours[0], `is`(XQuerySpec))
-                        assertThat(flavours[1], `is`(FullText))
+                        assertThat(flavours[1], `is`(FullTextSpec))
                         assertThat(flavours[2], `is`(UpdateFacility))
                     } else {
                         assertThat(flavours.size, `is`(1))
