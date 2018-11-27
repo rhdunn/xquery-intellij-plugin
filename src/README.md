@@ -16,4 +16,5 @@
 ## Custom Language Support
 | Package           | Description |
 |-------------------|-------------|
+| `lang-xdm`        | XQuery and XPath data model. |
 | `lang-xpath`      | XPath language support. |

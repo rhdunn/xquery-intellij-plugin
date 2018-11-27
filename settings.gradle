@@ -5,4 +5,5 @@ include 'src:intellij-compat'
 include 'src:intellij-mock'
 
 include 'src:lang-core'
+include 'src:lang-xdm'
 include 'src:lang-xpath'
