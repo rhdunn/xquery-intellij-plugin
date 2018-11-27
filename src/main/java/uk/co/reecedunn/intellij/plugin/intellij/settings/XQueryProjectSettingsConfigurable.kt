@@ -123,7 +123,8 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
             populateComboBox(mImplementationVersions!!, product.implementation.versions, null)
         }
 
-        populateComboBox(mImplementations!!, PRODUCTS, W3C.SPECIFICATIONS)
+        populateComboBox(mImplementations!!,
+            PRODUCTS, W3C.SPECIFICATIONS)
     }
 
     @Suppress("UNCHECKED_CAST")
