@@ -16,39 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 /**
- * XQuery and XPath Functions and Operators
- */
-object FunctionsAndOperators : Versioned {
-    val REC_1_0_20070123 = Specification(
-        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/", this
-    )
-
-    val REC_1_0_20101214 = Specification(
-        "1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/", this
-    )
-
-    val REC_3_0_20140408 = Specification(
-        "3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/", this
-    )
-
-    val REC_3_1_20170321 = Specification(
-        "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/", this
-    )
-
-    override val id get(): String = "xpath-functions"
-
-    override val name get(): String = "XQuery and XPath Functions and Operators"
-
-    override val versions
-        get(): List<Version> = listOf(
-            REC_1_0_20070123,
-            REC_1_0_20101214,
-            REC_3_0_20140408,
-            REC_3_1_20170321
-        )
-}
-
-/**
  * XQuery Scripting Extension
  */
 object Scripting : Versioned {

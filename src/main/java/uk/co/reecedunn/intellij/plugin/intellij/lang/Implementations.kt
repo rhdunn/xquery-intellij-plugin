@@ -34,8 +34,8 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
         UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
-        FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 7.7
-        FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 8.6
+        FunctionsAndOperatorsSpec.REC_3_0_20140408 -> productVersion.value >= 7.7
+        FunctionsAndOperatorsSpec.REC_3_1_20170321 -> productVersion.value >= 8.6
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
@@ -113,8 +113,8 @@ private class EXistDBProduct(id: String, name: String, implementation: Implement
         XQuerySpec.REC_3_0_20140408 -> true
         XQuerySpec.CR_3_1_20151217 -> productVersion.value >= 3.0 && productVersion.value < 4.0
         XQuerySpec.REC_3_1_20170321 -> productVersion.value >= 4.0
-        FunctionsAndOperators.REC_3_0_20140408 -> true
-        FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 4.0
+        FunctionsAndOperatorsSpec.REC_3_0_20140408 -> true
+        FunctionsAndOperatorsSpec.REC_3_1_20170321 -> productVersion.value >= 4.0
         is UntilVersion -> !conformsTo(productVersion, ref.until)
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
@@ -182,8 +182,8 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
         XQuerySpec.REC_1_0_20070123 -> true
         XQuerySpec.MARKLOGIC_0_9 -> true
         XQuerySpec.MARKLOGIC_1_0 -> true
-        FunctionsAndOperators.REC_1_0_20070123 -> true
-        FunctionsAndOperators.REC_3_0_20140408 -> true
+        FunctionsAndOperatorsSpec.REC_1_0_20070123 -> true
+        FunctionsAndOperatorsSpec.REC_3_0_20140408 -> true
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
@@ -263,9 +263,9 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQuerySpec.CR_3_1_20151217 -> productVersion === Saxon.VERSION_9_7
         XQuerySpec.REC_3_1_20170321 -> productVersion.value >= 9.8
         UpdateFacility.REC_1_0_20110317 -> this !== Saxon.HE && this !== Saxon.PE
-        FunctionsAndOperators.REC_1_0_20070123 -> true
-        FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
-        FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 9.8
+        FunctionsAndOperatorsSpec.REC_1_0_20070123 -> true
+        FunctionsAndOperatorsSpec.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
+        FunctionsAndOperatorsSpec.REC_3_1_20170321 -> productVersion.value >= 9.8
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
@@ -360,9 +360,9 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
                 productVersion === W3C.FIRST_EDITION
             Scripting.NOTE_1_0_20140918 ->
                 productVersion === W3C.FIRST_EDITION
-            FunctionsAndOperators.REC_1_0_20070123, FunctionsAndOperators.REC_3_0_20140408, FunctionsAndOperators.REC_3_1_20170321 ->
+            FunctionsAndOperatorsSpec.REC_1_0_20070123, FunctionsAndOperatorsSpec.REC_3_0_20140408, FunctionsAndOperatorsSpec.REC_3_1_20170321 ->
                 productVersion === W3C.FIRST_EDITION
-            FunctionsAndOperators.REC_1_0_20101214 ->
+            FunctionsAndOperatorsSpec.REC_1_0_20101214 ->
                 productVersion === W3C.SECOND_EDITION
             else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
         }
