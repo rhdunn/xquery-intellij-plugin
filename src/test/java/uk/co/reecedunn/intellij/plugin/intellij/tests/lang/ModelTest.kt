@@ -35,7 +35,7 @@ class ModelTest {
             assertThat(XmlSchema.REC_1_0_20041028.toString(), `is`("XML Schema Definition 1.0"))
             assertThat(XmlSchema.REC_1_1_20120405.toString(), `is`("XML Schema Definition 1.1"))
 
-            assertThat(XPath.REC_1_0_19991116.toString(), `is`("XPath 1.0"))
+            assertThat(XPathSpec.REC_1_0_19991116.toString(), `is`("XPath 1.0"))
 
             assertThat(XQuery.WD_1_0_20030502.toString(), `is`("XQuery 1.0 (Working Draft 02 May 2003)"))
             assertThat(XQuery.REC_1_0_20070123.toString(), `is`("XQuery 1.0"))
