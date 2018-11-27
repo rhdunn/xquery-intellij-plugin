@@ -126,9 +126,11 @@ task integrationTest(type: Test) {
 dependencies {
     compile project(':src:kotlin-intellij')
     compile project(':src:intellij-compat')
+    compile project(':src:lang-core')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
+    testCompile project(':src:lang-core')
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output

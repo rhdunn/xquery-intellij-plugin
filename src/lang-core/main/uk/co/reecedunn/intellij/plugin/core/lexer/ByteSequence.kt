@@ -17,10 +17,11 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import kotlin.experimental.and
 
-class ByteSequence private constructor(private val mData: ByteArray,
-                                       private val mOffset: Int,
-                                       private val mLength: Int) : CharSequence {
-
+class ByteSequence private constructor(
+    private val mData: ByteArray,
+    private val mOffset: Int,
+    private val mLength: Int
+) : CharSequence {
     constructor(data: ByteArray) : this(data, 0, data.size)
 
     override val length get(): Int = mLength

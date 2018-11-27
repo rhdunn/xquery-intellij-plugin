@@ -30,18 +30,19 @@ class CodePointRange {
     var bufferEnd: Int = 0
         private set
 
-    val codePoint get(): Int {
-        if (end == bufferEnd)
-            return END_OF_BUFFER
-        val high = bufferSequence[end]
-        if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
-            val low = bufferSequence[end + 1]
-            if (Character.isLowSurrogate(low)) {
-                return Character.toCodePoint(high, low)
+    val codePoint
+        get(): Int {
+            if (end == bufferEnd)
+                return END_OF_BUFFER
+            val high = bufferSequence[end]
+            if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
+                val low = bufferSequence[end + 1]
+                if (Character.isLowSurrogate(low)) {
+                    return Character.toCodePoint(high, low)
+                }
             }
+            return high.toInt()
         }
-        return high.toInt()
-    }
 
     fun start(buffer: CharSequence, startOffset: Int, endOffset: Int) {
         bufferSequence = buffer

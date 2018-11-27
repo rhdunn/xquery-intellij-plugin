@@ -22,7 +22,8 @@ import java.util.*
 const val STATE_DEFAULT = 0
 
 abstract class LexerImpl(private val baseState: Int) : LexerBase() {
-    protected val mTokenRange: CodePointRange = CodePointRange()
+    protected val mTokenRange: CodePointRange =
+        CodePointRange()
     protected var mType: IElementType? = null
 
     // region States
@@ -45,7 +46,9 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
 
     protected fun nextState(): Int {
         mTokenRange.flush()
-        mState = try { mStates.peek() } catch (e: EmptyStackException) { STATE_DEFAULT }
+        mState = try { mStates.peek() } catch (e: EmptyStackException) {
+            STATE_DEFAULT
+        }
         return mState
     }
 

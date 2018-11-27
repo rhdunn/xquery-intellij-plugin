@@ -10,3 +10,4 @@
 | `intellij-mock`   | Mocks and stubs for IntelliJ components used in the unit and integration tests. |
 | `kotlin-hamcrest` | Helpers for using hamcrest in kotlin projects. |
 | `kotlin-intellij` | Helpers for using IntelliJ components in kotlin projects. |
+| `lang-core`       | Custom language support helper classes and functions. |

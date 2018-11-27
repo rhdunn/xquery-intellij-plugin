@@ -1,0 +1,6 @@
+sourceSets.main.java.srcDirs += 'main'
+sourceSets.test.java.srcDirs += 'test'
+
+dependencies {
+    testCompile project(':src:kotlin-hamcrest')
+}
