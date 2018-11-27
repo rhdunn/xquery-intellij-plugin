@@ -127,10 +127,12 @@ dependencies {
     compile project(':src:kotlin-intellij')
     compile project(':src:intellij-compat')
     compile project(':src:lang-core')
+    compile project(':src:lang-xpath')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
     testCompile project(':src:lang-core')
+    testCompile project(':src:lang-xpath')
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output

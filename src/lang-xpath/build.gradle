@@ -1,0 +1,7 @@
+sourceSets.main.java.srcDirs += 'main'
+sourceSets.main.resources.srcDirs += 'main/resources'
+sourceSets.test.java.srcDirs += 'test'
+
+dependencies {
+    compile project(':src:lang-core')
+}

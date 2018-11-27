@@ -19,7 +19,7 @@ import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.util.IconLoader
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import javax.swing.Icon
 
 object XPathFileType : LanguageFileType(XPath) {
@@ -28,7 +28,7 @@ object XPathFileType : LanguageFileType(XPath) {
 
     override fun getName(): String = "XPath"
 
-    override fun getDescription(): String = XQueryBundle.message("xpath.files.filetype.description")
+    override fun getDescription(): String = XPathBundle.message("xpath.files.filetype.description")
 
     override fun getDefaultExtension(): String = "xpath"
 
