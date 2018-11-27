@@ -18,16 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321, Saxon.VERSION_9_4)
+class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest, VersionConformance {
+    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

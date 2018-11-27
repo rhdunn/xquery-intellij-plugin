@@ -18,28 +18,26 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XPathInlineFunctionExprPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XPathInlineFunctionExpr,
+    ASTWrapperPsiElement(node),
+    XPathInlineFunctionExpr,
     VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> {
-        if (findChildByType<PsiElement>(XPathTokenType.K_FUNCTION) == null) {
-            return XQUERY10 // Annotation with a missing 'function' keyword.
+    override val requiresConformance
+        get(): List<Version> {
+            if (findChildByType<PsiElement>(XPathTokenType.K_FUNCTION) == null) {
+                return XQUERY10 // Annotation with a missing 'function' keyword.
+            }
+            return XQUERY30
         }
-        return XQUERY30
-    }
 
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.K_FUNCTION) ?: firstChild
 

@@ -111,7 +111,7 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
             val productVersion = mImplementationVersions!!.selectedItem as? Version
             if (product == null || productVersion == null) return@addActionListener
 
-            populateComboBox(mVersion!!, XQuery.versionsFor(product, productVersion), null)
+            populateComboBox(mVersion!!, XQuerySpec.versionsFor(product, productVersion), null)
             populateComboBox(mDialectForXQuery1_0!!, product.flavoursForXQueryVersion(productVersion, "1.0"), null)
             populateComboBox(mDialectForXQuery3_0!!, product.flavoursForXQueryVersion(productVersion, "3.0"), null)
             populateComboBox(mDialectForXQuery3_1!!, product.flavoursForXQueryVersion(productVersion, "3.1"), null)
@@ -169,7 +169,7 @@ class XQueryProjectSettingsConfigurableUI : SettingsUI<XQueryProjectSettings> {
     }
 
     private fun getXQueryVersion(version: CharSequence?): Version? {
-        val versions = XQuery.versionsForXQuery(version)
+        val versions = XQuerySpec.versionsForXQuery(version)
         return if (versions.isEmpty()) null else versions[0]
     }
 

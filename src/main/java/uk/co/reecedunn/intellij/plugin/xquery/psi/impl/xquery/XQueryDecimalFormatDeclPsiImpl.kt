@@ -25,18 +25,20 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
-private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
+private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
 
 class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDecimalFormatDecl,
     VersionConformance {
-    override val requiresConformance get(): List<Version> =
-        if (conformanceElement is XQueryDFPropertyName) XQUERY31 else XQUERY30
+    override val requiresConformance
+        get(): List<Version> = if (conformanceElement is XQueryDFPropertyName) XQUERY31 else XQUERY30
 
-    override val conformanceElement get(): PsiElement {
-        return children().filterIsInstance<XQueryDFPropertyName>().filter { e ->
-            e.firstChild.node.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
-        }.firstOrNull() ?: (findChildByType(XQueryTokenType.K_DECIMAL_FORMAT) ?: this)
-    }
+    override val conformanceElement
+        get(): PsiElement {
+            return children().filterIsInstance<XQueryDFPropertyName>().filter { e ->
+                e.firstChild.node.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
+            }.firstOrNull() ?: (findChildByType(XQueryTokenType.K_DECIMAL_FORMAT) ?: this)
+        }
 }

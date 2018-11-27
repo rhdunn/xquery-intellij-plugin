@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 @DisplayName("IntelliJ - Settings - Languages and Frameworks - XQuery Project Settings")
@@ -33,10 +34,10 @@ class XQueryProjectSettingsTest {
     fun testDefaultValues() {
         val settings = XQueryProjectSettings()
         assertThat(settings.implementationVersion, `is`("w3c/spec/v1ed"))
-        assertThat(settings.XQueryVersion, `is`(XQuery.REC_1_0_20070123.versionId))
-        assertThat(settings.XQuery10Dialect, `is`(XQuery.id))
-        assertThat(settings.XQuery30Dialect, `is`(XQuery.id))
-        assertThat(settings.XQuery31Dialect, `is`(XQuery.id))
+        assertThat(settings.XQueryVersion, `is`(XQuerySpec.REC_1_0_20070123.versionId))
+        assertThat(settings.XQuery10Dialect, `is`(XQuerySpec.id))
+        assertThat(settings.XQuery30Dialect, `is`(XQuerySpec.id))
+        assertThat(settings.XQuery31Dialect, `is`(XQuerySpec.id))
 
         assertThat(settings.product, `is`(W3C.SPECIFICATIONS))
         assertThat(settings.productVersion, `is`(W3C.FIRST_EDITION))
@@ -54,7 +55,7 @@ class XQueryProjectSettingsTest {
     fun testLoadState() {
         val other = XQueryProjectSettings()
         other.implementationVersion = "marklogic/v6"
-        other.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+        other.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
         other.XQuery10Dialect = MarkLogic.id
         other.XQuery30Dialect = MarkLogic.id
         other.XQuery31Dialect = MarkLogic.id
@@ -62,7 +63,7 @@ class XQueryProjectSettingsTest {
         val settings = XQueryProjectSettings()
         settings.loadState(other)
         assertThat(settings.implementationVersion, `is`("marklogic/v6"))
-        assertThat(settings.XQueryVersion, `is`(XQuery.MARKLOGIC_0_9.versionId))
+        assertThat(settings.XQueryVersion, `is`(XQuerySpec.MARKLOGIC_0_9.versionId))
         assertThat(settings.XQuery10Dialect, `is`(MarkLogic.id))
         assertThat(settings.XQuery30Dialect, `is`(MarkLogic.id))
         assertThat(settings.XQuery31Dialect, `is`(MarkLogic.id))

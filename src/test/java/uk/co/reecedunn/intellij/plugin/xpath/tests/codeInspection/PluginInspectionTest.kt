@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestC
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
@@ -2199,7 +2200,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("XQuery 3.0 VersionDecl in XQuery 1.0")
                 fun testXQuery30VersionDeclInXQuery10() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
 
                     val problems = inspect(file, IJVS0001())
@@ -2217,7 +2218,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("XQuery 3.0 VersionDecl in XQuery 3.0")
                 fun testXQuery30VersionDecl() {
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")
 
                     val problems = inspect(file, IJVS0001())
@@ -2232,7 +2233,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Update Facility 1.0: product conforms to the specification")
                 fun testUpdateFacility10_ProductConformsToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
 
                     val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
@@ -2245,7 +2246,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Update Facility 1.0: product does not conform to the specification")
                 fun testUpdateFacility10_ProductDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
 
                     val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")
@@ -2265,7 +2266,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Update Facility 3.0: product conforms to the specification")
                 fun testUpdateFacility30_ProductConformsToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
 
                     val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
@@ -2278,7 +2279,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Update Facility 3.0: incompatible XQuery version")
                 fun testUpdateFacility30_IncompatibleXQueryVersion() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
 
                     val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
@@ -2298,7 +2299,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Update Facility 3.0: product does not conform to the specification")
                 fun testUpdateFacility30_ProductDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "saxon/EE/v9.5" // Supports Update Facility 1.0, not 3.0
 
                     val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")
@@ -2318,7 +2319,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("BaseX: product conforms to the specification")
                 fun testUpdateFacilityBaseX_ProductConformsToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "basex/v8.6"
 
                     val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
@@ -2331,7 +2332,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("BaseX: product does not conform to the specification")
                 fun testUpdateFacilityBaseX_ProductDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "saxon/EE/v9.5" // Supports Update Facility 1.0, not 3.0
 
                     val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")
@@ -2355,7 +2356,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Scripting Extension 1.0: product conforms to the specification")
                 fun testScripting10_ProductConformsToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
 
                     val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
@@ -2368,7 +2369,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Scripting Extension 1.0: product does not conform to the specification")
                 fun testScripting10_ProductDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
 
                     val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
@@ -2392,7 +2393,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("supported construct; supported XQuery version")
                 fun supportedConstructSupportedXQueryVersion() {
-                    settings.XQueryVersion = XQuery.WD_1_0_20030502.versionId
+                    settings.XQueryVersion = XQuerySpec.WD_1_0_20030502.versionId
                     settings.implementationVersion = "w3c/vwd"
                     val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
 
@@ -2404,7 +2405,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("unsupported construct; supported XQuery version")
                 fun unsupportedConstructUnsupportedXQueryVersion() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/v1ed"
                     val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
 
@@ -2423,7 +2424,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("MarkLogic, xquery 0.9-ml")
                 fun markLogicXQuery09ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v6.0"
                     val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
 
@@ -2435,7 +2436,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("MarkLogic, xquery 1.0-ml")
                 fun markLogicXQuery10ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v6.0"
                     val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
 
@@ -2454,7 +2455,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("MarkLogic, xquery 1.0")
                 fun markLogicXQuery10() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v6.0"
                     val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
 
@@ -2477,7 +2478,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("supported construct; supported XQuery version")
                 fun supportedConstructSupportedXQueryVersion() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/vwd"
                     val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
 
@@ -2496,7 +2497,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("unsupported construct; supported XQuery version")
                 fun unsupportedConstructUnsupportedXQueryVersion() {
-                    settings.XQueryVersion = XQuery.WD_1_0_20030502.versionId
+                    settings.XQueryVersion = XQuerySpec.WD_1_0_20030502.versionId
                     settings.implementationVersion = "w3c/v1ed"
                     val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
 
@@ -2508,7 +2509,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("MarkLogic, xquery 0.9-ml")
                 fun markLogicXQuery09ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v6.0"
                     val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
 
@@ -2527,7 +2528,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("MarkLogic, xquery 1.0-ml")
                 fun markLogicXQuery10ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v6.0"
                     val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
 
@@ -2539,7 +2540,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("MarkLogic, xquery 1.0")
                 fun markLogicXQuery10() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v6.0"
                     val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
 
@@ -2555,7 +2556,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("product conforms to the specification")
                 fun testBaseX_ProductConformsToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     settings.implementationVersion = "basex/v8.5"
 
                     val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
@@ -2568,7 +2569,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("product does not conform to the specification")
                 fun testBaseX_ProductDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
 
                     val file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
@@ -2599,7 +2600,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("0.9-ml")
                 fun markLogic09ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v9.0"
 
                     val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
@@ -2612,7 +2613,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("1.0-ml")
                 fun markLogic10ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v9.0"
 
                     val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
@@ -2625,7 +2626,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("product does not conform to the specification")
                 fun productDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "saxon/EE/v9.5"
 
                     val file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
@@ -2649,7 +2650,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("0.9-ml")
                 fun markLogic09ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v7.0"
 
                     val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
@@ -2669,7 +2670,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("1.0-ml")
                 fun markLogic10ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v7.0"
 
                     val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
@@ -2682,7 +2683,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("product does not conform to the specification")
                 fun productDoesNotConformToSpecification() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "saxon/EE/v9.5"
 
                     val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
@@ -2706,7 +2707,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Supported XQuery 3.0 construct with version '0.9-ml'")
                 fun xqueryVersion09ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_0_9.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_0_9.versionId
                     settings.implementationVersion = "marklogic/v6.0"
 
                     val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
@@ -2726,7 +2727,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Supported XQuery 3.0 construct with version '1.0-ml'")
                 fun xqueryVersion10ml() {
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     settings.implementationVersion = "marklogic/v6.0"
 
                     val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
@@ -2739,7 +2740,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("Supported XQuery 3.0 construct with version '1.0'")
                 fun xqueryVersion10() {
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v6.0"
 
                     val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
@@ -3047,7 +3048,7 @@ private class PluginInspectionTest : InspectionTestCase() {
         internal inner class IJVS0003Test {
             private fun checkSupportedEntities(version: Specification, entities: String) {
                 settings.XQueryVersion = version.versionId
-                if (version == XQuery.MARKLOGIC_0_9 || version == XQuery.MARKLOGIC_1_0) {
+                if (version == XQuerySpec.MARKLOGIC_0_9 || version == XQuerySpec.MARKLOGIC_1_0) {
                     settings.implementationVersion = "marklogic/v6"
                 } else {
                     settings.implementationVersion = "w3c/spec/v1ed"
@@ -3064,7 +3065,7 @@ private class PluginInspectionTest : InspectionTestCase() {
 
             private fun checkUnsupportedEntities(version: Specification, entities: String, inspectionCount: Int, startsWith: String, endsWith: String, type: ProblemHighlightType = ProblemHighlightType.GENERIC_ERROR_OR_WARNING) {
                 settings.XQueryVersion = version.versionId
-                if (version == XQuery.MARKLOGIC_0_9 || version == XQuery.MARKLOGIC_1_0) {
+                if (version == XQuerySpec.MARKLOGIC_0_9 || version == XQuerySpec.MARKLOGIC_1_0) {
                     settings.implementationVersion = "marklogic/v6"
                 } else {
                     settings.implementationVersion = "w3c/spec/v1ed"
@@ -3091,7 +3092,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testXMLEntities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_0_9,
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9,
                         XML_ENTITIES
                     )
                 }
@@ -3099,7 +3100,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0")
                 fun testXMLEntities_XQuery_1_0() {
-                    checkSupportedEntities(XQuery.REC_1_0_20070123,
+                    checkSupportedEntities(XQuerySpec.REC_1_0_20070123,
                         XML_ENTITIES
                     )
                 }
@@ -3107,7 +3108,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testXMLEntities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_1_0,
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0,
                         XML_ENTITIES
                     )
                 }
@@ -3115,7 +3116,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 3.0")
                 fun testXMLEntities_XQuery_3_0() {
-                    checkSupportedEntities(XQuery.REC_3_0_20140408,
+                    checkSupportedEntities(XQuerySpec.REC_3_0_20140408,
                         XML_ENTITIES
                     )
                 }
@@ -3123,7 +3124,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 3.1")
                 fun testXMLEntities_XQuery_3_1() {
-                    checkSupportedEntities(XQuery.REC_3_1_20170321,
+                    checkSupportedEntities(XQuerySpec.REC_3_1_20170321,
                         XML_ENTITIES
                     )
                 }
@@ -3135,7 +3136,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testHTML4Entities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_0_9,
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9,
                         HTML4_ENTITIES
                     )
                 }
@@ -3144,7 +3145,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 1.0")
                 fun testHTML4Entities_XQuery_1_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_1_0_20070123,
+                        XQuerySpec.REC_1_0_20070123,
                         HTML4_ENTITIES, 248,
                         "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
@@ -3153,7 +3154,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testHTML4Entities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_1_0,
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0,
                         HTML4_ENTITIES
                     )
                 }
@@ -3162,7 +3163,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.0")
                 fun testHTML4Entities_XQuery_3_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_0_20140408,
+                        XQuerySpec.REC_3_0_20140408,
                         HTML4_ENTITIES, 248,
                         "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
@@ -3172,7 +3173,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.1")
                 fun testHTML4Entities_XQuery_3_1() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_1_20170321,
+                        XQuerySpec.REC_3_1_20170321,
                         HTML4_ENTITIES, 248,
                         "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
@@ -3185,7 +3186,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 0.9-ml")
                 fun testHTML5Entities_XQuery_0_9_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_0_9,
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_0_9,
                         HTML5_ENTITIES
                     )
                 }
@@ -3194,7 +3195,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 1.0")
                 fun testHTML5Entities_XQuery_1_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_1_0_20070123,
+                        XQuerySpec.REC_1_0_20070123,
                         HTML5_ENTITIES, 1872,
                         "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
@@ -3203,7 +3204,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("xquery version 1.0-ml")
                 fun testHTML5Entities_XQuery_1_0_ML() {
-                    checkSupportedEntities(XQuery.MARKLOGIC_1_0,
+                    checkSupportedEntities(XQuerySpec.MARKLOGIC_1_0,
                         HTML5_ENTITIES
                     )
                 }
@@ -3212,7 +3213,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.0")
                 fun testHTML5Entities_XQuery_3_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_0_20140408,
+                        XQuerySpec.REC_3_0_20140408,
                         HTML5_ENTITIES, 1872,
                         "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
@@ -3222,7 +3223,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.1")
                 fun testHTML5Entities_XQuery_3_1() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_1_20170321,
+                        XQuerySpec.REC_3_1_20170321,
                         HTML5_ENTITIES, 1872,
                         "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version."
                     )
@@ -3236,7 +3237,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 0.9-ml")
                 fun testUnknownEntities_XQuery_0_9_ML() {
                     checkUnsupportedEntities(
-                        XQuery.MARKLOGIC_0_9, "\"&xyz;&ABC;\"", 2,
+                        XQuerySpec.MARKLOGIC_0_9, "\"&xyz;&ABC;\"", 2,
                         "XPST0003: Predefined entity '&", ";' is not a known entity name.",
                         ProblemHighlightType.ERROR
                     )
@@ -3246,7 +3247,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 1.0")
                 fun testUnknownEntities_XQuery_1_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_1_0_20070123, "\"&xyz;&ABC;\"", 2,
+                        XQuerySpec.REC_1_0_20070123, "\"&xyz;&ABC;\"", 2,
                         "XPST0003: Predefined entity '&", ";' is not a known entity name.",
                         ProblemHighlightType.ERROR
                     )
@@ -3256,7 +3257,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 1.0-ml")
                 fun testUnknownEntities_XQuery_1_0_ML() {
                     checkUnsupportedEntities(
-                        XQuery.MARKLOGIC_1_0, "\"&xyz;&ABC;\"", 2,
+                        XQuerySpec.MARKLOGIC_1_0, "\"&xyz;&ABC;\"", 2,
                         "XPST0003: Predefined entity '&", ";' is not a known entity name.",
                         ProblemHighlightType.ERROR
                     )
@@ -3266,7 +3267,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.0")
                 fun testUnknownEntities_XQuery_3_0() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_0_20140408, "\"&xyz;&ABC;\"", 2,
+                        XQuerySpec.REC_3_0_20140408, "\"&xyz;&ABC;\"", 2,
                         "XPST0003: Predefined entity '&", ";' is not a known entity name.",
                         ProblemHighlightType.ERROR
                     )
@@ -3276,7 +3277,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("xquery version 3.1")
                 fun testUnknownEntities_XQuery_3_1() {
                     checkUnsupportedEntities(
-                        XQuery.REC_3_1_20170321, "\"&xyz;&ABC;\"", 2,
+                        XQuerySpec.REC_3_1_20170321, "\"&xyz;&ABC;\"", 2,
                         "XPST0003: Predefined entity '&", ";' is not a known entity name.",
                         ProblemHighlightType.ERROR
                     )
@@ -3294,7 +3295,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("XQuery ':' assignment operator")
                 fun testXQuery31_Map_XQuerySeparator() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_3_1_20170321.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
                     val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
 
                     val problems = inspect(
@@ -3309,7 +3310,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("Saxon ':=' assignment operator")
                 fun testXQuery31_Map_SaxonSeparator() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_3_1_20170321.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
                     val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
 
                     val problems = inspect(
@@ -3331,7 +3332,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("missing assignment operator")
                 fun testXQuery31_Map_NoValueAssignmentOperator() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_3_1_20170321.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
                     val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
 
                     val problems = inspect(
@@ -3350,7 +3351,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("Saxon ':=' assignment operator")
                 fun testSaxon94_Map_SaxonSeparator() {
                     settings.implementationVersion = "saxon/EE/v9.5"
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
 
                     val problems = inspect(
@@ -3365,7 +3366,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("XQuery ':' assignment operator")
                 fun testSaxon94_Map_XQuerySeparator() {
                     settings.implementationVersion = "saxon/EE/v9.5"
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")
 
                     val problems = inspect(
@@ -3387,7 +3388,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("missing assignment operator")
                 fun testSaxon94_Map_NoValueAssignmentOperator() {
                     settings.implementationVersion = "saxon/EE/v9.5"
-                    settings.XQueryVersion = XQuery.REC_3_0_20140408.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
                     val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")
 
                     val problems = inspect(
@@ -3449,7 +3450,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("single statement; without a final statement semicolon")
                 fun testMarkLogic_Single_NoSemicolon() {
                     settings.implementationVersion = "marklogic/v6.0"
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
                     val problems = inspect(
@@ -3464,7 +3465,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("single statement; with a final statement semicolon")
                 fun testMarkLogic_Single_Semicolon() {
                     settings.implementationVersion = "marklogic/v6.0"
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
                     val problems = inspect(
@@ -3479,7 +3480,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("multiple statements; with a final statement semicolon")
                 fun testMarkLogic_Multiple_SemicolonAtEnd() {
                     settings.implementationVersion = "marklogic/v6.0"
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
                     val problems = inspect(
@@ -3494,7 +3495,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("multiple statements; without a final statement semicolon")
                 fun testMarkLogic_Multiple_NoSemicolonAtEnd() {
                     settings.implementationVersion = "marklogic/v6.0"
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
                     val problems = inspect(
@@ -3509,7 +3510,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("with prolog")
                 fun testMarkLogic_WithProlog() {
                     settings.implementationVersion = "marklogic/v6.0"
-                    settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                    settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                     val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
                     val problems = inspect(
@@ -3528,7 +3529,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("single statement; without a final statement semicolon")
                 fun testScripting_Single_NoSemicolon() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
 
                     val problems = inspect(
@@ -3543,7 +3544,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("single statement; with a final statement semicolon")
                 fun testScripting_Single_Semicolon() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
 
                     val problems = inspect(
@@ -3558,7 +3559,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("multiple statements; with a final statement semicolon")
                 fun testScripting_Multiple_SemicolonAtEnd() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
 
                     val problems = inspect(
@@ -3573,7 +3574,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("multiple statements; without a final statement semicolon")
                 fun testScripting_Multiple_NoSemicolonAtEnd() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
 
                     val problems = inspect(
@@ -3595,7 +3596,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 @DisplayName("with prolog")
                 fun testScripting_WithProlog() {
                     settings.implementationVersion = "w3c/spec/v1ed"
-                    settings.XQueryVersion = XQuery.REC_1_0_20070123.versionId
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     val file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
 
                     val problems = inspect(

@@ -20,33 +20,30 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val ARGUMENTS = TokenSet.create(
     XQueryElementType.ARGUMENT,
-    XQueryElementType.ARGUMENT_PLACEHOLDER)
+    XQueryElementType.ARGUMENT_PLACEHOLDER
+)
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        if (parent !is XPathPostfixExpr) {
-            return XQUERY10
+class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            if (parent !is XPathPostfixExpr) {
+                return XQUERY10
+            }
+            return XQUERY30
         }
-        return XQUERY30
-    }
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 
-    override val arity get(): Int =
-        children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.count()
+    override val arity
+        get(): Int = children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.count()
 }

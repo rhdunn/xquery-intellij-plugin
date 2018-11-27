@@ -29,31 +29,32 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 private val STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL)
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
-class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl,
-    VersionConformance {
+class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, VersionConformance {
     override val version get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
     override val encoding get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
 
-    override val requiresConformance get(): List<Version> =
-        if (conformanceElement === firstChild) XQUERY10 else XQUERY30
+    override val requiresConformance
+        get(): List<Version> = if (conformanceElement === firstChild) XQUERY10 else XQUERY30
 
-    override val conformanceElement get(): PsiElement {
-        val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
+    override val conformanceElement
+        get(): PsiElement {
+            val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
 
-        var previous = encoding.treePrev
-        while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
-            previous = previous.treePrev
+            var previous = encoding.treePrev
+            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
+                previous = previous.treePrev
+            }
+
+            return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
         }
-
-        return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
-    }
 
     private fun getStringValueAfterKeyword(type: IKeywordOrNCNameType): XPathStringLiteral? {
         for (child in node.getChildren(STRINGS)) {

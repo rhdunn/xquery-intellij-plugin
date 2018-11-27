@@ -18,16 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryConstructor
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class PluginBinaryConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     PluginBinaryConstructor, VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
+    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

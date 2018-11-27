@@ -33,18 +33,18 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
-        XQuery.MARKLOGIC_0_9 ->
-            b === XQuery.MARKLOGIC_0_9 ||
-            b === XQuery.WD_1_0_20030502
-        XQuery.MARKLOGIC_1_0 ->
+        XQuerySpec.MARKLOGIC_0_9 ->
+            b === XQuerySpec.MARKLOGIC_0_9 ||
+            b === XQuerySpec.WD_1_0_20030502
+        XQuerySpec.MARKLOGIC_1_0 ->
             b.kind === MarkLogic ||
-            b === XQuery.MARKLOGIC_1_0 ||
-            b === XQuery.REC_1_0_20070123 ||
-            b === XQuery.REC_3_0_20140408 ||
-            b === XQuery.REC_3_1_20170321
-        XQuery.REC_1_0_20070123 ->
-            b !== XQuery.WD_1_0_20030502 &&
-            b !== XQuery.MARKLOGIC_0_9 &&
+            b === XQuerySpec.MARKLOGIC_1_0 ||
+            b === XQuerySpec.REC_1_0_20070123 ||
+            b === XQuerySpec.REC_3_0_20140408 ||
+            b === XQuerySpec.REC_3_1_20170321
+        XQuerySpec.REC_1_0_20070123 ->
+            b !== XQuerySpec.WD_1_0_20030502 &&
+            b !== XQuerySpec.MARKLOGIC_0_9 &&
             a.value >= b.value
         else ->
             a.value >= b.value

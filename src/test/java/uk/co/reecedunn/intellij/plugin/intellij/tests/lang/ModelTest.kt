@@ -37,9 +37,9 @@ class ModelTest {
 
             assertThat(XPathSpec.REC_1_0_19991116.toString(), `is`("XPath 1.0"))
 
-            assertThat(XQuery.WD_1_0_20030502.toString(), `is`("XQuery 1.0 (Working Draft 02 May 2003)"))
-            assertThat(XQuery.REC_1_0_20070123.toString(), `is`("XQuery 1.0"))
-            assertThat(XQuery.MARKLOGIC_0_9.toString(), `is`("XQuery 0.9-ml"))
+            assertThat(XQuerySpec.WD_1_0_20030502.toString(), `is`("XQuery 1.0 (Working Draft 02 May 2003)"))
+            assertThat(XQuerySpec.REC_1_0_20070123.toString(), `is`("XQuery 1.0"))
+            assertThat(XQuerySpec.MARKLOGIC_0_9.toString(), `is`("XQuery 0.9-ml"))
 
             assertThat(FullText.REC_1_0_20110317.toString(), `is`("XQuery and XPath Full Text 1.0"))
 
@@ -98,7 +98,7 @@ class ModelTest {
         fun testXmlSchema_SupportsDialect() {
             val versioned = XmlSchemaSpec
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(true))
-            assertThat(versioned.supportsDialect(XQuery), `is`(false))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -114,9 +114,9 @@ class ModelTest {
         @Test
         @DisplayName("XQuery specification")
         fun testXQuery_SupportsDialect() {
-            val versioned = XQuery
+            val versioned = XQuerySpec
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -134,7 +134,7 @@ class ModelTest {
         fun testFullText_SupportsDialect() {
             val versioned = FullText
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(true))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -152,7 +152,7 @@ class ModelTest {
         fun testFunctionsAndOperators_SupportsDialect() {
             val versioned = FunctionsAndOperators
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(false))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(true))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -170,7 +170,7 @@ class ModelTest {
         fun testScripting_SupportsDialect() {
             val versioned = Scripting
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(true))
@@ -188,7 +188,7 @@ class ModelTest {
         fun testUpdateFacility_SupportsDialect() {
             val versioned = UpdateFacility
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -206,7 +206,7 @@ class ModelTest {
         fun testBaseX_SupportsDialect() {
             val versioned = BaseX
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(true))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -224,7 +224,7 @@ class ModelTest {
         fun testEXistDB_SupportsDialect() {
             val versioned = EXistDB
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -242,7 +242,7 @@ class ModelTest {
         fun testMarkLogic_SupportsDialect() {
             val versioned = MarkLogic
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -260,7 +260,7 @@ class ModelTest {
         fun testSaxon_SupportsDialect() {
             val versioned = Saxon
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(true))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(true))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -278,7 +278,7 @@ class ModelTest {
         fun testW3C_SupportsDialect() {
             val versioned = W3C
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
-            assertThat(versioned.supportsDialect(XQuery), `is`(false))
+            assertThat(versioned.supportsDialect(XQuerySpec), `is`(false))
             assertThat(versioned.supportsDialect(FullText), `is`(false))
             assertThat(versioned.supportsDialect(FunctionsAndOperators), `is`(false))
             assertThat(versioned.supportsDialect(Scripting), `is`(false))
@@ -566,13 +566,13 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery
 
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(true))
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(version.value >= 7.7))
-                    assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(version.value in 8.2..8.5))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_1_20170321), `is`(version.value >= 8.6))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_0_9), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_1_0), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20070123), `is`(true))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20101214), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(version.value >= 7.7))
+                    assertThat(product.conformsTo(version, XQuerySpec.CR_3_1_20151217), `is`(version.value in 8.2..8.5))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_1_20170321), `is`(version.value >= 8.6))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_0_9), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_1_0), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Full Text
@@ -664,13 +664,13 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery
 
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(true))
-                    assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(version.value >= 3.0 && version.value < 4.0))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_1_20170321), `is`(version.value >= 4.0))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_0_9), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_1_0), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20070123), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20101214), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(true))
+                    assertThat(product.conformsTo(version, XQuerySpec.CR_3_1_20151217), `is`(version.value >= 3.0 && version.value < 4.0))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_1_20170321), `is`(version.value >= 4.0))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_0_9), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_1_0), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Full Text
@@ -765,13 +765,13 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery
 
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(true))
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_1_20170321), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_0_9), `is`(true))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_1_0), `is`(true))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20070123), `is`(true))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20101214), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.CR_3_1_20151217), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_1_20170321), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_0_9), `is`(true))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_1_0), `is`(true))
 
                     // endregion
                     // region Specification: XQuery and XPath Full Text
@@ -854,17 +854,17 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery
 
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(true))
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20070123), `is`(true))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20101214), `is`(false))
                     if (product.id == "HE") {
-                        assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(version.value >= 9.6))
+                        assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(version.value >= 9.6))
                     } else {
-                        assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(version.value >= 9.5))
+                        assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(version.value >= 9.5))
                     }
-                    assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(version.value == 9.7))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_1_20170321), `is`(version.value >= 9.8))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_0_9), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_1_0), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.CR_3_1_20151217), `is`(version.value == 9.7))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_1_20170321), `is`(version.value >= 9.8))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_0_9), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_1_0), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Full Text
@@ -964,13 +964,13 @@ class ModelTest {
                     // endregion
                     // region Specification: XQuery
 
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20070123), `is`(version.value == 1.0))
-                    assertThat(product.conformsTo(version, XQuery.REC_1_0_20101214), `is`(version.value == 2.0))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_0_20140408), `is`(version.value == 1.0))
-                    assertThat(product.conformsTo(version, XQuery.CR_3_1_20151217), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.REC_3_1_20170321), `is`(version.value == 1.0))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_0_9), `is`(false))
-                    assertThat(product.conformsTo(version, XQuery.MARKLOGIC_1_0), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20070123), `is`(version.value == 1.0))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_1_0_20101214), `is`(version.value == 2.0))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_0_20140408), `is`(version.value == 1.0))
+                    assertThat(product.conformsTo(version, XQuerySpec.CR_3_1_20151217), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.REC_3_1_20170321), `is`(version.value == 1.0))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_0_9), `is`(false))
+                    assertThat(product.conformsTo(version, XQuerySpec.MARKLOGIC_1_0), `is`(false))
 
                     // endregion
                     // region Specification: XQuery and XPath Full Text
@@ -1065,22 +1065,22 @@ class ModelTest {
             var xquery: List<Version>
             for (product in BaseX.products) {
                 for (version in BaseX.versions) {
-                    xquery = XQuery.versionsFor(product, version)
+                    xquery = XQuerySpec.versionsFor(product, version)
                     if (version.value < 7.7) {
                         assertThat(xquery.size, `is`(1))
-                        assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+                        assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
                     } else if (version.value < 8.2) {
                         assertThat(xquery.size, `is`(2))
-                        assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                        assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+                        assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                        assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
                     } else {
                         assertThat(xquery.size, `is`(3))
-                        assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                        assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+                        assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                        assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
                         if (version.value <= 8.5) {
-                            assertThat(xquery[2], `is`(XQuery.CR_3_1_20151217))
+                            assertThat(xquery[2], `is`(XQuerySpec.CR_3_1_20151217))
                         } else {
-                            assertThat(xquery[2], `is`(XQuery.REC_3_1_20170321))
+                            assertThat(xquery[2], `is`(XQuerySpec.REC_3_1_20170321))
                         }
                     }
                 }
@@ -1093,11 +1093,11 @@ class ModelTest {
             var xquery: List<Version>
             for (product in MarkLogic.products) {
                 for (version in MarkLogic.versions) {
-                    xquery = XQuery.versionsFor(product, version)
+                    xquery = XQuerySpec.versionsFor(product, version)
                     assertThat(xquery.size, `is`(3))
-                    assertThat(xquery[0], `is`(XQuery.MARKLOGIC_0_9))
-                    assertThat(xquery[1], `is`(XQuery.REC_1_0_20070123))
-                    assertThat(xquery[2], `is`(XQuery.MARKLOGIC_1_0))
+                    assertThat(xquery[0], `is`(XQuerySpec.MARKLOGIC_0_9))
+                    assertThat(xquery[1], `is`(XQuerySpec.REC_1_0_20070123))
+                    assertThat(xquery[2], `is`(XQuerySpec.MARKLOGIC_1_0))
                 }
             }
         }
@@ -1107,32 +1107,32 @@ class ModelTest {
         fun testSaxon_XQueryVersions() {
             var xquery: List<Version>
             for (product in Saxon.products) {
-                xquery = XQuery.versionsFor(product, Saxon.VERSION_9_5)
+                xquery = XQuerySpec.versionsFor(product, Saxon.VERSION_9_5)
                 if (product.id == "HE") {
                     assertThat(xquery.size, `is`(1))
-                    assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
+                    assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
                 } else {
                     assertThat(xquery.size, `is`(2))
-                    assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                    assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+                    assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                    assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
                 }
 
-                xquery = XQuery.versionsFor(product, Saxon.VERSION_9_6)
+                xquery = XQuerySpec.versionsFor(product, Saxon.VERSION_9_6)
                 assertThat(xquery.size, `is`(2))
-                assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
+                assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
 
-                xquery = XQuery.versionsFor(product, Saxon.VERSION_9_7)
+                xquery = XQuerySpec.versionsFor(product, Saxon.VERSION_9_7)
                 assertThat(xquery.size, `is`(3))
-                assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
-                assertThat(xquery[2], `is`(XQuery.CR_3_1_20151217))
+                assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
+                assertThat(xquery[2], `is`(XQuerySpec.CR_3_1_20151217))
 
-                xquery = XQuery.versionsFor(product, Saxon.VERSION_9_8)
+                xquery = XQuerySpec.versionsFor(product, Saxon.VERSION_9_8)
                 assertThat(xquery.size, `is`(3))
-                assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
-                assertThat(xquery[2], `is`(XQuery.REC_3_1_20170321))
+                assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
+                assertThat(xquery[2], `is`(XQuerySpec.REC_3_1_20170321))
             }
         }
 
@@ -1141,15 +1141,15 @@ class ModelTest {
         fun testW3C_XQueryVersions() {
             var xquery: List<Version>
             for (product in W3C.products) {
-                xquery = XQuery.versionsFor(product, W3C.FIRST_EDITION)
+                xquery = XQuerySpec.versionsFor(product, W3C.FIRST_EDITION)
                 assertThat(xquery.size, `is`(3))
-                assertThat(xquery[0], `is`(XQuery.REC_1_0_20070123))
-                assertThat(xquery[1], `is`(XQuery.REC_3_0_20140408))
-                assertThat(xquery[2], `is`(XQuery.REC_3_1_20170321))
+                assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20070123))
+                assertThat(xquery[1], `is`(XQuerySpec.REC_3_0_20140408))
+                assertThat(xquery[2], `is`(XQuerySpec.REC_3_1_20170321))
 
-                xquery = XQuery.versionsFor(product, W3C.SECOND_EDITION)
+                xquery = XQuerySpec.versionsFor(product, W3C.SECOND_EDITION)
                 assertThat(xquery.size, `is`(1))
-                assertThat(xquery[0], `is`(XQuery.REC_1_0_20101214))
+                assertThat(xquery[0], `is`(XQuerySpec.REC_1_0_20101214))
             }
         }
     }
@@ -1169,14 +1169,14 @@ class ModelTest {
                     flavours = product.flavoursForXQueryVersion(version, "3.0")
                     assertThat(flavours.size, `is`(4))
                     assertThat(flavours[0], `is`(BaseX))
-                    assertThat(flavours[1], `is`(XQuery))
+                    assertThat(flavours[1], `is`(XQuerySpec))
                     assertThat(flavours[2], `is`(FullText))
                     assertThat(flavours[3], `is`(UpdateFacility))
 
                     flavours = product.flavoursForXQueryVersion(version, "3.1")
                     assertThat(flavours.size, `is`(4))
                     assertThat(flavours[0], `is`(BaseX))
-                    assertThat(flavours[1], `is`(XQuery))
+                    assertThat(flavours[1], `is`(XQuerySpec))
                     assertThat(flavours[2], `is`(FullText))
                     assertThat(flavours[3], `is`(UpdateFacility))
 
@@ -1197,7 +1197,7 @@ class ModelTest {
                 for (version in MarkLogic.versions) {
                     flavours = product.flavoursForXQueryVersion(version, "1.0")
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`(XQuery))
+                    assertThat(flavours[0], `is`(XQuerySpec))
 
                     flavours = product.flavoursForXQueryVersion(version, "3.0")
                     assertThat(flavours.size, `is`(0))
@@ -1225,45 +1225,45 @@ class ModelTest {
                     flavours = product.flavoursForXQueryVersion(version, "1.0")
                     if (product.id == "HE") {
                         assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                     } else if (product.id == "PE") {
                         assertThat(flavours.size, `is`(2))
                         assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuery))
+                        assertThat(flavours[1], `is`(XQuerySpec))
                     } else {
                         assertThat(flavours.size, `is`(3))
                         assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuery))
+                        assertThat(flavours[1], `is`(XQuerySpec))
                         assertThat(flavours[2], `is`(UpdateFacility))
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.0")
                     if (product.id == "HE") {
                         assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                     } else if (product.id == "PE") {
                         assertThat(flavours.size, `is`(2))
                         assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuery))
+                        assertThat(flavours[1], `is`(XQuerySpec))
                     } else {
                         assertThat(flavours.size, `is`(3))
                         assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuery))
+                        assertThat(flavours[1], `is`(XQuerySpec))
                         assertThat(flavours[2], `is`(UpdateFacility))
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.1")
                     if (product.id == "HE") {
                         assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                     } else if (product.id == "PE") {
                         assertThat(flavours.size, `is`(2))
                         assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuery))
+                        assertThat(flavours[1], `is`(XQuerySpec))
                     } else {
                         assertThat(flavours.size, `is`(3))
                         assertThat(flavours[0], `is`(Saxon))
-                        assertThat(flavours[1], `is`(XQuery))
+                        assertThat(flavours[1], `is`(XQuerySpec))
                         assertThat(flavours[2], `is`(UpdateFacility))
                     }
 
@@ -1285,29 +1285,29 @@ class ModelTest {
                     flavours = product.flavoursForXQueryVersion(version, "1.0")
                     if (version.value == 1.0) {
                         assertThat(flavours.size, `is`(4))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                         assertThat(flavours[1], `is`(FullText))
                         assertThat(flavours[2], `is`(UpdateFacility))
                         assertThat(flavours[3], `is`(Scripting))
                     } else {
                         assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.0")
                     if (version.value == 1.0) {
                         assertThat(flavours.size, `is`(3))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                         assertThat(flavours[1], `is`(FullText))
                         assertThat(flavours[2], `is`(UpdateFacility))
                     } else {
                         assertThat(flavours.size, `is`(1))
-                        assertThat(flavours[0], `is`(XQuery))
+                        assertThat(flavours[0], `is`(XQuerySpec))
                     }
 
                     flavours = product.flavoursForXQueryVersion(version, "3.1")
                     assertThat(flavours.size, `is`(1))
-                    assertThat(flavours[0], `is`(XQuery))
+                    assertThat(flavours[0], `is`(XQuerySpec))
 
                     flavours = product.flavoursForXQueryVersion(version, "0.9-ml")
                     assertThat(flavours.size, `is`(0))
@@ -1327,29 +1327,29 @@ class ModelTest {
         fun testBaseX_VersionForXQuery() {
             for (product in BaseX.products) {
                 for (version in BaseX.versions) {
-                    assertThat(XQuery.versionForXQuery(product, version, "1.0"), `is`(XQuery.REC_1_0_20070123))
+                    assertThat(XQuerySpec.versionForXQuery(product, version, "1.0"), `is`(XQuerySpec.REC_1_0_20070123))
                     if (version.value < 7.7)
-                        assertThat(XQuery.versionForXQuery(product, version, "3.0"), `is`(nullValue()))
+                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.0"), `is`(nullValue()))
                     else
-                        assertThat(XQuery.versionForXQuery(product, version, "3.0"), `is`(XQuery.REC_3_0_20140408))
+                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.0"), `is`(XQuerySpec.REC_3_0_20140408))
                     if (version.value < 8.2)
-                        assertThat(XQuery.versionForXQuery(product, version, "3.1"), `is`(nullValue()))
+                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(nullValue()))
                     else if (version.value <= 8.5)
-                        assertThat(XQuery.versionForXQuery(product, version, "3.1"), `is`(XQuery.CR_3_1_20151217))
+                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(XQuerySpec.CR_3_1_20151217))
                     else
-                        assertThat(XQuery.versionForXQuery(product, version, "3.1"), `is`(XQuery.REC_3_1_20170321))
+                        assertThat(XQuerySpec.versionForXQuery(product, version, "3.1"), `is`(XQuerySpec.REC_3_1_20170321))
 
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "0.9-ml"),
+                        XQuerySpec.versionForXQuery(product, version, "0.9-ml"),
                         `is`(nullValue())
                     )
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "1.0-ml"),
+                        XQuerySpec.versionForXQuery(product, version, "1.0-ml"),
                         `is`(nullValue())
                     )
 
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "3"),
+                        XQuerySpec.versionForXQuery(product, version, "3"),
                         `is`(nullValue())
                     )
                 }
@@ -1362,29 +1362,29 @@ class ModelTest {
             for (product in MarkLogic.products) {
                 for (version in MarkLogic.versions) {
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "1.0"),
-                        `is`(XQuery.REC_1_0_20070123)
+                        XQuerySpec.versionForXQuery(product, version, "1.0"),
+                        `is`(XQuerySpec.REC_1_0_20070123)
                     )
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "3.0"),
+                        XQuerySpec.versionForXQuery(product, version, "3.0"),
                         `is`(nullValue())
                     )
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "3.1"),
+                        XQuerySpec.versionForXQuery(product, version, "3.1"),
                         `is`(nullValue())
                     )
 
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "0.9-ml"),
-                        `is`(XQuery.MARKLOGIC_0_9)
+                        XQuerySpec.versionForXQuery(product, version, "0.9-ml"),
+                        `is`(XQuerySpec.MARKLOGIC_0_9)
                     )
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "1.0-ml"),
-                        `is`(XQuery.MARKLOGIC_1_0)
+                        XQuerySpec.versionForXQuery(product, version, "1.0-ml"),
+                        `is`(XQuerySpec.MARKLOGIC_1_0)
                     )
 
                     assertThat(
-                        XQuery.versionForXQuery(product, version, "3"),
+                        XQuerySpec.versionForXQuery(product, version, "3"),
                         `is`(nullValue())
                     )
                 }

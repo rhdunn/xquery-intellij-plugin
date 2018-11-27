@@ -18,14 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-val NO_ANNOTATIONS = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+val NO_ANNOTATIONS = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 val ANNOTATIONS = listOf<Version>()
 
 class XPathFunctionTestPsiImpl(node: ASTNode) :

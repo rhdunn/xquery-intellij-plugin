@@ -23,11 +23,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 class XQueryContextItemDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryContextItemDecl,
     VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
+    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.K_CONTEXT) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.K_CONTEXT) ?: firstChild
 }

@@ -19,33 +19,29 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val VALIDATE_BY_TYPENAME = TokenSet.create(XPathTokenType.K_AS, XQueryTokenType.K_TYPE)
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        val element = conformanceElement
-        if (element !== firstChild) {
-            if (element.node.elementType === XQueryTokenType.K_TYPE) {
-                return XQUERY30
+class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            val element = conformanceElement
+            if (element !== firstChild) {
+                if (element.node.elementType === XQueryTokenType.K_TYPE) {
+                    return XQUERY30
+                }
+                return MARKLOGIC60
             }
-            return MARKLOGIC60
+            return XQUERY10
         }
-        return XQUERY10
-    }
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(VALIDATE_BY_TYPENAME) ?: firstChild
+    override val conformanceElement get(): PsiElement = findChildByType(VALIDATE_BY_TYPENAME) ?: firstChild
 }

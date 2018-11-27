@@ -22,11 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedArrayTest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
-class XPathTypedArrayTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedArrayTest,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321)
+class XPathTypedArrayTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedArrayTest, VersionConformance {
+    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

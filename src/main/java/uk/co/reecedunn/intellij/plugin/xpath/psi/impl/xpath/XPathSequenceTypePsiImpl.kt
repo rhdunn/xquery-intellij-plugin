@@ -26,13 +26,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
-    XQuery.REC_1_0_20070123,
+    XQuerySpec.REC_1_0_20070123,
     EXistDB.VERSION_4_0
 )
 private val XQUERY10_REC_OCCURRENCE: List<Version> = listOf()
 private val XQUERY10_WD_EMPTY: List<Version> = listOf(
-    XQuery.WD_1_0_20030502,
-    XQuery.MARKLOGIC_0_9,
+    XQuerySpec.WD_1_0_20030502,
+    XQuerySpec.MARKLOGIC_0_9,
     until(EXistDB.VERSION_4_0)
 )
 
@@ -42,8 +42,7 @@ private val OCCURRENCE_INDICATOR = TokenSet.create(
     XPathTokenType.STAR
 )
 
-class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType,
-    VersionConformance {
+class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, VersionConformance {
     override val requiresConformance: List<Version>
         get() {
             return if (conformanceElement.node.elementType == XQueryTokenType.K_EMPTY)

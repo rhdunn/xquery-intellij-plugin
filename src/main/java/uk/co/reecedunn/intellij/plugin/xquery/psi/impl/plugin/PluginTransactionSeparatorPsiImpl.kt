@@ -19,34 +19,30 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
-private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9, Scripting.NOTE_1_0_20140918)
+private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
+private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9, Scripting.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
 
 class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     PluginTransactionSeparator, VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        return if (parent.node.elementType === XQueryElementType.MODULE) {
-            // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
-            MARKLOGIC60
-        } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
-            // The last TransactionSeparator in a QueryBody.
-            // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
-            XQUERY
-        } else {
-            MARKLOGIC60_SCRIPTING
+    override val requiresConformance
+        get(): List<Version> {
+            return if (parent.node.elementType === XQueryElementType.MODULE) {
+                // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
+                MARKLOGIC60
+            } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
+                // The last TransactionSeparator in a QueryBody.
+                // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
+                XQUERY
+            } else {
+                MARKLOGIC60_SCRIPTING
+            }
         }
-    }
 
-    override val conformanceElement get(): PsiElement =
-        firstChild ?: this
+    override val conformanceElement get(): PsiElement = firstChild ?: this
 }

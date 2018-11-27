@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
@@ -83,13 +83,13 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", Resources) {
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> {
-                    if (product.conformsTo(productVersion, XQuery.REC_3_0_20140408)) {
-                        val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", XQuery.REC_3_0_20140408)
+                    if (product.conformsTo(productVersion, XQuerySpec.REC_3_0_20140408)) {
+                        val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", XQuerySpec.REC_3_0_20140408)
                         descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME -> {
-                    val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", XQuery.REC_1_0_20070123)
+                    val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", XQuerySpec.REC_1_0_20070123)
                     descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                 }
                 IKeywordOrNCNameType.KeywordType.KEYWORD -> {}

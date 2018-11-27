@@ -18,24 +18,21 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleMapExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XPathSimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleMapExpr,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        if (conformanceElement === firstChild) {
-            return XQUERY10
+class XPathSimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleMapExpr, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            if (conformanceElement === firstChild) {
+                return XQUERY10
+            }
+            return XQUERY30
         }
-        return XQUERY30
-    }
 
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
 }

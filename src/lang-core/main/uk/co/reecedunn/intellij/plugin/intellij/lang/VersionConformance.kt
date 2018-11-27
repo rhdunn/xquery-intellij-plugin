@@ -27,9 +27,9 @@ interface VersionConformance {
      *   -  A product version for a vendor extension -- this requires any XQuery version;
      *   -  A `MarkLogic` product version for MarkLogic vendor extensions -- this requires
      *      XQuery version `1.0-ml`;
-     *   -  `XQuery.MARKLOGIC_0_9` -- this requires XQuery version `0.9-ml`.
+     *   -  `XQuerySpec.MARKLOGIC_0_9` -- this requires XQuery version `0.9-ml`.
      *
-     * __NOTE:__ MarkLogic vendor extensions should not use `XQuery.MARKLOGIC_1_0`. They
+     * __NOTE:__ MarkLogic vendor extensions should not use `XQuerySpec.MARKLOGIC_1_0`. They
      * should use one of the `MarkLogic` versions (e.g. `MarkLogic.VERSION_6_0`). This is
      * so that these extensions can report the correct MarkLogic version required for that
      * extension when the `1.0-ml` XQuery version is used.

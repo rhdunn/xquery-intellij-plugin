@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -84,7 +85,7 @@ private class XPathInspectionTest : InspectionTestCase() {
             @DisplayName("built-in MarkLogic namespaces")
             fun testBuiltinMarkLogic() {
                 settings.implementationVersion = "marklogic/v8"
-                settings.XQueryVersion = XQuery.MARKLOGIC_1_0.versionId
+                settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                 val file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq")
 
                 val problems = inspect(file,

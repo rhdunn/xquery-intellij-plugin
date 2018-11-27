@@ -20,6 +20,7 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: Specification?) {
@@ -28,8 +29,8 @@ data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: S
             val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
             val product = settings.product
             val productVersion = settings.productVersion
-            val xquery = settings.XQueryVersion ?: return XQuery.REC_1_0_20070123
-            return XQuery.versionForXQuery(product, productVersion, xquery) ?: XQuery.REC_1_0_20070123
+            val xquery = settings.XQueryVersion ?: return XQuerySpec.REC_1_0_20070123
+            return XQuerySpec.versionForXQuery(product, productVersion, xquery) ?: XQuerySpec.REC_1_0_20070123
         }
         return version
     }

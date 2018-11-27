@@ -67,3 +67,88 @@ object XPathSpec : Versioned {
         REC_3_1_20170321
     )
 }
+
+object XQuerySpec : Versioned {
+    // region 1.0
+
+    val WD_1_0_20030502 = DraftSpecification(
+        "1.0-20030502", 1.0, 20030502, "1.0", "https://www.w3.org/TR/2003/WD-xquery-20030502/", this,
+        "Working Draft 02 May 2003"
+    )
+
+    val REC_1_0_20070123 = Specification(
+        "1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/", this
+    )
+
+    val REC_1_0_20101214 = Specification(
+        "1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xquery-20101214/", this
+    )
+
+    // endregion
+    // region 3.0
+
+    val REC_3_0_20140408 = Specification(
+        "3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xquery-30-20140408/", this,
+        "%annotation, count, group by, try/catch, switch, etc."
+    )
+
+    // endregion
+    // region 3.1
+
+    val CR_3_1_20151217 = Specification(
+        "3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xquery-31-20151217/", this,
+        "array, map, =>, ?key, {}, string interpolation"
+    )
+
+    val REC_3_1_20170321 = Specification(
+        "3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xquery-31-20170321/", this,
+        "array, map, =>, ?key, {}, string interpolation"
+    )
+
+    // endregion
+    // region MarkLogic XQuery Versions
+
+    val MARKLOGIC_0_9 = Specification(
+        "0.9-ml", 0.9, 2007, "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735", this
+    ) // MarkLogic 3.2 (compatibility)
+
+    val MARKLOGIC_1_0 = Specification(
+        "1.0-ml", 1.0, 2008, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this
+    ) // MarkLogic 4.0+
+
+    // endregion
+
+    override val id get(): String = "xquery"
+
+    override val name get(): String = "XQuery"
+
+    override val versions: List<Version> = listOf(
+        MARKLOGIC_0_9,
+        WD_1_0_20030502,
+        REC_1_0_20070123,
+        REC_1_0_20101214,
+        REC_3_0_20140408,
+        CR_3_1_20151217,
+        REC_3_1_20170321,
+        MARKLOGIC_1_0
+    )
+
+    private val XQUERY10: List<Specification> = listOf(REC_1_0_20070123, REC_1_0_20101214, WD_1_0_20030502)
+    private val XQUERY30: List<Specification> = listOf(REC_3_0_20140408)
+    private val XQUERY31: List<Specification> = listOf(REC_3_1_20170321, CR_3_1_20151217)
+    private val XQUERY09_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_0_9)
+    private val XQUERY10_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_1_0)
+    private val XQUERY_UNKNOWN: List<Specification> = listOf()
+
+    fun versionsForXQuery(xquery: CharSequence?): List<Specification> = when (xquery) {
+        "0.9-ml" -> XQUERY09_MARKLOGIC
+        "1.0-ml" -> XQUERY10_MARKLOGIC
+        "1.0" -> XQUERY10
+        "3.0" -> XQUERY30
+        "3.1" -> XQUERY31
+        else -> XQUERY_UNKNOWN
+    }
+
+    fun versionForXQuery(product: Product, version: Version, xquery: String): Specification? =
+        versionsForXQuery(xquery).firstOrNull { spec -> product.conformsTo(version, spec) }
+}

@@ -24,28 +24,29 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
+private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
 class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryIntermediateClause,
     VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        val current = firstChild.node.elementType
-        if (current === XQueryElementType.COUNT_CLAUSE || current === XQueryElementType.GROUP_BY_CLAUSE) {
-            return XQUERY30
+    override val requiresConformance
+        get(): List<Version> {
+            val current = firstChild.node.elementType
+            if (current === XQueryElementType.COUNT_CLAUSE || current === XQueryElementType.GROUP_BY_CLAUSE) {
+                return XQUERY30
+            }
+
+            val prevElement = prevSibling
+            val prev = if (prevElement is XQueryInitialClause) null else prevElement.firstChild.node.elementType
+            if (prev === XQueryElementType.WHERE_CLAUSE) {
+                return if (current === XQueryElementType.ORDER_BY_CLAUSE) XQUERY10 else XQUERY30
+            } else if (prev === XQueryElementType.ORDER_BY_CLAUSE) {
+                return XQUERY30
+            }
+            return XQUERY10
         }
 
-        val prevElement = prevSibling
-        val prev = if (prevElement is XQueryInitialClause) null else prevElement.firstChild.node.elementType
-        if (prev === XQueryElementType.WHERE_CLAUSE) {
-            return if (current === XQueryElementType.ORDER_BY_CLAUSE) XQUERY10 else XQUERY30
-        } else if (prev === XQueryElementType.ORDER_BY_CLAUSE) {
-            return XQUERY30
-        }
-        return XQUERY10
-    }
-
-    override val conformanceElement get(): PsiElement =
-        firstChild.firstChild
+    override val conformanceElement get(): PsiElement = firstChild.firstChild
 }

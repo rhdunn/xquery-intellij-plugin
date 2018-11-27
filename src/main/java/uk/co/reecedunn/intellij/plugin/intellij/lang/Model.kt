@@ -19,7 +19,7 @@ fun until(until: Version): Version = UntilVersion(until)
 
 var DIALECTS: List<Versioned> = listOf(
     // W3C Standard Dialects
-    XQuery,
+    XQuerySpec,
     FullText,
     UpdateFacility,
     Scripting,

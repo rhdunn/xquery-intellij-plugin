@@ -18,24 +18,22 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowExpr
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10: List<Version> = listOf()
-private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321, MarkLogic.VERSION_9_0)
+private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, MarkLogic.VERSION_9_0)
 
 class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowExpr,
     VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        if (conformanceElement === firstChild) {
-            return XQUERY10
+    override val requiresConformance
+        get(): List<Version> {
+            if (conformanceElement === firstChild) {
+                return XQUERY10
+            }
+            return XQUERY31
         }
-        return XQUERY31
-    }
 
     override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.ARROW) ?: firstChild
 }

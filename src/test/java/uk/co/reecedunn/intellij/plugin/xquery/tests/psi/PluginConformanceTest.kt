@@ -186,7 +186,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.requiresConformance.size, `is`(2))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -203,7 +203,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.requiresConformance.size, `is`(2))
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -276,7 +276,7 @@ private class PluginConformanceTest : ParserTestCase() {
             val versioned = enclosedExprPsi as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(2))
-            assertThat(versioned.requiresConformance[0], `is`(XQuery.REC_3_1_20170321))
+            assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
             assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
@@ -749,7 +749,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(conformance.requiresConformance.size, `is`(3))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-            assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+            assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
             assertThat(conformance.requiresConformance[2], `is`(Scripting.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
@@ -805,7 +805,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(conformance.requiresConformance.size, `is`(2))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
-            assertThat(conformance.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+            assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -991,8 +991,8 @@ private class PluginConformanceTest : ParserTestCase() {
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(3))
-            assertThat(versioned.requiresConformance[0], `is`(XQuery.WD_1_0_20030502))
-            assertThat(versioned.requiresConformance[1], `is`(XQuery.MARKLOGIC_0_9))
+            assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.WD_1_0_20030502))
+            assertThat(versioned.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
             assertThat(versioned.requiresConformance[2], `is`(until(EXistDB.VERSION_4_0)))
 
             assertThat(
