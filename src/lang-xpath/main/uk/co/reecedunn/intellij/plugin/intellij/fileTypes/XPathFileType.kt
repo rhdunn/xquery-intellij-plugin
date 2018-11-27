@@ -38,6 +38,4 @@ object XPathFileType : LanguageFileType(XPath) {
         else
             FILETYPE_ICON
     }
-
-    const val EXTENSIONS = "xpath"
 }

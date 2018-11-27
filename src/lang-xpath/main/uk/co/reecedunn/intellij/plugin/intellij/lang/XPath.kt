@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
+import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 
 /**
  * XML Path Language
@@ -49,7 +50,7 @@ object XPath : Language("XMLPath"), Versioned {
 
     override fun getDisplayName(): String = "XPath"
 
-    override fun getAssociatedFileType(): LanguageFileType? = null
+    override fun getAssociatedFileType(): LanguageFileType? = XPathFileType
 
     override val id: String = "xpath"
 
