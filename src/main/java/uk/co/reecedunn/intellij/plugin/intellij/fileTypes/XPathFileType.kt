@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import javax.swing.Icon
 
 object XPathFileType : LanguageFileType(XPath) {
-    private val FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png")
-    private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png")
+    private val FILETYPE_ICON = IconLoader.getIcon("/icons/xpath.png")
+    private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xpath-163.png")
 
     override fun getName(): String = "XPath"
 
