@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSepara
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val MARKLOGIC60 = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9)
-private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9, Scripting.NOTE_1_0_20140918)
+private val MARKLOGIC60_SCRIPTING = listOf(MarkLogic.VERSION_4_0, XQuerySpec.MARKLOGIC_0_9, ScriptingSpec.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
 
 class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
@@ -37,7 +37,7 @@ class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
                 MARKLOGIC60
             } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
                 // The last TransactionSeparator in a QueryBody.
-                // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
+                // NOTE: The behaviour differs from MarkLogic and ScriptingSpec Extension, so is checked in an inspection.
                 XQUERY
             } else {
                 MARKLOGIC60_SCRIPTING

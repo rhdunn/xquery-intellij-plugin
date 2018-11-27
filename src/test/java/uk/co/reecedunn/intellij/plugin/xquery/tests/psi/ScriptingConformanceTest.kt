@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnno
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery Scripting Extensions 1.0 - Implementation Conformance Checks")
+@DisplayName("XQuery ScriptingSpec Extensions 1.0 - Implementation Conformance Checks")
 private class ScriptingConformanceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(ScriptingConformanceTest::class.java, resource)
@@ -48,7 +48,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class ApplyExpr {
         @Test
         @DisplayName("single expression; no semicolon at end")
@@ -78,7 +78,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -97,7 +97,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -116,7 +116,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = applyExpr as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -127,7 +127,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (158) AssignmentExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (158) AssignmentExpr")
     fun testAssignmentExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
 
@@ -135,7 +135,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val conformance = assignmentExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(
@@ -145,7 +145,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (153) BlockExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (153) BlockExpr")
     fun testBlockExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
@@ -153,7 +153,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val conformance = blockExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -161,7 +161,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (156) BlockVarDecl")
     fun testBlockVarDecl() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
 
@@ -173,7 +173,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val conformance = blockVarDeclPsi as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -181,7 +181,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (159) ExitExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (159) ExitExpr")
     fun testExitExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
 
@@ -189,7 +189,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val conformance = exitExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -197,7 +197,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (26) FunctionDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (26) FunctionDecl")
     internal inner class FunctionDecl {
         @Test
         @DisplayName("simple annotation")
@@ -210,7 +210,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -230,7 +230,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -241,7 +241,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (30) QueryBody ; XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (30) QueryBody ; XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class QueryBody {
         @Test
         @DisplayName("single expression; no semicolon at end")
@@ -313,7 +313,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (24) VarDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (24) VarDecl")
     internal inner class VarDecl {
         @Test
         @DisplayName("assignable annotation")
@@ -326,7 +326,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -346,7 +346,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
             val conformance = scriptingCompatibilityAnnotationPsi as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
@@ -357,7 +357,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (160) WhileExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (160) WhileExpr")
     fun testWhileExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 
@@ -365,7 +365,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         val conformance = whileExpr as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,

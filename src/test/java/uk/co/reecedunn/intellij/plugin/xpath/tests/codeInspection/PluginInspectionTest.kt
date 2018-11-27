@@ -2351,10 +2351,10 @@ private class PluginInspectionTest : InspectionTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery Scripting Extension")
+            @DisplayName("XQuery ScriptingSpec Extension")
             internal inner class ScriptingTest {
                 @Test
-                @DisplayName("Scripting Extension 1.0: product conforms to the specification")
+                @DisplayName("ScriptingSpec Extension 1.0: product conforms to the specification")
                 fun testScripting10_ProductConformsToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "w3c/spec/v1ed"
@@ -2367,7 +2367,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 }
 
                 @Test
-                @DisplayName("Scripting Extension 1.0: product does not conform to the specification")
+                @DisplayName("ScriptingSpec Extension 1.0: product does not conform to the specification")
                 fun testScripting10_ProductDoesNotConformToSpecification() {
                     settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
                     settings.implementationVersion = "marklogic/v7.0"
@@ -2381,7 +2381,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: MarkLogic 7.0 does not support XQuery Scripting Extension 1.0 constructs.")
+                        `is`("XPST0003: MarkLogic 7.0 does not support XQuery ScriptingSpec Extension 1.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_BLOCK))
                 }
@@ -2822,7 +2822,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 }
 
                 @Nested
-                @DisplayName("XQuery Scripting Extension 1.0 reserved function names")
+                @DisplayName("XQuery ScriptingSpec Extension 1.0 reserved function names")
                 internal inner class Scripting10 {
                     @Test
                     @DisplayName("in XQuery 1.0")
@@ -2839,7 +2839,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     }
 
                     @Test
-                    @DisplayName("in Scripting Extension 1.0")
+                    @DisplayName("in ScriptingSpec Extension 1.0")
                     fun testFunctionCall_Scripting10ReservedFunctionName_W3C() {
                         settings.implementationVersion = "w3c/spec/v1ed"
                         val file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
@@ -2854,7 +2854,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                         assertThat(
                             problems[0].descriptionTemplate,
-                            `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
+                            `is`("XPST0003: Reserved XQuery ScriptingSpec Extension 1.0 keyword used as a function name.")
                         )
                         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
                     }
@@ -2918,7 +2918,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 }
 
                 @Nested
-                @DisplayName("XQuery Scripting Extension 1.0 reserved function names")
+                @DisplayName("XQuery ScriptingSpec Extension 1.0 reserved function names")
                 internal inner class Scripting10 {
                     @Test
                     @DisplayName("in XQuery 1.0")
@@ -2935,7 +2935,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     }
 
                     @Test
-                    @DisplayName("in Scripting Extension 1.0")
+                    @DisplayName("in ScriptingSpec Extension 1.0")
                     fun testFunctionDecl_Scripting10ReservedFunctionName_W3C() {
                         settings.implementationVersion = "w3c/spec/v1ed"
                         val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")
@@ -2950,7 +2950,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                         assertThat(
                             problems[0].descriptionTemplate,
-                            `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
+                            `is`("XPST0003: Reserved XQuery ScriptingSpec Extension 1.0 keyword used as a function name.")
                         )
                         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
                     }
@@ -3003,7 +3003,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                 }
 
                 @Nested
-                @DisplayName("XQuery Scripting Extension 1.0 reserved function names")
+                @DisplayName("XQuery ScriptingSpec Extension 1.0 reserved function names")
                 internal inner class Scripting10 {
                     @Test
                     @DisplayName("in XQuery 1.0")
@@ -3020,7 +3020,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     }
 
                     @Test
-                    @DisplayName("in Scripting Extension 1.0")
+                    @DisplayName("in ScriptingSpec Extension 1.0")
                     fun testNamedFunctionRef_Scripting10ReservedFunctionName_W3C() {
                         settings.implementationVersion = "w3c/spec/v1ed"
                         val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")
@@ -3035,7 +3035,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                         assertThat(
                             problems[0].descriptionTemplate,
-                            `is`("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name.")
+                            `is`("XPST0003: Reserved XQuery ScriptingSpec Extension 1.0 keyword used as a function name.")
                         )
                         assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_WHILE))
                     }
@@ -3523,7 +3523,7 @@ private class PluginInspectionTest : InspectionTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery Scripting Extension")
+            @DisplayName("XQuery ScriptingSpec Extension")
             internal inner class ScriptingExtension {
                 @Test
                 @DisplayName("single statement; without a final statement semicolon")
@@ -3587,7 +3587,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
                     assertThat(
                         problems[0].descriptionTemplate,
-                        `is`("XPST0003: XQuery Scripting Extension 1.0 requires ';' at the end of each statement.")
+                        `is`("XPST0003: XQuery ScriptingSpec Extension 1.0 requires ';' at the end of each statement.")
                     )
                     assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
                 }

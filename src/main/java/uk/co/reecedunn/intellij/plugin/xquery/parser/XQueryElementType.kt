@@ -1264,7 +1264,7 @@ object XQueryElementType {
     )
 
     // endregion
-    // region Scripting Extension 1.0
+    // region ScriptingSpec Extension 1.0
 
     val CONCAT_EXPR: IElementType = ICompositeElementType(
         "XQUERY_CONCAT_EXPR",

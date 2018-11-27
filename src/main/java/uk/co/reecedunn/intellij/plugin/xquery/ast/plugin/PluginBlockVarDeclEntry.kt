@@ -18,6 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery Scripting Extension `BlockVarDeclBinding` node in the XQuery AST.
+ * An XQuery ScriptingSpec Extension `BlockVarDeclBinding` node in the XQuery AST.
  */
 interface PluginBlockVarDeclEntry : PsiElement

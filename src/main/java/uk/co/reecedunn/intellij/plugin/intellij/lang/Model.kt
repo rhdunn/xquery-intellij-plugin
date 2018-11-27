@@ -22,7 +22,7 @@ var DIALECTS: List<Versioned> = listOf(
     XQuerySpec,
     FullTextSpec,
     UpdateFacilitySpec,
-    Scripting,
+    ScriptingSpec,
     // Vendor Dialects
     BaseX,
     MarkLogic,

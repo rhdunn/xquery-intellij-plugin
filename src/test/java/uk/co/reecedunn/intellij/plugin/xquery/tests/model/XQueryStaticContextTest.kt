@@ -1675,7 +1675,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
     }
 
     // region In-Scope Variables (current file only)
-    // region BlockDecls -> BlockVarDecl -> BlockVarDeclEntry [XQuery Scripting Extension]
+    // region BlockDecls -> BlockVarDecl -> BlockVarDeclEntry [XQuery ScriptingSpec Extension]
 
     @Test
     fun testBlockVarDeclEntry_NoDeclarations() {

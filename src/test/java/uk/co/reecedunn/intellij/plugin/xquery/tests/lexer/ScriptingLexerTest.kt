@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.STATE_START_DIR_ELEM_CONSTRU
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-@DisplayName("XQuery Scripting Extensions 1.0 - Lexer")
+@DisplayName("XQuery ScriptingSpec Extensions 1.0 - Lexer")
 class ScriptingLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
@@ -36,7 +36,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (24) VarDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (24) VarDecl")
     fun testVarDecl_Scripting10() {
         val lexer = createLexer()
 
@@ -50,7 +50,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (26) FunctionDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (26) FunctionDecl")
     fun testFunctionDecl_Scripting10() {
         val lexer = createLexer()
 
@@ -67,7 +67,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
     fun testApplyExpr() {
         val lexer = createLexer()
 
@@ -75,7 +75,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (33) ConcatExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (33) ConcatExpr")
     fun testConcatExpr() {
         val lexer = createLexer()
 
@@ -83,7 +83,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (153) BlockExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (153) BlockExpr")
     fun testBlockExpr() {
         val lexer = createLexer()
 
@@ -91,7 +91,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (154) Block")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (154) Block")
     fun testBlock() {
         val lexer = createLexer()
 
@@ -100,7 +100,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (155) BlockDecls")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (155) BlockDecls")
     fun testBlockDecls() {
         val lexer = createLexer()
 
@@ -108,7 +108,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (156) BlockVarDecl")
     fun testBlockVarDecl() {
         val lexer = createLexer()
 
@@ -119,7 +119,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (158) AssignmentExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (158) AssignmentExpr")
     fun testAssignmentExpr() {
         val lexer = createLexer()
 
@@ -128,7 +128,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (159) ExitExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (159) ExitExpr")
     fun testExitExpr() {
         val lexer = createLexer()
 
@@ -137,7 +137,7 @@ class ScriptingLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (160) WhileExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (160) WhileExpr")
     fun testWhileExpr() {
         val lexer = createLexer()
 

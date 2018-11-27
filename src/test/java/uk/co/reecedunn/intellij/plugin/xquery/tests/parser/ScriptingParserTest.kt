@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery Scripting Extensions 1.0 - Parser")
+@DisplayName("XQuery ScriptingSpec Extensions 1.0 - Parser")
 private class ScriptingParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(ScriptingParserTest::class.java, resource)
@@ -33,7 +33,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class ApplyExpr {
         @Test
         @DisplayName("single expression; semicolon at end")
@@ -147,7 +147,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (30) QueryBody ; XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (30) QueryBody ; XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class QueryBody {
         @Test
         @DisplayName("single expression; semicolon at end")
@@ -261,7 +261,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (24) VarDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (24) VarDecl")
     internal inner class VarDecl {
         @Test
         @DisplayName("assignable annotation")
@@ -281,7 +281,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (26) FunctionDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (26) FunctionDecl")
     internal inner class FunctionDecl {
         @Test
         @DisplayName("no annotation; external")
@@ -349,7 +349,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (153) BlockExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (153) BlockExpr")
     internal inner class BlockExpr {
         @Test
         @DisplayName("block expression")
@@ -393,7 +393,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (155) BlockDecls ; XQuery Scripting Extensions 1.0 EBNF (154) Block")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (155) BlockDecls ; XQuery ScriptingSpec Extensions 1.0 EBNF (154) Block")
     internal inner class BlockDecls_Block {
         @Test
         @DisplayName("no declarations")
@@ -421,7 +421,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (155) BlockDecls ; XQuery Scripting Extensions 1.0 EBNF (161) WhileBody")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (155) BlockDecls ; XQuery ScriptingSpec Extensions 1.0 EBNF (161) WhileBody")
     internal inner class BlockDecls_WhileBody {
         @Test
         @DisplayName("no declarations")
@@ -449,7 +449,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (156) BlockVarDecl")
     internal inner class BlockVarDecl {
         @Test
         @DisplayName("block variable declarations")
@@ -565,7 +565,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (158) AssignmentExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (158) AssignmentExpr")
     internal inner class AssignmentExpr {
         @Test
         @DisplayName("assignment expression")
@@ -609,7 +609,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (159) ExitExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (159) ExitExpr")
     internal inner class ExitExpr {
         @Test
         @DisplayName("exit expression")
@@ -645,7 +645,7 @@ private class ScriptingParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (160) WhileExpr")
+    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (160) WhileExpr")
     internal inner class WhileExpr {
         @Test
         @DisplayName("while expression")

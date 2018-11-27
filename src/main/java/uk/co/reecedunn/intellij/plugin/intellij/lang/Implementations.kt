@@ -358,7 +358,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
                 productVersion === W3C.FIRST_EDITION
             UpdateFacilitySpec.REC_1_0_20110317, UpdateFacilitySpec.NOTE_3_0_20170124 ->
                 productVersion === W3C.FIRST_EDITION
-            Scripting.NOTE_1_0_20140918 ->
+            ScriptingSpec.NOTE_1_0_20140918 ->
                 productVersion === W3C.FIRST_EDITION
             FunctionsAndOperatorsSpec.REC_1_0_20070123, FunctionsAndOperatorsSpec.REC_3_0_20140408, FunctionsAndOperatorsSpec.REC_3_1_20170321 ->
                 productVersion === W3C.FIRST_EDITION
@@ -369,7 +369,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
     }
 
     @Suppress("PropertyName")
-    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacilitySpec, Scripting)
+    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacilitySpec, ScriptingSpec)
 
     @Suppress("PropertyName")
     val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuerySpec, FullTextSpec, UpdateFacilitySpec)

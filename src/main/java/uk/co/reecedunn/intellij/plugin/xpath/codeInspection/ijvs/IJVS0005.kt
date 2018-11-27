@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
@@ -40,7 +40,7 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", Resources) {
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val product = settings.product
         val productVersion = settings.productVersion
-        val requiresSemicolon = product.conformsTo(productVersion, Scripting.NOTE_1_0_20140918)
+        val requiresSemicolon = product.conformsTo(productVersion, ScriptingSpec.NOTE_1_0_20140918)
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<PluginTransactionSeparator>().forEach(fun (element) {
@@ -53,7 +53,7 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", Resources) {
             val haveSemicolon = element.firstChild !== null
             if (haveSemicolon != requiresSemicolon && requiresSemicolon) {
                 val context = if (element.firstChild === null) file.findElementAt(element.textOffset - 1)!! else element
-                val description = XQueryBundle.message("inspection.XPST0003.final-statement-semicolon.required", Scripting.NOTE_1_0_20140918)
+                val description = XQueryBundle.message("inspection.XPST0003.final-statement-semicolon.required", ScriptingSpec.NOTE_1_0_20140918)
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
             }
         })

@@ -750,7 +750,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(3))
             assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_4_0))
             assertThat(conformance.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
-            assertThat(conformance.requiresConformance[2], `is`(Scripting.NOTE_1_0_20140918))
+            assertThat(conformance.requiresConformance[2], `is`(ScriptingSpec.NOTE_1_0_20140918))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(

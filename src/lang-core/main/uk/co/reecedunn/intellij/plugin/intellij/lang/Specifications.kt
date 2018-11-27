@@ -225,3 +225,20 @@ object UpdateFacilitySpec : Versioned {
     override fun supportsDialect(dialect: Versioned): Boolean =
         dialect === this || dialect === XQuerySpec
 }
+
+object ScriptingSpec : Versioned {
+    val NOTE_1_0_20140918 = Specification(
+        "1.0-20140918", 1.0, 20140918, "1.0", "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/", this
+    )
+
+    override val id: String = "xquery-sx"
+
+    override val name: String = "XQuery ScriptingSpec Extension"
+
+    override val versions: List<Version> = listOf(
+        NOTE_1_0_20140918
+    )
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === UpdateFacilitySpec || dialect === XQuerySpec
+}

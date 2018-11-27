@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -77,8 +77,8 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", Resources) {
                     }
                 }
                 IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
-                    if (product.conformsTo(productVersion, Scripting.NOTE_1_0_20140918)) {
-                        val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", Scripting.NOTE_1_0_20140918)
+                    if (product.conformsTo(productVersion, ScriptingSpec.NOTE_1_0_20140918)) {
+                        val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", ScriptingSpec.NOTE_1_0_20140918)
                         descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                     }
                 }
