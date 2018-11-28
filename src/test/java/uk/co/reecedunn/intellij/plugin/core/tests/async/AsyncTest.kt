@@ -433,13 +433,14 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.pooledCallCount, `is`(0))
             assertThat(callbackCalled, `is`(false))
 
+            waitForCallback { callbackCalled }
             assertThat(e.get(), `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
-            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+            assertThat(callbackCalled, `is`(true))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
-            assertThat(callbackCalled, `is`(false)) // event queue not flushed
+            assertThat(callbackCalled, `is`(true))
         }
 
         @Test
