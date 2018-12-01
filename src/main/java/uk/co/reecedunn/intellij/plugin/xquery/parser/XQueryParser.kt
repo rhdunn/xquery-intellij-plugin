@@ -20,7 +20,9 @@ import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.parser.PsiTreeParser
+import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -74,7 +76,37 @@ private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
  * for details of the grammar implemented by this parser.
  */
 @Suppress("FunctionName")
-private class XQueryParserImpl(builder: PsiBuilder) : PsiTreeParser(builder) {
+private class XQueryParserImpl(private val builder: PsiBuilder) {
+    // region Parser Helper Functions
+
+    protected fun matchTokenType(type: IElementType): Boolean {
+        return builder.matchTokenType(type)
+    }
+
+    protected fun matchTokenTypeWithMarker(type: IElementType): PsiBuilder.Marker? {
+        return builder.matchTokenTypeWithMarker(type)
+    }
+
+    protected fun matchTokenTypeWithMarker(type1: IElementType, type2: IElementType): PsiBuilder.Marker? {
+        return builder.matchTokenTypeWithMarker(type1, type2)
+    }
+
+    protected fun errorOnTokenType(type: IElementType, message: String): Boolean {
+        return builder.errorOnTokenType(type, message)
+    }
+
+    // endregion
+    // region PsiBuilder API
+
+    protected fun mark(): PsiBuilder.Marker = builder.mark()
+
+    protected fun getTokenType(): IElementType? = builder.tokenType
+
+    protected fun advanceLexer() = builder.advanceLexer()
+
+    protected fun error(message: String) = builder.error(message)
+
+    // endregion
     // region Main Interface
 
     fun parse() {
