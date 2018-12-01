@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ object ResourceVirtualFileSystem : VirtualFileSystem() {
     override fun getProtocol(): String = "res"
 
     override fun findFileByPath(path: String): VirtualFile? {
-        return ResourceVirtualFile(ResourceVirtualFileSystem::class.java.classLoader, path)
+        return ResourceVirtualFile(ResourceVirtualFileSystem::class.java.classLoader, path, ResourceVirtualFileSystem)
     }
 
     override fun refresh(asynchronous: Boolean) {}

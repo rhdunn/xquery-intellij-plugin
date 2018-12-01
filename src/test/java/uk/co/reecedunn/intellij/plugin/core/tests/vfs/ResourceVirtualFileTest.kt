@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
+import com.intellij.openapi.vfs.VirtualFile
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.DisplayName
@@ -27,11 +28,15 @@ import java.io.IOException
 
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
 class ResourceVirtualFileTest {
+    private fun createFile(path: String): VirtualFile {
+        return ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, path, ResourceVirtualFileSystem)
+    }
+
     @Test
     @Throws(IOException::class)
     @DisplayName("resource file; valid path")
     fun testFileSystem_CreatingFile() {
-        val file = ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, "tests/vfs/test.xq")
+        val file = createFile("tests/vfs/test.xq")
         assertThat(file.name, `is`("test.xq"))
         assertThat(file.path, anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")))
         assertThat(file.isWritable, `is`(false))
@@ -62,7 +67,7 @@ class ResourceVirtualFileTest {
     @Throws(IOException::class)
     @DisplayName("resource file; invalid path")
     fun testFileSystem_InvalidFilePath() {
-        val file = ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, "tests/vfs/test.xqy")
+        val file = createFile("tests/vfs/test.xqy")
         assertThat(file.name, `is`("test.xqy"))
         assertThat(file.path, `is`(""))
         assertThat(file.isWritable, `is`(false))
@@ -92,7 +97,7 @@ class ResourceVirtualFileTest {
     @Throws(IOException::class)
     @DisplayName("resource directory")
     fun testFileSystem_Directory() {
-        val file = ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, "tests/vfs")
+        val file = createFile("tests/vfs")
         assertThat(file.name, `is`("vfs"))
         assertThat(file.path, anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")))
         assertThat(file.isWritable, `is`(false))

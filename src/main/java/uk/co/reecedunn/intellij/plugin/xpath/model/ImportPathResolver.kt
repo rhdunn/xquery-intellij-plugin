@@ -21,6 +21,7 @@ import com.intellij.testFramework.LightVirtualFileBase
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.sourceFolders
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 
 interface ImportPathResolver {
     fun match(path: String): Boolean
@@ -39,7 +40,11 @@ object ResProtocolImportResolver : ImportPathResolver {
 
     override fun resolve(path: String): VirtualFile? {
         val resource = path.replaceFirst("res://".toRegex(), "builtin/")
-        val file = ResourceVirtualFile(ResProtocolImportResolver::class.java.classLoader, resource)
+        val file = ResourceVirtualFile(
+            ResProtocolImportResolver::class.java.classLoader,
+            resource,
+            ResourceVirtualFileSystem
+        )
         return if (file.isValid) file else null
     }
 }
@@ -56,7 +61,11 @@ object HttpProtocolImportResolver : ImportPathResolver {
     }
 
     private fun resolvePath(path: String): VirtualFile? {
-        val file = ResourceVirtualFile(HttpProtocolImportResolver::class.java.classLoader, path)
+        val file = ResourceVirtualFile(
+            ResProtocolImportResolver::class.java.classLoader,
+            path,
+            ResourceVirtualFileSystem
+        )
         return if (file.isValid) file else null
     }
 }

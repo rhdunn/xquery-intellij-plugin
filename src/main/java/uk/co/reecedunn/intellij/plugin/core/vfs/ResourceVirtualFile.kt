@@ -26,9 +26,10 @@ import java.io.OutputStream
 import java.net.JarURLConnection
 import java.net.URISyntaxException
 
-class ResourceVirtualFile constructor(
+class ResourceVirtualFile(
     private val mLoader: ClassLoader,
-    private val mResource: String
+    private val mResource: String,
+    private val mFileSystem: VirtualFileSystem? = null
 ) : VirtualFile() {
     private var mParent: String? = null
     private var mName: String? = null
@@ -60,7 +61,7 @@ class ResourceVirtualFile constructor(
 
     override fun getName(): String = mName!!
 
-    override fun getFileSystem(): VirtualFileSystem = ResourceVirtualFileSystem
+    override fun getFileSystem(): VirtualFileSystem = mFileSystem ?: throw UnsupportedOperationException()
 
     override fun getPath(): String = if (mFile != null) mFile!!.path else ""
 
@@ -71,7 +72,7 @@ class ResourceVirtualFile constructor(
     override fun isValid(): Boolean = mFile != null
 
     override fun getParent(): VirtualFile? {
-        return if (mParent == null) null else ResourceVirtualFile(mLoader, mParent!!)
+        return if (mParent == null) null else ResourceVirtualFile(mLoader, mParent!!, mFileSystem)
     }
 
     override fun getChildren(): Array<VirtualFile>? {
@@ -80,7 +81,7 @@ class ResourceVirtualFile constructor(
         }
 
         val children = mFile!!.list() ?: return null
-        return children.map { child -> ResourceVirtualFile(mLoader, "$mResource/$child") }.toTypedArray()
+        return children.map { child -> ResourceVirtualFile(mLoader, "$mResource/$child", mFileSystem) }.toTypedArray()
     }
 
     @Throws(IOException::class)
