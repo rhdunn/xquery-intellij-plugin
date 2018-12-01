@@ -20,10 +20,18 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Parser")
 private class XPathParserTest : ParserTestCase() {
+    fun parseResource(resource: String): XPath {
+        val file = ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource)
+        return file.toPsiFile(myProject)!!
+    }
+
     @Nested
     @DisplayName("Parser")
     internal inner class Parser {
@@ -47,5 +55,13 @@ private class XPathParserTest : ParserTestCase() {
 
             assertThat(prettyPrintASTNode(parseText("~\uFFFE\uFFFF")), `is`(expected))
         }
+    }
+
+    @Test
+    @DisplayName("XPath 1.0 EBNF (42) IntegerLiteral")
+    fun integerLiteral() {
+        val expected = loadResource("tests/parser/xpath-1.0/IntegerLiteral.txt")
+        val actual = parseResource("tests/parser/xpath-1.0/IntegerLiteral.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 }

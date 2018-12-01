@@ -19,18 +19,25 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 /**
  * A unified XPath parser for different XPath versions and dialects.
  */
 open class XPathParser : PsiParser {
+    // region PsiParser
+
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
         val rootMarker = builder.mark()
         parse(builder)
         rootMarker.done(root)
         return builder.treeBuilt
     }
+
+    // endregion
+    // region Main Interface
 
     fun parse(builder: PsiBuilder) {
         var matched = false
@@ -58,6 +65,15 @@ open class XPathParser : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        return false
+        return parseNumericLiteral(builder)
     }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr
+
+    fun parseNumericLiteral(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.INTEGER_LITERAL)
+    }
+
+    // endregion
 }

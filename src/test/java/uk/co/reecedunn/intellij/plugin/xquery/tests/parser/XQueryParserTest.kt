@@ -4989,16 +4989,15 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: IntegerLiteral
 
     @Test
-    fun testIntegerLiteral() {
+    @DisplayName("XQuery 1.0 EBNF (141) IntegerLiteral")
+    fun integerLiteral() {
         val expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt")
         val actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // endregion
     // region XQuery 1.0 :: DecimalLiteral
 
     @Test
