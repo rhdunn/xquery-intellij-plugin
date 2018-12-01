@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.model
+package uk.co.reecedunn.intellij.plugin.xquery.tests.model
 
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.`is`

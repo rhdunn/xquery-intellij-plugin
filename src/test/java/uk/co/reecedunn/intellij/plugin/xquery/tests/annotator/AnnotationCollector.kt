@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.annotator
+package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.Annotation
