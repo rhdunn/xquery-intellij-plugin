@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(XQueryPsiTest::class.java, resource)
+        val file = ResourceVirtualFile(XQueryPsiTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XPath")
 private class XPathReferenceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(XPathReferenceTest::class.java, resource)
+        val file = ResourceVirtualFile(XPathReferenceTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

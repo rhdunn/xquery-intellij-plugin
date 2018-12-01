@@ -39,7 +39,7 @@ object ResProtocolImportResolver : ImportPathResolver {
 
     override fun resolve(path: String): VirtualFile? {
         val resource = path.replaceFirst("res://".toRegex(), "builtin/")
-        val file = ResourceVirtualFile.create(ResourceVirtualFile::class.java, resource)
+        val file = ResourceVirtualFile(ResourceVirtualFile::class.java.classLoader, resource)
         return if (file.isValid) file else null
     }
 }
@@ -56,7 +56,7 @@ object HttpProtocolImportResolver : ImportPathResolver {
     }
 
     private fun resolvePath(path: String): VirtualFile? {
-        val file = ResourceVirtualFile.create(ResourceVirtualFile::class.java, path)
+        val file = ResourceVirtualFile(ResourceVirtualFile::class.java.classLoader, path)
         return if (file.isValid) file else null
     }
 }

@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(QNameAnnotatorTest::class.java, resource)
+        val file = ResourceVirtualFile(QNameAnnotatorTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

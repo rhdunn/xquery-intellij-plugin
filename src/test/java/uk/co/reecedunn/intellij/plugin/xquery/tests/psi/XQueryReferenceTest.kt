@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
 private class XQueryReferenceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(XQueryReferenceTest::class.java, resource)
+        val file = ResourceVirtualFile(XQueryReferenceTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

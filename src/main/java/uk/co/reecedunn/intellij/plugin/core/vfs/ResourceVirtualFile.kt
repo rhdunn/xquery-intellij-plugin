@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.vfs
 
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
-import com.intellij.psi.PsiFile
 import org.apache.commons.compress.utils.IOUtils
 
 import java.io.File
@@ -28,8 +26,10 @@ import java.io.OutputStream
 import java.net.JarURLConnection
 import java.net.URISyntaxException
 
-class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
-                                              private val mResource: String) : VirtualFile() {
+class ResourceVirtualFile constructor(
+    private val mLoader: ClassLoader,
+    private val mResource: String
+) : VirtualFile() {
     private var mParent: String? = null
     private var mName: String? = null
     private var mFile: File? = null
@@ -107,11 +107,5 @@ class ResourceVirtualFile private constructor(private val mLoader: ClassLoader,
     @Throws(IOException::class)
     override fun getInputStream(): InputStream? {
         return if (isDirectory) null else mLoader.getResourceAsStream(mResource)
-    }
-
-    companion object {
-        fun create(klass: Class<*>, resource: String): VirtualFile {
-            return ResourceVirtualFile(klass.classLoader, resource)
-        }
     }
 }

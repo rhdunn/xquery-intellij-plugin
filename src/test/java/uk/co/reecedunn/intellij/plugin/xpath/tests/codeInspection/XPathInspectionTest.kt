@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @DisplayName("XPath 3.1 - Error Conditions")
 private class XPathInspectionTest : InspectionTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(XPathInspectionTest::class.java, resource)
+        val file = ResourceVirtualFile(XPathInspectionTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

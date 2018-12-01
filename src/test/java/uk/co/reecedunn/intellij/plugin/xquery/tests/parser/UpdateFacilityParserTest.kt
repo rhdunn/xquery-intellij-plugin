@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @DisplayName("XQuery Update Facility 3.0 - Parser")
 private class UpdateFacilityParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(UpdateFacilityParserTest::class.java, resource)
+        val file = ResourceVirtualFile(UpdateFacilityParserTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

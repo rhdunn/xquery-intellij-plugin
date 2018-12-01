@@ -2184,7 +2184,7 @@ private val HTML5_ENTITIES = listOf("\"",
 @DisplayName("XQuery IntelliJ Plugin - Error and Warning Conditions")
 private class PluginInspectionTest : InspectionTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(PluginInspectionTest::class.java, resource)
+        val file = ResourceVirtualFile(PluginInspectionTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

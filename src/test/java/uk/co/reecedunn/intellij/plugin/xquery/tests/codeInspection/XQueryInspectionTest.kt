@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
 @DisplayName("XQuery 3.1 - Error Conditions")
 private class XQueryInspectionTest : InspectionTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(XQueryInspectionTest::class.java, resource)
+        val file = ResourceVirtualFile(XQueryInspectionTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

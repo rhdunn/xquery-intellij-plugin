@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @DisplayName("XQuery and XPath Full Text 3.0 - Parser")
 private class FullTextParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(FullTextParserTest::class.java, resource)
+        val file = ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

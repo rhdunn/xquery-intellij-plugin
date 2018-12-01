@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @DisplayName("XQuery IntelliJ Plugin - Parser")
 private class PluginParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(PluginParserTest::class.java, resource)
+        val file = ResourceVirtualFile(PluginParserTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

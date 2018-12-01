@@ -25,7 +25,7 @@ object ResourceVirtualFileSystem : VirtualFileSystem() {
     override fun getProtocol(): String = "res"
 
     override fun findFileByPath(path: String): VirtualFile? {
-        return ResourceVirtualFile.create(ResourceVirtualFileSystem::class.java, path)
+        return ResourceVirtualFile(ResourceVirtualFileSystem::class.java.classLoader, path)
     }
 
     override fun refresh(asynchronous: Boolean) {}

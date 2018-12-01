@@ -46,7 +46,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery IntelliJ Plugin - Implementation Conformance Checks")
 private class PluginConformanceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(PluginConformanceTest::class.java, resource)
+        val file = ResourceVirtualFile(PluginConformanceTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
     }
 

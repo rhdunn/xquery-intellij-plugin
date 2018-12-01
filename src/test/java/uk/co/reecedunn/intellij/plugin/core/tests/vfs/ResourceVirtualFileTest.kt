@@ -31,7 +31,7 @@ class ResourceVirtualFileTest {
     @Throws(IOException::class)
     @DisplayName("resource file; valid path")
     fun testFileSystem_CreatingFile() {
-        val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs/test.xq")
+        val file = ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, "tests/vfs/test.xq")
         assertThat(file.name, `is`("test.xq"))
         assertThat(file.path, anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")))
         assertThat(file.isWritable, `is`(false))
@@ -62,7 +62,7 @@ class ResourceVirtualFileTest {
     @Throws(IOException::class)
     @DisplayName("resource file; invalid path")
     fun testFileSystem_InvalidFilePath() {
-        val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs/test.xqy")
+        val file = ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, "tests/vfs/test.xqy")
         assertThat(file.name, `is`("test.xqy"))
         assertThat(file.path, `is`(""))
         assertThat(file.isWritable, `is`(false))
@@ -92,7 +92,7 @@ class ResourceVirtualFileTest {
     @Throws(IOException::class)
     @DisplayName("resource directory")
     fun testFileSystem_Directory() {
-        val file = ResourceVirtualFile.create(ResourceVirtualFileTest::class.java, "tests/vfs")
+        val file = ResourceVirtualFile(ResourceVirtualFileTest::class.java.classLoader, "tests/vfs")
         assertThat(file.name, `is`("vfs"))
         assertThat(file.path, anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")))
         assertThat(file.isWritable, `is`(false))

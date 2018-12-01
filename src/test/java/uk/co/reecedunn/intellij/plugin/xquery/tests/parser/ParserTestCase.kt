@@ -44,7 +44,7 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>("xqy", XQueryParse
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
 
         val manager = MockModuleManager(myProject)
-        manager.addModule(ResourceVirtualFile.create(ParserTestCase::class.java, "tests"))
+        manager.addModule(ResourceVirtualFile(ParserTestCase::class.java.classLoader, "tests"))
         myProject.registerService(ModuleManager::class.java, manager)
     }
 
