@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -294,7 +295,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.COMMENT))
             assertThat(descriptors[0].range.startOffset, `is`(0))
             assertThat(descriptors[0].range.endOffset, `is`(5))
 
@@ -316,7 +317,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.COMMENT))
             assertThat(descriptors[0].range.startOffset, `is`(0))
             assertThat(descriptors[0].range.endOffset, `is`(34))
 
@@ -338,7 +339,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.COMMENT))
             assertThat(descriptors[0].range.startOffset, `is`(0))
             assertThat(descriptors[0].range.endOffset, `is`(35))
 
@@ -360,7 +361,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.COMMENT))
             assertThat(descriptors[0].range.startOffset, `is`(0))
             assertThat(descriptors[0].range.endOffset, `is`(15))
 
@@ -382,7 +383,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMMENT))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.COMMENT))
             assertThat(descriptors[0].range.startOffset, `is`(0))
             assertThat(descriptors[0].range.endOffset, `is`(16))
 

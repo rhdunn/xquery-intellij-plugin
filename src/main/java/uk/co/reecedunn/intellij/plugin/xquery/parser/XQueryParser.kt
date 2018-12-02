@@ -7634,10 +7634,10 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
                 if (getTokenType() === XPathTokenType.COMMENT_END_TAG) {
                     advanceLexer()
-                    commentMarker.done(XQueryElementType.COMMENT)
+                    commentMarker.done(XPathElementType.COMMENT)
                 } else {
                     advanceLexer() // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                    commentMarker.done(XQueryElementType.COMMENT)
+                    commentMarker.done(XPathElementType.COMMENT)
                     error(XQueryBundle.message("parser.error.incomplete-comment"))
                 }
             } else if (getTokenType() === XPathTokenType.COMMENT_END_TAG) {

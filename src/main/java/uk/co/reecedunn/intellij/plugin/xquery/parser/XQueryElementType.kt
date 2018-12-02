@@ -35,11 +35,6 @@ object XQueryElementType {
         XQueryCDataSectionPsiImpl::class.java,
         XQuery
     )
-    val COMMENT: IElementType = ICompositeElementType(
-        "XQUERY_COMMENT",
-        XPathCommentPsiImpl::class.java,
-        XQuery
-    )
     val NCNAME: IElementType = ICompositeElementType(
         "XQUERY_NCNAME",
         XPathNCNamePsiImpl::class.java,

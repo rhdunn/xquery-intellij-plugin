@@ -87,6 +87,12 @@ object XPathElementType {
         XPath
     )
 
+    val COMMENT: IElementType = ICompositeElementType(
+        "XQUERY_COMMENT",
+        XPathCommentPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 3.0
 

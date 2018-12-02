@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -51,7 +51,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         get(): PsiElement {
             val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
             var previous: PsiElement? = element?.prevSibling
-            while (previous != null && (previous.node.elementType === XQueryElementType.COMMENT || previous.node.elementType === XPathTokenType.WHITE_SPACE)) {
+            while (previous != null && (previous.node.elementType === XPathElementType.COMMENT || previous.node.elementType === XPathTokenType.WHITE_SPACE)) {
                 previous = previous.prevSibling
             }
             return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element!!
