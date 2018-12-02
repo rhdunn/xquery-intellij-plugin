@@ -803,12 +803,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ARGUMENT_LIST: IElementType = ICompositeElementType(
-        "XQUERY_ARGUMENT_LIST",
-        XPathArgumentListPsiImpl::class.java,
-        XQuery
-    )
-
     val COMP_NAMESPACE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_COMP_NAMESPACE_CONSTRUCTOR",
         XQueryCompNamespaceConstructorPsiImpl::class.java,

@@ -4372,7 +4372,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            argumentListMarker.done(XQueryElementType.ARGUMENT_LIST)
+            argumentListMarker.done(XPathElementType.ARGUMENT_LIST)
             return true
         }
         return false
