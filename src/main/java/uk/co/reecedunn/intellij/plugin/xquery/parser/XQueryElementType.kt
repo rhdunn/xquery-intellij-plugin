@@ -394,11 +394,6 @@ object XQueryElementType {
         XPathCommentTestPsiImpl::class.java,
         XQuery
     )
-    val ANY_KIND_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_KIND_TEST",
-        XPathAnyKindTestPsiImpl::class.java,
-        XQuery
-    )
     val SEQUENCE_TYPE: IElementType = ICompositeElementType(
         "XQUERY_SEQUENCE_TYPE",
         XPathSequenceTypePsiImpl::class.java,

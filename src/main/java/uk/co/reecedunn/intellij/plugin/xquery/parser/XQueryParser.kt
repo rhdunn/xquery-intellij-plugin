@@ -6618,7 +6618,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 type = XQueryElementType.NAMED_KIND_TEST
             } else {
                 matchTokenType(XPathTokenType.STAR) // MarkLogic 8.0
-                type = XQueryElementType.ANY_KIND_TEST
+                type = XPathElementType.ANY_KIND_TEST
             }
 
             parseWhiteSpaceAndCommentTokens()
