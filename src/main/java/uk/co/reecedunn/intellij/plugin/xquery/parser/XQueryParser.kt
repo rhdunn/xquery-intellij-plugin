@@ -3985,7 +3985,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "NodeTest"))
             }
 
-            forwardStepMarker.done(XQueryElementType.FORWARD_STEP)
+            forwardStepMarker.done(XPathElementType.FORWARD_STEP)
             return true
         } else if (parseAbbrevForwardStep(type)) {
             forwardStepMarker.drop()

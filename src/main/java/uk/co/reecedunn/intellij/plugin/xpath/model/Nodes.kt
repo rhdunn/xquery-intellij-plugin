@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 enum class XPathPrincipalNodeKind {
     Attribute,
@@ -29,7 +28,7 @@ enum class XPathPrincipalNodeKind {
 fun XPathNodeTest.getPrincipalNodeKind(): XPathPrincipalNodeKind {
     return when (parent.node.elementType) {
         XPathElementType.ABBREV_FORWARD_STEP -> XPathPrincipalNodeKind.Attribute
-        XQueryElementType.FORWARD_STEP -> when (parent.firstChild.firstChild.node.elementType) {
+        XPathElementType.FORWARD_STEP -> when (parent.firstChild.firstChild.node.elementType) {
             XPathTokenType.K_ATTRIBUTE -> XPathPrincipalNodeKind.Attribute
             XPathTokenType.K_NAMESPACE -> XPathPrincipalNodeKind.Namespace
             else -> XPathPrincipalNodeKind.Element
