@@ -61,6 +61,15 @@ object XPathElementType {
     )
 
     // endregion
+    // region XPath 2.0
+
+    val ATTRIBUTE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ATTRIBUTE_TEST",
+        XPathAttributeTestPsiImpl::class.java,
+        XPath
+    )
+
+    // endregion
     // region XPath 3.0
 
     val ARGUMENT_LIST: IElementType = ICompositeElementType(

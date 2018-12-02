@@ -32,7 +32,7 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
     XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunction,
     XPathElementType.ATOMIC_OR_UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
-    XQueryElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
+    XPathElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
     XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,
     XQueryElementType.COMP_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
