@@ -20,8 +20,6 @@ import org.jetbrains.jps.model.java.JavaSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.roots.getSourceRootType
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
-fun XsIntegerValue.toInt(): Int = data.toInt()
-
 private val HTTP_ONLY_IMPORT_RESOLVERS = sequenceOf(
     EmptyPathImportResolver,
     HttpProtocolImportResolver

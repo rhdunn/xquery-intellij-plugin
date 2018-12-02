@@ -145,6 +145,8 @@ interface XsIntegerValue : XsAnyAtomicType {
     val data: BigInteger
 }
 
+fun XsIntegerValue.toInt(): Int = data.toInt()
+
 // endregion
 // region XQuery IntelliJ Plugin (2.2.3) xdm:wildcard
 
