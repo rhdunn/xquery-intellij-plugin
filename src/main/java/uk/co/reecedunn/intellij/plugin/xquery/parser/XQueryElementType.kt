@@ -601,11 +601,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ATOMIC_OR_UNION_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_ATOMIC_OR_UNION_TYPE",
-        XPathAtomicOrUnionTypePsiImpl::class.java,
-        XQuery
-    )
     val SIMPLE_TYPE_NAME: IElementType = ICompositeElementType(
         "XQUERY_SIMPLE_TYPE_NAME",
         XPathSimpleTypeNamePsiImpl::class.java,

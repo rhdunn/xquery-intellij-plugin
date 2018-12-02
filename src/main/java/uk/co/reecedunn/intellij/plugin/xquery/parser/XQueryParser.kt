@@ -6218,7 +6218,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseAtomicOrUnionType(): Boolean {
-        return parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)
+        return parseEQName(XPathElementType.ATOMIC_OR_UNION_TYPE)
     }
 
     private fun parseAnyItemType(): Boolean {

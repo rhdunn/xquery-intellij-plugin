@@ -81,6 +81,12 @@ object XPathElementType {
         XPath
     )
 
+    val ATOMIC_OR_UNION_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_ATOMIC_OR_UNION_TYPE",
+        XPathAtomicOrUnionTypePsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 3.1
 
