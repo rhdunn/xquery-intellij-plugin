@@ -4391,7 +4391,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseArgumentPlaceholder(): Boolean {
         val argumentPlaceholderMarker = matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (argumentPlaceholderMarker != null) {
-            argumentPlaceholderMarker.done(XQueryElementType.ARGUMENT_PLACEHOLDER)
+            argumentPlaceholderMarker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
             return true
         }
         return false

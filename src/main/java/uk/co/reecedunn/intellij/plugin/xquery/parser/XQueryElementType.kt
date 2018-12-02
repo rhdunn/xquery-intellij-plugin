@@ -813,11 +813,6 @@ object XQueryElementType {
         XPathArgumentPsiImpl::class.java,
         XQuery
     )
-    val ARGUMENT_PLACEHOLDER: IElementType = ICompositeElementType(
-        "XQUERY_ARGUMENT_PLACEHOLDER",
-        XPathArgumentPlaceholderPsiImpl::class.java,
-        XQuery
-    )
 
     val COMP_NAMESPACE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_COMP_NAMESPACE_CONSTRUCTOR",
