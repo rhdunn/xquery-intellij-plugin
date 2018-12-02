@@ -3721,7 +3721,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveArrowExpr)
-                exprMarker.done(XQueryElementType.ARROW_EXPR)
+                exprMarker.done(XPathElementType.ARROW_EXPR)
             else
                 exprMarker.drop()
             return true

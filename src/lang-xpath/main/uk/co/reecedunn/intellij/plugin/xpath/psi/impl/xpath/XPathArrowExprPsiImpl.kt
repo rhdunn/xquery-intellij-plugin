@@ -25,8 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, MarkLogic.VERSION_9_0)
 
-class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowExpr,
-    VersionConformance {
+class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowExpr, VersionConformance {
     override val requiresConformance
         get(): List<Version> {
             if (conformanceElement === firstChild) {

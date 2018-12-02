@@ -823,11 +823,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ARROW_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ARROW_EXPR",
-        XPathArrowExprPsiImpl::class.java,
-        XQuery
-    )
     val ARROW_FUNCTION_SPECIFIER: IElementType = ICompositeElementType(
         "XQUERY_ARROW_FUNCTION_SPECIFIER",
         XPathArrowFunctionSpecifierPsiImpl::class.java,
