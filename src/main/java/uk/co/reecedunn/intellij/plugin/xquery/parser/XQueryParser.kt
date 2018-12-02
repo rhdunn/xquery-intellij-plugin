@@ -4106,7 +4106,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
     private fun parseNameTest(type: IElementType?): Boolean {
         val nameTestMarker = mark()
-        if (parseEQName(XQueryElementType.WILDCARD, type === XQueryElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
+        if (parseEQName(XQueryElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
             nameTestMarker.done(XQueryElementType.NAME_TEST)
             return true
         }
@@ -4214,7 +4214,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         val varRefMarker = matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
         if (varRefMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.VAR_NAME, type === XQueryElementType.MAP_CONSTRUCTOR_ENTRY)) {
+            if (!parseEQName(XQueryElementType.VAR_NAME, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"))
             }
 
@@ -4703,7 +4703,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
     private fun parseMapConstructorEntry(): Boolean {
         val mapConstructorEntry = mark()
-        if (parseExprSingle(XQueryElementType.MAP_KEY_EXPR, XQueryElementType.MAP_CONSTRUCTOR_ENTRY)) {
+        if (parseExprSingle(XQueryElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()
@@ -4717,7 +4717,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected-expression"))
             }
 
-            mapConstructorEntry.done(XQueryElementType.MAP_CONSTRUCTOR_ENTRY)
+            mapConstructorEntry.done(XPathElementType.MAP_CONSTRUCTOR_ENTRY)
             return true
         }
         mapConstructorEntry.drop()
