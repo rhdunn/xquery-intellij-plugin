@@ -305,11 +305,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val PARAM: IElementType = ICompositeElementType(
-        "XQUERY_PARAM",
-        XPathParamPsiImpl::class.java,
-        XQuery
-    )
     val PARAM_LIST: IElementType = ICompositeElementType(
         "XQUERY_PARAM_LIST",
         XPathParamListPsiImpl::class.java,

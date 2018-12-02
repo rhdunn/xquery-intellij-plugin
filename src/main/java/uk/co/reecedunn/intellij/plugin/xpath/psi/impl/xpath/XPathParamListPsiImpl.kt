@@ -30,10 +30,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-private val PARAM_OR_VARIADIC = TokenSet.create(XQueryElementType.PARAM, XQueryTokenType.ELLIPSIS)
+private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XQueryTokenType.ELLIPSIS)
 private val XQUERY1: List<Version> = listOf()
 private val EXPATH = listOf(XQueryIntelliJPlugin.VERSION_1_4)
 
@@ -44,7 +44,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     // region VersionConformance
 
     override val requiresConformance: List<Version>
-        get() = if (conformanceElement.node.elementType == XQueryElementType.PARAM) XQUERY1 else EXPATH
+        get() = if (conformanceElement.node.elementType == XPathElementType.PARAM) XQUERY1 else EXPATH
 
     override val conformanceElement: PsiElement
         get() = children().reversed().firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.node.elementType) } ?: firstChild
@@ -67,7 +67,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     private val cachedArity = CacheableProperty {
         cachedArguments.get()!!.size.let {
-            if (conformanceElement.node.elementType == XQueryElementType.PARAM)
+            if (conformanceElement.node.elementType == XPathElementType.PARAM)
                 Range(it, it) // non-variadic parameter list
             else
                 Range(it - 1, Int.MAX_VALUE) // variadic parameter list

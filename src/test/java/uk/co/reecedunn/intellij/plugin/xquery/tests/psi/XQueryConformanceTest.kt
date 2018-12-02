@@ -2078,7 +2078,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance.size, `is`(0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryElementType.PARAM))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathElementType.PARAM))
     }
 
     @Test

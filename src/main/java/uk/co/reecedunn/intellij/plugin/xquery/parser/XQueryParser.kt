@@ -1236,7 +1236,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             parseWhiteSpaceAndCommentTokens()
             parseTypeDeclaration()
 
-            paramMarker.done(XQueryElementType.PARAM)
+            paramMarker.done(XPathElementType.PARAM)
             return true
         } else if (getTokenType() === XPathTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
             error(XQueryBundle.message("parser.error.expected", "$"))
@@ -1245,7 +1245,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             parseWhiteSpaceAndCommentTokens()
             parseTypeDeclaration()
 
-            paramMarker.done(XQueryElementType.PARAM)
+            paramMarker.done(XPathElementType.PARAM)
             return true
         }
 

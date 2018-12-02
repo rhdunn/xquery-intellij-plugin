@@ -45,7 +45,7 @@ private val NAMESPACE_TYPE = mapOf(
     XPathElementType.NAMED_FUNCTION_REF to XPathNamespaceType.DefaultFunction,
     XQueryElementType.NEXT_ITEM to XPathNamespaceType.None,
     XQueryElementType.OPTION_DECL to XPathNamespaceType.XQuery,
-    XQueryElementType.PARAM to XPathNamespaceType.None,
+    XPathElementType.PARAM to XPathNamespaceType.None,
     XQueryElementType.PRAGMA to XPathNamespaceType.None,
     XQueryElementType.PREVIOUS_ITEM to XPathNamespaceType.None,
     XQueryElementType.SCHEMA_ATTRIBUTE_TEST to XPathNamespaceType.None,
