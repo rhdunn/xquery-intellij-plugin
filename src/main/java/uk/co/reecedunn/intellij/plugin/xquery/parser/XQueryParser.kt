@@ -4529,7 +4529,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             parseEQName(XQueryElementType.NCNAME) ||
             parseParenthesizedExpr()
         ) {
-            keySpecifierMarker.done(XQueryElementType.KEY_SPECIFIER)
+            keySpecifierMarker.done(XPathElementType.KEY_SPECIFIER)
             return true
         }
         keySpecifierMarker.drop()

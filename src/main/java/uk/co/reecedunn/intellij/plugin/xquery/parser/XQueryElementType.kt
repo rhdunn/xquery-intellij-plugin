@@ -836,11 +836,6 @@ object XQueryElementType {
         XPathLookupPsiImpl::class.java,
         XQuery
     )
-    val KEY_SPECIFIER: IElementType = ICompositeElementType(
-        "XQUERY_KEY_SPECIFIER",
-        XPathKeySpecifierPsiImpl::class.java,
-        XQuery
-    )
 
     // endregion
     // region Update Facility 1.0

@@ -195,6 +195,12 @@ object XPathElementType {
         XPath
     )
 
+    val KEY_SPECIFIER: IElementType = ICompositeElementType(
+        "XQUERY_KEY_SPECIFIER",
+        XPathKeySpecifierPsiImpl::class.java,
+        XPath
+    )
+
     val ARROW_FUNCTION_SPECIFIER: IElementType = ICompositeElementType(
         "XQUERY_ARROW_FUNCTION_SPECIFIER",
         XPathArrowFunctionSpecifierPsiImpl::class.java,
