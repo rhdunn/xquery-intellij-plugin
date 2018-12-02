@@ -71,11 +71,6 @@ object XQueryElementType {
         XPathParenthesizedExprPsiImpl::class.java,
         XQuery
     )
-    val CONTEXT_ITEM_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_CONTEXT_ITEM_EXPR",
-        XPathContextItemExprPsiImpl::class.java,
-        XQuery
-    )
     val ORDERED_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ORDERED_EXPR",
         XQueryOrderedExprPsiImpl::class.java,
