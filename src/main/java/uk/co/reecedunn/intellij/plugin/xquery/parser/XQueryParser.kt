@@ -2677,7 +2677,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 }
             }
 
-            ifExprMarker.done(XQueryElementType.IF_EXPR)
+            ifExprMarker.done(XPathElementType.IF_EXPR)
             return true
         }
         return false

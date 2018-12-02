@@ -93,6 +93,12 @@ object XPathElementType {
     // endregion
     // region XPath 2.0
 
+    val IF_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_IF_EXPR",
+        XPathIfExprPsiImpl::class.java,
+        XPath
+    )
+
     val COMPARISON_EXPR: IElementType = ICompositeElementType(
         "XQUERY_COMPARISON_EXPR",
         XPathComparisonExprPsiImpl::class.java,

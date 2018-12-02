@@ -256,11 +256,6 @@ object XQueryElementType {
         XQueryCaseClausePsiImpl::class.java,
         XQuery
     )
-    val IF_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_IF_EXPR",
-        XPathIfExprPsiImpl::class.java,
-        XQuery
-    )
 
     val QUERY_BODY: IElementType = ICompositeElementType(
         "XQUERY_QUERY_BODY",

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 
 private val XQUERY10 = listOf<Version>()
 private val EXPATH7 = listOf(BaseX.VERSION_9_1)
@@ -40,5 +40,5 @@ class XPathIfExprPsiImpl(node: ASTNode) :
 
     override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_ELSE) ?: firstChild
 
-    override val conformanceName: String? = XQueryBundle.message("construct.if-without-else")
+    override val conformanceName: String? = XPathBundle.message("construct.if-without-else")
 }
