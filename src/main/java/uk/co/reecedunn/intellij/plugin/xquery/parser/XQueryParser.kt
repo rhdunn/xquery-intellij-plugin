@@ -4381,7 +4381,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseArgument(): Boolean {
         val argumentMarker = mark()
         if (parseExprSingle() || parseArgumentPlaceholder()) {
-            argumentMarker.done(XQueryElementType.ARGUMENT)
+            argumentMarker.done(XPathElementType.ARGUMENT)
             return true
         }
         argumentMarker.drop()

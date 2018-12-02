@@ -63,6 +63,12 @@ object XPathElementType {
     // endregion
     // region XPath 3.0
 
+    val ARGUMENT: IElementType = ICompositeElementType(
+        "XQUERY_ARGUMENT",
+        XPathArgumentPsiImpl::class.java,
+        XPath
+    )
+
     val ARGUMENT_PLACEHOLDER: IElementType = ICompositeElementType(
         "XQUERY_ARGUMENT_PLACEHOLDER",
         XPathArgumentPlaceholderPsiImpl::class.java,

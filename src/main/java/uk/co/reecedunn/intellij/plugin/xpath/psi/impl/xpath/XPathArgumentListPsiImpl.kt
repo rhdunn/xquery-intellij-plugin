@@ -24,10 +24,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 private val ARGUMENTS = TokenSet.create(
-    XQueryElementType.ARGUMENT,
+    XPathElementType.ARGUMENT,
     XPathElementType.ARGUMENT_PLACEHOLDER
 )
 
