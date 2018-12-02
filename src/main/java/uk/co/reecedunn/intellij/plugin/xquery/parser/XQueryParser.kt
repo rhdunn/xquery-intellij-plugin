@@ -3467,7 +3467,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveAdditativeExpr)
-                additiveExprMarker.done(XQueryElementType.ADDITIVE_EXPR)
+                additiveExprMarker.done(XPathElementType.ADDITIVE_EXPR)
             else
                 additiveExprMarker.drop()
             return true

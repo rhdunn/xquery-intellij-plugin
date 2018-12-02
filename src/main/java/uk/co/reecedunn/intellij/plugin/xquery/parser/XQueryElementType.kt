@@ -219,11 +219,6 @@ object XQueryElementType {
         XPathMultiplicativeExprPsiImpl::class.java,
         XQuery
     )
-    val ADDITIVE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ADDITIVE_EXPR",
-        XPathAdditiveExprPsiImpl::class.java,
-        XQuery
-    )
     val RANGE_EXPR: IElementType = ICompositeElementType(
         "XQUERY_RANGE_EXPR",
         XPathRangeExprPsiImpl::class.java,

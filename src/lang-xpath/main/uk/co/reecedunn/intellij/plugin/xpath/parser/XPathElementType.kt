@@ -25,11 +25,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExp
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathAbbrevForwardStepPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathAbbrevReverseStepPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathAdditiveExprPsiImpl
 
 object XPathElementType {
     // region XPath 1.0
 
     val XPATH = IFileElementType(XPath)
+
+    val ADDITIVE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ADDITIVE_EXPR",
+        XPathAdditiveExprPsiImpl::class.java,
+        XPath
+    )
 
     val ABBREV_FORWARD_STEP: IElementType = ICompositeElementType(
         "XQUERY_ABBREV_FORWARD_STEP",
