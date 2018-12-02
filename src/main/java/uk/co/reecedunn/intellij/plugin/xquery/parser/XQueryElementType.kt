@@ -102,11 +102,6 @@ object XQueryElementType {
         XPathNodeTestPsiImpl::class.java,
         XQuery
     )
-    val NAME_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NAME_TEST",
-        XPathNameTestPsiImpl::class.java,
-        XQuery
-    )
     val WILDCARD: IElementType = ICompositeElementType(
         "XQUERY_WILDCARD",
         XPathWildcardPsiImpl::class.java,

@@ -157,7 +157,7 @@ private fun Sequence<XPathDefaultNamespaceDeclaration>.expandNCName(ncname: XsQN
 
 fun XsQNameValue.getNamespaceType(): XPathNamespaceType {
     val parentType = (this as? PsiElement)?.parent?.node?.elementType ?: return XPathNamespaceType.Undefined
-    return if (parentType === XQueryElementType.NAME_TEST)
+    return if (parentType === XPathElementType.NAME_TEST)
         when (((this as? PsiElement)?.parent?.parent as? XPathNodeTest)?.getPrincipalNodeKind()) {
             XPathPrincipalNodeKind.Element -> XPathNamespaceType.DefaultElementOrType
             else -> XPathNamespaceType.None

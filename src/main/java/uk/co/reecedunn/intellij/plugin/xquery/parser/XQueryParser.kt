@@ -4107,7 +4107,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseNameTest(type: IElementType?): Boolean {
         val nameTestMarker = mark()
         if (parseEQName(XQueryElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
-            nameTestMarker.done(XQueryElementType.NAME_TEST)
+            nameTestMarker.done(XPathElementType.NAME_TEST)
             return true
         }
 

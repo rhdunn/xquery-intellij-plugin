@@ -72,6 +72,12 @@ object XPathElementType {
         XPath
     )
 
+    val NAME_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAME_TEST",
+        XPathNameTestPsiImpl::class.java,
+        XPath
+    )
+
     val CONTEXT_ITEM_EXPR: IElementType = ICompositeElementType(
         "XQUERY_CONTEXT_ITEM_EXPR",
         XPathContextItemExprPsiImpl::class.java,
