@@ -3967,7 +3967,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         if (parseReverseStep() || parseForwardStep(type)) {
             parseWhiteSpaceAndCommentTokens()
             if (parsePredicateList())
-                axisStepMarker.done(XQueryElementType.AXIS_STEP)
+                axisStepMarker.done(XPathElementType.AXIS_STEP)
             else
                 axisStepMarker.drop()
             return true

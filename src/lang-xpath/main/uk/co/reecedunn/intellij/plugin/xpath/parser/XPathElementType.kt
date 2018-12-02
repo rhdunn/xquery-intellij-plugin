@@ -42,6 +42,12 @@ object XPathElementType {
         XPath
     )
 
+    val AXIS_STEP: IElementType = ICompositeElementType(
+        "XQUERY_AXIS_STEP",
+        XPathAxisStepPsiImpl::class.java,
+        XPath
+    )
+
     val ABBREV_FORWARD_STEP: IElementType = ICompositeElementType(
         "XQUERY_ABBREV_FORWARD_STEP",
         XPathAbbrevForwardStepPsiImpl::class.java,
