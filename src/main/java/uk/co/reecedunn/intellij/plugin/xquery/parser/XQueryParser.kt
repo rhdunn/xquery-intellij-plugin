@@ -3339,7 +3339,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (!parseFTContainsExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "FTContainsExpr"))
                 }
-                comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR)
+                comparisonExprMarker.done(XPathElementType.COMPARISON_EXPR)
             } else {
                 comparisonExprMarker.drop()
             }
@@ -3350,7 +3350,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "FTContainsExpr"))
             }
 
-            comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR)
+            comparisonExprMarker.done(XPathElementType.COMPARISON_EXPR)
             return true
         }
         comparisonExprMarker.drop()
