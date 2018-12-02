@@ -105,6 +105,12 @@ object XPathElementType {
         XPath
     )
 
+    val INTERSECT_EXCEPT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_INTERSECT_EXCEPT_EXPR",
+        XPathIntersectExceptExprPsiImpl::class.java,
+        XPath
+    )
+
     val INSTANCEOF_EXPR: IElementType = ICompositeElementType(
         "XQUERY_INSTANCEOF_EXPR",
         XPathInstanceofExprPsiImpl::class.java,

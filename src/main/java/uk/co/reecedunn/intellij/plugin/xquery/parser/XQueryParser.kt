@@ -3542,7 +3542,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveIntersectExceptExpr)
-                intersectExceptExprMarker.done(XQueryElementType.INTERSECT_EXCEPT_EXPR)
+                intersectExceptExprMarker.done(XPathElementType.INTERSECT_EXCEPT_EXPR)
             else
                 intersectExceptExprMarker.drop()
             return true
