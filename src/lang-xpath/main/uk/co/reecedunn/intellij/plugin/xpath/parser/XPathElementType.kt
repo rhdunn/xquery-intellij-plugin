@@ -15,13 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.parser
 
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
+import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePsiImpl
 
 object XPathElementType {
     // region XPath 1.0
 
     val XPATH = IFileElementType(XPath)
+
+    // endregion
+    // region XQuery IntelliJ Plugin
+
+    val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_ANY_ITEM_TYPE",
+        PluginAnyItemTypePsiImpl::class.java,
+        XPath
+    )
 
     // endregion
 }

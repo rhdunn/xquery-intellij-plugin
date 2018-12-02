@@ -1585,11 +1585,6 @@ object XQueryElementType {
         PluginAnnotatedSequenceTypePsiImpl::class.java,
         XQuery
     )
-    val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_ANY_ITEM_TYPE",
-        PluginAnyItemTypePsiImpl::class.java,
-        XQuery
-    )
 
     val ANY_TEXT_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_TEXT_TEST",

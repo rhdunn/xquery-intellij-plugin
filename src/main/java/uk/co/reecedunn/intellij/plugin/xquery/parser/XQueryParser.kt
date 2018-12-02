@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class XQueryParser : PsiParser {
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
@@ -6234,7 +6235,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            itemTypeMarker.done(XQueryElementType.ANY_ITEM_TYPE)
+            itemTypeMarker.done(XPathElementType.ANY_ITEM_TYPE)
             return true
         }
         return false
