@@ -3568,14 +3568,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (!parseSequenceType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 }
-                instanceofExprMarker.done(XQueryElementType.INSTANCEOF_EXPR)
+                instanceofExprMarker.done(XPathElementType.INSTANCEOF_EXPR)
             } else if (getTokenType() === XPathTokenType.K_OF) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "instance"))
                 advanceLexer()
 
                 parseWhiteSpaceAndCommentTokens()
                 parseSingleType()
-                instanceofExprMarker.done(XQueryElementType.INSTANCEOF_EXPR)
+                instanceofExprMarker.done(XPathElementType.INSTANCEOF_EXPR)
             } else {
                 instanceofExprMarker.drop()
             }

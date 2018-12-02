@@ -105,6 +105,12 @@ object XPathElementType {
         XPath
     )
 
+    val INSTANCEOF_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_INSTANCEOF_EXPR",
+        XPathInstanceofExprPsiImpl::class.java,
+        XPath
+    )
+
     val CASTABLE_EXPR: IElementType = ICompositeElementType(
         "XQUERY_CASTABLE_EXPR",
         XPathCastableExprPsiImpl::class.java,
