@@ -81,11 +81,6 @@ object XQueryElementType {
         XQueryUnorderedExprPsiImpl::class.java,
         XQuery
     )
-    val FUNCTION_CALL: IElementType = ICompositeElementType(
-        "XQUERY_FUNCTION_CALL",
-        XPathFunctionCallPsiImpl::class.java,
-        XQuery
-    )
 
     val FORWARD_AXIS: IElementType = ICompositeElementType(
         "XQUERY_FORWARD_AXIS",

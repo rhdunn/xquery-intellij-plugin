@@ -4340,7 +4340,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 return false
             }
 
-            functionCallMarker.done(XQueryElementType.FUNCTION_CALL)
+            functionCallMarker.done(XPathElementType.FUNCTION_CALL)
             return true
         }
 

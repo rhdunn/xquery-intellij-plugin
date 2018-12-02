@@ -72,6 +72,12 @@ object XPathElementType {
         XPath
     )
 
+    val FUNCTION_CALL: IElementType = ICompositeElementType(
+        "XQUERY_FUNCTION_CALL",
+        XPathFunctionCallPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_KIND_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_KIND_TEST",
         XPathAnyKindTestPsiImpl::class.java,
