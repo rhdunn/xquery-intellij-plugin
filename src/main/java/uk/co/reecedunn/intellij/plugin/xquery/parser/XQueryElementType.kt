@@ -122,11 +122,6 @@ object XQueryElementType {
         XPathReverseAxisPsiImpl::class.java,
         XQuery
     )
-    val ABBREV_REVERSE_STEP: IElementType = ICompositeElementType(
-        "XQUERY_ABBREV_REVERSE_STEP",
-        XPathAbbrevReverseStepPsiImpl::class.java,
-        XQuery
-    )
     val NODE_TEST: IElementType = ICompositeElementType(
         "XQUERY_NODE_TEST",
         XPathNodeTestPsiImpl::class.java,

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPs
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathAbbrevForwardStepPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathAbbrevReverseStepPsiImpl
 
 object XPathElementType {
     // region XPath 1.0
@@ -33,6 +34,12 @@ object XPathElementType {
     val ABBREV_FORWARD_STEP: IElementType = ICompositeElementType(
         "XQUERY_ABBREV_FORWARD_STEP",
         XPathAbbrevForwardStepPsiImpl::class.java,
+        XPath
+    )
+
+    val ABBREV_REVERSE_STEP: IElementType = ICompositeElementType(
+        "XQUERY_ABBREV_REVERSE_STEP",
+        XPathAbbrevReverseStepPsiImpl::class.java,
         XPath
     )
 

@@ -4087,7 +4087,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseAbbrevReverseStep(): Boolean {
         val abbrevReverseStepMarker = matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
         if (abbrevReverseStepMarker != null) {
-            abbrevReverseStepMarker.done(XQueryElementType.ABBREV_REVERSE_STEP)
+            abbrevReverseStepMarker.done(XPathElementType.ABBREV_REVERSE_STEP)
             return true
         }
         return false
