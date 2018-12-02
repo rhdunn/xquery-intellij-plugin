@@ -1558,11 +1558,6 @@ object XQueryElementType {
         PluginDefaultCaseClausePsiImpl::class.java,
         XQuery
     )
-    val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType(
-        "XQUERY_QUANTIFIED_EXPR_BINDING",
-        PluginQuantifiedExprBindingPsiImpl::class.java,
-        XQuery
-    )
     val BLOCK_VAR_DECL_ENTRY: IElementType = ICompositeElementType(
         "XQUERY_BLOCK_VAR_DECL_ENTRY",
         PluginBlockVarDeclEntryPsiImpl::class.java,

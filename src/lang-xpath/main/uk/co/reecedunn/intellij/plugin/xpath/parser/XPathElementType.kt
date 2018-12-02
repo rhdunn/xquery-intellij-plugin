@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
 
 object XPathElementType {
     // region XPath 1.0
@@ -29,6 +30,12 @@ object XPathElementType {
 
     // endregion
     // region XQuery IntelliJ Plugin
+
+    val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType(
+        "XQUERY_QUANTIFIED_EXPR_BINDING",
+        PluginQuantifiedExprBindingPsiImpl::class.java,
+        XPath
+    )
 
     val ANY_TEXT_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_TEXT_TEST",
