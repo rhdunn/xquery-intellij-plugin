@@ -111,6 +111,12 @@ object XPathElementType {
         XPath
     )
 
+    val ELEMENT_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ELEMENT_TEST",
+        XPathElementTestPsiImpl::class.java,
+        XPath
+    )
+
     val COMMENT: IElementType = ICompositeElementType(
         "XQUERY_COMMENT",
         XPathCommentPsiImpl::class.java,

@@ -329,11 +329,6 @@ object XQueryElementType {
     val ATTRIBUTE_NAME: IElementType = QNAME
     val ATTRIBUTE_DECLARATION: IElementType = QNAME
 
-    val ELEMENT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ELEMENT_TEST",
-        XPathElementTestPsiImpl::class.java,
-        XQuery
-    )
     val SCHEMA_ELEMENT_TEST: IElementType = ICompositeElementType(
         "XQUERY_SCHEMA_ELEMENT_TEST",
         XPathSchemaElementTestPsiImpl::class.java,
