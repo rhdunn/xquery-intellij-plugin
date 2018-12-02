@@ -54,7 +54,6 @@ private val KEYWORDS = mapOf(
         "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
         "all" to XQueryTokenType.K_ALL, // Full Text 1.0
         "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
-        "andAlso" to XQueryTokenType.K_ANDALSO, // Saxon 9.9
         "any" to XQueryTokenType.K_ANY, // Full Text 1.0
         "array-node" to XQueryTokenType.K_ARRAY_NODE, // MarkLogic 8.0
         "ascending" to XQueryTokenType.K_ASCENDING,

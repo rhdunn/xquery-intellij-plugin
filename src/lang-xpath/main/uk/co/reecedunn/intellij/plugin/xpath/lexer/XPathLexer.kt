@@ -35,6 +35,7 @@ private val KEYWORDS = mapOf(
     "ancestor" to XPathTokenType.K_ANCESTOR, // XPath 1.0
     "ancestor-or-self" to XPathTokenType.K_ANCESTOR_OR_SELF, // XPath 1.0
     "and" to XPathTokenType.K_AND, // XPath 1.0
+    "andAlso" to XPathTokenType.K_ANDALSO, // Saxon 9.9
     "array" to XPathTokenType.K_ARRAY, // XPath 3.1
     "as" to XPathTokenType.K_AS, // XPath 2.0
     "attribute" to XPathTokenType.K_ATTRIBUTE, // XPath 1.0

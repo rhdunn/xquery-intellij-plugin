@@ -1093,7 +1093,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(
                 versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ANDALSO)
+                `is`(XPathTokenType.K_ANDALSO)
             )
         }
 
@@ -1108,7 +1108,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(
                 versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ANDALSO)
+                `is`(XPathTokenType.K_ANDALSO)
             )
         }
 
@@ -1123,7 +1123,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(
                 versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ANDALSO)
+                `is`(XPathTokenType.K_ANDALSO)
             )
         }
     }

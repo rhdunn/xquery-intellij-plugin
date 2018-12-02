@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:17)]
                         XPathNCNameImpl[XQUERY_NCNAME(6:8)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('b')
                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ANDALSO(8:15)]('andAlso')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ANDALSO(8:15)]('andAlso')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(16:17)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(16:17)]

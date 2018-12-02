@@ -21,18 +21,16 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAndExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 private var XQUERY10: List<Version> = listOf()
 private var SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
 
-class XPathAndExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAndExpr,
-    VersionConformance {
-
+class XPathAndExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAndExpr, VersionConformance {
     override val requiresConformance: List<Version>
         get() = if (conformanceElement === firstChild) XQUERY10 else SAXON99
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XQueryTokenType.K_ANDALSO) ?: firstChild
+        get() = findChildByType(XPathTokenType.K_ANDALSO) ?: firstChild
 }

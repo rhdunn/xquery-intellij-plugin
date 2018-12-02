@@ -3286,7 +3286,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         if (parseUpdateExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var haveAndExpr = false
-            while (matchTokenType(XPathTokenType.K_AND) || matchTokenType(XQueryTokenType.K_ANDALSO)) {
+            while (matchTokenType(XPathTokenType.K_AND) || matchTokenType(XPathTokenType.K_ANDALSO)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseComparisonExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "ComparisonExpr"))

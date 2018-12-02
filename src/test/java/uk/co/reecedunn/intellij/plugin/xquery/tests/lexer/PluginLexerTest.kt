@@ -128,7 +128,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "and", XPathTokenType.K_AND)
-        matchSingleToken(lexer, "andAlso", XQueryTokenType.K_ANDALSO)
+        matchSingleToken(lexer, "andAlso", XPathTokenType.K_ANDALSO)
     }
 
     @Test
