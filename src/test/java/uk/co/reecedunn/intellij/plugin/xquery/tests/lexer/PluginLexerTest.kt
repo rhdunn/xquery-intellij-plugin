@@ -645,7 +645,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "or", XPathTokenType.K_OR)
-        matchSingleToken(lexer, "orElse", XQueryTokenType.K_ORELSE)
+        matchSingleToken(lexer, "orElse", XPathTokenType.K_ORELSE)
     }
 
     @Test

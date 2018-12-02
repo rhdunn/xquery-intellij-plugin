@@ -3267,7 +3267,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         val orExprMarker = mark()
         if (parseAndExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
-            while (matchTokenType(XPathTokenType.K_OR) || matchTokenType(XQueryTokenType.K_ORELSE)) {
+            while (matchTokenType(XPathTokenType.K_OR) || matchTokenType(XPathTokenType.K_ORELSE)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseAndExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AndExpr"))

@@ -77,6 +77,7 @@ private val KEYWORDS = mapOf(
     "node" to XPathTokenType.K_NODE, // XPath 1.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 1.0
+    "orElse" to XPathTokenType.K_ORELSE, // Saxon 9.9
     "parent" to XPathTokenType.K_PARENT, // XPath 1.0
     "preceding" to XPathTokenType.K_PRECEDING, // XPath 1.0
     "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 1.0

@@ -1031,7 +1031,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(
                 versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ORELSE)
+                `is`(XPathTokenType.K_ORELSE)
             )
         }
 
@@ -1046,7 +1046,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(
                 versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ORELSE)
+                `is`(XPathTokenType.K_ORELSE)
             )
         }
 
@@ -1061,7 +1061,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(
                 versioned.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.K_ORELSE)
+                `is`(XPathTokenType.K_ORELSE)
             )
         }
     }

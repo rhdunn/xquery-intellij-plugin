@@ -34,4 +34,13 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "and", XPathTokenType.K_AND)
         matchSingleToken(lexer, "andAlso", XPathTokenType.K_ANDALSO)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
+    fun orExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
+        matchSingleToken(lexer, "orElse", XPathTokenType.K_ORELSE)
+    }
 }
