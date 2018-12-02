@@ -3295,7 +3295,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveAndExpr)
-                andExprMarker.done(XQueryElementType.AND_EXPR)
+                andExprMarker.done(XPathElementType.AND_EXPR)
             else
                 andExprMarker.drop()
             return true

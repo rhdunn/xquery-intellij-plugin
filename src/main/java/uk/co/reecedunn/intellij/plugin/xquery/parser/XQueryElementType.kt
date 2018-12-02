@@ -229,11 +229,6 @@ object XQueryElementType {
         XPathComparisonExprPsiImpl::class.java,
         XQuery
     )
-    val AND_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_AND_EXPR",
-        XPathAndExprPsiImpl::class.java,
-        XQuery
-    )
     val OR_EXPR: IElementType = ICompositeElementType(
         "XQUERY_OR_EXPR",
         XPathOrExprPsiImpl::class.java,
