@@ -3274,7 +3274,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 }
             }
 
-            orExprMarker.done(XQueryElementType.OR_EXPR)
+            orExprMarker.done(XPathElementType.OR_EXPR)
             return true
         }
         orExprMarker.drop()
