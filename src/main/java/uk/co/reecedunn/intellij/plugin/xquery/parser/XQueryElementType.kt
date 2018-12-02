@@ -543,12 +543,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val NAMESPACE_NODE_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NAMESPACE_NODE_TEST",
-        XPathNamespaceNodeTestPsiImpl::class.java,
-        XQuery
-    )
-
     val ANNOTATED_DECL: IElementType = ICompositeElementType(
         "XQUERY_ANNOTATED_DECL",
         XQueryAnnotatedDeclPsiImpl::class.java,

@@ -6724,7 +6724,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            namespaceTestMarker.done(XQueryElementType.NAMESPACE_NODE_TEST)
+            namespaceTestMarker.done(XPathElementType.NAMESPACE_NODE_TEST)
             return true
         }
         return false

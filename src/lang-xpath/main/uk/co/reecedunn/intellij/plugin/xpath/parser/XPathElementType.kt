@@ -141,6 +141,12 @@ object XPathElementType {
         XPath
     )
 
+    val NAMESPACE_NODE_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMESPACE_NODE_TEST",
+        XPathNamespaceNodeTestPsiImpl::class.java,
+        XPath
+    )
+
     val ATTRIBUTE_TEST: IElementType = ICompositeElementType(
         "XQUERY_ATTRIBUTE_TEST",
         XPathAttributeTestPsiImpl::class.java,
