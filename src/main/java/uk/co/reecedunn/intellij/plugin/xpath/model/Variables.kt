@@ -27,20 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
-interface XPathVariableName {
-    val variableName: XsQNameValue?
-}
-
-interface XPathVariableDeclaration : XPathVariableName
-
-interface XPathVariableBinding : XPathVariableName
-
-interface XPathVariableReference : XPathVariableName
-
-interface XPathVariableDeclarations {
-    val variables: Sequence<XPathVariableDeclaration>
-}
-
 // region In-scope variables implementation details
 
 private class InScopeVariableContext {
