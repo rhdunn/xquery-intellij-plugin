@@ -6655,7 +6655,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            documentTestMarker.done(XQueryElementType.DOCUMENT_TEST)
+            documentTestMarker.done(XPathElementType.DOCUMENT_TEST)
             return true
         }
         return false

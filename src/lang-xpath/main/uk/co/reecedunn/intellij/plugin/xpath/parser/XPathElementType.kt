@@ -99,6 +99,12 @@ object XPathElementType {
         XPath
     )
 
+    val DOCUMENT_TEST: IElementType = ICompositeElementType(
+        "XQUERY_DOCUMENT_TEST",
+        XPathDocumentTestPsiImpl::class.java,
+        XPath
+    )
+
     val ATTRIBUTE_TEST: IElementType = ICompositeElementType(
         "XQUERY_ATTRIBUTE_TEST",
         XPathAttributeTestPsiImpl::class.java,
