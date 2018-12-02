@@ -63,6 +63,12 @@ object XPathElementType {
     // endregion
     // region XPath 3.1
 
+    val ANY_MAP_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_MAP_TEST",
+        XPathAnyMapTestPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_ARRAY_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_ARRAY_TEST",
         XPathAnyArrayTestPsiImpl::class.java,

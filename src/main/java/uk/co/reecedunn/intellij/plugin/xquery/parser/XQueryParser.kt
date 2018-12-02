@@ -6508,7 +6508,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XPathTokenType.STAR)) {
-                type = XQueryElementType.ANY_MAP_TEST
+                type = XPathElementType.ANY_MAP_TEST
             } else if (parseUnionType() || parseAtomicOrUnionType()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!matchTokenType(XPathTokenType.COMMA)) {
@@ -6535,7 +6535,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 type = XQueryElementType.TYPED_MAP_TEST
             } else {
                 error(XQueryBundle.message("parser.error.expected-eqname-or-token", "*"))
-                type = XQueryElementType.ANY_MAP_TEST
+                type = XPathElementType.ANY_MAP_TEST
                 haveError = true
             }
 

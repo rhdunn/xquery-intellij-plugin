@@ -926,11 +926,6 @@ object XQueryElementType {
             XQuery
         )
 
-    val ANY_MAP_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_MAP_TEST",
-        XPathAnyMapTestPsiImpl::class.java,
-        XQuery
-    )
     val TYPED_MAP_TEST: IElementType = ICompositeElementType(
         "XQUERY_TYPED_MAP_TEST",
         XPathTypedMapTestPsiImpl::class.java,
