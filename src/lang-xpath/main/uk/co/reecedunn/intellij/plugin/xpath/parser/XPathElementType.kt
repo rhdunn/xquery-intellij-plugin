@@ -180,6 +180,12 @@ object XPathElementType {
         XPath
     )
 
+    val NAMED_FUNCTION_REF: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_FUNCTION_REF",
+        XPathNamedFunctionRefPsiImpl::class.java,
+        XPath
+    )
+
     val INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XQUERY_INLINE_FUNCTION_EXPR",
         XPathInlineFunctionExprPsiImpl::class.java,

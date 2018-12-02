@@ -4415,7 +4415,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"))
             }
 
-            namedFunctionRefMarker.done(XQueryElementType.NAMED_FUNCTION_REF)
+            namedFunctionRefMarker.done(XPathElementType.NAMED_FUNCTION_REF)
             return true
         }
 

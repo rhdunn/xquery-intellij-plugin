@@ -707,12 +707,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val NAMED_FUNCTION_REF: IElementType = ICompositeElementType(
-        "XQUERY_NAMED_FUNCTION_REF",
-        XPathNamedFunctionRefPsiImpl::class.java,
-        XQuery
-    )
-
     val COMP_NAMESPACE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_COMP_NAMESPACE_CONSTRUCTOR",
         XQueryCompNamespaceConstructorPsiImpl::class.java,
