@@ -4029,14 +4029,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         parseWhiteSpaceAndCommentTokens()
         if (parseNodeTest(type)) {
             if (matched)
-                abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP)
+                abbrevForwardStepMarker.done(XPathElementType.ABBREV_FORWARD_STEP)
             else
                 abbrevForwardStepMarker.drop()
             return true
         } else if (matched) {
             error(XQueryBundle.message("parser.error.expected", "NodeTest"))
 
-            abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP)
+            abbrevForwardStepMarker.done(XPathElementType.ABBREV_FORWARD_STEP)
             return true
         }
         abbrevForwardStepMarker.drop()

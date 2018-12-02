@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -111,11 +110,6 @@ object XQueryElementType {
     val FORWARD_AXIS: IElementType = ICompositeElementType(
         "XQUERY_FORWARD_AXIS",
         XPathForwardAxisPsiImpl::class.java,
-        XQuery
-    )
-    val ABBREV_FORWARD_STEP: IElementType = ICompositeElementType(
-        "XQUERY_ABBREV_FORWARD_STEP",
-        XPathAbbrevForwardStepPsiImpl::class.java,
         XQuery
     )
     val REVERSE_STEP: IElementType = ICompositeElementType(

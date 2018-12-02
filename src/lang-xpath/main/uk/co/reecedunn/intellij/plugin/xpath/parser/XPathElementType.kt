@@ -23,11 +23,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePs
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathAbbrevForwardStepPsiImpl
 
 object XPathElementType {
     // region XPath 1.0
 
     val XPATH = IFileElementType(XPath)
+
+    val ABBREV_FORWARD_STEP: IElementType = ICompositeElementType(
+        "XQUERY_ABBREV_FORWARD_STEP",
+        XPathAbbrevForwardStepPsiImpl::class.java,
+        XPath
+    )
 
     // endregion
     // region XQuery IntelliJ Plugin
