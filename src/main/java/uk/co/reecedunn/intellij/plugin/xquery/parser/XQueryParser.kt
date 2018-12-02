@@ -4096,7 +4096,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseNodeTest(type: IElementType?): Boolean {
         val nodeTestMarker = mark()
         if (parseKindTest() || parseNameTest(type)) {
-            nodeTestMarker.done(XQueryElementType.NODE_TEST)
+            nodeTestMarker.done(XPathElementType.NODE_TEST)
             return true
         }
 
