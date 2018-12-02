@@ -22,12 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-interface XPathFunctionReference {
-    val functionName: XsQNameValue?
-
-    val arity: Int
-}
-
 private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
     return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
         val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
