@@ -6675,7 +6675,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 type = XQueryElementType.NAMED_TEXT_TEST
             } else {
-                type = XQueryElementType.ANY_TEXT_TEST
+                type = XPathElementType.ANY_TEXT_TEST
                 errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0
             }
 

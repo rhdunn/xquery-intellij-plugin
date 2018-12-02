@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
 
 object XPathElementType {
     // region XPath 1.0
@@ -28,6 +29,12 @@ object XPathElementType {
 
     // endregion
     // region XQuery IntelliJ Plugin
+
+    val ANY_TEXT_TEST: IElementType = ICompositeElementType(
+        "XQUERY_ANY_TEXT_TEST",
+        PluginAnyTextTestPsiImpl::class.java,
+        XPath
+    )
 
     val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
         "XQUERY_ANY_ITEM_TYPE",
