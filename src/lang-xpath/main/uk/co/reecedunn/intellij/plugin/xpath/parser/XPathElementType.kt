@@ -195,6 +195,12 @@ object XPathElementType {
         XPath
     )
 
+    val LOOKUP: IElementType = ICompositeElementType(
+        "XQUERY_LOOKUP",
+        XPathLookupPsiImpl::class.java,
+        XPath
+    )
+
     val KEY_SPECIFIER: IElementType = ICompositeElementType(
         "XQUERY_KEY_SPECIFIER",
         XPathKeySpecifierPsiImpl::class.java,

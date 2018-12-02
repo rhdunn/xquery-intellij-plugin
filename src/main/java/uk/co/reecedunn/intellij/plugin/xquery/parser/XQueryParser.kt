@@ -4120,7 +4120,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         if (parsePrimaryExpr(type)) {
             parseWhiteSpaceAndCommentTokens()
             var havePostfixExpr = false
-            while (parsePredicate() || parseArgumentList() || parseLookup(XQueryElementType.LOOKUP)) {
+            while (parsePredicate() || parseArgumentList() || parseLookup(XPathElementType.LOOKUP)) {
                 parseWhiteSpaceAndCommentTokens()
                 havePostfixExpr = true
             }
