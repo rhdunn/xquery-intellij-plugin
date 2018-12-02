@@ -69,6 +69,12 @@ object XPathElementType {
     // endregion
     // region XPath 2.0
 
+    val CASTABLE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_CASTABLE_EXPR",
+        XPathCastableExprPsiImpl::class.java,
+        XPath
+    )
+
     val ATTRIBUTE_TEST: IElementType = ICompositeElementType(
         "XQUERY_ATTRIBUTE_TEST",
         XPathAttributeTestPsiImpl::class.java,

@@ -3636,7 +3636,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (!parseSingleType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SingleType"))
                 }
-                castableExprMarker.done(XQueryElementType.CASTABLE_EXPR)
+                castableExprMarker.done(XPathElementType.CASTABLE_EXPR)
             } else {
                 castableExprMarker.drop()
             }
