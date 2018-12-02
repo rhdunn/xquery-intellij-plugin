@@ -6704,7 +6704,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            commentTestMarker.done(XQueryElementType.COMMENT_TEST)
+            commentTestMarker.done(XPathElementType.COMMENT_TEST)
             return true
         }
         return false
