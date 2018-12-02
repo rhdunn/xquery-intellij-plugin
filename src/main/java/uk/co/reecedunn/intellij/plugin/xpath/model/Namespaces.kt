@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -29,7 +30,7 @@ private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", null as
 
 private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.ANNOTATION to XPathNamespaceType.XQuery,
-    XQueryElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunction,
+    XPathElementType.ARROW_FUNCTION_SPECIFIER to XPathNamespaceType.DefaultFunction,
     XQueryElementType.ATOMIC_OR_UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.ATTRIBUTE_TEST to XPathNamespaceType.None,
     XQueryElementType.COMP_ATTR_CONSTRUCTOR to XPathNamespaceType.None,

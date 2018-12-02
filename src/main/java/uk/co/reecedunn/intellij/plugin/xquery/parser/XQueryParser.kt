@@ -3733,7 +3733,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseArrowFunctionSpecifier(): Boolean {
         val arrowFunctionSpecifierMarker = mark()
         if (parseEQName(XQueryElementType.QNAME) || parseVarRef(null) || parseParenthesizedExpr()) {
-            arrowFunctionSpecifierMarker.done(XQueryElementType.ARROW_FUNCTION_SPECIFIER)
+            arrowFunctionSpecifierMarker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
             return true
         }
         arrowFunctionSpecifierMarker.drop()

@@ -90,6 +90,12 @@ object XPathElementType {
         XPath
     )
 
+    val ARROW_FUNCTION_SPECIFIER: IElementType = ICompositeElementType(
+        "XQUERY_ARROW_FUNCTION_SPECIFIER",
+        XPathArrowFunctionSpecifierPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_MAP_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_MAP_TEST",
         XPathAnyMapTestPsiImpl::class.java,
