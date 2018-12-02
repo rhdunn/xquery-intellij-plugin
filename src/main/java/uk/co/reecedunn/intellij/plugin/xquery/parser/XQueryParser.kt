@@ -4703,7 +4703,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
     private fun parseMapConstructorEntry(): Boolean {
         val mapConstructorEntry = mark()
-        if (parseExprSingle(XQueryElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
+        if (parseExprSingle(XPathElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()

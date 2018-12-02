@@ -219,6 +219,12 @@ object XPathElementType {
         XPath
     )
 
+    val MAP_KEY_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_MAP_KEY_EXPR",
+        XPathMapKeyExprPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_MAP_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_MAP_TEST",
         XPathAnyMapTestPsiImpl::class.java,

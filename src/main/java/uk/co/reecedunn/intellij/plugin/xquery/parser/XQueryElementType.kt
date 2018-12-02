@@ -781,11 +781,6 @@ object XQueryElementType {
         XPathMapConstructorPsiImpl::class.java,
         XQuery
     )
-    val MAP_KEY_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_MAP_KEY_EXPR",
-        XPathMapKeyExprPsiImpl::class.java,
-        XQuery
-    )
     val MAP_VALUE_EXPR: IElementType = ICompositeElementType(
         "XQUERY_MAP_VALUE_EXPR",
         XPathMapValueExprPsiImpl::class.java,
