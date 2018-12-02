@@ -6564,12 +6564,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XPathTokenType.STAR)) {
-                type = XQueryElementType.ANY_ARRAY_TEST
+                type = XPathElementType.ANY_ARRAY_TEST
             } else if (parseSequenceType()) {
                 type = XQueryElementType.TYPED_ARRAY_TEST
             } else {
                 error(XQueryBundle.message("parser.error.expected-either", "*", "SequenceType"))
-                type = XQueryElementType.ANY_ARRAY_TEST
+                type = XPathElementType.ANY_ARRAY_TEST
                 haveError = true
             }
 

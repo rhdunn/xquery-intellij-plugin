@@ -942,11 +942,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ANY_ARRAY_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_ARRAY_TEST",
-        XPathAnyArrayTestPsiImpl::class.java,
-        XQuery
-    )
     val TYPED_ARRAY_TEST: IElementType = ICompositeElementType(
         "XQUERY_TYPED_ARRAY_TEST",
         XPathTypedArrayTestPsiImpl::class.java,
