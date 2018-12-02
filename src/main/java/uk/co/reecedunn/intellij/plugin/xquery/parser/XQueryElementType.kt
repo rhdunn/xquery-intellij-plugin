@@ -1547,12 +1547,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val WILDCARD_INDICATOR: IElementType = ICompositeElementType(
-        "XQUERY_WILDCARD_INDICATOR",
-        PluginWildcardIndicatorPsiImpl::class.java,
-        XQuery
-    )
-
     val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_DEFAULT_CASE_CLAUSE",
         PluginDefaultCaseClausePsiImpl::class.java,

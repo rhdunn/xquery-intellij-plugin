@@ -7567,7 +7567,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         if (getTokenType() === XPathTokenType.STAR) {
             val marker = mark()
             advanceLexer()
-            marker.done(XQueryElementType.WILDCARD_INDICATOR)
+            marker.done(XPathElementType.WILDCARD_INDICATOR)
             return true
         }
         return false

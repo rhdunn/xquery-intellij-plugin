@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 
 object XPathElementType {
     // region XPath 1.0
@@ -40,6 +41,12 @@ object XPathElementType {
     val ANY_TEXT_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_TEXT_TEST",
         PluginAnyTextTestPsiImpl::class.java,
+        XPath
+    )
+
+    val WILDCARD_INDICATOR: IElementType = ICompositeElementType(
+        "XQUERY_WILDCARD_INDICATOR",
+        PluginWildcardIndicatorPsiImpl::class.java,
         XPath
     )
 
