@@ -4713,7 +4713,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseExprSingle(XQueryElementType.MAP_VALUE_EXPR) && !haveError) {
+            if (!parseExprSingle(XPathElementType.MAP_VALUE_EXPR) && !haveError) {
                 error(XQueryBundle.message("parser.error.expected-expression"))
             }
 
