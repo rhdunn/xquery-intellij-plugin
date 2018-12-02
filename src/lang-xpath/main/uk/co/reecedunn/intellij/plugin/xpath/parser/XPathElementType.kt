@@ -75,6 +75,12 @@ object XPathElementType {
         XPath
     )
 
+    val CAST_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_CAST_EXPR",
+        XPathCastExprPsiImpl::class.java,
+        XPath
+    )
+
     val ATTRIBUTE_TEST: IElementType = ICompositeElementType(
         "XQUERY_ATTRIBUTE_TEST",
         XPathAttributeTestPsiImpl::class.java,

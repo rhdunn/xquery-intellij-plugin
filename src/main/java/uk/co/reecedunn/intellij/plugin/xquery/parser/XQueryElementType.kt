@@ -179,11 +179,6 @@ object XQueryElementType {
         XPathUnaryExprPsiImpl::class.java,
         XQuery
     )
-    val CAST_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_CAST_EXPR",
-        XPathCastExprPsiImpl::class.java,
-        XQuery
-    )
     val TREAT_EXPR: IElementType = ICompositeElementType(
         "XQUERY_TREAT_EXPR",
         XPathTreatExprPsiImpl::class.java,
