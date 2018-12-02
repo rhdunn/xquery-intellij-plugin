@@ -3495,7 +3495,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveMultiplicativeExpr)
-                multiplicativeExprMarker.done(XQueryElementType.MULTIPLICATIVE_EXPR)
+                multiplicativeExprMarker.done(XPathElementType.MULTIPLICATIVE_EXPR)
             else
                 multiplicativeExprMarker.drop()
             return true
