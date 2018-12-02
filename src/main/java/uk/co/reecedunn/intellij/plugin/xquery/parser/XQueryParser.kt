@@ -4473,12 +4473,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 matchTokenType(XPathTokenType.BLOCK_CLOSE)
             }
 
-            inlineFunctionExprMarker.done(XQueryElementType.INLINE_FUNCTION_EXPR)
+            inlineFunctionExprMarker.done(XPathElementType.INLINE_FUNCTION_EXPR)
             return true
         } else if (haveAnnotations) {
             error(XQueryBundle.message("parser.error.expected-keyword", "function"))
 
-            inlineFunctionExprMarker.done(XQueryElementType.INLINE_FUNCTION_EXPR)
+            inlineFunctionExprMarker.done(XPathElementType.INLINE_FUNCTION_EXPR)
             return true
         }
 

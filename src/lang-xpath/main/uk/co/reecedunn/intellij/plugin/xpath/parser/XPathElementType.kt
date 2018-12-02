@@ -162,6 +162,12 @@ object XPathElementType {
         XPath
     )
 
+    val INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_INLINE_FUNCTION_EXPR",
+        XPathInlineFunctionExprPsiImpl::class.java,
+        XPath
+    )
+
     val ATOMIC_OR_UNION_TYPE: IElementType = ICompositeElementType(
         "XQUERY_ATOMIC_OR_UNION_TYPE",
         XPathAtomicOrUnionTypePsiImpl::class.java,
