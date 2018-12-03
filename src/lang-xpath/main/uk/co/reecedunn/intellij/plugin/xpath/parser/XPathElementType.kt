@@ -60,6 +60,12 @@ object XPathElementType {
         XPath
     )
 
+    val UNION_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_UNION_EXPR",
+        XPathUnionExprPsiImpl::class.java,
+        XPath
+    )
+
     val PATH_EXPR: IElementType = ICompositeElementType(
         "XQUERY_PATH_EXPR",
         XPathPathExprPsiImpl::class.java,

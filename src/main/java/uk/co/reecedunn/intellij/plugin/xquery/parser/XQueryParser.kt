@@ -3518,7 +3518,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveUnionExpr)
-                unionExprMarker.done(XQueryElementType.UNION_EXPR)
+                unionExprMarker.done(XPathElementType.UNION_EXPR)
             else
                 unionExprMarker.drop()
             return true

@@ -104,12 +104,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val UNION_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_UNION_EXPR",
-        XPathUnionExprPsiImpl::class.java,
-        XQuery
-    )
-
     val ORDER_MODIFIER: IElementType = ICompositeElementType(
         "XQUERY_ORDER_MODIFIER",
         XQueryOrderModifierPsiImpl::class.java,
