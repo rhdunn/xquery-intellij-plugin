@@ -3912,7 +3912,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             parseWhiteSpaceAndCommentTokens()
             parseRelativePathExpr(null)
 
-            pathExprMarker.done(XQueryElementType.PATH_EXPR)
+            pathExprMarker.done(XPathElementType.PATH_EXPR)
             return true
         } else if (matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH)) {
             parseWhiteSpaceAndCommentTokens()
@@ -3920,7 +3920,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "RelativePathExpr"))
             }
 
-            pathExprMarker.done(XQueryElementType.PATH_EXPR)
+            pathExprMarker.done(XPathElementType.PATH_EXPR)
             return true
         } else if (parseRelativePathExpr(type)) {
             pathExprMarker.drop()
