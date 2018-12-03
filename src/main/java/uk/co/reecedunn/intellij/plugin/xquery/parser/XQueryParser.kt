@@ -3602,14 +3602,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (!parseSequenceType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"))
                 }
-                treatExprMarker.done(XQueryElementType.TREAT_EXPR)
+                treatExprMarker.done(XPathElementType.TREAT_EXPR)
             } else if (getTokenType() === XPathTokenType.K_AS && type !== XQueryElementType.SOURCE_EXPR && type !== XQueryElementType.TARGET_EXPR) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
                 advanceLexer()
 
                 parseWhiteSpaceAndCommentTokens()
                 parseSingleType()
-                treatExprMarker.done(XQueryElementType.TREAT_EXPR)
+                treatExprMarker.done(XPathElementType.TREAT_EXPR)
             } else {
                 treatExprMarker.drop()
             }
