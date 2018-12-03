@@ -2364,7 +2364,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected-expression"))
             }
 
-            quantifiedExprMarker.done(XQueryElementType.QUANTIFIED_EXPR)
+            quantifiedExprMarker.done(XPathElementType.QUANTIFIED_EXPR)
             return true
         }
         return false

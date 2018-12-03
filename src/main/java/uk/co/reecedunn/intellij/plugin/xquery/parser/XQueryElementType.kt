@@ -191,11 +191,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val QUANTIFIED_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_QUANTIFIED_EXPR",
-        XPathQuantifiedExprPsiImpl::class.java,
-        XQuery
-    )
     val TYPESWITCH_EXPR: IElementType = ICompositeElementType(
         "XQUERY_TYPESWITCH_EXPR",
         XQueryTypeswitchExprPsiImpl::class.java,
