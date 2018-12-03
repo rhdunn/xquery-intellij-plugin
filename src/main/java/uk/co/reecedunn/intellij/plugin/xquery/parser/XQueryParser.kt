@@ -4610,7 +4610,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "]"))
             }
 
-            arrayConstructor.done(XQueryElementType.SQUARE_ARRAY_CONSTRUCTOR)
+            arrayConstructor.done(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR)
             return true
         }
         return false

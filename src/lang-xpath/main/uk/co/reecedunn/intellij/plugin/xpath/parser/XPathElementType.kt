@@ -363,6 +363,12 @@ object XPathElementType {
         XPath
     )
 
+    val SQUARE_ARRAY_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_SQUARE_ARRAY_CONSTRUCTOR",
+        XPathSquareArrayConstructorPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_MAP_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_MAP_TEST",
         XPathAnyMapTestPsiImpl::class.java,
