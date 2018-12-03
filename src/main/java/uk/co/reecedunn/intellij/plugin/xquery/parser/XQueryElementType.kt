@@ -655,12 +655,6 @@ object XQueryElementType {
             XQuery
         )
 
-    val UNARY_LOOKUP: IElementType = ICompositeElementType(
-        "XQUERY_UNARY_LOOKUP",
-        XPathUnaryLookupPsiImpl::class.java,
-        XQuery
-    )
-
     // endregion
     // region Update Facility 1.0
 

@@ -399,6 +399,12 @@ object XPathElementType {
         XPath
     )
 
+    val UNARY_LOOKUP: IElementType = ICompositeElementType(
+        "XQUERY_UNARY_LOOKUP",
+        XPathUnaryLookupPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_MAP_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_MAP_TEST",
         XPathAnyMapTestPsiImpl::class.java,

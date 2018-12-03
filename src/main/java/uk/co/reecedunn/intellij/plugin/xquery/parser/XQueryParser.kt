@@ -4192,7 +4192,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 || parseNullConstructor()
                 || parseNumberConstructor()
                 || parseStringConstructor()
-                || parseLookup(XQueryElementType.UNARY_LOOKUP)
+                || parseLookup(XPathElementType.UNARY_LOOKUP)
                 || parseFunctionCall()
     }
 
@@ -4506,7 +4506,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         if (lookupMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseKeySpecifier()) {
-                if (type === XQueryElementType.UNARY_LOOKUP) {
+                if (type === XPathElementType.UNARY_LOOKUP) {
                     // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
                     lookupMarker.rollbackTo()
                     return false
