@@ -6522,7 +6522,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                     haveError = true
                 }
 
-                type = XQueryElementType.TYPED_MAP_TEST
+                type = XPathElementType.TYPED_MAP_TEST
             } else if (getTokenType() === XPathTokenType.COMMA) {
                 error(XQueryBundle.message("parser.error.expected-either", "UnionType", "AtomicOrUnionType"))
                 haveError = true
@@ -6532,7 +6532,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 parseWhiteSpaceAndCommentTokens()
                 parseSequenceType()
 
-                type = XQueryElementType.TYPED_MAP_TEST
+                type = XPathElementType.TYPED_MAP_TEST
             } else {
                 error(XQueryBundle.message("parser.error.expected-eqname-or-token", "*"))
                 type = XPathElementType.ANY_MAP_TEST

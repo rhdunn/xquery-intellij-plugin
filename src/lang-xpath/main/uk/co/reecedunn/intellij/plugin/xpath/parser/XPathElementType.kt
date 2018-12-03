@@ -387,6 +387,12 @@ object XPathElementType {
         XPath
     )
 
+    val TYPED_MAP_TEST: IElementType = ICompositeElementType(
+        "XQUERY_TYPED_MAP_TEST",
+        XPathTypedMapTestPsiImpl::class.java,
+        XPath
+    )
+
     val ANY_ARRAY_TEST: IElementType = ICompositeElementType(
         "XQUERY_ANY_ARRAY_TEST",
         XPathAnyArrayTestPsiImpl::class.java,
