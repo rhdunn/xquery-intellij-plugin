@@ -56,11 +56,6 @@ object XQueryElementType {
         XPathStringLiteralPsiImpl::class.java,
         XQuery
     )
-    val VAR_REF: IElementType = ICompositeElementType(
-        "XQUERY_VAR_REF",
-        XPathVarRefPsiImpl::class.java,
-        XQuery
-    )
     val ORDERED_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ORDERED_EXPR",
         XQueryOrderedExprPsiImpl::class.java,

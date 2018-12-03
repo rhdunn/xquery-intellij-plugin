@@ -4218,7 +4218,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected-eqname"))
             }
 
-            varRefMarker.done(XQueryElementType.VAR_REF)
+            varRefMarker.done(XPathElementType.VAR_REF)
             return true
         }
         return false
