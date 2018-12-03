@@ -138,6 +138,12 @@ object XPathElementType {
         XPath
     )
 
+    val VAR_NAME: IElementType = ICompositeElementType(
+        "XQUERY_VAR_NAME",
+        XPathVarNamePsiImpl::class.java,
+        XPath
+    )
+
     val PARENTHESIZED_EXPR: IElementType = ICompositeElementType(
         "XQUERY_PARENTHESIZED_EXPR",
         XPathParenthesizedExprPsiImpl::class.java,

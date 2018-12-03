@@ -50,11 +50,6 @@ object XQueryElementType {
         XQueryUriLiteralPsiImpl::class.java,
         XQuery
     )
-    val VAR_NAME: IElementType = ICompositeElementType(
-        "XQUERY_VAR_NAME",
-        XPathVarNamePsiImpl::class.java,
-        XQuery
-    )
 
     val STRING_LITERAL: IElementType = ICompositeElementType(
         "XQUERY_STRING_LITERAL",

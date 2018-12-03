@@ -54,7 +54,7 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.TYPE_DECL to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.TYPE_NAME to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.UNION_TYPE to XPathNamespaceType.DefaultElementOrType,
-    XQueryElementType.VAR_NAME to XPathNamespaceType.None
+    XPathElementType.VAR_NAME to XPathNamespaceType.None
 )
 
 enum class XPathNamespaceType {
