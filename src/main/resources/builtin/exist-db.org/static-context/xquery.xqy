@@ -29,5 +29,9 @@ declare namespace app = "http://exist-db.org/apps/admin/templates";
 declare namespace testapp = "http://exist-db.org/apps/admin/testapp";
 declare namespace menu = "http://exist-db.org/apps/atomic/menu";
 declare namespace dash = "http://exist-db.org/apps/dashboard";
+declare namespace login-helper = "http://exist-db.org/apps/dashboard/login-helper";
+declare namespace packages = "http://exist-db.org/apps/dashboard/packages/rest";
+declare namespace service = "http://exist-db.org/apps/dashboard/service";
+declare namespace usermanager = "http://exist-db.org/apps/dashboard/userManager";
 
 ()
