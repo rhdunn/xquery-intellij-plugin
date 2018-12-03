@@ -4143,7 +4143,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             havePredicate = true
         }
         if (havePredicate)
-            predicateListMarker.done(XQueryElementType.PREDICATE_LIST)
+            predicateListMarker.done(XPathElementType.PREDICATE_LIST)
         else
             predicateListMarker.drop()
         return havePredicate
