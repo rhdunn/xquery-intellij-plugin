@@ -3749,11 +3749,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         }
         if (matched) {
             if (parseValueExpr(null)) {
-                pathExprMarker.done(XQueryElementType.UNARY_EXPR)
+                pathExprMarker.done(XPathElementType.UNARY_EXPR)
                 return true
             } else if (matched) {
                 error(XQueryBundle.message("parser.error.expected", "ValueExpr"))
-                pathExprMarker.done(XQueryElementType.UNARY_EXPR)
+                pathExprMarker.done(XPathElementType.UNARY_EXPR)
                 return true
             }
         } else if (parseValueExpr(type)) {

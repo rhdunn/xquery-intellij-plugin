@@ -104,11 +104,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val UNARY_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_UNARY_EXPR",
-        XPathUnaryExprPsiImpl::class.java,
-        XQuery
-    )
     val UNION_EXPR: IElementType = ICompositeElementType(
         "XQUERY_UNION_EXPR",
         XPathUnionExprPsiImpl::class.java,
