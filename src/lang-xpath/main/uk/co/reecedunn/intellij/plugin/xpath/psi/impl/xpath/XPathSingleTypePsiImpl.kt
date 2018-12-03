@@ -19,6 +19,4 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSingleType
 
-class XPathSingleTypePsiImpl(node: ASTNode):
-    ASTWrapperPsiElement(node),
-    XPathSingleType
+class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSingleType

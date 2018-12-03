@@ -3794,7 +3794,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             parseWhiteSpaceAndCommentTokens()
             matchTokenType(XPathTokenType.OPTIONAL)
 
-            singleTypeMarker.done(XQueryElementType.SINGLE_TYPE)
+            singleTypeMarker.done(XPathElementType.SINGLE_TYPE)
             return true
         }
         singleTypeMarker.drop()

@@ -213,6 +213,12 @@ object XPathElementType {
         XPath
     )
 
+    val SINGLE_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_SINGLE_TYPE",
+        XPathSingleTypePsiImpl::class.java,
+        XPath
+    )
+
     val DOCUMENT_TEST: IElementType = ICompositeElementType(
         "XQUERY_DOCUMENT_TEST",
         XPathDocumentTestPsiImpl::class.java,
