@@ -393,6 +393,12 @@ object XPathElementType {
         XPath
     )
 
+    val TYPED_ARRAY_TEST: IElementType = ICompositeElementType(
+        "XQUERY_TYPED_ARRAY_TEST",
+        XPathTypedArrayTestPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XQuery IntelliJ Plugin
 

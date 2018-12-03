@@ -6566,7 +6566,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             if (matchTokenType(XPathTokenType.STAR)) {
                 type = XPathElementType.ANY_ARRAY_TEST
             } else if (parseSequenceType()) {
-                type = XQueryElementType.TYPED_ARRAY_TEST
+                type = XPathElementType.TYPED_ARRAY_TEST
             } else {
                 error(XQueryBundle.message("parser.error.expected-either", "*", "SequenceType"))
                 type = XPathElementType.ANY_ARRAY_TEST

@@ -676,12 +676,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val TYPED_ARRAY_TEST: IElementType = ICompositeElementType(
-        "XQUERY_TYPED_ARRAY_TEST",
-        XPathTypedArrayTestPsiImpl::class.java,
-        XQuery
-    )
-
     val UNARY_LOOKUP: IElementType = ICompositeElementType(
         "XQUERY_UNARY_LOOKUP",
         XPathUnaryLookupPsiImpl::class.java,
