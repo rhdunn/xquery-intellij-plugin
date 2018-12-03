@@ -680,12 +680,6 @@ object XQueryElementType {
     // endregion
     // region XQuery 3.1
 
-    val POSTFIX_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_POSTFIX_EXPR",
-        XPathPostfixExprPsiImpl::class.java,
-        XQuery
-    )
-
     val ENCLOSED_CONTENT_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ENCLOSED_CONTENT_EXPR",
         XQueryEnclosedContentExprPsiImpl::class.java,

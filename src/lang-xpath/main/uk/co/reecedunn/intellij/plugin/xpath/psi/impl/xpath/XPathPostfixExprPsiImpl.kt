@@ -19,6 +19,4 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 
-class XPathPostfixExprPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathPostfixExpr
+class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPostfixExpr

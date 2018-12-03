@@ -210,6 +210,12 @@ object XPathElementType {
         XPath
     )
 
+    val POSTFIX_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_POSTFIX_EXPR",
+        XPathPostfixExprPsiImpl::class.java,
+        XPath
+    )
+
     val ARGUMENT_LIST: IElementType = ICompositeElementType(
         "XQUERY_ARGUMENT_LIST",
         XPathArgumentListPsiImpl::class.java,

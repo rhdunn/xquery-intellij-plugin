@@ -4126,7 +4126,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (havePostfixExpr)
-                postfixExprMarker.done(XQueryElementType.POSTFIX_EXPR)
+                postfixExprMarker.done(XPathElementType.POSTFIX_EXPR)
             else
                 postfixExprMarker.drop()
             return true
