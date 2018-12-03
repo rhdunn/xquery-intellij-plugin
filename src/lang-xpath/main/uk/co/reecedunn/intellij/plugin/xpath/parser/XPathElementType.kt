@@ -102,6 +102,12 @@ object XPathElementType {
         XPath
     )
 
+    val PREDICATE: IElementType = ICompositeElementType(
+        "XQUERY_PREDICATE",
+        XPathPredicatePsiImpl::class.java,
+        XPath
+    )
+
     val PARENTHESIZED_EXPR: IElementType = ICompositeElementType(
         "XQUERY_PARENTHESIZED_EXPR",
         XPathParenthesizedExprPsiImpl::class.java,

@@ -4165,7 +4165,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "]"))
             }
 
-            predicateMarker.done(XQueryElementType.PREDICATE)
+            predicateMarker.done(XPathElementType.PREDICATE)
             return true
         }
 

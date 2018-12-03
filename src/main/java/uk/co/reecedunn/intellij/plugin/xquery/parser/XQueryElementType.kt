@@ -97,11 +97,6 @@ object XQueryElementType {
         XPathWildcardPsiImpl::class.java,
         XQuery
     )
-    val PREDICATE: IElementType = ICompositeElementType(
-        "XQUERY_PREDICATE",
-        XPathPredicatePsiImpl::class.java,
-        XQuery
-    )
 
     val RELATIVE_PATH_EXPR: IElementType = ICompositeElementType(
         "XQUERY_RELATIVE_PATH_EXPR",
