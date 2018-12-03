@@ -3443,7 +3443,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (!parseAdditiveExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"))
                 }
-                rangeExprMarker.done(XQueryElementType.RANGE_EXPR)
+                rangeExprMarker.done(XPathElementType.RANGE_EXPR)
             } else {
                 rangeExprMarker.drop()
             }

@@ -139,11 +139,6 @@ object XQueryElementType {
         XPathUnionExprPsiImpl::class.java,
         XQuery
     )
-    val RANGE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_RANGE_EXPR",
-        XPathRangeExprPsiImpl::class.java,
-        XQuery
-    )
 
     val ORDER_MODIFIER: IElementType = ICompositeElementType(
         "XQUERY_ORDER_MODIFIER",

@@ -165,6 +165,12 @@ object XPathElementType {
         XPath
     )
 
+    val RANGE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_RANGE_EXPR",
+        XPathRangeExprPsiImpl::class.java,
+        XPath
+    )
+
     val INTERSECT_EXCEPT_EXPR: IElementType = ICompositeElementType(
         "XQUERY_INTERSECT_EXCEPT_EXPR",
         XPathIntersectExceptExprPsiImpl::class.java,
