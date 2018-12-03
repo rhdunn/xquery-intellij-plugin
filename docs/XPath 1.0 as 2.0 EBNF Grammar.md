@@ -49,8 +49,8 @@ for precedence changes.
 | \[20\]  | `ReverseAxis`                     | ::= | `("parent" "::") \| ("ancestor" "::") \| ("preceding-sibling" "::") \| ("preceding" "::") \| ("ancestor-or-self" "::")` | |
 | \[21\]  | `AbbrevReverseStep`               | ::= | ".."                                | /* xgc: predicate */ |
 | \[22\]  | `NodeTest`                        | ::= | `KindTest \| NameTest`              |                      |
-| \[23\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 | /* ws: explicit */   |
-| \[24\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           |                      |
+| \[23\]  | `NameTest`                        | ::= | `QName \| Wildcard`                 |                      |
+| \[24\]  | `Wildcard`                        | ::= | `"*" \| (NCName ":" "*")`           | /* ws: explicit */   |
 | \[25\]  | `FilterExpr`                      | ::= | `PrimaryExpr PredicateList`         |                      |
 | \[26\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[27\]  | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |

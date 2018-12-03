@@ -126,6 +126,12 @@ object XPathElementType {
         XPath
     )
 
+    val WILDCARD: IElementType = ICompositeElementType(
+        "XQUERY_WILDCARD",
+        XPathWildcardPsiImpl::class.java,
+        XPath
+    )
+
     val PREDICATE_LIST: IElementType = ICompositeElementType(
         "XQUERY_PREDICATE_LIST",
         XPathPredicateListPsiImpl::class.java,

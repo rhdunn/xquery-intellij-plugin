@@ -72,11 +72,6 @@ object XQueryElementType {
         XPathForwardAxisPsiImpl::class.java,
         XQuery
     )
-    val WILDCARD: IElementType = ICompositeElementType(
-        "XQUERY_WILDCARD",
-        XPathWildcardPsiImpl::class.java,
-        XQuery
-    )
 
     val PRAGMA: IElementType = ICompositeElementType(
         "XQUERY_PRAGMA",

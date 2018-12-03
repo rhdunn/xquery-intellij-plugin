@@ -4106,7 +4106,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
     private fun parseNameTest(type: IElementType?): Boolean {
         val nameTestMarker = mark()
-        if (parseEQName(XQueryElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
+        if (parseEQName(XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
             nameTestMarker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -7385,7 +7385,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         if (parseQName(type, endQNameOnSpace) || parseURIQualifiedName(type)) {
             if (type === XQueryElementType.QNAME ||
                     type === XQueryElementType.NCNAME ||
-                    type === XQueryElementType.WILDCARD) {
+                    type === XPathElementType.WILDCARD) {
                 eqnameMarker.drop()
             } else {
                 eqnameMarker.done(type)
@@ -7403,7 +7403,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             // region QNameOrWildcardPrefix := (NCName | "*")
 
             if (isWildcard) {
-                if (type !== XQueryElementType.WILDCARD) {
+                if (type !== XPathElementType.WILDCARD) {
                     error(XQueryBundle.message("parser.error.unexpected-wildcard"))
                 }
                 parseWildcardIndicator()
@@ -7418,9 +7418,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             if (parseWhiteSpaceAndCommentTokens()) {
                 if (endQNameOnSpace) {
                     beforeMarker.drop()
-                    if (type === XQueryElementType.WILDCARD) {
+                    if (type === XPathElementType.WILDCARD) {
                         if (isWildcard) {
-                            qnameMarker.done(XQueryElementType.WILDCARD)
+                            qnameMarker.done(XPathElementType.WILDCARD)
                         } else {
                             qnameMarker.done(XQueryElementType.NCNAME)
                         }
@@ -7466,9 +7466,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (parseWhiteSpaceAndCommentTokens()) {
                     if (endQNameOnSpace) {
                         nameMarker.rollbackTo()
-                        if (type === XQueryElementType.WILDCARD) {
+                        if (type === XPathElementType.WILDCARD) {
                             if (isWildcard) {
-                                qnameMarker.done(XQueryElementType.WILDCARD)
+                                qnameMarker.done(XPathElementType.WILDCARD)
                             } else {
                                 qnameMarker.done(XQueryElementType.NCNAME)
                             }
@@ -7490,7 +7490,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 if (getTokenType() is INCNameType) {
                     advanceLexer()
                 } else if (getTokenType() === XPathTokenType.STAR) {
-                    if (type === XQueryElementType.WILDCARD) {
+                    if (type === XPathElementType.WILDCARD) {
                         if (isWildcard) {
                             error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
                         }
@@ -7512,16 +7512,16 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
                 // endregion
 
-                if (type === XQueryElementType.WILDCARD) {
-                    qnameMarker.done(if (isWildcard) XQueryElementType.WILDCARD else XQueryElementType.QNAME)
+                if (type === XPathElementType.WILDCARD) {
+                    qnameMarker.done(if (isWildcard) XPathElementType.WILDCARD else XQueryElementType.QNAME)
                 } else {
                     qnameMarker.done(XQueryElementType.QNAME)
                 }
                 return true
             } else {
-                if (type === XQueryElementType.WILDCARD) {
+                if (type === XPathElementType.WILDCARD) {
                     if (isWildcard) {
-                        qnameMarker.done(XQueryElementType.WILDCARD)
+                        qnameMarker.done(XPathElementType.WILDCARD)
                     } else {
                         qnameMarker.done(XQueryElementType.NCNAME)
                     }
@@ -7604,9 +7604,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             if (getTokenType() is INCNameType) {
                 advanceLexer()
             } else if (getTokenType() === XPathTokenType.STAR) {
-                if (type === XQueryElementType.WILDCARD) {
+                if (type === XPathElementType.WILDCARD) {
                     parseWildcardIndicator()
-                    qnameMarker.done(XQueryElementType.WILDCARD)
+                    qnameMarker.done(XPathElementType.WILDCARD)
                     return true
                 }
                 error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"))
