@@ -4236,7 +4236,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            parenthesizedExprMarker.done(XQueryElementType.PARENTHESIZED_EXPR)
+            parenthesizedExprMarker.done(XPathElementType.PARENTHESIZED_EXPR)
             return true
         }
         return false
