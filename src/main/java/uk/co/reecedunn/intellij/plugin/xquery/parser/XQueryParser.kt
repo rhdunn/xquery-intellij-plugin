@@ -4077,7 +4077,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 return false
             }
 
-            reverseAxisMarker.done(XQueryElementType.REVERSE_AXIS)
+            reverseAxisMarker.done(XPathElementType.REVERSE_AXIS)
             return true
         }
         reverseAxisMarker.drop()
