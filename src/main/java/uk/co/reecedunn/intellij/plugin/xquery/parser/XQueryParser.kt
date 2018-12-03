@@ -6818,7 +6818,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            schemaAttributeTestMarker.done(XQueryElementType.SCHEMA_ATTRIBUTE_TEST)
+            schemaAttributeTestMarker.done(XPathElementType.SCHEMA_ATTRIBUTE_TEST)
             return true
         }
         return false

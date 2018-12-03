@@ -244,11 +244,6 @@ object XQueryElementType {
         XPathSchemaElementTestPsiImpl::class.java,
         XQuery
     )
-    val SCHEMA_ATTRIBUTE_TEST: IElementType = ICompositeElementType(
-        "XQUERY_SCHEMA_ATTRIBUTE_TEST",
-        XPathSchemaAttributeTestPsiImpl::class.java,
-        XQuery
-    )
     val SEQUENCE_TYPE: IElementType = ICompositeElementType(
         "XQUERY_SEQUENCE_TYPE",
         XPathSequenceTypePsiImpl::class.java,
