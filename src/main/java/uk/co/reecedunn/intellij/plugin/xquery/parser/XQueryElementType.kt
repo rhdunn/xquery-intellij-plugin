@@ -426,11 +426,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val SIMPLE_TYPE_NAME: IElementType = ICompositeElementType(
-        "XQUERY_SIMPLE_TYPE_NAME",
-        XPathSimpleTypeNamePsiImpl::class.java,
-        XQuery
-    )
     val SEQUENCE_TYPE_UNION: IElementType = ICompositeElementType(
         "XQUERY_SEQUENCE_TYPE_UNION",
         XQuerySequenceTypeUnionPsiImpl::class.java,

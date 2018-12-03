@@ -3790,7 +3790,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
     private fun parseSingleType(): Boolean {
         val singleTypeMarker = mark()
-        if (parseEQName(XQueryElementType.SIMPLE_TYPE_NAME)) {
+        if (parseEQName(XPathElementType.SIMPLE_TYPE_NAME)) {
             parseWhiteSpaceAndCommentTokens()
             matchTokenType(XPathTokenType.OPTIONAL)
 

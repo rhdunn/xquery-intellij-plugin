@@ -261,6 +261,12 @@ object XPathElementType {
         XPath
     )
 
+    val SIMPLE_TYPE_NAME: IElementType = ICompositeElementType(
+        "XQUERY_SIMPLE_TYPE_NAME",
+        XPathSimpleTypeNamePsiImpl::class.java,
+        XPath
+    )
+
     val TYPE_NAME: IElementType = ICompositeElementType(
         "XQUERY_TYPE_NAME",
         XPathTypeNamePsiImpl::class.java,
