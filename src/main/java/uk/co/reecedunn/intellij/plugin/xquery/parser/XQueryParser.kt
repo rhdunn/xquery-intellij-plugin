@@ -3819,7 +3819,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 blockOpen = BlockOpen.OPTIONAL
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XQueryElementType.TYPE_NAME)) {
+                if (!parseEQName(XPathElementType.TYPE_NAME)) {
                     error(XQueryBundle.message("parser.error.expected", "TypeName"))
                 }
             }
@@ -6770,14 +6770,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 parseWhiteSpaceAndCommentTokens()
                 if (matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens()
-                    if (!parseEQName(XQueryElementType.TYPE_NAME)) {
+                    if (!parseEQName(XPathElementType.TYPE_NAME)) {
                         error(XQueryBundle.message("parser.error.expected-eqname"))
                         haveErrors = true
                     }
                 } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE && getTokenType() !== XQueryTokenType.K_EXTERNAL) {
                     error(XQueryBundle.message("parser.error.expected", ","))
                     haveErrors = true
-                    parseEQName(XQueryElementType.TYPE_NAME)
+                    parseEQName(XPathElementType.TYPE_NAME)
                 }
             }
 
@@ -6840,7 +6840,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 parseWhiteSpaceAndCommentTokens()
                 if (matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens()
-                    if (!parseEQName(XQueryElementType.TYPE_NAME)) {
+                    if (!parseEQName(XPathElementType.TYPE_NAME)) {
                         error(XQueryBundle.message("parser.error.expected-eqname"))
                         haveErrors = true
                     }
@@ -6850,7 +6850,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE && getTokenType() !== XQueryTokenType.K_EXTERNAL) {
                     error(XQueryBundle.message("parser.error.expected", ","))
                     haveErrors = true
-                    parseEQName(XQueryElementType.TYPE_NAME)
+                    parseEQName(XPathElementType.TYPE_NAME)
                 }
             }
 

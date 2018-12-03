@@ -219,11 +219,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val TYPE_NAME: IElementType = ICompositeElementType(
-        "XQUERY_TYPE_NAME",
-        XPathTypeNamePsiImpl::class.java,
-        XQuery
-    )
     val ELEMENT_NAME: IElementType = QNAME
     val ELEMENT_DECLARATION: IElementType = QNAME
     val ATTRIBUTE_NAME: IElementType = QNAME
