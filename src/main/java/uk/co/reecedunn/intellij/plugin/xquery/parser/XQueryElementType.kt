@@ -82,11 +82,6 @@ object XQueryElementType {
         XPathForwardAxisPsiImpl::class.java,
         XQuery
     )
-    val REVERSE_STEP: IElementType = ICompositeElementType(
-        "XQUERY_REVERSE_STEP",
-        XPathReverseStepPsiImpl::class.java,
-        XQuery
-    )
     val WILDCARD: IElementType = ICompositeElementType(
         "XQUERY_WILDCARD",
         XPathWildcardPsiImpl::class.java,

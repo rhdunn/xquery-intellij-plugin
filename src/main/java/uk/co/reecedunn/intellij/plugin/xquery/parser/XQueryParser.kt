@@ -4051,7 +4051,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "NodeTest"))
             }
 
-            reverseStepMarker.done(XQueryElementType.REVERSE_STEP)
+            reverseStepMarker.done(XPathElementType.REVERSE_STEP)
             return true
         } else if (parseAbbrevReverseStep()) {
             reverseStepMarker.drop()
