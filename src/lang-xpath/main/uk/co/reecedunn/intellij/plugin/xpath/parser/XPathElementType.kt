@@ -270,6 +270,12 @@ object XPathElementType {
         XPath
     )
 
+    val STRING_CONCAT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_STRING_CONCAT_EXPR",
+        XPathStringConcatExprPsiImpl::class.java,
+        XPath
+    )
+
     val SIMPLE_MAP_EXPR: IElementType = ICompositeElementType(
         "XQUERY_SIMPLE_MAP_EXPR",
         XPathSimpleMapExprPsiImpl::class.java,

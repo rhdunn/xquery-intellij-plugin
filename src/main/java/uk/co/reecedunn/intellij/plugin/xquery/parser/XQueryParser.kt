@@ -3425,7 +3425,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveStringConcatExpr)
-                stringConcatExprMarker.done(XQueryElementType.STRING_CONCAT_EXPR)
+                stringConcatExprMarker.done(XPathElementType.STRING_CONCAT_EXPR)
             else
                 stringConcatExprMarker.drop()
             return true

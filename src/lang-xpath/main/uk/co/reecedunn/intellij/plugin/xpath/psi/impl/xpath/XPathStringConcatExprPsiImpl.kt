@@ -25,8 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XPathStringConcatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringConcatExpr,
-    VersionConformance {
+class XPathStringConcatExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathStringConcatExpr, VersionConformance {
+
     override val requiresConformance
         get(): List<Version> {
             if (findChildByType<PsiElement>(XPathTokenType.CONCATENATION) == null) {
