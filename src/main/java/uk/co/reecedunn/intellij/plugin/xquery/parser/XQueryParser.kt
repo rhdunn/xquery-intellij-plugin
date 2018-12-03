@@ -3897,7 +3897,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveSimpleMapExpr)
-                simpleMapExprMarker.done(XQueryElementType.SIMPLE_MAP_EXPR)
+                simpleMapExprMarker.done(XPathElementType.SIMPLE_MAP_EXPR)
             else
                 simpleMapExprMarker.drop()
             return true

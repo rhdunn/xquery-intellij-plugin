@@ -264,6 +264,12 @@ object XPathElementType {
         XPath
     )
 
+    val SIMPLE_MAP_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_SIMPLE_MAP_EXPR",
+        XPathSimpleMapExprPsiImpl::class.java,
+        XPath
+    )
+
     val POSTFIX_EXPR: IElementType = ICompositeElementType(
         "XQUERY_POSTFIX_EXPR",
         XPathPostfixExprPsiImpl::class.java,

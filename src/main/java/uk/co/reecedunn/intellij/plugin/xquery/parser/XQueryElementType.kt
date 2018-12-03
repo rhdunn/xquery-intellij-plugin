@@ -615,11 +615,6 @@ object XQueryElementType {
         XPathStringConcatExprPsiImpl::class.java,
         XQuery
     )
-    val SIMPLE_MAP_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_SIMPLE_MAP_EXPR",
-        XPathSimpleMapExprPsiImpl::class.java,
-        XQuery
-    )
 
     val COMP_NAMESPACE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_COMP_NAMESPACE_CONSTRUCTOR",
