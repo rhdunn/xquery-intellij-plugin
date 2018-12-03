@@ -126,6 +126,12 @@ object XPathElementType {
         XPath
     )
 
+    val PI_TEST: IElementType = ICompositeElementType(
+        "XQUERY_PI_TEST",
+        XPathPITestPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 2.0
 

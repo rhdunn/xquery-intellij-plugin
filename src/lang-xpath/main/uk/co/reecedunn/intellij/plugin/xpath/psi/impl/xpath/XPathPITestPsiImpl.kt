@@ -19,6 +19,4 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
 
-class XPathPITestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathPITest
+class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITest
