@@ -3946,7 +3946,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             }
 
             if (haveRelativePathExpr)
-                relativePathExprMarker.done(XQueryElementType.RELATIVE_PATH_EXPR)
+                relativePathExprMarker.done(XPathElementType.RELATIVE_PATH_EXPR)
             else
                 relativePathExprMarker.drop()
             return true

@@ -98,11 +98,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val RELATIVE_PATH_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_RELATIVE_PATH_EXPR",
-        XPathRelativePathExprPsiImpl::class.java,
-        XQuery
-    )
     val PRAGMA: IElementType = ICompositeElementType(
         "XQUERY_PRAGMA",
         XQueryPragmaPsiImpl::class.java,
