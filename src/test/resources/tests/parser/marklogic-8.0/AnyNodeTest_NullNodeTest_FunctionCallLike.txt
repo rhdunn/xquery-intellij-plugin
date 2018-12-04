@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:12)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:12)]
-                  XPathNCNameImpl[XQUERY_NCNAME(0:9)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(0:9)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
                   XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(9:12)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')

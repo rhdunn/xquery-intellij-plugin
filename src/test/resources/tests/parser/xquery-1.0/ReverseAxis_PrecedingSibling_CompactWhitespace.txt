@@ -9,5 +9,5 @@ XQueryModuleImpl[FILE(0:23)]
                      LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(17:19)]('::')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(19:23)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(19:23)]
-                        XPathNCNameImpl[XQUERY_NCNAME(19:23)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(19:23)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:23)]('para')

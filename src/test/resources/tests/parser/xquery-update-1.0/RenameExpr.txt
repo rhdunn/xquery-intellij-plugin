@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:22)]
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                         XPathVarNameImpl[XQUERY_VAR_NAME(14:16)]
-                           XPathNCNameImpl[XQUERY_NCNAME(14:16)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('x')
                               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(16:18)]('as')
@@ -24,5 +24,5 @@ XQueryModuleImpl[FILE(0:22)]
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                         XPathVarNameImpl[XQUERY_VAR_NAME(21:22)]
-                           XPathNCNameImpl[XQUERY_NCNAME(21:22)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(21:22)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('y')

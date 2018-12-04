@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:14)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:14)]
                   XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:14)]
                      LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                     XPathNCNameImpl[XQUERY_NCNAME(1:2)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
                         XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                      LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
                      XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:10)]
@@ -16,6 +16,6 @@ XQueryModuleImpl[FILE(0:14)]
                         XPathEscapeCharacterImpl[XPATH_ESCAPED_CHARACTER_TOKEN(7:9)]('}}')
                         LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(9:10)]('3')
                      LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(10:12)]('</')
-                     XPathNCNameImpl[XQUERY_NCNAME(12:13)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(12:13)]
                         XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(12:13)]('a')
                      LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(13:14)]('>')

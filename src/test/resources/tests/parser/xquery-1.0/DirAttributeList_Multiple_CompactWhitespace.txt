@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:35)]
                               LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(17:18)]('"')
                         XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(18:19)](' ')
                         PluginDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(19:33)]
-                           XPathNCNameImpl[XQUERY_NCNAME(19:24)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(19:24)]
                               XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(19:24)]('class')
                            LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(24:25)]('=')
                            XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(25:33)]

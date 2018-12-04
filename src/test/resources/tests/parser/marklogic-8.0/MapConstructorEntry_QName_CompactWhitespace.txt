@@ -20,6 +20,6 @@ XQueryModuleImpl[FILE(0:20)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(16:19)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(16:19)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(16:19)]
-                                 XPathNCNameImpl[XQUERY_NCNAME(16:19)]
+                                 XQueryNCNameImpl[XQUERY_NCNAME(16:19)]
                                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:19)]('one')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(19:20)]('}')

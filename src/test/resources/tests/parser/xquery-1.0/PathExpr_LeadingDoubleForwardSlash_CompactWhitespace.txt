@@ -8,11 +8,11 @@ XQueryModuleImpl[FILE(0:15)]
                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(2:15)]
                      XPathNodeTestImpl[XQUERY_NODE_TEST(2:6)]
                         XPathNameTestImpl[XQUERY_NAME_TEST(2:6)]
-                           XPathNCNameImpl[XQUERY_NCNAME(2:6)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(2:6)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')
                      LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(6:7)]('/')
                      XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]
-                        XPathNCNameImpl[XQUERY_NCNAME(7:13)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(7:13)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:13)]('string')
                         XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(13:15)]
                            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(13:14)]('(')

@@ -11,5 +11,5 @@ XQueryModuleImpl[FILE(0:18)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(14:18)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(14:18)]
-                        XPathNCNameImpl[XQUERY_NCNAME(14:18)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(14:18)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:18)]('para')

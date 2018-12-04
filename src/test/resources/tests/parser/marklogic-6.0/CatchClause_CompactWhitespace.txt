@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:18)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   XPathVarNameImpl[XQUERY_VAR_NAME(13:14)]
-                     XPathNCNameImpl[XQUERY_NCNAME(13:14)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(13:14)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('e')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
                   XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:18)]

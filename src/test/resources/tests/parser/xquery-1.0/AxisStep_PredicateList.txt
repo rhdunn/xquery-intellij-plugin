@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:10)]
                XPathAxisStepImpl[XQUERY_AXIS_STEP(0:10)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:5)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:5)]
-                        XPathNCNameImpl[XQUERY_NCNAME(0:5)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:5)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:4)]('para')
                            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                   XPathPredicateListImpl[XQUERY_PREDICATE_LIST(5:10)]

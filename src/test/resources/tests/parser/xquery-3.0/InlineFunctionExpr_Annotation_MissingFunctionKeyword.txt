@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:18)]
                   XQueryAnnotationImpl[XQUERY_ANNOTATION(0:12)]
                      LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                     XPathNCNameImpl[XQUERY_NCNAME(2:9)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(2:9)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PUBLIC(2:8)]('public')
                         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')

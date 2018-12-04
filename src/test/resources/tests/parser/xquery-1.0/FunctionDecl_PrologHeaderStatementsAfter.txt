@@ -119,7 +119,7 @@ XQueryModuleImpl[FILE(0:530)]
             PsiErrorElementImpl[ERROR_ELEMENT(363:372)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(363:372)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(372:373)](' ')
-            XPathNCNameImpl[XQUERY_NCNAME(373:378)]
+            XQueryNCNameImpl[XQUERY_NCNAME(373:378)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(373:377)]('test')
                PsiWhiteSpaceImpl[WHITE_SPACE(377:378)](' ')
             LeafPsiElement[XPATH_EQUAL_TOKEN(378:379)]('=')

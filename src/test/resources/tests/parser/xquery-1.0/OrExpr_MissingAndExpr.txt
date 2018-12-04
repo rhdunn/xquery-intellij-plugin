@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:4)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:4)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                     XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OR(2:4)]('or')

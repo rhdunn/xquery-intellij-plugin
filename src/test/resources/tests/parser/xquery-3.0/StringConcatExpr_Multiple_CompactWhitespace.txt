@@ -6,15 +6,15 @@ XQueryModuleImpl[FILE(0:7)]
                XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:7)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:1)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:1)]
-                        XPathNCNameImpl[XQUERY_NCNAME(0:1)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                   LeafPsiElement[XPATH_CONCATENATION(1:3)]('||')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(3:4)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(3:4)]
-                        XPathNCNameImpl[XQUERY_NCNAME(3:4)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(3:4)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:4)]('b')
                   LeafPsiElement[XPATH_CONCATENATION(4:6)]('||')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(6:7)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(6:7)]
-                        XPathNCNameImpl[XQUERY_NCNAME(6:7)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(6:7)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('c')

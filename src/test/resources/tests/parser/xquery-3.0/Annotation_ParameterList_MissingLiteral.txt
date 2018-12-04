@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:47)]
             XQueryAnnotationImpl[XQUERY_ANNOTATION(8:18)]
                LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(8:9)]('%')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               XPathNCNameImpl[XQUERY_NCNAME(10:15)]
+               XQueryNCNameImpl[XQUERY_NCNAME(10:15)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:14)]('test')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:47)]
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(19:46)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-               XPathNCNameImpl[XQUERY_NCNAME(28:33)]
+               XQueryNCNameImpl[XQUERY_NCNAME(28:33)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:32)]('test')
                   PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(33:34)]('(')

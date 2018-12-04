@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:13)]
                XPathUnionExprImpl[XQUERY_UNION_EXPR(0:8)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                        XPathNCNameImpl[XQUERY_NCNAME(0:2)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(2:7)]('union')
@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:13)]
                XPathUnionExprImpl[XQUERY_UNION_EXPR(10:13)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(10:12)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(10:12)]
-                        XPathNCNameImpl[XQUERY_NCNAME(10:12)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(10:12)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   LeafPsiElement[XPATH_UNION_TOKEN(12:13)]('|')

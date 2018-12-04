@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:64)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(19:21)]
-                  XPathNCNameImpl[XQUERY_NCNAME(19:21)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')

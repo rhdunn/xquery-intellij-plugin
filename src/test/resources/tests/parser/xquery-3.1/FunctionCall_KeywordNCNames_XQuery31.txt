@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:95)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(38:95)]
             XPathOrExprImpl[XQUERY_OR_EXPR(38:95)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
-                  XPathNCNameImpl[XQUERY_NCNAME(38:56)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(38:56)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
                   XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(56:58)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(56:57)]('(')

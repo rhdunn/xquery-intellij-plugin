@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:74)]
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:73)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               XPathNCNameImpl[XQUERY_NCNAME(17:22)]
+               XQueryNCNameImpl[XQUERY_NCNAME(17:22)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:21)]('test')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(22:23)]('(')

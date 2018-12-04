@@ -37,7 +37,7 @@ object XQueryElementType {
     )
     val NCNAME: IElementType = ICompositeElementType(
         "XQUERY_NCNAME",
-        XPathNCNamePsiImpl::class.java,
+        XQueryNCNamePsiImpl::class.java,
         XQuery
     )
     val QNAME: IElementType = ICompositeElementType(

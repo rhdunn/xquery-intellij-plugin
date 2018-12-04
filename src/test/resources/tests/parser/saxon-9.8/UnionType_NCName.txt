@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:57)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathVarNameImpl[XQUERY_VAR_NAME(19:21)]
-                  XPathNCNameImpl[XQUERY_NCNAME(19:21)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
@@ -20,12 +20,12 @@ XQueryModuleImpl[FILE(0:57)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  XPathNCNameImpl[XQUERY_NCNAME(32:40)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(32:40)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:39)]('integer')
                      PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                   LeafPsiElement[XPATH_COMMA_TOKEN(40:41)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                  XPathNCNameImpl[XQUERY_NCNAME(42:49)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(42:49)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(42:48)]('double')
                      PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(49:50)](')')

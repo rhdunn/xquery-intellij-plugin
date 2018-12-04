@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:45)]
                FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:45)]
                   XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
-                        XPathNCNameImpl[XQUERY_NCNAME(0:6)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:45)]
                                           XQueryPragmaImpl[XQUERY_PRAGMA(20:35)]
                                              LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(20:22)]('(#')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-                                             XPathNCNameImpl[XQUERY_NCNAME(23:28)]
+                                             XQueryNCNameImpl[XQUERY_NCNAME(23:28)]
                                                 XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:27)]('test')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                              LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(28:33)]('case ')

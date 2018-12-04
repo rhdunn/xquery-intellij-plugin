@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrefix
 
-class XQueryPrefixPsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node), XQueryPrefix
+class XQueryPrefixPsiImpl(node: ASTNode) : XQueryNCNamePsiImpl(node), XQueryPrefix

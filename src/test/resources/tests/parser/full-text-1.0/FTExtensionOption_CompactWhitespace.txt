@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:42)]
                FTExtensionOptionImpl[XQUERY_FT_EXTENSION_OPTION(24:41)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(24:30)]('option')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  XPathNCNameImpl[XQUERY_NCNAME(31:35)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(31:35)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:35)]('test')
                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:41)]
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')

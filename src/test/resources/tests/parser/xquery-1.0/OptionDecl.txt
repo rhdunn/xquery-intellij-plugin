@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:33)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XPathNCNameImpl[XQUERY_NCNAME(15:20)]
+            XQueryNCNameImpl[XQUERY_NCNAME(15:20)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:19)]('test')
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:31)]

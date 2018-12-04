@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(0:15)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(0:15)]
-                     XPathNCNameImpl[XQUERY_NCNAME(0:15)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(0:15)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE(0:14)]('attribute-decl')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(15:16)](',')
@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(17:30)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(17:30)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(17:30)]
-                     XPathNCNameImpl[XQUERY_NCNAME(17:30)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(17:30)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMPLEX_TYPE_NODE(17:29)]('complex-type')
                         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(30:31)](',')
@@ -21,7 +21,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(32:45)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(32:45)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(32:45)]
-                     XPathNCNameImpl[XQUERY_NCNAME(32:45)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(32:45)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELEMENT_DECL_NODE(32:44)]('element-decl')
                         PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(45:46)](',')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(47:64)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(47:64)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(47:64)]
-                     XPathNCNameImpl[XQUERY_NCNAME(47:64)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(47:64)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_COMPONENT_NODE(47:63)]('schema-component')
                         PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(64:65)](',')
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(66:82)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(66:82)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(66:82)]
-                     XPathNCNameImpl[XQUERY_NCNAME(66:82)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(66:82)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE(66:81)]('schema-particle')
                         PsiWhiteSpaceImpl[WHITE_SPACE(81:82)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(82:83)](',')
@@ -45,7 +45,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(84:96)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(84:96)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(84:96)]
-                     XPathNCNameImpl[XQUERY_NCNAME(84:96)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(84:96)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE(84:95)]('schema-root')
                         PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(96:97)](',')
@@ -53,7 +53,7 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(98:110)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(98:110)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(98:110)]
-                     XPathNCNameImpl[XQUERY_NCNAME(98:110)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(98:110)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_TYPE_NODE(98:109)]('schema-type')
                         PsiWhiteSpaceImpl[WHITE_SPACE(109:110)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(110:111)](',')
@@ -61,5 +61,5 @@ XQueryModuleImpl[FILE(0:123)]
             XPathOrExprImpl[XQUERY_OR_EXPR(112:123)]
                XPathNodeTestImpl[XQUERY_NODE_TEST(112:123)]
                   XPathNameTestImpl[XQUERY_NAME_TEST(112:123)]
-                     XPathNCNameImpl[XQUERY_NCNAME(112:123)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(112:123)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SIMPLE_TYPE_NODE(112:123)]('simple-type')

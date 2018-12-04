@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:122)]
          PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(29:38)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-         XPathNCNameImpl[XQUERY_NCNAME(39:44)]
+         XQueryNCNameImpl[XQUERY_NCNAME(39:44)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(39:43)]('test')
             PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
          LeafPsiElement[XPATH_EQUAL_TOKEN(44:45)]('=')

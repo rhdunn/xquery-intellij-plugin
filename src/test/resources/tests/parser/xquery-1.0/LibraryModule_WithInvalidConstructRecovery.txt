@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:130)]
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-         XPathNCNameImpl[XQUERY_NCNAME(17:22)]
+         XQueryNCNameImpl[XQUERY_NCNAME(17:22)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:21)]('test')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
          LeafPsiElement[XPATH_EQUAL_TOKEN(22:23)]('=')
@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:130)]
                PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(72:73)]('$')
                XPathVarNameImpl[XQUERY_VAR_NAME(73:75)]
-                  XPathNCNameImpl[XQUERY_NCNAME(73:75)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(73:75)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(73:74)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(75:77)](':=')
@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:130)]
                   XPathOrExprImpl[XQUERY_OR_EXPR(78:96)]
                      XPathNodeTestImpl[XQUERY_NODE_TEST(78:96)]
                         XPathNameTestImpl[XQUERY_NAME_TEST(78:96)]
-                           XPathNCNameImpl[XQUERY_NCNAME(78:96)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(78:96)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(78:95)]('unknown_construct')
                               PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(96:96)]('XPST0003: Expected ';'.')
@@ -58,7 +58,7 @@ XQueryModuleImpl[FILE(0:130)]
                PsiWhiteSpaceImpl[WHITE_SPACE(120:121)](' ')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(121:122)]('$')
                XPathVarNameImpl[XQUERY_VAR_NAME(122:124)]
-                  XPathNCNameImpl[XQUERY_NCNAME(122:124)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(122:124)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(122:123)]('y')
                      PsiWhiteSpaceImpl[WHITE_SPACE(123:124)](' ')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(124:126)](':=')

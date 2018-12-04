@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:19)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(6:8)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(6:8)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(6:8)]
-                                 XPathNCNameImpl[XQUERY_NCNAME(6:8)]
+                                 XQueryNCNameImpl[XQUERY_NCNAME(6:8)]
                                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('a')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(8:9)](':')
