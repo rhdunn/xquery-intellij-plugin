@@ -261,6 +261,12 @@ object XPathElementType {
         XPath
     )
 
+    val SEQUENCE_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_SEQUENCE_TYPE",
+        XPathSequenceTypePsiImpl::class.java,
+        XPath
+    )
+
     val DOCUMENT_TEST: IElementType = ICompositeElementType(
         "XQUERY_DOCUMENT_TEST",
         XPathDocumentTestPsiImpl::class.java,

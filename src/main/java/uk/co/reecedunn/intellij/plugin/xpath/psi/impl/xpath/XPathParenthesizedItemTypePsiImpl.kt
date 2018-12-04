@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val XQUERY3 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 private val SEMANTICS = listOf(FormalSemanticsSpec.REC_1_0_20070123)
@@ -33,13 +33,13 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     VersionConformanceName {
 
     override val requiresConformance: List<Version>
-        get() = if (findChildByType<PsiElement>(XQueryElementType.SEQUENCE_TYPE) != null) SEMANTICS else XQUERY3
+        get() = if (findChildByType<PsiElement>(XPathElementType.SEQUENCE_TYPE) != null) SEMANTICS else XQUERY3
 
     override val conformanceElement get(): PsiElement = firstChild
 
     override val conformanceName: String?
         get() {
-            return if (findChildByType<PsiElement>(XQueryElementType.SEQUENCE_TYPE) != null)
+            return if (findChildByType<PsiElement>(XPathElementType.SEQUENCE_TYPE) != null)
                 XQueryBundle.message("construct.parenthesized-sequence-type")
             else
                 null

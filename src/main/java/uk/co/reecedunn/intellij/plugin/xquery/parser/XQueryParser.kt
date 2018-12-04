@@ -6159,12 +6159,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
+            sequenceTypeMarker.done(XPathElementType.SEQUENCE_TYPE)
             return true
         } else if (parseItemType()) {
             parseWhiteSpaceAndCommentTokens()
             if (parseOccurrenceIndicator())
-                sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE)
+                sequenceTypeMarker.done(XPathElementType.SEQUENCE_TYPE)
             else
                 sequenceTypeMarker.drop()
             return true

@@ -192,12 +192,6 @@ object XQueryElementType {
     val ATTRIBUTE_NAME: IElementType = QNAME
     val ATTRIBUTE_DECLARATION: IElementType = QNAME
 
-    val SEQUENCE_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_SEQUENCE_TYPE",
-        XPathSequenceTypePsiImpl::class.java,
-        XQuery
-    )
-
     val FUNCTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_FUNCTION_DECL",
         XQueryFunctionDeclPsiImpl::class.java,
