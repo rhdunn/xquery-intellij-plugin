@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:52)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:20)]('one')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-               XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(23:43)]
+               XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(23:43)]
                   XQueryAnnotationImpl[XQUERY_ANNOTATION(23:32)]
                      LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(23:24)]('%')
                      XPathNCNameImpl[XQUERY_NCNAME(24:32)]

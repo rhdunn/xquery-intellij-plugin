@@ -390,7 +390,7 @@ object XQueryElementType {
 
     val FUNCTION_TEST: IElementType = ICompositeElementType(
         "XQUERY_FUNCTION_TEST",
-        XPathFunctionTestPsiImpl::class.java,
+        XQueryFunctionTestPsiImpl::class.java,
         XQuery
     )
 

@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:56)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(24:47)]
+               XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(24:47)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(24:32)]('function')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
                   PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(33:39)]

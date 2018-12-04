@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 val NO_ANNOTATIONS = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 val ANNOTATIONS = listOf<Version>()
 
-class XPathFunctionTestPsiImpl(node: ASTNode) :
+class XQueryFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathFunctionTest,
     VersionConformance {
