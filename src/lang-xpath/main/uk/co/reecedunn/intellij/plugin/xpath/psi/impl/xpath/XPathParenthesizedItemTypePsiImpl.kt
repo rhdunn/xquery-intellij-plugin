@@ -19,8 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val XQUERY3 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -40,7 +40,7 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     override val conformanceName: String?
         get() {
             return if (findChildByType<PsiElement>(XPathElementType.SEQUENCE_TYPE) != null)
-                XQueryBundle.message("construct.parenthesized-sequence-type")
+                XPathBundle.message("construct.parenthesized-sequence-type")
             else
                 null
         }

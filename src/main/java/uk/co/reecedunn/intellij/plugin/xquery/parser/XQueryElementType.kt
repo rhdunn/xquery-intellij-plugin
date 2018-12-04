@@ -393,11 +393,6 @@ object XQueryElementType {
         XPathFunctionTestPsiImpl::class.java,
         XQuery
     )
-    val PARENTHESIZED_ITEM_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_PARENTHESIZED_ITEM_TYPE",
-        XPathParenthesizedItemTypePsiImpl::class.java,
-        XQuery
-    )
 
     val ANNOTATED_DECL: IElementType = ICompositeElementType(
         "XQUERY_ANNOTATED_DECL",

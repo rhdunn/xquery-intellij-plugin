@@ -390,6 +390,12 @@ object XPathElementType {
         XPath
     )
 
+    val PARENTHESIZED_ITEM_TYPE: IElementType = ICompositeElementType(
+        "XQUERY_PARENTHESIZED_ITEM_TYPE",
+        XPathParenthesizedItemTypePsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 3.1
 

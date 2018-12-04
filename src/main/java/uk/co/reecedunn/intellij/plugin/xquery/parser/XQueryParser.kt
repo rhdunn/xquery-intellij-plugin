@@ -6488,7 +6488,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", ")"))
             }
 
-            parenthesizedItemTypeMarker.done(XQueryElementType.PARENTHESIZED_ITEM_TYPE)
+            parenthesizedItemTypeMarker.done(XPathElementType.PARENTHESIZED_ITEM_TYPE)
             return true
         }
         return false
