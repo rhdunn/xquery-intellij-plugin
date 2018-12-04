@@ -1214,7 +1214,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             } else if (!matchTokenType(XPathTokenType.COMMA)) {
                 matchTokenType(XPathTokenType.ELLIPSIS)
 
-                paramListMarker.done(XQueryElementType.PARAM_LIST)
+                paramListMarker.done(XPathElementType.PARAM_LIST)
                 return true
             }
 

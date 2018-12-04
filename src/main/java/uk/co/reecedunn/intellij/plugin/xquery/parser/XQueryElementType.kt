@@ -198,12 +198,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val PARAM_LIST: IElementType = ICompositeElementType(
-        "XQUERY_PARAM_LIST",
-        XPathParamListPsiImpl::class.java,
-        XQuery
-    )
-
     val FUNCTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_FUNCTION_DECL",
         XQueryFunctionDeclPsiImpl::class.java,
