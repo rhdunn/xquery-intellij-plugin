@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:13)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(9:10)](')')
-                  XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(10:13)]
+                  XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(10:13)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(10:11)]('{')
                      XQueryExprImpl[XQUERY_EXPR(11:12)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:12)]

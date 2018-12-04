@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:32)]
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(18:19)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:26)]('integer')
                   PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-                  XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(27:32)]
+                  XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(27:32)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(27:28)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                      XQueryExprImpl[XQUERY_EXPR(29:31)]

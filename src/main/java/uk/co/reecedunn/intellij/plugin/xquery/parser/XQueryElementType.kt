@@ -368,7 +368,7 @@ object XQueryElementType {
 
     val FUNCTION_BODY: IElementType = ICompositeElementType(
         "XQUERY_FUNCTION_BODY",
-        XPathFunctionBodyPsiImpl::class.java,
+        XQueryFunctionBodyPsiImpl::class.java,
         XQuery
     )
     val VAR_VALUE: IElementType = ICompositeElementType(

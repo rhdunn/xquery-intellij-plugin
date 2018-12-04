@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:35)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:24)]('true')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(25:26)](')')
-               XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(26:34)]
+               XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(26:34)]
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(26:27)]('{')
                   XQueryExprImpl[XQUERY_EXPR(27:33)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(27:33)]

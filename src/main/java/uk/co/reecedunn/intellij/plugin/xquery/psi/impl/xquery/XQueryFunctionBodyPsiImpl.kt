@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionBody
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryEnclosedExprPsiImpl
 
-class XPathFunctionBodyPsiImpl(node: ASTNode) : XQueryEnclosedExprPsiImpl(node), XPathFunctionBody
+class XQueryFunctionBodyPsiImpl(node: ASTNode) : XQueryEnclosedExprPsiImpl(node), XPathFunctionBody
