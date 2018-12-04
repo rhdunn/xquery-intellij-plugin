@@ -78,6 +78,7 @@ private val KEYWORDS = mapOf(
     "ne" to XPathTokenType.K_NE, // XPath 2.0
     "node" to XPathTokenType.K_NODE, // XPath 1.0
     "null-node" to XPathTokenType.K_NULL_NODE, // MarkLogic 8.0
+    "number-node" to XPathTokenType.K_NUMBER_NODE, // MarkLogic 8.0
     "of" to XPathTokenType.K_OF, // XPath 2.0
     "or" to XPathTokenType.K_OR, // XPath 1.0
     "orElse" to XPathTokenType.K_ORELSE, // Saxon 9.9

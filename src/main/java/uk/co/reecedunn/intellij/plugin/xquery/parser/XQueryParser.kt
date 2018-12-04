@@ -4756,7 +4756,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseNumberConstructor(): Boolean {
-        val numberConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NUMBER_NODE)
+        val numberConstructor = matchTokenTypeWithMarker(XPathTokenType.K_NUMBER_NODE)
         if (numberConstructor != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
@@ -7317,7 +7317,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseNumberNodeTest(): ParseStatus {
-        val numberNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NUMBER_NODE)
+        val numberNodeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_NUMBER_NODE)
         if (numberNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
 

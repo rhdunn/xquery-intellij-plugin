@@ -429,7 +429,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyNumberNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -439,7 +439,7 @@ class PluginLexerTest : LexerTestCase() {
     fun namedNumberNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -449,7 +449,7 @@ class PluginLexerTest : LexerTestCase() {
     fun numberConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

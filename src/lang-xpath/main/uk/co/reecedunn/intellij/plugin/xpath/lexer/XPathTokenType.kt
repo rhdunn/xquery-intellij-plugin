@@ -104,6 +104,7 @@ object XPathTokenType {
     val K_NE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NE", XPath) // XPath 2.0
     val K_NODE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_NODE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_NULL_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NULL_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
+    val K_NUMBER_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_OF = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OF", XPath) // XPath 2.0
     val K_OR = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_OR", XPath) // XPath 1.0
     val K_ORELSE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORELSE", XPath) // Saxon 9.9

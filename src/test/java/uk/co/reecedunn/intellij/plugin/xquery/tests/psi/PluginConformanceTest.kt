@@ -142,7 +142,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_NUMBER_NODE))
+            `is`(XPathTokenType.K_NUMBER_NODE))
     }
 
     @Test
@@ -527,7 +527,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_NUMBER_NODE))
+            `is`(XPathTokenType.K_NUMBER_NODE))
     }
 
     @Test
@@ -575,7 +575,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_NUMBER_NODE))
+            `is`(XPathTokenType.K_NUMBER_NODE))
     }
 
     @Test

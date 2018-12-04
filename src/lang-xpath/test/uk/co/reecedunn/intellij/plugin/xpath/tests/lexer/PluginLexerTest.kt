@@ -56,6 +56,26 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
+    fun anyNumberNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
+    fun namedNumberNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
     fun anyNullNodeTest() {
         val lexer = createLexer()
