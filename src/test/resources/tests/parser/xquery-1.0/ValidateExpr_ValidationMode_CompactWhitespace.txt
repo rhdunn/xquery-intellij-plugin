@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:44)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LAX(9:12)]('lax')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
-                  XPathExprImpl[XQUERY_EXPR(13:19)]
+                  XQueryExprImpl[XQUERY_EXPR(13:19)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(13:19)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:44)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRICT(30:36)]('strict')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(36:37)]('{')
-                  XPathExprImpl[XQUERY_EXPR(37:43)]
+                  XQueryExprImpl[XQUERY_EXPR(37:43)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(37:43)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(37:43)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(37:43)]

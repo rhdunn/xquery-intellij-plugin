@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:15)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                      XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:15)]
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(7:8)]('{')
-                        XPathExprImpl[XQUERY_EXPR(8:14)]
+                        XQueryExprImpl[XQUERY_EXPR(8:14)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:14)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(8:14)]
                                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(8:14)]

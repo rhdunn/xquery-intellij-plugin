@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:29)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(14:15)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                  XPathExprImpl[XQUERY_EXPR(16:29)]
+                  XQueryExprImpl[XQUERY_EXPR(16:29)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:29)]
                         UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(16:29)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(16:22)]('delete')

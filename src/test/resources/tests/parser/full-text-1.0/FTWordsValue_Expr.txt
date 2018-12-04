@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:31)]
                                           FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:31)]
                                              LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(20:21)]('{')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                                             XPathExprImpl[XQUERY_EXPR(22:30)]
+                                             XQueryExprImpl[XQUERY_EXPR(22:30)]
                                                 ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(22:30)]
                                                    XPathOrExprImpl[XQUERY_OR_EXPR(22:30)]
                                                       XPathVarRefImpl[XQUERY_VAR_REF(22:30)]

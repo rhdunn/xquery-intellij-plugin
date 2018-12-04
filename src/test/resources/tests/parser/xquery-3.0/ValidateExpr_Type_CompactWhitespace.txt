@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:32)]
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(16:17)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:24)]('boolean')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(24:25)]('{')
-                  XPathExprImpl[XQUERY_EXPR(25:31)]
+                  XQueryExprImpl[XQUERY_EXPR(25:31)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(25:31)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(25:31)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(25:31)]

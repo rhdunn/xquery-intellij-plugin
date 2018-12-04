@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:41)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(13:17)]('with')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(17:18)]('{')
-                  XPathExprImpl[XQUERY_EXPR(18:40)]
+                  XQueryExprImpl[XQUERY_EXPR(18:40)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(18:40)]
                         UpdateFacilityRenameExprImpl[XQUERY_RENAME_EXPR(18:40)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RENAME(18:24)]('rename')

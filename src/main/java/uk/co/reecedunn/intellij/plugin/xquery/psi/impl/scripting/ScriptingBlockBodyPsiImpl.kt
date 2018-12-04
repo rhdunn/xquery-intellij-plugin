@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathExprPsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockBody
 
-class ScriptingBlockBodyPsiImpl(node: ASTNode) : XPathExprPsiImpl(node), ScriptingBlockBody
+class ScriptingBlockBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), ScriptingBlockBody

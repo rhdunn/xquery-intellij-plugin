@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:35)]
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(25:26)](')')
                XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(26:34)]
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(26:27)]('{')
-                  XPathExprImpl[XQUERY_EXPR(27:33)]
+                  XQueryExprImpl[XQUERY_EXPR(27:33)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(27:33)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(27:33)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(27:33)]

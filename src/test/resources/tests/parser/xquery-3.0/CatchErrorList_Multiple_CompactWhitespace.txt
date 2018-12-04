@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:44)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
                   XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(3:6)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
-                     XPathExprImpl[XQUERY_EXPR(4:5)]
+                     XQueryExprImpl[XQUERY_EXPR(4:5)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(4:5)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(4:5)]
                               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('2')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:44)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(33:41)]('XQST0085')
                   XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(41:44)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(41:42)]('{')
-                     XPathExprImpl[XQUERY_EXPR(42:43)]
+                     XQueryExprImpl[XQUERY_EXPR(42:43)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(42:43)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(42:43)]
                               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(42:43)]('2')

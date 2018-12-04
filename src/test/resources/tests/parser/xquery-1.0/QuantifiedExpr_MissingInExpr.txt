@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:30)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:14)]
                XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:13)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                  XPathExprImpl[XQUERY_EXPR(1:12)]
+                  XQueryExprImpl[XQUERY_EXPR(1:12)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(1:12)]
                         XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(1:12)]
                            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SOME(1:5)]('some')
@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:30)]
             XPathOrExprImpl[XQUERY_OR_EXPR(16:30)]
                XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(16:30)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
-                  XPathExprImpl[XQUERY_EXPR(17:29)]
+                  XQueryExprImpl[XQUERY_EXPR(17:29)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(17:29)]
                         XPathQuantifiedExprImpl[XQUERY_QUANTIFIED_EXPR(17:29)]
                            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EVERY(17:22)]('every')

@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:6)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:6)]
                XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:6)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                  XPathExprImpl[XQUERY_EXPR(1:5)]
+                  XQueryExprImpl[XQUERY_EXPR(1:5)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(1:2)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(1:2)]
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(1:2)]('2')

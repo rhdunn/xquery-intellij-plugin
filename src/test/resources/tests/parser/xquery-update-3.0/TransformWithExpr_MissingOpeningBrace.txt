@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:44)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(14:18)]('with')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected '{'.')
-                  XPathExprImpl[XQUERY_EXPR(19:43)]
+                  XQueryExprImpl[XQUERY_EXPR(19:43)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(19:43)]
                         UpdateFacilityRenameExprImpl[XQUERY_RENAME_EXPR(19:43)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RENAME(19:25)]('rename')

@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:13)]
                   XPathPredicateImpl[XQUERY_PREDICATE(10:13)]
                      LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(10:11)]('[')
                      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                     XPathExprImpl[XQUERY_EXPR(12:13)]
+                     XQueryExprImpl[XQUERY_EXPR(12:13)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(12:13)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(12:13)]
                               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('3')

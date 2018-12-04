@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:48)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LAX(9:12)]('lax')
                   PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected '{'.')
-                  XPathExprImpl[XQUERY_EXPR(13:20)]
+                  XQueryExprImpl[XQUERY_EXPR(13:20)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:20)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(13:20)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]
@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:48)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRICT(33:39)]('strict')
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(40:40)]('XPST0003: Expected '{'.')
-                  XPathExprImpl[XQUERY_EXPR(40:47)]
+                  XQueryExprImpl[XQUERY_EXPR(40:47)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(40:47)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(40:47)]
                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(40:46)]

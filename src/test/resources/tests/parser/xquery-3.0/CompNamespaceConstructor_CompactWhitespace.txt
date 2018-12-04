@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:20)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:12)]('ns')
                      XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(12:20)]
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
-                        XPathExprImpl[XQUERY_EXPR(13:19)]
+                        XQueryExprImpl[XQUERY_EXPR(13:19)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(13:19)]
                                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(13:19)]

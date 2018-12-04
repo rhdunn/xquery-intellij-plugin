@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:35)]
                                     FTWeightImpl[XQUERY_FT_WEIGHT(26:35)]
                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WEIGHT(26:32)]('weight')
                                        LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
-                                       XPathExprImpl[XQUERY_EXPR(33:34)]
+                                       XQueryExprImpl[XQUERY_EXPR(33:34)]
                                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(33:34)]
                                              XPathOrExprImpl[XQUERY_OR_EXPR(33:34)]
                                                 XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('5')

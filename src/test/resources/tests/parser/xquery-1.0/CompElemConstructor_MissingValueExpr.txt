@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:18)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(8:9)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                     XPathExprImpl[XQUERY_EXPR(10:17)]
+                     XQueryExprImpl[XQUERY_EXPR(10:17)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:17)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(10:17)]
                               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(10:16)]

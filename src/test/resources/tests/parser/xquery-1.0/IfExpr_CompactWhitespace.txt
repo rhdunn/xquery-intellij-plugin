@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:18)]
             XPathIfExprImpl[XQUERY_IF_EXPR(0:18)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IF(0:2)]('if')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(2:3)]('(')
-               XPathExprImpl[XQUERY_EXPR(3:4)]
+               XQueryExprImpl[XQUERY_EXPR(3:4)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(3:4)]
                      XPathOrExprImpl[XQUERY_OR_EXPR(3:4)]
                         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('1')

@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:62)]
                      LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(43:57)]('One two three.')
                      LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(57:59)]('#)')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(59:60)]('{')
-                  XPathExprImpl[XQUERY_EXPR(60:61)]
+                  XQueryExprImpl[XQUERY_EXPR(60:61)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(60:61)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(60:61)]
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(60:61)]('2')
