@@ -4015,7 +4015,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 return false
             }
 
-            forwardAxisMarker.done(XQueryElementType.FORWARD_AXIS)
+            forwardAxisMarker.done(XPathElementType.FORWARD_AXIS)
             return true
         }
         forwardAxisMarker.drop()

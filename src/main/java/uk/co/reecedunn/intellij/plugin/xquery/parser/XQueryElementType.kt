@@ -67,12 +67,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val FORWARD_AXIS: IElementType = ICompositeElementType(
-        "XQUERY_FORWARD_AXIS",
-        XPathForwardAxisPsiImpl::class.java,
-        XQuery
-    )
-
     val PRAGMA: IElementType = ICompositeElementType(
         "XQUERY_PRAGMA",
         XQueryPragmaPsiImpl::class.java,

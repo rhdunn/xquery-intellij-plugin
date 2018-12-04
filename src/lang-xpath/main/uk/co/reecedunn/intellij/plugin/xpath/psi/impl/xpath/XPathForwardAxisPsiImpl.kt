@@ -30,16 +30,15 @@ private val MARKLOGIC_AXIS = TokenSet.create(XPathTokenType.K_NAMESPACE, XPathTo
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-class XPathForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForwardAxis,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        val node = node.findChildByType(MARKLOGIC_AXIS)
-        if (node != null) {
-            return MARKLOGIC60
+class XPathForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForwardAxis, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            val node = node.findChildByType(MARKLOGIC_AXIS)
+            if (node != null) {
+                return MARKLOGIC60
+            }
+            return XQUERY10
         }
-        return XQUERY10
-    }
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }
