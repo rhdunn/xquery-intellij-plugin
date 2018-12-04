@@ -51,6 +51,7 @@ private val KEYWORDS = mapOf(
     "document-node" to XPathTokenType.K_DOCUMENT_NODE, // XPath 2.0
     "element" to XPathTokenType.K_ELEMENT, // XPath 2.0
     "else" to XPathTokenType.K_ELSE, // XPath 2.0
+    "empty" to XPathTokenType.K_EMPTY, // XPath 2.0 WD 02 May 2003
     "empty-sequence" to XPathTokenType.K_EMPTY_SEQUENCE, // XPath 2.0
     "eq" to XPathTokenType.K_EQ, // XPath 2.0
     "every" to XPathTokenType.K_EVERY, // XPath 2.0

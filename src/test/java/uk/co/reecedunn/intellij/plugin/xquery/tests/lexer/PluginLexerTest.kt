@@ -634,7 +634,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
-        matchSingleToken(lexer, "empty", XQueryTokenType.K_EMPTY)
+        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

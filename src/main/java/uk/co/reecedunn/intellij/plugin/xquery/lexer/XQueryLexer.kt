@@ -88,7 +88,6 @@ private val KEYWORDS = mapOf(
         "distance" to XQueryTokenType.K_DISTANCE, // Full Text 1.0
         "document" to XQueryTokenType.K_DOCUMENT,
         "element-decl" to XQueryTokenType.K_ELEMENT_DECL, // MarkLogic 7.0
-        "empty" to XQueryTokenType.K_EMPTY,
         "encoding" to XQueryTokenType.K_ENCODING,
         "end" to XQueryTokenType.K_END, // XQuery 3.0
         "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0

@@ -196,7 +196,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
         matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT)
         matchSingleToken(lexer, "order", XQueryTokenType.K_ORDER)
-        matchSingleToken(lexer, "empty", XQueryTokenType.K_EMPTY)
+        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
         matchSingleToken(lexer, "greatest", XQueryTokenType.K_GREATEST)
         matchSingleToken(lexer, "least", XQueryTokenType.K_LEAST)
     }
@@ -428,7 +428,7 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "ascending", XQueryTokenType.K_ASCENDING)
         matchSingleToken(lexer, "descending", XQueryTokenType.K_DESCENDING)
 
-        matchSingleToken(lexer, "empty", XQueryTokenType.K_EMPTY)
+        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
         matchSingleToken(lexer, "greatest", XQueryTokenType.K_GREATEST)
         matchSingleToken(lexer, "least", XQueryTokenType.K_LEAST)
 
@@ -3026,7 +3026,7 @@ class XQueryLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "allowing", XQueryTokenType.K_ALLOWING)
-        matchSingleToken(lexer, "empty", XQueryTokenType.K_EMPTY)
+        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
     }
 
     @Test

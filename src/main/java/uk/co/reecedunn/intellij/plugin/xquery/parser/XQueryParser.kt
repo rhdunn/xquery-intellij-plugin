@@ -474,7 +474,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
             if (matchTokenType(XQueryTokenType.K_COLLATION)) continue
             if (matchTokenType(XPathTokenType.K_ELEMENT)) continue
-            if (matchTokenType(XQueryTokenType.K_EMPTY)) continue
+            if (matchTokenType(XPathTokenType.K_EMPTY)) continue
             if (matchTokenType(XQueryTokenType.K_EXTERNAL)) continue
             if (matchTokenType(XPathTokenType.K_FUNCTION)) continue
             if (matchTokenType(XQueryTokenType.K_GREATEST)) continue
@@ -668,7 +668,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_EMPTY)) {
+            if (!matchTokenType(XPathTokenType.K_EMPTY)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "empty"))
                 haveErrors = true
             }
@@ -1737,7 +1737,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         val allowingEmptyMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ALLOWING)
         if (allowingEmptyMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XQueryTokenType.K_EMPTY)) {
+            if (!matchTokenType(XPathTokenType.K_EMPTY)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "empty"))
             }
 
@@ -2317,7 +2317,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
         }
 
         parseWhiteSpaceAndCommentTokens()
-        if (matchTokenType(XQueryTokenType.K_EMPTY)) {
+        if (matchTokenType(XPathTokenType.K_EMPTY)) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XQueryTokenType.K_GREATEST) && !matchTokenType(XQueryTokenType.K_LEAST)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "greatest, least"))
@@ -6147,7 +6147,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
 
     private fun parseSequenceType(): Boolean {
         val sequenceTypeMarker = mark()
-        if (matchTokenType(XPathTokenType.K_EMPTY_SEQUENCE) || matchTokenType(XQueryTokenType.K_EMPTY)) {
+        if (matchTokenType(XPathTokenType.K_EMPTY_SEQUENCE) || matchTokenType(XPathTokenType.K_EMPTY)) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
                 sequenceTypeMarker.rollbackTo()

@@ -22,7 +22,6 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
@@ -45,7 +44,7 @@ private val OCCURRENCE_INDICATOR = TokenSet.create(
 class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, VersionConformance {
     override val requiresConformance: List<Version>
         get() {
-            return if (conformanceElement.node.elementType == XQueryTokenType.K_EMPTY)
+            return if (conformanceElement.node.elementType == XPathTokenType.K_EMPTY)
                 XQUERY10_WD_EMPTY
             else if (findChildByType<PsiElement>(OCCURRENCE_INDICATOR) != null)
                 XQUERY10_REC_OCCURRENCE

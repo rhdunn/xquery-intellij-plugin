@@ -78,6 +78,7 @@ object XPathTokenType {
     val K_DOCUMENT_NODE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DOCUMENT_NODE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_ELEMENT = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ELEMENT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_ELSE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ELSE", XPath) // XPath 2.0
+    val K_EMPTY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY", XPath) // XPath 2.0 WD 02 May 2003
     val K_EMPTY_SEQUENCE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_EQ = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EQ", XPath) // XPath 2.0
     val K_EVERY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0

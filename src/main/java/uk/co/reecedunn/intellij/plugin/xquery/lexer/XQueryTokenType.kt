@@ -119,7 +119,6 @@ object XQueryTokenType {
     val K_DISTANCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DISTANCE", XQuery) // Full Text 1.0
     val K_DOCUMENT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT", XQuery) // XQuery 1.0
     val K_ELEMENT_DECL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT_DECL_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
-    val K_EMPTY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY", XQuery) // XQuery 1.0
     val K_ENCODING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING", XQuery) // XQuery 1.0
     val K_END = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_END", XQuery) // XQuery 3.0
     val K_ENTIRE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENTIRE", XQuery) // Full Text 1.0

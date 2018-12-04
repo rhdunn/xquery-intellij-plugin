@@ -2417,7 +2417,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: W3C Recommendation (First Edition) does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY))
                 }
 
                 @Test
@@ -2448,7 +2448,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0-ml' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY))
                 }
 
                 @Test
@@ -2467,7 +2467,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XPST0003: XQuery version string '1.0' does not support XQuery 1.0 (Working Draft 02 May 2003), or XQuery 0.9-ml, or eXist-db < 4.0 constructs.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_EMPTY))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_EMPTY))
                 }
             }
 
