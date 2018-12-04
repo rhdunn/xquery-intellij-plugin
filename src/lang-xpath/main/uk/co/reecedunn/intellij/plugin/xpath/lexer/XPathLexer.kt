@@ -188,21 +188,31 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mType = XPathTokenType.VARIABLE_INDICATOR
             }
             CharacterClass.DOT -> {
+                mTokenRange.save()
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 when (cc) {
                     CharacterClass.DOT -> {
                         mTokenRange.match()
-                        mType = XPathTokenType.PARENT_SELECTOR
+                        if (mTokenRange.codePoint == '.'.toInt()) {
+                            mTokenRange.match()
+                            mType = XPathTokenType.ELLIPSIS
+                        } else {
+                            mType = XPathTokenType.PARENT_SELECTOR
+                        }
                         return
                     }
-                    CharacterClass.DIGIT -> mType = XPathTokenType.DECIMAL_LITERAL
+                    CharacterClass.DIGIT -> {
+                        mTokenRange.restore()
+                        mType = XPathTokenType.DECIMAL_LITERAL
+                    }
                     else -> {
                         mType = XPathTokenType.DOT
                         return
                     }
                 }
 
+                mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
                 mType = XPathTokenType.DECIMAL_LITERAL

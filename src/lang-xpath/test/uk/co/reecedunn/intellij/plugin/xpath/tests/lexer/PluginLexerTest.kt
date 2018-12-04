@@ -160,4 +160,13 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "or", XPathTokenType.K_OR)
         matchSingleToken(lexer, "orElse", XPathTokenType.K_ORELSE)
     }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
+    fun paramList() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, "...", XPathTokenType.ELLIPSIS)
+    }
 }

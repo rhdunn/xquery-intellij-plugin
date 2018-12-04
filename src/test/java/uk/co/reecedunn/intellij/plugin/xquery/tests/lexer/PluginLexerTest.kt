@@ -724,6 +724,6 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "...", XQueryTokenType.ELLIPSIS)
+        matchSingleToken(lexer, "...", XPathTokenType.ELLIPSIS)
     }
 }

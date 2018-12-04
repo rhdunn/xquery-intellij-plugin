@@ -233,7 +233,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     if (mTokenRange.codePoint == '.'.toInt()) {
                         mTokenRange.match()
-                        mType = XQueryTokenType.ELLIPSIS
+                        mType = XPathTokenType.ELLIPSIS
                     } else {
                         mType = XPathTokenType.PARENT_SELECTOR
                     }

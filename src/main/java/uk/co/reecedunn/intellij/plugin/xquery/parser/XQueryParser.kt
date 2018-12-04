@@ -1212,7 +1212,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             if (getTokenType() === XPathTokenType.VARIABLE_INDICATOR) {
                 error(XQueryBundle.message("parser.error.expected", ","))
             } else if (!matchTokenType(XPathTokenType.COMMA)) {
-                matchTokenType(XQueryTokenType.ELLIPSIS)
+                matchTokenType(XPathTokenType.ELLIPSIS)
 
                 paramListMarker.done(XQueryElementType.PARAM_LIST)
                 return true

@@ -29,11 +29,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableBinding
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XQueryTokenType.ELLIPSIS)
+private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
 private val XQUERY1: List<Version> = listOf()
 private val EXPATH = listOf(XQueryIntelliJPlugin.VERSION_1_4)
 

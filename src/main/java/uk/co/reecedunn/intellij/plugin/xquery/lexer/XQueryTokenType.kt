@@ -74,7 +74,6 @@ object XQueryTokenType {
     // region Symbols
 
     val ANNOTATION_INDICATOR = IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery) // XQuery 3.0
-    val ELLIPSIS = IElementType("XQUERY_ELLIPSIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 1
     val ELVIS = IElementType("XQUERY_ELVIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery) // XQuery 1.0
     val TERNARY_ELSE = IElementType("XQUERY_TERNARY_ELSE_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2

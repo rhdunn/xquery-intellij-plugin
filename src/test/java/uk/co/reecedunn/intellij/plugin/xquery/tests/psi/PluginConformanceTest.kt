@@ -1250,6 +1250,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_4))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.ELLIPSIS))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.ELLIPSIS))
     }
 }
