@@ -116,6 +116,26 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
+    fun anyMapNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "object-node", XPathTokenType.K_OBJECT_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
+    fun namedMapNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "object-node", XPathTokenType.K_OBJECT_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
     fun orExpr() {
         val lexer = createLexer()

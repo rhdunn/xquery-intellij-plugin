@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
@@ -28,7 +28,7 @@ private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 class XPathMapConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathMapConstructor, VersionConformance {
     override val requiresConformance
         get(): List<Version> {
-            if (conformanceElement.node.elementType === XQueryTokenType.K_OBJECT_NODE) {
+            if (conformanceElement.node.elementType === XPathTokenType.K_OBJECT_NODE) {
                 return MARKLOGIC80
             }
             return XQUERY31

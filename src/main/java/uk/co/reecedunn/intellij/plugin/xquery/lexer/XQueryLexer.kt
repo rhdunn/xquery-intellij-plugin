@@ -132,7 +132,6 @@ private val KEYWORDS = mapOf(
         "nodes" to XQueryTokenType.K_NODES, // Update Facility 1.0
         "non-deterministic" to XQueryTokenType.K_NON_DETERMINISTIC, // BaseX 8.4
         "not" to XQueryTokenType.K_NOT, // Full Text 1.0
-        "object-node" to XQueryTokenType.K_OBJECT_NODE, // MarkLogic 8.0
         "occurs" to XQueryTokenType.K_OCCURS, // Full Text 1.0
         "only" to XQueryTokenType.K_ONLY, // XQuery 3.0
         "option" to XQueryTokenType.K_OPTION,
