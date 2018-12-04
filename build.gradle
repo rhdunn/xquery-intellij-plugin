@@ -109,6 +109,10 @@ configure(allprojects - project(':src')) {
         runIde.enabled = false
         verifyPlugin.enabled = false
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 sourceSets {
@@ -181,8 +185,4 @@ check.dependsOn jacocoTestReport
 repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     mavenCentral()
-}
-
-test {
-    useJUnitPlatform()
 }
