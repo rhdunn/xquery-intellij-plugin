@@ -79,7 +79,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_BOOLEAN_NODE))
     }
 
     @Test
@@ -224,7 +224,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-            `is`(XQueryTokenType.K_BOOLEAN_NODE))
+            `is`(XPathTokenType.K_BOOLEAN_NODE))
     }
 
     @Nested
@@ -463,7 +463,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(MarkLogic.VERSION_8_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.K_BOOLEAN_NODE))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.K_BOOLEAN_NODE))
     }
 
     @Test

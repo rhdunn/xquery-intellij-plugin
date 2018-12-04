@@ -399,7 +399,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyBooleanNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -409,7 +409,7 @@ class PluginLexerTest : LexerTestCase() {
     fun namedBooleanNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -419,7 +419,7 @@ class PluginLexerTest : LexerTestCase() {
     fun booleanConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

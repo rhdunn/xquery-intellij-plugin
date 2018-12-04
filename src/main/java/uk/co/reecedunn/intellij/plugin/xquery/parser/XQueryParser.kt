@@ -4649,7 +4649,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseBooleanConstructor(): Boolean {
-        val booleanConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE)
+        val booleanConstructor = matchTokenTypeWithMarker(XPathTokenType.K_BOOLEAN_NODE)
         if (booleanConstructor != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
@@ -7200,7 +7200,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseBooleanNodeTest(): ParseStatus {
-        val booleanNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE)
+        val booleanNodeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_BOOLEAN_NODE)
         if (booleanNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
 

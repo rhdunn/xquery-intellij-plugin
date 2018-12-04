@@ -40,6 +40,7 @@ private val KEYWORDS = mapOf(
     "array-node" to XPathTokenType.K_ARRAY_NODE, // MarkLogic 8.0
     "as" to XPathTokenType.K_AS, // XPath 2.0
     "attribute" to XPathTokenType.K_ATTRIBUTE, // XPath 1.0
+    "boolean-node" to XPathTokenType.K_BOOLEAN_NODE, // MarkLogic 8.0
     "cast" to XPathTokenType.K_CAST, // XPath 2.0
     "castable" to XPathTokenType.K_CASTABLE, // XPath 2.0
     "child" to XPathTokenType.K_CHILD, // XPath 1.0

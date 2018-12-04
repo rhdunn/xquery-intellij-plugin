@@ -66,6 +66,7 @@ object XPathTokenType {
     val K_ARRAY_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_AS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
     val K_ATTRIBUTE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
+    val K_BOOLEAN_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_CAST = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CAST", XPath) // XPath 2.0
     val K_CASTABLE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CASTABLE", XPath) // XPath 2.0
     val K_CHILD = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CHILD", XPath) // XPath 1.0

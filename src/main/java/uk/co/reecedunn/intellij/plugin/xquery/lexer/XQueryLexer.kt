@@ -63,7 +63,6 @@ private val KEYWORDS = mapOf(
         "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
         "binary" to XQueryTokenType.K_BINARY, // MarkLogic 6.0
         "block" to XQueryTokenType.K_BLOCK, // ScriptingSpec Extension 1.0
-        "boolean-node" to XQueryTokenType.K_BOOLEAN_NODE, // MarkLogic 8.0
         "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
         "by" to XQueryTokenType.K_BY,
         "case" to XQueryTokenType.K_CASE,

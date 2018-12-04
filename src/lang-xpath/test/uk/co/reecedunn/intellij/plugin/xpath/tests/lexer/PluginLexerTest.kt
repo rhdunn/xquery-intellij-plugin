@@ -36,6 +36,26 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
+    fun anyBooleanNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
+    fun namedBooleanNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
     fun anyArrayNodeTest() {
         val lexer = createLexer()
