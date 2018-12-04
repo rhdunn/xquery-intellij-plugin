@@ -164,7 +164,6 @@ object XQueryTokenType {
     val K_NODES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODES", XQuery) // Update Facility 1.0
     val K_NON_DETERMINISTIC = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC", XQuery) // BaseX 8.4
     val K_NOT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NOT", XQuery) // Full Text 1.0
-    val K_NULL_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NULL_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_NUMBER_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_OBJECT_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_OCCURS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OCCURS", XQuery) // Full Text 1.0

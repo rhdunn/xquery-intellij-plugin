@@ -56,6 +56,26 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
+    fun anyNullNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
+    fun namedNullNodeTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
     fun anyArrayNodeTest() {
         val lexer = createLexer()

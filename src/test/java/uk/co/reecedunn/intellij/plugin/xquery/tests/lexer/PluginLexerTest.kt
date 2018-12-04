@@ -459,7 +459,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyNullNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -469,7 +469,7 @@ class PluginLexerTest : LexerTestCase() {
     fun namedNullNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -479,7 +479,7 @@ class PluginLexerTest : LexerTestCase() {
     fun nullConstructor() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE)
+        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

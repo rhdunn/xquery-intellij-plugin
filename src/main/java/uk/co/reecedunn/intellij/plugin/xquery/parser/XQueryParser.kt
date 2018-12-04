@@ -4736,7 +4736,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseNullConstructor(): Boolean {
-        val nullConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE)
+        val nullConstructor = matchTokenTypeWithMarker(XPathTokenType.K_NULL_NODE)
         if (nullConstructor != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.BLOCK_OPEN)) {
@@ -7282,7 +7282,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseNullNodeTest(): ParseStatus {
-        val nullNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE)
+        val nullNodeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_NULL_NODE)
         if (nullNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
 
