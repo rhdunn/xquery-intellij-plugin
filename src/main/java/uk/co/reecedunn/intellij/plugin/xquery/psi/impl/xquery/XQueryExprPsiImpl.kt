@@ -17,6 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingApplyExprPsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.ScriptingApplyExprPsiImpl
 
 open class XQueryExprPsiImpl(node: ASTNode) : ScriptingApplyExprPsiImpl(node), XPathExpr

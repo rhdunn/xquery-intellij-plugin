@@ -597,22 +597,6 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (74) ApplyExpr")
-    fun applyExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (75) ConcatExpr")
-    fun concatExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (76) Wildcard")
     fun wildcard() {
         val lexer = createLexer()

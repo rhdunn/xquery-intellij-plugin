@@ -369,22 +369,7 @@ with XQuery 3.1 `FunctionTest` that may specify annotations on function signatur
 
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[73\] | `Expr`                  | ::= | `ApplyExpr`                         |           |
-| \[74\] | `ApplyExpr`             | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?` |         |
-| \[75\] | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |           |
 | \[91\] | `ExprSingle`            | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
-
-The `Expr`, `ApplyExpr` and `ConcatExpr` definitions are identical to the
-W3C Scripting Extension. The XPath grammar has the following modifications:
-
-| Ref    | Symbol                  |     | Expression                          | Options   |
-|--------|-------------------------|-----|-------------------------------------|-----------|
-| \[74\] | `ApplyExpr`             | ::= | `ConcatExpr`                        |           |
-
-This is done to keep the XPath and XQuery grammars consistent in the presence
-of the W3C Scripting Extension. It does not alter XPath as multiple
-`ConcatExpr` constructs are not permitted, so it is equivalent to the original
-XPath `Expr` grammar definition.
 
 ### 3.1 Node Constructors
 
@@ -926,9 +911,6 @@ that are a part of XQuery).
 | \[3\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
 | \[4\]   | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |          |
 | \[11\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparionExpr)*` |  |
-| \[73\]  | `Expr`                  | ::= | `ApplyExpr`                         |                     |
-| \[74\]  | `ApplyExpr`             | ::= | `ConcatExpr`                        |                     |
-| \[75\]  | `ConcatExpr`            | ::= | `ExprSingle ("," ExprSingle)*`      |                     |
 | \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
 | \[78\]  | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
@@ -1033,9 +1015,6 @@ These changes include support for:
 | \[70\]   | `AnyTextTest`                  | ::= | `"text" "(" ")"`                          |                 |
 | \[71\]   | `NamedTextTest`                | ::= | `"text" "(" StringLiteral ")"`            |                 |
 | \[72\]   | `DocumentTest`                 | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
-| \[73\]   | `Expr`                         | ::= | `ApplyExpr`                               |                 |
-| \[74\]   | `ApplyExpr`                    | ::= | `ConcatExpr (";" (ConcatExpr ";")*)?`     |                 |
-| \[75\]   | `ConcatExpr`                   | ::= | `ExprSingle ("," ExprSingle)*`            |                 |
 | \[76\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[77\]   | `WildcardIndicator`            | ::= | `"*"`                                     |                 |
 | \[78\]   | `SequenceType`                 | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?) \| ParenthesizedSequenceType` | |
