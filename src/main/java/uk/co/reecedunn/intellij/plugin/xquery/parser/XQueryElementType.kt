@@ -341,7 +341,7 @@ object XQueryElementType {
 
     val BRACED_URI_LITERAL: IElementType = ICompositeElementType(
         "XQUERY_BRACED_URI_LITERAL",
-        XPathBracedURILiteralPsiImpl::class.java,
+        XQueryBracedURILiteralPsiImpl::class.java,
         XQuery
     )
     val URI_QUALIFIED_NAME: IElementType = ICompositeElementType(

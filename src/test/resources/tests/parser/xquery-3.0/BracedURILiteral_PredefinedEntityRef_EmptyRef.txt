@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:39)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:31)]
-               XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:26)]
+               XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:26)]
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
                   LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                   PsiErrorElementImpl[ERROR_ELEMENT(20:22)]('XPST0003: Entity references must not be empty.')

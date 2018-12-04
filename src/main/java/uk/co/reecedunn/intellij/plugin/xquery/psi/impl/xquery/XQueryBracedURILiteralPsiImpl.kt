@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityR
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XPathBracedURILiteralPsiImpl(node: ASTNode) :
+class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathBracedURILiteral,
     XsAnyUriValue,
