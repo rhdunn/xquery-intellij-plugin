@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryEQNamePrefixRe
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
-abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
+abstract class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
     override fun getReference(): PsiReference? {
         val references = references
         return if (references.isEmpty()) null else references[0]

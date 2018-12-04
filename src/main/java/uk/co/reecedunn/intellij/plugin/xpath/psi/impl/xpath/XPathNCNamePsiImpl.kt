@@ -25,9 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryEQNamePsiImpl
 
 open class XPathNCNamePsiImpl(node: ASTNode) :
-    XPathEQNamePsiImpl(node),
+    XQueryEQNamePsiImpl(node),
     XPathNCName,
     XsQNameValue,
     PsiNameIdentifierOwner {

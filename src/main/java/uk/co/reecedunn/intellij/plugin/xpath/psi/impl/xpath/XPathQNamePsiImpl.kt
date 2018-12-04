@@ -25,9 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryEQNamePsiImpl
 
 class XPathQNamePsiImpl(node: ASTNode) :
-    XPathEQNamePsiImpl(node),
+    XQueryEQNamePsiImpl(node),
     XPathQName,
     XsQNameValue,
     PsiNameIdentifierOwner {

@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.AbstractElementManipulator
 import com.intellij.util.IncorrectOperationException
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryEQNamePsiImpl
 
-class XQueryEQNameManipulator : AbstractElementManipulator<XPathEQNamePsiImpl>() {
+class XQueryEQNameManipulator : AbstractElementManipulator<XQueryEQNamePsiImpl>() {
     @Throws(IncorrectOperationException::class)
-    override fun handleContentChange(element: XPathEQNamePsiImpl, range: TextRange, newContent: String): XPathEQNamePsiImpl {
+    override fun handleContentChange(element: XQueryEQNamePsiImpl, range: TextRange, newContent: String): XQueryEQNamePsiImpl {
         return element
     }
 }
