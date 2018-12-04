@@ -16,14 +16,14 @@ XQueryModuleImpl[FILE(0:117)]
                PluginUnionTypeImpl[XQUERY_UNION_TYPE(22:113)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(22:27)]('union')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                  XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(28:70)]
+                  XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(28:70)]
                      XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(28:63)]
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(28:30)]('Q{')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(30:62)]('http://www.w3.org/2001/XMLSchema')
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(62:63)]('}')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(63:70)]('integer')
                   LeafPsiElement[XPATH_COMMA_TOKEN(70:71)](',')
-                  XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(71:112)]
+                  XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(71:112)]
                      XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(71:106)]
                         LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(71:73)]('Q{')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(73:105)]('http://www.w3.org/2001/XMLSchema')

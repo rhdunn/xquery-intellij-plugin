@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:37)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                   XPathVarNameImpl[XQUERY_VAR_NAME(2:37)]
-                     XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(2:37)]
+                     XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(2:37)]
                         XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(2:33)]
                            LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(2:4)]('Q{')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(4:32)]('http://www.example.com/test#')

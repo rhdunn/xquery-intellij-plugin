@@ -19,7 +19,6 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.scripting.ScriptingConcatExprPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -346,7 +345,7 @@ object XQueryElementType {
     )
     val URI_QUALIFIED_NAME: IElementType = ICompositeElementType(
         "XQUERY_URI_QUALIFIED_NAME",
-        XPathURIQualifiedNamePsiImpl::class.java,
+        XQueryURIQualifiedNamePsiImpl::class.java,
         XQuery
     )
 
