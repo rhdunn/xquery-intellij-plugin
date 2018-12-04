@@ -489,7 +489,7 @@ class PluginLexerTest : LexerTestCase() {
     fun anyArrayNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
+        matchSingleToken(lexer, "array-node", XPathTokenType.K_ARRAY_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -499,7 +499,7 @@ class PluginLexerTest : LexerTestCase() {
     fun namedArrayNodeTest() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
+        matchSingleToken(lexer, "array-node", XPathTokenType.K_ARRAY_NODE)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
@@ -510,7 +510,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE)
+        matchSingleToken(lexer, "array-node", XPathTokenType.K_ARRAY_NODE)
     }
 
     @Test

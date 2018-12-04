@@ -4619,7 +4619,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     private fun parseCurlyArrayConstructor(): Boolean {
         var arrayConstructor = matchTokenTypeWithMarker(XPathTokenType.K_ARRAY)
         if (arrayConstructor == null) {
-            arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE)
+            arrayConstructor = matchTokenTypeWithMarker(XPathTokenType.K_ARRAY_NODE)
         }
 
         if (arrayConstructor != null) {
@@ -7157,7 +7157,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
     }
 
     private fun parseArrayNodeTest(isAnyOnly: Boolean = false): ParseStatus {
-        val arrayNodeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE)
+        val arrayNodeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_ARRAY_NODE)
         if (arrayNodeTestMarker != null) {
             var status = ParseStatus.MATCHED
 

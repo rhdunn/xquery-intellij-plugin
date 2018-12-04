@@ -2816,7 +2816,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE))
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
                     }
                 }
 
@@ -2912,7 +2912,7 @@ private class PluginInspectionTest : InspectionTestCase() {
                             problems[0].descriptionTemplate,
                             `is`("XPST0003: Reserved MarkLogic 8.0 keyword used as a function name.")
                         )
-                        assertThat(problems[0].psiElement.node.elementType, `is`(XQueryTokenType.K_ARRAY_NODE))
+                        assertThat(problems[0].psiElement.node.elementType, `is`(XPathTokenType.K_ARRAY_NODE))
                     }
                 }
 

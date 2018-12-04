@@ -87,7 +87,6 @@ object XQueryTokenType {
     val K_ALL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALL", XQuery) // Full Text 1.0
     val K_ALLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALLOWING", XQuery) // XQuery 3.0
     val K_ANY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANY", XQuery) // Full Text 1.0
-    val K_ARRAY_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_ASCENDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASCENDING", XQuery) // XQuery 1.0
     val K_ASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE", XQuery) // ScriptingSpec Extension 1.0
     val K_AT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT", XQuery) // XQuery 1.0

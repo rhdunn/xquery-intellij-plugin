@@ -1145,6 +1145,10 @@ __Working Drafts__
 *  MarkLogic. *Schema Components*. See [https://docs.marklogic.com/sc]().
 *  MarkLogic. *Working With JSON (Application Developer's Guide)*. See
    [https://docs.marklogic.com/guide/app-dev/json]().
+*  MarkLogic. *Indexable Path Expression Grammar*. See
+   [https://docs.marklogic.com/guide/xquery/xpath#id_17642]().
+*  MarkLogic. *Patch and Extract Path Expression Grammar*. See
+   [https://docs.marklogic.com/guide/xquery/xpath#id_98286]().
 
 ### B.4 Saxon References
 *  Saxonica. *Union types*. See

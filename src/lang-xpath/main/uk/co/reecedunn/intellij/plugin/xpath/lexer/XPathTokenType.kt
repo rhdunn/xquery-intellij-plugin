@@ -63,6 +63,7 @@ object XPathTokenType {
     val K_AND = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_AND", XPath) // XPath 1.0
     val K_ANDALSO = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ANDALSO", XPath) // Saxon 9.9
     val K_ARRAY = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ARRAY", XPath) // XPath 3.1
+    val K_ARRAY_NODE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE", XPath, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME) // MarkLogic 8.0
     val K_AS = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_AS", XPath) // XPath 2.0
     val K_ATTRIBUTE = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_CAST = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CAST", XPath) // XPath 2.0
