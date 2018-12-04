@@ -399,6 +399,12 @@ object XPathElementType {
         XPath
     )
 
+    val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_MAP_CONSTRUCTOR",
+        XPathMapConstructorPsiImpl::class.java,
+        XPath
+    )
+
     val MAP_CONSTRUCTOR_ENTRY: IElementType = ICompositeElementType(
         "XQUERY_MAP_CONSTRUCTOR_ENTRY",
         XPathMapConstructorEntryPsiImpl::class.java,

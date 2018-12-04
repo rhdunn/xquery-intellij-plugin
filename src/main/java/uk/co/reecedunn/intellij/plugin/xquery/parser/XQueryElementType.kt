@@ -605,12 +605,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_MAP_CONSTRUCTOR",
-        XPathMapConstructorPsiImpl::class.java,
-        XQuery
-    )
-
     val STRING_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_STRING_CONSTRUCTOR",
         XQueryStringConstructorPsiImpl::class.java,

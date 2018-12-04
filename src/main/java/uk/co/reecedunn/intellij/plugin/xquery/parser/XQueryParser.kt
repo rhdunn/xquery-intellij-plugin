@@ -4695,7 +4695,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 error(XQueryBundle.message("parser.error.expected", "}"))
             }
 
-            mapConstructor.done(XQueryElementType.MAP_CONSTRUCTOR)
+            mapConstructor.done(XPathElementType.MAP_CONSTRUCTOR)
             return true
         }
         return false
