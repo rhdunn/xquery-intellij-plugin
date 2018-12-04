@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:38)]
                      LeafPsiElement[XPATH_UNION_TOKEN(31:32)]('|')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Expected 'NameTest'.')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(33:38)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(33:38)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(33:34)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                      XPathExprImpl[XQUERY_EXPR(35:37)]

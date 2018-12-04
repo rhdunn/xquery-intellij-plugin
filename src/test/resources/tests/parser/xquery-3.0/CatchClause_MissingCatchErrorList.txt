@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:21)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected 'CatchErrorList'.')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(16:21)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(16:21)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(16:17)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                      XPathExprImpl[XQUERY_EXPR(18:20)]

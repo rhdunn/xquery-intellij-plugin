@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:39)]
                      XPathNCNameImpl[XQUERY_NCNAME(23:28)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:27)]('test')
                         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(28:39)]
+                     XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(28:39)]
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(28:29)]('{')
                         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                         XPathExprImpl[XQUERY_EXPR(30:38)]

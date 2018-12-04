@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:63)]
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:30)]('XQST0084')
                      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:36)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:36)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(31:32)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                      XPathExprImpl[XQUERY_EXPR(33:35)]
@@ -46,7 +46,7 @@ XQueryModuleImpl[FILE(0:63)]
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(48:49)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(49:57)]('XQST0085')
                      PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(58:63)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(58:63)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(58:59)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
                      XPathExprImpl[XQUERY_EXPR(60:62)]

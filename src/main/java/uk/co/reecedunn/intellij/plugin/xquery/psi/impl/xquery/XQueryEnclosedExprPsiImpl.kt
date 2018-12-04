@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -28,7 +28,7 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
 private val MARKLOGIC60: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, MarkLogic.VERSION_6_0)
 
-open class XPathEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnclosedExpr,
+open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnclosedExpr,
     VersionConformance {
     private fun previousVersionSupportsOptionalExpr(parent: PsiElement): Boolean =
         parent is XQueryCompPIConstructor ||

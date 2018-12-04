@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:41)]
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(24:28)]('test')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(28:29)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                     XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(30:41)]
+                     XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(30:41)]
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(30:31)]('{')
                         PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                         XPathExprImpl[XQUERY_EXPR(32:40)]

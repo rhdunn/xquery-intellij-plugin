@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:34)]
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:30)]('XQST0084')
                      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:34)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:34)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(31:32)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                      LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(33:34)]('}')

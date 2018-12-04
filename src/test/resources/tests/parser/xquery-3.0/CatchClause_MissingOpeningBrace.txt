@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:34)]
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:30)]('XQST0084')
                      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:34)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:34)]
                      PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Expected '{'.')
                      XPathExprImpl[XQUERY_EXPR(31:33)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(31:33)]

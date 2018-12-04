@@ -21,7 +21,7 @@ XQueryModuleImpl[FILE(0:29)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:17)]('error')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(17:18)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:26)]('XQST0084')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(26:29)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(26:29)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(26:27)]('{')
                      XPathExprImpl[XQUERY_EXPR(27:28)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(27:28)]

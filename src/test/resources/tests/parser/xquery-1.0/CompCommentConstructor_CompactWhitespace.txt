@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:15)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
                   XQueryCompCommentConstructorImpl[XQUERY_COMP_COMMENT_CONSTRUCTOR(0:15)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
-                     XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:15)]
+                     XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:15)]
                         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(7:8)]('{')
                         XPathExprImpl[XQUERY_EXPR(8:14)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:14)]

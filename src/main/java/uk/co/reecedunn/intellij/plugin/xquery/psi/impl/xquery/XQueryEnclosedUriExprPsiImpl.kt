@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedUriExpr
 
-class XQueryEnclosedUriExprPsiImpl(node: ASTNode) : XPathEnclosedExprPsiImpl(node), XQueryEnclosedUriExpr
+class XQueryEnclosedUriExprPsiImpl(node: ASTNode) : XQueryEnclosedExprPsiImpl(node), XQueryEnclosedUriExpr

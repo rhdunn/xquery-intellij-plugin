@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:13)]
                XQueryUnorderedExprImpl[XQUERY_UNORDERED_EXPR(0:13)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(0:9)]('unordered')
                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(10:13)]
+                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(10:13)]
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(10:11)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                      XPathExprImpl[XQUERY_EXPR(12:13)]
