@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:42)]
                   LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(28:29)]('}')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:34)]('three')
             PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:41)]
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:41)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:40)]('Test')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(40:41)]('"')

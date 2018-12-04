@@ -4,14 +4,14 @@ XQueryModuleImpl[FILE(0:40)]
       PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
       PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
+      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(15:16)]('"')
          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')
          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(19:20)]('"')
       PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')
       PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(30:38)]
+      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(30:38)]
          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(30:31)]('"')
          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(31:37)]('latin1')
          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(37:38)]('"')

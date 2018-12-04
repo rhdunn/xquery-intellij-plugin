@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:50)]
                PluginNamedArrayNodeTestImpl[XQUERY_NAMED_ARRAY_NODE_TEST(24:41)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(24:34)]('array-node')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
-                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:40)]
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:40)]
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:39)]('key')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(39:40)]('"')

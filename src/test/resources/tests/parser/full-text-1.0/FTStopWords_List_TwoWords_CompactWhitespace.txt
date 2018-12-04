@@ -15,12 +15,12 @@ XQueryModuleImpl[FILE(0:52)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   FTStopWordsImpl[XQUERY_FT_STOP_WORDS(34:51)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:41)]('lorem')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(41:42)]('"')
                      LeafPsiElement[XPATH_COMMA_TOKEN(42:43)](',')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(43:44)]('"')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(44:49)]('ipsum')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(49:50)]('"')

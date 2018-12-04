@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:13)]
                            XQueryNCNameImpl[XQUERY_NCNAME(3:6)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:6)]('key')
                   LeafPsiElement[XPATH_EQUAL_TOKEN(6:7)]('=')
-                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(7:13)]
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(7:13)]
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(7:8)]('"')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(8:12)]('test')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(12:13)]('"')

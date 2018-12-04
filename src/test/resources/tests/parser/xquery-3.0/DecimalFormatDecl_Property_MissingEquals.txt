@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:51)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECIMAL_SEPARATOR(28:45)]('decimal-separator')
             PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected '='.')
-            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(46:49)]
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(46:49)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(46:47)]('"')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(47:48)]('.')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(48:49)]('"')

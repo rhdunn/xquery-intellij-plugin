@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:63)]
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(50:61)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(50:51)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(52:59)]
+                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(52:59)]
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(52:53)]('"')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(53:58)]('lorem')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(58:59)]('"')

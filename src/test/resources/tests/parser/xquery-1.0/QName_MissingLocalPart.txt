@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:27)]
                PsiErrorElementImpl[ERROR_ELEMENT(19:20)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing local name after ':' in qualified name.')
-            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:26)]
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:26)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(20:21)]('"')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(21:25)]('Test')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')

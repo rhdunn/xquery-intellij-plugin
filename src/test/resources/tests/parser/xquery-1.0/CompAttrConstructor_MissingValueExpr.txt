@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:20)]
                      XQueryExprImpl[XQUERY_EXPR(12:19)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(12:19)]
                            XPathOrExprImpl[XQUERY_OR_EXPR(12:19)]
-                              XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:18)]
+                              XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(12:18)]
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(12:13)]('"')
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(13:17)]('test')
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(17:18)]('"')

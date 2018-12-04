@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:23)]
                         XQueryExprImpl[XQUERY_EXPR(10:14)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:14)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(10:14)]
-                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(10:14)]
+                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(10:14)]
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(10:11)]('"')
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(11:13)]('ns')
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(13:14)]('"')
@@ -21,7 +21,7 @@ XQueryModuleImpl[FILE(0:23)]
                         XQueryExprImpl[XQUERY_EXPR(16:22)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:22)]
                               XPathOrExprImpl[XQUERY_OR_EXPR(16:22)]
-                                 XPathStringLiteralImpl[XQUERY_STRING_LITERAL(16:22)]
+                                 XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:22)]
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(16:17)]('"')
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:21)]('test')
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(21:22)]('"')

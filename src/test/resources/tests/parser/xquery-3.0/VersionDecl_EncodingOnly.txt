@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:26)]
       PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')
       PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]
+      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]
          LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(16:17)]('"')
          LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:23)]('latin1')
          LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(23:24)]('"')

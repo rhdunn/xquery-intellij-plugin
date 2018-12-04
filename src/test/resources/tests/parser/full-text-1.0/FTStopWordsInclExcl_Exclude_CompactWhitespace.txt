@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:59)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(43:49)]('except')
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(49:58)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(50:57)]
+                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(50:57)]
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(50:51)]('"')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(51:56)]('lorem')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(56:57)]('"')

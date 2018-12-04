@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:59)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(39:40)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(41:46)]
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(41:46)]
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(41:42)]('"')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(42:45)]('key')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(45:46)]('"')

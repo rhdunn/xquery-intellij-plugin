@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:7)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
-               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]
+               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]
                   LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(0:1)]('"')
                   LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')
                   PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')

@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:18)]
                   PluginNamedNumberNodeTestImpl[XQUERY_NAMED_NUMBER_NODE_TEST(0:18)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(12:17)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(12:17)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(12:13)]('"')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(13:16)]('key')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(16:17)]('"')

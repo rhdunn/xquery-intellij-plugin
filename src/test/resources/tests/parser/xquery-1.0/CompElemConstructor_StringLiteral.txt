@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:21)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(8:13)]('XPST0003: String literal should be wrapped in braces, or be a qualified name.')
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(8:13)]
+                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(8:13)]
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(8:9)]('"')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(9:12)]('div')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(12:13)]('"')

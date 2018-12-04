@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:73)]
                XPathPITestImpl[XQUERY_PI_TEST(24:64)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(24:46)]('processing-instruction')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(46:47)]('(')
-                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(47:63)]
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(47:63)]
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(47:48)]('"')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(48:62)]('xml-stylesheet')
                      LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(62:63)]('"')

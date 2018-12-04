@@ -3,7 +3,7 @@ XQueryModuleImpl[FILE(0:5)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:5)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:5)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
-               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]
+               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]
                   LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(0:1)]('"')
                   PsiErrorElementImpl[ERROR_ELEMENT(1:4)]('XPST0003: Entity references must not be empty.')
                      LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:4)]('&#;')

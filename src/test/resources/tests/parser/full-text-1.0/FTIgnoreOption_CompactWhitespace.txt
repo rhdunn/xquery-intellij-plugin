@@ -21,7 +21,7 @@ XQueryModuleImpl[FILE(0:48)]
                                     FTPrimaryImpl[XQUERY_FT_PRIMARY(19:26)]
                                        FTWordsImpl[XQUERY_FT_WORDS(19:26)]
                                           FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(19:26)]
-                                             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
+                                             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(19:20)]('"')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                                                 LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(25:26)]('"')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:48)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITHOUT(26:33)]('without')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTENT(34:41)]('content')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(41:48)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(41:48)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(41:42)]('"')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(42:47)]('ipsum')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(47:48)]('"')

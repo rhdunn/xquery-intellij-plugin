@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:76)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(53:54)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(55:55)]('XPST0003: Expected ')'.')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(55:61)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(55:61)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(55:56)]('"')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(56:60)]('test')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(60:61)]('"')

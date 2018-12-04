@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:73)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   FTStopWordsImpl[XQUERY_FT_STOP_WORDS(34:43)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
-                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(35:36)]('"')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(36:41)]('lorem')
                         LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(41:42)]('"')
@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:73)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(43:48)]('union')
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(48:57)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(48:49)]('(')
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(49:56)]
+                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(49:56)]
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(49:50)]('"')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(50:55)]('ipsum')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(55:56)]('"')
@@ -33,7 +33,7 @@ XQueryModuleImpl[FILE(0:73)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(57:63)]('except')
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(63:72)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(63:64)]('(')
-                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(64:71)]
+                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(64:71)]
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(64:65)]('"')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(65:70)]('dolor')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(70:71)]('"')

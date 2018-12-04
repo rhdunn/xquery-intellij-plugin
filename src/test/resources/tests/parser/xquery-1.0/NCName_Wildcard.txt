@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:30)]
                PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(15:16)]
                   LeafPsiElement[XPATH_STAR_TOKEN(15:16)]('*')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(17:28)]
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(17:28)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(17:18)]('"')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(18:27)]('Test Case')
                LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(27:28)]('"')

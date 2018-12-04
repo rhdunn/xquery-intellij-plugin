@@ -53,7 +53,7 @@ object XQueryElementType {
 
     val STRING_LITERAL: IElementType = ICompositeElementType(
         "XQUERY_STRING_LITERAL",
-        XPathStringLiteralPsiImpl::class.java,
+        XQueryStringLiteralPsiImpl::class.java,
         XQuery
     )
     val ORDERED_EXPR: IElementType = ICompositeElementType(
