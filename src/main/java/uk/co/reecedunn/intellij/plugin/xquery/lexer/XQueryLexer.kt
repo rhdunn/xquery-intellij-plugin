@@ -147,7 +147,6 @@ private val KEYWORDS = mapOf(
         "preserve" to XQueryTokenType.K_PRESERVE,
         "previous" to XQueryTokenType.K_PREVIOUS, // XQuery 3.0
         "private" to XQueryTokenType.K_PRIVATE, // MarkLogic 6.0
-        "property" to XQueryTokenType.K_PROPERTY, // MarkLogic 6.0
         "public" to XQueryTokenType.K_PUBLIC, // XQuery 3.0 (§4.15 -- Annotations)
         "relationship" to XQueryTokenType.K_RELATIONSHIP, // Full Text 1.0
         "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0

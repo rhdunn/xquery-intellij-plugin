@@ -4006,7 +4006,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
             matchTokenType(XPathTokenType.K_FOLLOWING) ||
             matchTokenType(XPathTokenType.K_FOLLOWING_SIBLING) ||
             matchTokenType(XPathTokenType.K_NAMESPACE) ||
-            matchTokenType(XQueryTokenType.K_PROPERTY) ||
+            matchTokenType(XPathTokenType.K_PROPERTY) ||
             matchTokenType(XPathTokenType.K_SELF)
         ) {
             parseWhiteSpaceAndCommentTokens()

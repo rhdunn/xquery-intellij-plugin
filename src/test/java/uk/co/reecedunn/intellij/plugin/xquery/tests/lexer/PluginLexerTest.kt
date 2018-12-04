@@ -227,7 +227,7 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
         matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
         matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE) // XPath and MarkLogic
-        matchSingleToken(lexer, "property", XQueryTokenType.K_PROPERTY) // MarkLogic
+        matchSingleToken(lexer, "property", XPathTokenType.K_PROPERTY) // MarkLogic
         matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
         matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
     }

@@ -36,6 +36,23 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
+    fun forwardAxis() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
+        matchSingleToken(lexer, "child", XPathTokenType.K_CHILD)
+        matchSingleToken(lexer, "descendant", XPathTokenType.K_DESCENDANT)
+        matchSingleToken(lexer, "descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
+        matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
+        matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE) // XPath and MarkLogic
+        matchSingleToken(lexer, "property", XPathTokenType.K_PROPERTY) // MarkLogic
+        matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
+        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
     fun anyBooleanNodeTest() {
         val lexer = createLexer()

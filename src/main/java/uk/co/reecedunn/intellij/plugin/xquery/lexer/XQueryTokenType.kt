@@ -179,7 +179,6 @@ object XQueryTokenType {
     val K_PRESERVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE", XQuery) // XQuery 1.0
     val K_PRIVATE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRIVATE", XQuery) // MarkLogic 6.0
     val K_PREVIOUS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PREVIOUS", XQuery) // XQuery 3.0
-    val K_PROPERTY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY", XQuery) // MarkLogic 6.0
     val K_PUBLIC = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PUBLIC", XQuery) // XQuery 3.0 (§4.15 -- Annotations)
     val K_RELATIONSHIP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP", XQuery) // Full Text 1.0
     val K_RENAME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RENAME", XQuery) // Update Facility 1.0

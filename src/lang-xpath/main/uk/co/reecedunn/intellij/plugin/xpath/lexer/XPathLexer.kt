@@ -87,6 +87,7 @@ private val KEYWORDS = mapOf(
     "preceding" to XPathTokenType.K_PRECEDING, // XPath 1.0
     "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 1.0
     "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 1.0
+    "property" to XPathTokenType.K_PROPERTY, // MarkLogic 6.0
     "return" to XPathTokenType.K_RETURN, // XPath 2.0
     "satisfies" to XPathTokenType.K_SATISFIES, // XPath 2.0
     "schema-attribute" to XPathTokenType.K_SCHEMA_ATTRIBUTE, // XPath 2.0
