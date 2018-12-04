@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:22)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-            XPathQNameImpl[XQUERY_QNAME(13:18)]
+            XQueryQNameImpl[XQUERY_QNAME(13:18)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('a')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(14:15)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:18)]('int')

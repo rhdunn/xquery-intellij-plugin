@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:15)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
-                  XPathQNameImpl[XQUERY_QNAME(0:8)]
+                  XQueryQNameImpl[XQUERY_QNAME(0:8)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:4)]('math')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:8)]('pow')

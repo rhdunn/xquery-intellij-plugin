@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:33)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(9:11)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XPathTypeNameImpl[XQUERY_TYPE_NAME(12:22)]
-                     XPathQNameImpl[XQUERY_QNAME(12:22)]
+                     XQueryQNameImpl[XQUERY_QNAME(12:22)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:14)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(14:15)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:22)]('boolean')

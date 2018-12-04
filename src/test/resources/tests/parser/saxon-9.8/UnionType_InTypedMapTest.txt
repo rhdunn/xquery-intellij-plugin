@@ -20,13 +20,13 @@ XQueryModuleImpl[FILE(0:73)]
                   PluginUnionTypeImpl[XQUERY_UNION_TYPE(27:51)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(27:32)]('union')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
-                     XPathQNameImpl[XQUERY_QNAME(33:39)]
+                     XQueryQNameImpl[XQUERY_QNAME(33:39)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(33:35)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(35:36)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(36:39)]('int')
                      LeafPsiElement[XPATH_COMMA_TOKEN(39:40)](',')
                      PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-                     XPathQNameImpl[XQUERY_QNAME(41:50)]
+                     XQueryQNameImpl[XQUERY_QNAME(41:50)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(41:43)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(43:44)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(44:50)]('string')
@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:73)]
                   LeafPsiElement[XPATH_COMMA_TOKEN(51:52)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
                   XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(53:62)]
-                     XPathQNameImpl[XQUERY_QNAME(53:62)]
+                     XQueryQNameImpl[XQUERY_QNAME(53:62)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(53:55)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(55:56)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(56:62)]('string')

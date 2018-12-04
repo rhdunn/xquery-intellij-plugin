@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:61)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                  XPathQNameImpl[XQUERY_QNAME(38:48)]
+                  XQueryQNameImpl[XQUERY_QNAME(38:48)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(38:42)]('html')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(42:43)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(43:48)]('class')

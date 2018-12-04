@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:29)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(12:26)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(12:26)]
-                        XPathQNameImpl[XQUERY_QNAME(12:26)]
+                        XQueryQNameImpl[XQUERY_QNAME(12:26)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:17)]('error')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(17:18)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:26)]('XQST0084')

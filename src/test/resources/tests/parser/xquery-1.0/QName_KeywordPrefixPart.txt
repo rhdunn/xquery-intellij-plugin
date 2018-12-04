@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:32)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XPathQNameImpl[XQUERY_QNAME(15:24)]
+            XQueryQNameImpl[XQUERY_QNAME(15:24)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(15:20)]('order')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(20:21)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:24)]('two')

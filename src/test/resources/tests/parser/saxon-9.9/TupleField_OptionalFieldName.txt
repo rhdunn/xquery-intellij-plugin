@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:56)]
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(36:37)](':')
                      PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                      XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(38:47)]
-                        XPathQNameImpl[XQUERY_QNAME(38:47)]
+                        XQueryQNameImpl[XQUERY_QNAME(38:47)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(38:40)]('xs')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(40:41)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(41:47)]('string')

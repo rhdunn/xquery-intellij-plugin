@@ -42,7 +42,7 @@ object XQueryElementType {
     )
     val QNAME: IElementType = ICompositeElementType(
         "XQUERY_QNAME",
-        XPathQNamePsiImpl::class.java,
+        XQueryQNamePsiImpl::class.java,
         XQuery
     )
     val URI_LITERAL: IElementType = ICompositeElementType(

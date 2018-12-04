@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:52)]
                   PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected 'QName'.')
                   LeafPsiElement[XPATH_COMMA_TOKEN(32:33)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  XPathQNameImpl[XQUERY_QNAME(34:43)]
+                  XQueryQNameImpl[XQUERY_QNAME(34:43)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(34:36)]('xs')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(36:37)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(37:43)]('double')

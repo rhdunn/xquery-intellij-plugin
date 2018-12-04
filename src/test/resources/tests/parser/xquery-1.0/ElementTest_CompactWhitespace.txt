@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:52)]
                XPathElementTestImpl[XQUERY_ELEMENT_TEST(24:43)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(24:31)]('element')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
-                  XPathQNameImpl[XQUERY_QNAME(32:42)]
+                  XQueryQNameImpl[XQUERY_QNAME(32:42)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:36)]('html')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(36:37)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(37:42)]('class')

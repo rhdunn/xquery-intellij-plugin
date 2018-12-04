@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:58)]
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-         XPathQNameImpl[XQUERY_QNAME(17:24)]
+         XQueryQNameImpl[XQUERY_QNAME(17:24)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:20)]('one')
             PsiErrorElementImpl[ERROR_ELEMENT(20:21)]('XPST0003: Expected an identifier not a qualified name.')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(20:21)](':')

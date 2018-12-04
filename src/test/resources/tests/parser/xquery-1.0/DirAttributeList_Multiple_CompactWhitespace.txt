@@ -6,14 +6,14 @@ XQueryModuleImpl[FILE(0:35)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:35)]
                   XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:35)]
                      LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                     XPathQNameImpl[XQUERY_QNAME(1:4)]
+                     XQueryQNameImpl[XQUERY_QNAME(1:4)]
                         XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                         LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
                         XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
                      XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:33)]
                         XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
                         PluginDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(5:18)]
-                           XPathQNameImpl[XQUERY_QNAME(5:11)]
+                           XQueryQNameImpl[XQUERY_QNAME(5:11)]
                               XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(5:8)]('xml')
                               LeafPsiElement[XQUERY_XML_ATTRIBUTE_QNAME_SEPARATOR_TOKEN(8:9)](':')
                               XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(9:11)]('id')

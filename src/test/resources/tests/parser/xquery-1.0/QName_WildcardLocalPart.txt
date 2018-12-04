@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:29)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XPathQNameImpl[XQUERY_QNAME(15:21)]
+            XQueryQNameImpl[XQUERY_QNAME(15:21)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:19)]('sort')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
                PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Wildcard local name after ':' in qualified name.')

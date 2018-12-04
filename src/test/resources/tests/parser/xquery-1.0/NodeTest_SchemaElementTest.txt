@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:29)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                     XPathQNameImpl[XQUERY_QNAME(17:27)]
+                     XQueryQNameImpl[XQUERY_QNAME(17:27)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:19)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:27)]('boolean')

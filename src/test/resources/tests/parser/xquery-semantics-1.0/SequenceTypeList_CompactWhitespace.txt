@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:44)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(21:22)]('(')
                PluginSequenceTypeListImpl[XQUERY_SEQUENCE_TYPE_LIST(22:39)]
                   XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(22:32)]
-                     XPathQNameImpl[XQUERY_QNAME(22:32)]
+                     XQueryQNameImpl[XQUERY_QNAME(22:32)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:24)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(24:25)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:32)]('integer')

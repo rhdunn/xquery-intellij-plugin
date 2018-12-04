@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:52)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected ':'.')
                      XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(34:43)]
-                        XPathQNameImpl[XQUERY_QNAME(34:43)]
+                        XQueryQNameImpl[XQUERY_QNAME(34:43)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(34:36)]('xs')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(36:37)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(37:43)]('string')

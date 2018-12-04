@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:21)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:21)]
             XPathOrExprImpl[XQUERY_OR_EXPR(0:21)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:21)]
-                  XPathQNameImpl[XQUERY_QNAME(0:10)]
+                  XQueryQNameImpl[XQUERY_QNAME(0:10)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:10)]('boolean')

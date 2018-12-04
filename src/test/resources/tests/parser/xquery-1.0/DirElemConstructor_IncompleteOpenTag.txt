@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:4)]
                      LeafPsiElement[XPATH_LESS_THAN_TOKEN(0:1)]('<')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(1:4)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(1:4)]
-                        XPathQNameImpl[XQUERY_QNAME(1:4)]
+                        XQueryQNameImpl[XQUERY_QNAME(1:4)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('a')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:4)]('b')

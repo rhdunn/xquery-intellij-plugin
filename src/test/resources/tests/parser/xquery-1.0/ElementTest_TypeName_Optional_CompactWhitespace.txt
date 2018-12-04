@@ -16,13 +16,13 @@ XQueryModuleImpl[FILE(0:64)]
                XPathElementTestImpl[XQUERY_ELEMENT_TEST(24:55)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(24:31)]('element')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
-                  XPathQNameImpl[XQUERY_QNAME(32:42)]
+                  XQueryQNameImpl[XQUERY_QNAME(32:42)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:34)]('ns')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(34:35)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(35:42)]('enabled')
                   LeafPsiElement[XPATH_COMMA_TOKEN(42:43)](',')
                   XPathTypeNameImpl[XQUERY_TYPE_NAME(43:53)]
-                     XPathQNameImpl[XQUERY_QNAME(43:53)]
+                     XQueryQNameImpl[XQUERY_QNAME(43:53)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(43:45)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(45:46)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(46:53)]('boolean')

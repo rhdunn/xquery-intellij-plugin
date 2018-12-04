@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:20)]
                   XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:20)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                     XPathQNameImpl[XQUERY_QNAME(10:16)]
+                     XQueryQNameImpl[XQUERY_QNAME(10:16)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('xml')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:16)]('id')

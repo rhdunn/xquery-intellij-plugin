@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:15)]
                XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:15)]
                   XQueryPragmaImpl[XQUERY_PRAGMA(0:12)]
                      LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
-                     XPathQNameImpl[XQUERY_QNAME(2:10)]
+                     XQueryQNameImpl[XQUERY_QNAME(2:10)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:5)]('ext')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(5:6)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:10)]('test')

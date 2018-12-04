@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
@@ -25,9 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryEQNamePsiImpl
 
-class XPathQNamePsiImpl(node: ASTNode) :
+class XQueryQNamePsiImpl(node: ASTNode) :
     XQueryEQNamePsiImpl(node),
     XPathQName,
     XsQNameValue,

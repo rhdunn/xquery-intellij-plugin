@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:33)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-            XPathQNameImpl[XQUERY_QNAME(13:18)]
+            XQueryQNameImpl[XQUERY_QNAME(13:18)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('a')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(14:15)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:18)]('int')
@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:33)]
             LeafPsiElement[XPATH_EQUAL_TOKEN(19:20)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(21:31)]
-               XPathQNameImpl[XQUERY_QNAME(21:31)]
+               XQueryQNameImpl[XQUERY_QNAME(21:31)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:23)]('xs')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(23:24)](':')
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:31)]('integer')

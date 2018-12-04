@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:30)]
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable.')
             XPathOrExprImpl[XQUERY_OR_EXPR(8:20)]
                XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(8:19)]
-                  XPathQNameImpl[XQUERY_QNAME(8:15)]
+                  XQueryQNameImpl[XQUERY_QNAME(8:15)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(8:10)]('fn')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:15)]('true')

@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:27)]
                         XPathOrExprImpl[XQUERY_OR_EXPR(18:26)]
                            XPathNodeTestImpl[XQUERY_NODE_TEST(18:25)]
                               XPathNameTestImpl[XQUERY_NAME_TEST(18:25)]
-                                 XPathQNameImpl[XQUERY_QNAME(18:25)]
+                                 XQueryQNameImpl[XQUERY_QNAME(18:25)]
                                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:21)]('one')
                                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')
                                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:25)]('two')

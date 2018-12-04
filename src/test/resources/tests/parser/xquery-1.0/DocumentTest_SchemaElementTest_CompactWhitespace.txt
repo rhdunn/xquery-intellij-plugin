@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:74)]
                   XPathSchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(38:64)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(38:52)]('schema-element')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(52:53)]('(')
-                     XPathQNameImpl[XQUERY_QNAME(53:63)]
+                     XQueryQNameImpl[XQUERY_QNAME(53:63)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(53:55)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(55:56)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(56:63)]('integer')

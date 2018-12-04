@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:13)]
                      LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(4:6)]('::')
                   XPathNodeTestImpl[XQUERY_NODE_TEST(6:13)]
                      XPathNameTestImpl[XQUERY_NAME_TEST(6:13)]
-                        XPathQNameImpl[XQUERY_QNAME(6:13)]
+                        XQueryQNameImpl[XQUERY_QNAME(6:13)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:8)]('xh')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(8:9)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:13)]('body')
