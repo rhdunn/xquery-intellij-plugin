@@ -423,6 +423,12 @@ object XPathElementType {
         XPath
     )
 
+    val CURLY_ARRAY_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_CURLY_ARRAY_CONSTRUCTOR",
+        XPathCurlyArrayConstructorPsiImpl::class.java,
+        XPath
+    )
+
     val UNARY_LOOKUP: IElementType = ICompositeElementType(
         "XQUERY_UNARY_LOOKUP",
         XPathUnaryLookupPsiImpl::class.java,

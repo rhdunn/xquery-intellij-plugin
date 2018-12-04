@@ -4628,7 +4628,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) {
                 arrayConstructor.rollbackTo()
                 return false
             }
-            arrayConstructor.done(XQueryElementType.CURLY_ARRAY_CONSTRUCTOR)
+            arrayConstructor.done(XPathElementType.CURLY_ARRAY_CONSTRUCTOR)
             return true
         }
         return false

@@ -605,12 +605,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val CURLY_ARRAY_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_CURLY_ARRAY_CONSTRUCTOR",
-        XPathCurlyArrayConstructorPsiImpl::class.java,
-        XQuery
-    )
-
     val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_MAP_CONSTRUCTOR",
         XPathMapConstructorPsiImpl::class.java,
