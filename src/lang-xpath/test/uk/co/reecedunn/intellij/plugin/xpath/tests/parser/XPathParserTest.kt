@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -30,6 +31,11 @@ private class XPathParserTest : ParserTestCase() {
     fun parseResource(resource: String): XPath {
         val file = ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
+    }
+
+    fun loadResource(resource: String): String? {
+        val file = ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource)
+        return file.inputStream?.decode()
     }
 
     @Nested

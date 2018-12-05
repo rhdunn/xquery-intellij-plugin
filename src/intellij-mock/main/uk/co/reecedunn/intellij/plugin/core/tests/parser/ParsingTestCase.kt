@@ -188,15 +188,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         })
     }
 
-    fun loadResource(resource: String): String? {
-        val loader = ParsingTestCase::class.java.classLoader
-        return try {
-            loader.getResourceAsStream(resource).decode()
-        } catch (e: IOException) {
-            null
-        }
-    }
-
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
         val file = LightVirtualFile(name, language!!, text)
         file.charset = CharsetToolkit.UTF8_CHARSET

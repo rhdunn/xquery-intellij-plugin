@@ -21,6 +21,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -32,6 +34,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Static Context")
 private class XQueryStaticContextTest : ParserTestCase() {
+    override fun registerModules(manager: MockModuleManager) {
+        manager.addModule(ResourceVirtualFile(XQueryStaticContextTest::class.java.classLoader, "tests/module"))
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 (2.1.1) Statically known namespaces")
     internal inner class StaticallyKnownNamespaces {
@@ -1063,7 +1069,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>(
                         """
                         declare default function namespace "http://example.com/test";
-                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        import module namespace t = "http://example.com/test" at "/namespaces/ModuleDecl.xq";
                         func()
                         """
                     )[1]
@@ -1276,7 +1282,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>(
                         """
                         declare default function namespace "http://example.com/test";
-                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        import module namespace t = "http://example.com/test" at "/namespaces/ModuleDecl.xq";
                         func#0
                         """
                     )[1]
@@ -1489,7 +1495,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>(
                         """
                         declare default function namespace "http://example.com/test";
-                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        import module namespace t = "http://example.com/test" at "/namespaces/ModuleDecl.xq";
                         () => func()
                         """
                     )[1]

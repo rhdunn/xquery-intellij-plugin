@@ -38,6 +38,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 abstract class ParserTestCase :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
+    open fun registerModules(manager: MockModuleManager) {}
+
     @BeforeAll
     override fun setUp() {
         super.setUp()
@@ -47,7 +49,7 @@ abstract class ParserTestCase :
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
 
         val manager = MockModuleManager(myProject)
-        manager.addModule(ResourceVirtualFile(ParserTestCase::class.java.classLoader, "tests"))
+        registerModules(manager)
         myProject.registerService(ModuleManager::class.java, manager)
     }
 

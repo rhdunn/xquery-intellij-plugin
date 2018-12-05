@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -40,6 +41,10 @@ private class XQueryPsiTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(XQueryPsiTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
+    }
+
+    override fun registerModules(manager: MockModuleManager) {
+        manager.addModule(ResourceVirtualFile(XQueryPsiTest::class.java.classLoader, "tests/module"))
     }
 
     @Nested
@@ -1974,7 +1979,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun moduleRoot() {
                     val psi = parse<XQueryModuleImport>(
                         """
-                        import module "http://example.com/test" at "/resolve/files/test.xq";
+                        import module "http://example.com/test" at "/files/test.xq";
                         ()
                         """
                     )[0]
@@ -1982,7 +1987,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val prologs = (psi as XQueryPrologResolver).prolog.toList()
                     assertThat(prologs.size, `is`(1))
 
-                    assertThat(prologs[0].resourcePath(), endsWith("/tests/resolve/files/test.xq"))
+                    assertThat(prologs[0].resourcePath(), endsWith("/tests/module/files/test.xq"))
                 }
             }
         }

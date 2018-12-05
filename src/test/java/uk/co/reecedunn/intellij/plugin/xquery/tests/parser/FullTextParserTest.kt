@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -29,6 +30,11 @@ private class FullTextParserTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
+    }
+
+    fun loadResource(resource: String): String? {
+        val file = ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource)
+        return file.inputStream?.decode()
     }
 
     // region Full Text 1.0 :: FTOptionDecl + FTMatchOptions
