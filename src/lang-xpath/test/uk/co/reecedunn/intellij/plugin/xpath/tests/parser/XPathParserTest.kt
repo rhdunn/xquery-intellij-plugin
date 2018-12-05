@@ -72,4 +72,24 @@ private class XPathParserTest : ParserTestCase() {
         val actual = parseResource("tests/parser/xpath-1.0/DecimalLiteral.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (73) DoubleLiteral")
+    internal inner class DoubleLiteral {
+        @Test
+        @DisplayName("double literal")
+        fun doubleLiteral() {
+            val expected = loadResource("tests/parser/xpath-2.0/DoubleLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/DoubleLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("double literal with incomplete exponent")
+        fun incompleteExponent() {
+            val expected = loadResource("tests/parser/xpath-2.0/DoubleLiteral_IncompleteExponent.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/DoubleLiteral_IncompleteExponent.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

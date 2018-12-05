@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -71,7 +72,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr
 
-    fun parseOrExpr(builder: PsiBuilder): Boolean {
+    private fun parseOrExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseNumericLiteral(builder)) {
             marker.done(XPathElementType.OR_EXPR)
@@ -85,8 +86,19 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
     fun parseNumericLiteral(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-                builder.matchTokenType(XPathTokenType.DECIMAL_LITERAL)
+        if (
+            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
+            builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL)
+        ) {
+            return true
+        } else if (builder.matchTokenType(XPathTokenType.DECIMAL_LITERAL)) {
+            builder.errorOnTokenType(
+                XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
+                XPathBundle.message("parser.error.incomplete-double-exponent")
+            )
+            return true
+        }
+        return false
     }
 
     // endregion

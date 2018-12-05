@@ -5006,23 +5006,24 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // region XQuery 1.0 :: DoubleLiteral
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (143) DoubleLiteral")
+    internal inner class DoubleLiteral {
+        @Test
+        fun doubleLiteral() {
+            val expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testDoubleLiteral() {
-        val expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        fun incompleteExponent() {
+            val expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testDoubleLiteral_IncompleteExponent() {
-        val expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: StringLiteral
 
     @Test

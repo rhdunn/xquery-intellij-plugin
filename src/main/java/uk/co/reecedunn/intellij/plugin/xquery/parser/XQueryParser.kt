@@ -4199,17 +4199,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseLiteral(): Boolean {
-        return parseNumericLiteral() || parseStringLiteral(XQueryElementType.STRING_LITERAL)
-    }
-
-    private fun parseNumericLiteral(): Boolean {
-        if (matchTokenType(XPathTokenType.INTEGER_LITERAL) || matchTokenType(XPathTokenType.DOUBLE_LITERAL)) {
-            return true
-        } else if (matchTokenType(XPathTokenType.DECIMAL_LITERAL)) {
-            errorOnTokenType(XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"))
-            return true
-        }
-        return false
+        return parseNumericLiteral(builder) || parseStringLiteral(XQueryElementType.STRING_LITERAL)
     }
 
     private fun parseVarRef(type: IElementType?): Boolean {
