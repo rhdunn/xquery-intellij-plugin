@@ -20,4 +20,4 @@ import com.intellij.psi.PsiFile
 /**
  * An XPath 2.0 `XPath` node in the XPath AST.
  */
-interface XPath : PsiFile
+interface XPath : PsiFile, XPathExpr
