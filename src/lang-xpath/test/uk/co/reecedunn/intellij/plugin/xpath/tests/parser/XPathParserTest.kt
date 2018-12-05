@@ -64,4 +64,12 @@ private class XPathParserTest : ParserTestCase() {
         val actual = parseResource("tests/parser/xpath-1.0/IntegerLiteral.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
+
+    @Test
+    @DisplayName("XPath 1.0 EBNF (43) DecimalLiteral")
+    fun decimalLiteral() {
+        val expected = loadResource("tests/parser/xpath-1.0/DecimalLiteral.txt")
+        val actual = parseResource("tests/parser/xpath-1.0/DecimalLiteral.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
 }

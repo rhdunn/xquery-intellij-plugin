@@ -85,7 +85,8 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
     fun parseNumericLiteral(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.INTEGER_LITERAL)
+        return builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
+                builder.matchTokenType(XPathTokenType.DECIMAL_LITERAL)
     }
 
     // endregion
