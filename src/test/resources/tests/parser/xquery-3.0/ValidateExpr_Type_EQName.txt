@@ -2,13 +2,13 @@ XQueryModuleImpl[FILE(0:60)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:60)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:60)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:60)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:60)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:60)]
                XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:60)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(9:13)]('type')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XPathTypeNameImpl[XQUERY_TYPE_NAME(14:49)]
+                  XPathTypeNameImpl[XPATH_TYPE_NAME(14:49)]
                      XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(14:49)]
                         XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(14:45)]
                            LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(14:16)]('Q{')
@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:60)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                   XQueryExprImpl[XQUERY_EXPR(52:59)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(52:59)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(52:59)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(52:59)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(52:58)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(52:53)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(53:57)]('true')

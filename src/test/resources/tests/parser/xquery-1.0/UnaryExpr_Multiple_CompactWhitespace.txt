@@ -2,14 +2,14 @@ XQueryModuleImpl[FILE(0:9)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:9)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:9)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:9)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:4)]
-               XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+               XPathUnaryExprImpl[XPATH_UNARY_EXPR(0:4)]
                   LeafPsiElement[XPATH_PLUS_TOKEN(0:1)]('+')
                   LeafPsiElement[XPATH_PLUS_TOKEN(1:2)]('+')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:4)]('10')
             LeafPsiElement[XPATH_COMMA_TOKEN(4:5)](',')
-            XPathOrExprImpl[XQUERY_OR_EXPR(5:9)]
-               XPathUnaryExprImpl[XQUERY_UNARY_EXPR(5:9)]
+            XPathOrExprImpl[XPATH_OR_EXPR(5:9)]
+               XPathUnaryExprImpl[XPATH_UNARY_EXPR(5:9)]
                   LeafPsiElement[XPATH_MINUS_TOKEN(5:6)]('-')
                   LeafPsiElement[XPATH_MINUS_TOKEN(6:7)]('-')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:9)]('10')

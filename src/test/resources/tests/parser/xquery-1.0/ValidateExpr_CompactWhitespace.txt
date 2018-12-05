@@ -2,13 +2,13 @@ XQueryModuleImpl[FILE(0:16)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:16)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:16)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:16)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:16)]
                XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:16)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(8:9)]('{')
                   XQueryExprImpl[XQUERY_EXPR(9:15)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:15)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(9:15)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(9:15)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(9:15)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(9:10)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(10:14)]('true')

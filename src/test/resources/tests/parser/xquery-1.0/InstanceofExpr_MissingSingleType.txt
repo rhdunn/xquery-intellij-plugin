@@ -2,8 +2,8 @@ XQueryModuleImpl[FILE(0:14)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:14)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:14)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:14)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:14)]
-               XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:14)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:14)]
+               XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:14)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:2)]('25')
                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')

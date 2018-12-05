@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:44)]
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:43)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-               XPathVarNameImpl[XQUERY_VAR_NAME(17:19)]
+               XPathVarNameImpl[XPATH_VAR_NAME(17:19)]
                   XQueryNCNameImpl[XQUERY_NCNAME(17:19)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:18)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
@@ -20,14 +20,14 @@ XQueryModuleImpl[FILE(0:44)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(27:30)]('for')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(31:40)]
+                  XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(31:40)]
                      XQueryQNameImpl[XQUERY_QNAME(31:40)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:33)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(33:34)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(34:40)]('string')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(40:42)](':=')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(42:43)]
-                  XPathOrExprImpl[XQUERY_OR_EXPR(42:43)]
+                  XPathOrExprImpl[XPATH_OR_EXPR(42:43)]
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(42:43)]('2')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(43:44)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(44:44)]('XPST0003: Missing query body.')

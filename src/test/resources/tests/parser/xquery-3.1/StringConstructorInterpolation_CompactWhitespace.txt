@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:21)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:21)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:21)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:21)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:21)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:21)]
                XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:21)]
                   LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
                   XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:18)]
@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:21)]
                         LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(7:9)]('`{')
                         XQueryExprImpl[XQUERY_EXPR(9:10)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:10)]
-                              XPathOrExprImpl[XQUERY_OR_EXPR(9:10)]
+                              XPathOrExprImpl[XPATH_OR_EXPR(9:10)]
                                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')
                         LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(10:12)]('}`')
                      LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(12:18)](' Three')

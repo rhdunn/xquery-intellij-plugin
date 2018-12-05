@@ -2,23 +2,23 @@ XQueryModuleImpl[FILE(0:17)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:17)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:17)]
-               XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:17)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:17)]
+               XPathMapConstructorImpl[XPATH_MAP_CONSTRUCTOR(0:17)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(6:16)]
-                     XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(6:10)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(6:10)]
+                  XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(6:16)]
+                     XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(6:10)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(6:10)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(6:9)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(6:7)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(7:8)]('1')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(8:9)]('"')
                            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
-                     XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(10:16)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(10:16)]
+                     XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(10:16)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(10:16)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(10:15)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(10:11)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(11:14)]('one')

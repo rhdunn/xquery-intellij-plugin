@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:37)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:37)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:37)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:37)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:37)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:37)]
                XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:37)]
                   XQueryPragmaImpl[XQUERY_PRAGMA(0:33)]
                      LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')

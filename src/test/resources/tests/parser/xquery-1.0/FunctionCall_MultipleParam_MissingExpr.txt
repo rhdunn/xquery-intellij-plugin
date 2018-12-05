@@ -2,18 +2,18 @@ XQueryModuleImpl[FILE(0:15)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:15)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:15)]
                   XQueryQNameImpl[XQUERY_QNAME(0:8)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:4)]('math')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:8)]('pow')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(9:15)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(9:15)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                     XPathArgumentImpl[XQUERY_ARGUMENT(11:12)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(11:12)]
+                     XPathArgumentImpl[XPATH_ARGUMENT(11:12)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(11:12)]
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(11:12)]('2')
                      LeafPsiElement[XPATH_COMMA_TOKEN(12:13)](',')
                      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')

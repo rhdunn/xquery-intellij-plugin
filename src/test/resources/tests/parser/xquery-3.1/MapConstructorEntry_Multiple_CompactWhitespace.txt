@@ -2,35 +2,35 @@ XQueryModuleImpl[FILE(0:24)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:24)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:24)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:24)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:24)]
-               XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:24)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:24)]
+               XPathMapConstructorImpl[XPATH_MAP_CONSTRUCTOR(0:24)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
-                  XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(4:13)]
-                     XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(4:7)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(4:7)]
+                  XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(4:13)]
+                     XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(4:7)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(4:7)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(4:7)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(4:5)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(5:6)]('1')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(6:7)]('"')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(7:8)](':')
-                     XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(8:13)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(8:13)]
+                     XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(8:13)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(8:13)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(8:13)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(8:9)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(9:12)]('one')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(12:13)]('"')
                   LeafPsiElement[XPATH_COMMA_TOKEN(13:14)](',')
-                  XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(14:23)]
-                     XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(14:17)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(14:17)]
+                  XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(14:23)]
+                     XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(14:17)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(14:17)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(14:17)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(14:15)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(15:16)]('2')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(16:17)]('"')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(17:18)](':')
-                     XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(18:23)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(18:23)]
+                     XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(18:23)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(18:23)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(18:23)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(18:19)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(19:22)]('two')

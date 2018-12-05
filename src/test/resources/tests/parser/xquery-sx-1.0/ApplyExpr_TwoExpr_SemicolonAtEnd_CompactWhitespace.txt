@@ -2,16 +2,16 @@ XQueryModuleImpl[FILE(0:6)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:6)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:6)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:6)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:6)]
-               XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:6)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
+               XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(0:6)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
                   XQueryExprImpl[XQUERY_EXPR(1:5)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(1:2)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(1:2)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(1:2)]
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(1:2)]('2')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(3:4)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(3:4)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(3:4)]
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('3')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(5:6)](')')

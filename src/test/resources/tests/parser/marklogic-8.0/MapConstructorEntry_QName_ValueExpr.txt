@@ -2,26 +2,26 @@ XQueryModuleImpl[FILE(0:27)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:27)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:27)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:27)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:27)]
-               XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:27)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:27)]
+               XPathMapConstructorImpl[XPATH_MAP_CONSTRUCTOR(0:27)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(14:26)]
-                     XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(14:16)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(14:16)]
-                           XPathNodeTestImpl[XQUERY_NODE_TEST(14:16)]
-                              XPathNameTestImpl[XQUERY_NAME_TEST(14:16)]
+                  XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(14:26)]
+                     XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(14:16)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(14:16)]
+                           XPathNodeTestImpl[XPATH_NODE_TEST(14:16)]
+                              XPathNameTestImpl[XPATH_NAME_TEST(14:16)]
                                  XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
                                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('a')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(16:17)](':')
                      PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                     XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(18:26)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(18:26)]
-                           XPathNodeTestImpl[XQUERY_NODE_TEST(18:25)]
-                              XPathNameTestImpl[XQUERY_NAME_TEST(18:25)]
+                     XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(18:26)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(18:26)]
+                           XPathNodeTestImpl[XPATH_NODE_TEST(18:25)]
+                              XPathNameTestImpl[XPATH_NAME_TEST(18:25)]
                                  XQueryQNameImpl[XQUERY_QNAME(18:25)]
                                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:21)]('one')
                                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')

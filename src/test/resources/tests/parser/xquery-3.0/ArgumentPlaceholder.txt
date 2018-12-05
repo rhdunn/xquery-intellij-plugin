@@ -2,15 +2,15 @@ XQueryModuleImpl[FILE(0:11)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:11)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:11)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:11)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:11)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:11)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:11)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:11)]
                   XQueryQNameImpl[XQUERY_QNAME(0:8)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:4)]('math')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:8)]('sin')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(8:11)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(8:11)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-                     XPathArgumentImpl[XQUERY_ARGUMENT(9:10)]
-                        XPathArgumentPlaceholderImpl[XQUERY_ARGUMENT_PLACEHOLDER(9:10)]
+                     XPathArgumentImpl[XPATH_ARGUMENT(9:10)]
+                        XPathArgumentPlaceholderImpl[XPATH_ARGUMENT_PLACEHOLDER(9:10)]
                            LeafPsiElement[XPATH_OPTIONAL_TOKEN(9:10)]('?')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')

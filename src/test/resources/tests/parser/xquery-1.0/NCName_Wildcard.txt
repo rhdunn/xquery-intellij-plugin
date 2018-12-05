@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:30)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XQueryNCNameImpl[XQUERY_NCNAME(15:17)]
                PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected qualified name or identifier, not a wildcard.')
-               PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(15:16)]
+               PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(15:16)]
                   LeafPsiElement[XPATH_STAR_TOKEN(15:16)]('*')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(17:28)]

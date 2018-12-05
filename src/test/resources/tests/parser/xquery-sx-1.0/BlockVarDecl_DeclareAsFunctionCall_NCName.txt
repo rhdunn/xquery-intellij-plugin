@@ -23,12 +23,12 @@ XQueryModuleImpl[FILE(0:51)]
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(36:36)]
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(36:48)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(36:48)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(36:48)]
-                           XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(36:47)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(36:48)]
+                           XPathFunctionCallImpl[XPATH_FUNCTION_CALL(36:47)]
                               XQueryNCNameImpl[XQUERY_NCNAME(36:44)]
                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                              XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(44:47)]
+                              XPathArgumentListImpl[XPATH_ARGUMENT_LIST(44:47)]
                                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(46:47)](')')

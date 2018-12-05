@@ -2,17 +2,17 @@ XQueryModuleImpl[FILE(0:14)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:14)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:14)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:14)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:14)]
-               XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:14)]
-                  XPathVarRefImpl[XQUERY_VAR_REF(0:5)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:14)]
+               XPathRelativePathExprImpl[XPATH_RELATIVE_PATH_EXPR(0:14)]
+                  XPathVarRefImpl[XPATH_VAR_REF(0:5)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                     XPathVarNameImpl[XQUERY_VAR_NAME(1:5)]
+                     XPathVarNameImpl[XPATH_VAR_NAME(1:5)]
                         XQueryNCNameImpl[XQUERY_NCNAME(1:5)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:5)]('test')
                   LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(5:6)]('/')
-                  XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(6:14)]
+                  XPathFunctionCallImpl[XPATH_FUNCTION_CALL(6:14)]
                      XQueryNCNameImpl[XQUERY_NCNAME(6:12)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:12)]('string')
-                     XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(12:14)]
+                     XPathArgumentListImpl[XPATH_ARGUMENT_LIST(12:14)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(13:14)](')')

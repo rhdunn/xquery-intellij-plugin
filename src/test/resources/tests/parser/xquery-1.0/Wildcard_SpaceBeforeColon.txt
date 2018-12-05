@@ -2,11 +2,11 @@ XQueryModuleImpl[FILE(0:7)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:7)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:7)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:7)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:7)]
-               XPathNodeTestImpl[XQUERY_NODE_TEST(0:7)]
-                  XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
-                     XPathWildcardImpl[XQUERY_WILDCARD(0:7)]
-                        PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(0:1)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:7)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:7)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:7)]
+                     XPathWildcardImpl[XPATH_WILDCARD(0:7)]
+                        PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(0:1)]
                            LeafPsiElement[XPATH_STAR_TOKEN(0:1)]('*')
                         PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: Whitespace is not allowed before ':' in a wildcard.')
                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')

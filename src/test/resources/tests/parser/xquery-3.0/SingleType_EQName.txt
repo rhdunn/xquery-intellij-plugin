@@ -2,16 +2,16 @@ XQueryModuleImpl[FILE(0:46)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:46)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:46)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:46)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:46)]
-               XPathCastExprImpl[XQUERY_CAST_EXPR(0:46)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:46)]
+               XPathCastExprImpl[XPATH_CAST_EXPR(0:46)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:2)]('25')
                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(8:10)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                  XPathSingleTypeImpl[XQUERY_SINGLE_TYPE(11:46)]
-                     XPathSimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(11:46)]
+                  XPathSingleTypeImpl[XPATH_SINGLE_TYPE(11:46)]
+                     XPathSimpleTypeNameImpl[XPATH_SIMPLE_TYPE_NAME(11:46)]
                         XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(11:46)]
                            XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(11:42)]
                               LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(11:13)]('Q{')

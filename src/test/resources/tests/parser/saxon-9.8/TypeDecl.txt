@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:33)]
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             LeafPsiElement[XPATH_EQUAL_TOKEN(19:20)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-            XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(21:31)]
+            XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(21:31)]
                XQueryQNameImpl[XQUERY_QNAME(21:31)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:23)]('xs')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(23:24)](':')

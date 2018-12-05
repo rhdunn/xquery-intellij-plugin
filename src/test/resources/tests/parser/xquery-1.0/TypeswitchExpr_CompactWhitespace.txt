@@ -7,10 +7,10 @@ XQueryModuleImpl[FILE(0:51)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                XQueryExprImpl[XQUERY_EXPR(11:13)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:13)]
-                     XPathOrExprImpl[XQUERY_OR_EXPR(11:13)]
-                        XPathVarRefImpl[XQUERY_VAR_REF(11:13)]
+                     XPathOrExprImpl[XPATH_OR_EXPR(11:13)]
+                        XPathVarRefImpl[XPATH_VAR_REF(11:13)]
                            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
-                           XPathVarNameImpl[XQUERY_VAR_NAME(12:13)]
+                           XPathVarNameImpl[XPATH_VAR_NAME(12:13)]
                               XQueryNCNameImpl[XQUERY_NCNAME(12:13)]
                                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('x')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
@@ -18,13 +18,13 @@ XQueryModuleImpl[FILE(0:51)]
                XQueryCaseClauseImpl[XQUERY_CASE_CLAUSE(15:35)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(15:19)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(20:26)]
+                  PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(20:26)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(20:24)]('item')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(25:26)](')')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(26:32)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                  XPathOrExprImpl[XQUERY_OR_EXPR(33:35)]
+                  XPathOrExprImpl[XPATH_OR_EXPR(33:35)]
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('1')
                      PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                PluginDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(35:51)]
@@ -32,5 +32,5 @@ XQueryModuleImpl[FILE(0:51)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(43:49)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-                  XPathOrExprImpl[XQUERY_OR_EXPR(50:51)]
+                  XPathOrExprImpl[XPATH_OR_EXPR(50:51)]
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(50:51)]('2')

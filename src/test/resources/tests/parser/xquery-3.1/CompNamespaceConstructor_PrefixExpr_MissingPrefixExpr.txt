@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:24)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:24)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:24)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:24)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:24)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:24)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:24)]
                   XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:24)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:24)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                         XQueryExprImpl[XQUERY_EXPR(16:23)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:23)]
-                              XPathOrExprImpl[XQUERY_OR_EXPR(16:23)]
+                              XPathOrExprImpl[XPATH_OR_EXPR(16:23)]
                                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:22)]
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(16:17)]('"')
                                     LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(17:21)]('test')

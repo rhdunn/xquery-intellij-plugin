@@ -1,5 +1,5 @@
 XQueryModuleImpl[FILE(0:95)]
-   XPathCommentImpl[XQUERY_COMMENT(0:37)]
+   XPathCommentImpl[XPATH_COMMENT(0:37)]
       LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(0:2)]('(:')
       PsiCommentImpl[XPATH_COMMENT_TOKEN(2:35)](' Reserved Function Name -- array ')
       LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(35:37)](':)')
@@ -7,15 +7,15 @@ XQueryModuleImpl[FILE(0:95)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(38:95)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(38:95)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(38:95)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(38:95)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
+            XPathOrExprImpl[XPATH_OR_EXPR(38:95)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(38:58)]
                   XQueryNCNameImpl[XQUERY_NCNAME(38:56)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(56:58)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(56:58)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(56:57)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(57:58)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(58:59)]('\n')
-               XPathCommentImpl[XQUERY_COMMENT(59:94)]
+               XPathCommentImpl[XPATH_COMMENT(59:94)]
                   LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(59:61)]('(:')
                   PsiCommentImpl[XPATH_COMMENT_TOKEN(61:92)](' Reserved Function Name -- map ')
                   LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(92:94)](':)')

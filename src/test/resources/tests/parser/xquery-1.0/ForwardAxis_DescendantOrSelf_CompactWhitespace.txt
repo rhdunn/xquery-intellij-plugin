@@ -2,12 +2,12 @@ XQueryModuleImpl[FILE(0:24)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:24)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:24)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:24)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:24)]
-               XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:24)]
-                  XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:20)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:24)]
+               XPathForwardStepImpl[XPATH_FORWARD_STEP(0:24)]
+                  XPathForwardAxisImpl[XPATH_FORWARD_AXIS(0:20)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(0:18)]('descendant-or-self')
                      LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(18:20)]('::')
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(20:24)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(20:24)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(20:24)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(20:24)]
                         XQueryNCNameImpl[XQUERY_NCNAME(20:24)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:24)]('para')

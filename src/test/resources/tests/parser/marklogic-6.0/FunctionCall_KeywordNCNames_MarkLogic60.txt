@@ -2,40 +2,40 @@ XQueryModuleImpl[FILE(0:48)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:48)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:48)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:48)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:9)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:8)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:9)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:8)]
                   XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(6:8)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(9:10)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(10:11)]('\n')
-            XPathOrExprImpl[XQUERY_OR_EXPR(11:21)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(11:20)]
+            XPathOrExprImpl[XPATH_OR_EXPR(11:21)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(11:20)]
                   XQueryNCNameImpl[XQUERY_NCNAME(11:18)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRIVATE(11:18)]('private')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(18:20)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(18:20)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(19:20)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(21:22)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)]('\n')
-            XPathOrExprImpl[XQUERY_OR_EXPR(23:34)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(23:33)]
+            XPathOrExprImpl[XPATH_OR_EXPR(23:34)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(23:33)]
                   XQueryNCNameImpl[XQUERY_NCNAME(23:31)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROPERTY(23:31)]('property')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(31:33)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(31:33)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(34:35)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)]('\n')
-            XPathOrExprImpl[XQUERY_OR_EXPR(36:48)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(36:48)]
+            XPathOrExprImpl[XPATH_OR_EXPR(36:48)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(36:48)]
                   XQueryNCNameImpl[XQUERY_NCNAME(36:46)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STYLESHEET(36:46)]('stylesheet')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(46:48)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(46:48)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(46:47)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(47:48)](')')

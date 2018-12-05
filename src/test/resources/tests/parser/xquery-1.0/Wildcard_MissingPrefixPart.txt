@@ -2,9 +2,9 @@ XQueryModuleImpl[FILE(0:2)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:2)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:2)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:2)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:2)]
-               XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                  XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:2)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
                      PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Missing prefix before ':' in qualified name.')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(0:1)](':')
                         LeafPsiElement[XPATH_STAR_TOKEN(1:2)]('*')

@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:18)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:18)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:18)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:18)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:18)]
                   XQueryCompElemConstructorImpl[XQUERY_COMP_ELEM_CONSTRUCTOR(0:18)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')

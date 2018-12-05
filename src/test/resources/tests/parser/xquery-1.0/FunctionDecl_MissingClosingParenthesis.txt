@@ -14,8 +14,8 @@ XQueryModuleImpl[FILE(0:37)]
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               XPathParamListImpl[XQUERY_PARAM_LIST(27:36)]
-                  XPathParamImpl[XQUERY_PARAM(27:36)]
+               XPathParamListImpl[XPATH_PARAM_LIST(27:36)]
+                  XPathParamImpl[XPATH_PARAM(27:36)]
                      PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected '$'.')
                      XQueryNCNameImpl[XQUERY_NCNAME(27:36)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(27:35)]('external')

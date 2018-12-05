@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:15)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:15)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
                   XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:15)]
                      LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')

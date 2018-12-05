@@ -2,8 +2,8 @@ XQueryModuleImpl[FILE(0:34)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:34)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:34)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:34)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:34)]
-               XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:34)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:34)]
+               XPathInlineFunctionExprImpl[XPATH_INLINE_FUNCTION_EXPR(0:34)]
                   XQueryAnnotationImpl[XQUERY_ANNOTATION(0:9)]
                      LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:34)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                      XQueryExprImpl[XQUERY_EXPR(31:33)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(31:33)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(31:33)]
+                           XPathOrExprImpl[XPATH_OR_EXPR(31:33)]
                               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(31:32)]('2')
                               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                      LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(33:34)]('}')

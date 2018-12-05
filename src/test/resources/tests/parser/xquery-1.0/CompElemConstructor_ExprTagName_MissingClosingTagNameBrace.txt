@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:23)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:23)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:23)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:23)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:23)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:23)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:23)]
                   XQueryCompElemConstructorImpl[XQUERY_COMP_ELEM_CONSTRUCTOR(0:23)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:23)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      XQueryExprImpl[XQUERY_EXPR(10:16)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:16)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(10:16)]
+                           XPathOrExprImpl[XPATH_OR_EXPR(10:16)]
                               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(10:15)]
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(10:11)]('"')
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(11:14)]('div')
@@ -23,8 +23,8 @@ XQueryModuleImpl[FILE(0:23)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                         XQueryExprImpl[XQUERY_EXPR(18:22)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(18:22)]
-                              XPathOrExprImpl[XQUERY_OR_EXPR(18:22)]
-                                 XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(18:21)]
+                              XPathOrExprImpl[XPATH_OR_EXPR(18:22)]
+                                 XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(18:21)]
                                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(20:21)](')')

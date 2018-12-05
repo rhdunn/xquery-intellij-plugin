@@ -10,13 +10,13 @@ XQueryModuleImpl[FILE(0:41)]
                XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:21)]('test')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(21:22)]('(')
-               XPathParamListImpl[XQUERY_PARAM_LIST(22:31)]
-                  XPathParamImpl[XQUERY_PARAM(22:26)]
+               XPathParamListImpl[XPATH_PARAM_LIST(22:31)]
+                  XPathParamImpl[XPATH_PARAM(22:26)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
                      XQueryNCNameImpl[XQUERY_NCNAME(23:26)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:26)]('one')
                   LeafPsiElement[XPATH_COMMA_TOKEN(26:27)](',')
-                  XPathParamImpl[XQUERY_PARAM(27:31)]
+                  XPathParamImpl[XPATH_PARAM(27:31)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
                      XQueryNCNameImpl[XQUERY_NCNAME(28:31)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:31)]('two')

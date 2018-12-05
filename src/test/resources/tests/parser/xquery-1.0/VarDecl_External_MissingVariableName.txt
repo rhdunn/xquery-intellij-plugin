@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:29)]
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               XPathVarNameImpl[XQUERY_VAR_NAME(19:28)]
+               XPathVarNameImpl[XPATH_VAR_NAME(19:28)]
                   XQueryNCNameImpl[XQUERY_NCNAME(19:28)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(19:27)]('external')
                      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')

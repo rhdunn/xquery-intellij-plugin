@@ -2,23 +2,23 @@ XQueryModuleImpl[FILE(0:10)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:10)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:10)]
-               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:10)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:10)]
+               XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:10)]
                   PluginSimpleInlineFunctionExprImpl[XQUERY_SIMPLE_INLINE_FUNCTION_EXPR(0:7)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
                      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(2:3)]('{')
                      XQueryExprImpl[XQUERY_EXPR(3:6)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(3:6)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(3:6)]
-                              XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(3:6)]
-                                 XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(3:4)]
+                           XPathOrExprImpl[XPATH_OR_EXPR(3:6)]
+                              XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(3:6)]
+                                 XPathContextItemExprImpl[XPATH_CONTEXT_ITEM_EXPR(3:4)]
                                     LeafPsiElement[XPATH_DOT_TOKEN(3:4)]('.')
                                  LeafPsiElement[XPATH_PLUS_TOKEN(4:5)]('+')
                                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('1')
                      LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(6:7)]('}')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(7:10)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(7:10)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
-                     XPathArgumentImpl[XQUERY_ARGUMENT(8:9)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(8:9)]
+                     XPathArgumentImpl[XPATH_ARGUMENT(8:9)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(8:9)]
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('2')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(9:10)](')')

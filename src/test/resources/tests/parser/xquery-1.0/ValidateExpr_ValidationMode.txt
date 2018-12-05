@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:52)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:52)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:52)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:52)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:24)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:24)]
                XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:23)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:52)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                   XQueryExprImpl[XQUERY_EXPR(15:22)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(15:22)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(15:22)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(15:22)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:21)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(15:16)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(16:20)]('true')
@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:52)]
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(24:25)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-            XPathOrExprImpl[XQUERY_OR_EXPR(26:52)]
+            XPathOrExprImpl[XPATH_OR_EXPR(26:52)]
                XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(26:52)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(26:34)]('validate')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
@@ -32,7 +32,7 @@ XQueryModuleImpl[FILE(0:52)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                   XQueryExprImpl[XQUERY_EXPR(44:51)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(44:51)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(44:51)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(44:51)]
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(44:50)]
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(44:45)]('"')
                               LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(45:49)]('true')

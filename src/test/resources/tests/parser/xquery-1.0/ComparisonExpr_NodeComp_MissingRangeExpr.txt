@@ -2,10 +2,10 @@ XQueryModuleImpl[FILE(0:18)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:18)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:5)]
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(0:2)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:5)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:5)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
@@ -14,10 +14,10 @@ XQueryModuleImpl[FILE(0:18)]
                   PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'FTContainsExpr'.')
             LeafPsiElement[XPATH_COMMA_TOKEN(5:6)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            XPathOrExprImpl[XQUERY_OR_EXPR(7:12)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(7:12)]
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(7:9)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(7:9)]
+            XPathOrExprImpl[XPATH_OR_EXPR(7:12)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(7:12)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(7:9)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(7:9)]
                         XQueryNCNameImpl[XQUERY_NCNAME(7:9)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
@@ -26,10 +26,10 @@ XQueryModuleImpl[FILE(0:18)]
                   PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'FTContainsExpr'.')
             LeafPsiElement[XPATH_COMMA_TOKEN(12:13)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-            XPathOrExprImpl[XQUERY_OR_EXPR(14:18)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:18)]
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(14:16)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(14:16)]
+            XPathOrExprImpl[XPATH_OR_EXPR(14:18)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(14:18)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(14:16)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(14:16)]
                         XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')

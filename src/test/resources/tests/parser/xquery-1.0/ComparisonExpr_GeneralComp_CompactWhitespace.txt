@@ -2,38 +2,38 @@ XQueryModuleImpl[FILE(0:26)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:26)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:26)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:26)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:3)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:3)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:3)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:3)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
                   LeafPsiElement[XPATH_EQUAL_TOKEN(1:2)]('=')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('2')
             LeafPsiElement[XPATH_COMMA_TOKEN(3:4)](',')
-            XPathOrExprImpl[XQUERY_OR_EXPR(4:8)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(4:8)]
+            XPathOrExprImpl[XPATH_OR_EXPR(4:8)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(4:8)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('1')
                   LeafPsiElement[XPATH_NOT_EQUAL_TOKEN(5:7)]('!=')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('2')
             LeafPsiElement[XPATH_COMMA_TOKEN(8:9)](',')
-            XPathOrExprImpl[XQUERY_OR_EXPR(9:12)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:12)]
+            XPathOrExprImpl[XPATH_OR_EXPR(9:12)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(9:12)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('1')
                   LeafPsiElement[XPATH_LESS_THAN_TOKEN(10:11)]('<')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(11:12)]('2')
             LeafPsiElement[XPATH_COMMA_TOKEN(12:13)](',')
-            XPathOrExprImpl[XQUERY_OR_EXPR(13:17)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:17)]
+            XPathOrExprImpl[XPATH_OR_EXPR(13:17)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(13:17)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('1')
                   LeafPsiElement[XPATH_LESS_THAN_OR_EQUAL_TOKEN(14:16)]('<=')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('2')
             LeafPsiElement[XPATH_COMMA_TOKEN(17:18)](',')
-            XPathOrExprImpl[XQUERY_OR_EXPR(18:21)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(18:21)]
+            XPathOrExprImpl[XPATH_OR_EXPR(18:21)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(18:21)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(18:19)]('1')
                   LeafPsiElement[XPATH_GREATER_THAN_TOKEN(19:20)]('>')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(20:21)]('2')
             LeafPsiElement[XPATH_COMMA_TOKEN(21:22)](',')
-            XPathOrExprImpl[XQUERY_OR_EXPR(22:26)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(22:26)]
+            XPathOrExprImpl[XPATH_OR_EXPR(22:26)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(22:26)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(22:23)]('1')
                   LeafPsiElement[XPATH_GREATER_THAN_OR_EQUAL_TOKEN(23:25)]('>=')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(25:26)]('2')

@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:25)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:25)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:25)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:25)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:25)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:25)]
                   XQueryCompElemConstructorImpl[XQUERY_COMP_ELEM_CONSTRUCTOR(0:25)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:25)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      XQueryExprImpl[XQUERY_EXPR(10:16)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:16)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(10:16)]
+                           XPathOrExprImpl[XPATH_OR_EXPR(10:16)]
                               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(10:15)]
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(10:11)]('"')
                                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(11:14)]('div')
@@ -24,8 +24,8 @@ XQueryModuleImpl[FILE(0:25)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         XQueryExprImpl[XQUERY_EXPR(20:24)]
                            ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(20:24)]
-                              XPathOrExprImpl[XQUERY_OR_EXPR(20:24)]
-                                 XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(20:23)]
+                              XPathOrExprImpl[XPATH_OR_EXPR(20:24)]
+                                 XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(20:23)]
                                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(22:23)](')')

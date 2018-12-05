@@ -20,8 +20,8 @@ XQueryModuleImpl[FILE(0:37)]
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(33:33)]
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(33:35)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(33:35)]
-                        XPathOrExprImpl[XQUERY_OR_EXPR(33:35)]
-                           XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(33:35)]
+                        XPathOrExprImpl[XPATH_OR_EXPR(33:35)]
+                           XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(33:35)]
                               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
                               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(34:35)](')')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(35:36)]('}')

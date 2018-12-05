@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:16)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:16)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:16)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:16)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:16)]
                XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:16)]
                   XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:16)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')

@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:11)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:11)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:11)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:11)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:11)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:11)]
                XPathDecimalLiteralImpl[XPATH_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')
                PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')
                   LeafPsiElement[XPATH_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')

@@ -2,10 +2,10 @@ XQueryModuleImpl[FILE(0:75)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:75)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:75)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:75)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:75)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:75)]
                FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:75)]
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(0:6)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')

@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:1)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:1)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:1)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:1)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:1)]
-               XPathVarRefImpl[XQUERY_VAR_REF(0:1)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:1)]
+               XPathVarRefImpl[XPATH_VAR_REF(0:1)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                   PsiErrorElementImpl[ERROR_ELEMENT(1:1)]('XPST0003: Missing qualified name or braced URI qualified name.')

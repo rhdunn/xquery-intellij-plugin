@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:27)]
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(21:23)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             XQueryVarValueImpl[XQUERY_VAR_VALUE(24:26)]
-               XPathOrExprImpl[XQUERY_OR_EXPR(24:26)]
+               XPathOrExprImpl[XPATH_OR_EXPR(24:26)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(24:25)]('2')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(26:27)](';')

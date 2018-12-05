@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:54)]
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               XPathVarNameImpl[XQUERY_VAR_NAME(19:21)]
+               XPathVarNameImpl[XPATH_VAR_NAME(19:21)]
                   XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:54)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                PluginSequenceTypeListImpl[XQUERY_SEQUENCE_TYPE_LIST(26:48)]
-                  XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:36)]
+                  XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(26:36)]
                      XQueryQNameImpl[XQUERY_QNAME(26:36)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:28)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(28:29)](':')
@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:54)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                   LeafPsiElement[XPATH_COMMA_TOKEN(37:38)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                  PluginAnyItemTypeImpl[XQUERY_ANY_ITEM_TYPE(39:47)]
+                  PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(39:47)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(39:43)]('item')
                      PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:54)]
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(48:50)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(51:53)]
-                  XPathOrExprImpl[XQUERY_OR_EXPR(51:53)]
+                  XPathOrExprImpl[XPATH_OR_EXPR(51:53)]
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(51:52)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(53:54)](';')

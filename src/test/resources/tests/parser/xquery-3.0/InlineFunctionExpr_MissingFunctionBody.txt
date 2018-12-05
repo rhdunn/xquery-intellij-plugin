@@ -2,8 +2,8 @@ XQueryModuleImpl[FILE(0:12)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:12)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:12)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:12)]
-               XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:12)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:12)]
+               XPathInlineFunctionExprImpl[XPATH_INLINE_FUNCTION_EXPR(0:12)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')

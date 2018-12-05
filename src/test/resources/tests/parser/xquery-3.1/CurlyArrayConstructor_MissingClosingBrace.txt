@@ -2,8 +2,8 @@ XQueryModuleImpl[FILE(0:9)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:9)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:9)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:9)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:9)]
-               XPathCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:9)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:9)]
+               XPathCurlyArrayConstructorImpl[XPATH_CURLY_ARRAY_CONSTRUCTOR(0:9)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(6:9)]
@@ -11,6 +11,6 @@ XQueryModuleImpl[FILE(0:9)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      XQueryExprImpl[XQUERY_EXPR(8:9)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:9)]
-                           XPathOrExprImpl[XQUERY_OR_EXPR(8:9)]
+                           XPathOrExprImpl[XPATH_OR_EXPR(8:9)]
                               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
                      PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected '}'.')

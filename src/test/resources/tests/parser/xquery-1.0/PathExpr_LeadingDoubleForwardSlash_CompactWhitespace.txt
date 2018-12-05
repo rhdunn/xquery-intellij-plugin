@@ -2,18 +2,18 @@ XQueryModuleImpl[FILE(0:15)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:15)]
-               XPathPathExprImpl[XQUERY_PATH_EXPR(0:15)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:15)]
+               XPathPathExprImpl[XPATH_PATH_EXPR(0:15)]
                   LeafPsiElement[XPATH_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
-                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(2:15)]
-                     XPathNodeTestImpl[XQUERY_NODE_TEST(2:6)]
-                        XPathNameTestImpl[XQUERY_NAME_TEST(2:6)]
+                  XPathRelativePathExprImpl[XPATH_RELATIVE_PATH_EXPR(2:15)]
+                     XPathNodeTestImpl[XPATH_NODE_TEST(2:6)]
+                        XPathNameTestImpl[XPATH_NAME_TEST(2:6)]
                            XQueryNCNameImpl[XQUERY_NCNAME(2:6)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')
                      LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(6:7)]('/')
-                     XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]
+                     XPathFunctionCallImpl[XPATH_FUNCTION_CALL(7:15)]
                         XQueryNCNameImpl[XQUERY_NCNAME(7:13)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:13)]('string')
-                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(13:15)]
+                        XPathArgumentListImpl[XPATH_ARGUMENT_LIST(13:15)]
                            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
                            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')

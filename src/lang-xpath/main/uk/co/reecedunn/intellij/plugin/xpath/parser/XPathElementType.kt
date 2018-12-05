@@ -31,169 +31,169 @@ object XPathElementType {
     val XPATH = IFileElementType(XPath)
 
     val OR_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_OR_EXPR",
+        "XPATH_OR_EXPR",
         XPathOrExprPsiImpl::class.java,
         XPath
     )
 
     val AND_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_AND_EXPR",
+        "XPATH_AND_EXPR",
         XPathAndExprPsiImpl::class.java,
         XPath
     )
 
     val ADDITIVE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ADDITIVE_EXPR",
+        "XPATH_ADDITIVE_EXPR",
         XPathAdditiveExprPsiImpl::class.java,
         XPath
     )
 
     val MULTIPLICATIVE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_MULTIPLICATIVE_EXPR",
+        "XPATH_MULTIPLICATIVE_EXPR",
         XPathMultiplicativeExprPsiImpl::class.java,
         XPath
     )
 
     val UNARY_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_UNARY_EXPR",
+        "XPATH_UNARY_EXPR",
         XPathUnaryExprPsiImpl::class.java,
         XPath
     )
 
     val UNION_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_UNION_EXPR",
+        "XPATH_UNION_EXPR",
         XPathUnionExprPsiImpl::class.java,
         XPath
     )
 
     val PATH_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_PATH_EXPR",
+        "XPATH_PATH_EXPR",
         XPathPathExprPsiImpl::class.java,
         XPath
     )
 
     val RELATIVE_PATH_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_RELATIVE_PATH_EXPR",
+        "XPATH_RELATIVE_PATH_EXPR",
         XPathRelativePathExprPsiImpl::class.java,
         XPath
     )
 
     val AXIS_STEP: IElementType = ICompositeElementType(
-        "XQUERY_AXIS_STEP",
+        "XPATH_AXIS_STEP",
         XPathAxisStepPsiImpl::class.java,
         XPath
     )
 
     val FORWARD_STEP: IElementType = ICompositeElementType(
-        "XQUERY_FORWARD_STEP",
+        "XPATH_FORWARD_STEP",
         XPathForwardStepPsiImpl::class.java,
         XPath
     )
 
     val FORWARD_AXIS: IElementType = ICompositeElementType(
-        "XQUERY_FORWARD_AXIS",
+        "XPATH_FORWARD_AXIS",
         XPathForwardAxisPsiImpl::class.java,
         XPath
     )
 
     val ABBREV_FORWARD_STEP: IElementType = ICompositeElementType(
-        "XQUERY_ABBREV_FORWARD_STEP",
+        "XPATH_ABBREV_FORWARD_STEP",
         XPathAbbrevForwardStepPsiImpl::class.java,
         XPath
     )
 
     val REVERSE_STEP: IElementType = ICompositeElementType(
-        "XQUERY_REVERSE_STEP",
+        "XPATH_REVERSE_STEP",
         XPathReverseStepPsiImpl::class.java,
         XPath
     )
 
     val REVERSE_AXIS: IElementType = ICompositeElementType(
-        "XQUERY_REVERSE_AXIS",
+        "XPATH_REVERSE_AXIS",
         XPathReverseAxisPsiImpl::class.java,
         XPath
     )
 
     val ABBREV_REVERSE_STEP: IElementType = ICompositeElementType(
-        "XQUERY_ABBREV_REVERSE_STEP",
+        "XPATH_ABBREV_REVERSE_STEP",
         XPathAbbrevReverseStepPsiImpl::class.java,
         XPath
     )
 
     val NODE_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NODE_TEST",
+        "XPATH_NODE_TEST",
         XPathNodeTestPsiImpl::class.java,
         XPath
     )
 
     val NAME_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NAME_TEST",
+        "XPATH_NAME_TEST",
         XPathNameTestPsiImpl::class.java,
         XPath
     )
 
     val WILDCARD: IElementType = ICompositeElementType(
-        "XQUERY_WILDCARD",
+        "XPATH_WILDCARD",
         XPathWildcardPsiImpl::class.java,
         XPath
     )
 
     val PREDICATE_LIST: IElementType = ICompositeElementType(
-        "XQUERY_PREDICATE_LIST",
+        "XPATH_PREDICATE_LIST",
         XPathPredicateListPsiImpl::class.java,
         XPath
     )
 
     val PREDICATE: IElementType = ICompositeElementType(
-        "XQUERY_PREDICATE",
+        "XPATH_PREDICATE",
         XPathPredicatePsiImpl::class.java,
         XPath
     )
 
     val VAR_REF: IElementType = ICompositeElementType(
-        "XQUERY_VAR_REF",
+        "XPATH_VAR_REF",
         XPathVarRefPsiImpl::class.java,
         XPath
     )
 
     val VAR_NAME: IElementType = ICompositeElementType(
-        "XQUERY_VAR_NAME",
+        "XPATH_VAR_NAME",
         XPathVarNamePsiImpl::class.java,
         XPath
     )
 
     val PARENTHESIZED_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_PARENTHESIZED_EXPR",
+        "XPATH_PARENTHESIZED_EXPR",
         XPathParenthesizedExprPsiImpl::class.java,
         XPath
     )
 
     val CONTEXT_ITEM_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_CONTEXT_ITEM_EXPR",
+        "XPATH_CONTEXT_ITEM_EXPR",
         XPathContextItemExprPsiImpl::class.java,
         XPath
     )
 
     val FUNCTION_CALL: IElementType = ICompositeElementType(
-        "XQUERY_FUNCTION_CALL",
+        "XPATH_FUNCTION_CALL",
         XPathFunctionCallPsiImpl::class.java,
         XPath
     )
 
     val ANY_KIND_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_KIND_TEST",
+        "XPATH_ANY_KIND_TEST",
         XPathAnyKindTestPsiImpl::class.java,
         XPath
     )
 
     val COMMENT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_COMMENT_TEST",
+        "XPATH_COMMENT_TEST",
         XPathCommentTestPsiImpl::class.java,
         XPath
     )
 
     val PI_TEST: IElementType = ICompositeElementType(
-        "XQUERY_PI_TEST",
+        "XPATH_PI_TEST",
         XPathPITestPsiImpl::class.java,
         XPath
     )
@@ -202,121 +202,121 @@ object XPathElementType {
     // region XPath 2.0
 
     val QUANTIFIED_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_QUANTIFIED_EXPR",
+        "XPATH_QUANTIFIED_EXPR",
         XPathQuantifiedExprPsiImpl::class.java,
         XPath
     )
 
     val IF_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_IF_EXPR",
+        "XPATH_IF_EXPR",
         XPathIfExprPsiImpl::class.java,
         XPath
     )
 
     val COMPARISON_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_COMPARISON_EXPR",
+        "XPATH_COMPARISON_EXPR",
         XPathComparisonExprPsiImpl::class.java,
         XPath
     )
 
     val RANGE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_RANGE_EXPR",
+        "XPATH_RANGE_EXPR",
         XPathRangeExprPsiImpl::class.java,
         XPath
     )
 
     val INTERSECT_EXCEPT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_INTERSECT_EXCEPT_EXPR",
+        "XPATH_INTERSECT_EXCEPT_EXPR",
         XPathIntersectExceptExprPsiImpl::class.java,
         XPath
     )
 
     val INSTANCEOF_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_INSTANCEOF_EXPR",
+        "XPATH_INSTANCEOF_EXPR",
         XPathInstanceofExprPsiImpl::class.java,
         XPath
     )
 
     val TREAT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_TREAT_EXPR",
+        "XPATH_TREAT_EXPR",
         XPathTreatExprPsiImpl::class.java,
         XPath
     )
 
     val CASTABLE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_CASTABLE_EXPR",
+        "XPATH_CASTABLE_EXPR",
         XPathCastableExprPsiImpl::class.java,
         XPath
     )
 
     val CAST_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_CAST_EXPR",
+        "XPATH_CAST_EXPR",
         XPathCastExprPsiImpl::class.java,
         XPath
     )
 
     val SINGLE_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_SINGLE_TYPE",
+        "XPATH_SINGLE_TYPE",
         XPathSingleTypePsiImpl::class.java,
         XPath
     )
 
     val SEQUENCE_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_SEQUENCE_TYPE",
+        "XPATH_SEQUENCE_TYPE",
         XPathSequenceTypePsiImpl::class.java,
         XPath
     )
 
     val DOCUMENT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_DOCUMENT_TEST",
+        "XPATH_DOCUMENT_TEST",
         XPathDocumentTestPsiImpl::class.java,
         XPath
     )
 
     val NAMESPACE_NODE_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NAMESPACE_NODE_TEST",
+        "XPATH_NAMESPACE_NODE_TEST",
         XPathNamespaceNodeTestPsiImpl::class.java,
         XPath
     )
 
     val ATTRIBUTE_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ATTRIBUTE_TEST",
+        "XPATH_ATTRIBUTE_TEST",
         XPathAttributeTestPsiImpl::class.java,
         XPath
     )
 
     val SCHEMA_ATTRIBUTE_TEST: IElementType = ICompositeElementType(
-        "XQUERY_SCHEMA_ATTRIBUTE_TEST",
+        "XPATH_SCHEMA_ATTRIBUTE_TEST",
         XPathSchemaAttributeTestPsiImpl::class.java,
         XPath
     )
 
     val ELEMENT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ELEMENT_TEST",
+        "XPATH_ELEMENT_TEST",
         XPathElementTestPsiImpl::class.java,
         XPath
     )
 
     val SCHEMA_ELEMENT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_SCHEMA_ELEMENT_TEST",
+        "XPATH_SCHEMA_ELEMENT_TEST",
         XPathSchemaElementTestPsiImpl::class.java,
         XPath
     )
 
     val SIMPLE_TYPE_NAME: IElementType = ICompositeElementType(
-        "XQUERY_SIMPLE_TYPE_NAME",
+        "XPATH_SIMPLE_TYPE_NAME",
         XPathSimpleTypeNamePsiImpl::class.java,
         XPath
     )
 
     val TYPE_NAME: IElementType = ICompositeElementType(
-        "XQUERY_TYPE_NAME",
+        "XPATH_TYPE_NAME",
         XPathTypeNamePsiImpl::class.java,
         XPath
     )
 
     val COMMENT: IElementType = ICompositeElementType(
-        "XQUERY_COMMENT",
+        "XPATH_COMMENT",
         XPathCommentPsiImpl::class.java,
         XPath
     )
@@ -325,73 +325,73 @@ object XPathElementType {
     // region XPath 3.0
 
     val PARAM_LIST: IElementType = ICompositeElementType(
-        "XQUERY_PARAM_LIST",
+        "XPATH_PARAM_LIST",
         XPathParamListPsiImpl::class.java,
         XPath
     )
 
     val PARAM: IElementType = ICompositeElementType(
-        "XQUERY_PARAM",
+        "XPATH_PARAM",
         XPathParamPsiImpl::class.java,
         XPath
     )
 
     val STRING_CONCAT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_STRING_CONCAT_EXPR",
+        "XPATH_STRING_CONCAT_EXPR",
         XPathStringConcatExprPsiImpl::class.java,
         XPath
     )
 
     val SIMPLE_MAP_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_SIMPLE_MAP_EXPR",
+        "XPATH_SIMPLE_MAP_EXPR",
         XPathSimpleMapExprPsiImpl::class.java,
         XPath
     )
 
     val POSTFIX_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_POSTFIX_EXPR",
+        "XPATH_POSTFIX_EXPR",
         XPathPostfixExprPsiImpl::class.java,
         XPath
     )
 
     val ARGUMENT_LIST: IElementType = ICompositeElementType(
-        "XQUERY_ARGUMENT_LIST",
+        "XPATH_ARGUMENT_LIST",
         XPathArgumentListPsiImpl::class.java,
         XPath
     )
 
     val ARGUMENT: IElementType = ICompositeElementType(
-        "XQUERY_ARGUMENT",
+        "XPATH_ARGUMENT",
         XPathArgumentPsiImpl::class.java,
         XPath
     )
 
     val ARGUMENT_PLACEHOLDER: IElementType = ICompositeElementType(
-        "XQUERY_ARGUMENT_PLACEHOLDER",
+        "XPATH_ARGUMENT_PLACEHOLDER",
         XPathArgumentPlaceholderPsiImpl::class.java,
         XPath
     )
 
     val NAMED_FUNCTION_REF: IElementType = ICompositeElementType(
-        "XQUERY_NAMED_FUNCTION_REF",
+        "XPATH_NAMED_FUNCTION_REF",
         XPathNamedFunctionRefPsiImpl::class.java,
         XPath
     )
 
     val INLINE_FUNCTION_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_INLINE_FUNCTION_EXPR",
+        "XPATH_INLINE_FUNCTION_EXPR",
         XPathInlineFunctionExprPsiImpl::class.java,
         XPath
     )
 
     val ATOMIC_OR_UNION_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_ATOMIC_OR_UNION_TYPE",
+        "XPATH_ATOMIC_OR_UNION_TYPE",
         XPathAtomicOrUnionTypePsiImpl::class.java,
         XPath
     )
 
     val PARENTHESIZED_ITEM_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_PARENTHESIZED_ITEM_TYPE",
+        "XPATH_PARENTHESIZED_ITEM_TYPE",
         XPathParenthesizedItemTypePsiImpl::class.java,
         XPath
     )
@@ -400,91 +400,91 @@ object XPathElementType {
     // region XPath 3.1
 
     val ARROW_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ARROW_EXPR",
+        "XPATH_ARROW_EXPR",
         XPathArrowExprPsiImpl::class.java,
         XPath
     )
 
     val LOOKUP: IElementType = ICompositeElementType(
-        "XQUERY_LOOKUP",
+        "XPATH_LOOKUP",
         XPathLookupPsiImpl::class.java,
         XPath
     )
 
     val KEY_SPECIFIER: IElementType = ICompositeElementType(
-        "XQUERY_KEY_SPECIFIER",
+        "XPATH_KEY_SPECIFIER",
         XPathKeySpecifierPsiImpl::class.java,
         XPath
     )
 
     val ARROW_FUNCTION_SPECIFIER: IElementType = ICompositeElementType(
-        "XQUERY_ARROW_FUNCTION_SPECIFIER",
+        "XPATH_ARROW_FUNCTION_SPECIFIER",
         XPathArrowFunctionSpecifierPsiImpl::class.java,
         XPath
     )
 
     val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_MAP_CONSTRUCTOR",
+        "XPATH_MAP_CONSTRUCTOR",
         XPathMapConstructorPsiImpl::class.java,
         XPath
     )
 
     val MAP_CONSTRUCTOR_ENTRY: IElementType = ICompositeElementType(
-        "XQUERY_MAP_CONSTRUCTOR_ENTRY",
+        "XPATH_MAP_CONSTRUCTOR_ENTRY",
         XPathMapConstructorEntryPsiImpl::class.java,
         XPath
     )
 
     val MAP_KEY_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_MAP_KEY_EXPR",
+        "XPATH_MAP_KEY_EXPR",
         XPathMapKeyExprPsiImpl::class.java,
         XPath
     )
 
     val MAP_VALUE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_MAP_VALUE_EXPR",
+        "XPATH_MAP_VALUE_EXPR",
         XPathMapValueExprPsiImpl::class.java,
         XPath
     )
 
     val SQUARE_ARRAY_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_SQUARE_ARRAY_CONSTRUCTOR",
+        "XPATH_SQUARE_ARRAY_CONSTRUCTOR",
         XPathSquareArrayConstructorPsiImpl::class.java,
         XPath
     )
 
     val CURLY_ARRAY_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_CURLY_ARRAY_CONSTRUCTOR",
+        "XPATH_CURLY_ARRAY_CONSTRUCTOR",
         XPathCurlyArrayConstructorPsiImpl::class.java,
         XPath
     )
 
     val UNARY_LOOKUP: IElementType = ICompositeElementType(
-        "XQUERY_UNARY_LOOKUP",
+        "XPATH_UNARY_LOOKUP",
         XPathUnaryLookupPsiImpl::class.java,
         XPath
     )
 
     val ANY_MAP_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_MAP_TEST",
+        "XPATH_ANY_MAP_TEST",
         XPathAnyMapTestPsiImpl::class.java,
         XPath
     )
 
     val TYPED_MAP_TEST: IElementType = ICompositeElementType(
-        "XQUERY_TYPED_MAP_TEST",
+        "XPATH_TYPED_MAP_TEST",
         XPathTypedMapTestPsiImpl::class.java,
         XPath
     )
 
     val ANY_ARRAY_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_ARRAY_TEST",
+        "XPATH_ANY_ARRAY_TEST",
         XPathAnyArrayTestPsiImpl::class.java,
         XPath
     )
 
     val TYPED_ARRAY_TEST: IElementType = ICompositeElementType(
-        "XQUERY_TYPED_ARRAY_TEST",
+        "XPATH_TYPED_ARRAY_TEST",
         XPathTypedArrayTestPsiImpl::class.java,
         XPath
     )
@@ -493,25 +493,25 @@ object XPathElementType {
     // region XQuery IntelliJ Plugin
 
     val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType(
-        "XQUERY_QUANTIFIED_EXPR_BINDING",
+        "XPATH_QUANTIFIED_EXPR_BINDING",
         PluginQuantifiedExprBindingPsiImpl::class.java,
         XPath
     )
 
     val ANY_TEXT_TEST: IElementType = ICompositeElementType(
-        "XQUERY_ANY_TEXT_TEST",
+        "XPATH_ANY_TEXT_TEST",
         PluginAnyTextTestPsiImpl::class.java,
         XPath
     )
 
     val WILDCARD_INDICATOR: IElementType = ICompositeElementType(
-        "XQUERY_WILDCARD_INDICATOR",
+        "XPATH_WILDCARD_INDICATOR",
         PluginWildcardIndicatorPsiImpl::class.java,
         XPath
     )
 
     val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
-        "XQUERY_ANY_ITEM_TYPE",
+        "XPATH_ANY_ITEM_TYPE",
         PluginAnyItemTypePsiImpl::class.java,
         XPath
     )

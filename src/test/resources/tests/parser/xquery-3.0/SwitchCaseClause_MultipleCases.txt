@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:52)]
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                XQueryExprImpl[XQUERY_EXPR(9:11)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:11)]
-                     XPathOrExprImpl[XQUERY_OR_EXPR(9:11)]
+                     XPathOrExprImpl[XPATH_OR_EXPR(9:11)]
                         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')
                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
@@ -18,23 +18,23 @@ XQueryModuleImpl[FILE(0:52)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(13:17)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                   XQuerySwitchCaseOperandImpl[XQUERY_SWITCH_CASE_OPERAND(18:20)]
-                     XPathOrExprImpl[XQUERY_OR_EXPR(18:20)]
+                     XPathOrExprImpl[XPATH_OR_EXPR(18:20)]
                         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(18:19)]('0')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(20:24)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   XQuerySwitchCaseOperandImpl[XQUERY_SWITCH_CASE_OPERAND(25:27)]
-                     XPathOrExprImpl[XQUERY_OR_EXPR(25:27)]
+                     XPathOrExprImpl[XPATH_OR_EXPR(25:27)]
                         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(25:26)]('1')
                         PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(27:33)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  XPathOrExprImpl[XQUERY_OR_EXPR(34:36)]
+                  XPathOrExprImpl[XPATH_OR_EXPR(34:36)]
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(34:35)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(44:50)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-               XPathOrExprImpl[XQUERY_OR_EXPR(51:52)]
+               XPathOrExprImpl[XPATH_OR_EXPR(51:52)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(51:52)]('3')

@@ -9,14 +9,14 @@ XQueryModuleImpl[FILE(0:53)]
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(4:23)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                     XPathVarNameImpl[XQUERY_VAR_NAME(6:8)]
+                     XPathVarNameImpl[XPATH_VAR_NAME(6:8)]
                         XQueryNCNameImpl[XQUERY_NCNAME(6:8)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(8:10)](':=')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                     XPathOrExprImpl[XQUERY_OR_EXPR(11:23)]
-                        XPathNamedFunctionRefImpl[XQUERY_NAMED_FUNCTION_REF(11:22)]
+                     XPathOrExprImpl[XPATH_OR_EXPR(11:23)]
+                        XPathNamedFunctionRefImpl[XPATH_NAMED_FUNCTION_REF(11:22)]
                            XQueryQNameImpl[XQUERY_QNAME(11:18)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FN(11:13)]('fn')
                               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
@@ -29,9 +29,9 @@ XQueryModuleImpl[FILE(0:53)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(23:48)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(23:29)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                  XPathOrExprImpl[XQUERY_OR_EXPR(30:48)]
-                     XPathNodeTestImpl[XQUERY_NODE_TEST(30:48)]
-                        XPathNameTestImpl[XQUERY_NAME_TEST(30:48)]
+                  XPathOrExprImpl[XPATH_OR_EXPR(30:48)]
+                     XPathNodeTestImpl[XPATH_NODE_TEST(30:48)]
+                        XPathNameTestImpl[XPATH_NAME_TEST(30:48)]
                            XQueryNCNameImpl[XQUERY_NCNAME(30:48)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(30:47)]('non-deterministic')
                               PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
@@ -39,12 +39,12 @@ XQueryModuleImpl[FILE(0:53)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(48:53)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(48:53)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(48:53)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(48:53)]
-               XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(48:53)]
+            XPathOrExprImpl[XPATH_OR_EXPR(48:53)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(48:53)]
                   XQueryNCNameImpl[XQUERY_NCNAME(48:50)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(48:49)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-                  XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(50:53)]
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(50:53)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(50:51)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(52:53)](')')

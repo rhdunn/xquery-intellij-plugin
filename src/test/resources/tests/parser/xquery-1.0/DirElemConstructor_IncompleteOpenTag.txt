@@ -2,12 +2,12 @@ XQueryModuleImpl[FILE(0:4)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:4)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:4)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:4)]
-               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:4)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:4)]
                   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Comparison without left-hand expression, or incomplete direct element constructor.')
                      LeafPsiElement[XPATH_LESS_THAN_TOKEN(0:1)]('<')
-                  XPathNodeTestImpl[XQUERY_NODE_TEST(1:4)]
-                     XPathNameTestImpl[XQUERY_NAME_TEST(1:4)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(1:4)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(1:4)]
                         XQueryQNameImpl[XQUERY_QNAME(1:4)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('a')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')

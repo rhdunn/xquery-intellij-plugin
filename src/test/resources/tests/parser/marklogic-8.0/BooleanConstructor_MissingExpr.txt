@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:16)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:16)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:16)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:16)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:16)]
                PluginBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:16)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
                   PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')

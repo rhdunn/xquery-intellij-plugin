@@ -2,13 +2,13 @@ XQueryModuleImpl[FILE(0:32)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:32)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:32)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:32)]
-            XPathOrExprImpl[XQUERY_OR_EXPR(0:32)]
-               XPathNodeTestImpl[XQUERY_NODE_TEST(0:32)]
-                  XPathNameTestImpl[XQUERY_NAME_TEST(0:32)]
-                     XPathWildcardImpl[XQUERY_WILDCARD(0:32)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:32)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:32)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:32)]
+                     XPathWildcardImpl[XPATH_WILDCARD(0:32)]
                         XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
                            LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
                            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
                            LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
-                        PluginWildcardIndicatorImpl[XQUERY_WILDCARD_INDICATOR(31:32)]
+                        PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(31:32)]
                            LeafPsiElement[XPATH_STAR_TOKEN(31:32)]('*')
