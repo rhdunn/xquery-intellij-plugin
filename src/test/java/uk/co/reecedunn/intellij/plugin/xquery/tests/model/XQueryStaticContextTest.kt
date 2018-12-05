@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery 3.1 - Static Context")
 private class XQueryStaticContextTest : ParserTestCase() {
     override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(ResourceVirtualFile(XQueryStaticContextTest::class.java.classLoader, "tests"))
+        manager.addModule(ResourceVirtualFile(XQueryStaticContextTest::class.java.classLoader, "tests/module"))
     }
 
     @Nested
@@ -1069,7 +1069,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>(
                         """
                         declare default function namespace "http://example.com/test";
-                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        import module namespace t = "http://example.com/test" at "/namespaces/ModuleDecl.xq";
                         func()
                         """
                     )[1]
@@ -1282,7 +1282,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>(
                         """
                         declare default function namespace "http://example.com/test";
-                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        import module namespace t = "http://example.com/test" at "/namespaces/ModuleDecl.xq";
                         func#0
                         """
                     )[1]
@@ -1495,7 +1495,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val qname = parse<XPathEQName>(
                         """
                         declare default function namespace "http://example.com/test";
-                        import module namespace t = "http://example.com/test" at "/resolve/namespaces/ModuleDecl.xq";
+                        import module namespace t = "http://example.com/test" at "/namespaces/ModuleDecl.xq";
                         () => func()
                         """
                     )[1]
