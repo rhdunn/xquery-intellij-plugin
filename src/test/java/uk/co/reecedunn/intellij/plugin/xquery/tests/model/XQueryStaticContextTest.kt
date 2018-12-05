@@ -21,6 +21,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -32,6 +34,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Static Context")
 private class XQueryStaticContextTest : ParserTestCase() {
+    override fun registerModules(manager: MockModuleManager) {
+        manager.addModule(ResourceVirtualFile(XQueryStaticContextTest::class.java.classLoader, "tests"))
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 (2.1.1) Statically known namespaces")
     internal inner class StaticallyKnownNamespaces {
