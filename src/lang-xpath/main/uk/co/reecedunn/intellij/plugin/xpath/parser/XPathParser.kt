@@ -65,7 +65,20 @@ open class XPathParser : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        return parseNumericLiteral(builder)
+        return parseOrExpr(builder)
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr
+
+    fun parseOrExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseNumericLiteral(builder)) {
+            marker.done(XPathElementType.OR_EXPR)
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     // endregion
