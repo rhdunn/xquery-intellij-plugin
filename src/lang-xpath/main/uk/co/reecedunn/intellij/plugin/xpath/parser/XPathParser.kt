@@ -67,7 +67,7 @@ open class XPathParser : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        return parseOrExpr(builder)
+        return parseOrExpr(builder) || parseComment(builder)
     }
 
     // endregion
@@ -125,6 +125,29 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.incomplete-string"))
                 return true
             }
+        }
+        return false
+    }
+
+    fun parseComment(builder: PsiBuilder): Boolean {
+        if (builder.tokenType === XPathTokenType.COMMENT_START_TAG) {
+            val commentMarker = builder.mark()
+            builder.advanceLexer()
+            // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
+            if (builder.tokenType === XPathTokenType.COMMENT_END_TAG) {
+                builder.advanceLexer()
+                commentMarker.done(XPathElementType.COMMENT)
+            } else {
+                builder.advanceLexer() // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                commentMarker.done(XPathElementType.COMMENT)
+                builder.error(XPathBundle.message("parser.error.incomplete-comment"))
+            }
+            return true
+        } else if (builder.tokenType === XPathTokenType.COMMENT_END_TAG) {
+            val errorMarker = builder.mark()
+            builder.advanceLexer()
+            errorMarker.error(XPathBundle.message("parser.error.end-of-comment-without-start", "(:"))
+            return true
         }
         return false
     }

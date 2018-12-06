@@ -138,4 +138,32 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+    internal inner class Comment {
+        @Test
+        @DisplayName("comment")
+        fun comment() {
+            val expected = loadResource("tests/parser/xpath-2.0/Comment.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/Comment.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("unclosed comment")
+        fun unclosedComment() {
+            val expected = loadResource("tests/parser/xpath-2.0/Comment_UnclosedComment.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/Comment_UnclosedComment.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("comment end tag without comment start tag")
+        fun unexpectedCommentEndTag() {
+            val expected = loadResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

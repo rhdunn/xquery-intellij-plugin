@@ -4900,7 +4900,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         }
 
-        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--"))
+        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XPathBundle.message("parser.error.end-of-comment-without-start", "<!--"))
     }
 
     private fun parseDirPIConstructor(): Boolean {
@@ -7625,25 +7625,13 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (getTokenType() === XPathTokenType.WHITE_SPACE || getTokenType() === XQueryTokenType.XML_WHITE_SPACE) {
                 skipped = true
                 advanceLexer()
-            } else if (getTokenType() === XPathTokenType.COMMENT_START_TAG) {
-                skipped = true
-                val commentMarker = mark()
-                advanceLexer()
-                // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
-                if (getTokenType() === XPathTokenType.COMMENT_END_TAG) {
-                    advanceLexer()
-                    commentMarker.done(XPathElementType.COMMENT)
-                } else {
-                    advanceLexer() // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                    commentMarker.done(XPathElementType.COMMENT)
-                    error(XQueryBundle.message("parser.error.incomplete-comment"))
-                }
-            } else if (getTokenType() === XPathTokenType.COMMENT_END_TAG) {
-                skipped = true
-                val errorMarker = mark()
-                advanceLexer()
-                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start", "(:"))
-            } else if (errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"))) {
+            } else if (
+                parseComment(builder) ||
+                errorOnTokenType(
+                    XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING,
+                    XQueryBundle.message("parser.error.misplaced-entity")
+                )
+            ) {
                 skipped = true
             } else {
                 return skipped

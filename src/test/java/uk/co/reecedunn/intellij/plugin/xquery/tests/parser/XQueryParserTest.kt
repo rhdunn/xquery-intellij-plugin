@@ -5016,6 +5016,7 @@ private class XQueryParserTest : ParserTestCase() {
     @DisplayName("XQuery 1.0 EBNF (143) DoubleLiteral")
     internal inner class DoubleLiteral {
         @Test
+        @DisplayName("double literal")
         fun doubleLiteral() {
             val expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral.txt")
             val actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral.xq")
@@ -5023,6 +5024,7 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("double literal with incomplete exponent")
         fun incompleteExponent() {
             val expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.txt")
             val actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.xq")
@@ -5138,30 +5140,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: Comment
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (151) Comment ; XQuery 1.0 EBNF (159) CommentContents")
+    internal inner class Comment {
+        @Test
+        @DisplayName("comment")
+        fun comment() {
+            val expected = loadResource("tests/parser/xquery-1.0/Comment.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/Comment.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testComment() {
-        val expected = loadResource("tests/parser/xquery-1.0/Comment.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Comment.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("unclosed comment")
+        fun unclosedComment() {
+            val expected = loadResource("tests/parser/xquery-1.0/Comment_UnclosedComment.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/Comment_UnclosedComment.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("comment end tag without comment start tag")
+        fun unexpectedCommentEndTag() {
+            val expected = loadResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testComment_UnclosedComment() {
-        val expected = loadResource("tests/parser/xquery-1.0/Comment_UnclosedComment.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Comment_UnclosedComment.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testComment_UnexpectedCommentEndTag() {
-        val expected = loadResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: QName
 
     @Test
