@@ -54,6 +54,7 @@ private class XPathParserTest : ParserTestCase() {
         fun badCharacters() {
             val expected =
                 "XPathImpl[FILE(0:3)]\n" +
+                "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing expression.')\n" +
                 "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n" +
                 "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n" +
                 "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n" +

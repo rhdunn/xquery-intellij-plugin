@@ -58,21 +58,23 @@ open class XPathParser : PsiParser {
 
             if (haveError) {
                 builder.advanceLexer()
-            } else {
+            } else if (builder.tokenType != null) {
                 val errorMarker = builder.mark()
-                if (builder.tokenType != null) {
-                    builder.advanceLexer()
-                    errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
-                } else {
-                    errorMarker.error(XPathBundle.message("parser.error.expected-expression"))
-                }
+                builder.advanceLexer()
+                errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
                 haveError = true
             }
         }
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        return parseOrExpr(builder)
+        if (parseOrExpr(builder)) {
+            return true
+        }
+        if (isFirst) {
+            builder.error(XPathBundle.message("parser.error.expected-expression"))
+        }
+        return false
     }
 
     // endregion
