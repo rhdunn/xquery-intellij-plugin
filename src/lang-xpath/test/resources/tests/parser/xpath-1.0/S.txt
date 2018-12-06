@@ -1,0 +1,3 @@
+XPathImpl[FILE(0:4)]
+   PsiWhiteSpaceImpl[WHITE_SPACE(0:4)]('    ')
+   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Missing expression.')

@@ -99,6 +99,14 @@ private class XPathParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
+    @DisplayName("XPath 1.0 EBNF (44) S ; XML 1.0 EBNF (3) S")
+    fun s() {
+        val expected = loadResource("tests/parser/xpath-1.0/S.txt")
+        val actual = parseResource("tests/parser/xpath-1.0/S.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     @Nested
     @DisplayName("XPath 2.0 EBNF (73) DoubleLiteral")
     internal inner class DoubleLiteral {

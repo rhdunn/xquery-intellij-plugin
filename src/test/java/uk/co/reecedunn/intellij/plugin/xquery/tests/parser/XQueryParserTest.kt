@@ -5307,16 +5307,15 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: S
 
     @Test
-    fun testS() {
+    @DisplayName("XML 1.0 EBNF (3) S")
+    fun s() {
         val expected = loadResource("tests/parser/xquery-1.0/S.txt")
         val actual = parseResource("tests/parser/xquery-1.0/S.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // endregion
     // region XQuery 3.0 :: VersionDecl
 
     @Test

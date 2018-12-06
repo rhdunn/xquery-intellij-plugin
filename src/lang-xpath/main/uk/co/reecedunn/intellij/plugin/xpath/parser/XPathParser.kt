@@ -50,6 +50,7 @@ open class XPathParser : PsiParser {
                 haveError = true
             }
 
+            parseWhiteSpaceAndCommentTokens(builder)
             if (parse(builder, !matched && !haveError)) {
                 matched = true
                 continue
@@ -59,15 +60,19 @@ open class XPathParser : PsiParser {
                 builder.advanceLexer()
             } else {
                 val errorMarker = builder.mark()
-                builder.advanceLexer()
-                errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
+                if (builder.tokenType != null) {
+                    builder.advanceLexer()
+                    errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
+                } else {
+                    errorMarker.error(XPathBundle.message("parser.error.expected-expression"))
+                }
                 haveError = true
             }
         }
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        return parseOrExpr(builder) || parseComment(builder)
+        return parseOrExpr(builder)
     }
 
     // endregion
@@ -150,6 +155,20 @@ open class XPathParser : PsiParser {
             return true
         }
         return false
+    }
+
+    open fun parseWhiteSpaceAndCommentTokens(builder: PsiBuilder): Boolean {
+        var skipped = false
+        while (true) {
+            if (builder.tokenType === XPathTokenType.WHITE_SPACE) {
+                skipped = true
+                builder.advanceLexer()
+            } else if (parseComment(builder)) {
+                skipped = true
+            } else {
+                return skipped
+            }
+        }
     }
 
     // endregion

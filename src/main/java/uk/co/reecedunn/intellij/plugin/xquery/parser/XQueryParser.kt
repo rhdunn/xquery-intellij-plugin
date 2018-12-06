@@ -994,14 +994,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
                     parseWhiteSpaceAndCommentTokens()
                     if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected-expression"))
+                        error(XPathBundle.message("parser.error.expected-expression"))
                     }
                 }
             } else {
@@ -1120,14 +1120,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = haveErrors or errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")); haveErrors }()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                     parseWhiteSpaceAndCommentTokens()
                     if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected-expression"))
+                        error(XPathBundle.message("parser.error.expected-expression"))
                     }
                 }
             } else {
@@ -1339,7 +1339,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         parseWhiteSpaceAndCommentTokens()
         var haveExpr = parseExpr(exprType)
         if (!haveExpr && blockExpr == BlockExpr.REQUIRED) {
-            error(XQueryBundle.message("parser.error.expected-expression"))
+            error(XPathBundle.message("parser.error.expected-expression"))
             haveErrors = true
         }
 
@@ -1438,7 +1438,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message(errorMessage)); haveErrors }()) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
             parseWhiteSpaceAndCommentTokens()
         } else if (getTokenType() !== XPathTokenType.COMMA && getTokenType() !== XQueryTokenType.SEPARATOR) {
@@ -1530,7 +1530,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             while (matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                     haveErrors = true
                 }
 
@@ -1634,7 +1634,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         if (matchTokenType(XPathTokenType.K_RETURN)) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle()) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             returnClauseMarker.done(XQueryElementType.RETURN_CLAUSE)
@@ -1725,7 +1725,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             forBindingMarker.done(XQueryElementType.FOR_BINDING)
@@ -1857,7 +1857,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             letBindingMarker.done(XQueryElementType.LET_BINDING)
@@ -1904,7 +1904,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -1956,7 +1956,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -1993,7 +1993,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             windowStartConditionMarker.done(XQueryElementType.WINDOW_START_CONDITION)
@@ -2029,7 +2029,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             windowEndConditionMarker.done(XQueryElementType.WINDOW_END_CONDITION)
@@ -2120,7 +2120,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         if (whereClauseMarker != null) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle()) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             whereClauseMarker.done(XQueryElementType.WHERE_CLAUSE)
@@ -2191,13 +2191,13 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                     haveErrors = true
                 }
             } else if (matchTokenType(XPathTokenType.ASSIGN_EQUAL) || { haveErrors = errorOnTokenType(XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected", ":=")); haveErrors }()) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                     haveErrors = true
                 }
             }
@@ -2205,7 +2205,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (matchTokenType(XQueryTokenType.K_COLLATION)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseStringLiteral(builder, XQueryElementType.URI_LITERAL) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                 }
             }
 
@@ -2363,7 +2363,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             quantifiedExprMarker.done(XPathElementType.QUANTIFIED_EXPR)
@@ -2400,7 +2400,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             bindingMarker.done(XPathElementType.QUANTIFIED_EXPR_BINDING)
@@ -2426,7 +2426,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2460,7 +2460,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             switchExprMarker.done(XQueryElementType.SWITCH_EXPR)
@@ -2478,7 +2478,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             haveCase = true
             parseWhiteSpaceAndCommentTokens()
             if (!parseSwitchCaseOperand()) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
             parseWhiteSpaceAndCommentTokens()
@@ -2493,7 +2493,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             switchCaseClauseMarker.done(XQueryElementType.SWITCH_CASE_CLAUSE)
@@ -2530,7 +2530,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2593,7 +2593,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             caseClauseMarker.done(XQueryElementType.CASE_CLAUSE)
@@ -2624,7 +2624,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             caseClauseMarker.done(XQueryElementType.DEFAULT_CASE_CLAUSE)
@@ -2649,7 +2649,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2667,7 +2667,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2675,7 +2675,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (matchTokenType(XPathTokenType.K_ELSE)) { // else branch is optional in BaseX 9.1
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                 }
             }
 
@@ -2815,7 +2815,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseSourceExpr()) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2827,7 +2827,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseTargetExpr(null) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             insertExprMarker.done(XQueryElementType.INSERT_EXPR)
@@ -2908,7 +2908,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseTargetExpr(null)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             deleteExprMarker.done(XQueryElementType.DELETE_EXPR)
@@ -2950,7 +2950,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseTargetExpr(null)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2962,7 +2962,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             replaceExprMarker.done(XQueryElementType.REPLACE_EXPR)
@@ -2987,7 +2987,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseTargetExpr(XQueryElementType.TARGET_EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -2999,7 +2999,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseNewNameExpr() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             renameExprMarker.done(XQueryElementType.RENAME_EXPR)
@@ -3054,7 +3054,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
                 parseWhiteSpaceAndCommentTokens()
                 if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                 }
 
                 isFirstVarName = false
@@ -3069,7 +3069,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle()) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -3081,7 +3081,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             copyModifyExprMarker.done(XQueryElementType.COPY_MODIFY_EXPR)
@@ -3130,7 +3130,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             assignmentExprMarker.done(XQueryElementType.ASSIGNMENT_EXPR)
@@ -3165,7 +3165,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     exitExprMarker.rollbackTo()
                     return false
                 }
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             exitExprMarker.done(XQueryElementType.EXIT_EXPR)
@@ -3190,7 +3190,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle()) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -3317,7 +3317,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 if (getTokenType() === XPathTokenType.BLOCK_OPEN) {
                     parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
                 } else if (!parseExpr(XQueryElementType.EXPR)) {
-                    error(XQueryBundle.message("parser.error.expected-expression"))
+                    error(XPathBundle.message("parser.error.expected-expression"))
                 }
                 parseWhiteSpaceAndCommentTokens()
             }
@@ -4158,7 +4158,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
 
             if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -4589,7 +4589,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 while (matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens()
                     if (!parseExprSingle() && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected-expression"))
+                        error(XPathBundle.message("parser.error.expected-expression"))
                         haveErrors = true
                     }
 
@@ -4706,7 +4706,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExprSingle(XPathElementType.MAP_VALUE_EXPR) && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             mapConstructorEntry.done(XPathElementType.MAP_CONSTRUCTOR_ENTRY)
@@ -5331,7 +5331,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
 
@@ -5522,7 +5522,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (!parseExpr(XQueryElementType.EXPR) && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-expression"))
+                error(XPathBundle.message("parser.error.expected-expression"))
                 haveError = true
             }
 
@@ -6048,7 +6048,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 while (matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens()
                     if (parseExprSingle() && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected-expression"))
+                        error(XPathBundle.message("parser.error.expected-expression"))
                         haveErrors = true
                     }
                     parseWhiteSpaceAndCommentTokens()
@@ -7620,9 +7620,16 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseWhiteSpaceAndCommentTokens(): Boolean {
+        return parseWhiteSpaceAndCommentTokens(builder)
+    }
+
+    override fun parseWhiteSpaceAndCommentTokens(builder: PsiBuilder): Boolean {
         var skipped = false
         while (true) {
-            if (getTokenType() === XPathTokenType.WHITE_SPACE || getTokenType() === XQueryTokenType.XML_WHITE_SPACE) {
+            if (
+                builder.tokenType === XPathTokenType.WHITE_SPACE ||
+                builder.tokenType === XQueryTokenType.XML_WHITE_SPACE
+            ) {
                 skipped = true
                 advanceLexer()
             } else if (
