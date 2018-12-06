@@ -24,5 +24,8 @@ declare namespace array = "http://www.w3.org/2005/xpath-functions/array";
 
 (: eXist :)
 declare namespace compression = "http://exist-db.org/xquery/compression";
+declare namespace console = "http://exist-db.org/xquery/console";
+declare namespace contentextraction = "http://exist-db.org/xquery/contentextraction";
+declare namespace counter = "http://exist-db.org/xquery/counter";
 
 ()
