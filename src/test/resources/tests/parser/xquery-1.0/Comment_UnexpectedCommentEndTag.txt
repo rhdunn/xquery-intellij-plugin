@@ -1,3 +1,4 @@
 XQueryModuleImpl[FILE(0:2)]
    PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: End of comment marker found without a '(:' start of comment marker.')
       LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(0:2)](':)')
+   PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Missing library 'module' declaration or main module query body.')

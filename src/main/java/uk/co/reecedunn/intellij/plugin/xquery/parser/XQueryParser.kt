@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 class XQueryParser : PsiParser {
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
         val rootMarker = builder.mark()
-        XQueryParserImpl(builder).parse()
+        XQueryParserImpl(builder).parse(builder)
         rootMarker.done(root)
         return builder.treeBuilt
     }
@@ -112,30 +112,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // endregion
     // region Main Interface
 
-    fun parse() {
-        var matched = false
-        var haveError = false
-        while (getTokenType() != null) {
-            if (parseWhiteSpaceAndCommentTokens()) continue
-            if (matched && !haveError) {
-                error(XPathBundle.message("parser.error.expected-eof"))
-                haveError = true
-            }
-
-            if (parseTransactions(!matched && !haveError)) {
-                matched = true
-                continue
-            }
-
-            if (haveError) {
-                advanceLexer()
-            } else {
-                val errorMarker = mark()
-                advanceLexer()
-                errorMarker.error(XPathBundle.message("parser.error.unexpected-token"))
-                haveError = true
-            }
-        }
+    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        return parseTransactions(isFirst)
     }
 
     private enum class ParseStatus {
