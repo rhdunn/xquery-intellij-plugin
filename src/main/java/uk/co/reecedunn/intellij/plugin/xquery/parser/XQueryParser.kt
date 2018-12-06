@@ -197,7 +197,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XQueryTokenType.K_ENCODING)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+                if (!parseStringLiteral(builder)) {
                     error(XQueryBundle.message("parser.error.expected-encoding-string"))
                     haveErrors = true
                 }
@@ -210,7 +210,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                if (!parseStringLiteral(builder) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-version-string"))
                     haveErrors = true
                 }
@@ -218,7 +218,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 parseWhiteSpaceAndCommentTokens()
                 if (matchTokenType(XQueryTokenType.K_ENCODING)) {
                     parseWhiteSpaceAndCommentTokens()
-                    if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                    if (!parseStringLiteral(builder) && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-encoding-string"))
                         haveErrors = true
                     }
@@ -442,7 +442,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         while (true) {
             if (parseWhiteSpaceAndCommentTokens()) continue
             if (matchTokenType(XPathTokenType.NCNAME)) continue
-            if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) continue
+            if (parseStringLiteral(builder)) continue
 
             if (matchTokenType(XPathTokenType.EQUAL)) continue
             if (matchTokenType(XPathTokenType.COMMA)) continue
@@ -744,7 +744,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                if (!parseStringLiteral(builder) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-property-value-string"))
                     haveErrors = true
                 }
@@ -1133,7 +1133,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                 // DefaultNamespaceDecl with missing 'default' keyword.
                 error(XQueryBundle.message("parser.error.expected", "("))
-                parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                parseStringLiteral(builder)
                 parseWhiteSpaceAndCommentTokens()
                 functionDeclMarker.done(XQueryElementType.UNKNOWN_DECL)
                 return true
@@ -1244,7 +1244,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-option-string"))
             }
 
@@ -4176,10 +4176,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 || parseFunctionCall()
     }
 
-    override fun parseLiteral(builder: PsiBuilder): Boolean {
-        return parseNumericLiteral(builder) || parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
-    }
-
     private fun parseVarRef(type: IElementType?): Boolean {
         val varRefMarker = matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
         if (varRefMarker != null) {
@@ -5015,7 +5011,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
-                    parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                    parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
                 } else {
                     elementMarker.rollbackTo()
@@ -5039,7 +5035,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
-                    parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                    parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
                 } else {
                     attributeMarker.rollbackTo()
@@ -5063,7 +5059,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
-                    parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                    parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
                 } else {
                     namespaceMarker.rollbackTo()
@@ -5117,7 +5113,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (!parseQName(XQueryElementType.NCNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
-                    parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                    parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
                 } else {
                     piMarker.rollbackTo()
@@ -5301,7 +5297,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseFTWordsValue(): Boolean {
         val wordsValueMarker = mark()
-        if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+        if (parseStringLiteral(builder)) {
             wordsValueMarker.done(XQueryElementType.FT_WORDS_VALUE)
             return true
         } else if (matchTokenType(XPathTokenType.BLOCK_OPEN)) {
@@ -5832,7 +5828,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XQueryTokenType.K_RELATIONSHIP)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveError) {
+                if (!parseStringLiteral(builder) && !haveError) {
                     error(XQueryBundle.message("parser.error.expected", "StringLiteral"))
                     haveError = true
                 }
@@ -5892,7 +5888,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (!parseStringLiteral(builder)) {
                 error(XQueryBundle.message("parser.error.expected", "StringLiteral"))
                 haveError = true
             }
@@ -5900,7 +5896,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
             while (matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveError) {
+                if (!parseStringLiteral(builder) && !haveError) {
                     error(XQueryBundle.message("parser.error.expected", "StringLiteral"))
                     haveError = true
                 }
@@ -5936,7 +5932,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     private fun parseFTLanguageOption(languageOptionMarker: PsiBuilder.Marker): Boolean {
         if (matchTokenType(XQueryTokenType.K_LANGUAGE)) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (!parseStringLiteral(builder)) {
                 error(XQueryBundle.message("parser.error.expected", "StringLiteral"))
             }
 
@@ -5965,7 +5961,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseStringLiteral(builder, XQueryElementType.STRING_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(builder) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "StringLiteral"))
             }
 
@@ -6584,7 +6580,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) { // MarkLogic 8.0
+            if (parseStringLiteral(builder)) { // MarkLogic 8.0
                 type = XQueryElementType.NAMED_KIND_TEST
             } else {
                 matchTokenType(XPathTokenType.STAR) // MarkLogic 8.0
@@ -6642,7 +6638,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_TEXT_TEST
             } else {
                 type = XPathElementType.ANY_TEXT_TEST
@@ -6710,7 +6706,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (parseQName(XQueryElementType.NCNAME) || parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (parseQName(XQueryElementType.NCNAME) || parseStringLiteral(builder)) {
             }
 
             parseWhiteSpaceAndCommentTokens()
@@ -7146,9 +7142,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
                 // array-node() tests in a document-node test do not allow `StringLiteral` or `*`
                 // tokens, but accept them here to recover when used incorrectly.
-                parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                parseStringLiteral(builder)
                 matchTokenType(XPathTokenType.STAR)
-            } else if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            } else if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_ARRAY_NODE_TEST
             } else if (errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
                 type = XQueryElementType.ANY_ARRAY_NODE_TEST
@@ -7182,7 +7178,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_BOOLEAN_NODE_TEST
             } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
                 errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
@@ -7228,9 +7224,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
                 // object-node() tests in a document-node test do not allow `StringLiteral` or `*`
                 // tokens, but accept them here to recover when used incorrectly.
-                parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+                parseStringLiteral(builder)
                 matchTokenType(XPathTokenType.STAR)
-            } else if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            } else if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_MAP_NODE_TEST
             } else if (errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
                 type = XQueryElementType.ANY_MAP_NODE_TEST
@@ -7264,7 +7260,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_NULL_NODE_TEST
             } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
                 errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
@@ -7299,7 +7295,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens()
-            if (parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)) {
+            if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_NUMBER_NODE_TEST
             } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
                 errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
@@ -7323,6 +7319,10 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     // endregion
     // region Lexical Structure :: Terminal Symbols
+
+    override fun parseStringLiteral(builder: PsiBuilder): Boolean {
+        return parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
+    }
 
     override fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)

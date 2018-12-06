@@ -93,8 +93,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
-    open fun parseLiteral(builder: PsiBuilder): Boolean {
-        return parseNumericLiteral(builder) || parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
+    fun parseLiteral(builder: PsiBuilder): Boolean {
+        return parseNumericLiteral(builder) || parseStringLiteral(builder)
     }
 
     fun parseNumericLiteral(builder: PsiBuilder): Boolean {
@@ -115,6 +115,10 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Lexical Structure :: Terminal Symbols
+
+    open fun parseStringLiteral(builder: PsiBuilder): Boolean {
+        return parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
+    }
 
     open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)
