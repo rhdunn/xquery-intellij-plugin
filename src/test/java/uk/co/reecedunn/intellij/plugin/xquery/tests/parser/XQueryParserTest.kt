@@ -5030,105 +5030,114 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: StringLiteral
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (144) StringLiteral")
+    internal inner class StringLiteral {
+        @Test
+        @DisplayName("string literal")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xquery-1.0/StringLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testStringLiteral() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("unclosed string literal")
+        fun unclosedString() {
+            val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (145) PredefinedEntityRef")
+        internal inner class PredefinedEntityRef {
+            @Test
+            @DisplayName("predefined entity reference")
+            fun predefinedEntityRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("incomplete entity reference")
+            fun incompleteRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty entity reference")
+            fun emptyRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("entity reference outside a string literal")
+            fun misplacedEntityRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (153) CharRef")
+        internal inner class CharRef {
+            @Test
+            @DisplayName("character reference")
+            fun charRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("incomplete character reference")
+            fun incompleteRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty numeric reference")
+            fun emptyNumericRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty hexadecimal reference")
+            fun emptyHexadecimalRef() {
+                val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexadecimalRef.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexadecimalRef.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (146) EscapeQuot")
+        fun escapeQuot() {
+            val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (147) EscapeApos")
+        fun escapeApos() {
+            val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testStringLiteral_UnclosedString() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: StringLiteral + PredefinedEntityRef
-
-    @Test
-    fun testStringLiteral_PredefinedEntityRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringLiteral_PredefinedEntityRef_IncompleteRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringLiteral_PredefinedEntityRef_EmptyRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPredefinedEntityRef_MisplacedEntityRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: StringLiteral + CharRef
-
-    @Test
-    fun testStringLiteral_CharRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringLiteral_CharRef_IncompleteRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringLiteral_CharRef_EmptyNumericRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringLiteral_CharRef_EmptyHexadecimalRef() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexadecimalRef.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexadecimalRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: StringLiteral + EscapeQuot
-
-    @Test
-    fun testStringLiteral_EscapeQuot() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: StringLiteral + EscapeApos
-
-    @Test
-    fun testStringLiteral_EscapeApos() {
-        val expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: Comment
 
     @Test

@@ -63,6 +63,26 @@ private class XPathParserTest : ParserTestCase() {
         }
     }
 
+    @Nested
+    @DisplayName("XPath 1.0 EBNF (41) StringLiteral")
+    internal inner class StringLiteral_XPath10 {
+        @Test
+        @DisplayName("string literal")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xpath-1.0/StringLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/StringLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("unclosed string literal")
+        fun unclosedString() {
+            val expected = loadResource("tests/parser/xpath-1.0/StringLiteral_UnclosedString.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/StringLiteral_UnclosedString.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
     @Test
     @DisplayName("XPath 1.0 EBNF (42) IntegerLiteral")
     fun integerLiteral() {
@@ -95,6 +115,26 @@ private class XPathParserTest : ParserTestCase() {
         fun incompleteExponent() {
             val expected = loadResource("tests/parser/xpath-2.0/DoubleLiteral_IncompleteExponent.txt")
             val actual = parseResource("tests/parser/xpath-2.0/DoubleLiteral_IncompleteExponent.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (74) StringLiteral")
+    internal inner class StringLiteral_XPath20 {
+        @Test
+        @DisplayName("XPath 1.0 EBNF (75) EscapeQuot")
+        fun escapeQuot() {
+            val expected = loadResource("tests/parser/xpath-2.0/StringLiteral_EscapeQuot.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/StringLiteral_EscapeQuot.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (76) EscapeApos")
+        fun escapeApos() {
+            val expected = loadResource("tests/parser/xpath-2.0/StringLiteral_EscapeApos.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/StringLiteral_EscapeApos.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

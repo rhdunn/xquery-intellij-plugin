@@ -198,6 +198,12 @@ object XPathElementType {
         XPath
     )
 
+    val STRING_LITERAL: IElementType = ICompositeElementType(
+        "XPATH_STRING_LITERAL",
+        XPathStringLiteralPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 2.0
 

@@ -1,0 +1,6 @@
+XPathImpl[FILE(0:8)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:8)]
+      XPathStringLiteralImpl[XPATH_STRING_LITERAL(0:8)]
+         LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(0:1)]('"')
+         LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')
+      PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')

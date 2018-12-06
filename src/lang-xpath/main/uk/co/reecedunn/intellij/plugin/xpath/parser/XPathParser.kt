@@ -21,6 +21,7 @@ import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
@@ -74,7 +75,7 @@ open class XPathParser : PsiParser {
 
     private fun parseOrExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseNumericLiteral(builder)) {
+        if (parseLiteral(builder)) {
             marker.done(XPathElementType.OR_EXPR)
             return true
         }
@@ -84,6 +85,10 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
+
+    open fun parseLiteral(builder: PsiBuilder): Boolean {
+        return parseNumericLiteral(builder) || parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
+    }
 
     fun parseNumericLiteral(builder: PsiBuilder): Boolean {
         if (
@@ -97,6 +102,29 @@ open class XPathParser : PsiParser {
                 XPathBundle.message("parser.error.incomplete-double-exponent")
             )
             return true
+        }
+        return false
+    }
+
+    // endregion
+    // region Lexical Structure :: Terminal Symbols
+
+    open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
+        val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)
+        while (stringMarker != null) {
+            if (
+                builder.matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
+                builder.matchTokenType(XPathTokenType.ESCAPED_CHARACTER)
+            ) {
+                //
+            } else if (builder.matchTokenType(XPathTokenType.STRING_LITERAL_END)) {
+                stringMarker.done(type)
+                return true
+            } else {
+                stringMarker.done(type)
+                builder.error(XPathBundle.message("parser.error.incomplete-string"))
+                return true
+            }
         }
         return false
     }
