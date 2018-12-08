@@ -7394,12 +7394,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (parseWhiteSpaceAndCommentTokens()) {
                 if (endQNameOnSpace) {
                     beforeMarker.drop()
-                    if (type === XPathElementType.WILDCARD) {
-                        if (isWildcard) {
-                            qnameMarker.done(XPathElementType.WILDCARD)
-                        } else {
-                            qnameMarker.done(XQueryElementType.NCNAME)
-                        }
+                    if (type === XPathElementType.WILDCARD && isWildcard) {
+                        qnameMarker.done(XPathElementType.WILDCARD)
                     } else {
                         qnameMarker.done(XQueryElementType.NCNAME)
                     }
@@ -7434,12 +7430,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 if (parseWhiteSpaceAndCommentTokens()) {
                     if (endQNameOnSpace) {
                         nameMarker.rollbackTo()
-                        if (type === XPathElementType.WILDCARD) {
-                            if (isWildcard) {
-                                qnameMarker.done(XPathElementType.WILDCARD)
-                            } else {
-                                qnameMarker.done(XQueryElementType.NCNAME)
-                            }
+                        if (type === XPathElementType.WILDCARD && isWildcard) {
+                            qnameMarker.done(XPathElementType.WILDCARD)
                         } else {
                             qnameMarker.done(XQueryElementType.NCNAME)
                         }
@@ -7487,12 +7479,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
                 return true
             } else {
-                if (type === XPathElementType.WILDCARD) {
-                    if (isWildcard) {
-                        qnameMarker.done(XPathElementType.WILDCARD)
-                    } else {
-                        qnameMarker.done(XQueryElementType.NCNAME)
-                    }
+                if (type === XPathElementType.WILDCARD && isWildcard) {
+                    qnameMarker.done(XPathElementType.WILDCARD)
                 } else {
                     qnameMarker.done(XQueryElementType.NCNAME)
                 }
