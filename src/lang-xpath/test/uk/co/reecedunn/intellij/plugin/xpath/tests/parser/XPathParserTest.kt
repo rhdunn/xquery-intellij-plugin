@@ -175,4 +175,24 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (79) NCName")
+    internal inner class NCName {
+        @Test
+        @DisplayName("identifier")
+        fun identifier() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("keyword")
+        fun keyword() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

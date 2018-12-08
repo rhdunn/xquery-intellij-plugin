@@ -1,1 +1,0 @@
-declare option collation "Test Case" ;

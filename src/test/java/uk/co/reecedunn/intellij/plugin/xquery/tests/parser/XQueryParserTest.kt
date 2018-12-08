@@ -5269,14 +5269,28 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: NCName
 
-    @Test
-    fun testNCName() {
-        val expected = loadResource("tests/parser/xquery-1.0/OptionDecl.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OptionDecl.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (155) NCName")
+    internal inner class NCName {
+        @Test
+        @DisplayName("identifier")
+        fun identifier() {
+            val expected = loadResource("tests/parser/xquery-1.0/NameTest_NCName.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/NameTest_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("keyword")
+        fun keyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
+
+    // region XQuery 1.0 :: NCName
 
     @Test
     fun testNCName_UnexpectedQName() {
@@ -5289,13 +5303,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testNCName_UnexpectedQName_MissingPrefixPart() {
         val expected = loadResource("tests/parser/xquery-1.0/NCName_UnexpectedQName_MissingPrefixPart.txt")
         val actual = parseResource("tests/parser/xquery-1.0/NCName_UnexpectedQName_MissingPrefixPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNCName_Keyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/NCName_Keyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

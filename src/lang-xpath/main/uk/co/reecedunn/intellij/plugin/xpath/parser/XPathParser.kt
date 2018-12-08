@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 /**
@@ -105,7 +106,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     private fun parseStepExpr(builder: PsiBuilder): Boolean {
-        return parsePostfixExpr(builder)
+        return parsePostfixExpr(builder) || parseQName(builder)
     }
 
     private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
@@ -201,6 +202,27 @@ open class XPathParser : PsiParser {
                 return skipped
             }
         }
+    }
+
+    // endregion
+    // region Lexical Structure :: Terminal Symbols :: QName
+
+    private fun parseQName(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseQNameNCName(builder)) {
+            marker.done(NCNAME)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseQNameNCName(builder: PsiBuilder): Boolean {
+        if (builder.tokenType is INCNameType) {
+            builder.advanceLexer()
+            return true
+        }
+        return false
     }
 
     // endregion
