@@ -72,13 +72,20 @@ open class XPathParser : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        if (parseOrExpr(builder)) {
+        if (parseExprSingle(builder)) {
             return true
         }
         if (isFirst) {
             builder.error(XPathBundle.message("parser.error.expected-expression"))
         }
         return false
+    }
+
+    // endregion
+    // region Grammar :: Expr
+
+    private fun parseExprSingle(builder: PsiBuilder): Boolean {
+        return parseOrExpr(builder)
     }
 
     // endregion
