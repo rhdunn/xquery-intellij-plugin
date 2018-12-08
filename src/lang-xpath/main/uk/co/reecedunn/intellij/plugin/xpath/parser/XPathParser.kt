@@ -93,7 +93,7 @@ open class XPathParser : PsiParser {
 
     private fun parseOrExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseLiteral(builder)) {
+        if (parsePrimaryExpr(builder)) {
             marker.done(XPathElementType.OR_EXPR)
             return true
         }
@@ -103,6 +103,10 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
+
+    private fun parsePrimaryExpr(builder: PsiBuilder): Boolean {
+        return parseLiteral(builder)
+    }
 
     fun parseLiteral(builder: PsiBuilder): Boolean {
         return parseNumericLiteral(builder) || parseStringLiteral(builder)
