@@ -80,6 +80,8 @@ private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
  */
 @Suppress("FunctionName")
 private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() {
+    override val STRING_LITERAL: IElementType = XQueryElementType.STRING_LITERAL
+
     // region Parser Helper Functions
 
     protected fun matchTokenType(type: IElementType): Boolean {
@@ -7319,10 +7321,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     // endregion
     // region Lexical Structure :: Terminal Symbols
-
-    override fun parseStringLiteral(builder: PsiBuilder): Boolean {
-        return parseStringLiteral(builder, XQueryElementType.STRING_LITERAL)
-    }
 
     override fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)

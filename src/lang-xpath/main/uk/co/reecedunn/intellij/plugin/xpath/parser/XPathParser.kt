@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
  * A unified XPath parser for different XPath versions and dialects.
  */
 open class XPathParser : PsiParser {
+    open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
+
     // region PsiParser
 
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
@@ -116,8 +118,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols
 
-    open fun parseStringLiteral(builder: PsiBuilder): Boolean {
-        return parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
+    fun parseStringLiteral(builder: PsiBuilder): Boolean {
+        return parseStringLiteral(builder, STRING_LITERAL)
     }
 
     open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
