@@ -65,8 +65,8 @@
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryUriLiteralManipulator"/>
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryQNamePsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryQNameManipulator"/>
-    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryEQNamePsiImpl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryEQNameManipulator"/>
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImpl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryNCNameManipulator"/>
 
     <!-- Inspections -->
 
