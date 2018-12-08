@@ -7404,11 +7404,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                         qnameMarker.done(XQueryElementType.NCNAME)
                     }
                     return true
-                } else if (
-                    getTokenType() === XPathTokenType.QNAME_SEPARATOR ||
-                    getTokenType() === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-                    getTokenType() === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
-                ) {
+                } else if (parseQNameSeparator(builder)) {
                     beforeMarker.error(XQueryBundle.message(if (isWildcard) "parser.error.wildcard.whitespace-before-local-part" else "parser.error.qname.whitespace-before-local-part"))
                 } else {
                     beforeMarker.drop()
@@ -7419,11 +7415,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             // endregion
 
-            if (
-                getTokenType() === XPathTokenType.QNAME_SEPARATOR ||
-                getTokenType() === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-                getTokenType() === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
-            ) {
+            if (parseQNameSeparator(builder)) {
                 // region QNameSeparator := ":"
 
                 val nameMarker = mark()
@@ -7508,11 +7500,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         }
 
-        if (
-            matchTokenType(XPathTokenType.QNAME_SEPARATOR) ||
-            matchTokenType(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) ||
-            matchTokenType(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-        ) {
+        if (parseQNameSeparator(builder)) {
+            advanceLexer()
+
             parseWhiteSpaceAndCommentTokens()
             if (getTokenType() is INCNameType || getTokenType() === XPathTokenType.STAR) {
                 advanceLexer()
@@ -7527,6 +7517,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
         qnameMarker.drop()
         return false
+    }
+
+    override fun parseQNameSeparator(builder: PsiBuilder): Boolean {
+        return builder.tokenType === XPathTokenType.QNAME_SEPARATOR ||
+                builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+                builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
     }
 
     private fun parseNCName(type: IElementType): Boolean {

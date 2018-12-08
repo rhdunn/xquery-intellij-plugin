@@ -225,5 +225,9 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    open fun parseQNameSeparator(builder: PsiBuilder): Boolean {
+        return builder.tokenType === XPathTokenType.QNAME_SEPARATOR
+    }
+
     // endregion
 }
