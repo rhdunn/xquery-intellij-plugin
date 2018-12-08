@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
  */
 open class XPathParser : PsiParser {
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
+    open val QNAME: IElementType = XPathElementType.QNAME
     open val NCNAME: IElementType = XPathElementType.NCNAME
 
     // region PsiParser

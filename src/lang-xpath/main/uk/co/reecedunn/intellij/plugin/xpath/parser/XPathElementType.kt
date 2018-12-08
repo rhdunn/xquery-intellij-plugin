@@ -204,6 +204,12 @@ object XPathElementType {
         XPath
     )
 
+    val QNAME: IElementType = ICompositeElementType(
+        "XPATH_QNAME",
+        XPathQNamePsiImpl::class.java,
+        XPath
+    )
+
     val NCNAME: IElementType = ICompositeElementType(
         "XPATH_NCNAME",
         XPathNCNamePsiImpl::class.java,

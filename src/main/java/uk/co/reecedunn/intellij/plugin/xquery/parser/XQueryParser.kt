@@ -81,7 +81,8 @@ private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
 @Suppress("FunctionName")
 private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() {
     override val STRING_LITERAL: IElementType = XQueryElementType.STRING_LITERAL
-    override val NCNAME: IElementType = XPathElementType.NCNAME
+    override val QNAME: IElementType = XQueryElementType.QNAME
+    override val NCNAME: IElementType = XQueryElementType.NCNAME
 
     // region Parser Helper Functions
 

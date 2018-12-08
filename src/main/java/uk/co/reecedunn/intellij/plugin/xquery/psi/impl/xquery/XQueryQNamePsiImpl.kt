@@ -17,56 +17,45 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiNameIdentifierOwner
-import com.intellij.util.IncorrectOperationException
-import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import com.intellij.psi.PsiReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryEQNamePrefixReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
-class XQueryQNamePsiImpl(node: ASTNode) :
-    XQueryEQNamePsiImpl(node),
-    XPathQName,
-    XsQNameValue,
-    PsiNameIdentifierOwner {
-    // region XsQNameValue
-
-    private val names get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
-
-    override val namespace: XsAnyUriValue? = null
-
-    override val prefix get(): XsNCNameValue? = names.first()
-
-    override val localName get(): XsNCNameValue? = names.toList().let { if (it.size == 2) it[1] else null }
-
-    override val isLexicalQName: Boolean = true
-
-    override val element get(): PsiElement? = this
-
-    // endregion
+class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
     // region PsiElement
 
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-    }
+    override fun getReferences(): Array<PsiReference> {
+        val eqnameStart = node.startOffset
+        val localName = localName as? PsiElement
+        val localNameRef: PsiReference? =
+            if (localName != null) when (parent) {
+                is XPathFunctionReference ->
+                    XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                is XPathVariableName ->
+                    XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                else -> null
+            } else {
+                null
+            }
 
-    override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
-
-    // endregion
-    // region PsiNameIdentifierOwner
-
-    override fun getNameIdentifier(): PsiElement? = localName as? PsiElement
-
-    // endregion
-    // region PsiNamedElement
-
-    override fun getName(): String? = nameIdentifier?.text
-
-    @Throws(IncorrectOperationException::class)
-    override fun setName(@NonNls name: String): PsiElement {
-        return this
+        val prefix = prefix as? PsiElement
+        if (prefix == null) { // local name only
+            if (localNameRef != null) {
+                return arrayOf(localNameRef)
+            }
+            return PsiReference.EMPTY_ARRAY
+        } else {
+            if (localNameRef != null) {
+                return arrayOf(
+                    XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)),
+                    localNameRef
+                )
+            }
+            return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
+        }
     }
 
     // endregion
