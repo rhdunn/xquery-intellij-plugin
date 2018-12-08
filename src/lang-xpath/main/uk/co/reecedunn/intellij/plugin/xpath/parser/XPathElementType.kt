@@ -204,6 +204,12 @@ object XPathElementType {
         XPath
     )
 
+    val NCNAME: IElementType = ICompositeElementType(
+        "XPATH_NCNAME",
+        XPathNCNamePsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 2.0
 

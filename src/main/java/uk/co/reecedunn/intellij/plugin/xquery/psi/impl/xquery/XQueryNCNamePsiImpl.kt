@@ -17,45 +17,27 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiNameIdentifierOwner
-import com.intellij.util.IncorrectOperationException
-import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import com.intellij.psi.PsiReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
-open class XQueryNCNamePsiImpl(node: ASTNode) :
-    XQueryEQNamePsiImpl(node),
-    XPathNCName,
-    XsQNameValue,
-    PsiNameIdentifierOwner {
-    // region XsQNameValue
+open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
+    // region PsiElement
 
-    override val namespace: XsAnyUriValue? = null
-
-    override val prefix: XsNCNameValue? = null
-
-    override val localName get(): XsNCNameValue? = children().filterIsInstance<XsNCNameValue>().firstOrNull()
-
-    override val isLexicalQName: Boolean = true
-
-    override val element get(): PsiElement? = this
-
-    // endregion
-    // region PsiNameIdentifierOwner
-
-    override fun getNameIdentifier(): PsiElement? = firstChild
-
-    // endregion
-    // region PsiNamedElement
-
-    override fun getName(): String? = nameIdentifier?.text
-
-    @Throws(IncorrectOperationException::class)
-    override fun setName(@NonNls name: String): PsiElement {
-        return this
+    override fun getReferences(): Array<PsiReference> {
+        val eqnameStart = node.startOffset
+        val localName = localName as PsiElement
+        return when (parent) {
+            is XPathFunctionReference ->
+                arrayOf(XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart)))
+            is XPathVariableName ->
+                arrayOf(XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart)))
+            else ->
+                PsiReference.EMPTY_ARRAY
+        }
     }
 
     // endregion
