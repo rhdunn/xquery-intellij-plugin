@@ -22,7 +22,7 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryEQNamePrefixReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
@@ -54,9 +54,9 @@ abstract class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
             return PsiReference.EMPTY_ARRAY
         } else {
             if (localNameRef != null) {
-                return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)), localNameRef)
+                return arrayOf(XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)), localNameRef)
             }
-            return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
+            return arrayOf(XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
         }
     }
 }

@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryEQNamePrefixReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.XQueryVariableNameReference
 
@@ -50,11 +50,11 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
         } else {
             if (localNameRef != null) {
                 return arrayOf(
-                    XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)),
+                    XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)),
                     localNameRef
                 )
             }
-            return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
+            return arrayOf(XQueryQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
         }
     }
 

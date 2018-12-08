@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.expand
 
-class XQueryEQNamePrefixReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
+class XQueryQNamePrefixReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val ns = (element as XsQNameValue).expand().firstOrNull()?.namespace?.element
         return (ns?.parent as? XPathNamespaceDeclaration)?.namespacePrefix?.element
