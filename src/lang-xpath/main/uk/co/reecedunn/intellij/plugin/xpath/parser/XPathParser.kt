@@ -93,12 +93,19 @@ open class XPathParser : PsiParser {
 
     private fun parseOrExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parsePrimaryExpr(builder)) {
+        if (parsePostfixExpr(builder)) {
             marker.done(XPathElementType.OR_EXPR)
             return true
         }
         marker.drop()
         return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: StepExpr
+
+    private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
+        return parsePrimaryExpr(builder)
     }
 
     // endregion
