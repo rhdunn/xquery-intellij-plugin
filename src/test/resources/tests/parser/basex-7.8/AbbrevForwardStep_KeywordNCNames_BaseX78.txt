@@ -1,9 +1,0 @@
-XQueryModuleImpl[FILE(0:6)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:6)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:6)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:6)]
-            XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
