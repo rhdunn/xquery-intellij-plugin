@@ -6,6 +6,11 @@ EXPath Syntax Extensions:
 
 1.  Support the variadic function arguments proposal.
 
+XQuery:
+
+1.  Fix parsing QNames in NameTests where the prefix is `attribute`,
+    `element`, `every`, `exit`, `namespace`, `return`, or `some`.
+
 Function Resolution:
 
 1.  Correctly match functions with variadic function arguments.

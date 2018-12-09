@@ -1567,6 +1567,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         } else if (errorOnTokenType(XPathTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                flworExprMarker.rollbackTo()
+                return false
+            }
+
             return if (getTokenType() !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
                 flworExprMarker.drop()
                 true
@@ -2309,6 +2314,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val quantifiedExprMarker = matchTokenTypeWithMarker(XPathTokenType.K_SOME, XPathTokenType.K_EVERY)
         if (quantifiedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                quantifiedExprMarker.rollbackTo()
+                return false
+            }
+
             if (parseQuantifiedExprBinding(true)) {
                 parseWhiteSpaceAndCommentTokens()
                 while (matchTokenType(XPathTokenType.COMMA)) {
@@ -3112,6 +3122,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                exitExprMarker.rollbackTo()
+                return false
+            }
+
             if (!matchTokenType(XQueryTokenType.K_RETURNING)) {
                 if (getTokenType() === XPathTokenType.PARENTHESIS_OPEN) {
                     // FunctionCall construct
@@ -4994,6 +5009,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val elementMarker = matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
         if (elementMarker != null) {
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                elementMarker.rollbackTo()
+                return false
+            }
+
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
@@ -5018,6 +5038,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val attributeMarker = matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
         if (attributeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                attributeMarker.rollbackTo()
+                return false
+            }
+
             if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
@@ -5042,6 +5067,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val namespaceMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                namespaceMarker.rollbackTo()
+                return false
+            }
+
             if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
