@@ -210,7 +210,14 @@ open class XPathParser : PsiParser {
     private fun parseQName(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseQNameNCName(builder)) {
-            marker.done(NCNAME)
+            if (parseQNameSeparator(builder)) {
+                builder.advanceLexer()
+
+                parseQNameNCName(builder)
+                marker.done(QNAME)
+            } else {
+                marker.done(NCNAME)
+            }
             return true
         }
         marker.drop()

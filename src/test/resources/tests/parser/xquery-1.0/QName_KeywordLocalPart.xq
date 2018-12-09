@@ -1,1 +1,0 @@
-declare option sort:least "Test";

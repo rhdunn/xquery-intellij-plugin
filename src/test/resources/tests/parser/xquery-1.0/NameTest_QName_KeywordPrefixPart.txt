@@ -1,0 +1,11 @@
+XQueryModuleImpl[FILE(0:10)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:10)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:10)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:10)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:10)]
+                     XQueryQNameImpl[XQUERY_QNAME(0:10)]
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CAST(0:4)]('cast')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:10)]('ipsum')

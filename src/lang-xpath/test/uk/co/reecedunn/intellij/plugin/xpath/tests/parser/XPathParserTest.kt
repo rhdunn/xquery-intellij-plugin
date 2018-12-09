@@ -109,6 +109,54 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (45) QName")
+    internal inner class QName {
+        @Test
+        @DisplayName("qname")
+        fun qname() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_QName.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("keyword prefix part")
+        fun keywordPrefixPart() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_QName_KeywordPrefixPart.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName_KeywordPrefixPart.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("keyword local part")
+        fun keywordLocalPart() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_QName_KeywordLocalPart.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName_KeywordLocalPart.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 1.0 EBNF (46) NCName")
+    internal inner class NCName {
+        @Test
+        @DisplayName("identifier")
+        fun identifier() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("keyword")
+        fun keyword() {
+            val expected = loadResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (73) DoubleLiteral")
     internal inner class DoubleLiteral {
         @Test
@@ -172,26 +220,6 @@ private class XPathParserTest : ParserTestCase() {
         fun unexpectedCommentEndTag() {
             val expected = loadResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 2.0 EBNF (79) NCName")
-    internal inner class NCName {
-        @Test
-        @DisplayName("identifier")
-        fun identifier() {
-            val expected = loadResource("tests/parser/xpath-1.0/NameTest_NCName.txt")
-            val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("keyword")
-        fun keyword() {
-            val expected = loadResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.txt")
-            val actual = parseResource("tests/parser/xpath-1.0/NameTest_NCName_Keyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
