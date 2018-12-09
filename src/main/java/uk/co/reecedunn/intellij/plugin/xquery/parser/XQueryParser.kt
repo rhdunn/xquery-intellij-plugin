@@ -2319,7 +2319,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return false
             }
 
-            if (parseQuantifiedExprBinding(true)) {
+            val hasBinding = parseQuantifiedExprBinding(true)
+            if (hasBinding) {
                 parseWhiteSpaceAndCommentTokens()
                 while (matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens()
@@ -2331,8 +2332,13 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.K_SATISFIES)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "satisfies"))
-                haveErrors = true
+                if (hasBinding) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "satisfies"))
+                    haveErrors = true
+                } else { // NCName
+                    quantifiedExprMarker.rollbackTo()
+                    return false
+                }
             }
 
             parseWhiteSpaceAndCommentTokens()

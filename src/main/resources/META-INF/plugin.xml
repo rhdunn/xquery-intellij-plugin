@@ -18,6 +18,18 @@
     <ol>
       <li>Support the variadic function arguments proposal.</li>
     </ol>
+    <p>XQuery:</p>
+    <ol>
+      <li>
+        Fix parsing QNames in NameTests where the prefix is <code>attribute</code>,
+        <code>element</code>, <code>every</code>, <code>exit</code>, <code>namespace</code>,
+        <code>return</code>, or <code>some</code>.
+      </li>
+      <li>
+        Fix parsing NCNames in FunctionCalls and NameTests where the name is
+        <code>some</code>, or <code>every</code>.
+      </li>
+    </ol>
     <p>Function Resolution:</p>
     <ol>
       <li>Correctly match functions with variadic function arguments.</li>
