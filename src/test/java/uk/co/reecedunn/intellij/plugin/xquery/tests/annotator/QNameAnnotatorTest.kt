@@ -44,7 +44,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("identifier")
         fun testNCName() {
-            val file = parseResource("tests/parser/xquery-1.0/OptionDecl.xq")
+            val file = parse<XQueryModule>("lorem-ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(0))
         }
@@ -52,7 +52,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("keyword")
         fun testNCName_Keyword() {
-            val file = parseResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.xq")
+            val file = parse<XQueryModule>("cast")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
@@ -78,20 +78,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("prefix: identifier; local name: identifier")
         fun testQName() {
-            val file = parseResource("tests/parser/xquery-1.0/NameTest_QName.xq")
+            val file = parse<XQueryModule>("lorem:ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
             assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[0].startOffset, `is`(0))
-            assertThat(annotations[0].endOffset, `is`(3))
+            assertThat(annotations[0].endOffset, `is`(5))
             assertThat(annotations[0].message, `is`(nullValue()))
             assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
             assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
             assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[1].startOffset, `is`(0))
-            assertThat(annotations[1].endOffset, `is`(3))
+            assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
@@ -100,7 +100,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("prefix: keyword")
         fun testQName_KeywordPrefixPart() {
-            val file = parseResource("tests/parser/xquery-1.0/NameTest_QName_KeywordPrefixPart.xq")
+            val file = parse<XQueryModule>("cast:ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
@@ -122,7 +122,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("prefix: missing")
         fun testQName_MissingPrefixPart() {
-            val file = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq")
+            val file = parse<XQueryModule>(":ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(0))
         }
@@ -130,7 +130,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("local name: keyword")
         fun testQName_KeywordLocalPart() {
-            val file = parseResource("tests/parser/xquery-1.0/NameTest_QName_KeywordLocalPart.xq")
+            val file = parse<XQueryModule>("lorem:cast")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(4))
 
@@ -166,20 +166,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("local name: missing")
         fun testQName_MissingLocalPart() {
-            val file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
+            val file = parse<XQueryModule>("lorem:")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
             assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(15))
-            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].startOffset, `is`(0))
+            assertThat(annotations[0].endOffset, `is`(5))
             assertThat(annotations[0].message, `is`(nullValue()))
             assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
             assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
             assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(15))
-            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].startOffset, `is`(0))
+            assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
@@ -188,20 +188,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("whitespace in QName; before ':'")
         fun whitespaceInQName_beforeColon() {
-            val file = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.xq")
+            val file = parse<XQueryModule>("lorem :ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
             assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(15))
-            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].startOffset, `is`(0))
+            assertThat(annotations[0].endOffset, `is`(5))
             assertThat(annotations[0].message, `is`(nullValue()))
             assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
             assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
             assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(15))
-            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].startOffset, `is`(0))
+            assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
@@ -210,20 +210,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("whitespace in QName; after ':'")
         fun whitespaceInQName_afterColon() {
-            val file = parseResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.xq")
+            val file = parse<XQueryModule>("lorem: ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
             assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(15))
-            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].startOffset, `is`(0))
+            assertThat(annotations[0].endOffset, `is`(5))
             assertThat(annotations[0].message, `is`(nullValue()))
             assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
             assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
             assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(15))
-            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].startOffset, `is`(0))
+            assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
@@ -232,20 +232,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("whitespace in QName; before and after ':'")
         fun whitespaceInQName_beforeAndAfterColon() {
-            val file = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.xq")
+            val file = parse<XQueryModule>("lorem : ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
             assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(15))
-            assertThat(annotations[0].endOffset, `is`(18))
+            assertThat(annotations[0].startOffset, `is`(0))
+            assertThat(annotations[0].endOffset, `is`(5))
             assertThat(annotations[0].message, `is`(nullValue()))
             assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
             assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
             assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(15))
-            assertThat(annotations[1].endOffset, `is`(18))
+            assertThat(annotations[1].startOffset, `is`(0))
+            assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.NS_PREFIX))
