@@ -73,7 +73,7 @@ open class XPathParser : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        if (parseExprSingle(builder)) {
+        if (parseExpr(builder, null)) {
             return true
         }
         if (isFirst) {
@@ -85,7 +85,32 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr
 
-    private fun parseExprSingle(builder: PsiBuilder): Boolean {
+    fun parseExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseExprSingle(builder)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseExprSingle(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected-expression"))
+                    haveErrors = true
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+
+            if (type == null)
+                marker.drop()
+            else
+                marker.done(type)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseExprSingle(builder: PsiBuilder): Boolean {
         return parseOrExpr(builder)
     }
 
@@ -95,6 +120,7 @@ open class XPathParser : PsiParser {
     private fun parseOrExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseStepExpr(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
             marker.done(XPathElementType.OR_EXPR)
             return true
         }

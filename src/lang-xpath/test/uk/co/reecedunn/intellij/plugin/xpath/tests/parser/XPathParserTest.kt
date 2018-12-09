@@ -157,6 +157,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (1) XPath")
+    internal inner class XPath20_XPath {
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; missing Expr")
+        fun multiple_MissingExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; space before next comma")
+        fun multiple_SpaceBeforeNextComma() {
+            val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (73) DoubleLiteral")
     internal inner class DoubleLiteral {
         @Test
