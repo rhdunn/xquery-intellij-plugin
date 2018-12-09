@@ -1,7 +1,8 @@
 XPathImpl[FILE(0:7)]
    XPathOrExprImpl[XPATH_OR_EXPR(0:7)]
-      XPathNameTestImpl[XPATH_NAME_TEST(0:7)]
-         XPathQNameImpl[XPATH_QNAME(0:7)]
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:3)]('one')
-            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3:4)](':')
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:7)]('two')
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:7)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:7)]
+            XPathQNameImpl[XPATH_QNAME(0:7)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:3)]('one')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3:4)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:7)]('two')

@@ -3965,7 +3965,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val forwardStepMarker = mark()
         if (parseForwardAxis()) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseNodeTest(null)) {
+            if (!parseNodeTest(builder, null)) {
                 error(XQueryBundle.message("parser.error.expected", "NodeTest"))
             }
 
@@ -4011,7 +4011,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val matched = matchTokenType(XPathTokenType.ATTRIBUTE_SELECTOR)
 
         parseWhiteSpaceAndCommentTokens()
-        if (parseNodeTest(type)) {
+        if (parseNodeTest(builder, type)) {
             if (matched)
                 abbrevForwardStepMarker.done(XPathElementType.ABBREV_FORWARD_STEP)
             else
@@ -4031,7 +4031,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val reverseStepMarker = mark()
         if (parseReverseAxis()) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseNodeTest(null)) {
+            if (!parseNodeTest(builder, null)) {
                 error(XQueryBundle.message("parser.error.expected", "NodeTest"))
             }
 
@@ -4077,8 +4077,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseNodeTest(type: IElementType?): Boolean {
-        val nodeTestMarker = mark()
+    override fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
+        val nodeTestMarker = builder.mark()
         if (parseKindTest() || parseNameTest(builder, type)) {
             nodeTestMarker.done(XPathElementType.NODE_TEST)
             return true

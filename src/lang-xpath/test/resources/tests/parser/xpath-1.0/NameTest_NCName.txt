@@ -1,5 +1,6 @@
 XPathImpl[FILE(0:11)]
    XPathOrExprImpl[XPATH_OR_EXPR(0:11)]
-      XPathNameTestImpl[XPATH_NAME_TEST(0:11)]
-         XPathNCNameImpl[XPATH_NCNAME(0:11)]
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:11)]('lorem-ipsum')
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:11)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:11)]
+            XPathNCNameImpl[XPATH_NCNAME(0:11)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:11)]('lorem-ipsum')

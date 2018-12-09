@@ -1,5 +1,6 @@
 XPathImpl[FILE(0:4)]
    XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
-      XPathNameTestImpl[XPATH_NAME_TEST(0:4)]
-         XPathNCNameImpl[XPATH_NCNAME(0:4)]
-            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:4)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:4)]
+            XPathNCNameImpl[XPATH_NCNAME(0:4)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
