@@ -2765,11 +2765,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseCatchErrorList(): Boolean {
         val catchErrorListMarker = mark()
-        if (parseNameTest(null)) {
+        if (parseNameTest(builder, null)) {
             parseWhiteSpaceAndCommentTokens()
             while (matchTokenType(XPathTokenType.UNION)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseNameTest(null)) {
+                if (!parseNameTest(builder, null)) {
                     error(XQueryBundle.message("parser.error.expected", "NameTest"))
                 }
                 parseWhiteSpaceAndCommentTokens()
@@ -4079,7 +4079,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseNodeTest(type: IElementType?): Boolean {
         val nodeTestMarker = mark()
-        if (parseKindTest() || parseNameTest(type)) {
+        if (parseKindTest() || parseNameTest(builder, type)) {
             nodeTestMarker.done(XPathElementType.NODE_TEST)
             return true
         }
@@ -4088,8 +4088,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseNameTest(type: IElementType?): Boolean {
-        val nameTestMarker = mark()
+    override fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
+        val nameTestMarker = builder.mark()
         if (parseEQName(XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
             nameTestMarker.done(XPathElementType.NAME_TEST)
             return true

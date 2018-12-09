@@ -106,7 +106,17 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     private fun parseStepExpr(builder: PsiBuilder): Boolean {
-        return parsePostfixExpr(builder) || parseQName(builder)
+        return parsePostfixExpr(builder) || parseNameTest(builder, null)
+    }
+
+    open fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseQName(builder)) {
+            marker.done(XPathElementType.NAME_TEST)
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
