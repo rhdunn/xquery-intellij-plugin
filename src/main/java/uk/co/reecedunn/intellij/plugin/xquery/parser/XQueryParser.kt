@@ -7419,7 +7419,10 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     }
                     return true
                 } else if (parseQNameSeparator(builder)) {
-                    beforeMarker.error(XQueryBundle.message(if (isWildcard) "parser.error.wildcard.whitespace-before-local-part" else "parser.error.qname.whitespace-before-local-part"))
+                    if (isWildcard)
+                        beforeMarker.error(XQueryBundle.message("parser.error.wildcard.whitespace-before-local-part"))
+                    else
+                        beforeMarker.error(XPathBundle.message("parser.error.qname.whitespace-before-local-part"))
                 } else {
                     beforeMarker.drop()
                 }
@@ -7455,7 +7458,10 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                         }
                         return true
                     } else {
-                        afterMarker.error(XQueryBundle.message(if (isWildcard) "parser.error.wildcard.whitespace-after-local-part" else "parser.error.qname.whitespace-after-local-part"))
+                        if (isWildcard)
+                            afterMarker.error(XQueryBundle.message("parser.error.wildcard.whitespace-after-local-part"))
+                        else
+                            afterMarker.error(XPathBundle.message("parser.error.qname.whitespace-after-local-part"))
                     }
                 } else {
                     afterMarker.drop()

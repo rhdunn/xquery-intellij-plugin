@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:8)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:8)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:8)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:8)]
+            XPathQNameImpl[XPATH_QNAME(0:8)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:3)]('one')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3:4)](':')
+               PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:8)]('two')

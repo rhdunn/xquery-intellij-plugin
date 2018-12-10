@@ -256,9 +256,10 @@ open class XPathParser : PsiParser {
     private fun parseQName(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseQNameNCName(builder)) {
+            parseQNameWhitespace(builder, QNameWhitespace.BeforeColon)
             if (parseQNameSeparator(builder)) {
                 builder.advanceLexer()
-
+                parseQNameWhitespace(builder, QNameWhitespace.AfterColon)
                 parseQNameNCName(builder)
                 marker.done(QNAME)
             } else {
@@ -275,6 +276,25 @@ open class XPathParser : PsiParser {
             builder.advanceLexer()
             return true
         }
+        return false
+    }
+
+    private enum class QNameWhitespace {
+        BeforeColon,
+        AfterColon
+    }
+
+    private fun parseQNameWhitespace(builder: PsiBuilder, type: QNameWhitespace): Boolean {
+        val marker = builder.mark()
+        if (parseWhiteSpaceAndCommentTokens(builder)) {
+            if (type == QNameWhitespace.BeforeColon && parseQNameSeparator(builder)) {
+                marker.error(XPathBundle.message("parser.error.qname.whitespace-before-local-part"))
+            } else if (type == QNameWhitespace.AfterColon) {
+                marker.error(XPathBundle.message("parser.error.qname.whitespace-after-local-part"))
+            }
+            return true
+        }
+        marker.drop()
         return false
     }
 

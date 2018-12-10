@@ -1,0 +1,15 @@
+XQueryModuleImpl[FILE(0:9)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:9)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:9)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:9)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:9)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:9)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:9)]
+                     XQueryQNameImpl[XQUERY_QNAME(0:9)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:3)]('one')
+                        PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
+                        PsiErrorElementImpl[ERROR_ELEMENT(5:6)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('two')

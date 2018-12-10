@@ -134,6 +134,34 @@ private class XPathParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName_KeywordLocalPart.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Nested
+        @DisplayName("error recovery: spaces between colon")
+        internal inner class SpacesBetweenColon {
+            @Test
+            @DisplayName("space before colon")
+            fun spaceBeforeColon() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_QName_SpaceBeforeColon.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName_SpaceBeforeColon.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("space after colon")
+            fun spaceAfterColon() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_QName_SpaceAfterColon.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName_SpaceAfterColon.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("space before and after colon")
+            fun spaceBeforeAndAfterColon() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_QName_SpaceBeforeAndAfterColon.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_QName_SpaceBeforeAndAfterColon.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
     @Nested
