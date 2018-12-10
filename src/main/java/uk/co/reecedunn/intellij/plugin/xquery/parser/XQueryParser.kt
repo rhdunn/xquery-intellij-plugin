@@ -7408,26 +7408,13 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             // endregion
             // region QNameWhitespaceBeforeSeparator := (S | Comment)* -- error: whitespace not allowed before ':'
 
-            val beforeMarker = mark()
-            if (parseWhiteSpaceAndCommentTokens()) {
-                if (endQNameOnSpace) {
-                    beforeMarker.drop()
-                    if (type === XPathElementType.WILDCARD && isWildcard) {
-                        qnameMarker.done(XPathElementType.WILDCARD)
-                    } else {
-                        qnameMarker.done(XQueryElementType.NCNAME)
-                    }
-                    return true
-                } else if (parseQNameSeparator(builder)) {
-                    if (isWildcard)
-                        beforeMarker.error(XQueryBundle.message("parser.error.wildcard.whitespace-before-local-part"))
-                    else
-                        beforeMarker.error(XPathBundle.message("parser.error.qname.whitespace-before-local-part"))
+            if (parseQNameWhitespace(builder, QNameWhitespace.BeforeColon, endQNameOnSpace, isWildcard)) {
+                if (type === XPathElementType.WILDCARD && isWildcard) {
+                    qnameMarker.done(XPathElementType.WILDCARD)
                 } else {
-                    beforeMarker.drop()
+                    qnameMarker.done(XQueryElementType.NCNAME)
                 }
-            } else {
-                beforeMarker.drop()
+                return true
             }
 
             // endregion
@@ -7447,24 +7434,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 // endregion
                 // region QNameWhitespaceAfterSeparator := (S | Comment)* -- error: whitespace not allowed after ':'
 
-                val afterMarker = mark()
-                if (parseWhiteSpaceAndCommentTokens()) {
-                    if (endQNameOnSpace) {
-                        nameMarker.rollbackTo()
-                        if (type === XPathElementType.WILDCARD && isWildcard) {
-                            qnameMarker.done(XPathElementType.WILDCARD)
-                        } else {
-                            qnameMarker.done(XQueryElementType.NCNAME)
-                        }
-                        return true
+                if (parseQNameWhitespace(builder, QNameWhitespace.AfterColon, endQNameOnSpace, isWildcard)) {
+                    nameMarker.rollbackTo()
+                    if (type === XPathElementType.WILDCARD && isWildcard) {
+                        qnameMarker.done(XPathElementType.WILDCARD)
                     } else {
-                        if (isWildcard)
-                            afterMarker.error(XQueryBundle.message("parser.error.wildcard.whitespace-after-local-part"))
-                        else
-                            afterMarker.error(XPathBundle.message("parser.error.qname.whitespace-after-local-part"))
+                        qnameMarker.done(XQueryElementType.NCNAME)
                     }
-                } else {
-                    afterMarker.drop()
+                    return true
                 }
                 nameMarker.drop()
 
