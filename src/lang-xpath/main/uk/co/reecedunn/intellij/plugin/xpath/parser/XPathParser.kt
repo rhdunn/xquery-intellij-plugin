@@ -257,10 +257,10 @@ open class XPathParser : PsiParser {
     private fun parseQName(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseQNameNCName(builder)) {
-            parseQNameWhitespace(builder, QNameWhitespace.BeforeColon, false, false)
+            parseQNameWhitespace(builder, QNamePart.Prefix, false, false)
             if (parseQNameSeparator(builder)) {
                 builder.advanceLexer()
-                parseQNameWhitespace(builder, QNameWhitespace.AfterColon, false, false)
+                parseQNameWhitespace(builder, QNamePart.LocalName, false, false)
                 parseQNameNCName(builder)
                 marker.done(QNAME)
             } else {
@@ -272,6 +272,11 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    protected enum class QNamePart {
+        Prefix,
+        LocalName
+    }
+
     private fun parseQNameNCName(builder: PsiBuilder): Boolean {
         if (builder.tokenType is INCNameType) {
             builder.advanceLexer()
@@ -280,14 +285,9 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    protected enum class QNameWhitespace {
-        BeforeColon,
-        AfterColon
-    }
-
     protected fun parseQNameWhitespace(
         builder: PsiBuilder,
-        type: QNameWhitespace,
+        type: QNamePart,
         endQNameOnWhitespace: Boolean,
         isWildcard: Boolean
     ): Boolean {
@@ -296,13 +296,13 @@ open class XPathParser : PsiParser {
             if (endQNameOnWhitespace) {
                 marker.drop()
                 return true
-            } else if (type == QNameWhitespace.BeforeColon && parseQNameSeparator(builder)) {
+            } else if (type == QNamePart.Prefix && parseQNameSeparator(builder)) {
                 if (isWildcard)
                     marker.error(XPathBundle.message("parser.error.wildcard.whitespace-before-local-part"))
                 else
                     marker.error(XPathBundle.message("parser.error.qname.whitespace-before-local-part"))
                 return false
-            } else if (type == QNameWhitespace.AfterColon) {
+            } else if (type == QNamePart.LocalName) {
                 if (isWildcard)
                     marker.error(XPathBundle.message("parser.error.wildcard.whitespace-after-local-part"))
                 else

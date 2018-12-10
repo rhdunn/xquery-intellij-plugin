@@ -7408,7 +7408,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             // endregion
             // region QNameWhitespaceBeforeSeparator := (S | Comment)* -- error: whitespace not allowed before ':'
 
-            if (parseQNameWhitespace(builder, QNameWhitespace.BeforeColon, endQNameOnSpace, isWildcard)) {
+            if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, isWildcard)) {
                 if (type === XPathElementType.WILDCARD && isWildcard) {
                     qnameMarker.done(XPathElementType.WILDCARD)
                 } else {
@@ -7434,7 +7434,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 // endregion
                 // region QNameWhitespaceAfterSeparator := (S | Comment)* -- error: whitespace not allowed after ':'
 
-                if (parseQNameWhitespace(builder, QNameWhitespace.AfterColon, endQNameOnSpace, isWildcard)) {
+                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, isWildcard)) {
                     nameMarker.rollbackTo()
                     if (type === XPathElementType.WILDCARD && isWildcard) {
                         qnameMarker.done(XPathElementType.WILDCARD)
