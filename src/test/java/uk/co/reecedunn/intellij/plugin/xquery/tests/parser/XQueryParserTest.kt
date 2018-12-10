@@ -5091,13 +5091,6 @@ private class XQueryParserTest : ParserTestCase() {
     // region XQuery 1.0 :: QName
 
     @Test
-    fun testQName_NonNCNameLocalPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testQName_MissingLocalPart() {
         val expected = loadResource("tests/parser/xquery-1.0/QName_MissingLocalPart.txt")
         val actual = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
@@ -5194,6 +5187,14 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeAndAfterColon.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+        }
+
+        @Test
+        @DisplayName("error recovery: integer literal local name")
+        fun integerLiteralLocalPart() {
+            val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
 

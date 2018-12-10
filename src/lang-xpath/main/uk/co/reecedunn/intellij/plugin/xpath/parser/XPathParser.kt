@@ -256,12 +256,12 @@ open class XPathParser : PsiParser {
 
     private fun parseQName(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseQNameNCName(builder)) {
+        if (parseQNameNCName(builder, QNamePart.Prefix)) {
             parseQNameWhitespace(builder, QNamePart.Prefix, false, false)
             if (parseQNameSeparator(builder)) {
                 builder.advanceLexer()
                 parseQNameWhitespace(builder, QNamePart.LocalName, false, false)
-                parseQNameNCName(builder)
+                parseQNameNCName(builder, QNamePart.LocalName)
                 marker.done(QNAME)
             } else {
                 marker.done(NCNAME)
@@ -277,10 +277,15 @@ open class XPathParser : PsiParser {
         LocalName
     }
 
-    private fun parseQNameNCName(builder: PsiBuilder): Boolean {
+    private fun parseQNameNCName(builder: PsiBuilder, type: QNamePart): Boolean {
         if (builder.tokenType is INCNameType) {
             builder.advanceLexer()
             return true
+        } else if (builder.tokenType == XPathTokenType.INTEGER_LITERAL && type == QNamePart.LocalName) {
+            // The user has started the local name with a number, so treat it as part of the QName.
+            val errorMarker = builder.mark()
+            builder.advanceLexer()
+            errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
         }
         return false
     }

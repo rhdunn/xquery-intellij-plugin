@@ -7464,11 +7464,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     // The user has started the local name with a number, so treat it as part of the QName.
                     val errorMarker = mark()
                     advanceLexer()
-                    errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"))
+                    errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
                 } else {
                     // Don't consume the next token with an error, as it may be a valid part of the next construct
                     // (e.g. the start of a string literal, or the '>' of a direct element constructor).
-                    error(XQueryBundle.message("parser.error.qname.missing-local-name"))
+                    error(XPathBundle.message("parser.error.qname.missing-local-name"))
                 }
 
                 // endregion
