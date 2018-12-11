@@ -268,6 +268,15 @@ open class XPathParser : PsiParser {
             }
             return true
         }
+        if (parseQNameSeparator(builder)) { // Missing prefix
+            builder.advanceLexer()
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.tokenType is INCNameType) {
+                builder.advanceLexer()
+            }
+            marker.error(XPathBundle.message("parser.error.qname.missing-prefix"))
+            return true
+        }
         marker.drop()
         return false
     }
@@ -286,6 +295,10 @@ open class XPathParser : PsiParser {
             val errorMarker = builder.mark()
             builder.advanceLexer()
             errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
+        } else if (type == QNamePart.LocalName) {
+            // Don't consume the next token with an error, as it may be a valid part of the next construct
+            // (e.g. the start of a string literal, or the '>' of a direct element constructor).
+            builder.error(XPathBundle.message("parser.error.qname.missing-local-name"))
         }
         return false
     }

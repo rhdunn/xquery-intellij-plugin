@@ -5091,27 +5091,6 @@ private class XQueryParserTest : ParserTestCase() {
     // region XQuery 1.0 :: QName
 
     @Test
-    fun testQName_MissingLocalPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/QName_MissingLocalPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testQName_MissingPrefixPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testQName_MissingPrefixAndLocalPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testQName_WildcardPrefixPart() {
         val expected = loadResource("tests/parser/xquery-1.0/QName_WildcardPrefixPart.txt")
         val actual = parseResource("tests/parser/xquery-1.0/QName_WildcardPrefixPart.xq")
@@ -5195,6 +5174,34 @@ private class XQueryParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.txt")
             val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery: missing part")
+        internal inner class MissingPart {
+            @Test
+            @DisplayName("missing local name")
+            fun missingLocalName() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing prefix")
+            fun missingPrefix() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing prefix and local name")
+            fun missingPrefixAndLocalName() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixAndLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixAndLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

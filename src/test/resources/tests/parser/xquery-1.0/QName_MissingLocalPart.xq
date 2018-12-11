@@ -1,1 +1,0 @@
-declare option one: "Test";

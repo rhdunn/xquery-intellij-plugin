@@ -7499,7 +7499,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (type === XQueryElementType.NCNAME) {
                 qnameMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"))
             } else {
-                qnameMarker.error(XQueryBundle.message("parser.error.qname.missing-prefix"))
+                qnameMarker.error(XPathBundle.message("parser.error.qname.missing-prefix"))
             }
             return true
         }
