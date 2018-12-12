@@ -1,0 +1,11 @@
+XQueryModuleImpl[FILE(0:6)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:6)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:6)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:6)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+                     XPathWildcardImpl[XPATH_WILDCARD(0:6)]
+                        PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(0:1)]('*')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1:2)](':')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')

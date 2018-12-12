@@ -233,6 +233,14 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_NCName.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("qname: ncname prefix")
+            fun ncnamePrefix() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_Wildcard_NCNamePrefixPart.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_NCNamePrefixPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
@@ -269,6 +277,22 @@ private class XPathParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.txt")
             val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (36) NameTest")
+    internal inner class NameTest_XPath20 {
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (37) Wildcard")
+        internal inner class Wildcard {
+            @Test
+            @DisplayName("qname: ncname local name")
+            fun ncnameLocalName() {
+                val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_NCNameLocalPart.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

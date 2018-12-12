@@ -1,0 +1,8 @@
+XPathImpl[FILE(0:6)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
+            XPathWildcardImpl[XPATH_WILDCARD(0:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:4)]('test')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
+               PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(5:6)]('*')

@@ -3278,6 +3278,22 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCName.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("qname: ncname prefix")
+            fun ncnamePrefix() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNamePrefixPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNamePrefixPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("qname: ncname local name")
+            fun ncnameLocalName() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNameLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
@@ -3308,20 +3324,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testWildcard_MissingPrefixPart() {
         val expected = loadResource("tests/parser/xquery-1.0/Wildcard_MissingPrefixPart.txt")
         val actual = parseResource("tests/parser/xquery-1.0/Wildcard_MissingPrefixPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_NCNamePrefixPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_NCNamePrefixPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_NCNamePrefixPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_NCNameLocalPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_NCNameLocalPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_NCNameLocalPart.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
