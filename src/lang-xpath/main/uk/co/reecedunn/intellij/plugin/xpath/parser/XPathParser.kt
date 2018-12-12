@@ -148,7 +148,7 @@ open class XPathParser : PsiParser {
 
     open fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseQName(builder)) {
+        if (parseQNameOrWildcard(builder)) {
             marker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -254,15 +254,18 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
 
-    private fun parseQName(builder: PsiBuilder): Boolean {
+    private fun parseQNameOrWildcard(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseQNameNCName(builder, QNamePart.Prefix)) {
+        val prefix = parseQNameNCName(builder, QNamePart.Prefix)
+        if (prefix != null) {
             parseQNameWhitespace(builder, QNamePart.Prefix, false, false)
             if (parseQNameSeparator(builder)) {
                 builder.advanceLexer()
                 parseQNameWhitespace(builder, QNamePart.LocalName, false, false)
                 parseQNameNCName(builder, QNamePart.LocalName)
                 marker.done(QNAME)
+            } else if (prefix == XPathTokenType.STAR) {
+                marker.done(XPathElementType.WILDCARD)
             } else {
                 marker.done(NCNAME)
             }
@@ -286,11 +289,12 @@ open class XPathParser : PsiParser {
         LocalName
     }
 
-    private fun parseQNameNCName(builder: PsiBuilder, type: QNamePart): Boolean {
-        if (builder.tokenType is INCNameType) {
+    private fun parseQNameNCName(builder: PsiBuilder, type: QNamePart): IElementType? {
+        val tokenType = builder.tokenType
+        if (tokenType is INCNameType || tokenType == XPathTokenType.STAR) {
             builder.advanceLexer()
-            return true
-        } else if (builder.tokenType == XPathTokenType.INTEGER_LITERAL && type == QNamePart.LocalName) {
+            return tokenType
+        } else if (tokenType == XPathTokenType.INTEGER_LITERAL && type == QNamePart.LocalName) {
             // The user has started the local name with a number, so treat it as part of the QName.
             val errorMarker = builder.mark()
             builder.advanceLexer()
@@ -300,7 +304,7 @@ open class XPathParser : PsiParser {
             // (e.g. the start of a string literal, or the '>' of a direct element constructor).
             builder.error(XPathBundle.message("parser.error.qname.missing-local-name"))
         }
-        return false
+        return null
     }
 
     protected fun parseQNameWhitespace(

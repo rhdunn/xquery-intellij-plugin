@@ -222,6 +222,18 @@ private class XPathParserTest : ParserTestCase() {
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (24) Wildcard")
+        internal inner class Wildcard {
+            @Test
+            @DisplayName("ncname")
+            fun ncname() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_Wildcard_NCName.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_NCName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
     @Nested
