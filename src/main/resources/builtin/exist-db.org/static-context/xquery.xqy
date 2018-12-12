@@ -38,5 +38,16 @@ declare namespace mail = "http://exist-db.org/xquery/mail";
 declare namespace ngram = "http://exist-db.org/xquery/ngram";
 declare namespace process = "http://exist-db.org/xquery/process";
 declare namespace range = "http://exist-db.org/xquery/range";
+declare namespace repo = "http://exist-db.org/xquery/repo";
+declare namespace request = "http://exist-db.org/xquery/request";
+declare namespace response = "http://exist-db.org/xquery/response";
+declare namespace scheduler = "http://exist-db.org/xquery/scheduler";
+declare namespace sm = "http://exist-db.org/xquery/securitymanager";
+declare namespace session = "http://exist-db.org/xquery/session";
+declare namespace sort = "http://exist-db.org/xquery/sort";
+declare namespace sql = "http://exist-db.org/xquery/sql";
+declare namespace system = "http://exist-db.org/xquery/system";
+declare namespace transform = "http://exist-db.org/xquery/transform";
+declare namespace util = "http://exist-db.org/xquery/util";
 
 ()
