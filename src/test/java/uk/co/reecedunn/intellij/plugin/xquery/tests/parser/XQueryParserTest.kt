@@ -3152,6 +3152,123 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (79) NameTest")
+    internal inner class NameTest {
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (154) QName")
+        internal inner class QName {
+            @Test
+            @DisplayName("qname")
+            fun qname() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("keyword prefix part")
+            fun keywordPrefixPart() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_KeywordPrefixPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_KeywordPrefixPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("keyword local part")
+            fun keywordLocalPart() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_KeywordLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_KeywordLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("error recovery: spaces between colon")
+            internal inner class SpacesBetweenColon {
+                @Test
+                @DisplayName("space before colon")
+                fun spaceBeforeColon() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeColon.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("space after colon")
+                fun spaceAfterColon() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_SpaceAfterColon.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceAfterColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("space before and after colon")
+                fun spaceBeforeAndAfterColon() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeAndAfterColon.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeAndAfterColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+
+            @Test
+            @DisplayName("error recovery: integer literal local name")
+            fun integerLiteralLocalPart() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("error recovery: missing part")
+            internal inner class MissingPart {
+                @Test
+                @DisplayName("missing local name")
+                fun missingLocalName() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingLocalPart.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingLocalPart.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("missing prefix")
+                fun missingPrefix() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixPart.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixPart.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("missing prefix and local name")
+                fun missingPrefixAndLocalName() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixAndLocalPart.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixAndLocalPart.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (155) NCName")
+        internal inner class NCName {
+            @Test
+            @DisplayName("identifier")
+            fun identifier() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_NCName.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_NCName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("keyword")
+            fun keyword() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
     // region XQuery 1.0 :: NodeTest + NameTest + Wildcard
 
     @Test
@@ -5112,118 +5229,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-
-    @Nested
-    @DisplayName("XQuery 1.0 EBNF (154) QName")
-    internal inner class QName {
-        @Test
-        @DisplayName("qname")
-        fun qname() {
-            val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("keyword prefix part")
-        fun keywordPrefixPart() {
-            val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_KeywordPrefixPart.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_KeywordPrefixPart.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("keyword local part")
-        fun keywordLocalPart() {
-            val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_KeywordLocalPart.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_KeywordLocalPart.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Nested
-        @DisplayName("error recovery: spaces between colon")
-        internal inner class SpacesBetweenColon {
-            @Test
-            @DisplayName("space before colon")
-            fun spaceBeforeColon() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeColon.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("space after colon")
-            fun spaceAfterColon() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_SpaceAfterColon.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceAfterColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("space before and after colon")
-            fun spaceBeforeAndAfterColon() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeAndAfterColon.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_SpaceBeforeAndAfterColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-        }
-
-        @Test
-        @DisplayName("error recovery: integer literal local name")
-        fun integerLiteralLocalPart() {
-            val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_IntegerLiteralLocalName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Nested
-        @DisplayName("error recovery: missing part")
-        internal inner class MissingPart {
-            @Test
-            @DisplayName("missing local name")
-            fun missingLocalName() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingLocalPart.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingLocalPart.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("missing prefix")
-            fun missingPrefix() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixPart.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixPart.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("missing prefix and local name")
-            fun missingPrefixAndLocalName() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixAndLocalPart.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_QName_MissingPrefixAndLocalPart.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery 1.0 EBNF (155) NCName")
-    internal inner class NCName {
-        @Test
-        @DisplayName("identifier")
-        fun identifier() {
-            val expected = loadResource("tests/parser/xquery-1.0/NameTest_NCName.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/NameTest_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("keyword")
-        fun keyword() {
-            val expected = loadResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/NameTest_NCName_Keyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
 
     // region XQuery 1.0 :: NCName
 
