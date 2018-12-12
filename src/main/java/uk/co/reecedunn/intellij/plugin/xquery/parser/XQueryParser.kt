@@ -7400,7 +7400,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 if (type !== XPathElementType.WILDCARD) {
                     error(XQueryBundle.message("parser.error.unexpected-wildcard"))
                 }
-                parseWildcardIndicator()
+                advanceLexer()
             } else {
                 advanceLexer()
             }
@@ -7458,7 +7458,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     } else {
                         error(XQueryBundle.message("parser.error.qname.wildcard-local-name"))
                     }
-                    parseWildcardIndicator()
+                    advanceLexer()
                     isWildcard = true
                 } else if (getTokenType() === XPathTokenType.INTEGER_LITERAL) {
                     // The user has started the local name with a number, so treat it as part of the QName.
@@ -7524,16 +7524,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseWildcardIndicator(): Boolean {
-        if (getTokenType() === XPathTokenType.STAR) {
-            val marker = mark()
-            advanceLexer()
-            marker.done(XPathElementType.WILDCARD_INDICATOR)
-            return true
-        }
-        return false
-    }
-
     private fun parseBracedURILiteral(): Boolean {
         val stringMarker = matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
         while (stringMarker != null) {
@@ -7566,12 +7556,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 advanceLexer()
             } else if (getTokenType() === XPathTokenType.STAR) {
                 if (type === XPathElementType.WILDCARD) {
-                    parseWildcardIndicator()
+                    advanceLexer()
                     qnameMarker.done(XPathElementType.WILDCARD)
                     return true
                 }
                 error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"))
-                parseWildcardIndicator()
+                advanceLexer()
             } else {
                 error(XQueryBundle.message("parser.error.expected-ncname"))
             }

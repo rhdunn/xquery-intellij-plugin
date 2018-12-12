@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:28)]
                      XPathNameTestImpl[XPATH_NAME_TEST(0:1)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
-                  LeafPsiElement[XPATH_STAR_TOKEN(1:2)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(1:2)]('*')
                   XPathNodeTestImpl[XPATH_NODE_TEST(2:3)]
                      XPathNameTestImpl[XPATH_NAME_TEST(2:3)]
                         XQueryNCNameImpl[XQUERY_NCNAME(2:3)]

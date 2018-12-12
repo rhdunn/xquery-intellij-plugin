@@ -6,8 +6,7 @@ XQueryModuleImpl[FILE(0:7)]
                XPathNodeTestImpl[XPATH_NODE_TEST(0:7)]
                   XPathNameTestImpl[XPATH_NAME_TEST(0:7)]
                      XPathWildcardImpl[XPATH_WILDCARD(0:7)]
-                        PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(0:1)]
-                           LeafPsiElement[XPATH_STAR_TOKEN(0:1)]('*')
+                        PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(0:1)]('*')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1:2)](':')
                         PsiErrorElementImpl[ERROR_ELEMENT(2:3)]('XPST0003: Whitespace is not allowed after ':' in a wildcard.')
                            PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')

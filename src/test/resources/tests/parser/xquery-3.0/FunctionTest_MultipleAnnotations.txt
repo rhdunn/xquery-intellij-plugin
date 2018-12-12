@@ -32,7 +32,7 @@ XQueryModuleImpl[FILE(0:68)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(52:53)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
-                  LeafPsiElement[XPATH_STAR_TOKEN(54:55)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(54:55)]('*')
                   PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(56:57)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')

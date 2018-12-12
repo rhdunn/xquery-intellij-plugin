@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:18)]
                         LeafPsiElement[XPATH_OPTIONAL_TOKEN(6:7)]('?')
                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                         XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(8:9)]
-                           LeafPsiElement[XPATH_STAR_TOKEN(8:9)]('*')
+                           PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(8:9)]('*')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                   LeafPsiElement[XPATH_EQUAL_TOKEN(10:11)]('=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')

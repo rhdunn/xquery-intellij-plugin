@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:46)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(24:34)]('array-node')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
                   PsiErrorElementImpl[ERROR_ELEMENT(35:36)]('XPST0003: Expected 'StringLiteral' or ')'.')
-                     LeafPsiElement[XPATH_STAR_TOKEN(35:36)]('*')
+                     PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(35:36)]('*')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(36:37)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(37:45)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(45:46)](';')

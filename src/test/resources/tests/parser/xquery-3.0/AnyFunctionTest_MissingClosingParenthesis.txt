@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:49)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                  LeafPsiElement[XPATH_STAR_TOKEN(37:38)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(37:38)]('*')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected ')'.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(39:47)]('external')

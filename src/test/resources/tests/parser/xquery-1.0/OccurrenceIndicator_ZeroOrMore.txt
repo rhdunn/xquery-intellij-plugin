@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:49)]
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(28:29)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:36)]('integer')
                   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
-                  LeafPsiElement[XPATH_STAR_TOKEN(37:38)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(37:38)]('*')
                PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(39:47)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')

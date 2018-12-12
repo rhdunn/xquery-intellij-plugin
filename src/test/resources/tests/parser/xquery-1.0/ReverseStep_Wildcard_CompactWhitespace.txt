@@ -12,5 +12,4 @@ XQueryModuleImpl[FILE(0:12)]
                         XPathWildcardImpl[XPATH_WILDCARD(8:12)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:10)]('xh')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
-                           PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(11:12)]
-                              LeafPsiElement[XPATH_STAR_TOKEN(11:12)]('*')
+                           PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(11:12)]('*')

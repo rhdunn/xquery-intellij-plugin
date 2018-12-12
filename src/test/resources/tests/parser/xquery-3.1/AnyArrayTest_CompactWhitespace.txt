@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:39)]
                XPathAnyArrayTestImpl[XPATH_ANY_ARRAY_TEST(22:30)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(22:27)]('array')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                  LeafPsiElement[XPATH_STAR_TOKEN(28:29)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(28:29)]('*')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(29:30)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(30:38)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')

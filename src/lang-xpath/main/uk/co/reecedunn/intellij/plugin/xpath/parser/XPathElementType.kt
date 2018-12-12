@@ -522,12 +522,6 @@ object XPathElementType {
         XPath
     )
 
-    val WILDCARD_INDICATOR: IElementType = ICompositeElementType(
-        "XPATH_WILDCARD_INDICATOR",
-        PluginWildcardIndicatorPsiImpl::class.java,
-        XPath
-    )
-
     val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
         "XPATH_ANY_ITEM_TYPE",
         PluginAnyItemTypePsiImpl::class.java,

@@ -10,8 +10,7 @@ XQueryModuleImpl[FILE(0:29)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:19)]('sort')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
                PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Wildcard local name after ':' in qualified name.')
-               PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(20:21)]
-                  LeafPsiElement[XPATH_STAR_TOKEN(20:21)]('*')
+               PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(20:21)]('*')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(22:28)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(22:23)]('"')

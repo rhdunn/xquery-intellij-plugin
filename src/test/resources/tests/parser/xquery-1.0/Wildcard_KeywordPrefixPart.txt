@@ -6,7 +6,6 @@ XQueryModuleImpl[FILE(0:5)]
                XPathNodeTestImpl[XPATH_NODE_TEST(0:5)]
                   XPathNameTestImpl[XPATH_NAME_TEST(0:5)]
                      XPathWildcardImpl[XPATH_WILDCARD(0:5)]
-                        PluginWildcardIndicatorImpl[XPATH_WILDCARD_INDICATOR(0:1)]
-                           LeafPsiElement[XPATH_STAR_TOKEN(0:1)]('*')
+                        PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(0:1)]('*')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(1:2)](':')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIV(2:5)]('div')

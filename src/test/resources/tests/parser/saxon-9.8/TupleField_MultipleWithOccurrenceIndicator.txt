@@ -50,7 +50,7 @@ XQueryModuleImpl[FILE(0:90)]
                               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(56:57)](':')
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(57:64)]('integer')
                         PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-                        LeafPsiElement[XPATH_STAR_TOKEN(65:66)]('*')
+                        PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(65:66)]('*')
                   PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
                   LeafPsiElement[XPATH_COMMA_TOKEN(67:68)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(68:69)](' ')

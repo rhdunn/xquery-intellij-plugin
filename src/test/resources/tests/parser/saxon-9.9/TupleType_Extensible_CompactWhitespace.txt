@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:36)]
                      XQueryNCNameImpl[XQUERY_NCNAME(28:29)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('a')
                   LeafPsiElement[XPATH_COMMA_TOKEN(29:30)](',')
-                  LeafPsiElement[XPATH_STAR_TOKEN(30:31)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(30:31)]('*')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(31:32)](')')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(32:34)](':=')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(34:35)]

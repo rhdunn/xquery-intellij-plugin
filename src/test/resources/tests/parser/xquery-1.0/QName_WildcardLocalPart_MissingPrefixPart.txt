@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:25)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(15:17)]('XPST0003: Missing prefix before ':' in qualified name.')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(15:16)](':')
-               LeafPsiElement[XPATH_STAR_TOKEN(16:17)]('*')
+               PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(16:17)]('*')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(18:24)]
                LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(18:19)]('"')

@@ -15,18 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.impl.source.tree.LeafPsiElement
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginWildcardIndicator
 import uk.co.reecedunn.intellij.plugin.xpath.model.XdmWildcardValue
 
-class PluginWildcardIndicatorPsiImpl(node: ASTNode):
-    ASTWrapperPsiElement(node),
+class PluginWildcardIndicatorPsiImpl(type: IElementType, text: CharSequence) :
+    LeafPsiElement(type, text),
     PluginWildcardIndicator,
     XdmWildcardValue {
 
     override val data: String = "*"
 
     override val element get(): PsiElement? = this
+
+    override fun toString(): String = "PluginWildcardIndicatorImpl"
 }

@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:36)]
                         XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                  LeafPsiElement[XPATH_STAR_TOKEN(2:3)]('*')
+                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(2:3)]('*')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XPathNodeTestImpl[XPATH_NODE_TEST(4:6)]
                      XPathNameTestImpl[XPATH_NAME_TEST(4:6)]

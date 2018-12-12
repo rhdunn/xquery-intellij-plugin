@@ -21,7 +21,7 @@ XQueryModuleImpl[FILE(0:53)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(39:40)]('XPST0003: Expected 'StringLiteral' or ')'.')
-                     LeafPsiElement[XPATH_STAR_TOKEN(39:40)]('*')
+                     PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(39:40)]('*')
                   PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(41:42)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
