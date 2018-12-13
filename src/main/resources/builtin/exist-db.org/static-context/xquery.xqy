@@ -49,5 +49,10 @@ declare namespace sql = "http://exist-db.org/xquery/sql";
 declare namespace system = "http://exist-db.org/xquery/system";
 declare namespace transform = "http://exist-db.org/xquery/transform";
 declare namespace util = "http://exist-db.org/xquery/util";
+declare namespace validation = "http://exist-db.org/xquery/validation";
+declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
+declare namespace xmldiff = "http://exist-db.org/xquery/xmldiff";
+declare namespace xqdm = "http://exist-db.org/xquery/xqdoc";
+declare namespace xslfo = "http://exist-db.org/xquery/xslfo";
 
 ()
