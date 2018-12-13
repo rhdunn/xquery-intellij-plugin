@@ -5132,6 +5132,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val piMarker = matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
         if (piMarker != null) {
             parseWhiteSpaceAndCommentTokens()
+            if (parseQNameSeparator(builder)) { // QName
+                piMarker.rollbackTo()
+                return false
+            }
+
             if (!parseQName(XQueryElementType.NCNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()

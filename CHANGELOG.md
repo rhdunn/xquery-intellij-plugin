@@ -9,7 +9,8 @@ EXPath Syntax Extensions:
 XQuery:
 
 1.  Fix parsing QNames in NameTests where the prefix is `attribute`,
-    `element`, `every`, `exit`, `namespace`, `return`, or `some`.
+    `element`, `every`, `exit`, `namespace`, `processing-instruction`,
+    `return`, or `some`.
 1.  Fix parsing NCNames in FunctionCalls and NameTests where the
     prefix is `some`, or `every`.
 
