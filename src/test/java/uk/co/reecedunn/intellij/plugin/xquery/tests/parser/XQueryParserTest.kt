@@ -3302,6 +3302,22 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_PrefixAndLocalPart.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("error recovery: missing prefix")
+            fun missingPrefix() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_MissingPrefix.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_MissingPrefix.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing local name")
+            fun missingLocalName() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_MissingLocalName.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_MissingLocalName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
@@ -3325,13 +3341,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testWildcard_SpaceBeforeAndAfterColon() {
         val expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.txt")
         val actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_MissingPrefixPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_MissingPrefixPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_MissingPrefixPart.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

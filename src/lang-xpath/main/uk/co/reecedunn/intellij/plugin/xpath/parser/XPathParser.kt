@@ -278,7 +278,7 @@ open class XPathParser : PsiParser {
         if (parseQNameSeparator(builder)) { // Missing prefix
             builder.advanceLexer()
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.tokenType is INCNameType) {
+            if (builder.tokenType is INCNameType || builder.tokenType == XPathTokenType.STAR) {
                 builder.advanceLexer()
             }
             marker.error(XPathBundle.message("parser.error.qname.missing-prefix"))

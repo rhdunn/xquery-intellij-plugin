@@ -249,6 +249,14 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_PrefixAndLocalPart.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("error recovery: missing prefix")
+            fun missingPrefix() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_Wildcard_MissingPrefix.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_MissingPrefix.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
@@ -299,6 +307,14 @@ private class XPathParserTest : ParserTestCase() {
             fun ncnameLocalName() {
                 val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_NCNameLocalPart.txt")
                 val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing local name")
+            fun missingLocalName() {
+                val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_MissingLocalName.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_MissingLocalName.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
