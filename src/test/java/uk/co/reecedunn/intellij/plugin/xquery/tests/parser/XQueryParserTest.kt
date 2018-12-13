@@ -3288,10 +3288,26 @@ private class XQueryParserTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("qname: keyword prefix")
+            fun keywordPrefix() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_KeywordPrefixPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_KeywordPrefixPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
             @DisplayName("qname: ncname local name")
             fun ncnameLocalName() {
                 val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNameLocalPart.txt")
                 val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("qname: keyword local name")
+            fun keywordLocalName() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_KeywordLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_KeywordLocalPart.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
@@ -3341,20 +3357,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testWildcard_SpaceBeforeAndAfterColon() {
         val expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.txt")
         val actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_KeywordPrefixPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_KeywordPrefixPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_KeywordPrefixPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_KeywordLocalPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_KeywordLocalPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_KeywordLocalPart.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

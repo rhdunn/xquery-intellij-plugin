@@ -243,6 +243,14 @@ private class XPathParserTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("qname: keyword prefix")
+            fun keywordPrefix() {
+                val expected = loadResource("tests/parser/xpath-1.0/NameTest_Wildcard_KeywordPrefixPart.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_KeywordPrefixPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
             @DisplayName("error recovery: prefix and local name wildcard")
             fun prefixAndLocalNameWildcard() {
                 val expected = loadResource("tests/parser/xpath-1.0/NameTest_Wildcard_PrefixAndLocalPart.txt")
@@ -307,6 +315,14 @@ private class XPathParserTest : ParserTestCase() {
             fun ncnameLocalName() {
                 val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_NCNameLocalPart.txt")
                 val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("qname: keyword local name")
+            fun keywordLocalName() {
+                val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_KeywordLocalPart.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_KeywordLocalPart.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
 
