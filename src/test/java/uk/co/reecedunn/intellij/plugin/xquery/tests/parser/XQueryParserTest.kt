@@ -3294,6 +3294,14 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_NCNameLocalPart.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("error recovery: prefix and local name wildcard")
+            fun prefixAndLocalNameWildcard() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_PrefixAndLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_PrefixAndLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
@@ -3338,13 +3346,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testWildcard_KeywordLocalPart() {
         val expected = loadResource("tests/parser/xquery-1.0/Wildcard_KeywordLocalPart.txt")
         val actual = parseResource("tests/parser/xquery-1.0/Wildcard_KeywordLocalPart.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_BothPrefixAndLocalPart() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_BothPrefixAndLocalPart.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_BothPrefixAndLocalPart.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

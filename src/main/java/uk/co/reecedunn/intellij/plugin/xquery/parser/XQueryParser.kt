@@ -7453,7 +7453,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 } else if (getTokenType() === XPathTokenType.STAR) {
                     if (type === XPathElementType.WILDCARD) {
                         if (isWildcard) {
-                            error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
+                            error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
                         }
                     } else {
                         error(XQueryBundle.message("parser.error.qname.wildcard-local-name"))

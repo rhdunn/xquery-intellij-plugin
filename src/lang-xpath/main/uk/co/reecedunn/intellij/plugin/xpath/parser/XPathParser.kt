@@ -256,13 +256,13 @@ open class XPathParser : PsiParser {
 
     private fun parseQNameOrWildcard(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        val prefix = parseQNameNCName(builder, QNamePart.Prefix)
+        val prefix = parseQNameNCName(builder, QNamePart.Prefix, false)
         if (prefix != null) {
             parseQNameWhitespace(builder, QNamePart.Prefix, false, false)
             if (parseQNameSeparator(builder)) {
                 builder.advanceLexer()
                 parseQNameWhitespace(builder, QNamePart.LocalName, false, false)
-                val localName = parseQNameNCName(builder, QNamePart.LocalName)
+                val localName = parseQNameNCName(builder, QNamePart.LocalName, prefix == XPathTokenType.STAR)
                 if (prefix == XPathTokenType.STAR || localName == XPathTokenType.STAR) {
                     marker.done(XPathElementType.WILDCARD)
                 } else {
@@ -293,9 +293,15 @@ open class XPathParser : PsiParser {
         LocalName
     }
 
-    private fun parseQNameNCName(builder: PsiBuilder, type: QNamePart): IElementType? {
+    private fun parseQNameNCName(builder: PsiBuilder, type: QNamePart, isWildcard: Boolean): IElementType? {
         val tokenType = builder.tokenType
-        if (tokenType is INCNameType || tokenType == XPathTokenType.STAR) {
+        if (tokenType is INCNameType) {
+            builder.advanceLexer()
+            return tokenType
+        } else if (tokenType == XPathTokenType.STAR) {
+            if (isWildcard) {
+                builder.error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
+            }
             builder.advanceLexer()
             return tokenType
         } else if (tokenType == XPathTokenType.INTEGER_LITERAL && type == QNamePart.LocalName) {
