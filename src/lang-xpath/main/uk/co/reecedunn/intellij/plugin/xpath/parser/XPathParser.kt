@@ -255,14 +255,15 @@ open class XPathParser : PsiParser {
     // region Lexical Structure :: Terminal Symbols :: QName
 
     private fun parseQNameOrWildcard(builder: PsiBuilder): Boolean {
+        val type = XPathElementType.WILDCARD
         val marker = builder.mark()
-        val prefix = parseQNameNCName(builder, QNamePart.Prefix, false)
+        val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
         if (prefix != null) {
             parseQNameWhitespace(builder, QNamePart.Prefix, false, prefix === XPathTokenType.STAR)
             if (parseQNameSeparator(builder)) {
                 builder.advanceLexer()
                 parseQNameWhitespace(builder, QNamePart.LocalName, false, prefix === XPathTokenType.STAR)
-                val localName = parseQNameNCName(builder, QNamePart.LocalName, prefix == XPathTokenType.STAR)
+                val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix == XPathTokenType.STAR)
                 if (prefix == XPathTokenType.STAR || localName == XPathTokenType.STAR) {
                     marker.done(XPathElementType.WILDCARD)
                 } else {
@@ -288,12 +289,17 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    protected enum class QNamePart {
+    enum class QNamePart {
         Prefix,
         LocalName
     }
 
-    private fun parseQNameNCName(builder: PsiBuilder, type: QNamePart, isWildcard: Boolean): IElementType? {
+    fun parseQNameNCName(
+        builder: PsiBuilder,
+        partType: QNamePart,
+        elementType: IElementType,
+        isWildcard: Boolean
+    ): IElementType? {
         val tokenType = builder.tokenType
         if (tokenType is INCNameType) {
             builder.advanceLexer()
@@ -301,15 +307,17 @@ open class XPathParser : PsiParser {
         } else if (tokenType == XPathTokenType.STAR) {
             if (isWildcard) {
                 builder.error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
+            } else if (elementType !== XPathElementType.WILDCARD) {
+                builder.error(XPathBundle.message("parser.error.unexpected-wildcard"))
             }
             builder.advanceLexer()
             return tokenType
-        } else if (tokenType == XPathTokenType.INTEGER_LITERAL && type == QNamePart.LocalName) {
+        } else if (tokenType == XPathTokenType.INTEGER_LITERAL && partType == QNamePart.LocalName) {
             // The user has started the local name with a number, so treat it as part of the QName.
             val errorMarker = builder.mark()
             builder.advanceLexer()
             errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
-        } else if (type == QNamePart.LocalName) {
+        } else if (partType == QNamePart.LocalName) {
             // Don't consume the next token with an error, as it may be a valid part of the next construct
             // (e.g. the start of a string literal, or the '>' of a direct element constructor).
             builder.error(XPathBundle.message("parser.error.qname.missing-local-name"))

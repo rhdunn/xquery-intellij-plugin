@@ -7397,22 +7397,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
         val qnameMarker = mark()
-        var isWildcard = getTokenType() === XPathTokenType.STAR
-        if (getTokenType() is INCNameType || isWildcard) {
-            // region QNameOrWildcardPrefix := (NCName | "*")
-
-            if (isWildcard) {
-                if (type !== XPathElementType.WILDCARD) {
-                    error(XQueryBundle.message("parser.error.unexpected-wildcard"))
-                }
-                advanceLexer()
-            } else {
-                advanceLexer()
-            }
-
-            // endregion
-            // region QNameWhitespaceBeforeSeparator := (S | Comment)* -- error: whitespace not allowed before ':'
-
+        val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
+        var isWildcard = prefix === XPathTokenType.STAR
+        if (prefix != null) {
             if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, isWildcard)) {
                 if (type === XPathElementType.WILDCARD && isWildcard) {
                     qnameMarker.done(XPathElementType.WILDCARD)
@@ -7421,8 +7408,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
                 return true
             }
-
-            // endregion
 
             if (parseQNameSeparator(builder)) {
                 // region QNameSeparator := ":"
