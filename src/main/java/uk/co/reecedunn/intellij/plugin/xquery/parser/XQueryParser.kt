@@ -7437,14 +7437,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
                 nameMarker.drop()
 
-                var isWildcard = prefix === XPathTokenType.STAR
-                val localName = parseQNameNCName(builder, QNamePart.LocalName, type, isWildcard)
-                if (localName === XPathTokenType.STAR) {
-                    isWildcard = true
-                }
-
-                if (type === XPathElementType.WILDCARD) {
-                    qnameMarker.done(if (isWildcard) XPathElementType.WILDCARD else XQueryElementType.QNAME)
+                val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix === XPathTokenType.STAR)
+                if (
+                    type === XPathElementType.WILDCARD &&
+                    (prefix === XPathTokenType.STAR || localName === XPathTokenType.STAR)
+                ) {
+                    qnameMarker.done(XPathElementType.WILDCARD)
                 } else {
                     qnameMarker.done(XQueryElementType.QNAME)
                 }

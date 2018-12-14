@@ -269,7 +269,10 @@ open class XPathParser : PsiParser {
                 parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
 
                 val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix == XPathTokenType.STAR)
-                if (prefix == XPathTokenType.STAR || localName == XPathTokenType.STAR) {
+                if (
+                    type === XPathElementType.WILDCARD &&
+                    (prefix === XPathTokenType.STAR || localName === XPathTokenType.STAR)
+                ) {
                     marker.done(XPathElementType.WILDCARD)
                 } else {
                     marker.done(QNAME)
