@@ -7398,10 +7398,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
         val qnameMarker = mark()
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
-        var isWildcard = prefix === XPathTokenType.STAR
         if (prefix != null) {
-            if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, isWildcard)) {
-                if (type === XPathElementType.WILDCARD && isWildcard) {
+            if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
+                if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                     qnameMarker.done(XPathElementType.WILDCARD)
                 } else {
                     qnameMarker.done(XQueryElementType.NCNAME)
@@ -7424,9 +7423,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 // endregion
                 // region QNameWhitespaceAfterSeparator := (S | Comment)* -- error: whitespace not allowed after ':'
 
-                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, isWildcard)) {
+                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
                     nameMarker.rollbackTo()
-                    if (type === XPathElementType.WILDCARD && isWildcard) {
+                    if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                         qnameMarker.done(XPathElementType.WILDCARD)
                     } else {
                         qnameMarker.done(XQueryElementType.NCNAME)
@@ -7438,11 +7437,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 // endregion
                 // region QNameOrWildcardLocalName := (NCName | "*")
 
+                var isWildcard = prefix === XPathTokenType.STAR
                 if (getTokenType() is INCNameType) {
                     advanceLexer()
                 } else if (getTokenType() === XPathTokenType.STAR) {
                     if (type === XPathElementType.WILDCARD) {
-                        if (isWildcard) {
+                        if (prefix === XPathTokenType.STAR) {
                             error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
                         }
                     } else {
@@ -7470,7 +7470,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
                 return true
             } else {
-                if (type === XPathElementType.WILDCARD && isWildcard) {
+                if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                     qnameMarker.done(XPathElementType.WILDCARD)
                 } else {
                     qnameMarker.done(XQueryElementType.NCNAME)
