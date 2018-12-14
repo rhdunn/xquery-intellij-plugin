@@ -308,10 +308,14 @@ open class XPathParser : PsiParser {
             builder.advanceLexer()
             return tokenType
         } else if (tokenType == XPathTokenType.STAR) {
-            if (isWildcard) {
-                builder.error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
-            } else if (elementType !== XPathElementType.WILDCARD) {
+            if (elementType === XPathElementType.WILDCARD) {
+                if (isWildcard) {
+                    builder.error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
+                }
+            } else if (partType === QNamePart.Prefix) {
                 builder.error(XPathBundle.message("parser.error.unexpected-wildcard"))
+            } else {
+                builder.error(XPathBundle.message("parser.error.qname.wildcard-local-name"))
             }
             builder.advanceLexer()
             return tokenType

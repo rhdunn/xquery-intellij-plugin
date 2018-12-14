@@ -7417,8 +7417,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             if (parseQNameSeparator(builder)) {
-                // region QNameSeparator := ":"
-
                 val nameMarker = mark()
                 if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
                     val errorMarker = mark()
@@ -7427,9 +7425,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 } else {
                     advanceLexer()
                 }
-
-                // endregion
-                // region QNameWhitespaceAfterSeparator := (S | Comment)* -- error: whitespace not allowed after ':'
 
                 if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
                     nameMarker.rollbackTo()
@@ -7442,34 +7437,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
                 nameMarker.drop()
 
-                // endregion
-                // region QNameOrWildcardLocalName := (NCName | "*")
-
                 var isWildcard = prefix === XPathTokenType.STAR
-                if (getTokenType() is INCNameType) {
-                    advanceLexer()
-                } else if (getTokenType() === XPathTokenType.STAR) {
-                    if (type === XPathElementType.WILDCARD) {
-                        if (prefix === XPathTokenType.STAR) {
-                            error(XPathBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"))
-                        }
-                    } else {
-                        error(XQueryBundle.message("parser.error.qname.wildcard-local-name"))
-                    }
-                    advanceLexer()
+                val localName = parseQNameNCName(builder, QNamePart.LocalName, type, isWildcard)
+                if (localName === XPathTokenType.STAR) {
                     isWildcard = true
-                } else if (getTokenType() === XPathTokenType.INTEGER_LITERAL) {
-                    // The user has started the local name with a number, so treat it as part of the QName.
-                    val errorMarker = mark()
-                    advanceLexer()
-                    errorMarker.error(XPathBundle.message("parser.error.qname.missing-local-name"))
-                } else {
-                    // Don't consume the next token with an error, as it may be a valid part of the next construct
-                    // (e.g. the start of a string literal, or the '>' of a direct element constructor).
-                    error(XPathBundle.message("parser.error.qname.missing-local-name"))
                 }
-
-                // endregion
 
                 if (type === XPathElementType.WILDCARD) {
                     qnameMarker.done(if (isWildcard) XPathElementType.WILDCARD else XQueryElementType.QNAME)
