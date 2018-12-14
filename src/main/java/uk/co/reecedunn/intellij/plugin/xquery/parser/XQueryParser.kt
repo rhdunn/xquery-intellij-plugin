@@ -7395,38 +7395,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
-        return parseQNameOrWildcard(builder, type, endQNameOnSpace)
-    }
-
-    override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
-        if (
-            builder.tokenType === XPathTokenType.QNAME_SEPARATOR ||
-            builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-            builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
-        ) {
-            if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
-                val errorMarker = mark()
-                advanceLexer()
-                errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
-            } else if (type != null) {
-                advanceLexer()
-            }
-            return true
-        }
-        return false
-    }
-
-    private fun parseNCName(type: IElementType): Boolean {
-        if (getTokenType() is INCNameType) {
-            val ncnameMarker = mark()
-            advanceLexer()
-            ncnameMarker.done(type)
-            return true
-        }
-        return false
-    }
-
     private fun parseBracedURILiteral(): Boolean {
         val stringMarker = matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
         while (stringMarker != null) {
@@ -7500,6 +7468,41 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return skipped
             }
         }
+    }
+
+    // endregion
+    // region Lexical Structure :: Terminal Symbols :: QName
+
+    private fun parseNCName(type: IElementType): Boolean {
+        if (getTokenType() is INCNameType) {
+            val ncnameMarker = mark()
+            advanceLexer()
+            ncnameMarker.done(type)
+            return true
+        }
+        return false
+    }
+
+    private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
+        return parseQNameOrWildcard(builder, type, endQNameOnSpace)
+    }
+
+    override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
+        if (
+            builder.tokenType === XPathTokenType.QNAME_SEPARATOR ||
+            builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+            builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+        ) {
+            if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
+                val errorMarker = mark()
+                advanceLexer()
+                errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
+            } else if (type != null) {
+                advanceLexer()
+            }
+            return true
+        }
+        return false
     }
 
     // endregion
