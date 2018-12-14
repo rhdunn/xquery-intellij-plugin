@@ -7396,6 +7396,14 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
+        return parseQNameOrWildcard(builder, type, endQNameOnSpace)
+    }
+
+    override fun parseQNameOrWildcard(
+        builder: PsiBuilder,
+        type: IElementType,
+        endQNameOnSpace: Boolean
+    ): Boolean {
         val qnameMarker = mark()
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
         if (prefix != null) {
