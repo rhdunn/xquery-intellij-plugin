@@ -283,7 +283,8 @@ open class XPathParser : PsiParser {
             }
             return true
         }
-        if (parseQNameSeparator(builder, type)) { // Missing prefix
+        if (parseQNameSeparator(builder, null)) { // Missing prefix
+            builder.advanceLexer()
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.tokenType is INCNameType || builder.tokenType == XPathTokenType.STAR) {
                 builder.advanceLexer()

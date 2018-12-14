@@ -7416,16 +7416,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return true
             }
 
-            if (parseQNameSeparator(builder, null)) {
-                val nameMarker = mark()
-                if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
-                    val errorMarker = mark()
-                    advanceLexer()
-                    errorMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"))
-                } else {
-                    advanceLexer()
-                }
-
+            val nameMarker = mark()
+            if (parseQNameSeparator(builder, type)) {
                 if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
                     nameMarker.rollbackTo()
                     if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
@@ -7447,17 +7439,18 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     qnameMarker.done(XQueryElementType.QNAME)
                 }
                 return true
+            } else if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
+                nameMarker.drop()
+                qnameMarker.done(XPathElementType.WILDCARD)
             } else {
-                if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
-                    qnameMarker.done(XPathElementType.WILDCARD)
-                } else {
-                    qnameMarker.done(XQueryElementType.NCNAME)
-                }
+                nameMarker.drop()
+                qnameMarker.done(XQueryElementType.NCNAME)
             }
             return true
         }
 
-        if (parseQNameSeparator(builder, type)) {
+        if (parseQNameSeparator(builder, null)) {
+            advanceLexer()
             parseWhiteSpaceAndCommentTokens()
             if (getTokenType() is INCNameType || getTokenType() === XPathTokenType.STAR) {
                 advanceLexer()
@@ -7480,8 +7473,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
             builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
         ) {
-            if (type != null) {
-                builder.advanceLexer()
+            if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
+                val errorMarker = mark()
+                advanceLexer()
+                errorMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"))
+            } else if (type != null) {
+                advanceLexer()
             }
             return true
         }
