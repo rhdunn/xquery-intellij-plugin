@@ -7399,74 +7399,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return parseQNameOrWildcard(builder, type, endQNameOnSpace)
     }
 
-    override fun parseQNameOrWildcard(
-        builder: PsiBuilder,
-        type: IElementType,
-        endQNameOnSpace: Boolean
-    ): Boolean {
-        val qnameMarker = mark()
-        val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
-        if (prefix != null) {
-            if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
-                if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
-                    qnameMarker.done(XPathElementType.WILDCARD)
-                } else {
-                    qnameMarker.done(XQueryElementType.NCNAME)
-                }
-                return true
-            }
-
-            val nameMarker = mark()
-            if (parseQNameSeparator(builder, type)) {
-                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
-                    nameMarker.rollbackTo()
-                    if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
-                        qnameMarker.done(XPathElementType.WILDCARD)
-                    } else {
-                        qnameMarker.done(XQueryElementType.NCNAME)
-                    }
-                    return true
-                }
-                nameMarker.drop()
-
-                val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix === XPathTokenType.STAR)
-                if (
-                    type === XPathElementType.WILDCARD &&
-                    (prefix === XPathTokenType.STAR || localName === XPathTokenType.STAR)
-                ) {
-                    qnameMarker.done(XPathElementType.WILDCARD)
-                } else {
-                    qnameMarker.done(XQueryElementType.QNAME)
-                }
-                return true
-            } else if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
-                nameMarker.drop()
-                qnameMarker.done(XPathElementType.WILDCARD)
-            } else {
-                nameMarker.drop()
-                qnameMarker.done(XQueryElementType.NCNAME)
-            }
-            return true
-        }
-
-        if (parseQNameSeparator(builder, null)) {
-            advanceLexer()
-            parseWhiteSpaceAndCommentTokens()
-            if (getTokenType() is INCNameType || getTokenType() === XPathTokenType.STAR) {
-                advanceLexer()
-            }
-            if (type === XQueryElementType.NCNAME) {
-                qnameMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"))
-            } else {
-                qnameMarker.error(XPathBundle.message("parser.error.qname.missing-prefix"))
-            }
-            return true
-        }
-
-        qnameMarker.drop()
-        return false
-    }
-
     override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
         if (
             builder.tokenType === XPathTokenType.QNAME_SEPARATOR ||
@@ -7476,7 +7408,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
                 val errorMarker = mark()
                 advanceLexer()
-                errorMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"))
+                errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
             } else if (type != null) {
                 advanceLexer()
             }

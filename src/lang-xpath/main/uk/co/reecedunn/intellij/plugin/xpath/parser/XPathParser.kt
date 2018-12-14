@@ -262,10 +262,27 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
         if (prefix != null) {
-            parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)
+            if (parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
+                if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
+                    marker.done(XPathElementType.WILDCARD)
+                } else {
+                    marker.done(NCNAME)
+                }
+                return true
+            }
 
+            val nameMarker = builder.mark()
             if (parseQNameSeparator(builder, type)) {
-                parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
+                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
+                    nameMarker.rollbackTo()
+                    if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
+                        marker.done(XPathElementType.WILDCARD)
+                    } else {
+                        marker.done(NCNAME)
+                    }
+                    return true
+                }
+                nameMarker.drop()
 
                 val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix == XPathTokenType.STAR)
                 if (
@@ -276,22 +293,30 @@ open class XPathParser : PsiParser {
                 } else {
                     marker.done(QNAME)
                 }
-            } else if (prefix == XPathTokenType.STAR) {
+            } else if (type === XPathElementType.WILDCARD && prefix == XPathTokenType.STAR) {
+                nameMarker.drop()
                 marker.done(XPathElementType.WILDCARD)
             } else {
+                nameMarker.drop()
                 marker.done(NCNAME)
             }
             return true
         }
+
         if (parseQNameSeparator(builder, null)) { // Missing prefix
             builder.advanceLexer()
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.tokenType is INCNameType || builder.tokenType == XPathTokenType.STAR) {
                 builder.advanceLexer()
             }
-            marker.error(XPathBundle.message("parser.error.qname.missing-prefix"))
+            if (type === NCNAME) {
+                marker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
+            } else {
+                marker.error(XPathBundle.message("parser.error.qname.missing-prefix"))
+            }
             return true
         }
+
         marker.drop()
         return false
     }
