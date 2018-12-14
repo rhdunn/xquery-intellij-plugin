@@ -264,8 +264,7 @@ open class XPathParser : PsiParser {
         if (prefix != null) {
             parseQNameWhitespace(builder, QNamePart.Prefix, endQNameOnSpace, prefix === XPathTokenType.STAR)
 
-            if (parseQNameSeparator(builder)) {
-                builder.advanceLexer()
+            if (parseQNameSeparator(builder, type)) {
                 parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
 
                 val localName = parseQNameNCName(builder, QNamePart.LocalName, type, prefix == XPathTokenType.STAR)
@@ -284,8 +283,7 @@ open class XPathParser : PsiParser {
             }
             return true
         }
-        if (parseQNameSeparator(builder)) { // Missing prefix
-            builder.advanceLexer()
+        if (parseQNameSeparator(builder, type)) { // Missing prefix
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.tokenType is INCNameType || builder.tokenType == XPathTokenType.STAR) {
                 builder.advanceLexer()
@@ -348,7 +346,7 @@ open class XPathParser : PsiParser {
             if (endQNameOnWhitespace) {
                 marker.drop()
                 return true
-            } else if (type == QNamePart.Prefix && parseQNameSeparator(builder)) {
+            } else if (type == QNamePart.Prefix && parseQNameSeparator(builder, null)) {
                 if (isWildcard)
                     marker.error(XPathBundle.message("parser.error.wildcard.whitespace-before-local-part"))
                 else
@@ -366,8 +364,14 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseQNameSeparator(builder: PsiBuilder): Boolean {
-        return builder.tokenType === XPathTokenType.QNAME_SEPARATOR
+    open fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
+        if (builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
+            if (type != null) {
+                builder.advanceLexer()
+            }
+            return true
+        }
+        return false
     }
 
     // endregion

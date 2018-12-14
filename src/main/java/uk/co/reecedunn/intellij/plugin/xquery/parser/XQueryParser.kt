@@ -1567,7 +1567,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         } else if (errorOnTokenType(XPathTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 flworExprMarker.rollbackTo()
                 return false
             }
@@ -2314,7 +2314,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val quantifiedExprMarker = matchTokenTypeWithMarker(XPathTokenType.K_SOME, XPathTokenType.K_EVERY)
         if (quantifiedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 quantifiedExprMarker.rollbackTo()
                 return false
             }
@@ -3128,7 +3128,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 exitExprMarker.rollbackTo()
                 return false
             }
@@ -5015,7 +5015,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val elementMarker = matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
         if (elementMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 elementMarker.rollbackTo()
                 return false
             }
@@ -5044,7 +5044,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val attributeMarker = matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
         if (attributeMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 attributeMarker.rollbackTo()
                 return false
             }
@@ -5073,7 +5073,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val namespaceMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 namespaceMarker.rollbackTo()
                 return false
             }
@@ -5132,7 +5132,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val piMarker = matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
         if (piMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (parseQNameSeparator(builder)) { // QName
+            if (parseQNameSeparator(builder, null)) { // QName
                 piMarker.rollbackTo()
                 return false
             }
@@ -7416,7 +7416,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return true
             }
 
-            if (parseQNameSeparator(builder)) {
+            if (parseQNameSeparator(builder, null)) {
                 val nameMarker = mark()
                 if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
                     val errorMarker = mark()
@@ -7457,9 +7457,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         }
 
-        if (parseQNameSeparator(builder)) {
-            advanceLexer()
-
+        if (parseQNameSeparator(builder, type)) {
             parseWhiteSpaceAndCommentTokens()
             if (getTokenType() is INCNameType || getTokenType() === XPathTokenType.STAR) {
                 advanceLexer()
@@ -7476,10 +7474,18 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    override fun parseQNameSeparator(builder: PsiBuilder): Boolean {
-        return builder.tokenType === XPathTokenType.QNAME_SEPARATOR ||
-                builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-                builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+    override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
+        if (
+            builder.tokenType === XPathTokenType.QNAME_SEPARATOR ||
+            builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+            builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+        ) {
+            if (type != null) {
+                builder.advanceLexer()
+            }
+            return true
+        }
+        return false
     }
 
     private fun parseNCName(type: IElementType): Boolean {
