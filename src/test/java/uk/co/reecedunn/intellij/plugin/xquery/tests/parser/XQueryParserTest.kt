@@ -3335,32 +3335,36 @@ private class XQueryParserTest : ParserTestCase() {
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
+
+        @Nested
+        @DisplayName("error recovery: spaces between colon")
+        internal inner class SpacesBetweenColon {
+            @Test
+            @DisplayName("space before colon")
+            fun spaceBeforeColon() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeColon.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeColon.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("space after colon")
+            fun spaceAfterColon() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceAfterColon.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceAfterColon.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("space before and after colon")
+            fun spaceBeforeAndAfterColon() {
+                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    // region XQuery 1.0 :: NodeTest + NameTest + Wildcard
-
-    @Test
-    fun testWildcard_SpaceBeforeColon() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeColon.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_SpaceAfterColon() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceAfterColon.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceAfterColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testWildcard_SpaceBeforeAndAfterColon() {
-        val expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: FilterExpr + PredicateList + Predicate
 
     @Test
