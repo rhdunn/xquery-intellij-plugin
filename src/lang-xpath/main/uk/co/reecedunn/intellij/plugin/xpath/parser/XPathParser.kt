@@ -32,12 +32,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
  */
 @Suppress("PropertyName")
 open class XPathParser : PsiParser {
+    // region XPath/XQuery Element Types
+    //
+    // These element types have different PSI implementations in XPath and XQuery.
+
     open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
+    open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val NCNAME: IElementType = XPathElementType.NCNAME
     open val QNAME: IElementType = XPathElementType.QNAME
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
     open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
+    // endregion
     // region PsiParser
 
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
