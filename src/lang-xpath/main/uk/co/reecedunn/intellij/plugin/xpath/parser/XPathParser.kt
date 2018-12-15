@@ -266,6 +266,21 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
 
+    fun parseURIQualifiedName(builder: PsiBuilder, type: IElementType): Boolean {
+        val marker = builder.mark()
+        if (parseBracedURILiteral(builder)) {
+            val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
+            if (type === XPathElementType.WILDCARD && localName === XPathTokenType.STAR) {
+                marker.done(XPathElementType.WILDCARD)
+            } else {
+                marker.done(URI_QUALIFIED_NAME)
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
     open fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
         while (marker != null) {

@@ -7392,7 +7392,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseEQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
         val eqnameMarker = mark()
-        if (parseQName(type, endQNameOnSpace) || parseURIQualifiedName(type)) {
+        if (parseQName(type, endQNameOnSpace) || parseURIQualifiedName(builder, type)) {
             if (type === XQueryElementType.QNAME ||
                     type === XQueryElementType.NCNAME ||
                     type === XPathElementType.WILDCARD) {
@@ -7403,21 +7403,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         }
         eqnameMarker.drop()
-        return false
-    }
-
-    private fun parseURIQualifiedName(type: IElementType): Boolean {
-        val qnameMarker = mark()
-        if (parseBracedURILiteral(builder)) {
-            val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
-            if (type === XPathElementType.WILDCARD && localName === XPathTokenType.STAR) {
-                qnameMarker.done(XPathElementType.WILDCARD)
-            } else {
-                qnameMarker.done(XQueryElementType.URI_QUALIFIED_NAME)
-            }
-            return true
-        }
-        qnameMarker.drop()
         return false
     }
 
