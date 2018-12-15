@@ -414,6 +414,12 @@ object XPathElementType {
         XPath
     )
 
+    val BRACED_URI_LITERAL: IElementType = ICompositeElementType(
+        "XPATH_BRACED_URI_LITERAL",
+        XPathBracedURILiteralPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XPath 3.1
 

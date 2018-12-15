@@ -30,10 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 /**
  * A unified XPath parser for different XPath versions and dialects.
  */
+@Suppress("PropertyName")
 open class XPathParser : PsiParser {
+    open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
-    open val QNAME: IElementType = XPathElementType.QNAME
     open val NCNAME: IElementType = XPathElementType.NCNAME
+    open val QNAME: IElementType = XPathElementType.QNAME
 
     // region PsiParser
 
