@@ -7406,34 +7406,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseBracedURILiteral(): Boolean {
-        val stringMarker = matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
-        while (stringMarker != null) {
-            if (
-                matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
-                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
-                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)
-            ) {
-                //
-            } else if (matchTokenType(XPathTokenType.BRACED_URI_LITERAL_END)) {
-                stringMarker.done(XQueryElementType.BRACED_URI_LITERAL)
-                return true
-            } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
-                error(XQueryBundle.message("parser.error.incomplete-entity"))
-            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) || matchTokenType(XPathTokenType.BAD_CHARACTER)) {
-                //
-            } else {
-                stringMarker.done(XQueryElementType.BRACED_URI_LITERAL)
-                error(XQueryBundle.message("parser.error.incomplete-braced-uri-literal"))
-                return true
-            }
-        }
-        return false
-    }
-
     private fun parseURIQualifiedName(type: IElementType): Boolean {
         val qnameMarker = mark()
-        if (parseBracedURILiteral()) {
+        if (parseBracedURILiteral(builder)) {
             if (getTokenType() is INCNameType) {
                 advanceLexer()
             } else if (getTokenType() === XPathTokenType.STAR) {
@@ -7479,6 +7454,37 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return skipped
             }
         }
+    }
+
+    // endregion
+    // region Lexical Structure :: Terminal Symbols :: EQName
+
+    override fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
+        while (marker != null) {
+            if (
+                builder.matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
+                builder.matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                builder.matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)
+            ) {
+                //
+            } else if (builder.matchTokenType(XPathTokenType.BRACED_URI_LITERAL_END)) {
+                marker.done(XQueryElementType.BRACED_URI_LITERAL)
+                return true
+            } else if (builder.matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+                builder.error(XQueryBundle.message("parser.error.incomplete-entity"))
+            } else if (
+                builder.errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
+                builder.matchTokenType(XPathTokenType.BAD_CHARACTER)
+            ) {
+                //
+            } else {
+                marker.done(XQueryElementType.BRACED_URI_LITERAL)
+                builder.error(XPathBundle.message("parser.error.incomplete-braced-uri-literal"))
+                return true
+            }
+        }
+        return false
     }
 
     // endregion

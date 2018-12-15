@@ -264,6 +264,30 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
+    // region Lexical Structure :: Terminal Symbols :: EQName
+
+    open fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
+        while (marker != null) {
+            when {
+                builder.matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) -> {
+                    //
+                }
+                builder.matchTokenType(XPathTokenType.BRACED_URI_LITERAL_END) -> {
+                    marker.done(BRACED_URI_LITERAL)
+                    return true
+                }
+                else -> {
+                    marker.done(BRACED_URI_LITERAL)
+                    builder.error(XPathBundle.message("parser.error.incomplete-braced-uri-literal"))
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
 
     open fun parseQNameOrWildcard(
