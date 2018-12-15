@@ -148,9 +148,9 @@ open class XPathParser : PsiParser {
         return parsePostfixExpr(builder) || parseNodeTest(builder, null)
     }
 
-    open fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseNameTest(builder, type)) {
+        if (parseKindTest(builder) || parseNameTest(builder, type)) {
             marker.done(XPathElementType.NODE_TEST)
             return true
         }
@@ -196,6 +196,13 @@ open class XPathParser : PsiParser {
             )
             return true
         }
+        return false
+    }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: KindTest
+
+    open fun parseKindTest(builder: PsiBuilder): Boolean {
         return false
     }
 

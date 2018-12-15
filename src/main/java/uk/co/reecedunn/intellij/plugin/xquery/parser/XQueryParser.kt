@@ -4091,17 +4091,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    override fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
-        val nodeTestMarker = builder.mark()
-        if (parseKindTest() || parseNameTest(builder, type)) {
-            nodeTestMarker.done(XPathElementType.NODE_TEST)
-            return true
-        }
-
-        nodeTestMarker.drop()
-        return false
-    }
-
     private fun parsePostfixExpr(type: IElementType?): Boolean {
         val postfixExprMarker = mark()
         if (parsePrimaryExpr(type)) {
@@ -6199,7 +6188,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: TypeDeclaration :: ItemType
 
     private fun parseItemType(): Boolean {
-        return parseKindTest() ||
+        return parseKindTest(builder) ||
                 parseAnyItemType() ||
                 parseAnnotatedFunctionOrSequence() ||
                 parseMapTest() ||
@@ -6580,7 +6569,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
-    private fun parseKindTest(): Boolean {
+    override fun parseKindTest(builder: PsiBuilder): Boolean {
         return parseDocumentTest()
                 || parseElementTest()
                 || parseAttributeTest()
