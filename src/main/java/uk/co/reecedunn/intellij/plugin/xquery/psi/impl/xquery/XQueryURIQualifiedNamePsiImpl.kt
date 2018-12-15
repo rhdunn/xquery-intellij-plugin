@@ -15,56 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiNameIdentifierOwner
-import com.intellij.util.IncorrectOperationException
-import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathURIQualifiedNamePsiImpl
 
-class XQueryURIQualifiedNamePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathURIQualifiedName,
-    XsQNameValue,
-    PsiNameIdentifierOwner {
-    // region XsQNameValue
-
-    override val namespace: XsAnyUriValue? = findChildByType<PsiElement>(XQueryElementType.BRACED_URI_LITERAL) as XsAnyUriValue
-
-    override val prefix: XsNCNameValue? = null
-
-    override val localName get(): XsNCNameValue? = children().filterIsInstance<XsNCNameValue>().firstOrNull()
-
-    override val isLexicalQName: Boolean = false
-
-    override val element get(): PsiElement? = this
-
-    // endregion
-    // region PsiElement
-
-    override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
-
-    // endregion
-    // region PsiNameIdentifierOwner
-
-    override fun getNameIdentifier(): PsiElement? = children().filterIsInstance<XmlNCNameImpl>().firstOrNull()
-
-    // endregion
-    // region PsiNamedElement
-
-    override fun getName(): String? = nameIdentifier?.text
-
-    @Throws(IncorrectOperationException::class)
-    override fun setName(@NonNls name: String): PsiElement {
-        return this
-    }
-
-    // endregion
+class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImpl(node) {
+    override val namespace: XsAnyUriValue?
+        get() = findChildByType<PsiElement>(XQueryElementType.BRACED_URI_LITERAL) as XsAnyUriValue
 }

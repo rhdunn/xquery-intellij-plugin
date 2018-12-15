@@ -414,6 +414,12 @@ object XPathElementType {
         XPath
     )
 
+    val URI_QUALIFIED_NAME: IElementType = ICompositeElementType(
+        "XPATH_URI_QUALIFIED_NAME",
+        XPathURIQualifiedNamePsiImpl::class.java,
+        XPath
+    )
+
     val BRACED_URI_LITERAL: IElementType = ICompositeElementType(
         "XPATH_BRACED_URI_LITERAL",
         XPathBracedURILiteralPsiImpl::class.java,
