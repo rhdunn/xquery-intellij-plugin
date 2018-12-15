@@ -426,6 +426,12 @@ object XPathElementType {
         XPath
     )
 
+    val FUNCTION_TEST: IElementType = ICompositeElementType(
+        "XPATH_FUNCTION_TEST",
+        XPathFunctionTestPsiImpl::class.java,
+        XPath
+    )
+
     val PARENTHESIZED_ITEM_TYPE: IElementType = ICompositeElementType(
         "XPATH_PARENTHESIZED_ITEM_TYPE",
         XPathParenthesizedItemTypePsiImpl::class.java,

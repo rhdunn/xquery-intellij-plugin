@@ -88,6 +88,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
+    override val FUNCTION_TEST: IElementType = XQueryElementType.FUNCTION_TEST
     override val NCNAME: IElementType = XQueryElementType.NCNAME
     override val QNAME: IElementType = XQueryElementType.QNAME
     override val STRING_LITERAL: IElementType = XQueryElementType.STRING_LITERAL
