@@ -39,6 +39,7 @@ open class XPathParser : PsiParser {
     open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
     open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
+    open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
     open val NCNAME: IElementType = XPathElementType.NCNAME
     open val QNAME: IElementType = XPathElementType.QNAME
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL

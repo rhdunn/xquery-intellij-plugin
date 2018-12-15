@@ -360,6 +360,12 @@ object XPathElementType {
         XPath
     )
 
+    val FUNCTION_BODY: IElementType = ICompositeElementType(
+        "XPATH_FUNCTION_BODY",
+        XPathFunctionBodyPsiImpl::class.java,
+        XPath
+    )
+
     val ENCLOSED_EXPR: IElementType = ICompositeElementType(
         "XPATH_ENCLOSED_EXPR",
         XPathEnclosedExprPsiImpl::class.java,
