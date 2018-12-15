@@ -30,6 +30,12 @@ object XPathElementType {
 
     val XPATH = IFileElementType(XPath)
 
+    val EXPR: IElementType = ICompositeElementType(
+        "XPATH_EXPR",
+        XPathExprPsiImpl::class.java,
+        XPath
+    )
+
     val OR_EXPR: IElementType = ICompositeElementType(
         "XPATH_OR_EXPR",
         XPathOrExprPsiImpl::class.java,
