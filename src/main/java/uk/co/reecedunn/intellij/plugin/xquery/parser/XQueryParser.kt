@@ -4104,7 +4104,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     override fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val nameTestMarker = builder.mark()
-        if (parseEQName(XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
+        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
             nameTestMarker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -4198,7 +4198,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val varRefMarker = matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
         if (varRefMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"))
             }
 
@@ -7390,22 +7390,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseEQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
-        val eqnameMarker = mark()
-        if (parseQName(type, endQNameOnSpace) || parseURIQualifiedName(builder, type)) {
-            if (type === XQueryElementType.QNAME ||
-                    type === XQueryElementType.NCNAME ||
-                    type === XPathElementType.WILDCARD) {
-                eqnameMarker.drop()
-            } else {
-                eqnameMarker.done(type)
-            }
-            return true
-        }
-        eqnameMarker.drop()
-        return false
-    }
-
     private fun parseWhiteSpaceAndCommentTokens(): Boolean {
         return parseWhiteSpaceAndCommentTokens(builder)
     }
@@ -7435,6 +7419,10 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
+
+    private fun parseEQName(type: IElementType): Boolean {
+        return parseEQNameOrWildcard(builder, type, false)
+    }
 
     override fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
@@ -7477,8 +7465,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseQName(type: IElementType, endQNameOnSpace: Boolean = false): Boolean {
-        return parseQNameOrWildcard(builder, type, endQNameOnSpace)
+    private fun parseQName(type: IElementType): Boolean {
+        return parseQNameOrWildcard(builder, type, false)
     }
 
     override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {

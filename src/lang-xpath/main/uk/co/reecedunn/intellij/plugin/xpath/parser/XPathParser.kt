@@ -160,7 +160,7 @@ open class XPathParser : PsiParser {
 
     open fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseQNameOrWildcard(builder, XPathElementType.WILDCARD, false)) {
+        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, false)) {
             marker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -266,7 +266,24 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
 
-    fun parseURIQualifiedName(builder: PsiBuilder, type: IElementType): Boolean {
+    fun parseEQNameOrWildcard(builder: PsiBuilder, type: IElementType, endQNameOnSpace: Boolean): Boolean {
+        val marker = builder.mark()
+        if (
+            parseQNameOrWildcard(builder, type, endQNameOnSpace) ||
+            parseURIQualifiedNameOrWildcard(builder, type)
+        ) {
+            if (type === QNAME || type === NCNAME || type === XPathElementType.WILDCARD) {
+                marker.drop()
+            } else {
+                marker.done(type)
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): Boolean {
         val marker = builder.mark()
         if (parseBracedURILiteral(builder)) {
             val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)

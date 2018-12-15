@@ -265,33 +265,33 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-1.0/NameTest_Wildcard_MissingPrefix.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
-        }
 
-        @Nested
-        @DisplayName("error recovery: spaces between colon")
-        internal inner class SpacesBetweenColon {
-            @Test
-            @DisplayName("space before colon")
-            fun spaceBeforeColon() {
-                val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeColon.txt")
-                val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
+            @Nested
+            @DisplayName("error recovery: spaces between colon")
+            internal inner class SpacesBetweenColon {
+                @Test
+                @DisplayName("space before colon")
+                fun spaceBeforeColon() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeColon.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
 
-            @Test
-            @DisplayName("space after colon")
-            fun spaceAfterColon() {
-                val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceAfterColon.txt")
-                val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceAfterColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
+                @Test
+                @DisplayName("space after colon")
+                fun spaceAfterColon() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceAfterColon.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceAfterColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
 
-            @Test
-            @DisplayName("space before and after colon")
-            fun spaceBeforeAndAfterColon() {
-                val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.txt")
-                val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                @Test
+                @DisplayName("space before and after colon")
+                fun spaceBeforeAndAfterColon() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
             }
         }
     }
@@ -429,6 +429,22 @@ private class XPathParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (46) NameTest")
+    internal inner class NameTest_XPath30 {
+        @Nested
+        @DisplayName("XPath 3.0 EBNF (47) Wildcard")
+        internal inner class Wildcard {
+            @Test
+            @DisplayName("BracedURILiteral prefix")
+            fun bracedURILiteralPrefix() {
+                val expected = loadResource("tests/parser/xpath-3.0/NameTest_Wildcard_BracedURILiteral.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NameTest_Wildcard_BracedURILiteral.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 }

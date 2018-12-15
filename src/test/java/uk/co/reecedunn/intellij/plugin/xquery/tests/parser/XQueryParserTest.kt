@@ -3334,33 +3334,33 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_MissingLocalName.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
-        }
 
-        @Nested
-        @DisplayName("error recovery: spaces between colon")
-        internal inner class SpacesBetweenColon {
-            @Test
-            @DisplayName("space before colon")
-            fun spaceBeforeColon() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeColon.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
+            @Nested
+            @DisplayName("error recovery: spaces between colon")
+            internal inner class SpacesBetweenColon {
+                @Test
+                @DisplayName("space before colon")
+                fun spaceBeforeColon() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeColon.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
 
-            @Test
-            @DisplayName("space after colon")
-            fun spaceAfterColon() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceAfterColon.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceAfterColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
+                @Test
+                @DisplayName("space after colon")
+                fun spaceAfterColon() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceAfterColon.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceAfterColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
 
-            @Test
-            @DisplayName("space before and after colon")
-            fun spaceBeforeAndAfterColon() {
-                val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.txt")
-                val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                @Test
+                @DisplayName("space before and after colon")
+                fun spaceBeforeAndAfterColon() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NameTest_Wildcard_SpaceBeforeAndAfterColon.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
             }
         }
     }
@@ -6544,16 +6544,23 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: NodeTest + NameTest + Wildcard
 
-    @Test
-    fun testWildcard_BracedURILiteral() {
-        val expected = loadResource("tests/parser/xquery-3.0/Wildcard_BracedURILiteral.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/Wildcard_BracedURILiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (118) NameTest")
+    internal inner class NameTest_XQuery30 {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (119) Wildcard")
+        internal inner class Wildcard {
+            @Test
+            @DisplayName("BracedURILiteral prefix")
+            fun bracedURILiteralPrefix() {
+                val expected = loadResource("tests/parser/xquery-3.0/NameTest_Wildcard_BracedURILiteral.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NameTest_Wildcard_BracedURILiteral.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    // endregion
     // region XQuery 3.0 :: PostfixExpr
 
     @Test
