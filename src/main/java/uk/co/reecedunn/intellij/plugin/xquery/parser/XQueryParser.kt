@@ -4102,17 +4102,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    override fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
-        val nameTestMarker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
-            nameTestMarker.done(XPathElementType.NAME_TEST)
-            return true
-        }
-
-        nameTestMarker.drop()
-        return false
-    }
-
     private fun parsePostfixExpr(type: IElementType?): Boolean {
         val postfixExprMarker = mark()
         if (parsePrimaryExpr(type)) {

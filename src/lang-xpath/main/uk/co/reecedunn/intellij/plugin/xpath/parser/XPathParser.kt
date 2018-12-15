@@ -158,9 +158,9 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, false)) {
+        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
             marker.done(XPathElementType.NAME_TEST)
             return true
         }
