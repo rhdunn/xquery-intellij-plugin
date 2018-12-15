@@ -7409,20 +7409,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     private fun parseURIQualifiedName(type: IElementType): Boolean {
         val qnameMarker = mark()
         if (parseBracedURILiteral(builder)) {
-            if (getTokenType() is INCNameType) {
-                advanceLexer()
-            } else if (getTokenType() === XPathTokenType.STAR) {
-                if (type === XPathElementType.WILDCARD) {
-                    advanceLexer()
-                    qnameMarker.done(XPathElementType.WILDCARD)
-                    return true
-                }
-                error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"))
-                advanceLexer()
+            val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
+            if (type === XPathElementType.WILDCARD && localName === XPathTokenType.STAR) {
+                qnameMarker.done(XPathElementType.WILDCARD)
             } else {
-                error(XQueryBundle.message("parser.error.expected-ncname"))
+                qnameMarker.done(XQueryElementType.URI_QUALIFIED_NAME)
             }
-            qnameMarker.done(XQueryElementType.URI_QUALIFIED_NAME)
             return true
         }
         qnameMarker.drop()

@@ -359,7 +359,8 @@ open class XPathParser : PsiParser {
 
     enum class QNamePart {
         Prefix,
-        LocalName
+        LocalName,
+        URIQualifiedLiteralLocalName
     }
 
     fun parseQNameNCName(
@@ -379,6 +380,8 @@ open class XPathParser : PsiParser {
                 }
             } else if (partType === QNamePart.Prefix) {
                 builder.error(XPathBundle.message("parser.error.unexpected-wildcard"))
+            } else if (partType === QNamePart.URIQualifiedLiteralLocalName) {
+                builder.error(XPathBundle.message("parser.error.eqname.wildcard-local-name"))
             } else {
                 builder.error(XPathBundle.message("parser.error.qname.wildcard-local-name"))
             }
@@ -393,6 +396,10 @@ open class XPathParser : PsiParser {
             // Don't consume the next token with an error, as it may be a valid part of the next construct
             // (e.g. the start of a string literal, or the '>' of a direct element constructor).
             builder.error(XPathBundle.message("parser.error.qname.missing-local-name"))
+        } else if (partType === QNamePart.URIQualifiedLiteralLocalName) {
+            // Don't consume the next token with an error, as it may be a valid part of the next construct
+            // (e.g. the start of a string literal, or the '>' of a direct element constructor).
+            builder.error(XPathBundle.message("parser.error.eqname.missing-local-name"))
         }
         return null
     }
