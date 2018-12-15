@@ -258,7 +258,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("local name: identifier")
         fun testURIQualifiedName() {
-            val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
+            val file = parse<XQueryModule>("Q{http://www.example.com/test#}lorem-ipsum")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(0))
         }
@@ -266,20 +266,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("local name: keyword")
         fun testURIQualifiedName_Keyword() {
-            val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq")
+            val file = parse<XQueryModule>("Q{http://www.example.com/test#}let")[0]
             val annotations = annotateTree(file, QNameAnnotator())
             assertThat(annotations.size, `is`(2))
 
             assertThat(annotations[0].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[0].startOffset, `is`(21))
-            assertThat(annotations[0].endOffset, `is`(25))
+            assertThat(annotations[0].startOffset, `is`(31))
+            assertThat(annotations[0].endOffset, `is`(34))
             assertThat(annotations[0].message, `is`(nullValue()))
             assertThat(annotations[0].enforcedTextAttributes, `is`(TextAttributes.ERASE_MARKER))
             assertThat(annotations[0].textAttributes, `is`(HighlighterColors.NO_HIGHLIGHTING))
 
             assertThat(annotations[1].severity, `is`(HighlightSeverity.INFORMATION))
-            assertThat(annotations[1].startOffset, `is`(21))
-            assertThat(annotations[1].endOffset, `is`(25))
+            assertThat(annotations[1].startOffset, `is`(31))
+            assertThat(annotations[1].endOffset, `is`(34))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(SyntaxHighlighter.IDENTIFIER))

@@ -246,11 +246,8 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testBracedURILiteral() {
-        val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
-
-        val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val qnamePsi = optionDeclPsi.children().filterIsInstance<XPathURIQualifiedName>().first()
-        val bracedURILiteralPsi = qnamePsi.descendants().filterIsInstance<XPathBracedURILiteral>().first()
+        val file = parseResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_NCNameLocalPart.xq")
+        val bracedURILiteralPsi = file.walkTree().filterIsInstance<XPathBracedURILiteral>().first()
         val versioned = bracedURILiteralPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

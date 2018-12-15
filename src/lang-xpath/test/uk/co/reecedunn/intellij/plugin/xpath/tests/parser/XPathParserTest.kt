@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Parser")
+@Suppress("ClassName")
 private class XPathParserTest : ParserTestCase() {
     fun parseResource(resource: String): XPath {
         val file = ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource)
@@ -435,6 +436,42 @@ private class XPathParserTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.0 EBNF (46) NameTest")
     internal inner class NameTest_XPath30 {
+        @Nested
+        @DisplayName("XPath 3.0 EBNF (99) URIQualifiedName ; XPath 3.0 EBNF (100) BracedURILiteral")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("NCName local name")
+            fun ncname() {
+                val expected = loadResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_NCNameLocalPart.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("keyword local name")
+            fun keyword() {
+                val expected = loadResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_KeywordLocalPart.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_KeywordLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing local name")
+            fun missingLocalName() {
+                val expected = loadResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_MissingLocalPart.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_MissingLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: incomplete braced URI literal")
+            fun incompleteBracedURILiteral() {
+                val expected = loadResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_IncompleteBracedURILiteral.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NameTest_URIQualifiedName_IncompleteBracedURILiteral.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
         @Nested
         @DisplayName("XPath 3.0 EBNF (47) Wildcard")
         internal inner class Wildcard {

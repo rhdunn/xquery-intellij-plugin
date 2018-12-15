@@ -1,0 +1,13 @@
+XQueryModuleImpl[FILE(0:31)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:31)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:31)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:31)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:31)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(0:31)]
+                     XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(0:31)]
+                        XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
+                           LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
+                           LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
+                           LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
+                        PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing local name after '}' in braced URI qualified name.')

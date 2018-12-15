@@ -6549,6 +6549,42 @@ private class XQueryParserTest : ParserTestCase() {
     @DisplayName("XQuery 3.0 EBNF (118) NameTest")
     internal inner class NameTest_XQuery30 {
         @Nested
+        @DisplayName("XQuery 3.0 EBNF (201) URIQualifiedName ; XQuery 3.0 EBNF (202) BracedURILiteral")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("NCName local name")
+            fun ncname() {
+                val expected = loadResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_NCNameLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_NCNameLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("keyword local name")
+            fun keyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_KeywordLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_KeywordLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing local name")
+            fun missingLocalName() {
+                val expected = loadResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_MissingLocalPart.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_MissingLocalPart.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: incomplete braced URI literal")
+            fun incompleteBracedURILiteral() {
+                val expected = loadResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_IncompleteBracedURILiteral.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_IncompleteBracedURILiteral.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.0 EBNF (119) Wildcard")
         internal inner class Wildcard {
             @Test
@@ -7104,34 +7140,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
-
-    @Test
-    fun testURIQualifiedName() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testURIQualifiedName_KeywordLocalName() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testURIQualifiedName_MissingLocalName() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_MissingLocalName.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_MissingLocalName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testURIQualifiedName_IncompleteLiteral() {
-        val expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_IncompleteLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_IncompleteLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
 
     @Test
     fun testURIQualifiedName_Wildcard() {

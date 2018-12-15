@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:42)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:42)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:42)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:42)]
+            XPathURIQualifiedNameImpl[XPATH_URI_QUALIFIED_NAME(0:42)]
+               XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(0:31)]
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
+                  LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:42)]('lorem-ipsum')
