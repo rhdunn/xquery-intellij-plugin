@@ -203,6 +203,26 @@ open class XPathParser : PsiParser {
     // region Grammar :: TypeDeclaration :: KindTest
 
     open fun parseKindTest(builder: PsiBuilder): Boolean {
+        return parseAnyKindTest(builder)
+    }
+
+    open fun parseAnyKindTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ANY_KIND_TEST)
+            return true
+        }
         return false
     }
 

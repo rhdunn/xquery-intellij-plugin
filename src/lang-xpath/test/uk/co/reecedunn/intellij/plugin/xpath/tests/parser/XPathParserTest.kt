@@ -66,6 +66,38 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
+    internal inner class NodeTest {
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (37) AnyKindTest")
+        internal inner class AnyKindTest {
+            @Test
+            @DisplayName("any kind test")
+            fun anyKindTest() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any kind test; compact whitespace")
+            fun anyKindTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (41) StringLiteral")
     internal inner class StringLiteral_XPath10 {
         @Test
