@@ -15,27 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
-import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.fileTypes.LanguageFileType
-import com.intellij.openapi.util.IconLoader
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathIcons
 import javax.swing.Icon
 
 object XPathFileType : LanguageFileType(XPath) {
-    private val FILETYPE_ICON = IconLoader.getIcon("/icons/xpath.png")
-    private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xpath-163.png")
-
     override fun getName(): String = "XPath"
 
     override fun getDescription(): String = XPathBundle.message("xpath.files.filetype.description")
 
     override fun getDefaultExtension(): String = "xpath"
 
-    override fun getIcon(): Icon? {
-        return if (ApplicationInfo.getInstance().build.baselineVersion >= 163)
-            FILETYPE_ICON_163
-        else
-            FILETYPE_ICON
-    }
+    override fun getIcon(): Icon? = XPathIcons.XPathFile
 }
