@@ -6,6 +6,7 @@ sourceSets.test.java.srcDirs += 'test'
 dependencies {
     compile project(':src:lang-xpath')
 
+    testCompile project(':src:intellij-mock')
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:lang-xpath')
 }
