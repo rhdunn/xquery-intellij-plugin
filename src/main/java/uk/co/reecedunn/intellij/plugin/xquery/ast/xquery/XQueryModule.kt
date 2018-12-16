@@ -19,7 +19,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 

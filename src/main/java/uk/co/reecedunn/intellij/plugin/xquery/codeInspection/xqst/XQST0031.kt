@@ -24,7 +24,6 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle

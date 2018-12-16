@@ -2,3 +2,10 @@ sourceSets.main.java.srcDirs += 'main'
 sourceSets.main.resources.srcDirs += 'main/resources'
 
 sourceSets.test.java.srcDirs += 'test'
+
+dependencies {
+    compile project(':src:lang-xpath')
+
+    testCompile project(':src:kotlin-hamcrest')
+    testCompile project(':src:lang-xpath')
+}
