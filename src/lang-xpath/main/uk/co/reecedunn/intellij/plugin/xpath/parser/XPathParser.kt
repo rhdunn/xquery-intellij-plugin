@@ -19,7 +19,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
-import com.sun.org.apache.xpath.internal.operations.Bool
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
@@ -202,8 +201,12 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseKindTest(builder: PsiBuilder): Boolean {
-        return parseAnyKindTest(builder)
+        return (
+            parseAnyKindTest(builder) ||
+            parseTextTest(builder)
+        )
     }
 
     open fun parseAnyKindTest(builder: PsiBuilder): Boolean {
@@ -221,6 +224,26 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.ANY_KIND_TEST)
+            return true
+        }
+        return false
+    }
+
+    open fun parseTextTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ANY_TEXT_TEST)
             return true
         }
         return false

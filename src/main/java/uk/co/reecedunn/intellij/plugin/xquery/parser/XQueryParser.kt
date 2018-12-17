@@ -6570,19 +6570,20 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: TypeDeclaration :: KindTest
 
     override fun parseKindTest(builder: PsiBuilder): Boolean {
-        return parseDocumentTest()
-                || parseElementTest()
-                || parseAttributeTest()
-                || parseSchemaElementTest()
-                || parseSchemaAttributeTest()
-                || parsePITest()
-                || parseCommentTest()
-                || parseTextTest()
-                || parseNamespaceNodeTest()
-                || parseAnyKindTest(builder)
-                || parseBinaryTest()
-                || parseSchemaKindTest() != ParseStatus.NOT_MATCHED
-                || parseJsonKindTest() != ParseStatus.NOT_MATCHED
+        return (
+            super.parseKindTest(builder) ||
+            parseDocumentTest() ||
+            parseElementTest() ||
+            parseAttributeTest() ||
+            parseSchemaElementTest() ||
+            parseSchemaAttributeTest() ||
+            parsePITest() ||
+            parseCommentTest() ||
+            parseNamespaceNodeTest() ||
+            parseBinaryTest() ||
+            parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
+            parseJsonKindTest() != ParseStatus.NOT_MATCHED
+        )
     }
 
     override fun parseAnyKindTest(builder: PsiBuilder): Boolean {
@@ -6643,30 +6644,30 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseTextTest(): Boolean {
-        val textTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
-        if (textTestMarker != null) {
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                textTestMarker.rollbackTo()
+    override fun parseTextTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
                 return false
             }
 
             val type: IElementType
-            parseWhiteSpaceAndCommentTokens()
+            parseWhiteSpaceAndCommentTokens(builder)
             if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_TEXT_TEST
             } else {
                 type = XPathElementType.ANY_TEXT_TEST
-                errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0
+                builder.errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")")) // MarkLogic 8.0
             }
 
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                error(XPathBundle.message("parser.error.expected", ")"))
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            textTestMarker.done(type)
+            marker.done(type)
             return true
         }
         return false
