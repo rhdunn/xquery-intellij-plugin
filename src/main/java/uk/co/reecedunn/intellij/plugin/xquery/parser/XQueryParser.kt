@@ -6569,6 +6569,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
             super.parseKindTest(builder) ||
@@ -6578,7 +6579,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseSchemaElementTest() ||
             parseSchemaAttributeTest() ||
             parsePITest() ||
-            parseCommentTest() ||
             parseNamespaceNodeTest() ||
             parseBinaryTest() ||
             parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
@@ -6668,26 +6668,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             marker.done(type)
-            return true
-        }
-        return false
-    }
-
-    private fun parseCommentTest(): Boolean {
-        val commentTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_COMMENT)
-        if (commentTestMarker != null) {
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                commentTestMarker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            commentTestMarker.done(XPathElementType.COMMENT_TEST)
             return true
         }
         return false

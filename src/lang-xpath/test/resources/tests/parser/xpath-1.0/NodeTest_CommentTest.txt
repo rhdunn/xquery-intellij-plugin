@@ -1,0 +1,9 @@
+XPathImpl[FILE(0:11)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:11)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:11)]
+         XPathCommentTestImpl[XPATH_COMMENT_TEST(0:11)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
