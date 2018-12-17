@@ -3123,13 +3123,6 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    @Test
-    fun testKindTest_PITest() {
-        val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
     // endregion
 
     @Nested
@@ -3216,6 +3209,74 @@ private class XQueryParserTest : ParserTestCase() {
                 val expected = loadResource("tests/parser/xquery-1.0/NodeTest_CommentTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/xquery-1.0/NodeTest_CommentTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (128) PITest")
+        internal inner class PITest {
+            @Test
+            @DisplayName("processing instruction test")
+            fun piTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("processing instruction test; compact whitespace")
+            fun piTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("NCName")
+            internal inner class NCName {
+                @Test
+                @DisplayName("NCName")
+                fun ncname() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest_NCName.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest_NCName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("NCName; compact whitespace")
+                fun ncname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest_NCName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest_NCName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+
+            @Nested
+            @DisplayName("StringLiteral")
+            internal inner class StringLiteral {
+                @Test
+                @DisplayName("string literal")
+                fun stringLiteral() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest_StringLiteral.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest_StringLiteral.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("string literal; compact whitespace")
+                fun stringLiteral_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest_StringLiteral_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest_StringLiteral_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
             }
         }
     }
@@ -4738,6 +4799,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/ItemType_CommentTest.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (128) PITest")
+        fun piTest() {
+            val expected = loadResource("tests/parser/xquery-1.0/ItemType_PITest.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ItemType_PITest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     // region XQuery 1.0 :: DocumentTest
@@ -4788,58 +4857,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testDocumentTest_MissingClosingParenthesis() {
         val expected = loadResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.txt")
         val actual = parseResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: PITest
-
-    @Test
-    fun testPITest() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPITest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPITest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPITest_NCName() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest_NCName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest_NCName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPITest_NCName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest_NCName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest_NCName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPITest_StringLiteral() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest_StringLiteral.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest_StringLiteral.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPITest_StringLiteral_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/PITest_StringLiteral_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PITest_StringLiteral_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

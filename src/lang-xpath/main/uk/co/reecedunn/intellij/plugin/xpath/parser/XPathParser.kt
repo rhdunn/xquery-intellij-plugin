@@ -206,7 +206,8 @@ open class XPathParser : PsiParser {
         return (
             parseAnyKindTest(builder) ||
             parseTextTest(builder) ||
-            parseCommentTest(builder)
+            parseCommentTest(builder) ||
+            parsePITest(builder)
         )
     }
 
@@ -265,6 +266,30 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.COMMENT_TEST)
+            return true
+        }
+        return false
+    }
+
+    fun parsePITest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseQNameOrWildcard(builder, NCNAME) || parseStringLiteral(builder)) {
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.PI_TEST)
             return true
         }
         return false

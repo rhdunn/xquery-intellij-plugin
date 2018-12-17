@@ -6578,7 +6578,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseAttributeTest() ||
             parseSchemaElementTest() ||
             parseSchemaAttributeTest() ||
-            parsePITest() ||
             parseNamespaceNodeTest() ||
             parseBinaryTest() ||
             parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
@@ -6688,30 +6687,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             namespaceTestMarker.done(XPathElementType.NAMESPACE_NODE_TEST)
-            return true
-        }
-        return false
-    }
-
-    private fun parsePITest(): Boolean {
-        val piTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
-        if (piTestMarker != null) {
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                piTestMarker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (parseQName(XQueryElementType.NCNAME) || parseStringLiteral(builder)) {
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            piTestMarker.done(XPathElementType.PI_TEST)
             return true
         }
         return false
