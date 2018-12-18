@@ -518,6 +518,58 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Nested
+            @DisplayName("XPath 2.0 EBNF (61) AttribNameOrWildcard")
+            internal inner class AttribNameOrWildcard {
+                @Test
+                @DisplayName("ncname")
+                fun ncname() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("ncname; compact whitespace")
+                fun ncname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname")
+                fun qname() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname; compact whitespace")
+                fun qname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard; compact whitespace")
+                fun wildcard_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
     }
 

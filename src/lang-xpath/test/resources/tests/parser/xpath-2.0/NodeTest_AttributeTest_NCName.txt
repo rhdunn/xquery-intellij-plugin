@@ -1,0 +1,12 @@
+XPathImpl[FILE(0:25)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:25)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:25)]
+         XPathAttributeTestImpl[XPATH_ATTRIBUTE_TEST(0:25)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            XPathNCNameImpl[XPATH_NCNAME(12:24)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:23)]('lorem-ipsum')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(24:25)](')')

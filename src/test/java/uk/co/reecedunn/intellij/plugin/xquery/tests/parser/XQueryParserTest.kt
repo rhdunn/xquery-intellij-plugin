@@ -3316,6 +3316,58 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Nested
+            @DisplayName("XQuery 1.0 EBNF (129) AttribNameOrWildcard")
+            internal inner class AttribNameOrWildcard {
+                @Test
+                @DisplayName("ncname")
+                fun ncname() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_NCName.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_NCName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("ncname; compact whitespace")
+                fun ncname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_NCName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_NCName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname")
+                fun qname() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_QName.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_QName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname; compact whitespace")
+                fun qname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_QName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_QName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard; compact whitespace")
+                fun wildcard_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
     }
 
@@ -4903,23 +4955,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testDocumentTest_MissingClosingParenthesis() {
         val expected = loadResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.txt")
         val actual = parseResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: AttributeTest + AttribNameOrWildcard + AttributeName
-
-    @Test
-    fun testAttributeTest_Wildcard() {
-        val expected = loadResource("tests/parser/xquery-1.0/AttributeTest_Wildcard.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AttributeTest_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAttributeTest_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/AttributeTest_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AttributeTest_Wildcard_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
