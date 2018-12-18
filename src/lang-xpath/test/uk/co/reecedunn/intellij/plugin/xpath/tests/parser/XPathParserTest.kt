@@ -491,6 +491,34 @@ private class XPathParserTest : ParserTestCase() {
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (60) AttributeTest")
+        internal inner class AttributeTest {
+            @Test
+            @DisplayName("attribute test")
+            fun attributeTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute test; compact whitespace")
+            fun attributeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
     @Nested
