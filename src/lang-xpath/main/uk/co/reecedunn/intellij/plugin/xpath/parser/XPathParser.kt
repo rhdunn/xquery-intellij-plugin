@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 /**
  * A unified XPath parser for different XPath versions and dialects.
  */
-@Suppress("PropertyName")
+@Suppress("PropertyName", "PrivatePropertyName")
 open class XPathParser : PsiParser {
     // region XPath/XQuery Element Types
     //
@@ -45,8 +45,8 @@ open class XPathParser : PsiParser {
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
     open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
-    val ATTRIBUTE_NAME: IElementType get() = QNAME
-    val ELEMENT_NAME: IElementType get() = QNAME
+    private val ATTRIBUTE_NAME: IElementType get() = QNAME
+    private val ELEMENT_NAME: IElementType get() = QNAME
 
     // endregion
     // region PsiParser
@@ -162,7 +162,9 @@ open class XPathParser : PsiParser {
 
     fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
+        if (
+            parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)
+        ) {
             marker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -185,7 +187,7 @@ open class XPathParser : PsiParser {
         return parseNumericLiteral(builder) || parseStringLiteral(builder)
     }
 
-    fun parseNumericLiteral(builder: PsiBuilder): Boolean {
+    private fun parseNumericLiteral(builder: PsiBuilder): Boolean {
         if (
             builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
             builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL)
@@ -255,7 +257,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseCommentTest(builder: PsiBuilder): Boolean {
+    private fun parseCommentTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_COMMENT)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -275,7 +277,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parsePITest(builder: PsiBuilder): Boolean {
+    private fun parsePITest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -406,13 +408,13 @@ open class XPathParser : PsiParser {
     open fun parseWhiteSpaceAndCommentTokens(builder: PsiBuilder): Boolean {
         var skipped = false
         while (true) {
-            if (builder.tokenType === XPathTokenType.WHITE_SPACE) {
-                skipped = true
-                builder.advanceLexer()
-            } else if (parseComment(builder)) {
-                skipped = true
-            } else {
-                return skipped
+            when {
+                builder.tokenType === XPathTokenType.WHITE_SPACE -> {
+                    skipped = true
+                    builder.advanceLexer()
+                }
+                parseComment(builder) -> skipped = true
+                else -> return skipped
             }
         }
     }
@@ -437,7 +439,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): Boolean {
+    private fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): Boolean {
         val marker = builder.mark()
         if (parseBracedURILiteral(builder)) {
             val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
@@ -495,7 +497,9 @@ open class XPathParser : PsiParser {
 
             val nameMarker = builder.mark()
             if (parseQNameSeparator(builder, type)) {
-                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
+                if (
+                    parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
+                ) {
                     nameMarker.rollbackTo()
                     if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                         marker.done(XPathElementType.WILDCARD)
@@ -549,7 +553,7 @@ open class XPathParser : PsiParser {
         URIQualifiedLiteralLocalName
     }
 
-    fun parseQNameNCName(
+    private fun parseQNameNCName(
         builder: PsiBuilder,
         partType: QNamePart,
         elementType: IElementType,
@@ -590,7 +594,7 @@ open class XPathParser : PsiParser {
         return null
     }
 
-    protected fun parseQNameWhitespace(
+    private fun parseQNameWhitespace(
         builder: PsiBuilder,
         type: QNamePart,
         endQNameOnWhitespace: Boolean,
