@@ -45,9 +45,6 @@ open class XPathParser : PsiParser {
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
     open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
-    private val ATTRIBUTE_NAME: IElementType get() = QNAME
-    private val ELEMENT_NAME: IElementType get() = QNAME
-
     // endregion
     // region PsiParser
 
@@ -206,9 +203,13 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
+    private val ATTRIBUTE_NAME: IElementType get() = QNAME
+    private val ELEMENT_NAME: IElementType get() = QNAME
+
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
+            parseElementTest(builder) ||
             parseAttributeTest(builder) ||
             parsePITest(builder) ||
             parseCommentTest(builder) ||
@@ -345,6 +346,47 @@ open class XPathParser : PsiParser {
             builder.matchTokenType(XPathTokenType.STAR) ||
             parseEQNameOrWildcard(builder, ATTRIBUTE_NAME, false)
         )
+    }
+
+    open fun parseElementTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseElementNameOrWildcard(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
+                        builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                        haveErrors = true
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    builder.matchTokenType(XPathTokenType.OPTIONAL)
+                } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
+                    builder.error(XPathBundle.message("parser.error.expected", ","))
+                    haveErrors = true
+                    parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ELEMENT_TEST)
+            return true
+        }
+        return false
     }
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518

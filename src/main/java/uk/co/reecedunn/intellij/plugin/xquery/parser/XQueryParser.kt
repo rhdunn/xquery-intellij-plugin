@@ -6574,7 +6574,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return (
             super.parseKindTest(builder) ||
             parseDocumentTest() ||
-            parseElementTest() ||
             parseSchemaElementTest() ||
             parseSchemaAttributeTest() ||
             parseNamespaceNodeTest() ||
@@ -6623,7 +6622,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (parseElementTest() ||
+            if (parseElementTest(builder) ||
                 parseSchemaElementTest() ||
                 parseAnyArrayNodeTest() != ParseStatus.NOT_MATCHED ||
                 parseAnyMapNodeTest() != ParseStatus.NOT_MATCHED
@@ -6760,42 +6759,45 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseElementTest(): Boolean {
-        val elementTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
-        if (elementTestMarker != null) {
+    override fun parseElementTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
+        if (marker != null) {
             var haveErrors = false
 
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                elementTestMarker.rollbackTo()
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
                 return false
             }
 
-            parseWhiteSpaceAndCommentTokens()
+            parseWhiteSpaceAndCommentTokens(builder)
             if (parseElementNameOrWildcard(builder)) {
-                parseWhiteSpaceAndCommentTokens()
-                if (matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens()
-                    if (!parseEQName(XPathElementType.TYPE_NAME)) {
-                        error(XPathBundle.message("parser.error.expected-eqname"))
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
+                        builder.error(XPathBundle.message("parser.error.expected-eqname"))
                         haveErrors = true
                     }
 
-                    parseWhiteSpaceAndCommentTokens()
-                    matchTokenType(XPathTokenType.OPTIONAL)
-                } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE && getTokenType() !== XQueryTokenType.K_EXTERNAL) {
-                    error(XPathBundle.message("parser.error.expected", ","))
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    builder.matchTokenType(XPathTokenType.OPTIONAL)
+                } else if (
+                    builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE &&
+                    builder.tokenType !== XQueryTokenType.K_EXTERNAL
+                ) {
+                    builder.error(XPathBundle.message("parser.error.expected", ","))
                     haveErrors = true
-                    parseEQName(XPathElementType.TYPE_NAME)
+                    parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
                 }
             }
 
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                error(XPathBundle.message("parser.error.expected", ")"))
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            elementTestMarker.done(XPathElementType.ELEMENT_TEST)
+            marker.done(XPathElementType.ELEMENT_TEST)
             return true
         }
         return false
