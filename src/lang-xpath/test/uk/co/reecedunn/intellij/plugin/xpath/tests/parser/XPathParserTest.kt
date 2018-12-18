@@ -570,6 +570,42 @@ private class XPathParserTest : ParserTestCase() {
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
             }
+
+            @Nested
+            @DisplayName("XPath 2.0 EBNF (70) TypeName")
+            internal inner class TypeName {
+                @Test
+                @DisplayName("type name")
+                fun typeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("type name; compact whitespace")
+                fun typeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name")
+                fun typeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing comma")
+                fun typeName_MissingComma() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingComma.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingComma.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
     }
 

@@ -1,0 +1,20 @@
+XQueryModuleImpl[FILE(0:32)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:32)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:32)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:32)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:32)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:32)]
+                  XPathAttributeTestImpl[XPATH_ATTRIBUTE_TEST(0:32)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+                     XQueryQNameImpl[XQUERY_QNAME(10:20)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:12)]('ns')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(12:13)](':')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:20)]('enabled')
+                     LeafPsiElement[XPATH_COMMA_TOKEN(20:21)](',')
+                     XPathTypeNameImpl[XPATH_TYPE_NAME(21:31)]
+                        XQueryQNameImpl[XQUERY_QNAME(21:31)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:23)]('xs')
+                           LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(23:24)](':')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:31)]('boolean')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(31:32)](')')

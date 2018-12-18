@@ -3368,6 +3368,42 @@ private class XQueryParserTest : ParserTestCase() {
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
             }
+
+            @Nested
+            @DisplayName("XQuery 1.0 EBNF (139) TypeName")
+            internal inner class TypeName {
+                @Test
+                @DisplayName("type name")
+                fun typeName() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("type name; compact whitespace")
+                fun typeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name")
+                fun typeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing comma")
+                fun typeName_MissingComma() {
+                    val expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_MissingComma.txt")
+                    val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_MissingComma.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
     }
 
@@ -4955,37 +4991,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testDocumentTest_MissingClosingParenthesis() {
         val expected = loadResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.txt")
         val actual = parseResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: AttributeTest + TypeName
-
-    @Test
-    fun testAttributeTest_TypeName() {
-        val expected = loadResource("tests/parser/xquery-1.0/AttributeTest_TypeName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AttributeTest_TypeName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAttributeTest_TypeName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/AttributeTest_TypeName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AttributeTest_TypeName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAttributeTest_TypeName_MissingTypeName() {
-        val expected = loadResource("tests/parser/xquery-1.0/AttributeTest_TypeName_MissingTypeName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AttributeTest_TypeName_MissingTypeName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAttributeTest_TypeName_MissingComma() {
-        val expected = loadResource("tests/parser/xquery-1.0/AttributeTest_TypeName_MissingComma.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AttributeTest_TypeName_MissingComma.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
