@@ -46,6 +46,7 @@ open class XPathParser : PsiParser {
     open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
     val ATTRIBUTE_NAME: IElementType get() = QNAME
+    val ELEMENT_NAME: IElementType get() = QNAME
 
     // endregion
     // region PsiParser
@@ -341,6 +342,14 @@ open class XPathParser : PsiParser {
         return (
             builder.matchTokenType(XPathTokenType.STAR) ||
             parseEQNameOrWildcard(builder, ATTRIBUTE_NAME, false)
+        )
+    }
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
+        return (
+            builder.matchTokenType(XPathTokenType.STAR) ||
+            parseEQNameOrWildcard(builder, ELEMENT_NAME, false)
         )
     }
 

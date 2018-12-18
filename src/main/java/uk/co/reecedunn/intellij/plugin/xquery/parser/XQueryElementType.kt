@@ -186,7 +186,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ELEMENT_NAME: IElementType = QNAME
     val ELEMENT_DECLARATION: IElementType = QNAME
     val ATTRIBUTE_DECLARATION: IElementType = QNAME
 

@@ -6772,7 +6772,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (parseElementNameOrWildcard()) {
+            if (parseElementNameOrWildcard(builder)) {
                 parseWhiteSpaceAndCommentTokens()
                 if (matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens()
@@ -6799,10 +6799,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         }
         return false
-    }
-
-    private fun parseElementNameOrWildcard(): Boolean {
-        return matchTokenType(XPathTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)
     }
 
     private fun parseSchemaElementTest(): Boolean {
