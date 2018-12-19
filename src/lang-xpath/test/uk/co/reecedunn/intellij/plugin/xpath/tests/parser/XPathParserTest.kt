@@ -686,6 +686,66 @@ private class XPathParserTest : ParserTestCase() {
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
             }
+
+            @Nested
+            @DisplayName("XQuery 1.0 EBNF (139) TypeName")
+            internal inner class TypeName {
+                @Test
+                @DisplayName("type name")
+                fun typeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("type name: compact whitespace")
+                fun typeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name")
+                fun typeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing comma")
+                fun typeName_MissingComma() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingComma.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingComma.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("optional type name")
+                fun optionalTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("optional type name: compact whitespace")
+                fun optionalTypeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name on optional type name")
+                fun optionalTypeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
         }
     }
 

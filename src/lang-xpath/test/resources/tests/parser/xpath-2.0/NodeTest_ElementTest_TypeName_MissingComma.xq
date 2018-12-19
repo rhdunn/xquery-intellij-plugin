@@ -1,0 +1,1 @@
+element ( lorem:ipsum xs:boolean )
