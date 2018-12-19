@@ -1,0 +1,11 @@
+XPathImpl[FILE(0:13)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:13)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:13)]
+         XPathElementTestImpl[XPATH_ELEMENT_TEST(0:13)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(10:11)]('*')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
