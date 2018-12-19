@@ -3127,13 +3127,6 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    @Test
-    fun testKindTest_SchemaAttributeTest() {
-        val expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
     // endregion
 
     @Nested
@@ -3404,6 +3397,42 @@ private class XQueryParserTest : ParserTestCase() {
                     val actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest_TypeName_MissingComma.xq")
                     assertThat(prettyPrintASTNode(actual), `is`(expected))
                 }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (131) SchemaAttributeTest")
+        internal inner class SchemaAttributeTest {
+            @Test
+            @DisplayName("schema attribute test")
+            fun schemaAttributeTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema attribute test; compact whitespace")
+            fun schemaAttributeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing attribute delcaration")
+            fun missingAttributeDeclaration() {
+                val expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest_MissingAttributeDeclaration.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest_MissingAttributeDeclaration.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }
 
@@ -5084,6 +5113,14 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("XQuery 1.0 EBNF (131) SchemaAttributeTest")
+        fun schemaAttributeTest() {
+            val expected = loadResource("tests/parser/xquery-1.0/ItemType_SchemaAttributeTest.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ItemType_SchemaAttributeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
         @DisplayName("XQuery 1.0 EBNF (133) ElementTest")
         fun elementTest() {
             val expected = loadResource("tests/parser/xquery-1.0/ItemType_ElementTest.txt")
@@ -5140,37 +5177,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testDocumentTest_MissingClosingParenthesis() {
         val expected = loadResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.txt")
         val actual = parseResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: SchemaAttributeTest + AttributeDeclaration
-
-    @Test
-    fun testSchemaAttributeTest() {
-        val expected = loadResource("tests/parser/xquery-1.0/SchemaAttributeTest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SchemaAttributeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaAttributeTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/SchemaAttributeTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SchemaAttributeTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaAttributeTest_MissingAttributeDeclaration() {
-        val expected = loadResource("tests/parser/xquery-1.0/SchemaAttributeTest_MissingAttributeDeclaration.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SchemaAttributeTest_MissingAttributeDeclaration.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSchemaAttributeTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-1.0/SchemaAttributeTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SchemaAttributeTest_MissingClosingParenthesis.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

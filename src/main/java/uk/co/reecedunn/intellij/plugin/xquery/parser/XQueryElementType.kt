@@ -187,7 +187,6 @@ object XQueryElementType {
     )
 
     val ELEMENT_DECLARATION: IElementType = QNAME
-    val ATTRIBUTE_DECLARATION: IElementType = QNAME
 
     val FUNCTION_DECL: IElementType = ICompositeElementType(
         "XQUERY_FUNCTION_DECL",

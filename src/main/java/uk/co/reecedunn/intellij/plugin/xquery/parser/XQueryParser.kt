@@ -6575,7 +6575,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             super.parseKindTest(builder) ||
             parseDocumentTest() ||
             parseSchemaElementTest() ||
-            parseSchemaAttributeTest() ||
             parseNamespaceNodeTest() ||
             parseBinaryTest() ||
             parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
@@ -6726,34 +6725,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             marker.done(XPathElementType.ATTRIBUTE_TEST)
-            return true
-        }
-        return false
-    }
-
-    private fun parseSchemaAttributeTest(): Boolean {
-        val schemaAttributeTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ATTRIBUTE)
-        if (schemaAttributeTestMarker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                schemaAttributeTestMarker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.ATTRIBUTE_DECLARATION)) {
-                error(XQueryBundle.message("parser.error.expected-qname"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            schemaAttributeTestMarker.done(XPathElementType.SCHEMA_ATTRIBUTE_TEST)
             return true
         }
         return false

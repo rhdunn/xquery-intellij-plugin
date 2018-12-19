@@ -1,0 +1,14 @@
+XQueryModuleImpl[FILE(0:29)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:29)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:29)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:29)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:29)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:29)]
+                  XPathSchemaAttributeTestImpl[XPATH_SCHEMA_ATTRIBUTE_TEST(0:29)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(0:16)]('schema-attribute')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
+                     XQueryQNameImpl[XQUERY_QNAME(17:28)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:22)]('lorem')
+                        LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(22:23)](':')
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:28)]('ipsum')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(28:29)](')')

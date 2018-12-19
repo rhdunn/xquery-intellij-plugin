@@ -203,6 +203,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
+    private val ATTRIBUTE_DECLARATION: IElementType get() = QNAME
     private val ATTRIBUTE_NAME: IElementType get() = QNAME
     private val ELEMENT_NAME: IElementType get() = QNAME
 
@@ -211,6 +212,7 @@ open class XPathParser : PsiParser {
         return (
             parseElementTest(builder) ||
             parseAttributeTest(builder) ||
+            parseSchemaAttributeTest(builder) ||
             parsePITest(builder) ||
             parseCommentTest(builder) ||
             parseTextTest(builder) ||
@@ -346,6 +348,34 @@ open class XPathParser : PsiParser {
             builder.matchTokenType(XPathTokenType.STAR) ||
             parseEQNameOrWildcard(builder, ATTRIBUTE_NAME, false)
         )
+    }
+
+    private fun parseSchemaAttributeTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ATTRIBUTE)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, ATTRIBUTE_DECLARATION, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.SCHEMA_ATTRIBUTE_TEST)
+            return true
+        }
+        return false
     }
 
     open fun parseElementTest(builder: PsiBuilder): Boolean {
