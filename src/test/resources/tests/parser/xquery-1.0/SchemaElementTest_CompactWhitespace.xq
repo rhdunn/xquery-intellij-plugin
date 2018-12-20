@@ -1,1 +1,0 @@
-declare variable$one as schema-element(xs:boolean)external;

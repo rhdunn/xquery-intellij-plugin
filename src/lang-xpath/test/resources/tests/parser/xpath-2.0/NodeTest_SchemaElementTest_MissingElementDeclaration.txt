@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:18)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:18)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:18)]
+         XPathSchemaElementTestImpl[XPATH_SCHEMA_ELEMENT_TEST(0:18)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(0:14)]('schema-element')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Missing qualified name or braced URI qualified name.')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(17:18)](')')

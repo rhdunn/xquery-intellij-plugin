@@ -6574,7 +6574,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return (
             super.parseKindTest(builder) ||
             parseDocumentTest() ||
-            parseSchemaElementTest() ||
             parseNamespaceNodeTest() ||
             parseBinaryTest() ||
             parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
@@ -6622,7 +6621,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens()
             if (parseElementTest(builder) ||
-                parseSchemaElementTest() ||
+                parseSchemaElementTest(builder) ||
                 parseAnyArrayNodeTest() != ParseStatus.NOT_MATCHED ||
                 parseAnyMapNodeTest() != ParseStatus.NOT_MATCHED
             ) {
@@ -6769,34 +6768,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             marker.done(XPathElementType.ELEMENT_TEST)
-            return true
-        }
-        return false
-    }
-
-    private fun parseSchemaElementTest(): Boolean {
-        val schemaElementTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ELEMENT)
-        if (schemaElementTestMarker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                schemaElementTestMarker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.ELEMENT_DECLARATION)) {
-                error(XQueryBundle.message("parser.error.expected-qname"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            schemaElementTestMarker.done(XPathElementType.SCHEMA_ELEMENT_TEST)
             return true
         }
         return false

@@ -205,6 +205,8 @@ open class XPathParser : PsiParser {
 
     private val ATTRIBUTE_DECLARATION: IElementType get() = QNAME
     private val ATTRIBUTE_NAME: IElementType get() = QNAME
+
+    private val ELEMENT_DECLARATION: IElementType get() = QNAME
     private val ELEMENT_NAME: IElementType get() = QNAME
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
@@ -212,6 +214,7 @@ open class XPathParser : PsiParser {
         return (
             parseElementTest(builder) ||
             parseAttributeTest(builder) ||
+            parseSchemaElementTest(builder) ||
             parseSchemaAttributeTest(builder) ||
             parsePITest(builder) ||
             parseCommentTest(builder) ||
@@ -425,6 +428,34 @@ open class XPathParser : PsiParser {
             builder.matchTokenType(XPathTokenType.STAR) ||
             parseEQNameOrWildcard(builder, ELEMENT_NAME, false)
         )
+    }
+
+    fun parseSchemaElementTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ELEMENT)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, ELEMENT_DECLARATION, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.SCHEMA_ELEMENT_TEST)
+            return true
+        }
+        return false
     }
 
     // endregion

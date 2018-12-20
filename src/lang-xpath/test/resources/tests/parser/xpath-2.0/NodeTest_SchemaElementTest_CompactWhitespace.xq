@@ -1,0 +1,1 @@
+schema-element(lorem:ipsum)
