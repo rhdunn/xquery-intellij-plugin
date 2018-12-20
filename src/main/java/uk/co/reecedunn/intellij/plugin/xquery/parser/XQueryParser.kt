@@ -93,8 +93,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // endregion
     // region PsiBuilder API
 
-    protected fun mark(): PsiBuilder.Marker = builder.mark()
-
     protected fun getTokenType(): IElementType? = builder.tokenType
 
     protected fun advanceLexer() = builder.advanceLexer()
@@ -148,7 +146,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     getTokenType() === XQueryTokenType.K_IMPORT ||
                     getTokenType() === XQueryTokenType.K_MODULE) {
 
-                val marker = mark()
+                val marker = builder.mark()
                 advanceLexer()
                 parseWhiteSpaceAndCommentTokens(builder)
                 haveProlog = getTokenType() is IKeywordOrNCNameType
@@ -165,7 +163,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         var hasVersionDeclOrWhitespace: Boolean = parseVersionDecl()
         hasVersionDeclOrWhitespace = hasVersionDeclOrWhitespace or parseWhiteSpaceAndCommentTokens(builder)
 
-        val moduleMarker = mark()
+        val moduleMarker = builder.mark()
         if (parseLibraryModule()) {
             moduleMarker.done(XQueryElementType.LIBRARY_MODULE)
             return true
@@ -314,7 +312,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseProlog(parseInvalidConstructs: Boolean): Boolean {
-        val prologMarker = mark()
+        val prologMarker = builder.mark()
 
         var state = PrologDeclState.NOT_MATCHED
         while (true) {
@@ -751,7 +749,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseDFPropertyName(): Boolean {
-        val dfPropertyNameMarker = mark()
+        val dfPropertyNameMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.K_DECIMAL_SEPARATOR) ||
                 builder.matchTokenType(XQueryTokenType.K_GROUPING_SEPARATOR) ||
                 builder.matchTokenType(XQueryTokenType.K_INFINITY) ||
@@ -775,8 +773,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Prolog :: Header :: Import
 
     private fun parseImport(state: PrologDeclState): PrologDeclState {
-        val importMarker = mark()
-        val errorMarker = mark()
+        val importMarker = builder.mark()
+        val errorMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.K_IMPORT)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop()
@@ -1006,7 +1004,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
         } while (annotation != null)
 
-        val declMarker = mark()
+        val declMarker = builder.mark()
         if (parseVarDecl()) {
             declMarker.done(XQueryElementType.VAR_DECL)
             return true
@@ -1056,7 +1054,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseCompatibilityAnnotationDecl(): IElementType? {
-        val compatibilityAnnotationMarker = mark()
+        val compatibilityAnnotationMarker = builder.mark()
         val type = getTokenType()
         if (COMPATIBILITY_ANNOTATION_TOKENS.contains(type)) {
             advanceLexer()
@@ -1177,7 +1175,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseParamList(): Boolean {
-        val paramListMarker = mark()
+        val paramListMarker = builder.mark()
 
         while (parseParam()) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1198,7 +1196,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseParam(): Boolean {
-        val paramMarker = mark()
+        val paramMarker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
@@ -1288,7 +1286,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseEnclosedExprOrBlock(type: IElementType?, blockOpen: BlockOpen, blockExpr: BlockExpr): Boolean {
         var haveErrors = false
-        val enclosedExprMarker = if (type == null) null else mark()
+        val enclosedExprMarker = if (type == null) null else builder.mark()
         if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
             if (blockOpen == BlockOpen.OPTIONAL) {
                 error(XPathBundle.message("parser.error.expected", "{"))
@@ -1331,7 +1329,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseBlockDecls(): Boolean {
-        val blockDeclsMarker = mark()
+        val blockDeclsMarker = builder.mark()
         parseWhiteSpaceAndCommentTokens(builder)
         while (true)
             when (parseBlockVarDecl()) {
@@ -1381,7 +1379,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseBlockVarDeclEntry(): ParseStatus {
-        val blockVarDeclEntryMarker = mark()
+        val blockVarDeclEntryMarker = builder.mark()
         var haveErrors = false
         if (!builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             error(XPathBundle.message("parser.error.expected", "$"))
@@ -1425,7 +1423,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr
 
     private fun parseExpr(type: IElementType, functionDeclRecovery: Boolean = false): Boolean {
-        val exprMarker = mark()
+        val exprMarker = builder.mark()
         if (parseApplyExpr(type, functionDeclRecovery)) {
             exprMarker.done(type)
             return true
@@ -1452,7 +1450,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             parseWhiteSpaceAndCommentTokens(builder)
 
-            val marker = mark()
+            val marker = builder.mark()
             when (parseTransactionSeparator()) {
                 XQueryParserImpl.TransactionType.WITH_PROLOG -> {
                     // MarkLogic transaction containing a Prolog/Module statement.
@@ -1479,7 +1477,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                         } else {
                             // ScriptingSpec Extension: The semicolon is required to end a ConcatExpr.
                             // MarkLogic Transactions: The last expression must not end with a semicolon.
-                            val marker2 = mark()
+                            val marker2 = builder.mark()
                             marker2.done(XQueryElementType.TRANSACTION_SEPARATOR)
                         }
                     }
@@ -1504,7 +1502,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return parseExprSingleImpl(parentType)
         }
 
-        val exprSingleMarker = mark()
+        val exprSingleMarker = builder.mark()
         if (parseExprSingleImpl(parentType)) {
             exprSingleMarker.done(type)
             return true
@@ -1538,7 +1536,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr :: FLWORExpr
 
     private fun parseFLWORExpr(): Boolean {
-        val flworExprMarker = mark()
+        val flworExprMarker = builder.mark()
         if (parseInitialClause()) {
             while (parseIntermediateClause()) {
                 //
@@ -1577,7 +1575,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseIntermediateClause(): Boolean {
-        val intermediateClauseMarker = mark()
+        val intermediateClauseMarker = builder.mark()
         if (parseInitialClause() || parseWhereClause() || parseOrderByClause() || parseCountClause() || parseGroupByClause()) {
             intermediateClauseMarker.done(XQueryElementType.INTERMEDIATE_CLAUSE)
             return true
@@ -1587,7 +1585,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseReturnClause(): Boolean {
-        val returnClauseMarker = mark()
+        val returnClauseMarker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_RETURN)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseExprSingle(builder)) {
@@ -1636,7 +1634,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseForBinding(isFirst: Boolean): Boolean {
-        val forBindingMarker = mark()
+        val forBindingMarker = builder.mark()
 
         var haveErrors = false
         val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
@@ -1754,7 +1752,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr :: FLWORExpr :: LetClause
 
     private fun parseLetClause(): Boolean {
-        val letClauseMarker = mark()
+        val letClauseMarker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_LET)) {
             var isFirst = true
             do {
@@ -1776,7 +1774,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseLetBinding(isFirst: Boolean): Boolean {
-        val letBindingMarker = mark()
+        val letBindingMarker = builder.mark()
 
         var haveErrors = false
         val haveVariableIndicator = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
@@ -1996,7 +1994,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseWindowVars(): Boolean {
-        val windowVarsMarker = mark()
+        val windowVarsMarker = builder.mark()
         var haveErrors = false
 
         parseWhiteSpaceAndCommentTokens(builder)
@@ -2112,7 +2110,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseGroupingSpecList(): Boolean {
-        val groupingSpecListMarker = mark()
+        val groupingSpecListMarker = builder.mark()
         if (parseGroupingSpec()) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
@@ -2132,7 +2130,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseGroupingSpec(): Boolean {
-        val groupingSpecListMarker = mark()
+        val groupingSpecListMarker = builder.mark()
         if (parseGroupingVariable()) {
             var haveErrors = false
 
@@ -2191,7 +2189,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr :: FLWORExpr :: OrderByClause
 
     private fun parseOrderByClause(): Boolean {
-        val orderByClauseMarker = mark()
+        val orderByClauseMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.K_ORDER)) {
             var haveErrors = false
 
@@ -2236,7 +2234,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseOrderSpecList(): Boolean {
-        val orderSpecListMarker = mark()
+        val orderSpecListMarker = builder.mark()
         if (parseOrderSpec()) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
@@ -2256,7 +2254,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseOrderSpec(): Boolean {
-        val orderSpecMarker = mark()
+        val orderSpecMarker = builder.mark()
         if (parseExprSingle(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseOrderModifier()
@@ -2269,7 +2267,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseOrderModifier(): Boolean {
-        val orderModifierMarker = mark()
+        val orderModifierMarker = builder.mark()
 
         if (builder.matchTokenType(XQueryTokenType.K_ASCENDING) || builder.matchTokenType(XQueryTokenType.K_DESCENDING)) {
             //
@@ -2341,7 +2339,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseQuantifiedExprBinding(isFirst: Boolean): Boolean {
-        val bindingMarker = mark()
+        val bindingMarker = builder.mark()
 
         var haveErrors = false
         val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
@@ -2438,7 +2436,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSwitchCaseClause(): Boolean {
-        val switchCaseClauseMarker = mark()
+        val switchCaseClauseMarker = builder.mark()
 
         var haveErrors = false
         var haveCase = false
@@ -2473,7 +2471,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSwitchCaseOperand(): Boolean {
-        val switchCaseOperandMarker = mark()
+        val switchCaseOperandMarker = builder.mark()
         if (parseExprSingle(builder)) {
             switchCaseOperandMarker.done(XQueryElementType.SWITCH_CASE_OPERAND)
             return true
@@ -2663,7 +2661,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseTryCatchExpr(): Boolean {
-        val tryExprMarker = mark()
+        val tryExprMarker = builder.mark()
         if (parseTryClause()) {
             var type = CatchClauseType.NONE
 
@@ -2750,7 +2748,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseCatchErrorList(): Boolean {
-        val catchErrorListMarker = mark()
+        val catchErrorListMarker = builder.mark()
         if (parseNameTest(builder, null)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.UNION)) {
@@ -2805,7 +2803,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSourceExpr(): Boolean {
-        val sourceExprMarker = mark()
+        val sourceExprMarker = builder.mark()
         if (parseExprSingle(null, XQueryElementType.SOURCE_EXPR)) {
             sourceExprMarker.done(XQueryElementType.SOURCE_EXPR)
             return true
@@ -2815,7 +2813,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseInsertExprTargetChoice(): Boolean {
-        val insertExprTargetChoiceMarker = mark()
+        val insertExprTargetChoiceMarker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_AS)) {
             var haveErrors = false
 
@@ -2853,7 +2851,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseTargetExpr(type: IElementType?): Boolean {
-        val targetExprMarker = mark()
+        val targetExprMarker = builder.mark()
         if (parseExprSingle(null, type)) {
             targetExprMarker.done(XQueryElementType.TARGET_EXPR)
             return true
@@ -2977,7 +2975,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseNewNameExpr(): Boolean {
-        val newNameExprMarker = mark()
+        val newNameExprMarker = builder.mark()
         if (parseExprSingle(builder)) {
             newNameExprMarker.done(XQueryElementType.NEW_NAME_EXPR)
             return true
@@ -3189,7 +3187,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
 
     private fun parseTernaryIfExpr(type: IElementType?): Boolean {
-        val exprMarker = mark()
+        val exprMarker = builder.mark()
         if (parseElvisExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XQueryTokenType.TERNARY_IF)) {
@@ -3219,7 +3217,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseElvisExpr(type: IElementType?): Boolean {
-        val exprMarker = mark()
+        val exprMarker = builder.mark()
         if (parseOrExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XQueryTokenType.ELVIS)) {
@@ -3239,7 +3237,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseOrExpr(type: IElementType?): Boolean {
-        val orExprMarker = mark()
+        val orExprMarker = builder.mark()
         if (parseAndExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.K_OR) || builder.matchTokenType(XPathTokenType.K_ORELSE)) {
@@ -3257,7 +3255,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseAndExpr(type: IElementType?): Boolean {
-        val andExprMarker = mark()
+        val andExprMarker = builder.mark()
         if (parseUpdateExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveAndExpr = false
@@ -3280,7 +3278,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseUpdateExpr(type: IElementType?): Boolean {
-        val exprMarker = mark()
+        val exprMarker = builder.mark()
         if (parseComparisonExpr(type)) {
             var haveUpdateExpr = false
             while (builder.matchTokenType(XQueryTokenType.K_UPDATE)) {
@@ -3306,7 +3304,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseComparisonExpr(type: IElementType?): Boolean {
-        val comparisonExprMarker = mark()
+        val comparisonExprMarker = builder.mark()
         if (parseFTContainsExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseGeneralComp() || parseValueComp() || parseNodeComp()) {
@@ -3333,7 +3331,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTContainsExpr(type: IElementType?): Boolean {
-        val containsExprMarker = mark()
+        val containsExprMarker = builder.mark()
         if (parseStringConcatExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
 
@@ -3386,7 +3384,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseStringConcatExpr(type: IElementType?): Boolean {
-        val stringConcatExprMarker = mark()
+        val stringConcatExprMarker = builder.mark()
         if (parseRangeExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveStringConcatExpr = false
@@ -3410,7 +3408,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseRangeExpr(type: IElementType?): Boolean {
-        val rangeExprMarker = mark()
+        val rangeExprMarker = builder.mark()
         if (parseAdditiveExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_TO)) {
@@ -3429,7 +3427,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseAdditiveExpr(type: IElementType?): Boolean {
-        val additiveExprMarker = mark()
+        val additiveExprMarker = builder.mark()
         if (parseMultiplicativeExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveAdditativeExpr = false
@@ -3452,7 +3450,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseMultiplicativeExpr(type: IElementType?): Boolean {
-        val multiplicativeExprMarker = mark()
+        val multiplicativeExprMarker = builder.mark()
         if (parseUnionExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveMultiplicativeExpr = false
@@ -3480,7 +3478,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseUnionExpr(type: IElementType?): Boolean {
-        val unionExprMarker = mark()
+        val unionExprMarker = builder.mark()
         if (parseIntersectExceptExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveUnionExpr = false
@@ -3503,7 +3501,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseIntersectExceptExpr(type: IElementType?): Boolean {
-        val intersectExceptExprMarker = mark()
+        val intersectExceptExprMarker = builder.mark()
         if (parseInstanceofExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveIntersectExceptExpr = false
@@ -3527,7 +3525,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseInstanceofExpr(type: IElementType?): Boolean {
-        val instanceofExprMarker = mark()
+        val instanceofExprMarker = builder.mark()
         if (parseTreatExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_INSTANCE)) {
@@ -3561,7 +3559,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseTreatExpr(type: IElementType?): Boolean {
-        val treatExprMarker = mark()
+        val treatExprMarker = builder.mark()
         if (parseCastableExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_TREAT)) {
@@ -3595,7 +3593,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseCastableExpr(type: IElementType?): Boolean {
-        val castableExprMarker = mark()
+        val castableExprMarker = builder.mark()
         if (parseCastExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_CASTABLE)) {
@@ -3622,7 +3620,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseCastExpr(type: IElementType?): Boolean {
-        val castExprMarker = mark()
+        val castExprMarker = builder.mark()
         if (parseTransformWithExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_CAST)) {
@@ -3649,7 +3647,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseTransformWithExpr(type: IElementType?): Boolean {
-        val exprMarker = mark()
+        val exprMarker = builder.mark()
         if (parseArrowExpr(type)) {
             if (builder.matchTokenType(XQueryTokenType.K_TRANSFORM)) {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3671,7 +3669,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseArrowExpr(type: IElementType?): Boolean {
-        val exprMarker = mark()
+        val exprMarker = builder.mark()
         if (parseUnaryExpr(type)) {
             var haveErrors = false
             var haveArrowExpr = false
@@ -3706,7 +3704,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseArrowFunctionSpecifier(): Boolean {
-        val arrowFunctionSpecifierMarker = mark()
+        val arrowFunctionSpecifierMarker = builder.mark()
         if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) || parseVarRef(null) || parseParenthesizedExpr()) {
             arrowFunctionSpecifierMarker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
             return true
@@ -3716,7 +3714,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseUnaryExpr(type: IElementType?): Boolean {
-        val pathExprMarker = mark()
+        val pathExprMarker = builder.mark()
         var matched = false
         while (builder.matchTokenType(XPathTokenType.PLUS) || builder.matchTokenType(XPathTokenType.MINUS)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3764,7 +3762,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSingleType(): Boolean {
-        val singleTypeMarker = mark()
+        val singleTypeMarker = builder.mark()
         if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
             builder.matchTokenType(XPathTokenType.OPTIONAL)
@@ -3812,7 +3810,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseExtensionExpr(): Boolean {
-        val extensionExprMarker = mark()
+        val extensionExprMarker = builder.mark()
         var matched = false
         while (parsePragma()) {
             matched = true
@@ -3855,7 +3853,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSimpleMapExpr(type: IElementType?): Boolean {
-        val simpleMapExprMarker = mark()
+        val simpleMapExprMarker = builder.mark()
         if (parsePathExpr(type)) {
             var haveErrors = false
 
@@ -3882,7 +3880,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parsePathExpr(type: IElementType?): Boolean {
-        val pathExprMarker = mark()
+        val pathExprMarker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH)) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseRelativePathExpr(null)
@@ -3906,7 +3904,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseRelativePathExpr(type: IElementType?): Boolean {
-        val relativePathExprMarker = mark()
+        val relativePathExprMarker = builder.mark()
         if (parseStepExpr(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveRelativePathExpr = false
@@ -3938,7 +3936,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseAxisStep(type: IElementType?): Boolean {
-        val axisStepMarker = mark()
+        val axisStepMarker = builder.mark()
         if (parseReverseStep() || parseForwardStep(type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parsePredicateList())
@@ -3953,7 +3951,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseForwardStep(type: IElementType?): Boolean {
-        val forwardStepMarker = mark()
+        val forwardStepMarker = builder.mark()
         if (parseForwardAxis()) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseNodeTest(builder, null)) {
@@ -3972,7 +3970,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseForwardAxis(): Boolean {
-        val forwardAxisMarker = mark()
+        val forwardAxisMarker = builder.mark()
         if (
             builder.matchTokenType(XPathTokenType.K_ATTRIBUTE) ||
             builder.matchTokenType(XPathTokenType.K_CHILD) ||
@@ -3998,7 +3996,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseAbbrevForwardStep(type: IElementType?): Boolean {
-        val abbrevForwardStepMarker = mark()
+        val abbrevForwardStepMarker = builder.mark()
         val matched = builder.matchTokenType(XPathTokenType.ATTRIBUTE_SELECTOR)
 
         parseWhiteSpaceAndCommentTokens(builder)
@@ -4019,7 +4017,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseReverseStep(): Boolean {
-        val reverseStepMarker = mark()
+        val reverseStepMarker = builder.mark()
         if (parseReverseAxis()) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseNodeTest(builder, null)) {
@@ -4038,7 +4036,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseReverseAxis(): Boolean {
-        val reverseAxisMarker = mark()
+        val reverseAxisMarker = builder.mark()
         if (
             builder.matchTokenType(XPathTokenType.K_PARENT) ||
             builder.matchTokenType(XPathTokenType.K_ANCESTOR) ||
@@ -4069,7 +4067,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parsePostfixExpr(type: IElementType?): Boolean {
-        val postfixExprMarker = mark()
+        val postfixExprMarker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var havePostfixExpr = false
@@ -4089,7 +4087,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parsePredicateList(): Boolean {
-        val predicateListMarker = mark()
+        val predicateListMarker = builder.mark()
         var havePredicate = false
         while (parsePredicate()) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -4257,7 +4255,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME, IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
                     // Don't keep the MarkLogic Schema/JSON parseTree here as KindTest is not anchored to the correct parent
                     // at this point.
-                    val testMarker = mark()
+                    val testMarker = builder.mark()
                     var status = parseSchemaKindTest()
                     if (status == ParseStatus.NOT_MATCHED) {
                         status = parseJsonKindTest()
@@ -4274,7 +4272,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             // standard XQuery to use these keywords as function names.
         }
 
-        val functionCallMarker = mark()
+        val functionCallMarker = builder.mark()
         if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList()) {
@@ -4321,7 +4319,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseArgument(): Boolean {
-        val argumentMarker = mark()
+        val argumentMarker = builder.mark()
         if (parseExprSingle(builder) || parseArgumentPlaceholder()) {
             argumentMarker.done(XPathElementType.ARGUMENT)
             return true
@@ -4344,7 +4342,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseNamedFunctionRef(): Boolean {
-        val namedFunctionRefMarker = mark()
+        val namedFunctionRefMarker = builder.mark()
         if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
@@ -4366,7 +4364,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseInlineFunctionExpr(): Boolean {
-        val inlineFunctionExprMarker = mark()
+        val inlineFunctionExprMarker = builder.mark()
 
         var haveAnnotations = false
         while (parseAnnotation()) {
@@ -4464,7 +4462,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseKeySpecifier(): Boolean {
-        val keySpecifierMarker = mark()
+        val keySpecifierMarker = builder.mark()
         if (
             builder.matchTokenType(XPathTokenType.STAR) ||
             builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
@@ -4494,7 +4492,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseStringConstructorContent(): Boolean {
-        val stringConstructorContentMarker = mark()
+        val stringConstructorContentMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
             while (builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS) || parseStringConstructorInterpolation()) {
                 //
@@ -4644,7 +4642,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseMapConstructorEntry(): Boolean {
-        val mapConstructorEntry = mark()
+        val mapConstructorEntry = builder.mark()
         if (parseExprSingle(XPathElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
             var haveError = false
 
@@ -4667,7 +4665,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseNodeConstructor(): Boolean {
-        val constructorMarker = mark()
+        val constructorMarker = builder.mark()
         if (parseDirectConstructor(0) || parseComputedConstructor()) {
             constructorMarker.done(XQueryElementType.NODE_CONSTRUCTOR)
             return true
@@ -4722,7 +4720,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseDirElemConstructor(depth: Int): Boolean {
-        val elementMarker = mark()
+        val elementMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.OPEN_XML_TAG)) {
             builder.errorOnTokenType(XQueryTokenType.XML_WHITE_SPACE, XQueryBundle.message("parser.error.unexpected-whitespace"))
             parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
@@ -4767,7 +4765,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseDirAttributeList(): Boolean {
-        val attributeListMarker = mark()
+        val attributeListMarker = builder.mark()
 
         // NOTE: The XQuery grammar uses whitespace as the token to start the next iteration of the matching loop.
         // Because the parseQName function can consume that whitespace during error handling, the QName tokens are
@@ -4788,7 +4786,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseDirAttribute(): Boolean {
-        val attributeMarker = mark()
+        val attributeMarker = builder.mark()
         if (parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             var haveErrors = false
 
@@ -4894,7 +4892,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseDirElemContent(depth: Int): Boolean {
-        val elemContentMarker = mark()
+        val elemContentMarker = builder.mark()
         var matched = false
         while (true) {
             if (
@@ -4927,8 +4925,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseCDataSection(context: IElementType?): Boolean {
-        val cdataMarker = mark()
-        val errorMarker = mark()
+        val cdataMarker = builder.mark()
+        val errorMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.CDATA_SECTION_START_TAG)) {
             if (context == null) {
                 errorMarker.error(XQueryBundle.message("parser.error.cdata-section-not-in-element-content"))
@@ -4991,7 +4989,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
-                    val marker = mark()
+                    val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
                 } else {
@@ -5020,7 +5018,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
-                    val marker = mark()
+                    val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
                 } else {
@@ -5049,7 +5047,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             if (!parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
-                    val marker = mark()
+                    val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
                 } else {
@@ -5108,7 +5106,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
-                    val marker = mark()
+                    val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
                 } else {
@@ -5130,7 +5128,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr :: OrExpr :: FTSelection
 
     private fun parseFTSelection(): Boolean {
-        val selectionMarker = mark()
+        val selectionMarker = builder.mark()
         if (parseFTOr()) {
             do {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -5144,7 +5142,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTOr(): Boolean {
-        val orMarker = mark()
+        val orMarker = builder.mark()
         if (parseFTAnd()) {
             var haveErrors = false
 
@@ -5165,7 +5163,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTAnd(): Boolean {
-        val andMarker = mark()
+        val andMarker = builder.mark()
         if (parseFTMildNot()) {
             var haveErrors = false
 
@@ -5186,7 +5184,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTMildNot(): Boolean {
-        val mildNotMarker = mark()
+        val mildNotMarker = builder.mark()
         if (parseFTUnaryNot()) {
             var haveErrors = false
 
@@ -5215,7 +5213,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTUnaryNot(): Boolean {
-        val unaryNotMarker = mark()
+        val unaryNotMarker = builder.mark()
 
         builder.matchTokenType(XQueryTokenType.K_FTNOT)
 
@@ -5231,7 +5229,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTPrimaryWithOptions(): Boolean {
-        val primaryWithOptionsMarker = mark()
+        val primaryWithOptionsMarker = builder.mark()
         if (parseFTPrimary()) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseFTMatchOptions()
@@ -5247,7 +5245,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTPrimary(): Boolean {
-        val primaryMarker = mark()
+        val primaryMarker = builder.mark()
         if (parseFTWords()) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseFTTimes()
@@ -5279,7 +5277,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTWords(): Boolean {
-        val wordsMarker = mark()
+        val wordsMarker = builder.mark()
         if (parseFTWordsValue()) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseFTAnyallOption()
@@ -5292,7 +5290,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTWordsValue(): Boolean {
-        val wordsValueMarker = mark()
+        val wordsValueMarker = builder.mark()
         if (parseStringLiteral(builder)) {
             wordsValueMarker.done(XQueryElementType.FT_WORDS_VALUE)
             return true
@@ -5318,7 +5316,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTExtensionSelection(): Boolean {
-        val extensionSelectionMarker = mark()
+        val extensionSelectionMarker = builder.mark()
         var haveError = false
 
         var havePragma = false
@@ -5351,7 +5349,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTAnyallOption(): Boolean {
-        val anyallOptionMarker = mark()
+        val anyallOptionMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.K_ANY)) {
             parseWhiteSpaceAndCommentTokens(builder)
             builder.matchTokenType(XQueryTokenType.K_WORD)
@@ -5396,7 +5394,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseFTRange(type: IElementType): Boolean {
         if (getTokenType() === XQueryTokenType.K_EXACTLY) {
-            val rangeMarker = mark()
+            val rangeMarker = builder.mark()
             advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -5413,7 +5411,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             rangeMarker.done(type)
             return true
         } else if (getTokenType() === XQueryTokenType.K_AT) {
-            val rangeMarker = mark()
+            val rangeMarker = builder.mark()
             advanceLexer()
 
             var haveError = false
@@ -5438,7 +5436,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             rangeMarker.done(type)
             return true
         } else if (getTokenType() === XQueryTokenType.K_FROM) {
-            val rangeMarker = mark()
+            val rangeMarker = builder.mark()
             advanceLexer()
 
             var haveError = false
@@ -5583,7 +5581,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseFTContent(): Boolean {
         if (getTokenType() === XQueryTokenType.K_AT) {
-            val contentMarker = mark()
+            val contentMarker = builder.mark()
             advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -5594,7 +5592,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             contentMarker.done(XQueryElementType.FT_CONTENT)
             return true
         } else if (getTokenType() === XQueryTokenType.K_ENTIRE) {
-            val contentMarker = mark()
+            val contentMarker = builder.mark()
             advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -5612,7 +5610,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         if (getTokenType() === XQueryTokenType.K_WORDS ||
                 getTokenType() === XQueryTokenType.K_SENTENCES ||
                 getTokenType() === XQueryTokenType.K_PARAGRAPHS) {
-            val marker = mark()
+            val marker = builder.mark()
             advanceLexer()
             marker.done(XQueryElementType.FT_UNIT)
             return true
@@ -5622,7 +5620,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseFTBigUnit(): Boolean {
         if (getTokenType() === XQueryTokenType.K_SENTENCE || getTokenType() === XQueryTokenType.K_PARAGRAPH) {
-            val marker = mark()
+            val marker = builder.mark()
             advanceLexer()
             marker.done(XQueryElementType.FT_BIG_UNIT)
             return true
@@ -5634,7 +5632,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: Expr :: OrExpr :: FTMatchOptions
 
     private fun parseFTMatchOptions(): Boolean {
-        val matchOptionsMarker = mark()
+        val matchOptionsMarker = builder.mark()
 
         var haveFTMatchOptions = false
         var haveFTMatchOption = false
@@ -5675,7 +5673,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTMatchOption(): Boolean {
-        val matchOptionMarker = mark()
+        val matchOptionMarker = builder.mark()
         if (parseFTCaseOption(matchOptionMarker) ||
                 parseFTDiacriticsOption(matchOptionMarker) ||
                 parseFTExtensionOption(matchOptionMarker) ||
@@ -5867,7 +5865,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseFTStopWords(): Boolean {
         if (getTokenType() === XQueryTokenType.K_AT) {
-            val stopWordsMarker = mark()
+            val stopWordsMarker = builder.mark()
             advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -5878,7 +5876,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS)
             return true
         } else if (getTokenType() === XPathTokenType.PARENTHESIS_OPEN) {
-            val stopWordsMarker = mark()
+            val stopWordsMarker = builder.mark()
             advanceLexer()
 
             var haveError = false
@@ -6054,7 +6052,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // region Grammar :: TypeDeclaration :: SequenceType
 
     private fun parseSequenceTypeUnion(): Boolean {
-        val sequenceTypeUnionMarker = mark()
+        val sequenceTypeUnionMarker = builder.mark()
         if (parseSequenceTypeList()) {
             var haveErrors = false
             var haveSequenceTypeUnion = false
@@ -6081,7 +6079,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSequenceTypeList(): Boolean {
-        val sequenceTypeListMarker = mark()
+        val sequenceTypeListMarker = builder.mark()
         if (parseSequenceType()) {
             var haveErrors = false
             var haveSequenceTypeList = false
@@ -6108,7 +6106,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSequenceType(): Boolean {
-        val sequenceTypeMarker = mark()
+        val sequenceTypeMarker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_EMPTY_SEQUENCE) || builder.matchTokenType(XPathTokenType.K_EMPTY)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
@@ -6225,7 +6223,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             while (haveNext) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (isExtensible) {
-                    val marker = mark()
+                    val marker = builder.mark()
                     if (!builder.matchTokenType(XPathTokenType.COMMA)) {
                         haveNext = false
                         marker.drop()
@@ -6259,7 +6257,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseTupleField(): Boolean {
-        val tupleFieldMarker = mark()
+        val tupleFieldMarker = builder.mark()
         if (parseNCName(XQueryElementType.NCNAME)) {
             var haveError = false
 
@@ -6333,7 +6331,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseAnnotatedFunctionOrSequence(): Boolean {
-        val marker = mark()
+        val marker = builder.mark()
 
         var haveAnnotations = false
         while (parseAnnotation()) {
@@ -6405,7 +6403,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens(builder)
             if (getTokenType() === XPathTokenType.K_AS) {
                 if (type === KindTest.ANY_TEST && !haveErrors) {
-                    val errorMarker = mark()
+                    val errorMarker = builder.mark()
                     advanceLexer()
                     errorMarker.error(XQueryBundle.message("parser.error.as-not-supported-in-test", "AnyFunctionTest"))
                     haveErrors = true
@@ -7286,7 +7284,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseNCName(type: IElementType): Boolean {
         if (getTokenType() is INCNameType) {
-            val ncnameMarker = mark()
+            val ncnameMarker = builder.mark()
             advanceLexer()
             ncnameMarker.done(type)
             return true
@@ -7301,7 +7299,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
         ) {
             if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
-                val errorMarker = mark()
+                val errorMarker = builder.mark()
                 advanceLexer()
                 errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
             } else if (type != null) {
