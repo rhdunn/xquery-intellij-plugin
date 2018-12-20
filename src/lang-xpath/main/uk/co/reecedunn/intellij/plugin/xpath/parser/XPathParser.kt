@@ -35,13 +35,11 @@ open class XPathParser : PsiParser {
     //
     // These element types have different PSI implementations in XPath and XQuery.
 
-    open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
     open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
     open val FUNCTION_TEST: IElementType = XPathElementType.FUNCTION_TEST
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
-    open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
     // endregion
     // region PsiParser
@@ -573,6 +571,9 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
+
+    open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
+    open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
 
     fun parseEQNameOrWildcard(builder: PsiBuilder, type: IElementType, endQNameOnSpace: Boolean): Boolean {
         val marker = builder.mark()

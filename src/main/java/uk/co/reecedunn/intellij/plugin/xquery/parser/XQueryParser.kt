@@ -84,13 +84,11 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     //
     // These element types have different PSI implementations in XPath and XQuery.
 
-    override val BRACED_URI_LITERAL: IElementType = XQueryElementType.BRACED_URI_LITERAL
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
     override val FUNCTION_TEST: IElementType = XQueryElementType.FUNCTION_TEST
     override val STRING_LITERAL: IElementType = XQueryElementType.STRING_LITERAL
-    override val URI_QUALIFIED_NAME: IElementType = XQueryElementType.URI_QUALIFIED_NAME
 
     // endregion
     // region Parser Helper Functions
@@ -743,7 +741,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
             if (!isDefault) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XQueryElementType.QNAME)) {
+                if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                     error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -1049,7 +1047,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1099,7 +1097,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1137,7 +1135,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1222,7 +1220,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val paramMarker = mark()
         if (matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
@@ -1233,7 +1231,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             return true
         } else if (getTokenType() === XPathTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
             error(XPathBundle.message("parser.error.expected", "$"))
-            parseEQName(XQueryElementType.QNAME)
+            parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
 
             parseWhiteSpaceAndCommentTokens()
             parseTypeDeclaration()
@@ -1251,7 +1249,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1414,7 +1412,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         }
 
         parseWhiteSpaceAndCommentTokens()
-        if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+        if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
             error(XPathBundle.message("parser.error.expected-eqname"))
             haveErrors = true
         }
@@ -1668,7 +1666,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
         if (matched || !isFirst) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME)) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1739,7 +1737,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
@@ -1761,7 +1759,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
@@ -1811,7 +1809,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             val errorMessage: String
             if (haveVariableIndicator) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XPathElementType.VAR_NAME)) {
+                if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                     error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -1866,7 +1864,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1918,7 +1916,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -2023,7 +2021,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         parseWhiteSpaceAndCommentTokens()
         if (matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.CURRENT_ITEM)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.CURRENT_ITEM, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -2041,7 +2039,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.PREVIOUS_ITEM) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.PREVIOUS_ITEM, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -2056,7 +2054,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.NEXT_ITEM) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.NEXT_ITEM, false) && !haveErrors) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
             }
         }
@@ -2080,7 +2078,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-qname"))
             }
 
@@ -2198,7 +2196,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val groupingVariableMarker = matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
         if (groupingVariableMarker != null) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME)) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
@@ -2373,7 +2371,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
         if (matched || !isFirst) {
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME)) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -2556,7 +2554,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XPathElementType.VAR_NAME)) {
+                if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                     error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -2599,7 +2597,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
             if (matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XPathElementType.VAR_NAME)) {
+                if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                     error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -2748,7 +2746,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+                if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                     error(XPathBundle.message("parser.error.expected", "VarName"))
                     haveErrors = true
                 }
@@ -3028,7 +3026,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XPathElementType.VAR_NAME) && !haveErrors) {
+                if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) && !haveErrors) {
                     error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -3105,7 +3103,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XPathElementType.VAR_NAME)) {
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -3728,7 +3726,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseArrowFunctionSpecifier(): Boolean {
         val arrowFunctionSpecifierMarker = mark()
-        if (parseEQName(XQueryElementType.QNAME) || parseVarRef(null) || parseParenthesizedExpr()) {
+        if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) || parseVarRef(null) || parseParenthesizedExpr()) {
             arrowFunctionSpecifierMarker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
             return true
         }
@@ -3786,7 +3784,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseSingleType(): Boolean {
         val singleTypeMarker = mark()
-        if (parseEQName(XPathElementType.SIMPLE_TYPE_NAME)) {
+        if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
             parseWhiteSpaceAndCommentTokens()
             matchTokenType(XPathTokenType.OPTIONAL)
 
@@ -3815,7 +3813,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 blockOpen = BlockOpen.OPTIONAL
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XPathElementType.TYPE_NAME)) {
+                if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
                     error(XPathBundle.message("parser.error.expected", "TypeName"))
                 }
             }
@@ -3855,7 +3853,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             matchTokenType(XPathTokenType.WHITE_SPACE)
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -4296,7 +4294,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         }
 
         val functionCallMarker = mark()
-        if (parseEQName(XQueryElementType.QNAME)) {
+        if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             parseWhiteSpaceAndCommentTokens()
             if (!parseArgumentList()) {
                 functionCallMarker.rollbackTo()
@@ -4366,7 +4364,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseNamedFunctionRef(): Boolean {
         val namedFunctionRefMarker = mark()
-        if (parseEQName(XQueryElementType.QNAME)) {
+        if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
             parseWhiteSpaceAndCommentTokens()
             if (!matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
                 namedFunctionRefMarker.rollbackTo()
@@ -4489,7 +4487,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         if (
             matchTokenType(XPathTokenType.STAR) ||
             matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-            parseEQName(XQueryElementType.NCNAME) ||
+            parseEQNameOrWildcard(builder, XQueryElementType.NCNAME, false) ||
             parseParenthesizedExpr()
         ) {
             keySpecifierMarker.done(XPathElementType.KEY_SPECIFIER)
@@ -5010,7 +5008,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return false
             }
 
-            if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(builder)
@@ -5039,7 +5037,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return false
             }
 
-            if (!parseEQName(XQueryElementType.QNAME) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(builder)
@@ -5068,7 +5066,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return false
             }
 
-            if (!parseEQName(XQueryElementType.PREFIX) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
                     val marker = mark()
                     parseStringLiteral(builder)
@@ -5972,7 +5970,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -6201,7 +6199,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseAtomicOrUnionType(): Boolean {
-        return parseEQName(XPathElementType.ATOMIC_OR_UNION_TYPE)
+        return parseEQNameOrWildcard(builder, XPathElementType.ATOMIC_OR_UNION_TYPE, false)
     }
 
     private fun parseAnyItemType(): Boolean {
@@ -6327,7 +6325,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens()
-            if (!parseEQName(XQueryElementType.QNAME)) {
+            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
                 error(XPathBundle.message("parser.error.expected", "QName"))
                 haveError = true
             }
@@ -6335,7 +6333,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens()
             while (matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parseEQName(XQueryElementType.QNAME) && !haveError) {
+                if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !haveError) {
                     error(XPathBundle.message("parser.error.expected", "QName"))
                     haveError = true
                 }
@@ -7272,9 +7270,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
 
-    private fun parseEQName(type: IElementType): Boolean {
-        return parseEQNameOrWildcard(builder, type, false)
-    }
+    override val URI_QUALIFIED_NAME: IElementType = XQueryElementType.URI_QUALIFIED_NAME
+    override val BRACED_URI_LITERAL: IElementType = XQueryElementType.BRACED_URI_LITERAL
 
     override fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.BRACED_URI_LITERAL_START)
