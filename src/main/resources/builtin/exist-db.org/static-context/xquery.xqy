@@ -35,6 +35,7 @@ declare namespace image = "http://exist-db.org/xquery/image";
 declare namespace inspect = "http://exist-db.org/xquery/inspect";
 declare namespace ft = "http://exist-db.org/xquery/lucene";
 declare namespace mail = "http://exist-db.org/xquery/mail";
+declare namespace math-ext = "http://exist-db.org/xquery/math";
 declare namespace ngram = "http://exist-db.org/xquery/ngram";
 declare namespace process = "http://exist-db.org/xquery/process";
 declare namespace range = "http://exist-db.org/xquery/range";
