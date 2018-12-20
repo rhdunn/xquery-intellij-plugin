@@ -40,8 +40,6 @@ open class XPathParser : PsiParser {
     open val EXPR: IElementType = XPathElementType.EXPR
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
     open val FUNCTION_TEST: IElementType = XPathElementType.FUNCTION_TEST
-    open val NCNAME: IElementType = XPathElementType.NCNAME
-    open val QNAME: IElementType = XPathElementType.QNAME
     open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
     open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
@@ -631,6 +629,9 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
+
+    open val NCNAME: IElementType = XPathElementType.NCNAME
+    open val QNAME: IElementType = XPathElementType.QNAME
 
     open fun parseQNameOrWildcard(
         builder: PsiBuilder,
