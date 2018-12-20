@@ -6573,7 +6573,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     override fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
             super.parseKindTest(builder) ||
-            parseDocumentTest() ||
             parseNamespaceNodeTest() ||
             parseBinaryTest() ||
             parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
@@ -6610,17 +6609,18 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         return false
     }
 
-    private fun parseDocumentTest(): Boolean {
-        val documentTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_DOCUMENT_NODE)
-        if (documentTestMarker != null) {
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                documentTestMarker.rollbackTo()
+    override fun parseDocumentTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_DOCUMENT_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
                 return false
             }
 
-            parseWhiteSpaceAndCommentTokens()
-            if (parseElementTest(builder) ||
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (
+                parseElementTest(builder) ||
                 parseSchemaElementTest(builder) ||
                 parseAnyArrayNodeTest() != ParseStatus.NOT_MATCHED ||
                 parseAnyMapNodeTest() != ParseStatus.NOT_MATCHED
@@ -6628,12 +6628,12 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 //
             }
 
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                error(XPathBundle.message("parser.error.expected", ")"))
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            documentTestMarker.done(XPathElementType.DOCUMENT_TEST)
+            marker.done(XPathElementType.DOCUMENT_TEST)
             return true
         }
         return false

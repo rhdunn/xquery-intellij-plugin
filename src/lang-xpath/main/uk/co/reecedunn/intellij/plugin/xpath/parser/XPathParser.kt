@@ -212,6 +212,7 @@ open class XPathParser : PsiParser {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
+            parseDocumentTest(builder) ||
             parseElementTest(builder) ||
             parseAttributeTest(builder) ||
             parseSchemaElementTest(builder) ||
@@ -238,6 +239,34 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.ANY_KIND_TEST)
+            return true
+        }
+        return false
+    }
+
+    open fun parseDocumentTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_DOCUMENT_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (
+                parseElementTest(builder) ||
+                parseSchemaElementTest(builder)
+            ) {
+                //
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.DOCUMENT_TEST)
             return true
         }
         return false

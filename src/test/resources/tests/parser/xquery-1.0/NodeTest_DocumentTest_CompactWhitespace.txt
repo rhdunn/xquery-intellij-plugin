@@ -1,0 +1,10 @@
+XQueryModuleImpl[FILE(0:15)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:15)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:15)]
+                  XPathDocumentTestImpl[XPATH_DOCUMENT_TEST(0:15)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DOCUMENT_NODE(0:13)]('document-node')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')

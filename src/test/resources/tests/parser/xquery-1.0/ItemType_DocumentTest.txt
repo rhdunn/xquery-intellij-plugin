@@ -1,0 +1,18 @@
+XQueryModuleImpl[FILE(0:31)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:31)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:31)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:31)]
+               XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:31)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                  XPathDocumentTestImpl[XPATH_DOCUMENT_TEST(14:31)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DOCUMENT_NODE(14:27)]('document-node')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
