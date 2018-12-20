@@ -91,11 +91,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     override val STRING_LITERAL: IElementType = XQueryElementType.STRING_LITERAL
 
     // endregion
-    // region PsiBuilder API
-
-    protected fun getTokenType(): IElementType? = builder.tokenType
-
-    // endregion
     // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
@@ -137,15 +132,15 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         if (transactionSeparatorMarker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveProlog = false
-            if (getTokenType() === XQueryTokenType.K_XQUERY ||
-                    getTokenType() === XQueryTokenType.K_DECLARE ||
-                    getTokenType() === XQueryTokenType.K_IMPORT ||
-                    getTokenType() === XQueryTokenType.K_MODULE) {
+            if (builder.tokenType === XQueryTokenType.K_XQUERY ||
+                    builder.tokenType === XQueryTokenType.K_DECLARE ||
+                    builder.tokenType === XQueryTokenType.K_IMPORT ||
+                    builder.tokenType === XQueryTokenType.K_MODULE) {
 
                 val marker = builder.mark()
                 builder.advanceLexer()
                 parseWhiteSpaceAndCommentTokens(builder)
-                haveProlog = getTokenType() is IKeywordOrNCNameType
+                haveProlog = builder.tokenType is IKeywordOrNCNameType
                 marker.rollbackTo()
             }
 
@@ -218,7 +213,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 if (!haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", ";"))
                 }
-                if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
+                if (builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
                     builder.advanceLexer()
                 }
                 return true
@@ -285,7 +280,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 if (!haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", ";"))
                 }
-                if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
+                if (builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
                     builder.advanceLexer()
                 }
                 return true
@@ -318,7 +313,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             when (nextState) {
-                XQueryParserImpl.PrologDeclState.NOT_MATCHED -> if (parseInvalidConstructs && getTokenType() != null) {
+                XQueryParserImpl.PrologDeclState.NOT_MATCHED -> if (parseInvalidConstructs && builder.tokenType != null) {
                     if (!parseWhiteSpaceAndCommentTokens(builder)) {
                         builder.error(XPathBundle.message("parser.error.unexpected-token"))
                         if (!parseExprSingle(builder)) builder.advanceLexer()
@@ -342,7 +337,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             if (nextState != PrologDeclState.NOT_MATCHED) {
                 if (!builder.matchTokenType(XQueryTokenType.SEPARATOR)) {
                     builder.error(XPathBundle.message("parser.error.expected", ";"))
-                    if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
+                    if (builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
                         builder.advanceLexer()
                     }
                 }
@@ -799,7 +794,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseSchemaImport(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_SCHEMA) {
+        if (builder.tokenType === XQueryTokenType.K_SCHEMA) {
             builder.advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -868,7 +863,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseStylesheetImport(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_STYLESHEET) {
+        if (builder.tokenType === XQueryTokenType.K_STYLESHEET) {
             var haveErrors = false
             builder.advanceLexer()
 
@@ -890,7 +885,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseModuleImport(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_MODULE) {
+        if (builder.tokenType === XQueryTokenType.K_MODULE) {
             var haveErrors = false
             builder.advanceLexer()
 
@@ -1051,7 +1046,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parseCompatibilityAnnotationDecl(): IElementType? {
         val compatibilityAnnotationMarker = builder.mark()
-        val type = getTokenType()
+        val type = builder.tokenType
         if (COMPATIBILITY_ANNOTATION_TOKENS.contains(type)) {
             builder.advanceLexer()
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION)
@@ -1116,7 +1111,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
+            if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                 // DefaultNamespaceDecl with missing 'default' keyword.
                 builder.error(XPathBundle.message("parser.error.expected", "("))
                 parseStringLiteral(builder)
@@ -1175,7 +1170,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
         while (parseParam()) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (getTokenType() === XPathTokenType.VARIABLE_INDICATOR) {
+            if (builder.tokenType === XPathTokenType.VARIABLE_INDICATOR) {
                 builder.error(XPathBundle.message("parser.error.expected", ","))
             } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
                 builder.matchTokenType(XPathTokenType.ELLIPSIS)
@@ -1204,7 +1199,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             paramMarker.done(XPathElementType.PARAM)
             return true
-        } else if (getTokenType() === XPathTokenType.NCNAME || getTokenType() is IKeywordOrNCNameType || getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
+        } else if (builder.tokenType === XPathTokenType.NCNAME || builder.tokenType is IKeywordOrNCNameType || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
             builder.error(XPathBundle.message("parser.error.expected", "$"))
             parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
 
@@ -1332,7 +1327,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 XQueryParserImpl.ParseStatus.MATCHED -> {
                     if (!builder.matchTokenType(XQueryTokenType.SEPARATOR)) {
                         builder.error(XPathBundle.message("parser.error.expected", ";"))
-                        if (getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
+                        if (builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
                             builder.advanceLexer()
                         }
                     }
@@ -1353,7 +1348,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val blockVarDeclMarker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE)
         if (blockVarDeclMarker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (getTokenType() === XPathTokenType.PARENTHESIS_OPEN || getTokenType() === XPathTokenType.QNAME_SEPARATOR) {
+            if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
                 // 'declare' used as a function name.
                 blockVarDeclMarker.rollbackTo()
                 return ParseStatus.NOT_MATCHED
@@ -1379,7 +1374,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         var haveErrors = false
         if (!builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             builder.error(XPathBundle.message("parser.error.expected", "$"))
-            if (getTokenType() === XQueryTokenType.SEPARATOR) {
+            if (builder.tokenType === XQueryTokenType.SEPARATOR) {
                 blockVarDeclEntryMarker.drop()
                 return ParseStatus.NOT_MATCHED
             }
@@ -1405,7 +1400,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
             parseWhiteSpaceAndCommentTokens(builder)
-        } else if (getTokenType() !== XPathTokenType.COMMA && getTokenType() !== XQueryTokenType.SEPARATOR) {
+        } else if (builder.tokenType !== XPathTokenType.COMMA && builder.tokenType !== XQueryTokenType.SEPARATOR) {
             builder.error(XQueryBundle.message(errorMessage))
             parseExprSingle(builder)
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1554,7 +1549,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 return false
             }
 
-            return if (getTokenType() !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
+            return if (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
                 flworExprMarker.drop()
                 true
             } else {
@@ -2706,7 +2701,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseCatchErrorList()) {
                 //
-            } else if (getTokenType() === XPathTokenType.PARENTHESIS_OPEN) {
+            } else if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
                 if (type == CatchClauseType.MARK_LOGIC) {
                     builder.error(XQueryBundle.message("parser.error.multiple-marklogic-catch-clause"))
                 }
@@ -2831,7 +2826,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 builder.matchTokenType(XQueryTokenType.K_AFTER)) {
             insertExprTargetChoiceMarker.done(XQueryElementType.INSERT_EXPR_TARGET_CHOICE)
             return true
-        } else if (getTokenType() === XQueryTokenType.K_FIRST || getTokenType() === XQueryTokenType.K_LAST) {
+        } else if (builder.tokenType === XQueryTokenType.K_FIRST || builder.tokenType === XQueryTokenType.K_LAST) {
             builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
             builder.advanceLexer()
 
@@ -3116,7 +3111,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             if (!builder.matchTokenType(XQueryTokenType.K_RETURNING)) {
-                if (getTokenType() === XPathTokenType.PARENTHESIS_OPEN) {
+                if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
                     // FunctionCall construct
                     exitExprMarker.rollbackTo()
                     return false
@@ -3281,7 +3276,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 haveUpdateExpr = true
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (getTokenType() === XPathTokenType.BLOCK_OPEN) {
+                if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
                     parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
                 } else if (!parseExpr(XQueryElementType.EXPR)) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
@@ -3538,7 +3533,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
                 }
                 instanceofExprMarker.done(XPathElementType.INSTANCEOF_EXPR)
-            } else if (getTokenType() === XPathTokenType.K_OF) {
+            } else if (builder.tokenType === XPathTokenType.K_OF) {
                 builder.error(XQueryBundle.message("parser.error.expected-keyword", "instance"))
                 builder.advanceLexer()
 
@@ -3572,7 +3567,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                     builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
                 }
                 treatExprMarker.done(XPathElementType.TREAT_EXPR)
-            } else if (getTokenType() === XPathTokenType.K_AS && type !== XQueryElementType.SOURCE_EXPR && type !== XQueryElementType.TARGET_EXPR) {
+            } else if (builder.tokenType === XPathTokenType.K_AS && type !== XQueryElementType.SOURCE_EXPR && type !== XQueryElementType.TARGET_EXPR) {
                 builder.error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
                 builder.advanceLexer()
 
@@ -4221,7 +4216,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
         val nonDeterministicFunctionCallMarker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_NON_DETERMINISTIC);
         if (nonDeterministicFunctionCallMarker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (getTokenType() != XPathTokenType.VARIABLE_INDICATOR) {
+            if (builder.tokenType != XPathTokenType.VARIABLE_INDICATOR) {
                 nonDeterministicFunctionCallMarker.rollbackTo()
                 return false
             }
@@ -4242,8 +4237,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFunctionCall(): Boolean {
-        if (getTokenType() is IKeywordOrNCNameType) {
-            val type = getTokenType() as IKeywordOrNCNameType?
+        if (builder.tokenType is IKeywordOrNCNameType) {
+            val type = builder.tokenType as IKeywordOrNCNameType?
             when (type!!.keywordType) {
                 IKeywordOrNCNameType.KeywordType.KEYWORD, IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
                 }
@@ -4745,7 +4740,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             elementMarker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
             return true
-        } else if (depth == 0 && getTokenType() === XQueryTokenType.CLOSE_XML_TAG) {
+        } else if (depth == 0 && builder.tokenType === XQueryTokenType.CLOSE_XML_TAG) {
             builder.error(XQueryBundle.message("parser.error.unexpected-closing-tag"))
             builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)
             parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
@@ -4984,7 +4979,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
+                if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
@@ -5013,7 +5008,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
+                if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
@@ -5042,7 +5037,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             if (!parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false) && !parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
-                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
+                if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
@@ -5101,7 +5096,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             if (!parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) && !parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                if (getTokenType() === XPathTokenType.STRING_LITERAL_START) {
+                if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val marker = builder.mark()
                     parseStringLiteral(builder)
                     marker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
@@ -5389,7 +5384,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTRange(type: IElementType): Boolean {
-        if (getTokenType() === XQueryTokenType.K_EXACTLY) {
+        if (builder.tokenType === XQueryTokenType.K_EXACTLY) {
             val rangeMarker = builder.mark()
             builder.advanceLexer()
 
@@ -5406,7 +5401,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             rangeMarker.done(type)
             return true
-        } else if (getTokenType() === XQueryTokenType.K_AT) {
+        } else if (builder.tokenType === XQueryTokenType.K_AT) {
             val rangeMarker = builder.mark()
             builder.advanceLexer()
 
@@ -5431,7 +5426,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             rangeMarker.done(type)
             return true
-        } else if (getTokenType() === XQueryTokenType.K_FROM) {
+        } else if (builder.tokenType === XQueryTokenType.K_FROM) {
             val rangeMarker = builder.mark()
             builder.advanceLexer()
 
@@ -5576,7 +5571,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTContent(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_AT) {
+        if (builder.tokenType === XQueryTokenType.K_AT) {
             val contentMarker = builder.mark()
             builder.advanceLexer()
 
@@ -5587,7 +5582,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             contentMarker.done(XQueryElementType.FT_CONTENT)
             return true
-        } else if (getTokenType() === XQueryTokenType.K_ENTIRE) {
+        } else if (builder.tokenType === XQueryTokenType.K_ENTIRE) {
             val contentMarker = builder.mark()
             builder.advanceLexer()
 
@@ -5603,9 +5598,9 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTUnit(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_WORDS ||
-                getTokenType() === XQueryTokenType.K_SENTENCES ||
-                getTokenType() === XQueryTokenType.K_PARAGRAPHS) {
+        if (builder.tokenType === XQueryTokenType.K_WORDS ||
+                builder.tokenType === XQueryTokenType.K_SENTENCES ||
+                builder.tokenType === XQueryTokenType.K_PARAGRAPHS) {
             val marker = builder.mark()
             builder.advanceLexer()
             marker.done(XQueryElementType.FT_UNIT)
@@ -5615,7 +5610,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTBigUnit(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_SENTENCE || getTokenType() === XQueryTokenType.K_PARAGRAPH) {
+        if (builder.tokenType === XQueryTokenType.K_SENTENCE || builder.tokenType === XQueryTokenType.K_PARAGRAPH) {
             val marker = builder.mark()
             builder.advanceLexer()
             marker.done(XQueryElementType.FT_BIG_UNIT)
@@ -5637,18 +5632,18 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseFTMatchOption()
                 haveFTMatchOption = true
-            } else if (getTokenType() === XQueryTokenType.K_CASE ||
-                    getTokenType() === XQueryTokenType.K_DIACRITICS ||
-                    getTokenType() === XQueryTokenType.K_FUZZY ||
-                    getTokenType() === XQueryTokenType.K_LANGUAGE ||
-                    getTokenType() === XQueryTokenType.K_LOWERCASE ||
-                    getTokenType() === XQueryTokenType.K_NO ||
-                    getTokenType() === XQueryTokenType.K_OPTION ||
-                    getTokenType() === XQueryTokenType.K_STEMMING ||
-                    getTokenType() === XQueryTokenType.K_STOP ||
-                    getTokenType() === XQueryTokenType.K_THESAURUS ||
-                    getTokenType() === XQueryTokenType.K_UPPERCASE ||
-                    getTokenType() === XQueryTokenType.K_WILDCARDS) {
+            } else if (builder.tokenType === XQueryTokenType.K_CASE ||
+                    builder.tokenType === XQueryTokenType.K_DIACRITICS ||
+                    builder.tokenType === XQueryTokenType.K_FUZZY ||
+                    builder.tokenType === XQueryTokenType.K_LANGUAGE ||
+                    builder.tokenType === XQueryTokenType.K_LOWERCASE ||
+                    builder.tokenType === XQueryTokenType.K_NO ||
+                    builder.tokenType === XQueryTokenType.K_OPTION ||
+                    builder.tokenType === XQueryTokenType.K_STEMMING ||
+                    builder.tokenType === XQueryTokenType.K_STOP ||
+                    builder.tokenType === XQueryTokenType.K_THESAURUS ||
+                    builder.tokenType === XQueryTokenType.K_UPPERCASE ||
+                    builder.tokenType === XQueryTokenType.K_WILDCARDS) {
                 builder.error(XQueryBundle.message("parser.error.expected-keyword", "using"))
                 parseFTMatchOption()
                 haveFTMatchOption = true
@@ -5860,7 +5855,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     }
 
     private fun parseFTStopWords(): Boolean {
-        if (getTokenType() === XQueryTokenType.K_AT) {
+        if (builder.tokenType === XQueryTokenType.K_AT) {
             val stopWordsMarker = builder.mark()
             builder.advanceLexer()
 
@@ -5871,7 +5866,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS)
             return true
-        } else if (getTokenType() === XPathTokenType.PARENTHESIS_OPEN) {
+        } else if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
             val stopWordsMarker = builder.mark()
             builder.advanceLexer()
 
@@ -6268,7 +6263,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
 
             if (!haveSeparator) {
-                if (getTokenType() === XPathTokenType.COMMA || getTokenType() === XPathTokenType.PARENTHESIS_CLOSE) {
+                if (builder.tokenType === XPathTokenType.COMMA || builder.tokenType === XPathTokenType.PARENTHESIS_CLOSE) {
                     tupleFieldMarker.done(XQueryElementType.TUPLE_FIELD)
                     return true
                 }
@@ -6335,7 +6330,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             haveAnnotations = true
         }
 
-        if (haveAnnotations && getTokenType() === XPathTokenType.K_FOR) {
+        if (haveAnnotations && builder.tokenType === XPathTokenType.K_FOR) {
             builder.advanceLexer()
             parseWhiteSpaceAndCommentTokens(builder)
 
@@ -6397,7 +6392,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (getTokenType() === XPathTokenType.K_AS) {
+            if (builder.tokenType === XPathTokenType.K_AS) {
                 if (type === KindTest.ANY_TEST && !haveErrors) {
                     val errorMarker = builder.mark()
                     builder.advanceLexer()
@@ -6435,8 +6430,8 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
                 if (
-                    getTokenType() === XPathTokenType.UNION ||
-                    getTokenType() === XPathTokenType.COMMA
+                    builder.tokenType === XPathTokenType.UNION ||
+                    builder.tokenType === XPathTokenType.COMMA
                 ) {
                     parenthesizedItemTypeMarker.rollbackTo() // parenthesized sequence type
                     return false
@@ -6479,7 +6474,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 }
 
                 type = XPathElementType.TYPED_MAP_TEST
-            } else if (getTokenType() === XPathTokenType.COMMA) {
+            } else if (builder.tokenType === XPathTokenType.COMMA) {
                 builder.error(XQueryBundle.message("parser.error.expected-either", "UnionType", "AtomicOrUnionType"))
                 haveError = true
 
@@ -6998,7 +6993,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens(builder)
-            if (isAnyOnly && getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
+            if (isAnyOnly && builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
                 type = XQueryElementType.ANY_ARRAY_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
@@ -7043,7 +7038,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_BOOLEAN_NODE_TEST
-            } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
+            } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
                 builder.errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
                 type = XQueryElementType.ANY_BOOLEAN_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
@@ -7080,7 +7075,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
             val type: IElementType
             parseWhiteSpaceAndCommentTokens(builder)
-            if (isAnyOnly && getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
+            if (isAnyOnly && builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
                 type = XQueryElementType.ANY_MAP_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
@@ -7125,7 +7120,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_NULL_NODE_TEST
-            } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
+            } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
                 builder.errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
                 type = XQueryElementType.ANY_NULL_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
@@ -7160,7 +7155,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseStringLiteral(builder)) {
                 type = XQueryElementType.NAMED_NUMBER_NODE_TEST
-            } else if (getTokenType() !== XPathTokenType.PARENTHESIS_CLOSE) {
+            } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
                 builder.errorOnTokenType(XPathTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))
                 type = XQueryElementType.ANY_NUMBER_NODE_TEST
                 status = ParseStatus.MATCHED_WITH_ERRORS
@@ -7279,7 +7274,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     override val QNAME: IElementType = XQueryElementType.QNAME
 
     private fun parseNCName(type: IElementType): Boolean {
-        if (getTokenType() is INCNameType) {
+        if (builder.tokenType is INCNameType) {
             val ncnameMarker = builder.mark()
             builder.advanceLexer()
             ncnameMarker.done(type)
