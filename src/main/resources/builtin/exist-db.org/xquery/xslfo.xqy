@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db XSL-FO module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/xslfo&location=java:org.exist.xquery.modules.xslfo.XSLFOModule&details=true
- :
  :)
 module namespace xslfo = "http://exist-db.org/xquery/xslfo";
 

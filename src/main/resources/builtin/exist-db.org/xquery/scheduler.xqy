@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db Quartz Scheduler module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/scheduler&location=java:org.exist.xquery.modules.scheduler.SchedulerModule&details=true
- :
  :)
 module namespace scheduler = "http://exist-db.org/xquery/scheduler";
 

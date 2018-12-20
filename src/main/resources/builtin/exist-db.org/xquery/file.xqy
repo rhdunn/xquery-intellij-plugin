@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db file module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/file&location=java:org.exist.xquery.modules.file.FileModule&details=true
- :
  :)
 module namespace file = "http://exist-db.org/xquery/file";
 

@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db datetime module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/datetime&location=java:org.exist.xquery.modules.datetime.DateTimeModule&details=true
- :
  :)
 module namespace datetime ="http://exist-db.org/xquery/datetime";
 

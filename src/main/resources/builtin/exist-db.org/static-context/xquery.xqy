@@ -2,7 +2,7 @@ xquery version "1.0";
 (:~
  : eXist default static context
  :
- : @see http://
+ : @see http://exist-db.org/exist/apps/fundocs/index.html
  :)
 
 declare default element namespace "";

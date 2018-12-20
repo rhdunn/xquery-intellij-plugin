@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db external process module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/process&location=java:org.exist.xquery.modules.process.ProcessModule&details=true
- :
  :)
 module namespace process = "http://exist-db.org/xquery/process";
 

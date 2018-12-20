@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db XSL transform module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/transform&location=java:org.exist.xquery.functions.transform.TransformModule&details=true
- :
  :)
 module namespace transform = "http://exist-db.org/xquery/transform";
 

@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db Security Manager module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/securitymanager&location=java:org.exist.xquery.functions.securitymanager.SecurityManagerModule&details=true
- :
  :)
 module namespace sm = "http://exist-db.org/xquery/securitymanager";
 

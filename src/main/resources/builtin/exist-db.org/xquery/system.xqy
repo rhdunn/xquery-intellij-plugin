@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db eXist system module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/system&location=java:org.exist.xquery.functions.system.SystemModule&details=true
- :
  :)
 module namespace system = "http://exist-db.org/xquery/system";
 

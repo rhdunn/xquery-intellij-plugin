@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db NGram module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/ngram&location=java:org.exist.xquery.modules.ngram.NGramModule&details=true
- :
  :)
 module namespace ngram = "http://exist-db.org/xquery/ngram";
 

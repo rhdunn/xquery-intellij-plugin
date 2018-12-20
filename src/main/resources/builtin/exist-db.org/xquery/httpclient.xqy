@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db HTTP Client module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/httpclient&location=java:org.exist.xquery.modules.httpclient.HTTPClientModule&details=true
- :
  :)
 module namespace httpclient = "http://exist-db.org/xquery/httpclient";
 

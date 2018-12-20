@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db HTTP request module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/request&location=java:org.exist.xquery.functions.request.RequestModule&details=true
- :
  :)
 module namespace request = "http://exist-db.org/xquery/request";
 

@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db Lucene module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/lucene&location=java:org.exist.xquery.modules.lucene.LuceneModule&details=true
- :
  :)
 module namespace ft = "http://exist-db.org/xquery/lucene";
 

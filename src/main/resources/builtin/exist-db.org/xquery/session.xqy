@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db HTTP session module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/session&location=java:org.exist.xquery.functions.session.SessionModule&details=true
- :
  :)
 module namespace session = "http://exist-db.org/xquery/session";
 

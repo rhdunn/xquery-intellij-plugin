@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db expath repository module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/repo&location=java:org.exist.xquery.modules.expathrepo.ExpathPackageModule&details=true
- :
  :)
 module namespace repo = "http://exist-db.org/xquery/repo";
 

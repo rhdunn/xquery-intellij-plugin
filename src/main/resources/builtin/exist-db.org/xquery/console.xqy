@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db console module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/console&location=java:org.exist.console.xquery.ConsoleModule&details=true
- :
  :)
 module namespace console ="http://exist-db.org/xquery/console";
 

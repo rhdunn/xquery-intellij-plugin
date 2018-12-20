@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db validation module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/validation&location=java:org.exist.xquery.functions.validation.ValidationModule&details=true
- :
  :)
 module namespace validation = "http://exist-db.org/xquery/validation";
 

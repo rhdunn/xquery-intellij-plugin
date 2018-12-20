@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db image module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/image&location=java:org.exist.xquery.modules.image.ImageModule&details=true
- :
  :)
 module namespace image = "http://exist-db.org/xquery/image";
 

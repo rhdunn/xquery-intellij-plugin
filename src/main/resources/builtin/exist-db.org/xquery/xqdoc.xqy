@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db XQDoc operation function
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/xqdoc&location=java:org.exist.xqdoc.xquery.XQDocModule&details=true
- :
  :)
 module namespace xqdm = "http://exist-db.org/xquery/xqdoc";
 

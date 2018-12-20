@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db compression module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/compression&location=java:org.exist.xquery.modules.compression.CompressionModule&details=true
- :
  :)
 module namespace compression ="http://exist-db.org/xquery/compression";
 

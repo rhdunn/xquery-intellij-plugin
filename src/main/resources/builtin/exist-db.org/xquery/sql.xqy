@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db SQL module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/sql&location=java:org.exist.xquery.modules.sql.SQLModule&details=true
- :
  :)
 module namespace sql = "http://exist-db.org/xquery/sql";
 

@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db sort index module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/sort&location=java:org.exist.xquery.modules.sort.SortModule&details=true
- :
  :)
 module namespace sort = "http://exist-db.org/xquery/sort";
 

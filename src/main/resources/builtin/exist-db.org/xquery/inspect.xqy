@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db inspection module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/inspection&location=java:org.exist.xquery.functions.inspect.InspectionModule&details=true
- :
  :)
 module namespace inspect = "http://exist-db.org/xquery/inspect";
 

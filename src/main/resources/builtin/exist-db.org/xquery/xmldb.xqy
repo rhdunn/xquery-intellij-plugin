@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db database functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/xmldb&location=java:org.exist.xquery.functions.xmldb.XMLDBModule&details=true
- :
  :)
 module namespace xmldb = "http://exist-db.org/xquery/xmldb";
 

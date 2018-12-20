@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db mail module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/mail&location=java:org.exist.xquery.modules.mail.MailModule&details=true
- :
  :)
 module namespace mail = "http://exist-db.org/xquery/mail";
 

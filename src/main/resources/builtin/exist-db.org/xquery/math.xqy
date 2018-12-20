@@ -3,7 +3,6 @@ xquery version "3.0";
  : eXist-db math extensions module functions
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/math&location=java:org.exist.xquery.modules.math.MathModule&details=true
- :
  :)
 module namespace math-ext = "http://exist-db.org/xquery/math";
 
