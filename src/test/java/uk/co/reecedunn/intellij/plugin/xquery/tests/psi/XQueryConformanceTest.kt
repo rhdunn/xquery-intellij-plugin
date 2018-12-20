@@ -1670,7 +1670,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testNamespaceNodeTest() {
-        val file = parseResource("tests/parser/xquery-3.0/NamespaceNodeTest.xq")
+        val file = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest.xq")
 
         val namespaceNodeTestPsi = file.walkTree().filterIsInstance<XPathNamespaceNodeTest>().first()
         val versioned = namespaceNodeTestPsi as VersionConformance

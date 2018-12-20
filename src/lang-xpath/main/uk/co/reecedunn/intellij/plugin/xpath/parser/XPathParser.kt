@@ -56,7 +56,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Main Interface
+    // region Grammar
 
     fun parse(builder: PsiBuilder) {
         var matched = false
@@ -220,6 +220,7 @@ open class XPathParser : PsiParser {
             parsePITest(builder) ||
             parseCommentTest(builder) ||
             parseTextTest(builder) ||
+            parseNamespaceNodeTest(builder) ||
             parseAnyKindTest(builder)
         )
     }
@@ -307,6 +308,26 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.COMMENT_TEST)
+            return true
+        }
+        return false
+    }
+
+    private fun parseNamespaceNodeTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.NAMESPACE_NODE_TEST)
             return true
         }
         return false

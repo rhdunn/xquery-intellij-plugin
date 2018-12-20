@@ -1,0 +1,8 @@
+XPathImpl[FILE(0:16)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:16)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:16)]
+         XPathNamespaceNodeTestImpl[XPATH_NAMESPACE_NODE_TEST(0:16)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE_NODE(0:14)]('namespace-node')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
+            PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected ')'.')

@@ -125,7 +125,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     protected fun error(message: String) = builder.error(message)
 
     // endregion
-    // region Main Interface
+    // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
         return parseTransactions(isFirst)
@@ -6573,7 +6573,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     override fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
             super.parseKindTest(builder) ||
-            parseNamespaceNodeTest() ||
             parseBinaryTest() ||
             parseSchemaKindTest() != ParseStatus.NOT_MATCHED ||
             parseJsonKindTest() != ParseStatus.NOT_MATCHED
@@ -6663,26 +6662,6 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
             }
 
             marker.done(type)
-            return true
-        }
-        return false
-    }
-
-    private fun parseNamespaceNodeTest(): Boolean {
-        val namespaceTestMarker = matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE_NODE)
-        if (namespaceTestMarker != null) {
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                namespaceTestMarker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens()
-            if (!matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            namespaceTestMarker.done(XPathElementType.NAMESPACE_NODE_TEST)
             return true
         }
         return false
