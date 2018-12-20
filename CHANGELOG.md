@@ -14,6 +14,11 @@ XQuery:
 1.  Fix parsing NCNames in FunctionCalls and NameTests where the
     prefix is `some`, or `every`.
 
+Static Context:
+
+1.  Add support for the eXist-db built-in functions and static context. Thanks
+    to Bridger Dyson-Smith for providing the built-in function definitions.
+
 Function Resolution:
 
 1.  Correctly match functions with variadic function arguments.

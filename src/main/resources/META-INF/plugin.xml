@@ -30,6 +30,13 @@
         <code>some</code>, or <code>every</code>.
       </li>
     </ol>
+    <p>Static Context:</p>
+    <ol>
+      <li>
+        Add support for the eXist-db built-in functions and static context. Thanks
+        to Bridger Dyson-Smith for providing the built-in function definitions.
+      </li>
+    </ol>
     <p>Function Resolution:</p>
     <ol>
       <li>Correctly match functions with variadic function arguments.</li>
