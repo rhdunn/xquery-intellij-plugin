@@ -4093,7 +4093,7 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
 
     private fun parsePostfixExpr(type: IElementType?): Boolean {
         val postfixExprMarker = mark()
-        if (parsePrimaryExpr(type)) {
+        if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens()
             var havePostfixExpr = false
             while (parsePredicate() || parseArgumentList() || parseLookup(XPathElementType.LOOKUP)) {
@@ -4151,25 +4151,28 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
-    private fun parsePrimaryExpr(type: IElementType?): Boolean {
-        return parseLiteral(builder)
-                || parseVarRef(type)
-                || parseParenthesizedExpr()
-                || parseNonDeterministicFunctionCall()
-                || parseContextItemExpr()
-                || parseOrderedExpr()
-                || parseUnorderedExpr()
-                || parseFunctionItemExpr()
-                || parseArrayConstructor()
-                || parseBinaryConstructor()
-                || parseBooleanConstructor()
-                || parseMapConstructor()
-                || parseNodeConstructor()
-                || parseNullConstructor()
-                || parseNumberConstructor()
-                || parseStringConstructor()
-                || parseLookup(XPathElementType.UNARY_LOOKUP)
-                || parseFunctionCall()
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return (
+            parseLiteral(builder) ||
+            parseVarRef(type) ||
+            parseParenthesizedExpr() ||
+            parseNonDeterministicFunctionCall() ||
+            parseContextItemExpr() ||
+            parseOrderedExpr() ||
+            parseUnorderedExpr() ||
+            parseFunctionItemExpr() ||
+            parseArrayConstructor() ||
+            parseBinaryConstructor() ||
+            parseBooleanConstructor() ||
+            parseMapConstructor() ||
+            parseNodeConstructor() ||
+            parseNullConstructor() ||
+            parseNumberConstructor() ||
+            parseStringConstructor() ||
+            parseLookup(XPathElementType.UNARY_LOOKUP) ||
+            parseFunctionCall()
+        )
     }
 
     private fun parseVarRef(type: IElementType?): Boolean {
@@ -6014,13 +6017,13 @@ private class XQueryParserImpl(private val builder: PsiBuilder) : XPathParser() 
                 haveErrors = true
 
                 parseWhiteSpaceAndCommentTokens()
-                if (!parsePrimaryExpr(null)) { // AbbrevForwardStep
+                if (!parsePrimaryExpr(builder, null)) { // AbbrevForwardStep
                     updatingFunctionCallMarker.rollbackTo()
                     return false
                 }
             } else {
                 parseWhiteSpaceAndCommentTokens()
-                if (!parsePrimaryExpr(null)) {
+                if (!parsePrimaryExpr(builder, null)) {
                     error(XPathBundle.message("parser.error.expected", "PrimaryExpr"))
                     haveErrors = true
                 }

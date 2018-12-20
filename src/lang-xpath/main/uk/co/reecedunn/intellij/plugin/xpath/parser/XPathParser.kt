@@ -170,13 +170,14 @@ open class XPathParser : PsiParser {
     }
 
     private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
-        return parsePrimaryExpr(builder)
+        return parsePrimaryExpr(builder, null)
     }
 
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
-    private fun parsePrimaryExpr(builder: PsiBuilder): Boolean {
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseLiteral(builder)
     }
 
