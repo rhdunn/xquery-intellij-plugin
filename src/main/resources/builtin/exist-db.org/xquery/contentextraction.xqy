@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/contentextraction&location=java:org.exist.contentextraction.xquery.ContentExtractionModule&details=true
  :)
-module namespace contentextraction ="http://exist-db.org/xquery/contentextraction";
+module namespace contentextraction = "http://exist-db.org/xquery/contentextraction";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";

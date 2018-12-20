@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/datetime&location=java:org.exist.xquery.modules.datetime.DateTimeModule&details=true
  :)
-module namespace datetime ="http://exist-db.org/xquery/datetime";
+module namespace datetime = "http://exist-db.org/xquery/datetime";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";

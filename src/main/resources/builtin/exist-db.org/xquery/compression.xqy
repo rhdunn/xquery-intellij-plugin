@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/compression&location=java:org.exist.xquery.modules.compression.CompressionModule&details=true
  :)
-module namespace compression ="http://exist-db.org/xquery/compression";
+module namespace compression = "http://exist-db.org/xquery/compression";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";

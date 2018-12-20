@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/console&location=java:org.exist.console.xquery.ConsoleModule&details=true
  :)
-module namespace console ="http://exist-db.org/xquery/console";
+module namespace console = "http://exist-db.org/xquery/console";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";

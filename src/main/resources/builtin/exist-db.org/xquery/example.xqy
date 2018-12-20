@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/examples&location=java:org.exist.xquery.modules.example.ExampleModule&details=true
  :)
-module namespace example ="http://exist-db.org/xquery/example";
+module namespace example = "http://exist-db.org/xquery/example";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";

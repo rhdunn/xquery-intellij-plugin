@@ -4,7 +4,7 @@ xquery version "3.0";
  :
  : @see http://exist-db.org/exist/apps/fundocs/view.html?uri=http://exist-db.org/xquery/counter&location=java:org.exist.xquery.modules.counter.CounterModule&details=true
  :)
-module namespace counter ="http://exist-db.org/xquery/counter";
+module namespace counter = "http://exist-db.org/xquery/counter";
 
 declare namespace a = "http://reecedunn.co.uk/xquery/annotations";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
