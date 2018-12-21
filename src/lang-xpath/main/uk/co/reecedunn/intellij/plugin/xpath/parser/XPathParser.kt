@@ -92,7 +92,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr
 
-    fun parseExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): Boolean {
         val marker = builder.mark()
         if (parseExprSingle(builder)) {
             var haveErrors = false
@@ -175,7 +175,8 @@ open class XPathParser : PsiParser {
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             parseLiteral(builder) ||
-            parseVarRef(builder, type)
+            parseVarRef(builder, type) ||
+            parseParenthesizedExpr(builder)
         )
     }
 
@@ -213,6 +214,24 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.VAR_REF)
+            return true
+        }
+        return false
+    }
+
+    fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseExpr(builder, EXPR)) {
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.PARENTHESIZED_EXPR)
             return true
         }
         return false

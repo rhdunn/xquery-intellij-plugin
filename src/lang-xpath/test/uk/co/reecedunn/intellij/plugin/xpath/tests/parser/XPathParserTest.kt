@@ -958,6 +958,34 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (46) ParenthesizedExpr")
+    internal inner class ParenthesizedExpr_XPath20 {
+        @Test
+        @DisplayName("empty expression")
+        fun emptyExpression() {
+            val expected = loadResource("tests/parser/xpath-2.0/ParenthesizedExpr_EmptyExpression.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/ParenthesizedExpr_EmptyExpression.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty expression; compact whitespace")
+        fun emptyExpression_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/ParenthesizedExpr_EmptyExpression_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/ParenthesizedExpr_EmptyExpression_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun emptyExpression_MissingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xpath-2.0/ParenthesizedExpr_EmptyExpression_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/ParenthesizedExpr_EmptyExpression_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (73) DoubleLiteral")
     internal inner class DoubleLiteral {
         @Test

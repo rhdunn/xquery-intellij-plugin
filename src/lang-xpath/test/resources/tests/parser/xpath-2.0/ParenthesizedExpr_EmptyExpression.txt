@@ -1,0 +1,6 @@
+XPathImpl[FILE(0:3)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:3)]
+      XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(0:3)]
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(2:3)](')')

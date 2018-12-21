@@ -3951,6 +3951,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (89) ParenthesizedExpr")
+    internal inner class ParenthesizedExpr {
+        @Test
+        @DisplayName("empty expression")
+        fun emptyExpression() {
+            val expected = loadResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty expression; compact whitespace")
+        fun emptyExpression_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun emptyExpression_MissingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
     // region XQuery 1.0 :: ParenthesizedExpr
 
     @Test
@@ -3971,20 +3999,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testParenthesizedExpr_MissingClosingParenthesis() {
         val expected = loadResource("tests/parser/xquery-1.0/ParenthesizedExpr_MissingClosingParenthesis.txt")
         val actual = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testParenthesizedExpr_EmptyExpression() {
-        val expected = loadResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testParenthesizedExpr_EmptyExpression_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_EmptyExpression_CompactWhitespace.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

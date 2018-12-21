@@ -1415,9 +1415,9 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr
 
-    private fun parseExpr(builder: PsiBuilder, type: IElementType, functionDeclRecovery: Boolean = false): Boolean {
+    override fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean): Boolean {
         val marker = builder.mark()
-        if (parseApplyExpr(builder, type, functionDeclRecovery)) {
+        if (parseApplyExpr(builder, type!!, functionDeclRecovery)) {
             marker.done(type)
             return true
         }
@@ -1483,7 +1483,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseConcatExpr(builder: PsiBuilder): Boolean {
-        return super.parseExpr(builder, XQueryElementType.CONCAT_EXPR)
+        return super.parseExpr(builder, XQueryElementType.CONCAT_EXPR, false)
     }
 
     override fun parseExprSingle(builder: PsiBuilder): Boolean {
@@ -4159,7 +4159,6 @@ class XQueryParser : XPathParser() {
     override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             super.parsePrimaryExpr(builder, type) ||
-            parseParenthesizedExpr(builder) ||
             parseNonDeterministicFunctionCall(builder) ||
             parseContextItemExpr(builder) ||
             parseOrderedExpr(builder) ||
@@ -4176,24 +4175,6 @@ class XQueryParser : XPathParser() {
             parseLookup(builder, XPathElementType.UNARY_LOOKUP) ||
             parseFunctionCall(builder)
         )
-    }
-
-    private fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseExpr(builder, XQueryElementType.EXPR)) {
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.PARENTHESIZED_EXPR)
-            return true
-        }
-        return false
     }
 
     private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
