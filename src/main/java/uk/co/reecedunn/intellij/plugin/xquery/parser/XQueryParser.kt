@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.parser
 
-import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
-import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
@@ -4160,8 +4158,7 @@ class XQueryParser : XPathParser() {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
-            parseLiteral(builder) ||
-            parseVarRef(builder, type) ||
+            super.parsePrimaryExpr(builder, type) ||
             parseParenthesizedExpr(builder) ||
             parseNonDeterministicFunctionCall(builder) ||
             parseContextItemExpr(builder) ||
@@ -4179,20 +4176,6 @@ class XQueryParser : XPathParser() {
             parseLookup(builder, XPathElementType.UNARY_LOOKUP) ||
             parseFunctionCall(builder)
         )
-    }
-
-    private fun parseVarRef(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
-            }
-
-            marker.done(XPathElementType.VAR_REF)
-            return true
-        }
-        return false
     }
 
     private fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {

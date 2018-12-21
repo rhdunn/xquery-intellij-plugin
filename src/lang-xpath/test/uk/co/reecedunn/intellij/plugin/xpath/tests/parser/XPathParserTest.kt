@@ -202,6 +202,50 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (31) VarRef ; XQuery 1.0 EBNF (32) VarName")
+    internal inner class VarRef {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val expected = loadResource("tests/parser/xpath-1.0/VarRef_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/VarRef_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName; compat whitespace")
+        fun ncname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/VarRef_NCName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/VarRef_NCName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName")
+        fun qname() {
+            val expected = loadResource("tests/parser/xpath-1.0/VarRef.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/VarRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName; compat whitespace")
+        fun qname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/VarRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/VarRef_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing VarName")
+        fun missingVarName() {
+            val expected = loadResource("tests/parser/xpath-1.0/VarRef_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/VarRef_MissingVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (41) StringLiteral")
     internal inner class StringLiteral_XPath10 {
         @Test

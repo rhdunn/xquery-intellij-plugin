@@ -173,7 +173,10 @@ open class XPathParser : PsiParser {
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseLiteral(builder)
+        return (
+            parseLiteral(builder) ||
+            parseVarRef(builder, type)
+        )
     }
 
     fun parseLiteral(builder: PsiBuilder): Boolean {
@@ -191,6 +194,25 @@ open class XPathParser : PsiParser {
                 XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
                 XPathBundle.message("parser.error.incomplete-double-exponent")
             )
+            return true
+        }
+        return false
+    }
+
+    fun parseVarRef(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (
+                !parseEQNameOrWildcard(
+                    builder, XPathElementType.VAR_NAME,
+                    type === XPathElementType.MAP_CONSTRUCTOR_ENTRY
+                )
+            ) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            }
+
+            marker.done(XPathElementType.VAR_REF)
             return true
         }
         return false
