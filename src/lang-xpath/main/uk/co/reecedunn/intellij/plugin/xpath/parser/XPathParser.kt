@@ -39,7 +39,6 @@ open class XPathParser : PsiParser {
     open val EXPR: IElementType = XPathElementType.EXPR
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
     open val FUNCTION_TEST: IElementType = XPathElementType.FUNCTION_TEST
-    open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
 
     // endregion
     // region PsiParser
@@ -507,6 +506,8 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Lexical Structure :: Terminal Symbols
+
+    open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
 
     fun parseStringLiteral(builder: PsiBuilder): Boolean {
         return parseStringLiteral(builder, STRING_LITERAL)
