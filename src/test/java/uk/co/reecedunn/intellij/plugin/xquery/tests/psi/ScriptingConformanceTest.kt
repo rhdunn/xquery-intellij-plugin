@@ -53,7 +53,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("single expression; no semicolon at end")
         fun testApplyExpr_Single_NoSemicolon() {
-            val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")
+            val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_Expr_Single.xq")
 
             val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
             val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
