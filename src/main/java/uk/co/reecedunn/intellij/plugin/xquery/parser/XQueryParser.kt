@@ -4160,7 +4160,6 @@ class XQueryParser : XPathParser() {
         return (
             super.parsePrimaryExpr(builder, type) ||
             parseNonDeterministicFunctionCall(builder) ||
-            parseContextItemExpr(builder) ||
             parseOrderedExpr(builder) ||
             parseUnorderedExpr(builder) ||
             parseFunctionItemExpr(builder) ||
@@ -4175,15 +4174,6 @@ class XQueryParser : XPathParser() {
             parseLookup(builder, XPathElementType.UNARY_LOOKUP) ||
             parseFunctionCall(builder)
         )
-    }
-
-    private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
-        val contextItemExprMarker = builder.matchTokenTypeWithMarker(XPathTokenType.DOT)
-        if (contextItemExprMarker != null) {
-            contextItemExprMarker.done(XPathElementType.CONTEXT_ITEM_EXPR)
-            return true
-        }
-        return false
     }
 
     private fun parseOrderedExpr(builder: PsiBuilder): Boolean {

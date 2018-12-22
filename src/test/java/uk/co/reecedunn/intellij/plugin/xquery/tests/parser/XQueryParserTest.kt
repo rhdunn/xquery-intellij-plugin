@@ -4053,16 +4053,14 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: ContextItemExpr
-
     @Test
-    fun testContextItemExpr() {
+    @DisplayName("XQuery 1.0 EBNF (90) ContextItemExpr")
+    fun contextItemExpr() {
         val expected = loadResource("tests/parser/xquery-1.0/ContextItemExpr.txt")
         val actual = parseResource("tests/parser/xquery-1.0/ContextItemExpr.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    // endregion
     // region XQuery 1.0 :: OrderedExpr
 
     @Test

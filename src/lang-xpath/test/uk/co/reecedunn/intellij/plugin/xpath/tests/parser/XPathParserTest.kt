@@ -317,6 +317,14 @@ private class XPathParserTest : ParserTestCase() {
         }
     }
 
+    @Test
+    @DisplayName("XPath 1.0 EBNF (34) ContextItemExpr")
+    fun contextItemExpr() {
+        val expected = loadResource("tests/parser/xpath-1.0/ContextItemExpr.txt")
+        val actual = parseResource("tests/parser/xpath-1.0/ContextItemExpr.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     @Nested
     @DisplayName("XPath 1.0 EBNF (41) StringLiteral")
     internal inner class StringLiteral_XPath10 {

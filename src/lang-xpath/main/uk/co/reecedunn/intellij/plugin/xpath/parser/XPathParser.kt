@@ -176,7 +176,8 @@ open class XPathParser : PsiParser {
         return (
             parseLiteral(builder) ||
             parseVarRef(builder, type) ||
-            parseParenthesizedExpr(builder)
+            parseParenthesizedExpr(builder) ||
+            parseContextItemExpr(builder)
         )
     }
 
@@ -232,6 +233,15 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.PARENTHESIZED_EXPR)
+            return true
+        }
+        return false
+    }
+
+    private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.DOT)
+        if (marker != null) {
+            marker.done(XPathElementType.CONTEXT_ITEM_EXPR)
             return true
         }
         return false
