@@ -1371,37 +1371,51 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: Expr
 
-    @Test
-    fun testExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/Expr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Expr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (30) QueryBody ; XQuery 1.0 EBNF (31) Expr")
+    internal inner class QueryBody {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/QueryBody_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/QueryBody_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/QueryBody_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/QueryBody_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: multiple; missing Expr")
+        fun multiple_MissingExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/QueryBody_Multiple_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/QueryBody_Multiple_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; space before next comma")
+        fun multiple_SpaceBeforeNextComma() {
+            val expected = loadResource("tests/parser/xquery-1.0/QueryBody_Multiple_SpaceBeforeNextComma.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/QueryBody_Multiple_SpaceBeforeNextComma.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testExpr_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/Expr_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Expr_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testExpr_Multiple_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/Expr_Multiple_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Expr_Multiple_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testExpr_Multiple_SpaceBeforeNextComma() {
-        val expected = loadResource("tests/parser/xquery-1.0/Expr_Multiple_SpaceBeforeNextComma.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/Expr_Multiple_SpaceBeforeNextComma.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: FLWORExpr
 
     @Test
@@ -3952,7 +3966,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (89) ParenthesizedExpr")
+    @DisplayName("XQuery 1.0 EBNF (89) ParenthesizedExpr ; XQuery 1.0 EBNF (31) Expr")
     internal inner class ParenthesizedExpr {
         @Test
         @DisplayName("empty expression")
