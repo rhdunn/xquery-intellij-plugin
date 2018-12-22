@@ -174,12 +174,6 @@ object XPathElementType {
         XPath
     )
 
-    val CONTEXT_ITEM_EXPR: IElementType = ICompositeElementType(
-        "XPATH_CONTEXT_ITEM_EXPR",
-        XPathContextItemExprPsiImpl::class.java,
-        XPath
-    )
-
     val FUNCTION_CALL: IElementType = ICompositeElementType(
         "XPATH_FUNCTION_CALL",
         XPathFunctionCallPsiImpl::class.java,

@@ -13,8 +13,7 @@ XQueryModuleImpl[FILE(0:18)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(5:11)]
                            XPathOrExprImpl[XPATH_OR_EXPR(5:11)]
                               XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(5:11)]
-                                 XPathContextItemExprImpl[XPATH_CONTEXT_ITEM_EXPR(5:6)]
-                                    LeafPsiElement[XPATH_DOT_TOKEN(5:6)]('.')
+                                 XPathContextItemExprImpl[XPATH_DOT_TOKEN(5:6)]('.')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                  LeafPsiElement[XPATH_PLUS_TOKEN(7:8)]('+')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')

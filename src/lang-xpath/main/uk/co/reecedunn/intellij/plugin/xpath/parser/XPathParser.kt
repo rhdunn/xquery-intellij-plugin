@@ -239,12 +239,7 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.DOT)
-        if (marker != null) {
-            marker.done(XPathElementType.CONTEXT_ITEM_EXPR)
-            return true
-        }
-        return false
+        return builder.matchTokenType(XPathTokenType.DOT)
     }
 
     // endregion

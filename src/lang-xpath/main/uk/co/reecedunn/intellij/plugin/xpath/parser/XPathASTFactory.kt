@@ -25,10 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 
 class XPathASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
@@ -39,6 +36,7 @@ class XPathASTFactory : ASTFactory() {
             XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
             XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
             XPathTokenType.ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
+            XPathTokenType.DOT -> XPathContextItemExprPsiImpl(type, text)
             XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
             XPathTokenType.STAR -> PluginWildcardIndicatorPsiImpl(type, text)
             XPathTokenType.NCNAME -> XmlNCNameImpl(type, text)
