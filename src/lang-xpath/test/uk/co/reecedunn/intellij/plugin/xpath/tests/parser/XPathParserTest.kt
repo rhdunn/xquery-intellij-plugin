@@ -66,6 +66,18 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (1) XPath ; XPath 1.0 EBNF (2) Expr")
+    internal inner class XPath_XPath10 {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xpath-1.0/IntegerLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/IntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
     internal inner class NodeTest {
         @Nested
