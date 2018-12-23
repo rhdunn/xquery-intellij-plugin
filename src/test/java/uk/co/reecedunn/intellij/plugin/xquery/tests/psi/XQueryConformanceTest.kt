@@ -173,7 +173,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testArgumentList_FunctionCall() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
+        val file = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty.xq")
 
         val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()

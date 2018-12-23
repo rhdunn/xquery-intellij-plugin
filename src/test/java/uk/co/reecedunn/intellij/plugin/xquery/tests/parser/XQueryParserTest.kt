@@ -76,7 +76,6 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // endregion
     // region XQuery 1.0 :: VersionDecl
 
     @Test
@@ -4109,35 +4108,44 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
+
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (93) FunctionCall ; XQuery 3.0 EBNF (121) ArgumentList")
+    internal inner class FunctionCall {
+        @Test
+        @DisplayName("empty argument list")
+        fun argumentList_Empty() {
+            val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty argument list; compact whitespace")
+        fun argumentList_Empty_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing opening parenthesis")
+        fun missingOpeningParenthesis() {
+            val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_MissingOpeningParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_MissingOpeningParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
     // region XQuery 1.0 :: FunctionCall
-
-    @Test
-    fun testFunctionCall() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_MissingOpeningParenthesis() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MissingOpeningParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MissingOpeningParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
 
     @Test
     fun testFunctionCall_SingleParam() {

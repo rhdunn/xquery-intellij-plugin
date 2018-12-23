@@ -3893,7 +3893,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
-    private fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parsePostfixExpr(builder, type) || parseAxisStep(builder, type)
     }
 
@@ -4092,8 +4092,7 @@ class XQueryParser : XPathParser() {
             parseNullConstructor(builder) ||
             parseNumberConstructor(builder) ||
             parseStringConstructor(builder) ||
-            parseLookup(builder, XPathElementType.UNARY_LOOKUP) ||
-            parseFunctionCall(builder)
+            parseLookup(builder, XPathElementType.UNARY_LOOKUP)
         )
     }
 
@@ -4151,7 +4150,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseFunctionCall(builder: PsiBuilder): Boolean {
+    override fun parseFunctionCall(builder: PsiBuilder): Boolean {
         if (builder.tokenType is IKeywordOrNCNameType) {
             val type = builder.tokenType as IKeywordOrNCNameType?
             when (type!!.keywordType) {
@@ -4194,7 +4193,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseArgumentList(builder: PsiBuilder): Boolean {
+    override fun parseArgumentList(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             var haveErrors = false

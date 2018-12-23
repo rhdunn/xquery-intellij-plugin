@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:9)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:9)]
+      XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:9)]
+         XPathQNameImpl[XPATH_QNAME(0:7)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:2)]('fn')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:7)]('true')
+         XPathArgumentListImpl[XPATH_ARGUMENT_LIST(7:9)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
