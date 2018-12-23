@@ -27,6 +27,14 @@ fun PsiBuilder.matchTokenType(type: IElementType): Boolean {
     return false
 }
 
+fun PsiBuilder.matchTokenType(type: TokenSet): Boolean {
+    if (type.contains(tokenType)) {
+        advanceLexer()
+        return true
+    }
+    return false
+}
+
 fun PsiBuilder.matchTokenTypeWithMarker(type: IElementType): PsiBuilder.Marker? {
     if (tokenType === type) {
         val marker = mark()
