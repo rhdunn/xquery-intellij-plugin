@@ -30,20 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 
-private enum class KindTest {
-    ANY_TEST,
-    TYPED_TEST,
-}
-
-private val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
-    XQueryTokenType.K_ASSIGNABLE,
-    XQueryTokenType.K_PRIVATE,
-    XQueryTokenType.K_SEQUENTIAL,
-    XQueryTokenType.K_SIMPLE,
-    XQueryTokenType.K_UNASSIGNABLE,
-    XQueryTokenType.K_UPDATING
-)
-
 /**
  * A unified XQuery parser for different XQuery dialects.
  *
@@ -976,7 +962,7 @@ class XQueryParser : XPathParser() {
             annotation = if (parseAnnotation(builder)) {
                 XQueryElementType.ANNOTATION
             } else {
-                parseCompatibilityAnnotationDecl(builder)
+                parseCompatibilityAnnotation(builder)
             }
 
             if (firstAnnotation == null) {
@@ -1038,16 +1024,12 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseCompatibilityAnnotationDecl(builder: PsiBuilder): IElementType? {
-        val marker = builder.mark()
+    private fun parseCompatibilityAnnotation(builder: PsiBuilder): IElementType? {
         val type = builder.tokenType
-        if (COMPATIBILITY_ANNOTATION_TOKENS.contains(type)) {
-            builder.advanceLexer()
-            marker.done(XQueryElementType.COMPATIBILITY_ANNOTATION)
-            return type
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.COMPATIBILITY_ANNOTATION_TOKENS)?.let {
+            it.done(XQueryElementType.COMPATIBILITY_ANNOTATION)
+            type
         }
-        marker.drop()
-        return null
     }
 
     private fun parseVarDecl(builder: PsiBuilder): Boolean {
@@ -6195,6 +6177,11 @@ class XQueryParser : XPathParser() {
 
     // endregion
     // region Grammar :: TypeDeclaration :: ItemType
+
+    private enum class KindTest {
+        ANY_TEST,
+        TYPED_TEST,
+    }
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseItemType(builder: PsiBuilder): Boolean {

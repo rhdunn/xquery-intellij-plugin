@@ -256,6 +256,15 @@ object XQueryTokenType {
     // endregion
     // region Token Sets
 
+    val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
+        XQueryTokenType.K_ASSIGNABLE,
+        XQueryTokenType.K_PRIVATE,
+        XQueryTokenType.K_SEQUENTIAL,
+        XQueryTokenType.K_SIMPLE,
+        XQueryTokenType.K_UNASSIGNABLE,
+        XQueryTokenType.K_UPDATING
+    )
+
     val FTSCOPE_QUALIFIER_TOKENS = TokenSet.create(K_SAME, K_DIFFERENT)
 
     // endregion
