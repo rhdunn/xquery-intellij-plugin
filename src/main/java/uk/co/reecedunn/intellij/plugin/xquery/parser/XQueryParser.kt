@@ -2299,7 +2299,7 @@ class XQueryParser : XPathParser() {
     // region Grammar :: Expr :: QuantifiedExpr
 
     private fun parseQuantifiedExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SOME, XPathTokenType.K_EVERY)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.QUANTIFIED_EXPR_QUALIFIER_TOKENS)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseQNameSeparator(builder, null)) { // QName
@@ -5588,7 +5588,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseFTScope(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_SAME, XQueryTokenType.K_DIFFERENT)
+        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.FTSCOPE_QUALIFIER_TOKENS)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTBigUnit(builder)) {
@@ -5938,7 +5938,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseFTStopWordsInclExcl(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_UNION, XPathTokenType.K_EXCEPT)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTStopWords(builder)) {

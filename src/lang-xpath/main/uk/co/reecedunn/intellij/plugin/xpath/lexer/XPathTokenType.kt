@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 
 object XPathTokenType {
@@ -159,6 +160,12 @@ object XPathTokenType {
     val UNEXPECTED_END_OF_BLOCK = IElementType("XPATH_UNEXPECTED_END_OF_BLOCK_TOKEN", XPath)
 
     val BAD_CHARACTER: IElementType = TokenType.BAD_CHARACTER
+
+    // endregion
+    // region Token Sets
+
+    val FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS = TokenSet.create(K_UNION, K_EXCEPT)
+    val QUANTIFIED_EXPR_QUALIFIER_TOKENS = TokenSet.create(K_SOME, K_EVERY)
 
     // endregion
 }

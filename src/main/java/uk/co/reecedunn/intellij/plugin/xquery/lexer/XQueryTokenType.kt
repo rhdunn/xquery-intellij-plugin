@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -251,6 +252,11 @@ object XQueryTokenType {
     val ENTITY_REFERENCE_NOT_IN_STRING = IElementType("XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN", XQuery)
     val INVALID = IElementType("XQUERY_INVALID_TOKEN", XQuery)
     val PARTIAL_ENTITY_REFERENCE = IElementType("XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN", XQuery)
+
+    // endregion
+    // region Token Sets
+
+    val FTSCOPE_QUALIFIER_TOKENS = TokenSet.create(K_SAME, K_DIFFERENT)
 
     // endregion
 }
