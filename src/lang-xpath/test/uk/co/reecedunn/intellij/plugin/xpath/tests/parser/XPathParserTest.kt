@@ -329,6 +329,14 @@ private class XPathParserTest : ParserTestCase() {
     @DisplayName("XQuery 1.0 EBNF (93) FunctionCall ; XQuery 3.0 EBNF (121) ArgumentList")
     internal inner class FunctionCall {
         @Test
+        @DisplayName("keyword NCName")
+        fun keywordNCName() {
+            val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_NCName_Keyword.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_NCName_Keyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
         @DisplayName("empty argument list")
         fun argumentList_Empty() {
             val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_ArgumentList_Empty.txt")

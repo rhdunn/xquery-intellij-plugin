@@ -4113,6 +4113,14 @@ private class XQueryParserTest : ParserTestCase() {
     @DisplayName("XQuery 1.0 EBNF (93) FunctionCall ; XQuery 3.0 EBNF (121) ArgumentList")
     internal inner class FunctionCall {
         @Test
+        @DisplayName("keyword NCName")
+        fun keywordNCName() {
+            val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_NCName_Keyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_NCName_Keyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
         @DisplayName("empty argument list")
         fun argumentList_Empty() {
             val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty.txt")
@@ -4186,72 +4194,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testFunctionCall_MultipleParam_SpaceBeforeNextComma() {
         val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.txt")
         val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: FunctionCall (Keywords)
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_XQuery10() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_KeywordNCNames_XQuery10.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_KeywordNCNames_XQuery10.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_XQuery30() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionCall_KeywordNCNames_XQuery30.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionCall_KeywordNCNames_XQuery30.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_XQuery31() {
-        val expected = loadResource("tests/parser/xquery-3.1/FunctionCall_KeywordNCNames_XQuery31.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/FunctionCall_KeywordNCNames_XQuery31.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_UpdateFacility10() {
-        val expected = loadResource("tests/parser/xquery-update-1.0/FunctionCall_KeywordNCNames_UpdateFacility10.txt")
-        val actual = parseResource("tests/parser/xquery-update-1.0/FunctionCall_KeywordNCNames_UpdateFacility10.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_UpdateFacility30() {
-        val expected = loadResource("tests/parser/xquery-update-3.0/FunctionCall_KeywordNCNames_UpdateFacility30.txt")
-        val actual = parseResource("tests/parser/xquery-update-3.0/FunctionCall_KeywordNCNames_UpdateFacility30.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_Scripting10() {
-        val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_KeywordNCNames_Scripting10.txt")
-        val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_KeywordNCNames_Scripting10.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_MarkLogic60() {
-        val expected = loadResource("tests/parser/marklogic-6.0/FunctionCall_KeywordNCNames_MarkLogic60.txt")
-        val actual = parseResource("tests/parser/marklogic-6.0/FunctionCall_KeywordNCNames_MarkLogic60.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_BaseX78() {
-        val expected = loadResource("tests/parser/basex-7.8/FunctionCall_KeywordNCNames_BaseX78.txt")
-        val actual = parseResource("tests/parser/basex-7.8/FunctionCall_KeywordNCNames_BaseX78.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_KeywordNCNames_BaseX84() {
-        val expected = loadResource("tests/parser/basex-8.4/FunctionCall_KeywordNCNames_BaseX84.txt")
-        val actual = parseResource("tests/parser/basex-8.4/FunctionCall_KeywordNCNames_BaseX84.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
