@@ -133,16 +133,19 @@ dependencies {
     compile project(':src:lang-core')
     compile project(':src:lang-xdm')
     compile project(':src:lang-xpath')
+    compile project(':src:plugin-api')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
     testCompile project(':src:lang-core')
     testCompile project(':src:lang-xdm')
     testCompile project(':src:lang-xpath')
+    testCompile project(':src:plugin-api')
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
     integrationTestCompile project(':src:kotlin-hamcrest')
+    integrationTestCompile project(':src:plugin-api')
 
     integrationTestRuntime configurations.testRuntime
 }
