@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.impl.existdb.rest
+package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
