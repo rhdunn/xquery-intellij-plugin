@@ -20,21 +20,17 @@ import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.io.decode
-import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-val VERSION_QUERY = Resources.load("queries/marklogic/version.xq")!!.decode()
-val RUN_QUERY = Resources.load("queries/marklogic/run.xq")!!.decode()
-
 internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) :
     QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
+        eval(MarkLogicQueries.Version, MimeTypes.XQUERY).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
@@ -48,7 +44,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
                 queryParams.addProperty("query", query)
 
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", RUN_QUERY)
+                builder.addParameter("xquery", MarkLogicQueries.Run)
                 MarkLogicQuery(builder, queryParams, connection)
             }
             else -> throw UnsupportedQueryType(mimetype)
