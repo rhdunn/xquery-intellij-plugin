@@ -3,6 +3,7 @@
 ## Table of Contents
 1. [Core](#core)
 1. [Custom Language Support](#custom-language-support)
+1. [Plugin](#plugin)
 
 ## Core
 | Package           | Description |
