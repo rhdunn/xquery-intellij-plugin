@@ -19,7 +19,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
-import com.sun.org.apache.xpath.internal.operations.Bool
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
@@ -30,21 +29,16 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 /**
  * A unified XPath parser for different XPath versions and dialects.
  */
-@Suppress("PropertyName")
+@Suppress("PropertyName", "PrivatePropertyName")
 open class XPathParser : PsiParser {
     // region XPath/XQuery Element Types
     //
     // These element types have different PSI implementations in XPath and XQuery.
 
-    open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
     open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
     open val FUNCTION_TEST: IElementType = XPathElementType.FUNCTION_TEST
-    open val NCNAME: IElementType = XPathElementType.NCNAME
-    open val QNAME: IElementType = XPathElementType.QNAME
-    open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
-    open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
 
     // endregion
     // region PsiParser
@@ -57,7 +51,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Main Interface
+    // region Grammar
 
     fun parse(builder: PsiBuilder) {
         var matched = false
@@ -148,9 +142,9 @@ open class XPathParser : PsiParser {
         return parsePostfixExpr(builder) || parseNodeTest(builder, null)
     }
 
-    open fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseNameTest(builder, type)) {
+        if (parseKindTest(builder) || parseNameTest(builder, type)) {
             marker.done(XPathElementType.NODE_TEST)
             return true
         }
@@ -158,9 +152,11 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseNameTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, false)) {
+        if (
+            parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)
+        ) {
             marker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -169,13 +165,14 @@ open class XPathParser : PsiParser {
     }
 
     private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
-        return parsePrimaryExpr(builder)
+        return parsePrimaryExpr(builder, null)
     }
 
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
-    private fun parsePrimaryExpr(builder: PsiBuilder): Boolean {
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseLiteral(builder)
     }
 
@@ -183,7 +180,7 @@ open class XPathParser : PsiParser {
         return parseNumericLiteral(builder) || parseStringLiteral(builder)
     }
 
-    fun parseNumericLiteral(builder: PsiBuilder): Boolean {
+    private fun parseNumericLiteral(builder: PsiBuilder): Boolean {
         if (
             builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
             builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL)
@@ -200,7 +197,317 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
+    // region Grammar :: TypeDeclaration :: KindTest
+
+    private val ATTRIBUTE_DECLARATION: IElementType get() = QNAME
+    private val ATTRIBUTE_NAME: IElementType get() = QNAME
+
+    private val ELEMENT_DECLARATION: IElementType get() = QNAME
+    private val ELEMENT_NAME: IElementType get() = QNAME
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    open fun parseKindTest(builder: PsiBuilder): Boolean {
+        return (
+            parseDocumentTest(builder) ||
+            parseElementTest(builder) ||
+            parseAttributeTest(builder) ||
+            parseSchemaElementTest(builder) ||
+            parseSchemaAttributeTest(builder) ||
+            parsePITest(builder) ||
+            parseCommentTest(builder) ||
+            parseTextTest(builder) ||
+            parseNamespaceNodeTest(builder) ||
+            parseAnyKindTest(builder)
+        )
+    }
+
+    open fun parseAnyKindTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ANY_KIND_TEST)
+            return true
+        }
+        return false
+    }
+
+    open fun parseDocumentTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_DOCUMENT_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (
+                parseElementTest(builder) ||
+                parseSchemaElementTest(builder)
+            ) {
+                //
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.DOCUMENT_TEST)
+            return true
+        }
+        return false
+    }
+
+    open fun parseTextTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ANY_TEXT_TEST)
+            return true
+        }
+        return false
+    }
+
+    private fun parseCommentTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_COMMENT)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.COMMENT_TEST)
+            return true
+        }
+        return false
+    }
+
+    private fun parseNamespaceNodeTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE_NODE)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.NAMESPACE_NODE_TEST)
+            return true
+        }
+        return false
+    }
+
+    private fun parsePITest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseQNameOrWildcard(builder, NCNAME) || parseStringLiteral(builder)) {
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.PI_TEST)
+            return true
+        }
+        return false
+    }
+
+    open fun parseAttributeTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseAttribNameOrWildcard(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
+                        builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                        haveErrors = true
+                    }
+                } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
+                    builder.error(XPathBundle.message("parser.error.expected", ","))
+                    haveErrors = true
+                    parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ATTRIBUTE_TEST)
+            return true
+        }
+        return false
+    }
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    fun parseAttribNameOrWildcard(builder: PsiBuilder): Boolean {
+        return (
+            builder.matchTokenType(XPathTokenType.STAR) ||
+            parseEQNameOrWildcard(builder, ATTRIBUTE_NAME, false)
+        )
+    }
+
+    private fun parseSchemaAttributeTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ATTRIBUTE)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, ATTRIBUTE_DECLARATION, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.SCHEMA_ATTRIBUTE_TEST)
+            return true
+        }
+        return false
+    }
+
+    open fun parseElementTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseElementNameOrWildcard(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)) {
+                        builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                        haveErrors = true
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    builder.matchTokenType(XPathTokenType.OPTIONAL)
+                } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
+                    builder.error(XPathBundle.message("parser.error.expected", ","))
+                    haveErrors = true
+                    parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ELEMENT_TEST)
+            return true
+        }
+        return false
+    }
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
+        return (
+            builder.matchTokenType(XPathTokenType.STAR) ||
+            parseEQNameOrWildcard(builder, ELEMENT_NAME, false)
+        )
+    }
+
+    fun parseSchemaElementTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_SCHEMA_ELEMENT)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, ELEMENT_DECLARATION, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.SCHEMA_ELEMENT_TEST)
+            return true
+        }
+        return false
+    }
+
+    // endregion
     // region Lexical Structure :: Terminal Symbols
+
+    open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
 
     fun parseStringLiteral(builder: PsiBuilder): Boolean {
         return parseStringLiteral(builder, STRING_LITERAL)
@@ -252,19 +559,22 @@ open class XPathParser : PsiParser {
     open fun parseWhiteSpaceAndCommentTokens(builder: PsiBuilder): Boolean {
         var skipped = false
         while (true) {
-            if (builder.tokenType === XPathTokenType.WHITE_SPACE) {
-                skipped = true
-                builder.advanceLexer()
-            } else if (parseComment(builder)) {
-                skipped = true
-            } else {
-                return skipped
+            when {
+                builder.tokenType === XPathTokenType.WHITE_SPACE -> {
+                    skipped = true
+                    builder.advanceLexer()
+                }
+                parseComment(builder) -> skipped = true
+                else -> return skipped
             }
         }
     }
 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
+
+    open val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
+    open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
 
     fun parseEQNameOrWildcard(builder: PsiBuilder, type: IElementType, endQNameOnSpace: Boolean): Boolean {
         val marker = builder.mark()
@@ -283,7 +593,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): Boolean {
+    private fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): Boolean {
         val marker = builder.mark()
         if (parseBracedURILiteral(builder)) {
             val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
@@ -322,6 +632,9 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
 
+    open val NCNAME: IElementType = XPathElementType.NCNAME
+    open val QNAME: IElementType = XPathElementType.QNAME
+
     open fun parseQNameOrWildcard(
         builder: PsiBuilder,
         type: IElementType,
@@ -341,7 +654,9 @@ open class XPathParser : PsiParser {
 
             val nameMarker = builder.mark()
             if (parseQNameSeparator(builder, type)) {
-                if (parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)) {
+                if (
+                    parseQNameWhitespace(builder, QNamePart.LocalName, endQNameOnSpace, prefix === XPathTokenType.STAR)
+                ) {
                     nameMarker.rollbackTo()
                     if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                         marker.done(XPathElementType.WILDCARD)
@@ -395,7 +710,7 @@ open class XPathParser : PsiParser {
         URIQualifiedLiteralLocalName
     }
 
-    fun parseQNameNCName(
+    private fun parseQNameNCName(
         builder: PsiBuilder,
         partType: QNamePart,
         elementType: IElementType,
@@ -436,7 +751,7 @@ open class XPathParser : PsiParser {
         return null
     }
 
-    protected fun parseQNameWhitespace(
+    private fun parseQNameWhitespace(
         builder: PsiBuilder,
         type: QNamePart,
         endQNameOnWhitespace: Boolean,

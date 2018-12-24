@@ -1,0 +1,22 @@
+XPathImpl[FILE(0:36)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:36)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:36)]
+         XPathElementTestImpl[XPATH_ELEMENT_TEST(0:36)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            XPathQNameImpl[XPATH_QNAME(10:21)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:15)]('lorem')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(15:16)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:21)]('ipsum')
+            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+            LeafPsiElement[XPATH_COMMA_TOKEN(22:23)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            XPathTypeNameImpl[XPATH_TYPE_NAME(24:34)]
+               XPathQNameImpl[XPATH_QNAME(24:34)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:26)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(26:27)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(27:34)]('boolean')
+            PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(35:36)](')')

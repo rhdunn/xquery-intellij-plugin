@@ -1,0 +1,11 @@
+XQueryModuleImpl[FILE(0:6)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:6)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:6)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:6)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:6)]
+                  PluginAnyTextTestImpl[XPATH_ANY_TEXT_TEST(0:6)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
+                     PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected ')'.')

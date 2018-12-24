@@ -1,0 +1,1 @@
+attribute ( ns:enabled , xs:boolean )

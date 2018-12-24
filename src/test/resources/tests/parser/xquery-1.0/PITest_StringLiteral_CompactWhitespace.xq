@@ -1,1 +1,0 @@
-declare variable$one as processing-instruction("xml-stylesheet")external;

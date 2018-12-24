@@ -1,0 +1,10 @@
+XQueryModuleImpl[FILE(0:24)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:24)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:24)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:24)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:24)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:24)]
+                  XPathPITestImpl[XPATH_PI_TEST(0:24)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(22:23)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(23:24)](')')

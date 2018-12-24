@@ -66,6 +66,142 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
+    internal inner class NodeTest {
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (37) AnyKindTest")
+        internal inner class AnyKindTest {
+            @Test
+            @DisplayName("any kind test")
+            fun anyKindTest() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any kind test; compact whitespace")
+            fun anyKindTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (38) TextTest")
+        internal inner class TestTest {
+            @Test
+            @DisplayName("text test")
+            fun textTest() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_TextTest.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_TextTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("text test; compact whitespace")
+            fun textTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_TextTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_TextTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_TextTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_TextTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (39) CommentTest")
+        internal inner class CommentTest {
+            @Test
+            @DisplayName("comment test")
+            fun commentTest() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_CommentTest.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_CommentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("comment test; compact whitespace")
+            fun commentTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_CommentTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_CommentTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_CommentTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_CommentTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (40) PITest")
+        internal inner class PITest {
+            @Test
+            @DisplayName("processing instruction test")
+            fun piTest() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_PITest.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_PITest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("processing instruction test; compact whitespace")
+            fun piTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_PITest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_PITest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-1.0/NodeTest_PITest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/NodeTest_PITest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("StringLiteral")
+            internal inner class StringLiteral {
+                @Test
+                @DisplayName("string literal")
+                fun stringLiteral() {
+                    val expected = loadResource("tests/parser/xpath-1.0/NodeTest_PITest_StringLiteral.txt")
+                    val actual = parseResource("tests/parser/xpath-1.0/NodeTest_PITest_StringLiteral.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("string literal; compact whitespace")
+                fun stringLiteral_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-1.0/NodeTest_PITest_StringLiteral_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-1.0/NodeTest_PITest_StringLiteral_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (41) StringLiteral")
     internal inner class StringLiteral_XPath10 {
         @Test
@@ -334,6 +470,418 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (35) NodeTest ; XPath 2.0 EBNF (54) KindTest")
+    internal inner class NodeTest_XPath20 {
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (56) DocumentTest")
+        internal inner class DocumentTest {
+            @Test
+            @DisplayName("document test")
+            fun documentTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("document test; compact whitespace")
+            fun documentTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("document test + element test")
+            fun elementTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_ElementTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_ElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("document test + element test; compact whitespace")
+            fun elementTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_ElementTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_ElementTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("document test + schema element test")
+            fun schemaElementTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_SchemaElementTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_SchemaElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("document test + schema element test; compact whitespace")
+            fun schemaElementTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_SchemaElementTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_DocumentTest_SchemaElementTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (59) PITest")
+        internal inner class PITest {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_PITest_NCName.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_PITest_NCName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("NCName; compact whitespace")
+            fun ncname_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_PITest_NCName_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_PITest_NCName_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (60) AttributeTest")
+        internal inner class AttributeTest {
+            @Test
+            @DisplayName("attribute test")
+            fun attributeTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute test; compact whitespace")
+            fun attributeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("XPath 2.0 EBNF (61) AttribNameOrWildcard")
+            internal inner class AttribNameOrWildcard {
+                @Test
+                @DisplayName("ncname")
+                fun ncname() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("ncname: compact whitespace")
+                fun ncname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_NCName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname")
+                fun qname() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname: compact whitespace")
+                fun qname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_QName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard: compact whitespace")
+                fun wildcard_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 2.0 EBNF (70) TypeName")
+            internal inner class TypeName {
+                @Test
+                @DisplayName("type name")
+                fun typeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("type name: compact whitespace")
+                fun typeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name")
+                fun typeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing comma")
+                fun typeName_MissingComma() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingComma.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_AttributeTest_TypeName_MissingComma.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (62) SchemaAttributeTest")
+        internal inner class SchemaAttributeTest {
+            @Test
+            @DisplayName("schema attribute test")
+            fun schemaAttributeTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema attribute test; compact whitespace")
+            fun schemaAttributeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing attribute declaration")
+            fun missingAttributeDeclaration() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest_MissingAttributeDeclaration.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaAttributeTest_MissingAttributeDeclaration.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (64) ElementTest")
+        internal inner class ElementTest {
+            @Test
+            @DisplayName("element test")
+            fun elementTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("element test; compact whitespace")
+            fun elementTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Nested
+            @DisplayName("XPath 2.0 EBNF (65) ElementNameOrWildcard")
+            internal inner class ElementNameOrWildcard {
+                @Test
+                @DisplayName("ncname")
+                fun ncname() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_NCName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_NCName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("ncname: compact whitespace")
+                fun ncname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_NCName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_NCName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname")
+                fun qname() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_QName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_QName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("qname: compact whitespace")
+                fun qname_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_QName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_QName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard")
+                fun wildcard() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_Wildcard.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_Wildcard.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("wildcard: compact whitespace")
+                fun wildcard_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_Wildcard_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_Wildcard_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 1.0 EBNF (139) TypeName")
+            internal inner class TypeName {
+                @Test
+                @DisplayName("type name")
+                fun typeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("type name: compact whitespace")
+                fun typeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name")
+                fun typeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing comma")
+                fun typeName_MissingComma() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingComma.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_MissingComma.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("optional type name")
+                fun optionalTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("optional type name: compact whitespace")
+                fun optionalTypeName_CompactWhitespace() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_CompactWhitespace.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type name on optional type name")
+                fun optionalTypeName_MissingTypeName() {
+                    val expected = loadResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_MissingTypeName.txt")
+                    val actual = parseResource("tests/parser/xpath-2.0/NodeTest_ElementTest_TypeName_Optional_MissingTypeName.xq")
+                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (66) SchemaElementTest")
+        internal inner class SchemaElementTest {
+            @Test
+            @DisplayName("schema element test")
+            fun schemaElementTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("schema element test; compact whitespace")
+            fun schemaElementTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing element declaration")
+            fun missingElementDeclaration() {
+                val expected = loadResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest_MissingElementDeclaration.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/NodeTest_SchemaElementTest_MissingElementDeclaration.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (36) NameTest")
     internal inner class NameTest_XPath20 {
         @Nested
@@ -430,6 +978,38 @@ private class XPathParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/xpath-2.0/Comment_UnexpectedCommentEndTag.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (45) NodeTest ; XPath 3.0 EBNF (71) KindTest")
+    internal inner class NodeTest_XPath30 {
+        @Nested
+        @DisplayName("XPath 3.0 EBNF (76) NamespaceNodeTest")
+        internal inner class NamespaceNodeTest {
+            @Test
+            @DisplayName("namespace node test")
+            fun namespaceNodeTest() {
+                val expected = loadResource("tests/parser/xpath-3.0/NodeTest_NamespaceNodeTest.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NodeTest_NamespaceNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("namespace node test; compact whitespace")
+            fun namespaceNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-3.0/NodeTest_NamespaceNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NodeTest_NamespaceNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-3.0/NodeTest_NamespaceNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/NodeTest_NamespaceNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

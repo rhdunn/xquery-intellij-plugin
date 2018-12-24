@@ -1,0 +1,13 @@
+XQueryModuleImpl[FILE(0:20)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:20)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:20)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:20)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:20)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:20)]
+                  XPathSchemaAttributeTestImpl[XPATH_SCHEMA_ATTRIBUTE_TEST(0:20)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(0:16)]('schema-attribute')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                     PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Missing qualified name or braced URI qualified name.')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(19:20)](')')

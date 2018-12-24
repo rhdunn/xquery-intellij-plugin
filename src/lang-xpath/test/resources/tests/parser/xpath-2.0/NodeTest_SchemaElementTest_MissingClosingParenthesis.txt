@@ -1,0 +1,13 @@
+XPathImpl[FILE(0:28)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:28)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:28)]
+         XPathSchemaElementTestImpl[XPATH_SCHEMA_ELEMENT_TEST(0:28)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(0:14)]('schema-element')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            XPathQNameImpl[XPATH_QNAME(17:28)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:22)]('lorem')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(22:23)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:28)]('ipsum')
+            PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected ')'.')

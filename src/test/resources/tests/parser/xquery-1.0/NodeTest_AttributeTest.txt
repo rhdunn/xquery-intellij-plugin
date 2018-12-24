@@ -1,14 +1,12 @@
-XQueryModuleImpl[FILE(0:15)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:15)]
-            XPathOrExprImpl[XPATH_OR_EXPR(0:15)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(0:15)]
-                  XPathAttributeTestImpl[XPATH_ATTRIBUTE_TEST(0:15)]
+XQueryModuleImpl[FILE(0:13)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:13)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:13)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:13)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:13)]
+               XPathNodeTestImpl[XPATH_NODE_TEST(0:13)]
+                  XPathAttributeTestImpl[XPATH_ATTRIBUTE_TEST(0:13)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                     PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(12:13)]('*')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(12:13)](')')

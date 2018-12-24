@@ -1,1 +1,0 @@
-declare variable $ one as attribute ( ns:enabled , ) external ;

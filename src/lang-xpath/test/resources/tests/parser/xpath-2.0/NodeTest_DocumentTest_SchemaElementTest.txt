@@ -1,0 +1,19 @@
+XPathImpl[FILE(0:48)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:48)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:48)]
+         XPathDocumentTestImpl[XPATH_DOCUMENT_TEST(0:48)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DOCUMENT_NODE(0:13)]('document-node')
+            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+            XPathSchemaElementTestImpl[XPATH_SCHEMA_ELEMENT_TEST(16:46)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(16:30)]('schema-element')
+               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(33:45)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(33:44)]('lorem-ipsum')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(47:48)](')')

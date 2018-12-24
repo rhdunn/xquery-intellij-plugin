@@ -1,1 +1,0 @@
-declare variable$one as text()external;
