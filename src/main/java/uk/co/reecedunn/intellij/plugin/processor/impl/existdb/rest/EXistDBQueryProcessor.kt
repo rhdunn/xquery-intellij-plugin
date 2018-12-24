@@ -34,7 +34,8 @@ private val POST_QUERY = Resources.load("queries/existdb/post-query.xml")!!.deco
 
 val VERSION_QUERY = Resources.load("queries/existdb/version.xq")!!.decode()
 
-internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
+internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) :
+    QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
         eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
             query.run().then { results -> results.first().value }
