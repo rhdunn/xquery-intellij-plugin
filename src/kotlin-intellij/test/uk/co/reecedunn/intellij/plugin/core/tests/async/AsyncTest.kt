@@ -395,7 +395,8 @@ private class AsyncTest : PlatformLiteFixture() {
             assertThat(test.pooledCallCount, `is`(0))
 
             val e = test.pooled.execute()
-            assertThat(test.pooledCallCount, `is`(0))
+            waitForCallback { test.pooledCallCount == 1 }
+            assertThat(test.pooledCallCount, `is`(1))
 
             assertThat(e.get(), `is`(2))
             assertThat(test.pooledCallCount, `is`(1))
