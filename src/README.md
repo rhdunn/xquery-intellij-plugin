@@ -18,9 +18,10 @@
 |-------------------|-------------|
 | `lang-core`       | Custom language support helper classes and functions. |
 | `lang-xdm`        | XQuery and XPath data model. |
-| `lang-xpath`      | XPath language support. |
+| `lang-xpath`      | XPath language support for XSLT and XQuery. |
 
 ## Plugin
 | Package           | Description |
 |-------------------|-------------|
 | `plugin-api`      | An API for integrating thirdparty applications and libraries. |
+| `plugin-basex`    | Support for the BaseX database. |

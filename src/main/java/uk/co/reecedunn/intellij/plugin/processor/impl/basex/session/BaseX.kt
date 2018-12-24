@@ -23,8 +23,6 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceMan
 import java.io.File
 import java.net.UnknownHostException
 
-val VERSION_QUERY = Resources.load("queries/basex/version.xq")!!.decode()
-
 internal fun mapType(type: String?): String? {
     return if (type == "xs:dateTimeStamp") // BaseX does not support XML Schema 1.1 Part 2
         "xs:dateTime"

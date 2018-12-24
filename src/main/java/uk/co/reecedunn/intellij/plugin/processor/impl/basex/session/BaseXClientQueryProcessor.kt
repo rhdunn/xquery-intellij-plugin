@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.impl.basex.session
 
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
@@ -26,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) :
     QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
+        eval(BaseXQueries.Version, MimeTypes.XQUERY).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
