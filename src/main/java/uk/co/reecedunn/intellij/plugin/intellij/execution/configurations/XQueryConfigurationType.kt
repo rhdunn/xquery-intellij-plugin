@@ -19,7 +19,6 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.util.IconLoader
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import javax.swing.Icon
 
