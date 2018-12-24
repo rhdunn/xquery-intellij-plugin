@@ -22,7 +22,8 @@ import java.io.File
 import java.io.InputStream
 import javax.xml.transform.stream.StreamSource
 
-class Saxon(path: File, private val config: InputStream?) : QueryProcessorInstanceManager {
+class Saxon(path: File, private val config: InputStream?) :
+    QueryProcessorInstanceManager {
     private val classes = SaxonClasses(path)
 
     override fun create(): QueryProcessor {
