@@ -10,3 +10,4 @@ include 'src:lang-xpath'
 
 include 'src:plugin-api'
 include 'src:plugin-basex'
+include 'src:plugin-existdb'

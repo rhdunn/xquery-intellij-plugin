@@ -135,6 +135,7 @@ dependencies {
     compile project(':src:lang-xpath')
     compile project(':src:plugin-api')
     compile project(':src:plugin-basex')
+    compile project(':src:plugin-existdb')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
@@ -143,12 +144,14 @@ dependencies {
     testCompile project(':src:lang-xpath')
     testCompile project(':src:plugin-api')
     testCompile project(':src:plugin-basex')
+    testCompile project(':src:plugin-existdb')
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
     integrationTestCompile project(':src:kotlin-hamcrest')
     integrationTestCompile project(':src:plugin-api')
     integrationTestCompile project(':src:plugin-basex')
+    integrationTestCompile project(':src:plugin-existdb')
 
     integrationTestRuntime configurations.testRuntime
 }

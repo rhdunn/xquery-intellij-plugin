@@ -25,3 +25,4 @@
 |-------------------|-------------|
 | `plugin-api`      | An API for integrating thirdparty applications and libraries. |
 | `plugin-basex`    | Support for the BaseX database. |
+| `plugin-existdb`  | Support for the eXist database. |

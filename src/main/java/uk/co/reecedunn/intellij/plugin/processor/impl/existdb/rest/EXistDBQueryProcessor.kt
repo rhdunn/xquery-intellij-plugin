@@ -20,24 +20,19 @@ import org.apache.http.entity.StringEntity
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
-import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
+import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-private val POST_QUERY = Resources.load("queries/existdb/post-query.xml")!!.decode()
-
-val VERSION_QUERY = Resources.load("queries/existdb/version.xq")!!.decode()
-
 internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) :
     QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(VERSION_QUERY, MimeTypes.XQUERY).use { query ->
+        eval(EXistDBQueries.Version, MimeTypes.XQUERY).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
@@ -47,7 +42,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {
-                val xml = XmlDocument.parse(POST_QUERY)
+                val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
                 xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query))
                 val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())
