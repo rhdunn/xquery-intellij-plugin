@@ -28,7 +28,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
 
-internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) : Query {
+internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) :
+    Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }

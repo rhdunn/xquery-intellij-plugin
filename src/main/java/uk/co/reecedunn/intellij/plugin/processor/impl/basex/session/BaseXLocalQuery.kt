@@ -20,7 +20,8 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class BaseXLocalQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : Query {
+internal class BaseXLocalQuery(val session: Any, val queryString: String, val classes: BaseXClasses) :
+    Query {
     private var basexQuery: Any? = null
     val query: Any
         get() {

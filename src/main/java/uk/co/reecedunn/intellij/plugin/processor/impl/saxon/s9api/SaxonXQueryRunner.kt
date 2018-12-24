@@ -21,7 +21,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.xml.transform.ErrorListener
 
-internal class SaxonXQueryRunner(val processor: Any, val query: String, val classes: SaxonClasses) : Query {
+internal class SaxonXQueryRunner(val processor: Any, val query: String, val classes: SaxonClasses) :
+    Query {
     private val errorListener: ErrorListener = SaxonErrorListener(classes)
 
     private val compiler by lazy {

@@ -25,7 +25,8 @@ import uk.co.reecedunn.intellij.plugin.processor.impl.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : Query {
+internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) :
+    Query {
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }
