@@ -21,52 +21,12 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.processor.impl.basex.session.BaseXQueryError
+import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXQueryError
 import uk.co.reecedunn.intellij.plugin.processor.impl.existdb.rest.EXistDBQueryError
 import uk.co.reecedunn.intellij.plugin.processor.impl.marklogic.rest.MarkLogicQueryError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - QueryError")
 class QueryErrorTest {
-    @Nested
-    @DisplayName("BaseX")
-    internal inner class BaseX {
-        @Test
-        @DisplayName("with context")
-        fun withContext() {
-            val e = BaseXQueryError("Stopped at ., 1/7:\r\n[XPST0003] Incomplete expression.")
-            assertThat(e.standardCode, `is`("XPST0003"))
-            assertThat(e.vendorCode, `is`(nullValue()))
-            assertThat(e.description, `is`("Incomplete expression."))
-            assertThat(e.module, `is`(nullValue()))
-            assertThat(e.lineNumber, `is`(1))
-            assertThat(e.columnNumber, `is`(7))
-        }
-
-        @Test
-        @DisplayName("with context as line/column")
-        fun withContextAsLineColumn() {
-            val e = BaseXQueryError("Stopped at line 1, column 7:\r\n[XPST0003] Incomplete expression.")
-            assertThat(e.standardCode, `is`("XPST0003"))
-            assertThat(e.vendorCode, `is`(nullValue()))
-            assertThat(e.description, `is`("Incomplete expression."))
-            assertThat(e.module, `is`(nullValue()))
-            assertThat(e.lineNumber, `is`(1))
-            assertThat(e.columnNumber, `is`(7))
-        }
-
-        @Test
-        @DisplayName("without context")
-        fun withoutContext() {
-            val e = BaseXQueryError("[XPST0003] Unknown type: array-node().")
-            assertThat(e.standardCode, `is`("XPST0003"))
-            assertThat(e.vendorCode, `is`(nullValue()))
-            assertThat(e.description, `is`("Unknown type: array-node()."))
-            assertThat(e.module, `is`(nullValue()))
-            assertThat(e.lineNumber, `is`(nullValue()))
-            assertThat(e.columnNumber, `is`(nullValue()))
-        }
-    }
-
     @Nested
     @DisplayName("eXist-db")
     internal inner class EXistDB {
