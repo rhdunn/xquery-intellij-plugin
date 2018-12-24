@@ -21,30 +21,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import java.lang.UnsupportedOperationException
 import java.net.UnknownHostException
 
-abstract class QueryError : RuntimeException() {
-    override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
-
-    abstract val standardCode: String
-
-    abstract val vendorCode: String?
-
-    abstract val description: String?
-
-    abstract val module: String?
-
-    abstract val lineNumber: Int?
-
-    abstract val columnNumber: Int?
-}
-
-class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")
-
-class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsupported JAR file for $jarType.")
-
-class MissingHostNameException() : RuntimeException("Missing hostname.")
-
-class UnsupportedQueryType(val mimetype: String) : RuntimeException("Unsupported query type: ${mimetype}")
-
 fun Throwable.toQueryUserMessage(): String {
     return when (this) {
         is MissingJarFileException ->
