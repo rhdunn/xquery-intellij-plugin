@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.functions.tests
+package uk.co.reecedunn.intellij.plugin.xpath.tests.functions
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -21,8 +21,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op.UndeclaredNamespacePrefixException
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xpath.functions.UndeclaredNamespacePrefixException
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")
 class PluginFunctionsAndOperatorsTest {

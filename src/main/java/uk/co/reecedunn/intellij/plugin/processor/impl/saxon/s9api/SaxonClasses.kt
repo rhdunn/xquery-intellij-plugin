@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.impl.saxon.s9api
 
-import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xpath.functions.op_qname_parse
 import java.io.File
 import java.lang.reflect.InvocationTargetException
 import java.net.URLClassLoader
