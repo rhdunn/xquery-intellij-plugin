@@ -137,6 +137,7 @@ dependencies {
     compile project(':src:plugin-basex')
     compile project(':src:plugin-existdb')
     compile project(':src:plugin-marklogic')
+    compile project(':src:plugin-saxon')
 
     testCompile project(':src:kotlin-hamcrest')
     testCompile project(':src:intellij-mock')
@@ -147,6 +148,7 @@ dependencies {
     testCompile project(':src:plugin-basex')
     testCompile project(':src:plugin-existdb')
     testCompile project(':src:plugin-marklogic')
+    testCompile project(':src:plugin-saxon')
 
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.main.output
@@ -155,6 +157,7 @@ dependencies {
     integrationTestCompile project(':src:plugin-basex')
     integrationTestCompile project(':src:plugin-existdb')
     integrationTestCompile project(':src:plugin-marklogic')
+    integrationTestCompile project(':src:plugin-saxon')
 
     integrationTestRuntime configurations.testRuntime
 }

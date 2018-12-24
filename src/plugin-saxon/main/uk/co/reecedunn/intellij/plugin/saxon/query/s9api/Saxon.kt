@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.impl.saxon.s9api
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
@@ -27,7 +27,9 @@ class Saxon(path: File, private val config: InputStream?) :
     private val classes = SaxonClasses(path)
 
     override fun create(): QueryProcessor {
-        return SaxonQueryProcessor(classes, config?.let { StreamSource(it) })
+        return SaxonQueryProcessor(
+            classes,
+            config?.let { StreamSource(it) })
     }
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {

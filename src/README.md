@@ -27,3 +27,4 @@
 | `plugin-basex`     | Support for the BaseX database. |
 | `plugin-existdb`   | Support for the eXist database. |
 | `plugin-marklogic` | Support for the MarkLogic database. |
+| `plugin-saxon`     | Support for the Saxon XSLT, XPath, and XQuery processor. |

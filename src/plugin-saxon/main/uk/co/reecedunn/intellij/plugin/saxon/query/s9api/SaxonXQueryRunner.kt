@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.impl.saxon.s9api
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
@@ -23,7 +23,8 @@ import javax.xml.transform.ErrorListener
 
 internal class SaxonXQueryRunner(val processor: Any, val query: String, val classes: SaxonClasses) :
     Query {
-    private val errorListener: ErrorListener = SaxonErrorListener(classes)
+    private val errorListener: ErrorListener =
+        SaxonErrorListener(classes)
 
     private val compiler by lazy {
         val ret = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)

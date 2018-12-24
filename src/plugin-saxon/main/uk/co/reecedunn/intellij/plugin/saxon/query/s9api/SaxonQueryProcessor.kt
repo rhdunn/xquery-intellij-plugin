@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.impl.saxon.s9api
+package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
@@ -44,7 +44,11 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
 
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
-            MimeTypes.XQUERY -> SaxonXQueryRunner(processor, query, classes)
+            MimeTypes.XQUERY -> SaxonXQueryRunner(
+                processor,
+                query,
+                classes
+            )
             else -> throw UnsupportedQueryType(mimetype)
         }
     }
