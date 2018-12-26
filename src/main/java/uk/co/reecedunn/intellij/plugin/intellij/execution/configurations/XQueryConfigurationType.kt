@@ -17,21 +17,12 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
-import com.intellij.openapi.application.ApplicationInfo
-import com.intellij.openapi.util.IconLoader
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import javax.swing.Icon
 
-private val FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png")
-private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png")
-
 class XQueryConfigurationType : ConfigurationType {
-    override fun getIcon(): Icon {
-        return if (ApplicationInfo.getInstance().build.baselineVersion >= 163)
-            FILETYPE_ICON_163
-        else
-            FILETYPE_ICON
-    }
+    override fun getIcon(): Icon = XQueryIcons.XQueryFile
 
     override fun getConfigurationTypeDescription(): String = displayName
 

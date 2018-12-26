@@ -16,10 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
 import com.intellij.lexer.Lexer
-import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.IconLoader
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
@@ -27,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
 import java.nio.charset.UnsupportedCharsetException
@@ -35,21 +34,13 @@ import javax.swing.Icon
 object XQueryFileType : LanguageFileType(XQuery) {
     private val UTF_8 = Charset.forName("UTF-8")
 
-    private val FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png")
-    private val FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png")
-
     override fun getName(): String = "XQuery"
 
     override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")
 
     override fun getDefaultExtension(): String = "xqy"
 
-    override fun getIcon(): Icon? {
-        return if (ApplicationInfo.getInstance().build.baselineVersion >= 163)
-            FILETYPE_ICON_163
-        else
-            FILETYPE_ICON
-    }
+    override fun getIcon(): Icon? = XQueryIcons.XQueryFile
 
     private fun matchToken(lexer: Lexer, type: IElementType): Boolean {
         val match = lexer.tokenType === type
