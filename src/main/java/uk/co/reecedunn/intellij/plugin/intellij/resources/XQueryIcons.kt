@@ -29,5 +29,5 @@ object XQueryIcons {
             getIcon(oldPath)
     }
 
-    val XQueryFile: Icon = getIcon("/icons/xquery.png", "/icons/xquery-163.png")
+    val XQueryFile: Icon = getIcon("/icons/xquery.png", "/icons/xquery-163.svg")
 }

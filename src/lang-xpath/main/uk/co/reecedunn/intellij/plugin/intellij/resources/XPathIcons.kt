@@ -29,5 +29,5 @@ object XPathIcons {
             getIcon(oldPath)
     }
 
-    val XPathFile: Icon = getIcon("/icons/xpath.png", "/icons/xpath-163.png")
+    val XPathFile: Icon = getIcon("/icons/xpath.png", "/icons/xpath-163.svg")
 }
