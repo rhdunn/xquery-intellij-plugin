@@ -15,19 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
-import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
 object XQueryIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XQueryIcons::class.java)
 
-    private fun getIcon(oldPath: String, newPath: String): Icon {
-        return if (ApplicationInfo.getInstance().build.baselineVersion >= 163)
-            getIcon(newPath)
-        else
-            getIcon(oldPath)
-    }
-
-    val XQueryFile: Icon = getIcon("/icons/xquery.png", "/icons/xquery-163.svg")
+    val XQueryFile: Icon = getIcon("/icons/xquery-163.svg")
 }
