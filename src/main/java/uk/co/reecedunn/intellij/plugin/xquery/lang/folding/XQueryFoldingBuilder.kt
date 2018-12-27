@@ -15,6 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang.folding
 
-import uk.co.reecedunn.intellij.plugin.core.lang.folding.FoldingBuilderImpl
+import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl
 
 class XQueryFoldingBuilder : FoldingBuilderImpl()
