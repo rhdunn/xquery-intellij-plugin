@@ -64,6 +64,8 @@
     <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
     <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
 
+    <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
+
     <!-- XML Query Language Support -->
 
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
@@ -76,7 +78,7 @@
 
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryPairedBraceMatcher"/>
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryCommenter"/>
-    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder"/>
+    <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
     <!-- References and Resolve -->
 
