@@ -134,6 +134,7 @@ dependencies {
     compile project(':src:lang-xdm')
     compile project(':src:lang-xpath')
     compile project(':src:lang-xquery')
+    compile project(':src:lang-xqdoc')
     compile project(':src:plugin-api')
     compile project(':src:plugin-basex')
     compile project(':src:plugin-existdb')

@@ -38,14 +38,15 @@ private const val STATE_XQUERY_CONTENTS = 11
 // region Special Tag Names
 
 private val TAG_NAMES = mapOf(
-        "author" to XQDocTokenType.T_AUTHOR,
-        "deprecated" to XQDocTokenType.T_DEPRECATED,
-        "error" to XQDocTokenType.T_ERROR,
-        "param" to XQDocTokenType.T_PARAM,
-        "return" to XQDocTokenType.T_RETURN,
-        "see" to XQDocTokenType.T_SEE,
-        "since" to XQDocTokenType.T_SINCE,
-        "version" to XQDocTokenType.T_VERSION)
+    "author" to XQDocTokenType.T_AUTHOR,
+    "deprecated" to XQDocTokenType.T_DEPRECATED,
+    "error" to XQDocTokenType.T_ERROR,
+    "param" to XQDocTokenType.T_PARAM,
+    "return" to XQDocTokenType.T_RETURN,
+    "see" to XQDocTokenType.T_SEE,
+    "since" to XQDocTokenType.T_SINCE,
+    "version" to XQDocTokenType.T_VERSION
+)
 
 // endregion
 
@@ -253,11 +254,13 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             -> {
                 mTokenRange.match()
                 cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (cc == CharacterClass.NAME_START_CHAR ||
-                        cc == CharacterClass.DIGIT ||
-                        cc == CharacterClass.DOT ||
-                        cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR) {
+                while (
+                    cc == CharacterClass.NAME_START_CHAR ||
+                    cc == CharacterClass.DIGIT ||
+                    cc == CharacterClass.DOT ||
+                    cc == CharacterClass.HYPHEN_MINUS ||
+                    cc == CharacterClass.NAME_CHAR
+                ) {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
@@ -371,18 +374,20 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateAttributeValue(endChar: Int) {
         var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-        } else if (c == endChar) {
-            mTokenRange.match()
-            mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
-            popState()
-        } else {
-            while (c != CodePointRange.END_OF_BUFFER && c != endChar) {
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> mType = null
+            endChar -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
+                popState()
             }
-            mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+            else -> {
+                while (c != CodePointRange.END_OF_BUFFER && c != endChar) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+            }
         }
     }
 

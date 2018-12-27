@@ -19,6 +19,7 @@
 | `lang-core`       | Custom language support helper classes and functions. |
 | `lang-xdm`        | XQuery and XPath data model. |
 | `lang-xpath`      | XPath language support for XSLT and XQuery. |
+| `lang-xqdoc`      | xqDoc documentation support. |
 | `lang-xquery`     | XQuery language support. |
 
 ## Plugin

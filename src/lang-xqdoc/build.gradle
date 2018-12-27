@@ -1,0 +1,10 @@
+sourceSets.main.java.srcDirs += 'main'
+sourceSets.test.java.srcDirs += 'test'
+
+dependencies {
+    compile project(':src:lang-core')
+    compile project(':src:lang-xquery')
+
+    testCompile project(':src:intellij-mock')
+    testCompile project(':src:kotlin-hamcrest')
+}
