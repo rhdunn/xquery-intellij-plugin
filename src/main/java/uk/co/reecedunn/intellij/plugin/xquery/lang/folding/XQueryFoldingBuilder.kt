@@ -109,7 +109,6 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? {
         return node.psi?.let {
             when (it) {
-                is XPathEnclosedExpr -> "{...}"
                 is FoldablePsiElement -> it.foldingPlaceholderText
                 else -> "..."
             }

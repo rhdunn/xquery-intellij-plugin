@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.lang.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
@@ -28,19 +30,30 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
 private val MARKLOGIC60: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, MarkLogic.VERSION_6_0)
 
-open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnclosedExpr,
-    VersionConformance {
-    private fun previousVersionSupportsOptionalExpr(parent: PsiElement): Boolean =
-        parent is XQueryCompPIConstructor ||
-        parent is XQueryCompAttrConstructor ||
-        parent is XQueryExtensionExpr ||
-        parent is XPathCurlyArrayConstructor
+open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathEnclosedExpr,
+    VersionConformance,
+    FoldablePsiElement {
+    // region VersionConformance
 
-    private fun marklogicSupportsOptionalExpr(parent: PsiElement): Boolean =
-        parent is XQueryCompTextConstructor ||
-        parent is XQueryDirAttributeValue ||
-        parent is XQueryDirElemContent ||
-        parent is XQueryCatchClause
+    private fun previousVersionSupportsOptionalExpr(parent: PsiElement): Boolean {
+        return (
+            parent is XQueryCompPIConstructor ||
+            parent is XQueryCompAttrConstructor ||
+            parent is XQueryExtensionExpr ||
+            parent is XPathCurlyArrayConstructor
+        )
+    }
+
+    private fun marklogicSupportsOptionalExpr(parent: PsiElement): Boolean {
+        return (
+            parent is XQueryCompTextConstructor ||
+            parent is XQueryDirAttributeValue ||
+            parent is XQueryDirElemContent ||
+            parent is XQueryCatchClause
+        )
+    }
 
     override val requiresConformance
         get(): List<Version> {
@@ -55,4 +68,13 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
         }
 
     override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType.EXPR) ?: firstChild
+
+    // endregion
+    // region FoldablePsiElement
+
+    override val foldingRange: TextRange? get() = textRange
+
+    override val foldingPlaceholderText: String? = "{...}"
+
+    // endregion
 }
