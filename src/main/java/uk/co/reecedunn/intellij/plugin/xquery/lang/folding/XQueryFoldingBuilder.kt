@@ -21,10 +21,10 @@ import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.lang.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -80,7 +80,8 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         }
 
         return when (element) {
-            is XPathEnclosedExpr, is XPathComment ->
+            is FoldablePsiElement -> element.foldingRange
+            is XPathEnclosedExpr ->
                 element.textRange
             is XQueryDirElemConstructor ->
                 getDirElemConstructorRange(element)
@@ -106,29 +107,14 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     }
 
     override fun getPlaceholderText(node: ASTNode): String? {
-        return when (node.psi) {
-            is XPathEnclosedExpr ->
-                "{...}"
-            is XPathComment -> {
-                val text = node.text
-                val parser =
-                    if (text.endsWith(":)"))
-                        XQueryCommentLineExtractor(text.subSequence(2, text.length - 2))
-                    else
-                        XQueryCommentLineExtractor(text.subSequence(2, text.length))
-                if (parser.next()) {
-                    if (parser.isXQDoc)
-                        "(:~ ${parser.text} :)"
-                    else
-                        "(: ${parser.text} :)"
-                } else
-                    "(:...:)"
+        return node.psi?.let {
+            when (it) {
+                is XPathEnclosedExpr -> "{...}"
+                is FoldablePsiElement -> it.foldingPlaceholderText
+                else -> "..."
             }
-            else ->
-                "..."
         }
     }
 
-    override fun isCollapsedByDefault(node: ASTNode): Boolean =
-        false
+    override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 }

@@ -8,6 +8,7 @@ dependencies {
     compile project(':src:intellij-compat')
     compile project(':src:lang-core')
     compile project(':src:lang-xdm')
+    compile project(':src:lang-xqdoc')
 
     testCompile project(':src:intellij-mock')
     testCompile project(':src:kotlin-hamcrest')

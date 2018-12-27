@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016; 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,35 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
+import uk.co.reecedunn.intellij.plugin.core.lang.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
 
-class XPathCommentPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathComment
+class XPathCommentPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathComment,
+    FoldablePsiElement {
+    // region FoldablePsiElement
+
+    override val foldingRange: TextRange? get() = textRange
+
+    override val foldingPlaceholderText: String?
+        get() {
+            val text = this.text
+            val parser =
+                if (text.endsWith(":)"))
+                    XQueryCommentLineExtractor(text.subSequence(2, text.length - 2))
+                else
+                    XQueryCommentLineExtractor(text.subSequence(2, text.length))
+            return if (parser.next()) {
+                if (parser.isXQDoc)
+                    "(:~ ${parser.text} :)"
+                else
+                    "(: ${parser.text} :)"
+            } else
+                "(:...:)"
+        }
+
+    // endregion
+}
