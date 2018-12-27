@@ -23,6 +23,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.lang.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
@@ -31,72 +32,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import java.util.*
 
 class XQueryFoldingBuilder : FoldingBuilderEx() {
-    private fun getDirElemConstructorRange(element: PsiElement): TextRange? {
-        var hasEnclosedExprOnlyContent = false
-        var hasMultiLineAttributes = false
-
-        val contents = element.node.findChildByType(XQueryElementType.DIR_ELEM_CONTENT)
-        if (contents != null) {
-            val first = contents.firstChildNode
-            val last = contents.lastChildNode
-            if (first === last && first.elementType === XQueryElementType.ENCLOSED_EXPR) {
-                hasEnclosedExprOnlyContent = true
-            }
-        }
-
-        var start: PsiElement? = element.firstChild
-        if (start!!.node.elementType === XQueryTokenType.OPEN_XML_TAG)
-            start = start!!.nextSibling
-        if (start!!.node.elementType === XQueryTokenType.XML_WHITE_SPACE)
-            start = start!!.nextSibling
-        if (start!!.node.elementType === XQueryElementType.NCNAME || start!!.node.elementType === XQueryElementType.QNAME)
-            start = start!!.nextSibling
-        if (start?.node?.elementType === XQueryTokenType.XML_WHITE_SPACE)
-            start = start.nextSibling
-        if (start?.node?.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
-            hasMultiLineAttributes = start.textContains('\n')
-            if (!hasMultiLineAttributes) {
-                start = start.nextSibling
-            }
-        }
-
-        val end = element.lastChild
-        val endOffset =
-            if (end.node.elementType === XQueryTokenType.CLOSE_XML_TAG || end.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG) {
-                end.prevSibling.textRange.endOffset
-            } else {
-                end.textRange.startOffset
-            }
-
-        if (hasEnclosedExprOnlyContent && !hasMultiLineAttributes || start == null) {
-            return null
-        }
-        return TextRange(start.textRange.startOffset, endOffset)
-    }
-
-    private fun getRange(element: PsiElement): TextRange? {
+    private fun getRange(element: FoldablePsiElement): TextRange? {
         if (!element.textContains('\n')) {
             return null
         }
-
-        return when (element) {
-            is FoldablePsiElement -> element.foldingRange
-            is XPathEnclosedExpr ->
-                element.textRange
-            is XQueryDirElemConstructor ->
-                getDirElemConstructorRange(element)
-            else ->
-                null
-        }
+        return element.foldingRange
     }
 
     private fun createFoldRegions(element: PsiElement, descriptors: MutableList<FoldingDescriptor>) {
-        element.children().forEach { child ->
+        element.walkTree().filterIsInstance<FoldablePsiElement>().forEach { child ->
             val range = getRange(child)
             if (range != null && range.length > 0) {
                 descriptors.add(FoldingDescriptor(child, range))
             }
-            createFoldRegions(child, descriptors)
         }
     }
 
@@ -107,12 +55,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     }
 
     override fun getPlaceholderText(node: ASTNode): String? {
-        return node.psi?.let {
-            when (it) {
-                is FoldablePsiElement -> it.foldingPlaceholderText
-                else -> "..."
-            }
-        }
+        return (node.psi as? FoldablePsiElement)?.foldingPlaceholderText
     }
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false

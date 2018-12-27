@@ -17,14 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.lang.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQueryCommentLineExtractor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    XQueryDirElemConstructor {
+    XQueryDirElemConstructor,
+    FoldablePsiElement {
+    // region XQueryDirElemConstructor
 
     override val openTag get(): XsQNameValue? = findChildByClass(XPathEQName::class.java) as? XsQNameValue
 
@@ -35,4 +42,61 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
         }
 
     override val isSelfClosing get(): Boolean = lastChild.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
+
+    // endregion
+    // region FoldablePsiElement
+
+    override val foldingRange: TextRange?
+        get() {
+            var hasEnclosedExprOnlyContent = false
+            var hasMultiLineAttributes = false
+
+            val contents = node.findChildByType(XQueryElementType.DIR_ELEM_CONTENT)
+            if (contents != null) {
+                val first = contents.firstChildNode
+                val last = contents.lastChildNode
+                if (first === last && first.elementType === XQueryElementType.ENCLOSED_EXPR) {
+                    hasEnclosedExprOnlyContent = true
+                }
+            }
+
+            var start: PsiElement? = firstChild
+            if (start!!.node.elementType === XQueryTokenType.OPEN_XML_TAG)
+                start = start!!.nextSibling
+            if (start!!.node.elementType === XQueryTokenType.XML_WHITE_SPACE)
+                start = start!!.nextSibling
+            if (
+                start!!.node.elementType === XQueryElementType.NCNAME ||
+                start!!.node.elementType === XQueryElementType.QNAME
+            )
+                start = start!!.nextSibling
+            if (start?.node?.elementType === XQueryTokenType.XML_WHITE_SPACE)
+                start = start.nextSibling
+            if (start?.node?.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
+                hasMultiLineAttributes = start.textContains('\n')
+                if (!hasMultiLineAttributes) {
+                    start = start.nextSibling
+                }
+            }
+
+            val end = lastChild
+            val endOffset =
+                if (
+                    end.node.elementType === XQueryTokenType.CLOSE_XML_TAG ||
+                    end.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
+                ) {
+                    end.prevSibling.textRange.endOffset
+                } else {
+                    end.textRange.startOffset
+                }
+
+            if (hasEnclosedExprOnlyContent && !hasMultiLineAttributes || start == null) {
+                return null
+            }
+            return TextRange(start.textRange.startOffset, endOffset)
+        }
+
+    override val foldingPlaceholderText: String? = "..."
+
+    // endregion
 }

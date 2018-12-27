@@ -46,7 +46,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         assertThat(descriptors, `is`(notNullValue()))
         assertThat(descriptors.size, `is`(0))
 
-        assertThat(builder.getPlaceholderText(file.node), `is`("..."))
+        assertThat(builder.getPlaceholderText(file.node), `is`(nullValue()))
         assertThat(builder.isCollapsedByDefault(file.node), `is`(false))
     }
 
