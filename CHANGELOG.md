@@ -18,6 +18,7 @@ Static Context:
 
 1.  Add support for the eXist-db built-in functions and static context. Thanks
     to Bridger Dyson-Smith for providing the built-in function definitions.
+1.  Add the `err` and `output` namespaces to the BaseX static context.
 
 Function Resolution:
 
@@ -30,6 +31,7 @@ IntelliJ Integration:
 Inspections:
 
 1.  XPST0017: Fix the arity check for variadic functions.
+1.  XPST0118: Don't crash on code like `</<test/>`.
 
 ## 1.3 - 2018-11-10
 

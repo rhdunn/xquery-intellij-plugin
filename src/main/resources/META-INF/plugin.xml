@@ -36,6 +36,7 @@
         Add support for the eXist-db built-in functions and static context. Thanks
         to Bridger Dyson-Smith for providing the built-in function definitions.
       </li>
+      <li>Add the <code>err</code> and <code>output</code> namespaces to the BaseX static context.</li>
     </ol>
     <p>Function Resolution:</p>
     <ol>
@@ -48,6 +49,7 @@
     <p>Inspections:</p>
     <ol>
       <li>XPST0017: Fix the arity check for variadic functions.</li>
+      <li>XPST0118: Don't crash on code like <code>&lt;/&lt;test/&gt;</code>.</li>
     </ol>
   ]]></change-notes>
 

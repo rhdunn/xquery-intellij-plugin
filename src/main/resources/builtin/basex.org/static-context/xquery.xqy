@@ -26,9 +26,11 @@ declare namespace array = "http://www.w3.org/2005/xpath-functions/array";
 
 (: BaseX prior to 7.0 :)
 declare namespace db = "http://basex.org/modules/db";
+declare namespace err = "http://www.w3.org/2005/xqt-errors";
 declare namespace file = "http://expath.org/ns/file";
 declare namespace ft = "http://basex.org/modules/ft";
 declare namespace hof = "http://basex.org/modules/hof";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace xslt = "http://basex.org/modules/xslt";
 declare namespace zip = "http://expath.org/ns/zip";
 
