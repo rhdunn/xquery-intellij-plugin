@@ -244,7 +244,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("missing close tag")
+            @DisplayName("error recovery: missing close tag")
             fun missingClosingTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
                 assertThat(element.isSelfClosing, `is`(false))
@@ -258,7 +258,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("incomplete open tag")
+            @DisplayName("error recovery: incomplete open tag")
             fun incompleteOpenTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
                 assertThat(element.isSelfClosing, `is`(false))
@@ -273,7 +273,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("incomplete close tag")
+            @DisplayName("error recovery: incomplete close tag")
             fun incompleteCloseTag() {
                 val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
                 assertThat(element.isSelfClosing, `is`(false))
@@ -285,6 +285,33 @@ private class XQueryPsiTest : ParserTestCase() {
                 val close = element.closeTag!!
                 assertThat(close.prefix!!.data, `is`("a"))
                 assertThat(close.localName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("error recovery: invalid close tag only")
+            fun invalidSoloCloseTag() {
+                val element = parse<XQueryDirElemConstructor>("</<test>")[0]
+                assertThat(element.isSelfClosing, `is`(false))
+
+                val open = element.openTag
+                assertThat(open, `is`(nullValue()))
+
+                val close = element.closeTag
+                assertThat(close, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("error recovery: close tag only")
+            fun soloCloseTag() {
+                val element = parse<XQueryDirElemConstructor>("</a:b>")[0]
+                assertThat(element.isSelfClosing, `is`(false))
+
+                val open = element.openTag!!
+                assertThat(open.prefix!!.data, `is`("a"))
+                assertThat(open.localName!!.data, `is`("b"))
+
+                val close = element.closeTag
+                assertThat(close, `is`(nullValue()))
             }
 
             @Test
@@ -842,8 +869,6 @@ private class XQueryPsiTest : ParserTestCase() {
                             "return \$Q{http://www.example.com}z"
                 )[0] as XPathVariableBinding
 
-                val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
-
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
@@ -1334,7 +1359,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
 
                 val file = parse<XQueryModule>("xquery; 1234")[0]
-                val decl = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
 
                 assertThat(file.XQueryVersion.version, `is`(nullValue()))
                 assertThat(file.XQueryVersion.declaration, `is`(nullValue()))
