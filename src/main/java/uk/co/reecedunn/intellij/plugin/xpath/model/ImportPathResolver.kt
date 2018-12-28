@@ -74,12 +74,12 @@ class RelativeFileImportResolver(private val file: VirtualFile) : ImportPathReso
     override fun match(path: String): Boolean = !path.isEmpty() && !path.contains("://") && !path.startsWith("/")
 
     override fun resolve(path: String): VirtualFile? {
-        var file = file
+        var file: VirtualFile? = file
         if (file is LightVirtualFileBase) {
             file = file.originalFile
         }
 
-        return file.parent.findFileByRelativePath(path)
+        return file?.parent?.findFileByRelativePath(path)
     }
 }
 
