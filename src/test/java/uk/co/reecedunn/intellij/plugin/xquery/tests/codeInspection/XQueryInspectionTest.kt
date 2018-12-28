@@ -412,6 +412,26 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.NCNAME))
                     assertThat(problems[0].psiElement.text, `is`("b"))
                 }
+
+                @Test
+                @DisplayName("closing tag only")
+                fun closingTagOnly() {
+                    val file = parse<XQueryModule>("</a>")[0]
+
+                    val problems = inspect(file, XQST0118())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("partial closing tag only")
+                fun partialClosingTagOnly() {
+                    val file = parse<XQueryModule>("</<test>")[0]
+
+                    val problems = inspect(file, XQST0118())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
             }
 
             @Nested

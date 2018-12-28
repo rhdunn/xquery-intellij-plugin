@@ -288,8 +288,8 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("error recovery: invalid close tag only")
-            fun invalidSoloCloseTag() {
+            @DisplayName("error recovery: partial close tag only")
+            fun partialCloseTagOnly() {
                 val element = parse<XQueryDirElemConstructor>("</<test>")[0]
                 assertThat(element.isSelfClosing, `is`(false))
 

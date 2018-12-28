@@ -41,9 +41,9 @@ class XQST0118 : Inspection("xqst/XQST0118.md", Resources) {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryDirElemConstructor>().forEach { elem ->
-            val openTag = elem.openTag!!
+            val openTag = elem.openTag
             val closeTag = elem.closeTag
-            if (openTag.localName == null || closeTag?.localName == null) return@forEach
+            if (openTag?.localName == null || closeTag?.localName == null) return@forEach
 
             if (openTag.prefix?.data != closeTag.prefix?.data || openTag.localName?.data != closeTag.localName?.data) {
                 val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", displayName(closeTag), displayName(openTag))
