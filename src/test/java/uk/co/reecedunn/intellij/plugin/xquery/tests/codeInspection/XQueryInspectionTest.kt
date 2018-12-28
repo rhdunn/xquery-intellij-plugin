@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("PackageName")
-
 package uk.co.reecedunn.intellij.plugin.xquery.tests.codeInspection
 
 import com.intellij.codeInspection.ProblemHighlightType
@@ -27,8 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
@@ -37,11 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Error Conditions")
 private class XQueryInspectionTest : InspectionTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile(XQueryInspectionTest::class.java.classLoader, resource)
-        return file.toPsiFile(myProject)!!
-    }
-
     @Nested
     @DisplayName("XQuery (F) XQST - static errors")
     internal inner class XQSTTest {
@@ -50,26 +41,20 @@ private class XQueryInspectionTest : InspectionTestCase() {
         internal inner class XQST0031Test {
             @Test
             @DisplayName("no VersionDecl")
-            fun testNoVersionDecl() {
-                val file = parseResource("tests/inspections/xquery/XQST0031/no-versiondecl.xq")
+            fun noVersionDecl() {
+                val file = parse<XQueryModule>("2")[0]
 
-                val problems = inspect(
-                    file,
-                    XQST0031()
-                )
+                val problems = inspect(file, XQST0031())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
 
             @Test
             @DisplayName("empty version string")
-            fun testEmptyVersionDecl() {
-                val file = parseResource("tests/inspections/xquery/XQST0031/empty-version.xq")
+            fun emptyVersionDecl() {
+                val file = parse<XQueryModule>("xquery version \"\"; 2")[0]
 
-                val problems = inspect(
-                    file,
-                    XQST0031()
-                )
+                val problems = inspect(file, XQST0031())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -84,13 +69,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
             @Test
             @DisplayName("version does not match any known xquery version")
-            fun testUnsupportedXQueryVersion() {
-                val file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.99.xq")
+            fun unsupportedXQueryVersion() {
+                val file = parse<XQueryModule>("xquery version \"3.99\"; 2")[0]
 
-                val problems = inspect(
-                    file,
-                    XQST0031()
-                )
+                val problems = inspect(file, XQST0031())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -105,30 +87,24 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
             @Test
             @DisplayName("vendor supports the xquery version (W3C supports '3.0'?)")
-            fun testSupportedVersion_W3C() {
+            fun supportedVersion_W3C() {
                 settings.implementationVersion = "w3c/spec"
 
-                val file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.0.xq")
+                val file = parse<XQueryModule>("xquery version \"3.0\"; 2")[0]
 
-                val problems = inspect(
-                    file,
-                    XQST0031()
-                )
+                val problems = inspect(file, XQST0031())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
 
             @Test
             @DisplayName("vendor does not support the xquery version (W3C supports '1.0-ml'?)")
-            fun testUnsupportedVersion_W3C() {
+            fun unsupportedVersion_W3C() {
                 settings.implementationVersion = "w3c/spec"
 
-                val file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq")
+                val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2")[0]
 
-                val problems = inspect(
-                    file,
-                    XQST0031()
-                )
+                val problems = inspect(file, XQST0031())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -146,30 +122,24 @@ private class XQueryInspectionTest : InspectionTestCase() {
             internal inner class MarkLogicTransactions {
                 @Test
                 @DisplayName("same version; MarkLogic")
-                fun testTransactions_SameVersion_MarkLogic() {
+                fun sameVersion_MarkLogic() {
                     settings.implementationVersion = "marklogic/v8"
 
-                    val file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq")
+                    val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0031()
-                    )
+                    val problems = inspect(file, XQST0031())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("same version; other implementation")
-                fun testTransactions_SameVersion_W3C() {
+                fun sameVersion_W3C() {
                     settings.implementationVersion = "w3c/spec"
 
-                    val file = parseResource("tests/inspections/xquery/XQST0031/transaction-same-version.xq")
+                    val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 1 ; xquery version \"1.0-ml\"; 2")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0031()
-                    )
+                    val problems = inspect(file, XQST0031())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(2))
 
@@ -192,16 +162,12 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
                 @Test
                 @DisplayName("unsupported version after the first transaction")
-                fun testTransactions_UnsupportedOtherVersion() {
+                fun unsupportedOtherVersion() {
                     settings.implementationVersion = "marklogic/v8"
 
-                    val file =
-                        parseResource("tests/inspections/xquery/XQST0031/transaction-unsupported-other-version.xq")
+                    val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 1 ; xquery version \"0.2\"; 2")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0031()
-                    )
+                    val problems = inspect(file, XQST0031())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -216,15 +182,12 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
                 @Test
                 @DisplayName("different versions in different transactions")
-                fun testTransactions_DifferentVersions() {
+                fun differentVersions() {
                     settings.implementationVersion = "marklogic/v8"
 
-                    val file = parseResource("tests/inspections/xquery/XQST0031/transaction-different-version.xq")
+                    val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 1 ; xquery version \"0.9-ml\"; 2")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0031()
-                    )
+                    val problems = inspect(file, XQST0031())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -244,24 +207,32 @@ private class XQueryInspectionTest : InspectionTestCase() {
         internal inner class XQST0033Test {
             @Test
             @DisplayName("no duplicates")
-            fun testNoDuplicates() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq")
+            fun noDuplicates() {
+                val file = parse<XQueryModule>(
+                    """
+                    module namespace one = "http://example.com/one";
+                    import module namespace two = "http://example.com/two";
+                    import schema namespace three = "http://example.com/three";
+                    declare namespace four = "http://example.com/four";
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
 
             @Test
             @DisplayName("ModuleImport duplicate of ModuleDecl")
-            fun testModuleDecl_ModuleImport() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq")
+            fun moduleDecl_ModuleImport() {
+                val file = parse<XQueryModule>(
+                    """
+                        module namespace test = "http://example.com/test";
+                        import module namespace test = "http://example.com/test2";
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -273,24 +244,30 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
             @Test
             @DisplayName("ModuleDecl missing URILiteral")
-            fun testModuleDecl_NoUri() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-no-uri.xq")
+            fun moduleDecl_NoUri() {
+                val file = parse<XQueryModule>(
+                    """
+                        module namespace one
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
 
             @Test
             @DisplayName("NamespaceDecl duplicate of ModuleImport")
-            fun testModuleImport_NamespaceDecl() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq")
+            fun moduleImport_NamespaceDecl() {
+                val file = parse<XQueryModule>(
+                    """
+                        module namespace test = "http://example.com/test";
+                        import module namespace one = "http://example.com/one";
+                        declare namespace one = "http://example.com/1";
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -302,12 +279,16 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
             @Test
             @DisplayName("SchemaImport duplicate of NamespaceDecl")
-            fun testNamespaceDecl_SchemaImport() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq")
+            fun namespaceDecl_SchemaImport() {
+                val file = parse<XQueryModule>(
+                    """
+                        module namespace test = "http://example.com/test";
+                        declare namespace one = "http://example.com/one";
+                        import schema namespace one = "http://example.com/1";
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -319,12 +300,16 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
             @Test
             @DisplayName("ModuleImport duplicate of SchemaImport")
-            fun testSchemaImport_ModuleImport() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq")
+            fun schemaImport_ModuleImport() {
+                val file = parse<XQueryModule>(
+                    """
+                        module namespace test = "http://example.com/test";
+                        import schema namespace one = "http://example.com/one";
+                        import module namespace one = "http://example.com/1";
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -336,24 +321,44 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
             @Test
             @DisplayName("MarkLogic transactions; no duplicates")
-            fun testOtherTransaction_NoDuplicates() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq")
+            fun otherTransaction_NoDuplicates() {
+                val file = parse<XQueryModule>(
+                    """
+                        import module namespace one = "http://example.com/one";
+                        import schema namespace two = "http://example.com/two";
+                        declare namespace three = "http://example.com/three";
+                        ()
+                        ;
+                        import module namespace one = "http://example.com/one";
+                        import schema namespace two = "http://example.com/two";
+                        declare namespace three = "http://example.com/three";
+                        ()
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
 
             @Test
             @DisplayName("MarkLogic transactions; duplicates")
-            fun testOtherTransaction_Duplicates() {
-                val file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq")
+            fun otherTransaction_Duplicates() {
+                val file = parse<XQueryModule>(
+                    """
+                        import module namespace one = "http://example.com/one";
+                        import schema namespace two = "http://example.com/two";
+                        declare namespace three = "http://example.com/three";
+                        ()
+                        ;
+                        import module namespace one = "http://example.com/one";
+                        import schema namespace two = "http://example.com/two";
+                        declare namespace one = "http://example.com/three";
+                        ()
+                    """
+                )[0]
 
-                val problems = inspect(file,
-                    XQST0033()
-                )
+                val problems = inspect(file, XQST0033())
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -372,39 +377,30 @@ private class XQueryInspectionTest : InspectionTestCase() {
             internal inner class NCName {
                 @Test
                 @DisplayName("matching element names")
-                fun testNCName_MatchedTags() {
-                    val file = parseResource("tests/inspections/xquery/XQST0118/NCName_MatchedTags.xq")
+                fun matchedTags() {
+                    val file = parse<XQueryModule>("<a></a>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("self-closing element")
-                fun testNCName_SelfClosing() {
-                    val file = parseResource("tests/inspections/xquery/XQST0118/NCName_SelfClosing.xq")
+                fun selfClosing() {
+                    val file = parse<XQueryModule>("<a/>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("mismatching element names")
-                fun testNCName_MismatchedTags() {
-                    val file = parseResource("tests/inspections/xquery/XQST0118/NCName_MismatchedTags.xq")
+                fun mismatchedTags() {
+                    val file = parse<XQueryModule>("<a></b>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -423,78 +419,60 @@ private class XQueryInspectionTest : InspectionTestCase() {
             internal inner class QName {
                 @Test
                 @DisplayName("matching element names (prefix and local name)")
-                fun testQName_MatchedPrefixAndLocalName() {
-                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq")
+                fun matchedPrefixAndLocalName() {
+                    val file = parse<XQueryModule>("<a:b></a:b>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("self-closing")
-                fun testQName_SelfClosing() {
-                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.xq")
+                fun selfClosing() {
+                    val file = parse<XQueryModule>("<h:br/>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
-                @DisplayName("missing closing tag")
-                fun testQName_MissingClosingTag() {
-                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq")
+                @DisplayName("error recovery: missing closing tag")
+                fun missingClosingTag() {
+                    val file = parse<XQueryModule>("<a:b>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
-                @DisplayName("invalid opening tag")
-                fun testQName_InvalidOpeningTag() {
-                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTagQName.xq")
+                @DisplayName("error recovery: invalid opening tag")
+                fun invalidOpeningTag() {
+                    val file = parse<XQueryModule>("<a:></a:b>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
-                @DisplayName("invalid closing tag")
-                fun testQName_InvalidClosingTag() {
-                    val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTagQName.xq")
+                @DisplayName("error recovery: invalid closing tag")
+                fun invalidClosingTag() {
+                    val file = parse<XQueryModule>("<a:b></a:>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("mismatched prefix")
-                fun testQName_MismatchedPrefix() {
-                    val file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedPrefix.xq")
+                fun mismatchedPrefix() {
+                    val file = parse<XQueryModule>("<a:b></c:b>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -509,13 +487,10 @@ private class XQueryInspectionTest : InspectionTestCase() {
 
                 @Test
                 @DisplayName("mismatched local name")
-                fun testQName_MismatchedLocalName() {
-                    val file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedLocalName.xq")
+                fun mismatchedLocalName() {
+                    val file = parse<XQueryModule>("<a:b></a:c>")[0]
 
-                    val problems = inspect(
-                        file,
-                        XQST0118()
-                    )
+                    val problems = inspect(file, XQST0118())
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
