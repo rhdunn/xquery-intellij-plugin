@@ -34,7 +34,12 @@ data class QueryProcessorRunConfigurationData(
     var scriptFile: String? = null
 ) : RunConfigurationOptions()
 
-class QueryProcessorRunConfiguration(project: Project, factory: ConfigurationFactory, name: String) :
+class QueryProcessorRunConfiguration(
+    project: Project,
+    factory: ConfigurationFactory,
+    name: String,
+    val mimetype: String
+) :
     RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, name),
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
     // region Settings

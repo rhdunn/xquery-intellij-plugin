@@ -19,7 +19,6 @@ import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.DefaultProgramRunner
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 
 class QueryProcessorRunner : DefaultProgramRunner() {
     override fun getRunnerId(): String = "XIJPQueryProcessorRunner"
@@ -28,6 +27,6 @@ class QueryProcessorRunner : DefaultProgramRunner() {
         if (executorId != DefaultRunExecutor.EXECUTOR_ID || profile !is QueryProcessorRunConfiguration) {
             return false
         }
-        return profile.processor?.api?.canExecute(MimeTypes.XQUERY, executorId) == true
+        return profile.processor?.api?.canExecute(profile.mimetype, executorId) == true
     }
 }

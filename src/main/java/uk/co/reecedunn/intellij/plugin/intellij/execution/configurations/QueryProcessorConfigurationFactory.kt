@@ -24,6 +24,6 @@ class QueryProcessorConfigurationFactory(type: ConfigurationType, private val mi
     ConfigurationFactory(type) {
 
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
-        return QueryProcessorRunConfiguration(project, this, "QueryProcessor")
+        return QueryProcessorRunConfiguration(project, this, "QueryProcessor", mimetype)
     }
 }
