@@ -32,8 +32,6 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
         }
     }
 
-    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
-
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> BaseXClientQuery(session, query, classes)

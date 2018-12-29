@@ -28,5 +28,7 @@ interface QueryProcessorApi {
     val canCreate: Boolean
     val canConnect: Boolean
 
+    fun canExecute(mimetype: String, executorId: String): Boolean
+
     fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager
 }

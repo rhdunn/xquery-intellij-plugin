@@ -40,8 +40,6 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
-    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
-
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> SaxonXQueryRunner(

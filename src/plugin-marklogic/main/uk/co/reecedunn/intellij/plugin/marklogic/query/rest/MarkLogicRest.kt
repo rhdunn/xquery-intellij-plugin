@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
+import com.intellij.execution.executors.DefaultRunExecutor
+import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.InputStream
@@ -29,6 +31,14 @@ object MarkLogicRest : QueryProcessorApi {
 
     override val canCreate: Boolean = false
     override val canConnect: Boolean = true
+
+    override fun canExecute(mimetype: String, executorId: String): Boolean {
+        val run = executorId == DefaultRunExecutor.EXECUTOR_ID
+        return when (mimetype) {
+            MimeTypes.XQUERY -> run
+            else -> false
+        }
+    }
 
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         return MarkLogic()

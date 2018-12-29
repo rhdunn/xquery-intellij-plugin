@@ -42,8 +42,6 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
         }
     }
 
-    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
-
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> BaseXLocalQuery(session, query, classes)

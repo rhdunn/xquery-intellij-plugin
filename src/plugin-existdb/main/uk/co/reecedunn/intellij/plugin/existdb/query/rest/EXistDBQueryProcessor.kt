@@ -37,8 +37,6 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         }
     }
 
-    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
-
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {

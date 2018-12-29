@@ -21,8 +21,6 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
-    val supportedQueryTypes: Array<String>
-
     fun eval(query: String, mimetype: String): Query
 
     fun invoke(path: String, mimetype: String): Query

@@ -35,8 +35,6 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    override val supportedQueryTypes: Array<String> = arrayOf(MimeTypes.XQUERY)
-
     override fun eval(query: String, mimetype: String): Query {
         return when (mimetype) {
             MimeTypes.XQUERY -> {

@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
-import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
-import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
+import com.intellij.execution.executors.DefaultRunExecutor
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
 import java.io.InputStream
 
@@ -32,6 +30,14 @@ object BaseXSession : QueryProcessorApi {
 
     override val canCreate: Boolean = true
     override val canConnect: Boolean = true
+
+    override fun canExecute(mimetype: String, executorId: String): Boolean {
+        val run = executorId == DefaultRunExecutor.EXECUTOR_ID
+        return when (mimetype) {
+            MimeTypes.XQUERY -> run
+            else -> false
+        }
+    }
 
     override fun newInstanceManager(jar: String?, config: InputStream?): QueryProcessorInstanceManager {
         if (jar == null)
