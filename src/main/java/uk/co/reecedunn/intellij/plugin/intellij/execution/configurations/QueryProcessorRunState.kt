@@ -35,7 +35,7 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
         val contents = file.inputStream.decode(file.charset)
 
-        val query = configuration.processor!!.session.eval(contents, MimeTypes.XQUERY)
+        val query = configuration.processor!!.session.eval(contents, configuration.mimetype)
         return QueryProcessHandler(query)
     }
 }
