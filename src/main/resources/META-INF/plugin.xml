@@ -160,6 +160,8 @@
 
     <!-- Run/Debug Configurations -->
 
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
+
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.XQueryConfigurationType"/>
   </extensions>
 
