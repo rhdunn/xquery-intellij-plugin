@@ -28,5 +28,5 @@ object XPathFileType : LanguageFileType(XPath) {
 
     override fun getDefaultExtension(): String = "xpath"
 
-    override fun getIcon(): Icon? = XPathIcons.XPathFile
+    override fun getIcon(): Icon? = XPathIcons.FileType
 }

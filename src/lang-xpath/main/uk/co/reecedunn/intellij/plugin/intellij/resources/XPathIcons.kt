@@ -21,5 +21,5 @@ import javax.swing.Icon
 object XPathIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XPathIcons::class.java)
 
-    val XPathFile: Icon = getIcon("/icons/xpath-163.svg")
+    val FileType: Icon = getIcon("/icons/fileType.svg")
 }
