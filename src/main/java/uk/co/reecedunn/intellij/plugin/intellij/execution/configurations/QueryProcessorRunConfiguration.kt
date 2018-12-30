@@ -38,27 +38,28 @@ data class QueryProcessorRunConfigurationData(
 class QueryProcessorRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,
-    val language: Language
+    override val language: Language
 ) :
     RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, ""),
-    PersistentStateComponent<QueryProcessorRunConfigurationData> {
-    // region Settings
+    PersistentStateComponent<QueryProcessorRunConfigurationData>,
+    QueryProcessorRunConfigurationSettings {
+    // region QueryProcessorRunConfigurationSettings
 
     private val data = QueryProcessorRunConfigurationData()
 
-    var processorId: Int?
+    override var processorId: Int?
         get() = data.processorId
         set(value) {
             data.processorId = value
         }
 
-    var processor: QueryProcessorSettings?
+    override var processor: QueryProcessorSettings?
         get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
         set(value) {
             data.processorId = value?.id
         }
 
-    var scriptFile: String?
+    override var scriptFile: String?
         get() = data.scriptFile
         set(value) {
             data.scriptFile = value
