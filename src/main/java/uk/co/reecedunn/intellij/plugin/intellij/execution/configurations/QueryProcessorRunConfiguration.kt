@@ -37,10 +37,9 @@ data class QueryProcessorRunConfigurationData(
 class QueryProcessorRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,
-    name: String,
     val mimetype: String
 ) :
-    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, name),
+    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, ""),
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
     // region Settings
 
