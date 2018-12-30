@@ -22,11 +22,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
@@ -110,13 +110,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var scriptFile: TextFieldWithBrowseButton? = null
 
     private fun createScriptFileUI() {
-        val ext = MimeTypes.extensions(language)
-
         scriptFile = TextFieldWithBrowseButton()
         scriptFile!!.addBrowseFolderListener(
             XQueryBundle.message("browser.choose.script-file"), null,
             project,
-            FileTypeDescriptor(XQueryBundle.message("browser.choose.script-file"), *ext)
+            FileTypeDescriptor(
+                XQueryBundle.message("browser.choose.script-file"),
+                *(language as? LanguageExtensions)?.scriptExtensions!!
+            )
         )
     }
 

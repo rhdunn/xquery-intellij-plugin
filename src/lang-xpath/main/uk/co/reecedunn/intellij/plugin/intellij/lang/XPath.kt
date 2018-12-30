@@ -37,6 +37,16 @@ object XPath : Language("XMLPath"), LanguageExtensions {
     // endregion
     // region LanguageExtensions
 
+    override val scriptExtensions: Array<String> = arrayOf(
+        "xp",
+        "xpath",
+        "xpath1",
+        "xpath2",
+        "xpath3",
+        "xpath31",
+        "xpa"
+    )
+
     override val defaultExtension: String = "xpath"
 
     // endregion

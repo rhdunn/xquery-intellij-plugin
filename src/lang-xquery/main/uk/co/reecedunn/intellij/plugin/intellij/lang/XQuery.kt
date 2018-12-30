@@ -28,6 +28,14 @@ object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xque
     // endregion
     // region LanguageExtensions
 
+    override val scriptExtensions: Array<String> = arrayOf(
+        "xq",
+        "xqy",
+        "xquery",
+        "xql",
+        "xqu"
+    )
+
     override val defaultExtension: String = "xqy"
 
     // endregion

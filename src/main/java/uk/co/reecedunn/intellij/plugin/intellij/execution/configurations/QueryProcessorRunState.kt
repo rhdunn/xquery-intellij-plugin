@@ -23,7 +23,6 @@ import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import java.io.File
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
