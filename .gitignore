@@ -11,3 +11,5 @@ gradlew.bat
 build/
 classes/
 out/
+
+project-dependencies.*

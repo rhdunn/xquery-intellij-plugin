@@ -204,3 +204,46 @@ repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     mavenCentral()
 }
+
+// Module Dependency Report =============================================================
+// Derived from https://gist.github.com/nikialeksey/7cefae6b3104ce9a2c765197343bc436
+
+task moduleDependencyReport {
+    doLast {
+        def file = new File("project-dependencies.dot")
+        file.delete()
+        file << "strict digraph \"Module Dependencies\" {\n"
+        def deps = [:]
+        buildDeps(deps, rootProject)
+        deps.forEach { from, toList ->
+            if (from != rootProject.name) {
+                file << "\"$from\" [shape=none]\n"
+                toList.forEach { to -> file << ("\"$from\" -> \"$to\"\n") }
+            }
+        }
+        file << "}\n"
+    }
+}
+
+def buildDeps(deps, project) {
+    project.configurations
+           .collectMany { it.allDependencies }
+           .findAll { it instanceof ProjectDependency }
+           .each { to -> addOnce(deps, project.name, to.name) }
+
+    project.childProjects.each { name, childProject -> buildDeps(deps, childProject) }
+}
+
+static def addOnce(map, key, value) {
+    if (key in map.keySet()) {
+        if (!(value in map[key])) {
+            map[key].add(value)
+        }
+    } else {
+        map[key] = [value]
+    }
+
+    if (!(value in map.keySet())) {
+        map[value] = []
+    }
+}
