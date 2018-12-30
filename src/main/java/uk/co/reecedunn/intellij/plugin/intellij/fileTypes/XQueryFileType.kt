@@ -40,7 +40,7 @@ object XQueryFileType : LanguageFileType(XQuery) {
 
     override fun getDefaultExtension(): String = "xqy"
 
-    override fun getIcon(): Icon? = XQueryIcons.XQueryFile
+    override fun getIcon(): Icon? = XQueryIcons.FileType
 
     private fun matchToken(lexer: Lexer, type: IElementType): Boolean {
         val match = lexer.tokenType === type

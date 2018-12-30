@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import javax.swing.Icon
 
 class XQueryConfigurationType : ConfigurationType {
-    override fun getIcon(): Icon = XQueryIcons.XQueryFile
+    override fun getIcon(): Icon = XQueryIcons.FileType
 
     override fun getConfigurationTypeDescription(): String = displayName
 

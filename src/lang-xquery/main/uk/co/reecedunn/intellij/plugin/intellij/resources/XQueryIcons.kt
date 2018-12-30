@@ -21,5 +21,5 @@ import javax.swing.Icon
 object XQueryIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XQueryIcons::class.java)
 
-    val XQueryFile: Icon = getIcon("/icons/xquery-163.svg")
+    val FileType: Icon = getIcon("/icons/fileType.svg")
 }
