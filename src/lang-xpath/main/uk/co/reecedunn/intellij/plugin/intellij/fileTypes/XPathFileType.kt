@@ -26,7 +26,7 @@ object XPathFileType : LanguageFileType(XPath) {
 
     override fun getDescription(): String = XPathBundle.message("xpath.files.filetype.description")
 
-    override fun getDefaultExtension(): String = "xpath"
+    override fun getDefaultExtension(): String = XPath.defaultExtension
 
     override fun getIcon(): Icon? = XPathIcons.FileType
 }

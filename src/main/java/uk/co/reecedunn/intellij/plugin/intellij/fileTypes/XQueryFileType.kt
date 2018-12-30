@@ -38,7 +38,7 @@ object XQueryFileType : LanguageFileType(XQuery) {
 
     override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")
 
-    override fun getDefaultExtension(): String = "xqy"
+    override fun getDefaultExtension(): String = XQuery.defaultExtension
 
     override fun getIcon(): Icon? = XQueryIcons.FileType
 

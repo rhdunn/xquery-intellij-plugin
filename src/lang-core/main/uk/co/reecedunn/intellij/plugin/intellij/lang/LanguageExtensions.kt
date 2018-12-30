@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
-import com.intellij.lang.Language
-
-/**
- * XML Query Language
- */
-object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery"), LanguageExtensions {
-    // region Language
-
-    override fun isCaseSensitive(): Boolean = true
-
-    // endregion
-    // region LanguageExtensions
-
-    override val defaultExtension: String = "xqy"
-
-    // endregion
+interface LanguageExtensions {
+    val defaultExtension: String
 }
