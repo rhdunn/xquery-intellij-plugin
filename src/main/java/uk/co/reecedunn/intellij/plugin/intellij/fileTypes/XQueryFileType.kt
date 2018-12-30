@@ -110,11 +110,4 @@ object XQueryFileType : LanguageFileType(XQuery) {
     override fun extractCharsetFromFileContent(project: Project?, file: VirtualFile?, content: CharSequence): Charset {
         return getXQueryEncoding(content)
     }
-
-    // xq;xqy;xquery -- standard defined extensions
-    // xql           -- XQuery Language (main) file [eXist-db; BaseX]
-    // xqm           -- XQuery Module file [eXist-db; BaseX]
-    // xqu           -- XQuery file [BaseX]
-    // xqws          -- XQuery Web Service [eXist-db]
-    const val EXTENSIONS = "xq;xqy;xquery;xql;xqm;xqu;xqws"
 }

@@ -47,6 +47,8 @@ object XPath : Language("XMLPath"), LanguageExtensions {
         "xpa"
     )
 
+    override val fileExtensions: Array<String> = scriptExtensions
+
     override val defaultExtension: String = "xpath"
 
     // endregion
