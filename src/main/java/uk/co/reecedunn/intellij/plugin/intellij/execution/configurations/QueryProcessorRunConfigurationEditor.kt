@@ -30,13 +30,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
 
-class QueryProcessorRunConfigurationEditor(private val project: Project) :
+class QueryProcessorRunConfigurationEditor(private val project: Project, private val mimetype: String) :
     SettingsEditor<QueryProcessorRunConfiguration>() {
 
     private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
     override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationEditorUI(project)
+        editor = QueryProcessorRunConfigurationEditorUI(project, mimetype)
         return editor?.panel!!
     }
 
@@ -53,7 +53,7 @@ private fun JTextField.textOrNull(): String? {
     return text?.let { if (it.isEmpty()) null else it }
 }
 
-class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
+class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val mimetype: String) :
     SettingsUI<QueryProcessorRunConfiguration> {
     // region Query Processor
 
@@ -109,7 +109,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project) :
     private var scriptFile: TextFieldWithBrowseButton? = null
 
     private fun createScriptFileUI() {
-        val ext = MimeTypes.extensions(MimeTypes.XQUERY)
+        val ext = MimeTypes.extensions(mimetype)
 
         scriptFile = TextFieldWithBrowseButton()
         scriptFile!!.addBrowseFolderListener(

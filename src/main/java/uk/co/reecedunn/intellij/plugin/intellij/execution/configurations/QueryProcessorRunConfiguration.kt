@@ -67,7 +67,7 @@ class QueryProcessorRunConfiguration(
     // region RunConfigurationBase
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        return QueryProcessorRunConfigurationEditor(project)
+        return QueryProcessorRunConfigurationEditor(project, mimetype)
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
