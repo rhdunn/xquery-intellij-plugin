@@ -63,7 +63,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             name = "Test Instance",
             apiId = BaseXSession.id,
             jar = "$home/xquery/basex/basex-9.0/BaseX.jar",
-            configurationPath =  null,
+            configurationPath = null,
             connection = null
         )
     }
