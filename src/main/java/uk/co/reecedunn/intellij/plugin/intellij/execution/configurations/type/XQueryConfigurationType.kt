@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import javax.swing.Icon
 
 class XQueryConfigurationType : ConfigurationType {
@@ -32,6 +32,6 @@ class XQueryConfigurationType : ConfigurationType {
     override fun getDisplayName(): String = "XQuery"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(QueryProcessorConfigurationFactory(this, MimeTypes.XQUERY))
+        return arrayOf(QueryProcessorConfigurationFactory(this, XQuery))
     }
 }

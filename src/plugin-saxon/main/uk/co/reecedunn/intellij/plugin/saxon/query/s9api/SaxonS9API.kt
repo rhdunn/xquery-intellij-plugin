@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.execution.executors.DefaultRunExecutor
+import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
 import java.io.InputStream
@@ -31,10 +33,10 @@ object SaxonS9API : QueryProcessorApi {
     override val canCreate: Boolean = true
     override val canConnect: Boolean = false
 
-    override fun canExecute(mimetype: String, executorId: String): Boolean {
+    override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
-        return when (mimetype) {
-            MimeTypes.XQUERY -> run
+        return when (language) {
+            XQuery -> run
             else -> false
         }
     }

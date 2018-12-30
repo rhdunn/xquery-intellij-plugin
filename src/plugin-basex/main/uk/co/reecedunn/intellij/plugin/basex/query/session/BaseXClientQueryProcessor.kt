@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
@@ -27,19 +28,19 @@ import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) :
     QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(BaseXQueries.Version, MimeTypes.XQUERY).use { query ->
+        eval(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun eval(query: String, mimetype: String): Query {
-        return when (mimetype) {
-            MimeTypes.XQUERY -> BaseXClientQuery(session, query, classes)
-            else -> throw UnsupportedQueryType(mimetype)
+    override fun eval(query: String, language: Language): Query {
+        return when (language) {
+            XQuery -> BaseXClientQuery(session, query, classes)
+            else -> throw UnsupportedQueryType(language)
         }
     }
 
-    override fun invoke(path: String, mimetype: String): Query {
+    override fun invoke(path: String, language: Language): Query {
         throw UnsupportedOperationException()
     }
 

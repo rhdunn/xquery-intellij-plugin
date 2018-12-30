@@ -21,6 +21,7 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.lang.Language
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
@@ -37,7 +38,7 @@ data class QueryProcessorRunConfigurationData(
 class QueryProcessorRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,
-    val mimetype: String
+    val language: Language
 ) :
     RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, ""),
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
@@ -67,7 +68,7 @@ class QueryProcessorRunConfiguration(
     // region RunConfigurationBase
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        return QueryProcessorRunConfigurationEditor(project, mimetype)
+        return QueryProcessorRunConfigurationEditor(project, language)
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {

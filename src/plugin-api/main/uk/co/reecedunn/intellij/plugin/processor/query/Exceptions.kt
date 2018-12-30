@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import com.intellij.lang.Language
+
 abstract class QueryError : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
@@ -37,4 +39,4 @@ class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsup
 
 class MissingHostNameException : RuntimeException("Missing hostname.")
 
-class UnsupportedQueryType(val mimetype: String) : RuntimeException("Unsupported query type: ${mimetype}")
+class UnsupportedQueryType(val language: Language) : RuntimeException("Unsupported query type: ${language.displayName}")

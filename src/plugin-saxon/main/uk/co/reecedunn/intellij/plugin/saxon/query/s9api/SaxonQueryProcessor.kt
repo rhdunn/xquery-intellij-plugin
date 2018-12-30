@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
@@ -40,18 +41,18 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
-    override fun eval(query: String, mimetype: String): Query {
-        return when (mimetype) {
-            MimeTypes.XQUERY -> SaxonXQueryRunner(
+    override fun eval(query: String, language: Language): Query {
+        return when (language) {
+            XQuery -> SaxonXQueryRunner(
                 processor,
                 query,
                 classes
             )
-            else -> throw UnsupportedQueryType(mimetype)
+            else -> throw UnsupportedQueryType(language)
         }
     }
 
-    override fun invoke(path: String, mimetype: String): Query {
+    override fun invoke(path: String, language: Language): Query {
         throw UnsupportedOperationException()
     }
 

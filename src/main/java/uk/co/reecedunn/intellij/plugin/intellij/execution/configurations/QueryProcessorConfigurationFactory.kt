@@ -18,12 +18,13 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.lang.Language
 import com.intellij.openapi.project.Project
 
-class QueryProcessorConfigurationFactory(type: ConfigurationType, private val mimetype: String) :
+class QueryProcessorConfigurationFactory(type: ConfigurationType, private val language: Language) :
     ConfigurationFactory(type) {
 
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
-        return QueryProcessorRunConfiguration(project, this, mimetype)
+        return QueryProcessorRunConfiguration(project, this, language)
     }
 }

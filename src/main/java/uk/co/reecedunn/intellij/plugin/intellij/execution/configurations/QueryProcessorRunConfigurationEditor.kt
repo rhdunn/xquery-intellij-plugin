@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.lang.Language
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
@@ -30,13 +31,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
 
-class QueryProcessorRunConfigurationEditor(private val project: Project, private val mimetype: String) :
+class QueryProcessorRunConfigurationEditor(private val project: Project, private val language: Language) :
     SettingsEditor<QueryProcessorRunConfiguration>() {
 
     private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
     override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationEditorUI(project, mimetype)
+        editor = QueryProcessorRunConfigurationEditorUI(project, language)
         return editor?.panel!!
     }
 
@@ -53,7 +54,7 @@ private fun JTextField.textOrNull(): String? {
     return text?.let { if (it.isEmpty()) null else it }
 }
 
-class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val mimetype: String) :
+class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val language: Language) :
     SettingsUI<QueryProcessorRunConfiguration> {
     // region Query Processor
 
@@ -109,7 +110,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var scriptFile: TextFieldWithBrowseButton? = null
 
     private fun createScriptFileUI() {
-        val ext = MimeTypes.extensions(mimetype)
+        val ext = MimeTypes.extensions(language)
 
         scriptFile = TextFieldWithBrowseButton()
         scriptFile!!.addBrowseFolderListener(

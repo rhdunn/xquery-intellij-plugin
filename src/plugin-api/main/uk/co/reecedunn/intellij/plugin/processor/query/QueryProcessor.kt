@@ -15,13 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import java.io.Closeable
 
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
-    fun eval(query: String, mimetype: String): Query
+    fun eval(query: String, language: Language): Query
 
-    fun invoke(path: String, mimetype: String): Query
+    fun invoke(path: String, language: Language): Query
 }

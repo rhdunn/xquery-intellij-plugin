@@ -27,6 +27,6 @@ class QueryProcessorRunner : DefaultProgramRunner() {
         if (executorId != DefaultRunExecutor.EXECUTOR_ID || profile !is QueryProcessorRunConfiguration) {
             return false
         }
-        return profile.processor?.api?.canExecute(profile.mimetype, executorId) == true
+        return profile.processor?.api?.canExecute(profile.language, executorId) == true
     }
 }

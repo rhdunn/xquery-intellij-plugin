@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
+import com.intellij.lang.Language
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
@@ -23,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.processor.query.MimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
@@ -32,31 +33,31 @@ import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) :
     QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(EXistDBQueries.Version, MimeTypes.XQUERY).use { query ->
+        eval(EXistDBQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun eval(query: String, mimetype: String): Query {
-        return when (mimetype) {
-            MimeTypes.XQUERY -> {
+    override fun eval(query: String, language: Language): Query {
+        return when (language) {
+            XQuery -> {
                 val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
                 xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query))
                 val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())
                 EXistDBQuery(builder, connection)
             }
-            else -> throw UnsupportedQueryType(mimetype)
+            else -> throw UnsupportedQueryType(language)
         }
     }
 
-    override fun invoke(path: String, mimetype: String): Query {
-        return when (mimetype) {
-            MimeTypes.XQUERY -> {
+    override fun invoke(path: String, language: Language): Query {
+        return when (language) {
+            XQuery -> {
                 val builder = RequestBuilder.get("$baseUri$path")
                 EXistDBHttpRequest(builder, connection)
             }
-            else -> throw UnsupportedQueryType(mimetype)
+            else -> throw UnsupportedQueryType(language)
         }
     }
 
