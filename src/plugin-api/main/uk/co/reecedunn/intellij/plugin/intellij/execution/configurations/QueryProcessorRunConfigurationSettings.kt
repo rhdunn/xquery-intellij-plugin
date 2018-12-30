@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
+import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
-interface QueryProcessorRunConfigurationSettings {
+interface QueryProcessorRunConfigurationSettings : RunConfiguration {
     val language: Language
 
     var processorId: Int?

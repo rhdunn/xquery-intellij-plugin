@@ -32,7 +32,7 @@ import java.awt.Dimension
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private val language: Language) :
-    SettingsEditor<QueryProcessorRunConfiguration>() {
+    SettingsEditor<QueryProcessorRunConfigurationSettings>() {
 
     private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
@@ -41,11 +41,11 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         return editor?.panel!!
     }
 
-    override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
+    override fun resetEditorFrom(configuration: QueryProcessorRunConfigurationSettings) {
         editor!!.reset(configuration)
     }
 
-    override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
+    override fun applyEditorTo(configuration: QueryProcessorRunConfigurationSettings) {
         editor!!.apply(configuration)
     }
 }
@@ -55,7 +55,7 @@ private fun JTextField.textOrNull(): String? {
 }
 
 class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val language: Language) :
-    SettingsUI<QueryProcessorRunConfiguration> {
+    SettingsUI<QueryProcessorRunConfigurationSettings> {
     // region Query Processor
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettings>>? = null
@@ -134,7 +134,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     override var panel: JPanel? = null
 
-    override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
+    override fun isModified(configuration: QueryProcessorRunConfigurationSettings): Boolean {
         if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
             return true
         if (scriptFile!!.textField.text != configuration.scriptFile)
@@ -142,12 +142,12 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         return false
     }
 
-    override fun reset(configuration: QueryProcessorRunConfiguration) {
+    override fun reset(configuration: QueryProcessorRunConfigurationSettings) {
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         scriptFile!!.textField.text = configuration.scriptFile ?: ""
     }
 
-    override fun apply(configuration: QueryProcessorRunConfiguration) {
+    override fun apply(configuration: QueryProcessorRunConfigurationSettings) {
         configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
         configuration.scriptFile = scriptFile!!.textField.textOrNull()
     }
