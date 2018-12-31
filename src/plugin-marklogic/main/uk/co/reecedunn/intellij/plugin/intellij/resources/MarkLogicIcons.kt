@@ -24,4 +24,8 @@ object MarkLogicIcons {
     object JavaScript {
         val RunConfiguration: Icon = getIcon("/icons/js/runConfiguration.svg")
     }
+
+    object SQL {
+        val RunConfiguration: Icon = getIcon("/icons/sql/runConfiguration.svg")
+    }
 }
