@@ -67,7 +67,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
-        queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
+        queryProcessor!!.childComponent.renderer =
+                QueryProcessorSettingsCellRenderer()
         queryProcessor!!.addActionListener {
             val list = object : EditableListPanel<QueryProcessorSettings>(model) {
                 override fun add() {
