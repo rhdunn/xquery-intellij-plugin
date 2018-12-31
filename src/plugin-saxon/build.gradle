@@ -2,7 +2,6 @@ sourceSets.main.java.srcDirs += 'main'
 sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
-    compile project(':src:lang-xdm')
     compile project(':src:lang-xquery')
     compile project(':src:plugin-api')
 }

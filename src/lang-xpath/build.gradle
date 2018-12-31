@@ -6,7 +6,6 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 
 dependencies {
     compile project(':src:intellij-compat')
-    compile project(':src:lang-core')
     compile project(':src:lang-xdm')
     compile project(':src:lang-xqdoc')
 
