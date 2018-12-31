@@ -9,6 +9,7 @@ include 'src:lang-xdm'
 include 'src:lang-xpath'
 include 'src:lang-xquery'
 include 'src:lang-xqdoc'
+include 'src:lang-xslt'
 
 include 'src:plugin-api'
 include 'src:plugin-basex'

@@ -21,6 +21,7 @@
 | `lang-xpath`      | XPath language support for XSLT and XQuery. |
 | `lang-xqdoc`      | xqDoc documentation support. |
 | `lang-xquery`     | XQuery language support. |
+| `lang-xslt`       | XSLT language support. |
 
 ## Plugin
 | Package            | Description |

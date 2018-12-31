@@ -168,6 +168,7 @@
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XQueryConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XSLTConfigurationType"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

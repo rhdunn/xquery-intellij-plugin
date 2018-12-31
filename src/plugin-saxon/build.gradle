@@ -3,4 +3,5 @@ sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
     compile project(':src:lang-xquery')
+    compile project(':src:lang-xslt')
 }
