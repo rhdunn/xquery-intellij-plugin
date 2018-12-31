@@ -40,6 +40,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         return when (language) {
             XQuery -> {
                 val queryParams = JsonObject()
+                queryParams.addProperty("module-path", "")
                 queryParams.addProperty("query", query)
 
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
@@ -51,7 +52,18 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
     }
 
     override fun invoke(path: String, language: Language): Query {
-        throw UnsupportedOperationException()
+        return when (language) {
+            XQuery -> {
+                val queryParams = JsonObject()
+                queryParams.addProperty("module-path", path)
+                queryParams.addProperty("query", "")
+
+                val builder = RequestBuilder.post("$baseUri/v1/eval")
+                builder.addParameter("xquery", MarkLogicQueries.Run)
+                MarkLogicQuery(builder, queryParams, connection)
+            }
+            else -> throw UnsupportedQueryType(language)
+        }
     }
 
     override fun close() = connection.close()

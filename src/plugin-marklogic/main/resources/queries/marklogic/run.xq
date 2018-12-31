@@ -19,7 +19,8 @@ declare option o:implementation "marklogic/6.0";
 
 (:~ Run a query on a MarkLogic server.
  :
- : @param $query The query script to run.
+ : @param $module-path The path of the module to invoke, or "" for evaluated scripts.
+ : @param $query The query script to evaluate, or "" for invoked modules.
  : @param $vars A map of the variable values by the variable name.
  : @param $types A map of the variable types by the variable name.
  :
@@ -37,6 +38,7 @@ declare option o:implementation "marklogic/6.0";
  : 3.  The REST API only returns the primitive type of each item.
  :)
 
+declare variable $module-path as xs:string external;
 declare variable $query as xs:string external;
 declare variable $vars as xs:string external;
 declare variable $types as xs:string external;
@@ -90,13 +92,10 @@ declare function local:cast-as($value, $type) {
     default return $value
 };
 
-declare function local:parse-vars($values as map:map, $types as map:map) {
-    let $ret := map:map()
-    let $_ :=
-        for $key in map:keys($values)
-        let $value := local:cast-as(map:get($values, $key), map:get($types, $key))
-        return map:put($ret, $key, $value)
-    return $ret
+declare function local:parse-vars($values as map:map, $types as map:map) as item()* {
+    for $key in map:keys($values)
+    let $value := local:cast-as(map:get($values, $key), map:get($types, $key))
+    return (xs:QName($key), $value)
 };
 
 declare function local:derived-type-name($value) {
@@ -154,9 +153,18 @@ declare function local:error(
     </err:error>
 };
 
+declare function local:run-xquery($variables, $options) as item()* {
+    if (string-length($query) ne 0) then
+        xdmp:eval($query, $variables, $options)
+    else
+        xdmp:invoke($module-path, $variables, $options)
+};
+
 try {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
-    let $retvals := xdmp:eval($query, $variables, ())
+    let $options := ()
+
+    let $retvals := local:run-xquery($variables, $options)
     for $retval at $i in $retvals
     let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
     return $retval
