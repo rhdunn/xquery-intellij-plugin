@@ -23,7 +23,7 @@ import com.intellij.openapi.ui.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.lang.LanguageExtensions
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
@@ -37,7 +37,11 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
     override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationEditorUI(project, language)
+        editor =
+                QueryProcessorRunConfigurationEditorUI(
+                    project,
+                    language
+                )
         return editor?.panel!!
     }
 
@@ -93,13 +97,13 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
                 }
             }
             list.cellRenderer = QueryProcessorSettingsCellRenderer()
-            list.emptyText = XQueryBundle.message("xquery.configurations.processor.manage-processors-empty")
+            list.emptyText = PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty")
 
             val panel = list.createPanel()
             panel.minimumSize = Dimension(300, 200)
 
             val builder = DialogBuilder()
-            builder.setTitle(XQueryBundle.message("xquery.configurations.processor.manage-processors"))
+            builder.setTitle(PluginApiBundle.message("xquery.configurations.processor.manage-processors"))
             builder.setCenterPanel(panel)
             builder.showAndGet()
         }
@@ -113,10 +117,10 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private fun createScriptFileUI() {
         scriptFile = TextFieldWithBrowseButton()
         scriptFile!!.addBrowseFolderListener(
-            XQueryBundle.message("browser.choose.script-file"), null,
+            PluginApiBundle.message("browser.choose.script-file"), null,
             project,
             FileTypeDescriptor(
-                XQueryBundle.message("browser.choose.script-file"),
+                PluginApiBundle.message("browser.choose.script-file"),
                 *(language as? LanguageExtensions)?.scriptExtensions!!
             )
         )
