@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.resources
+package uk.co.reecedunn.intellij.plugin.intellij.resources
 
-import uk.co.reecedunn.intellij.plugin.core.io.decode
+import com.intellij.openapi.util.IconLoader
+import javax.swing.Icon
 
-object MarkLogicQueries {
-    private fun loadText(path: String): String {
-        val loader = MarkLogicQueries::class.java.classLoader
-        return loader.getResourceAsStream(path)!!.decode()
+object MarkLogicIcons {
+    private fun getIcon(path: String): Icon = IconLoader.getIcon(path, MarkLogicIcons::class.java)
+
+    object JavaScript {
+        val RunConfiguration: Icon = getIcon("/icons/js/runConfiguration.svg")
     }
-
-    val Run = loadText("queries/marklogic/run.xq")
-
-    val Version = loadText("queries/marklogic/version.xq")
 }
