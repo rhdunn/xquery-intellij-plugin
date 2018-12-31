@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,25 +18,15 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 import com.intellij.CommonBundle
 import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
-import java.lang.ref.Reference
-import java.lang.ref.SoftReference
+import uk.co.reecedunn.intellij.plugin.core.references.getValue
+import uk.co.reecedunn.intellij.plugin.core.references.soft_reference
 import java.util.*
 
 object XPathBundle {
     @NonNls
     private const val PATH_TO_BUNDLE = "messages.XPathBundle"
 
-    private var sBundle: Reference<ResourceBundle>? = null
-
-    private val bundle
-        get(): ResourceBundle {
-            var bundle = com.intellij.reference.SoftReference.dereference(sBundle)
-            if (bundle == null) {
-                bundle = ResourceBundle.getBundle(PATH_TO_BUNDLE)
-                sBundle = SoftReference(bundle)
-            }
-            return bundle!!
-        }
+    private val bundle: ResourceBundle by soft_reference { ResourceBundle.getBundle(PATH_TO_BUNDLE) }
 
     fun message(@PropertyKey(resourceBundle = PATH_TO_BUNDLE) key: String, vararg params: Any): String {
         return CommonBundle.message(bundle, key, *params)
