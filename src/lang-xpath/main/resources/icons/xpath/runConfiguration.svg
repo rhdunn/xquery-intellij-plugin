@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <g id="frame" fill="#9aa7b0" fill-rule="evenodd" opacity="0.8">
+        <path d="M0,0 L16,0 L16,15 L0,15 L0,0 Z M1,3 L1,14 L15,14 L15,3 L3,3 Z"/>
+    </g>
+    <g id="background" opacity="0.6" fill="#32a5e3">
+        <rect width="12" height="9" x="2" y="4"/>
+    </g>
+    <g id="filetype" fill="#231f20" opacity="1" transform="translate(1.5,-4)">
+        <g id="x">
+            <polygon points="2 10 3 10 6.5 15 5.5 15"/>
+            <polygon points="6.5 10 5.5 10 2 15 3 15"/>
+        </g>
+        <g id="p">
+            <polygon points="7.5 10 8.3 10 8.3 15 7.5 15"/>
+            <path d="M 7.5,10
+                     L 9.5,10
+                     A 1,1 0 0,1 10,13.1
+                     L 7.5,13.1
+                     L 7.5,12.2
+                     L 10,12.2
+                     A 1,0.75 0 0,0 10,11
+                     L 7.5,11
+                     Z"/>
+        </g>
+    </g>
+</svg>

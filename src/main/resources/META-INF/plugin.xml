@@ -166,6 +166,7 @@
 
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
 
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XQueryConfigurationType"/>
   </extensions>
 
