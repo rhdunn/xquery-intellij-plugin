@@ -167,7 +167,8 @@
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.JavaScriptConfigurationType"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLQueryConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLUpdateConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SQLConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XPathConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XQueryConfigurationType"/>

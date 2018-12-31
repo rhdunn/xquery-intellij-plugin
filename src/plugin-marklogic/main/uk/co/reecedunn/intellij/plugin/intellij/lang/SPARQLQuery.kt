@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
 
-object SPARQL : Language("SPARQL", "application/sparql-query", "application/sparql-update"), LanguageExtensions {
+object SPARQLQuery : Language("SPARQLQuery", "application/sparql-query"), LanguageExtensions {
     // region Language
 
     override fun isCaseSensitive(): Boolean = true
 
-    override fun getDisplayName(): String = "SPARQL"
+    override fun getDisplayName(): String = "SPARQL Query"
 
     override fun getAssociatedFileType(): LanguageFileType? = null
 
@@ -32,7 +32,6 @@ object SPARQL : Language("SPARQL", "application/sparql-query", "application/spar
 
     override val scriptExtensions: Array<String> = arrayOf(
         "rq",
-        "ru",
         "sparql"
     )
 

@@ -18,20 +18,20 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.intellij.lang.SPARQL
+import uk.co.reecedunn.intellij.plugin.intellij.lang.SPARQLUpdate
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
-class SPARQLConfigurationType : ConfigurationType {
+class SPARQLUpdateConfigurationType : ConfigurationType {
     override fun getIcon(): Icon = MarkLogicIcons.SPARQL.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
 
     override fun getId(): String = "XIJPSPARQLProcessorConfiguration"
 
-    override fun getDisplayName(): String = "SPARQL"
+    override fun getDisplayName(): String = "SPARQL Update"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(QueryProcessorConfigurationFactory(this, SPARQL))
+        return arrayOf(QueryProcessorConfigurationFactory(this, SPARQLUpdate))
     }
 }
