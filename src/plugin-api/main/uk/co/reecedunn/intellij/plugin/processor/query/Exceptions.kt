@@ -16,6 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.lang.Language
+import org.apache.http.conn.HttpHostConnectException
+import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import java.lang.UnsupportedOperationException
+import java.net.UnknownHostException
 
 abstract class QueryError : RuntimeException() {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
@@ -40,3 +45,24 @@ class UnsupportedJarFileException(val jarType: String) : RuntimeException("Unsup
 class MissingHostNameException : RuntimeException("Missing hostname.")
 
 class UnsupportedQueryType(val language: Language) : RuntimeException("Unsupported query type: ${language.displayName}")
+
+fun Throwable.toQueryUserMessage(): String {
+    return when (this) {
+        is MissingJarFileException ->
+            PluginApiBundle.message("processor.exception.missing-jar")
+        is UnsupportedJarFileException ->
+            PluginApiBundle.message("processor.exception.unsupported-jar")
+        is MissingHostNameException ->
+            PluginApiBundle.message("processor.exception.missing-hostname")
+        is UnknownHostException ->
+            PluginApiBundle.message("processor.exception.host-connection-error", message ?: "")
+        is HttpHostConnectException ->
+            PluginApiBundle.message("processor.exception.host-connection-error", host?.toHostString() ?: "")
+        is HttpStatusException ->
+            message!!
+        is UnsupportedOperationException ->
+            PluginApiBundle.message("processor.exception.unsupported-operation")
+        else ->
+            throw this
+    }
+}
