@@ -44,7 +44,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         editor.apply(settings)
         try {
             settings.session.version
-                .execute(ModalityState.any()) { _ -> onvalidate(true) }
+                .execute(ModalityState.any()) { onvalidate(true) }
                 .onException { e ->
                     editor.onerror(e.toQueryUserMessage())
                     onvalidate(false)
@@ -83,9 +83,9 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
             }
         }
 
-        QUERY_PROCESSOR_APIS.forEach { value -> api!!.addItem(value) }
+        QueryProcessorApis.forEach { value -> api!!.addItem(value) }
 
-        api!!.addActionListener { _ ->
+        api!!.addActionListener {
             val selection = api!!.selectedItem as QueryProcessorApi
             jar!!.isEnabled = selection.requireJar
             configuration!!.isEnabled = selection.hasConfiguration
@@ -140,7 +140,7 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
 
     private fun createStandaloneUI() {
         standalone = JCheckBox()
-        standalone!!.addActionListener { action ->
+        standalone!!.addActionListener {
             val serverEnabled = !standalone!!.isSelected
             hostname!!.isEnabled = serverEnabled
             databasePort!!.isEnabled = serverEnabled

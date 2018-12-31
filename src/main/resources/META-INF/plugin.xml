@@ -1,6 +1,6 @@
-<!--suppress XmlUnboundNsPrefix -->
-<idea-plugin version="2">
+<idea-plugin>
   <id>uk.co.reecedunn.intellij.plugin.xquery</id>
+  <!--suppress PluginXmlValidity -->
   <name>xquery-intellij-plugin</name>
   <version>VERSION</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
@@ -57,6 +57,10 @@
 
   <depends>com.intellij.modules.lang</depends>
   <depends>com.intellij.modules.xml</depends>
+
+  <extensionPoints>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" interface="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
+  </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory"/>
@@ -163,6 +167,13 @@
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.XQueryConfigurationType"/>
+  </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest"/>
+    <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
   </extensions>
 
   <application-components>

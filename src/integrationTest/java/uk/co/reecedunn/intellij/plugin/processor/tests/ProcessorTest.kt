@@ -27,9 +27,13 @@ import org.hamcrest.Matcher
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
+import uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API
 import java.util.concurrent.ExecutionException
 
 @Suppress("Reformat")
@@ -39,13 +43,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     val home = System.getProperty("user.home")
     // Modify these for the processor being tested:
     val processorVersion = "9.0"
-    val provider = QueryProcessorSettings(
-        name = "Test Instance",
-        apiId = BaseXSession.id,
-        jar = "$home/xquery/basex/basex-9.0/BaseX.jar",
-        configurationPath =  null,
-        connection = null
-    )
+    var provider: QueryProcessorSettings? = null
 
     @BeforeAll
     override fun setUp() {
@@ -54,12 +52,26 @@ private class ProcessorTest : PlatformLiteFixture() {
         Extensions.registerAreaClass("IDEA_PROJECT", null)
         myProject = MockProjectEx(testRootDisposable)
         registerApplicationService(PasswordSafe::class.java, PasswordSafeImpl(PasswordSafeSettings()))
+
+        registerExtensionPoint(QueryProcessorApi.QUERY_PROCESSOR_API_EP, QueryProcessorApi::class.java)
+        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, BaseXSession)
+        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, EXistDBRest)
+        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, MarkLogicRest)
+        registerExtension(QueryProcessorApi.QUERY_PROCESSOR_API_EP, SaxonS9API)
+
+        provider = QueryProcessorSettings(
+            name = "Test Instance",
+            apiId = BaseXSession.id,
+            jar = "$home/xquery/basex/basex-9.0/BaseX.jar",
+            configurationPath =  null,
+            connection = null
+        )
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-        provider.close()
+        provider!!.close()
     }
 
     protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
@@ -70,14 +82,14 @@ private class ProcessorTest : PlatformLiteFixture() {
     }
 
     @Test @DisplayName("version") fun version() {
-        assertThat(provider.session.version.execute().get(), `is`(processorVersion))
+        assertThat(provider!!.session.version.execute().get(), `is`(processorVersion))
     }
 
     @Nested
     @DisplayName("return value type display name")
     internal inner class ReturnValues {
         private fun node(query: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = provider.session.eval(query, XQuery)
+            val q = provider!!.session.eval(query, XQuery)
             val items = q.run().execute().get().toList()
             q.close()
 
@@ -92,7 +104,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = provider.session.eval("\"$value\" cast as $type", XQuery)
+            val q = provider!!.session.eval("\"$value\" cast as $type", XQuery)
             val items = q.run().execute().get().toList()
             q.close()
 
@@ -118,7 +130,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = provider.session.eval("()", XQuery)
+                val q = provider!!.session.eval("()", XQuery)
                 val items = q.run().execute().get().toList()
                 q.close()
 
@@ -126,7 +138,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             }
 
             @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
-                val q = provider.session.eval("(1, 2, 3)", XQuery)
+                val q = provider!!.session.eval("(1, 2, 3)", XQuery)
                 val items = q.run().execute().get().toList()
                 q.close()
 
@@ -146,7 +158,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             }
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
-                val q = provider.session.eval("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", XQuery)
+                val q = provider!!.session.eval("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)", XQuery)
                 val items = q.run().execute().get().toList()
                 q.close()
 
@@ -315,7 +327,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @DisplayName("bind variable")
     internal inner class BindVariableName {
         @Test @DisplayName("by NCName") fun ncname() {
-            val q = provider.session.eval("declare variable \$x external; \$x", XQuery)
+            val q = provider!!.session.eval("declare variable \$x external; \$x", XQuery)
             q.bindVariable("x", "2", "xs:integer")
 
             val items = q.run().execute().get().toList()
@@ -327,7 +339,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
-            val q = provider.session.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", XQuery)
+            val q = provider!!.session.eval("declare variable \$Q{http://www.example.co.uk}x external; \$x", XQuery)
             q.bindVariable("Q{http://www.example.co.uk}x", "2", "xs:integer")
 
             val items = q.run().execute().get().toList()
@@ -339,7 +351,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by QName") fun qname() {
-            val q = provider.session.eval("declare variable \$local:x external; \$x", XQuery)
+            val q = provider!!.session.eval("declare variable \$local:x external; \$x", XQuery)
             q.bindVariable("local:x", "2", "xs:integer")
 
             val items = q.run().execute().get().toList()
@@ -352,7 +364,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = provider.session.eval("declare variable \$x external; \$x", XQuery)
+            val q = provider!!.session.eval("declare variable \$x external; \$x", XQuery)
             q.bindVariable("x", value, type)
 
             val items = q.run().execute().get().toList()
@@ -365,7 +377,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = provider.session.eval("declare variable \$x external; \$x", XQuery)
+            val q = provider!!.session.eval("declare variable \$x external; \$x", XQuery)
             q.bindVariable("x", value, type)
 
             val items = q.run().execute().get().toList()
@@ -390,7 +402,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = provider.session.eval("declare variable \$x external; \$x", XQuery)
+            val q = provider!!.session.eval("declare variable \$x external; \$x", XQuery)
             q.bindVariable("x", null, "empty-sequence()")
 
             val items = q.run().execute().get().toList()
@@ -420,7 +432,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = provider.session.eval("declare variable \$x external; \$x", XQuery)
+                val q = provider!!.session.eval("declare variable \$x external; \$x", XQuery)
                 q.bindVariable("x", "()", "empty-sequence()")
 
                 val items = q.run().execute().get().toList()
@@ -502,7 +514,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @DisplayName("bind context item")
     internal inner class BindContextItem {
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = provider.session.eval(".", XQuery)
+            val q = provider!!.session.eval(".", XQuery)
             q.bindContextItem(value, type)
 
             val items = q.run().execute().get().toList()
@@ -515,7 +527,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = provider.session.eval(".", XQuery)
+            val q = provider!!.session.eval(".", XQuery)
             q.bindContextItem(value, type)
 
             val items = q.run().execute().get().toList()
@@ -540,7 +552,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = provider.session.eval(".", XQuery)
+            val q = provider!!.session.eval(".", XQuery)
             q.bindContextItem(null, "empty-sequence()")
 
             val items = q.run().execute().get().toList()
@@ -553,7 +565,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = provider.session.eval(".", XQuery)
+                val q = provider!!.session.eval(".", XQuery)
                 q.bindContextItem("()", "empty-sequence()")
 
                 val items = q.run().execute().get().toList()
@@ -654,7 +666,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         fun parse(query: String): QueryError {
             return Assertions.assertThrows(QueryError::class.java) {
                 try {
-                    provider.session.eval(query, XQuery).use { it.run().execute().get().toList() }
+                    provider!!.session.eval(query, XQuery).use { it.run().execute().get().toList() }
                 } catch (e: ExecutionException) {
                     throw e.cause!!
                 }
