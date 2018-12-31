@@ -25,19 +25,19 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.ColoredListCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.awt.event.ActionEvent
 import javax.swing.*
 
 class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryProcessorSettings>() {
     override val resizable: Boolean = true
-    override val createTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.create")
-    override val editTitle: String = XQueryBundle.message("xquery.settings.dialog.query-processor.edit")
+    override val createTitle: String = PluginApiBundle.message("xquery.settings.dialog.query-processor.create")
+    override val editTitle: String = PluginApiBundle.message("xquery.settings.dialog.query-processor.edit")
 
     override fun validate(editor: SettingsUI<QueryProcessorSettings>, onvalidate: (Boolean) -> Unit) {
         (editor as QueryProcessorSettingsDialogUI).oninfo(
-            XQueryBundle.message("xquery.settings.dialog.query-processor.validating-processor")
+            PluginApiBundle.message("xquery.settings.dialog.query-processor.validating-processor")
         )
 
         val settings = QueryProcessorSettings()
@@ -113,9 +113,9 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
     private fun createJarUI() {
         jar = TextFieldWithBrowseButton()
         jar!!.addBrowseFolderListener(
-            XQueryBundle.message("browser.choose.implementation-api-jar"), null,
+            PluginApiBundle.message("browser.choose.implementation-api-jar"), null,
             project,
-            FileTypeDescriptor(XQueryBundle.message("browser.choose.implementation-api-jar"), "jar")
+            FileTypeDescriptor(PluginApiBundle.message("browser.choose.implementation-api-jar"), "jar")
         )
     }
 
@@ -127,7 +127,7 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
     private fun createConfigurationUI() {
         configuration = TextFieldWithBrowseButton()
         configuration!!.addBrowseFolderListener(
-            XQueryBundle.message("browser.choose.configuration"), null,
+            PluginApiBundle.message("browser.choose.configuration"), null,
             project,
             FileChooserDescriptorFactory.createSingleFileDescriptor()
         )
