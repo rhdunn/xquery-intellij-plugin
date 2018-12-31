@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
 
-object SPARQL : Language("SPARQL"), LanguageExtensions {
+object SPARQL : Language("SPARQL", "application/sparql-query", "application/sparql-update"), LanguageExtensions {
     // region Language
 
     override fun isCaseSensitive(): Boolean = true

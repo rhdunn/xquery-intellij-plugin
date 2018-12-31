@@ -21,7 +21,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 /**
  * XML Stylesheet Language: Transform
  */
-object XSLT : Language("XSLT"), LanguageExtensions {
+object XSLT : Language("XSLT", "application/xslt+xml"), LanguageExtensions {
     // region Language
 
     override fun isCaseSensitive(): Boolean = true

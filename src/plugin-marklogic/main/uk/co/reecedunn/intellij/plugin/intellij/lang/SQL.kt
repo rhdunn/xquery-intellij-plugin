@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
 
-object SQL : Language("SQL"), LanguageExtensions {
+object SQL : Language("SQL", "application/sql"), LanguageExtensions {
     // region Language
 
     override fun isCaseSensitive(): Boolean = true
