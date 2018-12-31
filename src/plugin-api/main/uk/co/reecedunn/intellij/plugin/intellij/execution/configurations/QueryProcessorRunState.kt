@@ -27,7 +27,7 @@ import java.io.File
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
-        val configuration = environment.runProfile as QueryProcessorRunConfigurationSettings
+        val configuration = environment.runProfile as QueryProcessorRunConfiguration
 
         val url = configuration.scriptFile?.let { VfsUtil.pathToUrl(it.replace(File.separatorChar, '/')) }
         val file = url?.let { VirtualFileManager.getInstance().findFileByUrl(it) }

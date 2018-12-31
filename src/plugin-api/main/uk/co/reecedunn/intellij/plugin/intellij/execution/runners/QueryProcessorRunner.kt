@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.runners
 import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.DefaultProgramRunner
-import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfigurationSettings
+import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorRunConfiguration
 
 class QueryProcessorRunner : DefaultProgramRunner() {
     override fun getRunnerId(): String = "XIJPQueryProcessorRunner"
 
     override fun canRun(executorId: String, profile: RunProfile): Boolean {
-        if (executorId != DefaultRunExecutor.EXECUTOR_ID || profile !is QueryProcessorRunConfigurationSettings) {
+        if (executorId != DefaultRunExecutor.EXECUTOR_ID || profile !is QueryProcessorRunConfiguration) {
             return false
         }
         return profile.processor?.api?.canExecute(profile.language, executorId) == true
