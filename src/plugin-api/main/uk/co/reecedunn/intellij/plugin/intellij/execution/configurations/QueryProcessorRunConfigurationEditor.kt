@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
+import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -63,6 +64,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // region Query Processor
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettings>>? = null
+    private var queryDivider: JPanel? = null
 
     private fun createQueryProcessorUI() {
         val model = DefaultComboBoxModel<QueryProcessorSettings>()
@@ -71,8 +73,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
-        queryProcessor!!.childComponent.renderer =
-                QueryProcessorSettingsCellRenderer()
+        queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
         queryProcessor!!.addActionListener {
             val list = object : EditableListPanel<QueryProcessorSettings>(model) {
                 override fun add() {
@@ -107,6 +108,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             builder.setCenterPanel(panel)
             builder.showAndGet()
         }
+
+        queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
     }
 
     // endregion
