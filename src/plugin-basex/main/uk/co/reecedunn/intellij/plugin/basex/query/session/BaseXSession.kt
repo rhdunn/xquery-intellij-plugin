@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ object BaseXSession : QueryProcessorApi {
     override val displayName: String = "BaseX"
 
     override val requireJar: Boolean = true
-    override val hasAdminPort: Boolean = false
     override val hasConfiguration: Boolean = false
 
     override val canCreate: Boolean = true

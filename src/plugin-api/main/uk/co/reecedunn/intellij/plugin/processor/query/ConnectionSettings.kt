@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,9 @@ import uk.co.reecedunn.compat.ide.passwordSafe.PasswordSafe
 data class ConnectionSettings(
     var hostname: String,
     var databasePort: Int,
-    var adminPort: Int,
     var username: String?
 ) {
-    constructor(): this("", 0, 0, null)
+    constructor(): this("", 0, null)
 
     private val serviceName: String get() = "uk.co.reecedunn.intellij.plugin.processor: $hostname:$databasePort"
 

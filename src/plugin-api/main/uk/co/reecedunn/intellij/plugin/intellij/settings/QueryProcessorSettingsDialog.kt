@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -144,7 +144,6 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
             val serverEnabled = !standalone!!.isSelected
             hostname!!.isEnabled = serverEnabled
             databasePort!!.isEnabled = serverEnabled
-            adminPort!!.isEnabled = serverEnabled && (api!!.selectedItem as QueryProcessorApi).hasAdminPort
             username!!.isEnabled = serverEnabled
             password!!.isEnabled = serverEnabled
         }
@@ -156,7 +155,6 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
     private var name: JTextField? = null
     private var hostname: JTextField? = null
     private var databasePort: JTextField? = null
-    private var adminPort: JTextField? = null
     private var username: JTextField? = null
     private var password: JPasswordField? = null
     private var errorMessage: JLabel? = null
@@ -165,7 +163,6 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         name = JTextField()
         hostname = JTextField()
         databasePort = JTextField()
-        adminPort = JTextField()
         username = JTextField()
         password = JPasswordField()
 
@@ -208,14 +205,12 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
             standalone!!.isSelected = false
             hostname!!.text = configuration.connection!!.hostname
             databasePort!!.text = configuration.connection!!.databasePort.toString()
-            adminPort!!.text = configuration.connection!!.adminPort.toString()
             username!!.text = configuration.connection!!.username
             password!!.text = configuration.connection!!.password
         } else {
             standalone!!.isSelected = true
             hostname!!.text = ""
             databasePort!!.text = "0"
-            adminPort!!.text = "0"
             username!!.text = ""
             password!!.text = ""
         }
@@ -231,9 +226,8 @@ class QueryProcessorSettingsDialogUI(private val project: Project) : SettingsUI<
         configuration.configurationPath = this.configuration!!.textField.textOrNull()
         if (!standalone!!.isSelected) {
             val dbPort = databasePort!!.text.toInt()
-            val amPort = adminPort!!.text.toInt()
             val user = username!!.textOrNull()
-            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, amPort, user)
+            configuration.connection = ConnectionSettings(hostname!!.text, dbPort, user)
             configuration.connection!!.setPassword(password!!.password?.let { if (it.isEmpty()) null else it })
         } else {
             configuration.connection = null
