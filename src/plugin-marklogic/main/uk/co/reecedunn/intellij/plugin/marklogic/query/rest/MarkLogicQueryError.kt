@@ -19,9 +19,11 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
-private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
-
 class MarkLogicQueryError(xml: String) : QueryError() {
+    companion object {
+        private val XMLNS_ERR = "http://www.w3.org/2005/xqt-errors"
+    }
+
     private val doc = XmlDocument.parse(xml)
 
     override val standardCode: String by lazy {

@@ -59,29 +59,7 @@ internal class MarkLogicQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        val mime = MimeResponse(response.allHeaders, body)
-        mime.parts.asSequence().mapIndexed { index, part ->
-            if (part.getHeader("Content-Length")?.toInt() == 0)
-                null
-            else {
-                val primitive = part.getHeader("X-Primitive") ?: "string"
-                val derived = mime.getHeader("X-Derived-${index + 1}")
-                if (derived == "err:error")
-                    throw MarkLogicQueryError(part.body)
-                else {
-                    val itemType = primitiveToItemType(derived ?: primitive)
-                    val contentType = part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
-                    QueryResult(
-                        part.body,
-                        itemType,
-                        if (contentType == "application/x-unknown-content-type")
-                            "application/octet-stream"
-                        else
-                            contentType
-                    )
-                }
-            }
-        }.filterNotNull()
+        MimeResponse(response.allHeaders, body).queryResults()
     }
 
     override fun close() {
