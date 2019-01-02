@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
 import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.intellij.plugin.processor.query.TextSource
 
 object MarkLogicQueries {
     private fun loadText(path: String): String {
@@ -24,7 +25,5 @@ object MarkLogicQueries {
     }
 
     val Run = loadText("queries/marklogic/run.xq")
-
-    val Version =
-        loadText("queries/marklogic/version.xq")
+    val Version = TextSource(loadText("queries/marklogic/version.xq"))
 }

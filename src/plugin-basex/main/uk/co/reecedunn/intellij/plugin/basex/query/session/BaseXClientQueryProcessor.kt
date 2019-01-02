@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,28 +20,25 @@ import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.Query
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 
-internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) :
-    QueryProcessor {
+internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(BaseXQueries.Version, XQuery).use { query ->
+        run(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun eval(query: String, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): Query {
         return when (language) {
-            XQuery -> BaseXClientQuery(session, query, classes)
+            XQuery -> when (query.type) {
+                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
+                else -> BaseXClientQuery(session, query.value!!, classes)
+            }
             else -> throw UnsupportedQueryType(language)
         }
-    }
-
-    override fun invoke(path: String, language: Language): Query {
-        throw UnsupportedOperationException()
     }
 
     override fun close() {

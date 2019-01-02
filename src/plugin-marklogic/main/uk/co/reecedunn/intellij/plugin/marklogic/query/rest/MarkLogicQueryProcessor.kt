@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,40 +23,30 @@ import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.processor.query.Query
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) :
-    QueryProcessor {
+internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(MarkLogicQueries.Version, XQuery).use { query ->
+        run(MarkLogicQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun eval(query: String, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): Query {
         return when (language) {
             XQuery -> {
                 val queryParams = JsonObject()
-                queryParams.addProperty("module-path", "")
-                queryParams.addProperty("query", query)
-
-                val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicQuery(builder, queryParams, connection)
-            }
-            else -> throw UnsupportedQueryType(language)
-        }
-    }
-
-    override fun invoke(path: String, language: Language): Query {
-        return when (language) {
-            XQuery -> {
-                val queryParams = JsonObject()
-                queryParams.addProperty("module-path", path)
-                queryParams.addProperty("query", "")
+                when (query.type) {
+                    ValueSourceType.DatabaseFile -> {
+                        queryParams.addProperty("module-path", query.data)
+                        queryParams.addProperty("query", "")
+                    }
+                    else -> {
+                        queryParams.addProperty("module-path", "")
+                        queryParams.addProperty("query", query.value ?: "")
+                    }
+                }
 
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)

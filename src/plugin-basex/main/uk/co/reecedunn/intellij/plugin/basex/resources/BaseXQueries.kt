@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.basex.resources
 
 import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.intellij.plugin.processor.query.TextSource
 
 object BaseXQueries {
     private fun loadText(path: String): String {
@@ -23,5 +24,5 @@ object BaseXQueries {
         return loader.getResourceAsStream(path)!!.decode()
     }
 
-    val Version = loadText("queries/basex/version.xq")
+    val Version = TextSource(loadText("queries/basex/version.xq"))
 }

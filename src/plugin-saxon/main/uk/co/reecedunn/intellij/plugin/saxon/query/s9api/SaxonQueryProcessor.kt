@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,10 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.Query
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.xml.transform.Source
 
-internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) :
-    QueryProcessor {
-
+internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source?) : QueryProcessor {
     private val processor by lazy {
         if (source == null)
             classes.processorClass.getConstructor(Boolean::class.java).newInstance(true)
@@ -41,19 +37,14 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
-    override fun eval(query: String, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): Query {
         return when (language) {
-            XQuery -> SaxonXQueryRunner(
-                processor,
-                query,
-                classes
-            )
+            XQuery -> when (query.type) {
+                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
+                else -> SaxonXQueryRunner(processor, query.value!!, classes)
+            }
             else -> throw UnsupportedQueryType(language)
         }
-    }
-
-    override fun invoke(path: String, language: Language): Query {
-        throw UnsupportedOperationException()
     }
 
     override fun close() {

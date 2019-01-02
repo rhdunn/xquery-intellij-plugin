@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,16 @@ import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
 import java.io.File
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
-
-        val url = configuration.scriptFile?.let { VfsUtil.pathToUrl(it.replace(File.separatorChar, '/')) }
-        val file = url?.let { VirtualFileManager.getInstance().findFileByUrl(it) }
+        val source = configuration.scriptFile?.let { LocalFileSource(it) }
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
-        val contents = file.inputStream.decode(file.charset)
 
-        val query = configuration.processor!!.session.eval(contents, configuration.language)
+        val query = configuration.processor!!.session.run(source, configuration.language)
         return QueryProcessHandler(query)
     }
 }

@@ -60,7 +60,7 @@ The plugin provides integration with the following IntelliJ features:
 
 -----
 
-Copyright (C) 2016-2018 Reece H. Dunn
+Copyright (C) 2016-2019 Reece H. Dunn
 
 This software and document includes material copied from or derived from the
 XPath and XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,

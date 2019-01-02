@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,5 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
-    fun eval(query: String, language: Language): Query
-
-    fun invoke(path: String, language: Language): Query
+    fun run(query: ValueSource, language: Language): Query
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,37 +25,27 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.processor.query.Query
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
-import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 
-internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) :
-    QueryProcessor {
+internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        eval(EXistDBQueries.Version, XQuery).use { query ->
+        run(EXistDBQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun eval(query: String, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): Query {
         return when (language) {
             XQuery -> {
                 val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
-                xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query))
+                when (query.type) {
+                    ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
+                    else -> xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.value!!))
+                }
                 val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())
                 EXistDBQuery(builder, connection)
-            }
-            else -> throw UnsupportedQueryType(language)
-        }
-    }
-
-    override fun invoke(path: String, language: Language): Query {
-        return when (language) {
-            XQuery -> {
-                val builder = RequestBuilder.get("$baseUri$path")
-                EXistDBHttpRequest(builder, connection)
             }
             else -> throw UnsupportedQueryType(language)
         }

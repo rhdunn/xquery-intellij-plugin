@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.existdb.resources
 
 import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.intellij.plugin.processor.query.TextSource
 
 object EXistDBQueries {
     private fun loadText(path: String): String {
@@ -25,5 +26,5 @@ object EXistDBQueries {
 
     val PostQueryTemplate = loadText("queries/existdb/post-query.xml")
 
-    val Version = loadText("queries/existdb/version.xq")
+    val Version = TextSource(loadText("queries/existdb/version.xq"))
 }
