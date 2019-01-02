@@ -165,6 +165,7 @@
     <!-- Run/Debug Configurations -->
 
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorDebugger"/>
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.JavaScriptConfigurationType"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type.SPARQLQueryConfigurationType"/>
