@@ -33,7 +33,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    override fun run(query: ValueSource, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
                 val queryParams = JsonObject()

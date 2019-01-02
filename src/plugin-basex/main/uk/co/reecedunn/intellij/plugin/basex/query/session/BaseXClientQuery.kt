@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,10 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
-import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
-internal class BaseXClientQuery(val session: Any, val queryString: String, val classes: BaseXClasses) :
-    Query {
+internal class BaseXClientQuery(val session: Any, val queryString: String, val classes: BaseXClasses) : RunnableQuery {
     private var basexQuery: Any? = null
     val query: Any
         get() {

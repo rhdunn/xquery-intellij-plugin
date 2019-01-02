@@ -22,5 +22,5 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
-    fun run(query: ValueSource, language: Language): Query
+    fun run(query: ValueSource, language: Language): RunnableQuery
 }

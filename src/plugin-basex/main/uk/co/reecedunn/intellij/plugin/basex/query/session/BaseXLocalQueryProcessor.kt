@@ -39,7 +39,7 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
         }
     }
 
-    override fun run(query: ValueSource, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()

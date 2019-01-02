@@ -37,7 +37,7 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
-    override fun run(query: ValueSource, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()

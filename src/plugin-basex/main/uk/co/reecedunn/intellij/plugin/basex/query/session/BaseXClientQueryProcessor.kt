@@ -20,7 +20,6 @@ import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
@@ -31,7 +30,7 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
         }
     }
 
-    override fun run(query: ValueSource, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()

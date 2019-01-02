@@ -35,7 +35,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         }
     }
 
-    override fun run(query: ValueSource, language: Language): Query {
+    override fun run(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
                 val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
