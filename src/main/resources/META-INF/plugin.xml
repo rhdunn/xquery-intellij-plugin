@@ -164,6 +164,8 @@
 
     <!-- Run/Debug Configurations -->
 
+    <executor implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor"/>
+
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorRunner"/>
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.intellij.execution.runners.QueryProcessorDebugger"/>
 
