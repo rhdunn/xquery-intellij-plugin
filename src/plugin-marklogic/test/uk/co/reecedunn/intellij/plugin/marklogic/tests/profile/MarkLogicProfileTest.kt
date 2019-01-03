@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.profile
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -44,5 +45,62 @@ class MarkLogicProfileTest {
         assertThat(p.elapsed, `is`("PT0.0000564S"))
         assertThat(p.created, `is`("2019-01-03T09:44:37.9608193Z"))
         assertThat(p.version, `is`("9.0-5"))
+
+        val results = p.results.toList()
+        assertThat(results.size, `is`(0))
+    }
+
+    @Test
+    @DisplayName("results; no uri")
+    fun results_noUri() {
+        @Language("xml")
+        val profile = """
+            <prof:report xsi:schemaLocation="http://marklogic.com/xdmp/profile profile.xsd" xmlns:prof="http://marklogic.com/xdmp/profile" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <prof:metadata>
+                    <prof:overall-elapsed>PT0.0000435S</prof:overall-elapsed>
+                    <prof:created>2019-01-03T10:50:34.2913686Z</prof:created>
+                    <prof:server-version>9.0-5</prof:server-version>
+                </prof:metadata>
+                <prof:histogram>
+                    <prof:expression>
+                        <prof:expr-id>7399381704112208326</prof:expr-id>
+                        <prof:expr-source>for ${'$'}x in 1 to 10 return ${'$'}x</prof:expr-source>
+                        <prof:uri/>
+                        <prof:line>1</prof:line>
+                        <prof:column>0</prof:column>
+                        <prof:count>1</prof:count>
+                        <prof:shallow-time>PT0.0000051S</prof:shallow-time>
+                        <prof:deep-time>PT0.0000064S</prof:deep-time>
+                    </prof:expression>
+                    <prof:expression>
+                        <prof:expr-id>16683152708792260640</prof:expr-id>
+                        <prof:expr-source>1 to 10</prof:expr-source>
+                        <prof:uri/>
+                        <prof:line>1</prof:line>
+                        <prof:column>12</prof:column>
+                        <prof:count>2</prof:count>
+                        <prof:shallow-time>PT0.0000013S</prof:shallow-time>
+                        <prof:deep-time>PT0.0000014S</prof:deep-time>
+                    </prof:expression>
+                </prof:histogram>
+            </prof:report>
+        """
+
+        val p = MarkLogicProfile(profile)
+        assertThat(p.elapsed, `is`("PT0.0000435S"))
+        assertThat(p.created, `is`("2019-01-03T10:50:34.2913686Z"))
+        assertThat(p.version, `is`("9.0-5"))
+
+        val results = p.results.toList()
+        assertThat(results.size, `is`(2))
+
+        assertThat(results[1].id, `is`("16683152708792260640"))
+        assertThat(results[1].expression, `is`("1 to 10"))
+        assertThat(results[1].module, `is`(nullValue()))
+        assertThat(results[1].lineNumber, `is`(1))
+        assertThat(results[1].columnNumber, `is`(12))
+        assertThat(results[1].hits, `is`(2))
+        assertThat(results[1].shallowTime, `is`("PT0.0000013S"))
+        assertThat(results[1].deepTime, `is`("PT0.0000014S"))
     }
 }

@@ -15,8 +15,48 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
+import org.w3c.dom.Element
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryError
+
+class MarkLogicProfileEntry(entry: Element) {
+    companion object {
+        private val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
+    }
+
+    val id: String by lazy {
+        entry.children(XMLNS_PROF, "expr-id").first().firstChild!!.nodeValue
+    }
+
+    val expression: String by lazy {
+        entry.children(XMLNS_PROF, "expr-source").first().firstChild!!.nodeValue
+    }
+
+    val module: String? by lazy {
+        entry.children(XMLNS_PROF, "uri").first().firstChild?.nodeValue
+    }
+
+    val lineNumber: Int? by lazy {
+        entry.children(XMLNS_PROF, "line").first().firstChild?.nodeValue?.toInt()
+    }
+
+    val columnNumber: Int? by lazy {
+        entry.children(XMLNS_PROF, "column").first().firstChild?.nodeValue?.toInt()
+    }
+
+    val hits: Int by lazy {
+        entry.children(XMLNS_PROF, "count").first().firstChild!!.nodeValue.toInt()
+    }
+
+    val shallowTime: String by lazy {
+        entry.children(XMLNS_PROF, "shallow-time").first().firstChild!!.nodeValue
+    }
+
+    val deepTime: String by lazy {
+        entry.children(XMLNS_PROF, "deep-time").first().firstChild!!.nodeValue
+    }
+}
 
 class MarkLogicProfile(xml: String) {
     companion object {
@@ -39,4 +79,10 @@ class MarkLogicProfile(xml: String) {
         val metadata = doc.root.children(XMLNS_PROF, "metadata").first()
         metadata.children(XMLNS_PROF, "server-version").first().firstChild!!.nodeValue
     }
+
+    val results: Sequence<MarkLogicProfileEntry>
+        get() {
+            val histogram = doc.root.children(XMLNS_PROF, "histogram").first()
+            return histogram.children(XMLNS_PROF, "expression").map { expression -> MarkLogicProfileEntry(expression) }
+        }
 }
