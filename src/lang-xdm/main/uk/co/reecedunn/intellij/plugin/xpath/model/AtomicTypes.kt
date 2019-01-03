@@ -40,6 +40,8 @@ import java.math.BigInteger
 
 interface XsStringValue : XsAnyAtomicType {
     val data: String
+
+    val element: PsiElement?
 }
 
 data class XsString(
@@ -56,6 +58,8 @@ data class XsString(
 
 interface XsDecimalValue : XsAnyAtomicType {
     val data: BigDecimal
+
+    val element: PsiElement?
 }
 
 data class XsDecimal(
@@ -72,6 +76,8 @@ data class XsDecimal(
 
 interface XsDoubleValue : XsAnyAtomicType {
     val data: Double
+
+    val element: PsiElement?
 }
 
 // endregion
@@ -80,6 +86,8 @@ interface XsDoubleValue : XsAnyAtomicType {
 interface XsDurationValue : XsAnyAtomicType {
     val months: XsInteger
     val seconds: XsDecimal
+
+    val element: PsiElement?
 }
 
 data class XsDuration(
@@ -98,6 +106,8 @@ data class XsDuration(
 
 interface XsAnyUriValue : XsAnyAtomicType {
     val data: String
+
+    val element: PsiElement?
 }
 
 data class XsAnyUri(
@@ -117,6 +127,8 @@ interface XsQNameValue : XsAnyAtomicType {
     val prefix: XsNCNameValue?
     val localName: XsNCNameValue?
     val isLexicalQName: Boolean
+
+    val element: PsiElement?
 }
 
 data class XsQName(
@@ -171,6 +183,8 @@ data class XsNCName(
 
 interface XsIntegerValue : XsAnyAtomicType {
     val data: BigInteger
+
+    val element: PsiElement?
 }
 
 fun XsIntegerValue.toInt(): Int = data.toInt()
