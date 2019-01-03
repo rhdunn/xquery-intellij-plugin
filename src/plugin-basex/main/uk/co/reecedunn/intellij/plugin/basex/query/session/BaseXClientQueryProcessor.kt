@@ -26,12 +26,12 @@ import uk.co.reecedunn.intellij.plugin.processor.query.*
 
 internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        run(BaseXQueries.Version, XQuery).use { query ->
+        createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun run(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()

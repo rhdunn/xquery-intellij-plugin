@@ -31,12 +31,12 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
 internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        run(EXistDBQueries.Version, XQuery).use { query ->
+        createRunnableQuery(EXistDBQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun run(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
                 val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)

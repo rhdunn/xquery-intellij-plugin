@@ -35,12 +35,12 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
         }
 
     override val version: ExecutableOnPooledThread<String> by cached {
-        run(BaseXQueries.Version, XQuery).use { query ->
+        createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
 
-    override fun run(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()

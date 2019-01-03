@@ -19,12 +19,8 @@ import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
-import com.intellij.openapi.vfs.VfsUtil
-import com.intellij.openapi.vfs.VirtualFileManager
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
-import java.io.File
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
@@ -32,7 +28,7 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
         val source = configuration.scriptFile?.let { LocalFileSource(it) }
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
 
-        val query = configuration.processor!!.session.run(source, configuration.language)
+        val query = configuration.processor!!.session.createRunnableQuery(source, configuration.language)
         return QueryProcessHandler(query)
     }
 }

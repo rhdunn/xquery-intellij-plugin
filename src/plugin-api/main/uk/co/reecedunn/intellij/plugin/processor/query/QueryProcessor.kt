@@ -23,7 +23,7 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
-    fun run(query: ValueSource, language: Language): RunnableQuery
+    fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery
 
     fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery
 }

@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
 internal class MarkLogicQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
-        run(MarkLogicQueries.Version, XQuery).use { query ->
+        createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value }
         }
     }
@@ -51,7 +51,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         return queryParams
     }
 
-    override fun run(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
