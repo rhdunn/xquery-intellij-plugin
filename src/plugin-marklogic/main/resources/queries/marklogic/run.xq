@@ -19,6 +19,7 @@ declare option o:implementation "marklogic/6.0";
 
 (:~ Run a query on a MarkLogic server.
  :
+ : @param $mode Whether to "run", "profile", or "debug" the query.
  : @param $mimetype The mimetype of the query.
  : @param $module-path The path of the module to invoke, or "" for evaluated scripts.
  : @param $query The query script to evaluate, or "" for invoked modules.
@@ -39,6 +40,7 @@ declare option o:implementation "marklogic/6.0";
  : 3.  The REST API only returns the primitive type of each item.
  :)
 
+declare variable $mode as xs:string external;
 declare variable $mimetype as xs:string external;
 declare variable $module-path as xs:string external;
 declare variable $query as xs:string external;
@@ -155,11 +157,15 @@ declare function local:error(
     </err:error>
 };
 
-declare function local:run-xquery($variables, $options) as item()* {
+declare function local:xquery($variables, $options, $mode) as item()* {
     if (string-length($query) ne 0) then
-        xdmp:eval($query, $variables, $options)
+        switch ($mode)
+        case "run" return xdmp:eval($query, $variables, $options)
+        default return ()
     else
-        xdmp:invoke($module-path, $variables, $options)
+        switch ($mode)
+        case "run" return xdmp:invoke($module-path, $variables, $options)
+        default return ()
 };
 
 try {
@@ -168,7 +174,7 @@ try {
 
     let $retvals :=
         switch ($mimetype)
-        case "application/xquery" return local:run-xquery($variables, $options)
+        case "application/xquery" return local:xquery($variables, $options, $mode)
         default return ()
 
     for $retval at $i in $retvals
