@@ -67,8 +67,6 @@ data class XsDecimal(override val data: BigDecimal) : XsDecimalValue
 
 interface XsDoubleValue : XsAnyAtomicType {
     val data: Double
-
-    val element: PsiElement?
 }
 
 // endregion

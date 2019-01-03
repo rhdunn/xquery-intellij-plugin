@@ -602,7 +602,6 @@ private class XPathPsiTest : ParserTestCase() {
         fun doubleLiteral() {
             val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
             assertThat(literal.data, `is`(1e3))
-            assertThat(literal.element, sameInstance(literal as PsiElement))
         }
 
         @Nested
