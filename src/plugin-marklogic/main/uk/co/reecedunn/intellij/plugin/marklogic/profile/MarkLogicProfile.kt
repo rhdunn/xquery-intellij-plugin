@@ -19,6 +19,8 @@ import org.w3c.dom.Element
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryError
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
 class MarkLogicProfileEntry(entry: Element) {
     companion object {
@@ -49,12 +51,12 @@ class MarkLogicProfileEntry(entry: Element) {
         entry.children(XMLNS_PROF, "count").first().firstChild!!.nodeValue.toInt()
     }
 
-    val shallowTime: String by lazy {
-        entry.children(XMLNS_PROF, "shallow-time").first().firstChild!!.nodeValue
+    val shallowTime: XsDurationValue by lazy {
+        entry.children(XMLNS_PROF, "shallow-time").first().firstChild?.nodeValue?.toXsDuration()!!
     }
 
-    val deepTime: String by lazy {
-        entry.children(XMLNS_PROF, "deep-time").first().firstChild!!.nodeValue
+    val deepTime: XsDurationValue by lazy {
+        entry.children(XMLNS_PROF, "deep-time").first().firstChild?.nodeValue?.toXsDuration()!!
     }
 }
 
@@ -65,9 +67,9 @@ class MarkLogicProfile(xml: String) {
 
     private val doc = XmlDocument.parse(xml)
 
-    val elapsed: String by lazy {
+    val elapsed: XsDurationValue by lazy {
         val metadata = doc.root.children(XMLNS_PROF, "metadata").first()
-        metadata.children(XMLNS_PROF, "overall-elapsed").first().firstChild!!.nodeValue
+        metadata.children(XMLNS_PROF, "overall-elapsed").first().firstChild!!.nodeValue.toXsDuration()!!
     }
 
     val created: String by lazy {

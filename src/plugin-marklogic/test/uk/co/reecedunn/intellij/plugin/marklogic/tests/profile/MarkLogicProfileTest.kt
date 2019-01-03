@@ -22,6 +22,9 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.profile.MarkLogicProfile
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDecimal
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsInteger
+import java.math.BigInteger
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Profiler - MarkLogicProfile")
@@ -42,7 +45,8 @@ class MarkLogicProfileTest {
         """
 
         val p = MarkLogicProfile(profile)
-        assertThat(p.elapsed, `is`("PT0.0000564S"))
+        assertThat(p.elapsed.months, `is`(XsInteger(BigInteger.ZERO)))
+        assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000564".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T09:44:37.9608193Z"))
         assertThat(p.version, `is`("9.0-5"))
 
@@ -87,7 +91,8 @@ class MarkLogicProfileTest {
         """
 
         val p = MarkLogicProfile(profile)
-        assertThat(p.elapsed, `is`("PT0.0000435S"))
+        assertThat(p.elapsed.months, `is`(XsInteger(BigInteger.ZERO)))
+        assertThat(p.elapsed.seconds, `is`(XsDecimal("0.0000435".toBigDecimal())))
         assertThat(p.created, `is`("2019-01-03T10:50:34.2913686Z"))
         assertThat(p.version, `is`("9.0-5"))
 
@@ -100,7 +105,9 @@ class MarkLogicProfileTest {
         assertThat(results[1].lineNumber, `is`(1))
         assertThat(results[1].columnNumber, `is`(12))
         assertThat(results[1].hits, `is`(2))
-        assertThat(results[1].shallowTime, `is`("PT0.0000013S"))
-        assertThat(results[1].deepTime, `is`("PT0.0000014S"))
+        assertThat(results[1].shallowTime.months, `is`(XsInteger(BigInteger.ZERO)))
+        assertThat(results[1].shallowTime.seconds, `is`(XsDecimal("0.0000013".toBigDecimal())))
+        assertThat(results[1].deepTime.months, `is`(XsInteger(BigInteger.ZERO)))
+        assertThat(results[1].deepTime.seconds, `is`(XsDecimal("0.0000014".toBigDecimal())))
     }
 }
