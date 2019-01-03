@@ -32,6 +32,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
+import com.intellij.util.text.nullize
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -81,6 +82,47 @@ data class XsDuration(
     override val months: XsInteger,
     override val seconds: XsDecimal
 ) : XsDurationValue
+
+private val RE_INVALID_PARTIAL_DURATION = """^-?P(.*T)?${'$'}""".toRegex()
+
+@Suppress("RegExpRepeatedSpace")
+private val RE_DURATION = """^
+    (-)?
+    P (([0-9]+)Y)? # years
+      (([0-9]+)M)? # months
+      (([0-9]+)D)? # days
+    (T(([0-9]+)H)? # hours
+      (([0-9]+)M)? # minutes
+      (([0-9]+(\.[0-9]+)?)S)? # seconds
+    )?
+${'$'}""".toRegex(RegexOption.COMMENTS)
+
+private val MONTHS_PER_YEAR = 12.toBigInteger()
+private val HOURS_PER_DAY = 24.toBigInteger()
+private val MINUTES_PER_HOUR = 60.toBigInteger()
+private val SECONDS_PER_MINUTE = 60.toBigInteger()
+
+private val SECONDS_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE
+private val SECONDS_PER_HOUR = MINUTES_PER_HOUR * SECONDS_PER_MINUTE
+
+fun String.toXsDuration(): XsDurationValue? {
+    if (RE_INVALID_PARTIAL_DURATION.matchEntire(this) != null) return null
+    return RE_DURATION.matchEntire(this)?.let {
+        val yearsAsMonths = (it.groupValues[3].nullize()?.toBigInteger() ?: BigInteger.ZERO) * MONTHS_PER_YEAR
+        val months = it.groupValues[5].nullize()?.toBigInteger() ?: BigInteger.ZERO
+        val daysAsSeconds = (it.groupValues[7].nullize()?.toBigInteger() ?: BigInteger.ZERO) * SECONDS_PER_DAY
+        val hoursAsSeconds = (it.groupValues[10].nullize()?.toBigInteger() ?: BigInteger.ZERO) * SECONDS_PER_HOUR
+        val minutesAsSeconds = (it.groupValues[12].nullize()?.toBigInteger() ?: BigInteger.ZERO) * SECONDS_PER_MINUTE
+        val seconds = it.groupValues[14].nullize()?.toBigDecimal() ?: BigDecimal.ZERO
+
+        val monthDuration = yearsAsMonths + months
+        val secondDuration = (daysAsSeconds + hoursAsSeconds + minutesAsSeconds).toBigDecimal() + seconds
+        if (it.groupValues[1] == "-")
+            XsDuration(XsInteger(-monthDuration), XsDecimal(-secondDuration))
+        else
+            XsDuration(XsInteger(monthDuration), XsDecimal(secondDuration))
+    }
+}
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.17) xs:anyURI
