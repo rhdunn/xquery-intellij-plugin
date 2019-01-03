@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2018 Reece H. Dunn
+ : Copyright (C) 2018-2019 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ declare option o:implementation "marklogic/6.0";
 
 (:~ Run a query on a MarkLogic server.
  :
+ : @param $mimetype The mimetype of the query.
  : @param $module-path The path of the module to invoke, or "" for evaluated scripts.
  : @param $query The query script to evaluate, or "" for invoked modules.
  : @param $vars A map of the variable values by the variable name.
@@ -38,6 +39,7 @@ declare option o:implementation "marklogic/6.0";
  : 3.  The REST API only returns the primitive type of each item.
  :)
 
+declare variable $mimetype as xs:string external;
 declare variable $module-path as xs:string external;
 declare variable $query as xs:string external;
 declare variable $vars as xs:string external;
@@ -164,7 +166,11 @@ try {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
     let $options := ()
 
-    let $retvals := local:run-xquery($variables, $options)
+    let $retvals :=
+        switch ($mimetype)
+        case "application/xquery" return local:run-xquery($variables, $options)
+        default return ()
+
     for $retval at $i in $retvals
     let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
     return $retval
