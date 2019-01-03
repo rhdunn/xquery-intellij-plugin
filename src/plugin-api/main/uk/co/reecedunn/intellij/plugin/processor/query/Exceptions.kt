@@ -19,10 +19,11 @@ import com.intellij.lang.Language
 import org.apache.http.conn.HttpHostConnectException
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import java.lang.UnsupportedOperationException
 import java.net.UnknownHostException
 
-abstract class QueryError : RuntimeException() {
+abstract class QueryError : RuntimeException(), StackFrame {
     override val message: String? get() = description?.let { "[$standardCode] $it" } ?: standardCode
 
     abstract val standardCode: String
@@ -30,12 +31,6 @@ abstract class QueryError : RuntimeException() {
     abstract val vendorCode: String?
 
     abstract val description: String?
-
-    abstract val module: String?
-
-    abstract val lineNumber: Int?
-
-    abstract val columnNumber: Int?
 }
 
 class MissingJarFileException(val jarType: String) : RuntimeException("Missing JAR file for $jarType.")

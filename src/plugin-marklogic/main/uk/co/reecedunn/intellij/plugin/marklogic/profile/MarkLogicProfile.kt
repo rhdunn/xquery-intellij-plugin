@@ -19,10 +19,11 @@ import org.w3c.dom.Element
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryError
+import uk.co.reecedunn.intellij.plugin.processor.debug.StackFrame
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.toXsDuration
 
-class MarkLogicProfileEntry(entry: Element) {
+class MarkLogicProfileEntry(entry: Element) : StackFrame {
     companion object {
         private val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
     }
@@ -35,15 +36,15 @@ class MarkLogicProfileEntry(entry: Element) {
         entry.children(XMLNS_PROF, "expr-source").first().firstChild!!.nodeValue
     }
 
-    val module: String? by lazy {
+    override val module: String? by lazy {
         entry.children(XMLNS_PROF, "uri").first().firstChild?.nodeValue
     }
 
-    val lineNumber: Int? by lazy {
+    override val lineNumber: Int? by lazy {
         entry.children(XMLNS_PROF, "line").first().firstChild?.nodeValue?.toInt()
     }
 
-    val columnNumber: Int? by lazy {
+    override val columnNumber: Int? by lazy {
         entry.children(XMLNS_PROF, "column").first().firstChild?.nodeValue?.toInt()
     }
 
