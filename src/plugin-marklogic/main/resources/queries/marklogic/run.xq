@@ -161,10 +161,12 @@ declare function local:xquery($variables, $options, $mode) as item()* {
     if (string-length($query) ne 0) then
         switch ($mode)
         case "run" return xdmp:eval($query, $variables, $options)
+        case "profile" return prof:eval($query, $variables, $options)
         default return ()
     else
         switch ($mode)
         case "run" return xdmp:invoke($module-path, $variables, $options)
+        case "profile" return prof:invoke($module-path, $variables, $options)
         default return ()
 };
 
