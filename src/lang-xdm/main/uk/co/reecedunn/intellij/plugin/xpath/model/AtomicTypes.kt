@@ -86,20 +86,12 @@ interface XsDoubleValue : XsAnyAtomicType {
 interface XsDurationValue : XsAnyAtomicType {
     val months: XsInteger
     val seconds: XsDecimal
-
-    val element: PsiElement?
 }
 
 data class XsDuration(
     override val months: XsInteger,
-    override val seconds: XsDecimal,
-    private val reference: WeakReference<PsiElement>?
-) : XsDurationValue {
-    constructor(months: XsInteger, seconds: XsDecimal, element: PsiElement?) :
-            this(months, seconds, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-}
+    override val seconds: XsDecimal
+) : XsDurationValue
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.17) xs:anyURI
