@@ -595,7 +595,6 @@ private class XPathPsiTest : ParserTestCase() {
         fun decimalLiteral() {
             val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
             assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
-            assertThat(literal.element, sameInstance(literal as PsiElement))
         }
 
         @Test

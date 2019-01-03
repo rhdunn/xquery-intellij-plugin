@@ -58,18 +58,9 @@ data class XsString(
 
 interface XsDecimalValue : XsAnyAtomicType {
     val data: BigDecimal
-
-    val element: PsiElement?
 }
 
-data class XsDecimal(
-    override val data: BigDecimal,
-    private val reference: WeakReference<PsiElement>?
-) : XsDecimalValue {
-    constructor(data: BigDecimal, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-}
+data class XsDecimal(override val data: BigDecimal) : XsDecimalValue
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.5) xs:double
