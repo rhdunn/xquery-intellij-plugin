@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
-internal class MarkLogicQuery(
+internal class MarkLogicRunQuery(
     val builder: RequestBuilder, val queryParams: JsonObject, val connection: HttpConnection
 ) :
     RunnableQuery {
