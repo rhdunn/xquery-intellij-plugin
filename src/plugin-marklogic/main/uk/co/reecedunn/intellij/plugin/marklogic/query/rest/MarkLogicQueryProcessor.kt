@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
@@ -56,6 +57,17 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
                 MarkLogicRunQuery(builder, buildParameters(query, language, "run"), connection)
+            }
+            else -> throw UnsupportedQueryType(language)
+        }
+    }
+
+    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+        return when (language) {
+            XQuery -> {
+                val builder = RequestBuilder.post("$baseUri/v1/eval")
+                builder.addParameter("xquery", MarkLogicQueries.Run)
+                MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), connection)
             }
             else -> throw UnsupportedQueryType(language)
         }

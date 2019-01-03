@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
@@ -49,6 +50,10 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
             }
             else -> throw UnsupportedQueryType(language)
         }
+    }
+
+    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+        throw UnsupportedOperationException()
     }
 
     override fun close() = connection.close()

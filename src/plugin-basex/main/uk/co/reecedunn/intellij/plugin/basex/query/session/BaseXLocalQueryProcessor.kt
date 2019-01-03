@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 
 internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClasses) : QueryProcessor {
@@ -47,6 +48,10 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
             }
             else -> throw UnsupportedQueryType(language)
         }
+    }
+
+    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+        throw UnsupportedOperationException()
     }
 
     override fun close() {

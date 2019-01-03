@@ -22,15 +22,18 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
-internal class MarkLogicRunQuery(
+internal class MarkLogicProfileQuery(
     val builder: RequestBuilder,
     val queryParams: JsonObject,
     val connection: HttpConnection
 ) :
-    RunnableQuery {
+    ProfileableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -45,7 +48,7 @@ internal class MarkLogicRunQuery(
         throw UnsupportedOperationException()
     }
 
-    override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
+    override fun profile(): ExecutableOnPooledThread<ProfileQueryResult> = pooled_thread {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
@@ -61,7 +64,7 @@ internal class MarkLogicRunQuery(
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        MimeResponse(response.allHeaders, body).queryResults()
+        MarkLogicProfileQueryResults(MimeResponse(response.allHeaders, body).queryResults().iterator())
     }
 
     override fun close() {
