@@ -33,24 +33,27 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
+    private fun buildParameters(query: ValueSource): JsonObject {
+        val queryParams = JsonObject()
+        when (query.type) {
+            ValueSourceType.DatabaseFile -> {
+                queryParams.addProperty("module-path", query.data)
+                queryParams.addProperty("query", "")
+            }
+            else -> {
+                queryParams.addProperty("module-path", "")
+                queryParams.addProperty("query", query.value ?: "")
+            }
+        }
+        return queryParams
+    }
+
     override fun run(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
-                val queryParams = JsonObject()
-                when (query.type) {
-                    ValueSourceType.DatabaseFile -> {
-                        queryParams.addProperty("module-path", query.data)
-                        queryParams.addProperty("query", "")
-                    }
-                    else -> {
-                        queryParams.addProperty("module-path", "")
-                        queryParams.addProperty("query", query.value ?: "")
-                    }
-                }
-
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicQuery(builder, queryParams, connection)
+                MarkLogicQuery(builder, buildParameters(query), connection)
             }
             else -> throw UnsupportedQueryType(language)
         }
