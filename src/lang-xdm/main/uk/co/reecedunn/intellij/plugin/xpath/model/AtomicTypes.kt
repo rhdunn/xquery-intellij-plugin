@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,11 +58,39 @@ interface XsDecimalValue : XsAnyAtomicType {
     val data: BigDecimal
 }
 
+data class XsDecimal(
+    override val data: BigDecimal,
+    private val reference: WeakReference<PsiElement>?
+) : XsDecimalValue {
+    constructor(data: BigDecimal, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
+
 // endregion
 // region XML Schema 1.1 Part 2 (3.3.5) xs:double
 
 interface XsDoubleValue : XsAnyAtomicType {
     val data: Double
+}
+
+// endregion
+// region XML Schema 1.1 Part 2 (3.3.6) xs:duration
+
+interface XsDurationValue : XsAnyAtomicType {
+    val months: XsInteger
+    val seconds: XsDecimal
+}
+
+data class XsDuration(
+    override val months: XsInteger,
+    override val seconds: XsDecimal,
+    private val reference: WeakReference<PsiElement>?
+) : XsDurationValue {
+    constructor(months: XsInteger, seconds: XsDecimal, element: PsiElement?) :
+            this(months, seconds, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
 }
 
 // endregion
@@ -146,6 +174,15 @@ interface XsIntegerValue : XsAnyAtomicType {
 }
 
 fun XsIntegerValue.toInt(): Int = data.toInt()
+
+data class XsInteger(
+    override val data: BigInteger,
+    private val reference: WeakReference<PsiElement>?
+) : XsIntegerValue {
+    constructor(data: BigInteger, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
+
+    override val element get(): PsiElement? = reference?.get()
+}
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.3) xdm:wildcard
