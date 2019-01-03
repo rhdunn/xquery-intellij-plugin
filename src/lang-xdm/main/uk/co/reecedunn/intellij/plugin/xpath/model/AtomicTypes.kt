@@ -183,20 +183,11 @@ data class XsNCName(
 
 interface XsIntegerValue : XsAnyAtomicType {
     val data: BigInteger
-
-    val element: PsiElement?
 }
 
 fun XsIntegerValue.toInt(): Int = data.toInt()
 
-data class XsInteger(
-    override val data: BigInteger,
-    private val reference: WeakReference<PsiElement>?
-) : XsIntegerValue {
-    constructor(data: BigInteger, element: PsiElement?) : this(data, element?.let { WeakReference(it) })
-
-    override val element get(): PsiElement? = reference?.get()
-}
+data class XsInteger(override val data: BigInteger) : XsIntegerValue
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.3) xdm:wildcard
