@@ -45,6 +45,7 @@
     <p>IntelliJ Integration:</p>
     <ol>
       <li>Display the first comment line when the comment is folded.</li>
+      <li>Support profiling MarkLogic queries.</li>
     </ol>
     <p>Inspections:</p>
     <ol>

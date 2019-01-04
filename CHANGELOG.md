@@ -27,6 +27,7 @@ Function Resolution:
 IntelliJ Integration:
 
 1.  Display the first comment line when the comment is folded.
+1.  Support profiling MarkLogic queries.
 
 Inspections:
 
