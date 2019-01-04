@@ -46,7 +46,7 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     private var results: JTable? = null
 
     private fun createUIComponents() {
-        results = JBTable()
+        results = ProfileEntryTable()
     }
 
     // endregion
@@ -58,6 +58,7 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", "")
         created!!.text = PluginApiBundle.message("profile.console.created.label", "")
         version!!.text = PluginApiBundle.message("profile.console.version.label", "")
+        results!!.removeAll()
     }
 
     override fun setHelpId(helpId: String) {
@@ -112,6 +113,10 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
         created!!.text = PluginApiBundle.message("profile.console.created.label", result.created)
         version!!.text = PluginApiBundle.message("profile.console.version.label", result.version)
+        (results as ProfileEntryTable).let {
+            it.removeAll()
+            result.results.forEach { entry -> it.addRow(entry) }
+        }
     }
 
     // endregion
