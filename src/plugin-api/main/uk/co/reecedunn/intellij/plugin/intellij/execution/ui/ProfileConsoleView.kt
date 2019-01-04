@@ -23,19 +23,31 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import javax.swing.JComponent
+import javax.swing.JLabel
 import javax.swing.JPanel
+
+private fun formatDuration(duration: XsDurationValue): String {
+    return "${duration.seconds.data} s"
+}
 
 class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // region ConsoleView
 
     private var panel: JPanel? = null
+    private var elapsed: JLabel? = null
+    private var created: JLabel? = null
+    private var version: JLabel? = null
 
     override fun hasDeferredOutput(): Boolean = false
 
     override fun clear() {
-        this.result = null
+        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", "")
+        created!!.text = PluginApiBundle.message("profile.console.created.label", "")
+        version!!.text = PluginApiBundle.message("profile.console.version.label", "")
     }
 
     override fun setHelpId(helpId: String) {
@@ -86,10 +98,10 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // endregion
     // region ProfileReportListener
 
-    private var result: ProfileReport? = null
-
     override fun onProfileReport(result: ProfileReport) {
-        this.result = result
+        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
+        created!!.text = PluginApiBundle.message("profile.console.created.label", result.created)
+        version!!.text = PluginApiBundle.message("profile.console.version.label", result.version)
     }
 
     // endregion
