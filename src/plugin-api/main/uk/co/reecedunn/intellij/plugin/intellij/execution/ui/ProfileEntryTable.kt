@@ -20,7 +20,6 @@ import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
-import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 
 @Suppress("ClassName")
 object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(

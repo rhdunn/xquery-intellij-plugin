@@ -28,14 +28,27 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.Color
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTable
 import javax.swing.border.MatteBorder
 
+private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+
 private fun formatDuration(duration: XsDurationValue): String {
     return "${duration.seconds.data} s"
+}
+
+private fun formatDate(date: String): String {
+    try {
+        val d = ISO_DATE_FORMAT.parse(date.replace("""\\.[0-9]+Z""".toRegex(), ""))
+        return SimpleDateFormat.getDateTimeInstance().format(d)
+    } catch (e: Exception) {
+        return date
+    }
 }
 
 private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
@@ -119,7 +132,7 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
 
     override fun onProfileReport(result: ProfileReport) {
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
-        created!!.text = PluginApiBundle.message("profile.console.created.label", result.created)
+        created!!.text = PluginApiBundle.message("profile.console.created.label", formatDate(result.created))
         version!!.text = PluginApiBundle.message("profile.console.version.label", result.version)
         (results as ProfileEntryTable).let {
             it.removeAll()
