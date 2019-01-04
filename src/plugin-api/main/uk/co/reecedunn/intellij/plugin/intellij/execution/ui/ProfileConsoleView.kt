@@ -30,7 +30,7 @@ import javax.swing.JPanel
 class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // region ConsoleView
 
-    private val panel = JPanel()
+    private var panel: JPanel? = null
 
     override fun hasDeferredOutput(): Boolean = false
 
@@ -44,7 +44,7 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     override fun print(text: String, contentType: ConsoleViewContentType) {
     }
 
-    override fun getContentSize(): Int = component.height
+    override fun getContentSize(): Int = 0
 
     override fun setOutputPaused(value: Boolean) {
     }
@@ -53,7 +53,7 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
         return AnAction.EMPTY_ARRAY
     }
 
-    override fun getComponent(): JComponent = panel
+    override fun getComponent(): JComponent = panel!!
 
     override fun performWhenNoDeferredOutput(runnable: Runnable) {
     }
