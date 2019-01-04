@@ -21,17 +21,21 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class ProfileConsoleView : ConsoleView {
-    private val panel = JPanel()
-
+class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // region ConsoleView
+
+    private val panel = JPanel()
 
     override fun hasDeferredOutput(): Boolean = false
 
     override fun clear() {
+        this.result = null
     }
 
     override fun setHelpId(helpId: String) {
@@ -55,6 +59,7 @@ class ProfileConsoleView : ConsoleView {
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
+        (processHandler as? ProfileableQueryProcessHandler)?.profileReportListener = this
     }
 
     override fun getPreferredFocusableComponent(): JComponent = component
@@ -76,6 +81,15 @@ class ProfileConsoleView : ConsoleView {
     }
 
     override fun scrollTo(offset: Int) {
+    }
+
+    // endregion
+    // region ProfileReportListener
+
+    private var result: ProfileReport? = null
+
+    override fun onProfileReport(result: ProfileReport) {
+        this.result = result
     }
 
     // endregion

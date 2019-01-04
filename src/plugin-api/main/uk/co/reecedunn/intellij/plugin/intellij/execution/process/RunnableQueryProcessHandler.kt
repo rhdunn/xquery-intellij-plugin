@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import java.io.OutputStream
 
-class RunnableQueryProcessHandler(val query: RunnableQuery) : ProcessHandler() {
+class RunnableQueryProcessHandler(private val query: RunnableQuery) : ProcessHandler() {
     // region ProcessHandler
 
     override fun getProcessInput(): OutputStream? = null

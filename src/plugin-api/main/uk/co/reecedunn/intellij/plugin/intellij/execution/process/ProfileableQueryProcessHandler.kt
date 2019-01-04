@@ -21,8 +21,23 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.io.OutputStream
+import java.lang.ref.WeakReference
 
-class ProfileableQueryProcessHandler(val query: ProfileableQuery) : ProcessHandler() {
+class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : ProcessHandler() {
+    // region Profile Report
+
+    private var mProfileReportListener: WeakReference<ProfileReportListener>? = null
+    var profileReportListener: ProfileReportListener?
+        get() = mProfileReportListener?.get()
+        set(value) {
+            mProfileReportListener = value?.let { WeakReference(it) }
+        }
+
+    fun notifyProfileReport(report: ProfileReport) {
+        profileReportListener?.onProfileReport(report)
+    }
+
+    // endregion
     // region ProcessHandler
 
     override fun getProcessInput(): OutputStream? = null
@@ -60,9 +75,6 @@ class ProfileableQueryProcessHandler(val query: ProfileableQuery) : ProcessHandl
 
     fun notifyException(e: Throwable) {
         e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
-    }
-
-    fun notifyProfileReport(report: ProfileReport) {
     }
 
     fun notifyResult(result: QueryResult) {
