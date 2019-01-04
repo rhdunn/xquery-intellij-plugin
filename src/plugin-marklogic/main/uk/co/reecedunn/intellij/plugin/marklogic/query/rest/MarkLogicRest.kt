@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
@@ -34,8 +35,9 @@ object MarkLogicRest : QueryProcessorApi {
 
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
+        val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
         return when (language) {
-            XQuery -> run
+            XQuery -> run || profile
             else -> false
         }
     }
