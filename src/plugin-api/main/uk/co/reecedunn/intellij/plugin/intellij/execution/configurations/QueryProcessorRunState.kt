@@ -17,8 +17,11 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.CommandLineState
+import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
+import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
 
@@ -28,7 +31,16 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
         val source = configuration.scriptFile?.let { LocalFileSource(it) }
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
 
-        val query = configuration.processor!!.session.createRunnableQuery(source, configuration.language)
-        return RunnableQueryProcessHandler(query)
+        return when (environment.executor.id) {
+            DefaultRunExecutor.EXECUTOR_ID -> {
+                val query = configuration.processor!!.session.createRunnableQuery(source, configuration.language)
+                RunnableQueryProcessHandler(query)
+            }
+            DefaultProfileExecutor.EXECUTOR_ID -> {
+                val query = configuration.processor!!.session.createProfileableQuery(source, configuration.language)
+                ProfileableQueryProcessHandler(query)
+            }
+            else -> throw UnsupportedOperationException()
+        }
     }
 }

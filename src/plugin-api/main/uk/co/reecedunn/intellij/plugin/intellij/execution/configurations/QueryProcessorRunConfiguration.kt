@@ -77,8 +77,8 @@ class QueryProcessorRunConfiguration(
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
         return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
-            DefaultDebugExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
             DefaultProfileExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
+            DefaultDebugExecutor.EXECUTOR_ID -> null
             else -> null
         }
     }
