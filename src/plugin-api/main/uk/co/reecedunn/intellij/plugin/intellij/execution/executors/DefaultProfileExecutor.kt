@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.executors
 import com.intellij.execution.Executor
 import com.intellij.execution.ExecutorRegistry
 import com.intellij.icons.AllIcons
+import com.intellij.openapi.wm.ToolWindowId
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import javax.swing.Icon
@@ -30,7 +31,7 @@ class DefaultProfileExecutor : Executor() {
         fun getInstance(): Executor = ExecutorRegistry.getInstance().getExecutorById(EXECUTOR_ID)
     }
 
-    override fun getToolWindowId(): String = EXECUTOR_ID
+    override fun getToolWindowId(): String = ToolWindowId.RUN
 
     override fun getToolWindowIcon(): Icon = AllIcons.Actions.Profile
 
