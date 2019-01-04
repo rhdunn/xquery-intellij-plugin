@@ -16,13 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.execution.ExecutionException
+import com.intellij.execution.Executor
 import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
@@ -40,6 +43,14 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
                 val query = configuration.processor!!.session.createProfileableQuery(source, configuration.language)
                 ProfileableQueryProcessHandler(query)
             }
+            else -> throw UnsupportedOperationException()
+        }
+    }
+
+    override fun createConsole(executor: Executor): ConsoleView? {
+        return when (executor.id) {
+            DefaultRunExecutor.EXECUTOR_ID -> super.createConsole(executor)
+            DefaultProfileExecutor.EXECUTOR_ID -> ProfileConsoleView()
             else -> throw UnsupportedOperationException()
         }
     }
