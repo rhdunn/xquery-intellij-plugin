@@ -19,7 +19,7 @@ import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
-import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
@@ -29,6 +29,6 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
             ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
 
         val query = configuration.processor!!.session.createRunnableQuery(source, configuration.language)
-        return QueryProcessHandler(query)
+        return RunnableQueryProcessHandler(query)
     }
 }
