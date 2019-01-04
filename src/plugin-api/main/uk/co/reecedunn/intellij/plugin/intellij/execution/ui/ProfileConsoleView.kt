@@ -21,6 +21,7 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.ui.table.JBTable
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
@@ -29,18 +30,27 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
+import javax.swing.JTable
 
 private fun formatDuration(duration: XsDurationValue): String {
     return "${duration.seconds.data} s"
 }
 
 class ProfileConsoleView : ConsoleView, ProfileReportListener {
-    // region ConsoleView
+    // region UI
 
     private var panel: JPanel? = null
     private var elapsed: JLabel? = null
     private var created: JLabel? = null
     private var version: JLabel? = null
+    private var results: JTable? = null
+
+    private fun createUIComponents() {
+        results = JBTable()
+    }
+
+    // endregion
+    // region ConsoleView
 
     override fun hasDeferredOutput(): Boolean = false
 
