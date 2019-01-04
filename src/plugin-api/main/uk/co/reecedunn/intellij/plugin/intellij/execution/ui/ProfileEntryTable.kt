@@ -24,50 +24,100 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 @Suppress("ClassName")
 object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.module
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        return (o1?.module ?: "").compareTo(o2?.module ?: "")
+    }
 }
 
 @Suppress("ClassName")
 object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.line-number.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): Int? = item?.lineNumber
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        return o1?.lineNumber!!.compareTo(o2?.lineNumber!!)
+    }
 }
 
 @Suppress("ClassName")
 object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.column-number.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): Int? = item?.columnNumber
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        return o1?.columnNumber!!.compareTo(o2?.columnNumber!!)
+    }
 }
 
 @Suppress("ClassName")
 object HITS_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.hits.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): Int? = item?.hits
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        return o1!!.hits.compareTo(o2!!.hits)
+    }
 }
 
 @Suppress("ClassName")
 object SHALLOW_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.shallow-time.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.shallowTime?.seconds?.data?.toPlainString()
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        val compared = o1!!.shallowTime.months.data.compareTo(o2!!.shallowTime.months.data)
+        return if (compared == 0)
+            o1.shallowTime.seconds.data.compareTo(o2.shallowTime.seconds.data)
+        else
+            compared
+    }
 }
 
 @Suppress("ClassName")
 object DEEP_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.deep-time.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.deepTime?.seconds?.data?.toPlainString()
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        val compared = o1!!.deepTime.months.data.compareTo(o2!!.deepTime.months.data)
+        return if (compared == 0)
+            o1.deepTime.seconds.data.compareTo(o2.deepTime.seconds.data)
+        else
+            compared
+    }
 }
 
 @Suppress("ClassName")
 object EXPRESSION_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.expression.column.label")
-) {
+), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.expression
+
+    override fun getComparator(): Comparator<ProfileEntry>? = this
+
+    override fun compare(o1: ProfileEntry?, o2: ProfileEntry?): Int {
+        return o1!!.expression.compareTo(o2!!.expression)
+    }
 }
 
 private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
@@ -86,9 +136,6 @@ class ProfileEntryTable : TableView<ProfileEntry>() {
         setEnableAntialiasing(true)
 
         emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
-
-        tableHeader = createDefaultTableHeader()
-        tableHeader.columnModel
     }
 
     fun addRow(entry: ProfileEntry) = listTableModel.addRow(entry)
