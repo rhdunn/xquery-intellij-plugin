@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.executors.DefaultDebugExecutor
+import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.lang.Language
 import com.intellij.openapi.components.PersistentStateComponent
@@ -27,6 +29,7 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
@@ -68,14 +71,16 @@ class QueryProcessorRunConfiguration(
     // region RunConfigurationBase
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        return QueryProcessorRunConfigurationEditor(
-            project,
-            language
-        )
+        return QueryProcessorRunConfigurationEditor(project, language)
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
-        return QueryProcessorRunState(environment)
+        return when (executor.id) {
+            DefaultRunExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
+            DefaultDebugExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
+            DefaultProfileExecutor.EXECUTOR_ID -> QueryProcessorRunState(environment)
+            else -> null
+        }
     }
 
     // endregion
