@@ -8,8 +8,8 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="eee49" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="4" vgap="-1">
-        <margin top="2" left="2" bottom="2" right="2"/>
+      <grid id="eee49" binding="metadata" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="true" same-size-vertically="false" hgap="4" vgap="-1">
+        <margin top="4" left="4" bottom="4" right="4"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -21,28 +21,23 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value=""/>
+              <text resource-bundle="messages/PluginApiBundle" key="profile.console.elapsed.label.no-value"/>
             </properties>
           </component>
           <component id="9f705" class="javax.swing.JLabel" binding="created">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value=""/>
+              <text resource-bundle="messages/PluginApiBundle" key="profile.console.created.label.no-value"/>
             </properties>
           </component>
-          <hspacer id="f791f">
-            <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
           <component id="3bd5e" class="javax.swing.JLabel" binding="version">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value=""/>
+              <text resource-bundle="messages/PluginApiBundle" key="profile.console.version.label.no-value"/>
             </properties>
           </component>
         </children>

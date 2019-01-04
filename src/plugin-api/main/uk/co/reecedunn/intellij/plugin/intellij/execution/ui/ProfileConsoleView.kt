@@ -27,25 +27,33 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
+import java.awt.Color
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTable
+import javax.swing.border.MatteBorder
 
 private fun formatDuration(duration: XsDurationValue): String {
     return "${duration.seconds.data} s"
 }
 
+private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
+
 class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // region UI
 
     private var panel: JPanel? = null
+    private var metadata: JPanel? = null
     private var elapsed: JLabel? = null
     private var created: JLabel? = null
     private var version: JLabel? = null
     private var results: JTable? = null
 
     private fun createUIComponents() {
+        metadata = JPanel()
+        metadata!!.border = PANEL_BORDER
+
         results = ProfileEntryTable()
     }
 
@@ -55,9 +63,9 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     override fun hasDeferredOutput(): Boolean = false
 
     override fun clear() {
-        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", "")
-        created!!.text = PluginApiBundle.message("profile.console.created.label", "")
-        version!!.text = PluginApiBundle.message("profile.console.version.label", "")
+        elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label.no-value")
+        created!!.text = PluginApiBundle.message("profile.console.created.label.no-value")
+        version!!.text = PluginApiBundle.message("profile.console.version.label.no-value")
         results!!.removeAll()
     }
 
