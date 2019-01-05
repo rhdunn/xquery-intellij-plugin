@@ -49,10 +49,11 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
             else -> throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
+        var position: Long = -1
         val result = XmlDocument.parse(body)
         result.root.children(EXIST_NS, "value").map { value ->
             val type = value.getAttributeNS(EXIST_NS, "type")
-            QueryResult.fromItemType(value.firstChild?.nodeValue ?: "", type)
+            QueryResult.fromItemType(++position, value.firstChild?.nodeValue ?: "", type)
         }
     }
 

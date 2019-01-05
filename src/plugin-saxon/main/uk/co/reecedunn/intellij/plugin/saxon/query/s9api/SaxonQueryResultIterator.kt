@@ -23,6 +23,7 @@ internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClas
     private val getUnderlyingValueMethod = classes.xdmItemClass.getMethod("getUnderlyingValue")
     private val getItemTypeMethod =
         classes.typeClass.getMethod("getItemType", classes.itemClass, classes.typeHierarchyClass)
+    private var position: Long = -1
 
     override fun hasNext(): Boolean {
         return hasNextMethod.invoke(results) as Boolean
@@ -32,6 +33,6 @@ internal class SaxonQueryResultIterator(val results: Any, val classes: SaxonClas
         val next = nextMethod.invoke(results)
         val value = getUnderlyingValueMethod.invoke(next)
         val type = getItemTypeMethod.invoke(null, value, null)
-        return QueryResult.fromItemType(next.toString(), type.toString())
+        return QueryResult.fromItemType(++position, next.toString(), type.toString())
     }
 }

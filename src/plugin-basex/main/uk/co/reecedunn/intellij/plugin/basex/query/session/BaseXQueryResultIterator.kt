@@ -19,6 +19,8 @@ import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 internal class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasses, val queryClass: Class<*>) : Iterator<QueryResult> {
+    private var position: Long = -1
+
     override fun hasNext(): Boolean = classes.check {
         queryClass.getMethod("more").invoke(query) as Boolean
     }
@@ -26,6 +28,6 @@ internal class BaseXQueryResultIterator(val query: Any, val classes: BaseXClasse
     override fun next(): QueryResult {
         val next = queryClass.getMethod("next").invoke(query) as String?
         val type = queryClass.getMethodOrNull("type")?.invoke(query)
-        return QueryResult.fromItemType(next!!, type?.toString() ?: "item()")
+        return QueryResult.fromItemType(++position, next!!, type?.toString() ?: "item()")
     }
 }

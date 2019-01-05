@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.mimetypeFromXQueryItemTyp
 import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
 fun MimeResponse.queryResults(): Sequence<QueryResult> {
+    var position: Long = -1
     return parts.asSequence().mapIndexed { index, part ->
         if (part.getHeader("Content-Length")?.toInt() == 0)
             null
@@ -33,6 +34,7 @@ fun MimeResponse.queryResults(): Sequence<QueryResult> {
                 val itemType = primitiveToItemType(derived ?: primitive)
                 val contentType = part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
                 QueryResult(
+                    ++position,
                     part.body,
                     itemType,
                     if (contentType == "application/x-unknown-content-type")

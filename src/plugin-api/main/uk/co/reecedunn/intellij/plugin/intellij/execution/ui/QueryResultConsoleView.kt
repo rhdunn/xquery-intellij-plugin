@@ -110,9 +110,9 @@ class QueryResultConsoleView : ConsoleView, QueryResultListener {
     override fun onException(e: Throwable) {
         val result =
             if (e is QueryError)
-                QueryResult(e, "fn:error", "text/plain")
+                QueryResult(0, e, "fn:error", "text/plain")
             else
-                QueryResult(e, e.javaClass.name, "text/plain")
+                QueryResult(0, e, e.javaClass.name, "text/plain")
         onQueryResult(result)
     }
 

@@ -45,7 +45,7 @@ internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: H
             throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
         }
 
-        sequenceOf(QueryResult(body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
+        sequenceOf(QueryResult(0, body, "xs:string", response.allHeaders.get("Content-Type") ?: "text/plain"))
     }
 
     override fun close() {

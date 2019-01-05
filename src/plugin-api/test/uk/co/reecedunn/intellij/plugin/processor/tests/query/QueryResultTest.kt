@@ -28,7 +28,8 @@ class QueryResultTest {
     @DisplayName("from ItemType")
     internal inner class FromItemType {
         private fun test(value: String, type: String, mimetype: String) {
-            val result = QueryResult.fromItemType(value, type)
+            val result = QueryResult.fromItemType(5.toLong(), value, type)
+            assertThat(result.position, `is`(5.toLong()))
             assertThat(result.value, `is`(value))
             assertThat(result.type, `is`(type))
             assertThat(result.mimetype, `is`(mimetype))
