@@ -165,8 +165,10 @@ declare function local:function($ref as xs:string) {
     try { xdmp:eval($ref) } catch * { () }
 };
 
-declare function local:javascript($variables, $options, $mode) as item()* {
-    if (local:version() < 8.0) then
+declare function local:javascript() as item()* {
+    let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
+    let $options := ()
+    return if (local:version() < 8.0) then
         fn:error(
             xs:QName("UNSUPPORTED-VERSION"),
             "MarkLogic " || xdmp:version() || " does not support server-side JavaScript"
@@ -183,7 +185,8 @@ declare function local:javascript($variables, $options, $mode) as item()* {
         default return ()
 };
 
-declare function local:sql($variables, $options, $mode) as item()* {
+declare function local:sql() as item()* {
+    let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
     let $query :=
         if (string-length($query) ne 0) then
             $query
@@ -200,8 +203,10 @@ declare function local:sql($variables, $options, $mode) as item()* {
     default return ()
 };
 
-declare function local:xquery($variables, $options, $mode) as item()* {
-    if (string-length($query) ne 0) then
+declare function local:xquery() as item()* {
+    let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
+    let $options := ()
+    return if (string-length($query) ne 0) then
         switch ($mode)
         case "run" return xdmp:eval($query, $variables, $options)
         case "profile" return prof:eval($query, $variables, $options)
@@ -214,14 +219,11 @@ declare function local:xquery($variables, $options, $mode) as item()* {
 };
 
 try {
-    let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
-    let $options := ()
-
     let $retvals :=
         switch ($mimetype)
-        case "application/javascript" return local:javascript($variables, $options, $mode)
-        case "application/sql" return local:sql($variables, $options, $mode)
-        case "application/xquery" return local:xquery($variables, $options, $mode)
+        case "application/javascript" return local:javascript()
+        case "application/sql" return local:sql()
+        case "application/xquery" return local:xquery()
         default return ()
 
     for $retval at $i in $retvals
