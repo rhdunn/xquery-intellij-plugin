@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 
 @Suppress("ClassName")
-object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.module.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.module
@@ -35,7 +35,7 @@ object MODULE_PATH_COLUMN : ColumnInfo<ProfileEntry, String>(
 }
 
 @Suppress("ClassName")
-object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
+private object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.line-number.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): Int? = item?.lineNumber
@@ -48,7 +48,7 @@ object LINE_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
 }
 
 @Suppress("ClassName")
-object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
+private object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.column-number.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): Int? = item?.columnNumber
@@ -61,7 +61,7 @@ object COLUMN_NUMBER_COLUMN : ColumnInfo<ProfileEntry, Int>(
 }
 
 @Suppress("ClassName")
-object HITS_COLUMN : ColumnInfo<ProfileEntry, Int>(
+private object HITS_COLUMN : ColumnInfo<ProfileEntry, Int>(
     PluginApiBundle.message("profile.entry.table.hits.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): Int? = item?.hits
@@ -74,7 +74,7 @@ object HITS_COLUMN : ColumnInfo<ProfileEntry, Int>(
 }
 
 @Suppress("ClassName")
-object SHALLOW_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object SHALLOW_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.shallow-time.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.shallowTime?.seconds?.data?.toPlainString()
@@ -91,7 +91,7 @@ object SHALLOW_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
 }
 
 @Suppress("ClassName")
-object DEEP_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object DEEP_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.deep-time.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.deepTime?.seconds?.data?.toPlainString()
@@ -108,7 +108,7 @@ object DEEP_TIME_COLUMN : ColumnInfo<ProfileEntry, String>(
 }
 
 @Suppress("ClassName")
-object EXPRESSION_COLUMN : ColumnInfo<ProfileEntry, String>(
+private object EXPRESSION_COLUMN : ColumnInfo<ProfileEntry, String>(
     PluginApiBundle.message("profile.entry.table.expression.column.label")
 ), Comparator<ProfileEntry> {
     override fun valueOf(item: ProfileEntry?): String? = item?.expression
