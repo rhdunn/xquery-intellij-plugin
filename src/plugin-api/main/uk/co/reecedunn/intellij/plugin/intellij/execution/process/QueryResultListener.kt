@@ -18,7 +18,11 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 interface QueryResultListener {
-    fun onException(e: Throwable)
+    fun onBeginResults()
+
+    fun onEndResults()
 
     fun onQueryResult(result: QueryResult)
+
+    fun onException(e: Throwable)
 }

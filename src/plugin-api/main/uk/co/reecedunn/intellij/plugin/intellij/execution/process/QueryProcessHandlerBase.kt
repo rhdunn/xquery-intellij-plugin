@@ -31,6 +31,14 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
             mQueryResultListener = value?.let { WeakReference(it) }
         }
 
+    fun notifyBeginResults() {
+        queryResultListener?.onBeginResults()
+    }
+
+    fun notifyEndResults() {
+        queryResultListener?.onEndResults()
+    }
+
     fun notifyException(e: Throwable) {
         queryResultListener?.onException(e) ?: {
             e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }

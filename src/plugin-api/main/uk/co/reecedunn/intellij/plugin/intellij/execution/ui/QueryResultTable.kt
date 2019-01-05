@@ -52,7 +52,7 @@ private object MIME_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
 private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.value.column.label")
 ), Comparator<QueryResult> {
-    override fun valueOf(item: QueryResult?): String? = item?.type
+    override fun valueOf(item: QueryResult?): String? = item?.value
 
     override fun getComparator(): Comparator<QueryResult>? = this
 

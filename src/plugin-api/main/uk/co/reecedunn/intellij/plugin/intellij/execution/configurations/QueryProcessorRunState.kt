@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfi
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileConsoleView
+import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryResultConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
@@ -49,7 +50,7 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
 
     override fun createConsole(executor: Executor): ConsoleView? {
         return when (executor.id) {
-            DefaultRunExecutor.EXECUTOR_ID -> super.createConsole(executor)
+            DefaultRunExecutor.EXECUTOR_ID -> QueryResultConsoleView()
             DefaultProfileExecutor.EXECUTOR_ID -> ProfileConsoleView()
             else -> throw UnsupportedOperationException()
         }

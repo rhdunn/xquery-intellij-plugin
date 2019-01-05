@@ -42,7 +42,9 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
             query.profile().execute { results ->
                 try {
                     notifyProfileReport(results.report)
+                    notifyBeginResults()
                     results.results.forEach { result -> notifyResult(result) }
+                    notifyEndResults()
                 } catch (e: Throwable) {
                     notifyException(e)
                 } finally {

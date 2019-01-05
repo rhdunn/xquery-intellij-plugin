@@ -21,14 +21,30 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.JComponent
+import javax.swing.JPanel
+import javax.swing.JTable
 
-class QueryResultConsoleView : ConsoleView {
+class QueryResultConsoleView : ConsoleView, QueryResultListener {
+    // region UI
+
+    private var panel: JPanel? = null
+    private var results: JTable? = null
+
+    private fun createUIComponents() {
+        results = QueryResultTable()
+    }
+
+    // endregion
     // region ConsoleView
 
     override fun hasDeferredOutput(): Boolean = false
 
     override fun clear() {
+        results!!.removeAll()
     }
 
     override fun setHelpId(helpId: String) {
@@ -46,12 +62,13 @@ class QueryResultConsoleView : ConsoleView {
         return AnAction.EMPTY_ARRAY
     }
 
-    override fun getComponent(): JComponent = TODO()
+    override fun getComponent(): JComponent = panel!!
 
     override fun performWhenNoDeferredOutput(runnable: Runnable) {
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
+        (processHandler as? QueryProcessHandlerBase)?.queryResultListener = this
     }
 
     override fun getPreferredFocusableComponent(): JComponent = component
@@ -73,6 +90,24 @@ class QueryResultConsoleView : ConsoleView {
     }
 
     override fun scrollTo(offset: Int) {
+    }
+
+    // endregion
+    // region QueryResultListener
+
+    override fun onBeginResults() {
+        results!!.removeAll()
+    }
+
+    override fun onEndResults() {
+    }
+
+    override fun onQueryResult(result: QueryResult) {
+        (results as QueryResultTable).addRow(result)
+    }
+
+    override fun onException(e: Throwable) {
+        (results as QueryResultTable).addRow(QueryResult(e.toString(), e.javaClass.name, "text/plain"))
     }
 
     // endregion

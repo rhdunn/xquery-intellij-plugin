@@ -23,7 +23,9 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
         try {
             query.run().execute { results ->
                 try {
+                    notifyBeginResults()
                     results.forEach { result -> notifyResult(result) }
+                    notifyEndResults()
                 } catch (e: Throwable) {
                     notifyException(e)
                 } finally {
