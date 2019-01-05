@@ -64,7 +64,7 @@ private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
     override fun getComparator(): Comparator<QueryResult>? = this
 
     override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
-        return (valueOf(o1) ?: "").compareTo(valueOf(o2) ?: "")
+        return o1!!.position.compareTo(o2!!.position)
     }
 }
 
