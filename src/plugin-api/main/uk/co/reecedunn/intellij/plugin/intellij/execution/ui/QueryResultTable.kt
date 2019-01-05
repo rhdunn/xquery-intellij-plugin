@@ -69,9 +69,9 @@ private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
 }
 
 private val COLUMNS: Array<ColumnInfo<*, *>> = arrayOf(
+    VALUE_COLUMN,
     ITEM_TYPE_COLUMN,
-    MIME_TYPE_COLUMN,
-    VALUE_COLUMN
+    MIME_TYPE_COLUMN
 )
 
 class QueryResultTable : TableView<QueryResult>() {
