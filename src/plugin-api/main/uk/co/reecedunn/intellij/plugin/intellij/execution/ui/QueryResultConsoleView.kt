@@ -23,6 +23,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -107,7 +108,12 @@ class QueryResultConsoleView : ConsoleView, QueryResultListener {
     }
 
     override fun onException(e: Throwable) {
-        (results as QueryResultTable).addRow(QueryResult(e.toString(), e.javaClass.name, "text/plain"))
+        val result =
+            if (e is QueryError)
+                QueryResult(e, "fn:error", "text/plain")
+            else
+                QueryResult(e, e.javaClass.name, "text/plain")
+        onQueryResult(result)
     }
 
     // endregion

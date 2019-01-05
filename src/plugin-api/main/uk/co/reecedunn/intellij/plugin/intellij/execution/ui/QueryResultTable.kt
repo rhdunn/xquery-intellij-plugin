@@ -19,6 +19,7 @@ import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 @Suppress("ClassName")
@@ -53,7 +54,11 @@ private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
 ), Comparator<QueryResult> {
     override fun valueOf(item: QueryResult?): String? {
         val value = item?.value
-        return value?.toString()
+        return when (value) {
+            is QueryError -> value.message
+            is Throwable -> value.localizedMessage
+            else -> value?.toString()
+        }
     }
 
     override fun getComparator(): Comparator<QueryResult>? = this
