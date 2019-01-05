@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.*
 internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXClasses) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.first().value }
+            query.run().then { results -> results.first().value as String }
         }
     }
 

@@ -81,7 +81,7 @@ fun mimetypeFromXQueryItemType(type: String): String {
     }
 }
 
-data class QueryResult(val value: String, val type: String, val mimetype: String) {
+data class QueryResult(val value: Any, val type: String, val mimetype: String) {
     companion object {
         fun fromItemType(value: String, type: String): QueryResult =
             QueryResult(value, type, mimetypeFromXQueryItemType(type))

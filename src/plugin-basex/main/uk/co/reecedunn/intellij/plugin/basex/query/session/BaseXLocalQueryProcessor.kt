@@ -36,7 +36,7 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
 
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.first().value }
+            query.run().then { results -> results.first().value as String }
         }
     }
 

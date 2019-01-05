@@ -19,7 +19,6 @@ import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 @Suppress("ClassName")
@@ -52,12 +51,15 @@ private object MIME_TYPE_COLUMN : ColumnInfo<QueryResult, String>(
 private object VALUE_COLUMN : ColumnInfo<QueryResult, String>(
     PluginApiBundle.message("query.result.table.value.column.label")
 ), Comparator<QueryResult> {
-    override fun valueOf(item: QueryResult?): String? = item?.value
+    override fun valueOf(item: QueryResult?): String? {
+        val value = item?.value
+        return value?.toString()
+    }
 
     override fun getComparator(): Comparator<QueryResult>? = this
 
     override fun compare(o1: QueryResult?, o2: QueryResult?): Int {
-        return (o1?.value ?: "").compareTo(o2?.value ?: "")
+        return (valueOf(o1) ?: "").compareTo(valueOf(o2) ?: "")
     }
 }
 

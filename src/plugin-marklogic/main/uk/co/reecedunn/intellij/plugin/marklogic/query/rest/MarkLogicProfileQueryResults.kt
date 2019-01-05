@@ -25,7 +25,7 @@ internal class MarkLogicProfileQueryResults(queryResults: Iterator<QueryResult>)
     override val report: ProfileReport
 
     init {
-        report = MarkLogicProfileReport(queryResults.next().value)
+        report = MarkLogicProfileReport(queryResults.next().value as String)
         results = queryResults.asSequence()
     }
 }

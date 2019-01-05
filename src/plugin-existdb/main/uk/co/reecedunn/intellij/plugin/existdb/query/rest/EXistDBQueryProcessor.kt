@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpConnection) : QueryProcessor {
     override val version: ExecutableOnPooledThread<String> by cached {
         createRunnableQuery(EXistDBQueries.Version, XQuery).use { query ->
-            query.run().then { results -> results.first().value }
+            query.run().then { results -> results.first().value as String }
         }
     }
 
