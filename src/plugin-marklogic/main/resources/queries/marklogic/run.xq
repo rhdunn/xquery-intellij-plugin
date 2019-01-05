@@ -206,6 +206,23 @@ declare function local:sparql-query() as item()* {
     default return ()
 };
 
+declare function local:sparql-update() as item()* {
+    let $variables := local:parse-vars-map(xdmp:unquote($vars), xdmp:unquote($types))
+    let $query :=
+        if (string-length($query) ne 0) then
+            $query
+        else
+            () (: TODO: Read the contents of the query file from the modules database. :)
+    return if (local:version() < 8.0) then
+        fn:error(
+            xs:QName("UNSUPPORTED-VERSION"),
+            "MarkLogic " || xdmp:version() || " does not support SPARQL update queries"
+        )
+    else switch ($mode)
+    case "run" return sem:sparql-update($query, $variables)
+    default return ()
+};
+
 declare function local:sql() as item()* {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
     let $query :=
@@ -244,6 +261,7 @@ try {
         switch ($mimetype)
         case "application/javascript" return local:javascript()
         case "application/sparql-query" return local:sparql-query()
+        case "application/sparql-update" return local:sparql-update()
         case "application/sql" return local:sql()
         case "application/xquery" return local:xquery()
         default return ()

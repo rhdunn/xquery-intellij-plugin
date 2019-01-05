@@ -18,10 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.intellij.lang.JavaScript
-import uk.co.reecedunn.intellij.plugin.intellij.lang.SPARQLQuery
-import uk.co.reecedunn.intellij.plugin.intellij.lang.SQL
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.InputStream
@@ -40,7 +37,7 @@ object MarkLogicRest : QueryProcessorApi {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
         return when (language) {
-            JavaScript, SPARQLQuery, SQL -> run
+            JavaScript, SPARQLQuery, SPARQLUpdate, SQL -> run
             XQuery -> run || profile
             else -> false
         }
