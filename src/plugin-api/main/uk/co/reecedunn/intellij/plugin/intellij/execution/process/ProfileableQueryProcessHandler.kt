@@ -15,15 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.process.ProcessOutputTypes
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import java.io.OutputStream
 import java.lang.ref.WeakReference
 
-class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : ProcessHandler() {
+class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : QueryProcessHandlerBase() {
     // region Profile Report
 
     private var mProfileReportListener: WeakReference<ProfileReportListener>? = null
@@ -39,14 +35,6 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Proc
 
     // endregion
     // region ProcessHandler
-
-    override fun getProcessInput(): OutputStream? = null
-
-    override fun detachIsDefault(): Boolean = false
-
-    override fun detachProcessImpl() {}
-
-    override fun destroyProcessImpl() {}
 
     override fun startNotify() {
         super.startNotify()
@@ -68,18 +56,6 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Proc
             notifyException(e)
             notifyProcessDetached()
         }
-    }
-
-    // endregion
-    // Query Results
-
-    fun notifyException(e: Throwable) {
-        e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
-    }
-
-    fun notifyResult(result: QueryResult) {
-        notifyTextAvailable("----- ${result.type} [${result.mimetype}]\n", ProcessOutputTypes.STDOUT)
-        notifyTextAvailable("${result.value}\n", ProcessOutputTypes.STDOUT)
     }
 
     // endregion

@@ -15,23 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.execution.process
 
-import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.process.ProcessOutputTypes
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import java.io.OutputStream
 
-class RunnableQueryProcessHandler(private val query: RunnableQuery) : ProcessHandler() {
-    // region ProcessHandler
-
-    override fun getProcessInput(): OutputStream? = null
-
-    override fun detachIsDefault(): Boolean = false
-
-    override fun detachProcessImpl() {}
-
-    override fun destroyProcessImpl() {}
-
+class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProcessHandlerBase() {
     override fun startNotify() {
         super.startNotify()
         try {
@@ -52,18 +38,4 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : ProcessHan
             notifyProcessDetached()
         }
     }
-
-    // endregion
-    // Query Results
-
-    fun notifyException(e: Throwable) {
-        e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
-    }
-
-    fun notifyResult(result: QueryResult) {
-        notifyTextAvailable("----- ${result.type} [${result.mimetype}]\n", ProcessOutputTypes.STDOUT)
-        notifyTextAvailable("${result.value}\n", ProcessOutputTypes.STDOUT)
-    }
-
-    // endregion
 }
