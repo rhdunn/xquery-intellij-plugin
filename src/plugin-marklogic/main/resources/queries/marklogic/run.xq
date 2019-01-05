@@ -25,6 +25,7 @@ declare option o:implementation "marklogic/6.0";
  : @param $query The query script to evaluate, or "" for invoked modules.
  : @param $vars A map of the variable values by the variable name.
  : @param $types A map of the variable types by the variable name.
+ : @param $context The context item for XSLT queries.
  :
  : This script has additional logic to map the semantics of the REST/XCC API to
  : the semantics of the API implemented in the xquery-intellij-plugin to support
@@ -46,6 +47,7 @@ declare variable $module-path as xs:string external;
 declare variable $query as xs:string external;
 declare variable $vars as xs:string external;
 declare variable $types as xs:string external;
+declare variable $context as xs:string external := "";
 
 declare function local:cast-as($value, $type) {
     switch ($type)
@@ -256,6 +258,24 @@ declare function local:xquery() as item()* {
         default return ()
 };
 
+declare function local:xslt() as item()* {
+    let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
+    let $input :=
+        if (string-length($context) ne 0) then
+            xdmp:unquote($context)
+        else
+            ()
+    let $options := ()
+    return if (string-length($query) ne 0) then
+        switch ($mode)
+        case "run" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
+        default return ()
+    else
+        switch ($mode)
+        case "run" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
+        default return ()
+};
+
 try {
     let $retvals :=
         switch ($mimetype)
@@ -264,6 +284,7 @@ try {
         case "application/sparql-update" return local:sparql-update()
         case "application/sql" return local:sql()
         case "application/xquery" return local:xquery()
+        case "application/xslt+xml" return local:xslt()
         default return ()
     for $retval at $i in $retvals
     let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)

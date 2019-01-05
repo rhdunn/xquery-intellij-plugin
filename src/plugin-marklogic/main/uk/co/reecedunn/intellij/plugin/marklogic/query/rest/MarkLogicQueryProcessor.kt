@@ -53,7 +53,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
 
     override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
-            JavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery -> {
+            JavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
                 MarkLogicRunQuery(builder, buildParameters(query, language, "run"), connection)
