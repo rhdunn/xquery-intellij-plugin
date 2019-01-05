@@ -19,8 +19,32 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputTypes
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.io.OutputStream
+import java.lang.ref.WeakReference
 
 abstract class QueryProcessHandlerBase : ProcessHandler() {
+    // region Profile Report
+
+    private var mQueryResultListener: WeakReference<QueryResultListener>? = null
+    var queryResultListener: QueryResultListener?
+        get() = mQueryResultListener?.get()
+        set(value) {
+            mQueryResultListener = value?.let { WeakReference(it) }
+        }
+
+    fun notifyException(e: Throwable) {
+        queryResultListener?.onException(e) ?: {
+            e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
+        }()
+    }
+
+    fun notifyResult(result: QueryResult) {
+        queryResultListener?.onQueryResult(result) ?: {
+            notifyTextAvailable("----- ${result.type} [${result.mimetype}]\n", ProcessOutputTypes.STDOUT)
+            notifyTextAvailable("${result.value}\n", ProcessOutputTypes.STDOUT)
+        }()
+    }
+
+    // endregion
     // region ProcessHandler
 
     override fun getProcessInput(): OutputStream? = null
@@ -30,18 +54,6 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
     override fun detachProcessImpl() {}
 
     override fun destroyProcessImpl() {}
-
-    // endregion
-    // Query Results
-
-    fun notifyException(e: Throwable) {
-        e.message?.let { notifyTextAvailable("$it\n", ProcessOutputTypes.STDOUT) }
-    }
-
-    fun notifyResult(result: QueryResult) {
-        notifyTextAvailable("----- ${result.type} [${result.mimetype}]\n", ProcessOutputTypes.STDOUT)
-        notifyTextAvailable("${result.value}\n", ProcessOutputTypes.STDOUT)
-    }
 
     // endregion
 }
