@@ -157,6 +157,32 @@ declare function local:error(
     </err:error>
 };
 
+declare function local:version() {
+    substring-before(xdmp:version(), "-") cast as xs:double
+};
+
+declare function local:function($ref as xs:string) {
+    try { xdmp:eval($ref) } catch * { () }
+};
+
+declare function local:javascript($variables, $options, $mode) as item()* {
+    if (local:version() < 8.0) then
+        fn:error(
+            xs:QName("UNSUPPORTED-VERSION"),
+            "MarkLogic " || xdmp:version() || " does not support server-side JavaScript"
+        )
+    else if (string-length($query) ne 0) then
+        switch ($mode)
+        case "run" return
+            let $f := local:function("xdmp:javascript-eval#3")
+            return $f($query, $variables, $options)
+        default return ()
+    else
+        switch ($mode)
+        case "run" return xdmp:invoke($module-path, $variables, $options)
+        default return ()
+};
+
 declare function local:xquery($variables, $options, $mode) as item()* {
     if (string-length($query) ne 0) then
         switch ($mode)
@@ -177,6 +203,7 @@ try {
     let $retvals :=
         switch ($mimetype)
         case "application/xquery" return local:xquery($variables, $options, $mode)
+        case "application/javascript" return local:javascript($variables, $options, $mode)
         default return ()
 
     for $retval at $i in $retvals
