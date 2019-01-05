@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
 import uk.co.reecedunn.intellij.plugin.intellij.lang.JavaScript
+import uk.co.reecedunn.intellij.plugin.intellij.lang.SQL
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
@@ -54,7 +55,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
 
     override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
-            JavaScript, XQuery -> {
+            JavaScript, SQL, XQuery -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
                 MarkLogicRunQuery(builder, buildParameters(query, language, "run"), connection)

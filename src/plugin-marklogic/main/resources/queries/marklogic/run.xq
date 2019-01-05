@@ -183,6 +183,23 @@ declare function local:javascript($variables, $options, $mode) as item()* {
         default return ()
 };
 
+declare function local:sql($variables, $options, $mode) as item()* {
+    let $query :=
+        if (string-length($query) ne 0) then
+            $query
+        else
+            () (: TODO: Read the contents of the query file from the modules database. :)
+    return switch ($mode)
+    case "run" return
+        if (local:version() < 9.0) then
+            let $f := local:function("xdmp:sql#1")
+            return $f($query)
+        else
+            let $f := local:function("xdmp:sql#3")
+            return $f($query, (), $variables)
+    default return ()
+};
+
 declare function local:xquery($variables, $options, $mode) as item()* {
     if (string-length($query) ne 0) then
         switch ($mode)
@@ -202,8 +219,9 @@ try {
 
     let $retvals :=
         switch ($mimetype)
-        case "application/xquery" return local:xquery($variables, $options, $mode)
         case "application/javascript" return local:javascript($variables, $options, $mode)
+        case "application/sql" return local:sql($variables, $options, $mode)
+        case "application/xquery" return local:xquery($variables, $options, $mode)
         default return ()
 
     for $retval at $i in $retvals
