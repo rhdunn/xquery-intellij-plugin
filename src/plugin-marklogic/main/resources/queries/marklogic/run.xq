@@ -102,6 +102,15 @@ declare function local:parse-vars($values as map:map, $types as map:map) as item
     return (xs:QName($key), $value)
 };
 
+declare function local:parse-vars-map($values as map:map, $types as map:map) as map:map {
+    let $ret := map:map()
+    let $_ :=
+        for $key in map:keys($values)
+        let $value := local:cast-as(map:get($values, $key), map:get($types, $key))
+        return map:put($ret, $key, $value)
+    return $ret
+};
+
 declare function local:derived-type-name($value) {
     (: NOTE: Ordering is important here -- reverse type hierarchy :)
     typeswitch ($value)
@@ -185,6 +194,18 @@ declare function local:javascript() as item()* {
         default return ()
 };
 
+declare function local:sparql-query() as item()* {
+    let $variables := local:parse-vars-map(xdmp:unquote($vars), xdmp:unquote($types))
+    let $query :=
+        if (string-length($query) ne 0) then
+            $query
+        else
+            () (: TODO: Read the contents of the query file from the modules database. :)
+    return switch ($mode)
+    case "run" return sem:sparql($query, $variables)
+    default return ()
+};
+
 declare function local:sql() as item()* {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
     let $query :=
@@ -222,10 +243,10 @@ try {
     let $retvals :=
         switch ($mimetype)
         case "application/javascript" return local:javascript()
+        case "application/sparql-query" return local:sparql-query()
         case "application/sql" return local:sql()
         case "application/xquery" return local:xquery()
         default return ()
-
     for $retval at $i in $retvals
     let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
     return $retval
