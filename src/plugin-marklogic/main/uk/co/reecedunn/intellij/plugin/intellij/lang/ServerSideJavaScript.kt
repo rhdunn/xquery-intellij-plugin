@@ -26,7 +26,7 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
 
     override fun isCaseSensitive(): Boolean = true
 
-    override fun getDisplayName(): String = "JavaScript"
+    override fun getDisplayName(): String = "Server-side JavaScript"
 
     override fun getAssociatedFileType(): LanguageFileType? = null
 

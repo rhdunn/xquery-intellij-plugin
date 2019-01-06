@@ -29,7 +29,7 @@ class ServerSideJavaScriptConfigurationType : ConfigurationType {
 
     override fun getId(): String = "XIJPMLJavaScriptProcessorConfiguration"
 
-    override fun getDisplayName(): String = "JavaScript"
+    override fun getDisplayName(): String = "Server-side JavaScript"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, ServerSideJavaScript))
