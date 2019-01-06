@@ -21,7 +21,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 /**
  * Server-side JavaScript
  */
-object JavaScript : Language("JavaScript", "application/javascript"), LanguageExtensions {
+object ServerSideJavaScript : Language("JavaScript", "application/javascript"), LanguageExtensions {
     // region Language
 
     override fun isCaseSensitive(): Boolean = true

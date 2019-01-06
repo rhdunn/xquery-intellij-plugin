@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.type
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.intellij.lang.JavaScript
+import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
@@ -32,6 +32,6 @@ class JavaScriptConfigurationType : ConfigurationType {
     override fun getDisplayName(): String = "JavaScript"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(QueryProcessorConfigurationFactory(this, JavaScript))
+        return arrayOf(QueryProcessorConfigurationFactory(this, ServerSideJavaScript))
     }
 }

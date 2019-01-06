@@ -37,7 +37,7 @@ object MarkLogicRest : QueryProcessorApi {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID
         return when (language) {
-            JavaScript, SPARQLQuery, SPARQLUpdate, SQL, XSLT -> run
+            ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XSLT -> run
             XQuery -> run || profile
             else -> false
         }
