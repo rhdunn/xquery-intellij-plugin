@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,6 +85,9 @@ private val ATOMIC_ITEM_TYPE_NAMES = mapOf(
 )
 
 internal class SaxonClasses(path: File) {
+    val destinationClass: Class<*>
+    val rawDestinationClass: Class<*>
+
     val itemClass: Class<*>
     val itemTypeClass: Class<*>
     val processorClass: Class<*>
@@ -108,8 +111,16 @@ internal class SaxonClasses(path: File) {
     val xqueryEvaluatorClass: Class<*>
     val xqueryExecutableClass: Class<*>
 
+    val xsltCompilerClass: Class<*>
+    val xsltExecutableClass: Class<*>
+    val xsltTransformerClass: Class<*>
+
     init {
         val loader = URLClassLoader(arrayOf(path.toURI().toURL()))
+
+        destinationClass = loader.loadClass("net.sf.saxon.s9api.Destination")
+        rawDestinationClass = loader.loadClass("net.sf.saxon.s9api.RawDestination")
+
         itemClass = loader.loadClass("net.sf.saxon.om.Item")
         itemTypeClass = loader.loadClass("net.sf.saxon.s9api.ItemType")
         processorClass = loader.loadClass("net.sf.saxon.s9api.Processor")
@@ -132,6 +143,10 @@ internal class SaxonClasses(path: File) {
         xqueryCompilerClass = loader.loadClass("net.sf.saxon.s9api.XQueryCompiler")
         xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")
+
+        xsltCompilerClass = loader.loadClass("net.sf.saxon.s9api.XsltCompiler")
+        xsltExecutableClass = loader.loadClass("net.sf.saxon.s9api.XsltExecutable")
+        xsltTransformerClass = loader.loadClass("net.sf.saxon.s9api.XsltTransformer")
     }
 
     fun tryXdmValue(value: Any?, type: String?): Any? {

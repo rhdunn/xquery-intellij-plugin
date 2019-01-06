@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import javax.xml.transform.Source
@@ -48,6 +49,10 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
                 else -> SaxonXQueryRunner(processor, query.value!!, classes)
+            }
+            XSLT -> when (query.type) {
+                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
+                else -> SaxonXsltRunner(processor, query.value!!, classes)
             }
             else -> throw UnsupportedQueryType(language)
         }

@@ -19,7 +19,6 @@ import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import javax.xml.transform.ErrorListener
 
 internal class SaxonXPathRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
     private val compiler by lazy {

@@ -19,6 +19,7 @@ import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
 import java.io.InputStream
@@ -36,7 +37,7 @@ object SaxonS9API : QueryProcessorApi {
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         return when (language) {
-            XPath, XQuery -> run
+            XPath, XQuery, XSLT -> run
             else -> false
         }
     }
