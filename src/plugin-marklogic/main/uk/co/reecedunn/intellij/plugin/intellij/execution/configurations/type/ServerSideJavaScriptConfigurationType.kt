@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
-class JavaScriptConfigurationType : ConfigurationType {
+class ServerSideJavaScriptConfigurationType : ConfigurationType {
     override fun getIcon(): Icon = MarkLogicIcons.JavaScript.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
