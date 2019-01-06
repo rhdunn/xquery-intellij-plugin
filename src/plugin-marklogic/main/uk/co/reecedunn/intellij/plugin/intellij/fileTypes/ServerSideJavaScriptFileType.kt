@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer
+import com.intellij.icons.AllIcons
+import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
+import javax.swing.Icon
 
-class FileTypeFactory : com.intellij.openapi.fileTypes.FileTypeFactory() {
-    override fun createFileTypes(consumer: FileTypeConsumer) {
-        consumer.consume(
-            XQueryFileType,
-            XQuery.fileExtensions.joinToString(FileTypeConsumer.EXTENSION_DELIMITER)
-        )
+object ServerSideJavaScriptFileType : LanguageFileType(ServerSideJavaScript) {
+    override fun getName(): String = MarkLogicBundle.message("language.sjs.display-name")
 
-        consumer.consume(
-            ServerSideJavaScriptFileType,
-            ServerSideJavaScript.fileExtensions.joinToString(FileTypeConsumer.EXTENSION_DELIMITER)
-        )
-    }
+    override fun getDescription(): String = MarkLogicBundle.message("language.sjs.description")
+
+    override fun getDefaultExtension(): String = ServerSideJavaScript.defaultExtension
+
+    override fun getIcon(): Icon? = AllIcons.FileTypes.JavaScript
 }

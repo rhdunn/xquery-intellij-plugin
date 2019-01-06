@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.FileTypeFactory
+import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.ServerSideJavaScriptFileType
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -54,10 +55,14 @@ private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryP
         val consumer = FileTypeToArrayConsumer()
         factory.createFileTypes(consumer)
 
-        assertThat(consumer.fileTypes.size, `is`(1))
+        assertThat(consumer.fileTypes.size, `is`(2))
+        assertThat(consumer.fileMatchers.size, `is`(0))
+
         assertThat(consumer.fileTypes[0].first.javaClass.name, `is`(XQueryFileType::class.java.name))
         assertThat(consumer.fileTypes[0].second, `is`("xq;xqy;xquery;xql;xqm;xqu;xqws"))
-        assertThat(consumer.fileMatchers.size, `is`(0))
+
+        assertThat(consumer.fileTypes[1].first.javaClass.name, `is`(ServerSideJavaScriptFileType::class.java.name))
+        assertThat(consumer.fileTypes[1].second, `is`("sjs"))
     }
 
     @Test

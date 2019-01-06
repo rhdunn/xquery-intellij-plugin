@@ -186,13 +186,4 @@
     <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest"/>
     <queryProcessorApi implementation="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API"/>
   </extensions>
-
-  <application-components>
-  </application-components>
-
-  <project-components>
-  </project-components>
-
-  <actions>
-  </actions>
 </idea-plugin>
