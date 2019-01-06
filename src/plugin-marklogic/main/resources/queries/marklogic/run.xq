@@ -279,10 +279,10 @@ declare function local:xslt() as item()* {
 try {
     let $retvals :=
         switch ($mimetype)
-        case "application/javascript" return local:javascript()
         case "application/sparql-query" return local:sparql-query()
         case "application/sparql-update" return local:sparql-update()
         case "application/sql" return local:sql()
+        case "application/vnd.marklogic-javascript" return local:javascript()
         case "application/xquery" return local:xquery()
         case "application/xslt+xml" return local:xslt()
         default return ()
