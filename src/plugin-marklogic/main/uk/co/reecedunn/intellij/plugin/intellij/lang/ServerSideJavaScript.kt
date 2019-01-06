@@ -34,13 +34,12 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
     // region LanguageExtensions
 
     override val scriptExtensions: Array<String> = arrayOf(
-        "js",
         "sjs"
     )
 
     override val fileExtensions: Array<String> = scriptExtensions
 
-    override val defaultExtension: String = "js"
+    override val defaultExtension: String = "sjs"
 
     // endregion
 }
