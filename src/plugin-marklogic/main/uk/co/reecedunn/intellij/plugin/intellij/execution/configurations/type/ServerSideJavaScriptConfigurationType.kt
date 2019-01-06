@@ -27,7 +27,7 @@ class ServerSideJavaScriptConfigurationType : ConfigurationType {
 
     override fun getConfigurationTypeDescription(): String = displayName
 
-    override fun getId(): String = "XIJPJavaScriptProcessorConfiguration"
+    override fun getId(): String = "XIJPMLJavaScriptProcessorConfiguration"
 
     override fun getDisplayName(): String = "JavaScript"
 
