@@ -19,6 +19,7 @@ import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -40,6 +41,10 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
 
     override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
         return when (language) {
+            XPath -> when (query.type) {
+                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
+                else -> SaxonXPathRunner(processor, query.value!!, classes)
+            }
             XQuery -> when (query.type) {
                 ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
                 else -> SaxonXQueryRunner(processor, query.value!!, classes)

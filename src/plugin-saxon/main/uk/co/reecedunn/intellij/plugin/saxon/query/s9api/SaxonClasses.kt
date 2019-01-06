@@ -99,6 +99,11 @@ internal class SaxonClasses(path: File) {
     val xdmSequenceIteratorClass: Class<*>
     val xdmValueClass: Class<*>
     val xpathExceptionClass: Class<*>
+
+    val xpathCompilerClass: Class<*>
+    val xpathExecutableClass: Class<*>
+    val xpathSelectorClass: Class<*>
+
     val xqueryCompilerClass: Class<*>
     val xqueryEvaluatorClass: Class<*>
     val xqueryExecutableClass: Class<*>
@@ -119,6 +124,11 @@ internal class SaxonClasses(path: File) {
         xdmSequenceIteratorClass = loader.loadClass("net.sf.saxon.s9api.XdmSequenceIterator")
         xdmValueClass = loader.loadClass("net.sf.saxon.s9api.XdmValue")
         xpathExceptionClass = loader.loadClass("net.sf.saxon.trans.XPathException")
+
+        xpathCompilerClass = loader.loadClass("net.sf.saxon.s9api.XPathCompiler")
+        xpathExecutableClass = loader.loadClass("net.sf.saxon.s9api.XPathExecutable")
+        xpathSelectorClass = loader.loadClass("net.sf.saxon.s9api.XPathSelector")
+
         xqueryCompilerClass = loader.loadClass("net.sf.saxon.s9api.XQueryCompiler")
         xqueryEvaluatorClass = loader.loadClass("net.sf.saxon.s9api.XQueryEvaluator")
         xqueryExecutableClass = loader.loadClass("net.sf.saxon.s9api.XQueryExecutable")

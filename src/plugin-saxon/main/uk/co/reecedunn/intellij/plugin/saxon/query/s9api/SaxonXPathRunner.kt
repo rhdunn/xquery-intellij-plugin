@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,39 +21,32 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import javax.xml.transform.ErrorListener
 
-internal class SaxonXQueryRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
-    private val errorListener: ErrorListener = SaxonErrorListener(classes)
-
+internal class SaxonXPathRunner(val processor: Any, val query: String, val classes: SaxonClasses) : RunnableQuery {
     private val compiler by lazy {
-        val ret = classes.processorClass.getMethod("newXQueryCompiler").invoke(processor)
-        classes.xqueryCompilerClass.getMethod("setErrorListener", ErrorListener::class.java)
-            .invoke(ret, errorListener)
-        ret
+        classes.processorClass.getMethod("newXPathCompiler").invoke(processor)
     }
 
     private val executable by lazy {
-        classes.xqueryCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
+        classes.xpathCompilerClass.getMethod("compile", String::class.java).invoke(compiler, query)
     }
 
-    private val evaluator by lazy {
-        classes.xqueryExecutableClass.getMethod("load").invoke(executable)
+    private val selector by lazy {
+        classes.xpathExecutableClass.getMethod("load").invoke(executable)
     }
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
-        classes.xqueryEvaluatorClass
-            .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
-            .invoke(evaluator, classes.toQName(name), classes.toXdmValue(value, type))
+        throw UnsupportedOperationException()
     }
 
     override fun bindContextItem(value: Any?, type: String?): Unit = classes.check {
-        classes.xqueryEvaluatorClass
+        classes.xpathSelectorClass
             .getMethod("setContextItem", classes.xdmItemClass)
-            .invoke(evaluator, classes.toXdmValue(value, type))
+            .invoke(selector, classes.toXdmValue(value, type))
     }
 
     override fun run(): ExecutableOnPooledThread<Sequence<QueryResult>> = pooled_thread {
         classes.check {
-            val iterator = classes.xqueryEvaluatorClass.getMethod("iterator").invoke(evaluator)
+            val iterator = classes.xpathSelectorClass.getMethod("iterator").invoke(selector)
             SaxonQueryResultIterator(iterator, classes).asSequence()
         }
     }
