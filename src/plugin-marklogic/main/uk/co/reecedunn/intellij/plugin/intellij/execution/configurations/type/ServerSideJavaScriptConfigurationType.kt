@@ -19,6 +19,7 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import uk.co.reecedunn.intellij.plugin.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicIcons
 import javax.swing.Icon
 
@@ -29,7 +30,7 @@ class ServerSideJavaScriptConfigurationType : ConfigurationType {
 
     override fun getId(): String = "XIJPMLJavaScriptProcessorConfiguration"
 
-    override fun getDisplayName(): String = "Server-side JavaScript"
+    override fun getDisplayName(): String = MarkLogicBundle.message("language.sjs.display-name")
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
         return arrayOf(QueryProcessorConfigurationFactory(this, ServerSideJavaScript))

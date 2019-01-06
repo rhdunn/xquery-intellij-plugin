@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
+import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 
 /**
  * Server-side JavaScript
@@ -26,7 +27,7 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
 
     override fun isCaseSensitive(): Boolean = true
 
-    override fun getDisplayName(): String = "Server-side JavaScript"
+    override fun getDisplayName(): String = MarkLogicBundle.message("language.sjs.display-name")
 
     override fun getAssociatedFileType(): LanguageFileType? = null
 
