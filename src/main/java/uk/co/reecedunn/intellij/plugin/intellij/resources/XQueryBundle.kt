@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,24 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 import com.intellij.CommonBundle
 import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
-import uk.co.reecedunn.intellij.plugin.core.references.getValue
-import uk.co.reecedunn.intellij.plugin.core.references.soft_reference
+import java.lang.ref.SoftReference
 import java.util.*
 
 object XQueryBundle {
     @NonNls
     private const val PATH_TO_BUNDLE = "messages.XQueryBundle"
 
-    private val bundle: ResourceBundle by soft_reference { ResourceBundle.getBundle(PATH_TO_BUNDLE) }
+    private var sBundle: SoftReference<ResourceBundle>? = null
+    private val bundle: ResourceBundle
+        get() {
+            var value = com.intellij.reference.SoftReference.dereference(sBundle)
+            if (value == null) {
+                // This is called if the bundle has not been loaded, or has been garbage collected.
+                value = ResourceBundle.getBundle(PATH_TO_BUNDLE)
+                sBundle = SoftReference(value)
+            }
+            return value!!
+        }
 
     fun message(@PropertyKey(resourceBundle = PATH_TO_BUNDLE) key: String, vararg params: Any): String {
         return CommonBundle.message(bundle, key, *params)
