@@ -61,7 +61,7 @@ class MarkLogicProfileEntry(entry: Element) : ProfileEntry {
     }
 }
 
-class MarkLogicProfileReport(xml: String) : ProfileReport {
+class MarkLogicProfileReport(override val xml: String) : ProfileReport {
     companion object {
         private val XMLNS_PROF = "http://marklogic.com/xdmp/profile"
     }
