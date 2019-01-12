@@ -18,24 +18,16 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
-import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 
-object SPARQLUpdate : Language("SPARQLUpdate", "application/sparql-update"), LanguageExtensions {
-    // region Language
-
-    override fun isCaseSensitive(): Boolean = true
-
+object SPARQLUpdate : Language("SPARQLUpdate", "application/sparql-update") {
     override fun getDisplayName(): String = "SPARQL Update"
 
-    override fun getAssociatedFileType(): LanguageFileType? = null
-
-    // endregion
-    // region LanguageExtensions
-
-    override val associations: List<FileNameMatcher> = listOf(
-        ExtensionFileNameMatcher("ru")
-    )
-
-    // endregion
+    init {
+        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("ru")
+            )
+        })
+    }
 }

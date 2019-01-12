@@ -24,22 +24,21 @@ import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 /**
  * XML Stylesheet Language: Transform
  */
-object XSLT : Language("XSLT", "application/xslt+xml"), LanguageExtensions {
-    // region Language
-
+object XSLT : Language("XSLT", "application/xslt+xml") {
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = "XSLT"
 
     override fun getAssociatedFileType(): LanguageFileType? = null
 
-    // endregion
-    // region LanguageExtensions
-
-    override val associations: List<FileNameMatcher> = listOf(
-        ExtensionFileNameMatcher("xsl"),
-        ExtensionFileNameMatcher("xslt")
-    )
+    init {
+        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("xsl"),
+                ExtensionFileNameMatcher("xslt")
+            )
+        })
+    }
 
     // endregion
 }

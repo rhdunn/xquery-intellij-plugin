@@ -18,24 +18,16 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
-import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 
-object SQL : Language("SQL", "application/sql"), LanguageExtensions {
-    // region Language
-
-    override fun isCaseSensitive(): Boolean = true
-
+object SQL : Language("SQL", "application/sql") {
     override fun getDisplayName(): String = "SQL"
 
-    override fun getAssociatedFileType(): LanguageFileType? = null
-
-    // endregion
-    // region LanguageExtensions
-
-    override val associations: List<FileNameMatcher> = listOf(
-        ExtensionFileNameMatcher("sql")
-    )
-
-    // endregion
+    init {
+        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("sql")
+            )
+        })
+    }
 }
