@@ -51,7 +51,7 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
     override fun createConsole(executor: Executor): ConsoleView? {
         return when (executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> QueryResultConsoleView()
-            DefaultProfileExecutor.EXECUTOR_ID -> ProfileConsoleView()
+            DefaultProfileExecutor.EXECUTOR_ID -> ProfileConsoleView(environment.project)
             else -> throw UnsupportedOperationException()
         }
     }

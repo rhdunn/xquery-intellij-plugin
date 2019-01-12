@@ -23,6 +23,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.application.runUndoTransparentWriteAction
 import com.intellij.openapi.fileChooser.FileSaverDescriptor
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
@@ -57,7 +58,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
 
 private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
 
-class ProfileConsoleView : ConsoleView, ProfileReportListener {
+class ProfileConsoleView(val project: Project) : ConsoleView, ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null
@@ -107,7 +108,7 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
             PluginApiBundle.message("console.action.save.profile.description"),
             "xml"
         )
-        return arrayOf(SaveAction(descriptor, component, null, Consumer { onSaveProfileReport(it) }))
+        return arrayOf(SaveAction(descriptor, component, project, Consumer { onSaveProfileReport(it) }))
     }
 
     override fun getComponent(): JComponent = panel!!
