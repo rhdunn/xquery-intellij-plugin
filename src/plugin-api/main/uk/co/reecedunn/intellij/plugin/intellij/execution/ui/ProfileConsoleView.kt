@@ -21,12 +21,17 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.application.runUndoTransparentWriteAction
+import com.intellij.openapi.fileChooser.FileSaverDescriptor
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.Color
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import javax.swing.JComponent
 import javax.swing.JLabel
@@ -35,15 +40,16 @@ import javax.swing.JTable
 import javax.swing.border.MatteBorder
 
 private val ISO_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+private val FILE_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HHmmss")
 
 private fun formatDuration(duration: XsDurationValue): String {
     return "${duration.seconds.data} s"
 }
 
-private fun formatDate(date: String): String {
+private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance()): String {
     try {
         val d = ISO_DATE_FORMAT.parse(date.replace("""\\.[0-9]+Z""".toRegex(), ""))
-        return SimpleDateFormat.getDateTimeInstance().format(d)
+        return dateFormat.format(d)
     } catch (e: Exception) {
         return date
     }
@@ -53,6 +59,8 @@ private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
 
 class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // region UI
+
+    private var report: ProfileReport? = null
 
     private var panel: JPanel? = null
     private var metadata: JPanel? = null
@@ -74,6 +82,8 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     override fun hasDeferredOutput(): Boolean = false
 
     override fun clear() {
+        report = null
+
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label.no-value")
         created!!.text = PluginApiBundle.message("profile.console.created.label.no-value")
         version!!.text = PluginApiBundle.message("profile.console.version.label.no-value")
@@ -92,7 +102,12 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     }
 
     override fun createConsoleActions(): Array<AnAction> {
-        return AnAction.EMPTY_ARRAY
+        val descriptor = FileSaverDescriptor(
+            PluginApiBundle.message("console.action.save.profile.title"),
+            PluginApiBundle.message("console.action.save.profile.description"),
+            "xml"
+        )
+        return arrayOf(SaveAction(descriptor, component, null, Consumer { onSaveProfileReport(it) }))
     }
 
     override fun getComponent(): JComponent = panel!!
@@ -129,12 +144,32 @@ class ProfileConsoleView : ConsoleView, ProfileReportListener {
     // region ProfileReportListener
 
     override fun onProfileReport(result: ProfileReport) {
+        report = result
+
         elapsed!!.text = PluginApiBundle.message("profile.console.elapsed.label", formatDuration(result.elapsed))
         created!!.text = PluginApiBundle.message("profile.console.created.label", formatDate(result.created))
         version!!.text = PluginApiBundle.message("profile.console.version.label", result.version)
         (results as ProfileEntryTable).let {
             it.removeAll()
             result.results.forEach { entry -> it.addRow(entry) }
+        }
+    }
+
+    // endregion
+    // region Actions
+
+    fun onSaveProfileReport(file: VirtualFile) {
+        when {
+            report == null -> return
+            file.isDirectory -> {
+                val name = "profile-report-${formatDate(report!!.created, FILE_DATE_FORMAT)}.xml"
+                runUndoTransparentWriteAction {
+                    onSaveProfileReport(file.createChildData(this, name))
+                }
+            }
+            else -> file.getOutputStream(this).use {
+                it.write(report!!.xml.toByteArray())
+            }
         }
     }
 
