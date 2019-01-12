@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
+import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
+import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
@@ -38,14 +40,14 @@ object XPath : Language("XMLPath", "application/vnd+xpath"), LanguageExtensions 
     // endregion
     // region LanguageExtensions
 
-    override val scriptExtensions: Array<String> = arrayOf(
-        "xp",
-        "xpath",
-        "xpath1",
-        "xpath2",
-        "xpath3",
-        "xpath31",
-        "xpa"
+    override val associations: List<FileNameMatcher> = listOf(
+        ExtensionFileNameMatcher("xp"),
+        ExtensionFileNameMatcher("xpath"),
+        ExtensionFileNameMatcher("xpath1"),
+        ExtensionFileNameMatcher("xpath2"),
+        ExtensionFileNameMatcher("xpath3"),
+        ExtensionFileNameMatcher("xpath31"),
+        ExtensionFileNameMatcher("xpa")
     )
 
     // endregion

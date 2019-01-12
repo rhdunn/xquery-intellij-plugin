@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
+import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
+import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 
@@ -34,9 +36,9 @@ object XSLT : Language("XSLT", "application/xslt+xml"), LanguageExtensions {
     // endregion
     // region LanguageExtensions
 
-    override val scriptExtensions: Array<String> = arrayOf(
-        "xsl",
-        "xslt"
+    override val associations: List<FileNameMatcher> = listOf(
+        ExtensionFileNameMatcher("xsl"),
+        ExtensionFileNameMatcher("xslt")
     )
 
     // endregion

@@ -16,18 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.core.lang
 
 import com.intellij.lang.Language
-import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileTypeManager
 
 interface LanguageExtensions {
-    val scriptExtensions: Array<String>
+    val associations: List<FileNameMatcher>
 }
 
 fun Language.getAssociations(): List<FileNameMatcher> {
     val associations = associatedFileType?.let { FileTypeManager.getInstance().getAssociations(it) } ?: listOf()
     return if (associations.isEmpty() && this is LanguageExtensions)
-        this.scriptExtensions.map { ext -> ExtensionFileNameMatcher(ext) }.toList()
+        this.associations
     else
         associations
 }

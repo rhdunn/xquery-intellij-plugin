@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
+import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
+import com.intellij.openapi.fileTypes.FileNameMatcher
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 
@@ -32,8 +34,8 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
     // endregion
     // region LanguageExtensions
 
-    override val scriptExtensions: Array<String> = arrayOf(
-        "sjs"
+    override val associations: List<FileNameMatcher> = listOf(
+        ExtensionFileNameMatcher("sjs")
     )
 
     // endregion

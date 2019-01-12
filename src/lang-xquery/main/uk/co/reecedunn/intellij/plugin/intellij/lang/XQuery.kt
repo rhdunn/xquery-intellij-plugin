@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
+import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
+import com.intellij.openapi.fileTypes.FileNameMatcher
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 
 /**
@@ -29,11 +31,11 @@ object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xque
     // endregion
     // region LanguageExtensions
 
-    override val scriptExtensions: Array<String> = arrayOf(
-        "xq",     // standard extension
-        "xqy",    // standard extension
-        "xquery", // standard extension
-        "xql"    // XQuery Language (main) file [eXist-db; BaseX]
+    override val associations: List<FileNameMatcher> = listOf(
+        ExtensionFileNameMatcher("xq"),     // standard extension
+        ExtensionFileNameMatcher("xqy"),    // standard extension
+        ExtensionFileNameMatcher("xquery"), // standard extension
+        ExtensionFileNameMatcher("xql")     // XQuery Language (main) file [eXist-db; BaseX]
     )
 
     // endregion
