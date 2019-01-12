@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
 data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
+    var rdfOutputFormat: String? = null,
     var scriptFile: String? = null
 ) : RunConfigurationOptions()
 
@@ -59,6 +60,12 @@ class QueryProcessorRunConfiguration(
         get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
         set(value) {
             data.processorId = value?.id
+        }
+
+    var rdfOutputFormat: Language?
+        get() = Language.findInstancesByMimeType(data.rdfOutputFormat).firstOrNull()
+        set(value) {
+            data.rdfOutputFormat = value?.mimeTypes?.get(0)
         }
 
     var scriptFile: String?

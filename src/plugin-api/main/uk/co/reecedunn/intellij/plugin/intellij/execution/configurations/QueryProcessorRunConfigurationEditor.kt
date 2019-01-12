@@ -73,7 +73,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         queryProcessor = ComponentWithBrowseButton(ComboBox(model), null)
-        queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
         queryProcessor!!.addActionListener {
             val list = object : EditableListPanel<QueryProcessorSettings>(model) {
                 override fun add() {
@@ -109,7 +108,19 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             builder.showAndGet()
         }
 
+        queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
+        queryProcessor!!.childComponent.addActionListener { updateUI() }
+
         queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
+    }
+
+    // endregion
+    // region RDF Output Format
+
+    private var rdfOutputFormat: JComboBox<Language>? = null
+
+    private fun createRdfOutputFormatUI() {
+        rdfOutputFormat = ComboBox()
     }
 
     // endregion
@@ -130,7 +141,14 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun createUIComponents() {
         createQueryProcessorUI()
+        createRdfOutputFormatUI()
         createScriptFileUI()
+        updateUI()
+    }
+
+    private fun updateUI() {
+        val processor = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings
+        rdfOutputFormat!!.isEnabled = processor?.apiId == "marklogic.rest"
     }
 
     // endregion
@@ -141,6 +159,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
         if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
             return true
+        if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration?.rdfOutputFormat?.id)
+            return true
         if (scriptFile!!.textField.text != configuration.scriptFile)
             return true
         return false
@@ -148,11 +168,13 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     override fun reset(configuration: QueryProcessorRunConfiguration) {
         queryProcessor!!.childComponent.selectedItem = configuration.processor
+        rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
         scriptFile!!.textField.text = configuration.scriptFile ?: ""
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
+        configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
         configuration.scriptFile = scriptFile!!.textField.textOrNull()
     }
 
