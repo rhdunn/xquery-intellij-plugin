@@ -20,9 +20,9 @@ import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Key
 
-interface LanguageExtensions {
+interface LanguageAssociations {
     companion object {
-        val KEY = Key.create<LanguageExtensions>("uk.co.reecedunn.intellij.plugin.key.languageAssociations")
+        val KEY = Key.create<LanguageAssociations>("uk.co.reecedunn.intellij.plugin.key.languageAssociations")
     }
 
     val associations: List<FileNameMatcher>
@@ -31,7 +31,7 @@ interface LanguageExtensions {
 fun Language.getAssociations(): List<FileNameMatcher> {
     val associations = associatedFileType?.let { FileTypeManager.getInstance().getAssociations(it) } ?: listOf()
     return if (associations.isEmpty())
-        this.getUserData(LanguageExtensions.KEY)?.associations ?: listOf()
+        this.getUserData(LanguageAssociations.KEY)?.associations ?: listOf()
     else
         associations
 }

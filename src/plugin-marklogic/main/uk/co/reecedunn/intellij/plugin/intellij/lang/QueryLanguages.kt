@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 
 object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogic-javascript") {
@@ -31,7 +31,7 @@ object SPARQLQuery : Language("SPARQLQuery", "application/sparql-query") {
     override fun getDisplayName(): String = "SPARQL Query"
 
     init {
-        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rq"),
                 ExtensionFileNameMatcher("sparql")
@@ -44,7 +44,7 @@ object SPARQLUpdate : Language("SPARQLUpdate", "application/sparql-update") {
     override fun getDisplayName(): String = "SPARQL Update"
 
     init {
-        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("ru")
             )
@@ -56,7 +56,7 @@ object SQL : Language("SQL", "application/sql") {
     override fun getDisplayName(): String = "SQL"
 
     init {
-        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("sql")
             )

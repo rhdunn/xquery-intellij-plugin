@@ -16,12 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.lang.Language
-import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider

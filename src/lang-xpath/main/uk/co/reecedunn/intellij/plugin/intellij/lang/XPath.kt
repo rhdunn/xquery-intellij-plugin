@@ -19,7 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 
 /**
@@ -36,7 +36,7 @@ object XPath : Language("XMLPath", "application/vnd+xpath") {
     override fun getAssociatedFileType(): LanguageFileType? = XPathFileType
 
     init {
-        putUserData(LanguageExtensions.KEY, object : LanguageExtensions {
+        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("xp"),
                 ExtensionFileNameMatcher("xpath"),
