@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XPathFileType
 
 /**

@@ -19,6 +19,10 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileTypeManager
 
+interface LanguageExtensions {
+    val scriptExtensions: Array<String>
+}
+
 fun Language.getAssociations(): List<FileNameMatcher> {
     val associations = associatedFileType?.let { FileTypeManager.getInstance().getAssociations(it) }
     return associations ?: listOf()
