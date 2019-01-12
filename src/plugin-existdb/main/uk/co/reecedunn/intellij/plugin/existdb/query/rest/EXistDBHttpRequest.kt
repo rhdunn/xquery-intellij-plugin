@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
+import com.intellij.lang.Language
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
@@ -26,6 +27,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
+    override fun setRdfOutputFormat(language: Language?) {
+    }
+
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }

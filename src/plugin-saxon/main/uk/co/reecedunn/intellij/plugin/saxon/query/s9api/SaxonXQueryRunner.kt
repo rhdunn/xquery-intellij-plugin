@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -37,6 +38,9 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
 
     private val evaluator by lazy {
         classes.xqueryExecutableClass.getMethod("load").invoke(executable)
+    }
+
+    override fun setRdfOutputFormat(language: Language?) {
     }
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {

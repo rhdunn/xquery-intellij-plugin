@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
@@ -30,6 +31,9 @@ internal class BaseXLocalQuery(val session: Any, val queryString: String, val cl
             }
             return basexQuery!!
         }
+
+    override fun setRdfOutputFormat(language: Language?) {
+    }
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.

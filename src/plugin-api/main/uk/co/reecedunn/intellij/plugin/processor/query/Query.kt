@@ -15,9 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import com.intellij.lang.Language
 import java.io.Closeable
 
 interface Query : Closeable {
+    fun setRdfOutputFormat(language: Language?)
+
     fun bindVariable(name: String, value: Any?, type: String?)
 
     fun bindContextItem(value: Any?, type: String?)

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import com.google.gson.JsonObject
+import com.intellij.lang.Language
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
@@ -37,6 +38,11 @@ internal class MarkLogicProfileQuery(
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
+    private var rdfOutputFormat: String = ""
+
+    override fun setRdfOutputFormat(language: Language?) {
+        rdfOutputFormat = language?.mimeTypes?.get(0) ?: ""
+    }
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
@@ -52,6 +58,7 @@ internal class MarkLogicProfileQuery(
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
+        params.addProperty("rdf-output-format", rdfOutputFormat.toString())
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()

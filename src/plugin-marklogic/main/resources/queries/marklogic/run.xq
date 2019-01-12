@@ -26,6 +26,7 @@ declare option o:implementation "marklogic/6.0";
  : @param $vars A map of the variable values by the variable name.
  : @param $types A map of the variable types by the variable name.
  : @param $context The context item for XSLT queries.
+ : @param $rdf-output-format The mimetype to format sem:triple results as, or "" to leave them as is.
  :
  : This script has additional logic to map the semantics of the REST/XCC API to
  : the semantics of the API implemented in the xquery-intellij-plugin to support
@@ -48,6 +49,7 @@ declare variable $query as xs:string external;
 declare variable $vars as xs:string external;
 declare variable $types as xs:string external;
 declare variable $context as xs:string external := "";
+declare variable $rdf-output-format as xs:string external;
 
 declare function local:cast-as($value, $type) {
     switch ($type)
