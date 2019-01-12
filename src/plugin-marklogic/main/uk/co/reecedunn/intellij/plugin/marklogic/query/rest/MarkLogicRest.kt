@@ -24,6 +24,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceMan
 import java.io.InputStream
 
 object MarkLogicRest : QueryProcessorApi {
+    private val RDF_MIMETYPES: List<String> = listOf(
+    )
+
     override val id: String = "marklogic.rest"
     override val displayName: String = "MarkLogic"
 
@@ -32,6 +35,10 @@ object MarkLogicRest : QueryProcessorApi {
 
     override val canCreate: Boolean = false
     override val canConnect: Boolean = true
+
+    override fun canOutputRdf(language: Language?): Boolean {
+        return language == null || language.mimeTypes.any { RDF_MIMETYPES.contains(it) }
+    }
 
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID

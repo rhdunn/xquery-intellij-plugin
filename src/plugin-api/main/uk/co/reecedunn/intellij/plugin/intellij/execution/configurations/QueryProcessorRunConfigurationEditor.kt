@@ -148,7 +148,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun updateUI() {
         val processor = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings
-        rdfOutputFormat!!.isEnabled = processor?.apiId == "marklogic.rest"
+        rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
     }
 
     // endregion
@@ -159,7 +159,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun isModified(configuration: QueryProcessorRunConfiguration): Boolean {
         if ((queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id != configuration.processorId)
             return true
-        if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration?.rdfOutputFormat?.id)
+        if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
         if (scriptFile!!.textField.text != configuration.scriptFile)
             return true
