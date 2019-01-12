@@ -27,39 +27,43 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
     override fun getDisplayName(): String = MarkLogicBundle.message("language.sjs.display-name")
 }
 
-object SPARQLQuery : Language("SPARQLQuery", "application/sparql-query") {
-    override fun getDisplayName(): String = "SPARQL Query"
-
-    init {
-        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+val SPARQLQuery: Language by lazy {
+    Language.findInstancesByMimeType("application/sparql-query").firstOrNull() ?: {
+        val language = object : Language("SPARQLQuery", "application/sparql-query") {
+            override fun getDisplayName(): String = "SPARQL Query"
+        }
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("rq"),
                 ExtensionFileNameMatcher("sparql")
             )
         })
-    }
+        language
+    }()
 }
 
-object SPARQLUpdate : Language("SPARQLUpdate", "application/sparql-update") {
-    override fun getDisplayName(): String = "SPARQL Update"
-
-    init {
-        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+val SPARQLUpdate: Language by lazy {
+    Language.findInstancesByMimeType("application/sparql-update").firstOrNull() ?: {
+        val language = object : Language("SPARQLUpdate", "application/sparql-update") {
+            override fun getDisplayName(): String = "SPARQL Update"
+        }
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("ru")
             )
         })
-    }
+        language
+    }()
 }
 
-object SQL : Language("SQL", "application/sql") {
-    override fun getDisplayName(): String = "SQL"
-
-    init {
-        putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+val SQL: Language by lazy {
+    Language.findInstancesByMimeType("application/sql").firstOrNull() ?: {
+        val language = object : Language("SQL", "application/sql") {}
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
             override val associations: List<FileNameMatcher> = listOf(
                 ExtensionFileNameMatcher("sql")
             )
         })
-    }
+        language
+    }()
 }
