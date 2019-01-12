@@ -16,19 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.intellij.fileTypes
 
 import com.intellij.openapi.fileTypes.FileTypeConsumer
-import uk.co.reecedunn.intellij.plugin.intellij.lang.ServerSideJavaScript
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 
 class FileTypeFactory : com.intellij.openapi.fileTypes.FileTypeFactory() {
     override fun createFileTypes(consumer: FileTypeConsumer) {
-        consumer.consume(
-            XQueryFileType,
-            XQuery.fileExtensions.joinToString(FileTypeConsumer.EXTENSION_DELIMITER)
-        )
-
-        consumer.consume(
-            ServerSideJavaScriptFileType,
-            ServerSideJavaScript.fileExtensions.joinToString(FileTypeConsumer.EXTENSION_DELIMITER)
-        )
+        consumer.consume(XQueryFileType, XQueryFileType.EXTENSIONS)
+        consumer.consume(ServerSideJavaScriptFileType, ServerSideJavaScriptFileType.EXTENSIONS)
     }
 }

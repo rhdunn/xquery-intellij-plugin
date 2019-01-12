@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ private class XQueryFileTypeTest : ParsingTestCase<XQueryModule>(".xqy", XQueryP
         assertThat(consumer.fileMatchers.size, `is`(0))
 
         assertThat(consumer.fileTypes[0].first.javaClass.name, `is`(XQueryFileType::class.java.name))
-        assertThat(consumer.fileTypes[0].second, `is`("xq;xqy;xquery;xql;xqm;xqu;xqws"))
+        assertThat(consumer.fileTypes[0].second, `is`("xq;xqy;xquery;xqu;xql;xqm;xqws"))
 
         assertThat(consumer.fileTypes[1].first.javaClass.name, `is`(ServerSideJavaScriptFileType::class.java.name))
         assertThat(consumer.fileTypes[1].second, `is`("sjs"))

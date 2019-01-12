@@ -17,6 +17,4 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 interface LanguageExtensions {
     val scriptExtensions: Array<String>
-
-    val fileExtensions: Array<String>
 }

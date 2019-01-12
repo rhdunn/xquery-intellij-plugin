@@ -34,7 +34,5 @@ object SQL : Language("SQL", "application/sql"), LanguageExtensions {
         "sql"
     )
 
-    override val fileExtensions: Array<String> = scriptExtensions
-
     // endregion
 }

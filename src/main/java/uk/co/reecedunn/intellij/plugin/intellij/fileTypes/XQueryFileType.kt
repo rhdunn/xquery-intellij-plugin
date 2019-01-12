@@ -34,6 +34,12 @@ import javax.swing.Icon
 object XQueryFileType : LanguageFileType(XQuery) {
     private val UTF_8 = Charset.forName("UTF-8")
 
+    // xqu  -- BaseX
+    // xql  -- eXist-db; BaseX
+    // xqm  -- eXist-db; BaseX
+    // xqws -- eXist-db
+    const val EXTENSIONS = "xq;xqy;xquery;xqu;xql;xqm;xqws"
+
     override fun getName(): String = "XQuery"
 
     override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")

@@ -34,7 +34,5 @@ object SPARQLUpdate : Language("SPARQLUpdate", "application/sparql-update"), Lan
         "ru"
     )
 
-    override val fileExtensions: Array<String> = scriptExtensions
-
     // endregion
 }

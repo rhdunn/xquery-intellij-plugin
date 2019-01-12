@@ -38,7 +38,5 @@ object XSLT : Language("XSLT", "application/xslt+xml"), LanguageExtensions {
         "xslt"
     )
 
-    override val fileExtensions: Array<String> = scriptExtensions
-
     // endregion
 }

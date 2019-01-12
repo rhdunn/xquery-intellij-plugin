@@ -35,7 +35,5 @@ object SPARQLQuery : Language("SPARQLQuery", "application/sparql-query"), Langua
         "sparql"
     )
 
-    override val fileExtensions: Array<String> = scriptExtensions
-
     // endregion
 }

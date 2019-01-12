@@ -35,15 +35,5 @@ object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xque
         "xql"    // XQuery Language (main) file [eXist-db; BaseX]
     )
 
-    override val fileExtensions: Array<String> = arrayOf(
-        "xq",     // standard extension
-        "xqy",    // standard extension
-        "xquery", // standard extension
-        "xql",    // XQuery Language (main) file [eXist-db; BaseX]
-        "xqm",    // XQuery Module file [eXist-db; BaseX]
-        "xqu",    // XQuery file [BaseX]
-        "xqws"    // XQuery Web Service [eXist-db]
-    )
-
     // endregion
 }

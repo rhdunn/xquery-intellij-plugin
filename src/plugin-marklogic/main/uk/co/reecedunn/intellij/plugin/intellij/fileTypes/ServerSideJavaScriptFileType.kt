@@ -22,6 +22,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 import javax.swing.Icon
 
 object ServerSideJavaScriptFileType : LanguageFileType(ServerSideJavaScript) {
+    const val EXTENSIONS = "sjs"
+
     override fun getName(): String = MarkLogicBundle.message("language.sjs.display-name")
 
     override fun getDescription(): String = MarkLogicBundle.message("language.sjs.description")

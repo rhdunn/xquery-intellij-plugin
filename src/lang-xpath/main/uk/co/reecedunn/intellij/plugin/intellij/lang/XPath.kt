@@ -47,7 +47,5 @@ object XPath : Language("XMLPath", "application/vnd+xpath"), LanguageExtensions 
         "xpa"
     )
 
-    override val fileExtensions: Array<String> = scriptExtensions
-
     // endregion
 }
