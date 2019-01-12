@@ -20,7 +20,9 @@ import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
+import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
+import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
@@ -118,15 +120,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var scriptFile: TextFieldWithBrowseButton? = null
 
     private fun createScriptFileUI() {
+        val descriptor = FileNameMatcherDescriptor(language.getAssociations())
+        descriptor.title = PluginApiBundle.message("browser.choose.script-file")
+
         scriptFile = TextFieldWithBrowseButton()
-        scriptFile!!.addBrowseFolderListener(
-            PluginApiBundle.message("browser.choose.script-file"), null,
-            project,
-            FileTypeDescriptor(
-                PluginApiBundle.message("browser.choose.script-file"),
-                *(language as? LanguageExtensions)?.scriptExtensions!!
-            )
-        )
+        scriptFile!!.addBrowseFolderListener(null, null, project, descriptor)
     }
 
     // endregion
