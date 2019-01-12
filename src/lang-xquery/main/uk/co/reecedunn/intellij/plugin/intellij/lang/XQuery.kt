@@ -16,27 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
-import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
-import com.intellij.openapi.fileTypes.FileNameMatcher
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 
 /**
  * XML Query Language
  */
-object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery"), LanguageExtensions {
-    // region Language
-
+object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery") {
     override fun isCaseSensitive(): Boolean = true
-
-    // endregion
-    // region LanguageExtensions
-
-    override val associations: List<FileNameMatcher> = listOf(
-        ExtensionFileNameMatcher("xq"),     // standard extension
-        ExtensionFileNameMatcher("xqy"),    // standard extension
-        ExtensionFileNameMatcher("xquery"), // standard extension
-        ExtensionFileNameMatcher("xql")     // XQuery Language (main) file [eXist-db; BaseX]
-    )
-
-    // endregion
 }
