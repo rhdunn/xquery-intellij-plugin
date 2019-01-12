@@ -16,27 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 import com.intellij.lang.Language
-import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
-import com.intellij.openapi.fileTypes.FileNameMatcher
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageExtensions
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicBundle
 
 /**
  * Server-side JavaScript
  */
-object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogic-javascript"), LanguageExtensions {
-    // region Language
-
+object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogic-javascript") {
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = MarkLogicBundle.message("language.sjs.display-name")
-
-    // endregion
-    // region LanguageExtensions
-
-    override val associations: List<FileNameMatcher> = listOf(
-        ExtensionFileNameMatcher("sjs")
-    )
-
-    // endregion
 }
