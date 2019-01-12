@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,6 @@ object SQL : Language("SQL", "application/sql"), LanguageExtensions {
     )
 
     override val fileExtensions: Array<String> = scriptExtensions
-
-    override val defaultExtension: String = "sql"
 
     // endregion
 }

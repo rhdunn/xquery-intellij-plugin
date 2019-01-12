@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ object XQueryFileType : LanguageFileType(XQuery) {
 
     override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")
 
-    override fun getDefaultExtension(): String = XQuery.defaultExtension
+    override fun getDefaultExtension(): String = "xqy"
 
     override fun getIcon(): Icon? = XQueryIcons.FileType
 

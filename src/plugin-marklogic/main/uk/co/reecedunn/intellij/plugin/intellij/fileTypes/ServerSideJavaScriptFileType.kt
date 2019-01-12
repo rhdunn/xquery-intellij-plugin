@@ -26,7 +26,7 @@ object ServerSideJavaScriptFileType : LanguageFileType(ServerSideJavaScript) {
 
     override fun getDescription(): String = MarkLogicBundle.message("language.sjs.description")
 
-    override fun getDefaultExtension(): String = ServerSideJavaScript.defaultExtension
+    override fun getDefaultExtension(): String = "sjs"
 
     override fun getIcon(): Icon? = AllIcons.FileTypes.JavaScript
 }

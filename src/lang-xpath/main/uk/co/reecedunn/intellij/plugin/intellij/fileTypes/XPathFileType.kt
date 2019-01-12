@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ object XPathFileType : LanguageFileType(XPath) {
 
     override fun getDescription(): String = XPathBundle.message("xpath.files.filetype.description")
 
-    override fun getDefaultExtension(): String = XPath.defaultExtension
+    override fun getDefaultExtension(): String = "xpath"
 
     override fun getIcon(): Icon? = XPathIcons.FileType
 }
