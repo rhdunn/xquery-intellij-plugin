@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.primitiveToItemType
 
 fun MimeResponse.queryResults(): Sequence<QueryResult> {
     var position: Long = -1
+    val responseContentType: String? = getHeader("Content-type")?.substringBefore("; ")
     return parts.asSequence().mapIndexed { index, part ->
         if (part.getHeader("Content-Length")?.toInt() == 0)
             null
@@ -32,7 +33,8 @@ fun MimeResponse.queryResults(): Sequence<QueryResult> {
                 throw MarkLogicQueryError(part.body)
             else {
                 val itemType = primitiveToItemType(derived ?: primitive)
-                val contentType = part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
+                val contentType =
+                    responseContentType ?: part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
                 QueryResult(
                     ++position,
                     part.body,

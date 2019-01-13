@@ -32,7 +32,7 @@ class Response {
     @Test
     @DisplayName("content length 0")
     fun emptySequence() {
-        // query: "()"
+        // query: ()
         val body = ""
         val headers = arrayOf<Header>(
             BasicHeader("Content-Length", body.length.toString())
@@ -44,7 +44,7 @@ class Response {
     @Test
     @DisplayName("xs:integer -- X-Primitive header")
     fun integer() {
-        // query: "1"
+        // query: 1
         val body = listOf(
             "",
             "--f260e14402e96a50",
@@ -71,7 +71,7 @@ class Response {
     @Test
     @DisplayName("xs:integer+ -- multipart response")
     fun integerSequence() {
-        // query: "1, 2, 3"
+        // query: 1, 2, 3
         val body = listOf(
             "",
             "--869b5d54aa36954a",
@@ -118,7 +118,7 @@ class Response {
     @Test
     @DisplayName("xs:numeric+ -- X-Primitive and X-Derived-N headers")
     fun numericSequence() {
-        // query: "5 cast as xs:short, 8 cast as xs:long"
+        // query: 5 cast as xs:short, 8 cast as xs:long
         val body = listOf(
             "",
             "--3734bc5a2395b3de",
@@ -157,7 +157,7 @@ class Response {
     @Test
     @DisplayName("array-node() -- application/json Content-Type header")
     fun arrayNode() {
-        // query: "array-node { 1, 2, 3 }"
+        // query: array-node { 1, 2, 3 }
         val body = listOf(
             "",
             "--b857af6eabb53cb2",
@@ -185,7 +185,7 @@ class Response {
     @Test
     @DisplayName("fn:error -- MarkLogicQueryError")
     fun error() {
-        // query: "1 div 0"
+        // query: 1 div 0
         val body = listOf(
             "",
             "--fb98e57ec409700a",
@@ -212,5 +212,33 @@ class Response {
         assertThat(e.columnNumber, `is`(3))
         assertThat(e.standardCode, `is`("FOAR0001"))
         assertThat(e.vendorCode, `is`("XDMP-DIVBYZERO"))
+    }
+
+    @Test
+    @DisplayName("xdmp:set-response-content-type -- Custom Content-Type header")
+    fun responseContentType() {
+        // query: xdmp:set-response-content-type("text/css"), "strong { font-weight: bold; }"
+        val body = listOf(
+            "",
+            "--40d8fa04d13bdcb1",
+            "Content-Type: text/plain",
+            "X-Primitive: string",
+            "",
+            "strong { font-weight: bold; }",
+            "--40d8fa04d13bdcb1--",
+            ""
+        ).joinToString("\r\n")
+        val headers = arrayOf<Header>(
+            BasicHeader("Content-type", "text/css; charset=UTF-8"),
+            BasicHeader("Content-Type", "multipart/mixed; boundary=40d8fa04d13bdcb1"),
+            BasicHeader("Content-Length", body.length.toString())
+        )
+        val results = MimeResponse(headers, body).queryResults().toList()
+        assertThat(results.size, `is`(1))
+
+        assertThat(results[0].position, `is`(0L))
+        assertThat(results[0].value, `is`("strong { font-weight: bold; }"))
+        assertThat(results[0].type, `is`("xs:string"))
+        assertThat(results[0].mimetype, `is`("text/css"))
     }
 }
