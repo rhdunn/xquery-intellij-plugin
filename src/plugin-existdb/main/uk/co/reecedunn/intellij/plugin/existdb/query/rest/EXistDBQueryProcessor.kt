@@ -22,7 +22,7 @@ import org.apache.http.entity.StringEntity
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
@@ -42,7 +42,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         return when (language) {
             XQuery -> {
                 val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
-                xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.inputStream.decode(query.charset)))
+                xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.decode()!!))
 
                 val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())

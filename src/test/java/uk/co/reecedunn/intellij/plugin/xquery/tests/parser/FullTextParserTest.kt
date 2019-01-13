@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
@@ -33,8 +33,7 @@ private class FullTextParserTest : ParserTestCase() {
     }
 
     fun loadResource(resource: String): String? {
-        val file = ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource)
-        return file.inputStream?.decode()
+        return ResourceVirtualFile(FullTextParserTest::class.java.classLoader, resource).decode()
     }
 
     // region Full Text 1.0 :: FTOptionDecl + FTMatchOptions

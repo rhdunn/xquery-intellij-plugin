@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
+import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import java.io.IOException
 
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
@@ -36,6 +37,8 @@ class ResourceVirtualFileTest {
     @DisplayName("resource file; valid path")
     fun testFileSystem_CreatingFile() {
         val file = createFile("vfs-test/vfs/test.xq")
+        file.charset = CharsetToolkit.UTF8_CHARSET
+
         assertThat(file.name, `is`("test.xq"))
         assertThat(file.path, anyOf(endsWith("/vfs-test/vfs/test.xq"), endsWith("\\vfs-test\\vfs\\test.xq")))
         assertThat(file.isWritable, `is`(false))
@@ -43,7 +46,7 @@ class ResourceVirtualFileTest {
         assertThat(file.isValid, `is`(true))
         assertThat(file.length, `is`(28L))
         assertThat(file.fileSystem, instanceOf(TestVirtualFileSystem::class.java))
-        assertThat(file.inputStream!!.decode(), `is`("xquery version \"3.0\"; true()"))
+        assertThat(file.decode(), `is`("xquery version \"3.0\"; true()"))
         assertThat(file.contentsToByteArray(), `is`("xquery version \"3.0\"; true()".toByteArray()))
         assertThat(file.modificationStamp, `is`(0L))
 

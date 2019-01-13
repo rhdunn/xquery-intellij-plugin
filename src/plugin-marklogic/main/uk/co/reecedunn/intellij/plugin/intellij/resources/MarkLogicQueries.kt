@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.resources
 
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 
 object MarkLogicQueries {
     private fun resourceFile(path: String): VirtualFile {
@@ -27,8 +27,6 @@ object MarkLogicQueries {
         return file
     }
 
-    private fun loadText(path: String): String = resourceFile(path).let { it.inputStream.decode(it.charset) }
-
-    val Run = loadText("queries/marklogic/run.xq")
+    val Run = resourceFile("queries/marklogic/run.xq").decode()!!
     val Version = resourceFile("queries/marklogic/version.xq")
 }

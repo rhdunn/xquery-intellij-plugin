@@ -19,8 +19,8 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
@@ -43,7 +43,7 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
-        val queryText = query.inputStream.decode(query.charset)
+        val queryText = query.decode()!!
         return when (language) {
             XPath -> SaxonXPathRunner(processor, queryText, classes)
             XQuery -> SaxonXQueryRunner(processor, queryText, classes)

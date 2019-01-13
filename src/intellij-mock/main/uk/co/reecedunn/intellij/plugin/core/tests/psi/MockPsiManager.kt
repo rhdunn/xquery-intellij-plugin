@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,16 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
-import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import java.io.IOException
 
 class MockPsiManager(project: Project) : com.intellij.mock.MockPsiManager(project) {
     override fun findFile(file: VirtualFile): PsiFile? {
         try {
             val language = LanguageUtil.getLanguageForPsi(project, file) ?: return null
-
-            val content = file.inputStream.decode(file.charset)
-            return PsiFileFactory.getInstance(project).createFileFromText(file.name, language, content, true, false, false, file)
+            return PsiFileFactory.getInstance(project).createFileFromText(
+                file.name, language, file.decode()!!, true, false, false, file
+            )
         } catch (e: IOException) {
             return null
         }

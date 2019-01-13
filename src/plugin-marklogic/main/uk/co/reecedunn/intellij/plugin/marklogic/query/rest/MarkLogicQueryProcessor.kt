@@ -22,7 +22,7 @@ import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.io.decode
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
@@ -42,7 +42,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         queryParams.addProperty("mimetype", language.mimeTypes[0])
 
         queryParams.addProperty("module-path", "")
-        queryParams.addProperty("query", query.inputStream.decode(query.charset))
+        queryParams.addProperty("query", query.decode()!!)
         return queryParams
     }
 

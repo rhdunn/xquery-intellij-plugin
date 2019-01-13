@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 
@@ -35,8 +36,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     fun loadResource(resource: String): String? {
-        val file = ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource)
-        return file.inputStream?.decode()
+        return ResourceVirtualFile(XPathParserTest::class.java.classLoader, resource).decode()
     }
 
     @Nested

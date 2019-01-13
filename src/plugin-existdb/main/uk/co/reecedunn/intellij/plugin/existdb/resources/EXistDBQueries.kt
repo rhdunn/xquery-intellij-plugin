@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.existdb.resources
 
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 
 object EXistDBQueries {
     private fun resourceFile(path: String): VirtualFile {
@@ -27,9 +27,7 @@ object EXistDBQueries {
         return file
     }
 
-    private fun loadText(path: String): String = resourceFile(path).let { it.inputStream.decode(it.charset) }
-
-    val PostQueryTemplate = loadText("queries/existdb/post-query.xml")
+    val PostQueryTemplate = resourceFile("queries/existdb/post-query.xml").decode()!!
 
     val Version = resourceFile("queries/existdb/version.xq")
 }
