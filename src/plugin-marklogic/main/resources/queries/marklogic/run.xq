@@ -153,6 +153,7 @@ declare function local:rdf-format($mimetype) {
     case "application/n-quads" return "nquad"
     case "application/n-triples" return "ntriple"
     case "application/rdf+xml" return "rdfxml"
+    case "application/trig" return "trig"
     case "text/n3" return "n3"
     case "text/turtle" return "turtle"
     default return fn:error("UNSUPPORTED-RDF-FORMAT", "Unsupported RDF format: " || $mimetype)
