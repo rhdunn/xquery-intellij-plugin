@@ -152,6 +152,7 @@ declare function local:rdf-format($mimetype) {
     switch ($mimetype)
     case "application/n-quads" return "nquad"
     case "application/n-triples" return "ntriple"
+    case "application/rdf+json" return "rdfjson"
     case "application/rdf+xml" return "rdfxml"
     case "application/trig" return "trig"
     case "text/n3" return "n3"
