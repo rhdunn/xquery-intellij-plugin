@@ -104,6 +104,20 @@ val TriG: Language by lazy {
     }()
 }
 
+val TripleXml: Language by lazy {
+    Language.findInstancesByMimeType("application/vnd.marklogic.triples+xml").firstOrNull() ?: {
+        val language = object : Language("TripleXml", "application/vnd.marklogic.triples+xml") {
+            override fun getDisplayName(): String = "MarkLogic Triple/XML"
+        }
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("xml")
+            )
+        })
+        language
+    }()
+}
+
 val Turtle: Language by lazy {
     Language.findInstancesByMimeType("text/turtle").firstOrNull() ?: {
         val language = object : Language("Turtle", "text/turtle") {
@@ -119,5 +133,5 @@ val Turtle: Language by lazy {
 }
 
 val RDF_FORMATS: List<Language> by lazy {
-    listOf(N3, NQuads, NTriples, RdfJson, RdfXml, TriG, Turtle)
+    listOf(N3, NQuads, NTriples, RdfJson, RdfXml, TriG, TripleXml, Turtle)
 }
