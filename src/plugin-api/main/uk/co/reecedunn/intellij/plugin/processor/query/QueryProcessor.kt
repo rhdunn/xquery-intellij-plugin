@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import java.io.Closeable
@@ -23,7 +24,7 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
-    fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery
+    fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery
 
-    fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery
+    fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery
 }

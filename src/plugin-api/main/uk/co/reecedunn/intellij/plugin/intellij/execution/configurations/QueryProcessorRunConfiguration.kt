@@ -27,12 +27,16 @@ import com.intellij.lang.Language
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VfsUtil
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import java.io.File
 
 data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
@@ -69,10 +73,21 @@ class QueryProcessorRunConfiguration(
             data.rdfOutputFormat = value?.mimeTypes?.get(0)
         }
 
-    var scriptFile: String?
+    var scriptFilePath: String?
         get() = data.scriptFile
         set(value) {
             data.scriptFile = value
+        }
+
+    var scriptFile: VirtualFile?
+        get() {
+            return data.scriptFile?.let {
+                val url = VfsUtil.pathToUrl(it.replace(File.separatorChar, '/'))
+                url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
+            }
+        }
+        set(value) {
+            data.scriptFile = value?.canonicalPath
         }
 
     // endregion

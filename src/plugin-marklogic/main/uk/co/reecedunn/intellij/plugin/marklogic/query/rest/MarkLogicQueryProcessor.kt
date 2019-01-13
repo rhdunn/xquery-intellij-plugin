@@ -17,10 +17,12 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
 import com.google.gson.JsonObject
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
@@ -34,24 +36,17 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    private fun buildParameters(query: ValueSource, language: Language, mode: String): JsonObject {
+    private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()
         queryParams.addProperty("mode", mode)
         queryParams.addProperty("mimetype", language.mimeTypes[0])
-        when (query.type) {
-            ValueSourceType.DatabaseFile -> {
-                queryParams.addProperty("module-path", query.data)
-                queryParams.addProperty("query", "")
-            }
-            else -> {
-                queryParams.addProperty("module-path", "")
-                queryParams.addProperty("query", query.value ?: "")
-            }
-        }
+
+        queryParams.addProperty("module-path", "")
+        queryParams.addProperty("query", query.inputStream.decode(query.charset))
         return queryParams
     }
 
-    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
             ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
@@ -62,7 +57,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         return when (language) {
             XQuery -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")

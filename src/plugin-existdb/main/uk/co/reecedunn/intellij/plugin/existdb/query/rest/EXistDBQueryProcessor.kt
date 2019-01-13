@@ -16,11 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.entity.StringEntity
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
@@ -36,14 +38,12 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         }
     }
 
-    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
             XQuery -> {
                 val xml = XmlDocument.parse(EXistDBQueries.PostQueryTemplate)
-                when (query.type) {
-                    ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
-                    else -> xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.value!!))
-                }
+                xml.root.children("text").first().appendChild(xml.doc.createCDATASection(query.inputStream.decode(query.charset)))
+
                 val builder = RequestBuilder.post("$baseUri/db")
                 builder.entity = StringEntity(xml.toXmlString())
                 EXistDBQuery(builder, connection)
@@ -52,7 +52,7 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         }
     }
 
-    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         throw UnsupportedOperationException()
     }
 

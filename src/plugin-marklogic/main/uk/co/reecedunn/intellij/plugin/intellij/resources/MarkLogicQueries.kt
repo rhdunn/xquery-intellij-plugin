@@ -15,15 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
+import com.intellij.openapi.vfs.CharsetToolkit
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.io.decode
-import uk.co.reecedunn.intellij.plugin.processor.query.TextSource
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 object MarkLogicQueries {
-    private fun loadText(path: String): String {
-        val loader = MarkLogicQueries::class.java.classLoader
-        return loader.getResourceAsStream(path)!!.decode()
+    private fun resourceFile(path: String): VirtualFile {
+        val file = ResourceVirtualFile(MarkLogicQueries::class.java.classLoader, path)
+        file.charset = CharsetToolkit.UTF8_CHARSET
+        return file
     }
 
+    private fun loadText(path: String): String = resourceFile(path).let { it.inputStream.decode(it.charset) }
+
     val Run = loadText("queries/marklogic/run.xq")
-    val Version = TextSource(loadText("queries/marklogic/version.xq"))
+    val Version = resourceFile("queries/marklogic/version.xq")
 }

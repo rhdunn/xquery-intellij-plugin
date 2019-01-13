@@ -16,8 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.local_thread
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
@@ -40,25 +42,17 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
-    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
+        val queryText = query.inputStream.decode(query.charset)
         return when (language) {
-            XPath -> when (query.type) {
-                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
-                else -> SaxonXPathRunner(processor, query.value!!, classes)
-            }
-            XQuery -> when (query.type) {
-                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
-                else -> SaxonXQueryRunner(processor, query.value!!, classes)
-            }
-            XSLT -> when (query.type) {
-                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
-                else -> SaxonXsltRunner(processor, query.value!!, classes)
-            }
+            XPath -> SaxonXPathRunner(processor, queryText, classes)
+            XQuery -> SaxonXQueryRunner(processor, queryText, classes)
+            XSLT -> SaxonXsltRunner(processor, queryText, classes)
             else -> throw UnsupportedQueryType(language)
         }
     }
 
-    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         throw UnsupportedOperationException()
     }
 

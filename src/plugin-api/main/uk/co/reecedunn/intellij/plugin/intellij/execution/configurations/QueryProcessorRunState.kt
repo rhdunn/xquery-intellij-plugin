@@ -27,13 +27,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQue
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.ProfileConsoleView
 import uk.co.reecedunn.intellij.plugin.intellij.execution.ui.QueryResultConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.query.LocalFileSource
 
 class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
-        val source = configuration.scriptFile?.let { LocalFileSource(it) }
-            ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFile ?: ""))
+        val source = configuration.scriptFile
+            ?: throw ExecutionException("Unsupported query file: " + (configuration.scriptFilePath ?: ""))
 
         return when (environment.executor.id) {
             DefaultRunExecutor.EXECUTOR_ID -> {

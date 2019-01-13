@@ -168,7 +168,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
-        if (scriptFile!!.textField.text != configuration.scriptFile)
+        if (scriptFile!!.textField.text != configuration.scriptFilePath)
             return true
         return false
     }
@@ -176,13 +176,13 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun reset(configuration: QueryProcessorRunConfiguration) {
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
-        scriptFile!!.textField.text = configuration.scriptFile ?: ""
+        scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
-        configuration.scriptFile = scriptFile!!.textField.textOrNull()
+        configuration.scriptFilePath = scriptFile!!.textField.textOrNull()
     }
 
     // endregion

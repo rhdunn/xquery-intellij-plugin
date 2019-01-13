@@ -21,19 +21,23 @@ import com.intellij.ide.passwordSafe.impl.PasswordSafeImpl
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.vfs.CharsetToolkit
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.PlatformLiteFixture
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.TextSource
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API
 import java.util.concurrent.ExecutionException
 
@@ -75,6 +79,12 @@ private class ProcessorTest : PlatformLiteFixture() {
         provider!!.close()
     }
 
+    private fun createVirtualFile(query: String): VirtualFile {
+        val file = LightVirtualFile("test.xqy", query)
+        file.charset = CharsetToolkit.UTF8_CHARSET
+        return file
+    }
+
     protected fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
         PlatformLiteFixture.getApplication().registerService(aClass, `object`)
         Disposer.register(myProject, com.intellij.openapi.Disposable {
@@ -90,7 +100,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @DisplayName("return value type display name")
     internal inner class ReturnValues {
         private fun node(query: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = provider!!.session.createRunnableQuery(TextSource(query), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile(query), XQuery)
             val items = q.run().execute().get().toList()
             q.close()
 
@@ -105,7 +115,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = provider!!.session.createRunnableQuery(TextSource("\"$value\" cast as $type"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("\"$value\" cast as $type"), XQuery)
             val items = q.run().execute().get().toList()
             q.close()
 
@@ -131,7 +141,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = provider!!.session.createRunnableQuery(TextSource("()"), XQuery)
+                val q = provider!!.session.createRunnableQuery(createVirtualFile("()"), XQuery)
                 val items = q.run().execute().get().toList()
                 q.close()
 
@@ -139,7 +149,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             }
 
             @Test @DisplayName("sequence (same type values)") fun sequenceSameTypeValues() {
-                val q = provider!!.session.createRunnableQuery(TextSource("(1, 2, 3)"), XQuery)
+                val q = provider!!.session.createRunnableQuery(createVirtualFile("(1, 2, 3)"), XQuery)
                 val items = q.run().execute().get().toList()
                 q.close()
 
@@ -159,7 +169,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             }
 
             @Test @DisplayName("sequence (different type values)") fun sequenceDifferentTypeValues() {
-                val q = provider!!.session.createRunnableQuery(TextSource("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)"), XQuery)
+                val q = provider!!.session.createRunnableQuery(createVirtualFile("(1 cast as xs:int, 2 cast as xs:byte, 3 cast as xs:decimal)"), XQuery)
                 val items = q.run().execute().get().toList()
                 q.close()
 
@@ -328,7 +338,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @DisplayName("bind variable")
     internal inner class BindVariableName {
         @Test @DisplayName("by NCName") fun ncname() {
-            val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$x external; \$x"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$x external; \$x"), XQuery)
             q.bindVariable("x", "2", "xs:integer")
 
             val items = q.run().execute().get().toList()
@@ -340,7 +350,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by URIQualifiedName") fun uriQualifiedName() {
-            val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$Q{http://www.example.co.uk}x external; \$x"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$Q{http://www.example.co.uk}x external; \$x"), XQuery)
             q.bindVariable("Q{http://www.example.co.uk}x", "2", "xs:integer")
 
             val items = q.run().execute().get().toList()
@@ -352,7 +362,7 @@ private class ProcessorTest : PlatformLiteFixture() {
             assertThat(items[0].mimetype, `is`("text/plain"))
         }
         @Test @DisplayName("by QName") fun qname() {
-            val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$local:x external; \$x"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$local:x external; \$x"), XQuery)
             q.bindVariable("local:x", "2", "xs:integer")
 
             val items = q.run().execute().get().toList()
@@ -365,7 +375,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$x external; \$x"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$x external; \$x"), XQuery)
             q.bindVariable("x", value, type)
 
             val items = q.run().execute().get().toList()
@@ -378,7 +388,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$x external; \$x"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$x external; \$x"), XQuery)
             q.bindVariable("x", value, type)
 
             val items = q.run().execute().get().toList()
@@ -403,7 +413,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$x external; \$x"), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$x external; \$x"), XQuery)
             q.bindVariable("x", null, "empty-sequence()")
 
             val items = q.run().execute().get().toList()
@@ -433,7 +443,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = provider!!.session.createRunnableQuery(TextSource("declare variable \$x external; \$x"), XQuery)
+                val q = provider!!.session.createRunnableQuery(createVirtualFile("declare variable \$x external; \$x"), XQuery)
                 q.bindVariable("x", "()", "empty-sequence()")
 
                 val items = q.run().execute().get().toList()
@@ -515,7 +525,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @DisplayName("bind context item")
     internal inner class BindContextItem {
         private fun node(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>, mimetype: String) {
-            val q = provider!!.session.createRunnableQuery(TextSource("."), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("."), XQuery)
             q.bindContextItem(value, type)
 
             val items = q.run().execute().get().toList()
@@ -528,7 +538,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         private fun atomic(value: String, type: String, valueMatcher: Matcher<String>, typeMatcher: Matcher<String>) {
-            val q = provider!!.session.createRunnableQuery(TextSource("."), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("."), XQuery)
             q.bindContextItem(value, type)
 
             val items = q.run().execute().get().toList()
@@ -553,7 +563,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         }
 
         @Test @DisplayName("as null") fun nullValue() {
-            val q = provider!!.session.createRunnableQuery(TextSource("."), XQuery)
+            val q = provider!!.session.createRunnableQuery(createVirtualFile("."), XQuery)
             q.bindContextItem(null, "empty-sequence()")
 
             val items = q.run().execute().get().toList()
@@ -566,7 +576,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         @DisplayName("as sequence type")
         internal inner class SequenceType {
             @Test @DisplayName("empty-sequence()") fun emptySequence() {
-                val q = provider!!.session.createRunnableQuery(TextSource("."), XQuery)
+                val q = provider!!.session.createRunnableQuery(createVirtualFile("."), XQuery)
                 q.bindContextItem("()", "empty-sequence()")
 
                 val items = q.run().execute().get().toList()
@@ -667,7 +677,7 @@ private class ProcessorTest : PlatformLiteFixture() {
         fun parse(query: String): QueryError {
             return Assertions.assertThrows(QueryError::class.java) {
                 try {
-                    provider!!.session.createRunnableQuery(TextSource(query), XQuery).use { it.run().execute().get().toList() }
+                    provider!!.session.createRunnableQuery(createVirtualFile(query), XQuery).use { it.run().execute().get().toList() }
                 } catch (e: ExecutionException) {
                     throw e.cause!!
                 }

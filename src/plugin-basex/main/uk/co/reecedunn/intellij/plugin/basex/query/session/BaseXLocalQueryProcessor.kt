@@ -16,10 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import com.intellij.lang.Language
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.io.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -40,17 +42,14 @@ internal class BaseXLocalQueryProcessor(val context: Any, val classes: BaseXClas
         }
     }
 
-    override fun createRunnableQuery(query: ValueSource, language: Language): RunnableQuery {
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         return when (language) {
-            XQuery -> when (query.type) {
-                ValueSourceType.DatabaseFile -> throw UnsupportedOperationException()
-                else -> BaseXLocalQuery(session, query.value!!, classes)
-            }
+            XQuery -> BaseXLocalQuery(session, query.inputStream.decode(query.charset), classes)
             else -> throw UnsupportedQueryType(language)
         }
     }
 
-    override fun createProfileableQuery(query: ValueSource, language: Language): ProfileableQuery {
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         throw UnsupportedOperationException()
     }
 

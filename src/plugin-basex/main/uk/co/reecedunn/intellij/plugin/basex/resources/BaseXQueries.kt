@@ -15,14 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.resources
 
-import uk.co.reecedunn.intellij.plugin.core.io.decode
-import uk.co.reecedunn.intellij.plugin.processor.query.TextSource
+import com.intellij.openapi.vfs.CharsetToolkit
+import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 object BaseXQueries {
-    private fun loadText(path: String): String {
-        val loader = BaseXQueries::class.java.classLoader
-        return loader.getResourceAsStream(path)!!.decode()
+    private fun resourceFile(path: String): VirtualFile {
+        val file = ResourceVirtualFile(BaseXQueries::class.java.classLoader, path)
+        file.charset = CharsetToolkit.UTF8_CHARSET
+        return file
     }
 
-    val Version = TextSource(loadText("queries/basex/version.xq"))
+    val Version = resourceFile("queries/basex/version.xq")
 }
