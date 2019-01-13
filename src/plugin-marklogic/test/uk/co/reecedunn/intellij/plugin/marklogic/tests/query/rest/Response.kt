@@ -241,4 +241,45 @@ class Response {
         assertThat(results[0].type, `is`("xs:string"))
         assertThat(results[0].mimetype, `is`("text/css"))
     }
+
+    @Test
+    @DisplayName("sem:triple -- overriding the default Content-Type")
+    fun triple() {
+        // query:
+        //     import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
+        //     sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+        //                    <http://www.example.co.uk/test1> a rdf:Property .
+        //                    <http://www.example.co.uk/test2> a rdf:Property .", "turtle")
+        val body = listOf(
+            "",
+            "--b54154d3ae21a0f1",
+            "Content-Type: text/plain",
+            "X-Primitive: triple",
+            "",
+            "sem:triple(sem:iri(\"http://www.example.co.uk/test1\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property\"))",
+            "--b54154d3ae21a0f1",
+            "Content-Type: text/plain",
+            "X-Primitive: triple",
+            "",
+            "sem:triple(sem:iri(\"http://www.example.co.uk/test2\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property\"))",
+            "--b54154d3ae21a0f1--",
+            ""
+        ).joinToString("\r\n")
+        val headers = arrayOf<Header>(
+            BasicHeader("Content-Type", "multipart/mixed; boundary=b54154d3ae21a0f1"),
+            BasicHeader("Content-Length", body.length.toString())
+        )
+        val results = MimeResponse(headers, body).queryResults().toList()
+        assertThat(results.size, `is`(2))
+
+        assertThat(results[0].position, `is`(0L))
+        assertThat(results[0].value, `is`("sem:triple(sem:iri(\"http://www.example.co.uk/test1\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property\"))"))
+        assertThat(results[0].type, `is`("sem:triple"))
+        assertThat(results[0].mimetype, `is`("application/xquery"))
+
+        assertThat(results[1].position, `is`(1L))
+        assertThat(results[1].value, `is`("sem:triple(sem:iri(\"http://www.example.co.uk/test2\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property\"))"))
+        assertThat(results[1].type, `is`("sem:triple"))
+        assertThat(results[1].mimetype, `is`("application/xquery"))
+    }
 }

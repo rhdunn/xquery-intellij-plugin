@@ -33,8 +33,11 @@ fun MimeResponse.queryResults(): Sequence<QueryResult> {
                 throw MarkLogicQueryError(part.body)
             else {
                 val itemType = primitiveToItemType(derived ?: primitive)
-                val contentType =
-                    responseContentType ?: part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
+                val contentType = when (itemType) {
+                    "sem:triple" -> "application/xquery"
+                    else ->
+                        responseContentType ?: part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
+                }
                 QueryResult(
                     ++position,
                     part.body,
