@@ -33,3 +33,9 @@ val NTriples: Language by lazy {
         language
     }()
 }
+
+val RDF_FORMATS: List<Language> by lazy {
+    listOf(
+        NTriples
+    )
+}

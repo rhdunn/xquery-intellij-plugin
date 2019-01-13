@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
 import uk.co.reecedunn.intellij.plugin.intellij.lang.NTriples
+import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
@@ -126,7 +127,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         rdfOutputFormat!!.renderer = LanguageCellRenderer()
 
         rdfOutputFormat!!.addItem(null)
-        rdfOutputFormat!!.addItem(NTriples)
+        RDF_FORMATS.forEach { rdfOutputFormat!!.addItem(it) }
     }
 
     // endregion

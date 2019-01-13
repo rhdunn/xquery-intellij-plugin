@@ -30,6 +30,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
@@ -63,7 +64,7 @@ class QueryProcessorRunConfiguration(
         }
 
     var rdfOutputFormat: Language?
-        get() = Language.findInstancesByMimeType(data.rdfOutputFormat).firstOrNull()
+        get() = RDF_FORMATS.find { it.mimeTypes.contains(data.rdfOutputFormat) }
         set(value) {
             data.rdfOutputFormat = value?.mimeTypes?.get(0)
         }
