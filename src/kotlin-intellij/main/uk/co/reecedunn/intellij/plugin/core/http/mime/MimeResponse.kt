@@ -39,8 +39,7 @@ class MimeResponse(headers: Array<Header>, body: String) {
         this.parts = messages.toTypedArray()
     }
 
-    fun getHeader(header: String): String? =
-        message.getHeader(header)
+    fun getHeader(header: String): String? = message.getHeader(header)
 
     private fun parseHeaders(content: String): Array<Header> {
         val headers = ArrayList<Header>()
