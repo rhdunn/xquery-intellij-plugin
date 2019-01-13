@@ -14,6 +14,9 @@
  : limitations under the License.
  :)
 xquery version "1.0-ml";
+
+import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
+
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:implementation "marklogic/6.0";
 
@@ -143,6 +146,12 @@ declare function local:derived-type-name($value) {
     case xs:token return "xs:token"
     case xs:normalizedString return "xs:normalizedString"
     default return () (: primitive type, so does not need the type name to be specified. :)
+};
+
+declare function local:rdf-format($mimetype) {
+    switch ($mimetype)
+    case "application/n-triples" return "ntriple"
+    default return fn:error("UNSUPPORTED-RDF-FORMAT", "Unsupported RDF format: " || $mimetype)
 };
 
 declare function local:error(
@@ -288,9 +297,21 @@ try {
         case "application/xquery" return local:xquery()
         case "application/xslt+xml" return local:xslt()
         default return ()
-    for $retval at $i in $retvals
-    let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
-    return $retval
+    let $triples := for $item in $retvals where $item instance of sem:triple return $item
+    let $retvals := for $item in $retvals where not($item instance of sem:triple) return $item
+    return if (exists($triples) and $rdf-output-format ne "") then
+        let $rdf-output := sem:rdf-serialize($triples, $rdf-output-format)
+        let $_ := xdmp:add-response-header("X-Content-Type-" || (count($retvals) + 1), $rdf-output-format)
+        return (
+            for $retval at $i in $retvals
+            let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
+            return $retval,
+            $rdf-output
+        )
+    else
+        for $retval at $i in ($retvals, $triples)
+        let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
+        return $retval
 } catch * {
     let $_ := xdmp:add-response-header("X-Derived-1", "err:error")
     return local:error($err:code, $err:description, $err:value, $err:module, $err:line-number, $err:column-number, $err:additional)

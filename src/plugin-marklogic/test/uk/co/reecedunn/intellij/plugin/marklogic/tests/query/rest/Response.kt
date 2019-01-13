@@ -243,8 +243,9 @@ class Response {
     }
 
     @Test
-    @DisplayName("sem:triple -- overriding the default Content-Type")
-    fun triple() {
+    @DisplayName("sem:triple+ -- overriding the default Content-Type")
+    fun triples() {
+        // rdf-output-format: ""
         // query:
         //     import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
         //     sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -281,5 +282,44 @@ class Response {
         assertThat(results[1].value, `is`("sem:triple(sem:iri(\"http://www.example.co.uk/test2\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\"), sem:iri(\"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property\"))"))
         assertThat(results[1].type, `is`("sem:triple"))
         assertThat(results[1].mimetype, `is`("application/xquery"))
+    }
+
+    @Test
+    @DisplayName("sem:triple+ -- rdf-output-format")
+    fun triplesRdfOutputFormat() {
+        // rdf-output-format: ""
+        // query:
+        //     import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
+        //     sem:rdf-parse("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+        //                    <http://www.example.co.uk/test1> a rdf:Property .
+        //                    <http://www.example.co.uk/test2> a rdf:Property .", "turtle")
+        val body = listOf(
+            "",
+            "--e59349f9cdb07885",
+            "Content-Type: text/plain",
+            "X-Primitive: string",
+            "",
+            "<http://www.example.co.uk/test1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .",
+            "<http://www.example.co.uk/test2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .",
+            "--e59349f9cdb07885--",
+            ""
+        ).joinToString("\r\n")
+        val headers = arrayOf<Header>(
+            BasicHeader("X-Content-Type-1", "application/n-triples"),
+            BasicHeader("Content-Type", "multipart/mixed; boundary=e59349f9cdb07885"),
+            BasicHeader("Content-Length", body.length.toString())
+        )
+        val results = MimeResponse(headers, body).queryResults().toList()
+        assertThat(results.size, `is`(1))
+
+        val value = listOf(
+            "<http://www.example.co.uk/test1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .",
+            "<http://www.example.co.uk/test2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ."
+        ).joinToString("\r\n")
+
+        assertThat(results[0].position, `is`(0L))
+        assertThat(results[0].value, `is`(value))
+        assertThat(results[0].type, `is`("xs:string"))
+        assertThat(results[0].mimetype, `is`("application/n-triples"))
     }
 }

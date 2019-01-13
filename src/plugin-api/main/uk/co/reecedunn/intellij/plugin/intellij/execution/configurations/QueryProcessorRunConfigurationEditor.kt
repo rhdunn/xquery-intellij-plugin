@@ -20,10 +20,12 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
+import uk.co.reecedunn.intellij.plugin.core.lang.LanguageCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
+import uk.co.reecedunn.intellij.plugin.intellij.lang.NTriples
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsDialog
@@ -121,6 +123,10 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
     private fun createRdfOutputFormatUI() {
         rdfOutputFormat = ComboBox()
+        rdfOutputFormat!!.renderer = LanguageCellRenderer()
+
+        rdfOutputFormat!!.addItem(null)
+        rdfOutputFormat!!.addItem(NTriples)
     }
 
     // endregion

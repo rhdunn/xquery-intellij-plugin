@@ -35,8 +35,12 @@ fun MimeResponse.queryResults(): Sequence<QueryResult> {
                 val itemType = primitiveToItemType(derived ?: primitive)
                 val contentType = when (itemType) {
                     "sem:triple" -> "application/xquery"
-                    else ->
-                        responseContentType ?: part.getHeader("Content-Type") ?: mimetypeFromXQueryItemType(itemType)
+                    else -> sequenceOf(
+                        getHeader("X-Content-Type-${index + 1}"),
+                        responseContentType,
+                        part.getHeader("Content-Type"),
+                        mimetypeFromXQueryItemType(itemType)
+                    ).filterNotNull().first()
                 }
                 QueryResult(
                     ++position,
