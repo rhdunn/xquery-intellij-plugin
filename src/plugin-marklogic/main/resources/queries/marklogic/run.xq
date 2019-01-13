@@ -152,6 +152,7 @@ declare function local:rdf-format($mimetype) {
     switch ($mimetype)
     case "application/n-quads" return "nquad"
     case "application/n-triples" return "ntriple"
+    case "application/rdf+xml" return "rdfxml"
     case "text/turtle" return "turtle"
     default return fn:error("UNSUPPORTED-RDF-FORMAT", "Unsupported RDF format: " || $mimetype)
 };
@@ -302,7 +303,7 @@ try {
     let $triples := for $item in $retvals where $item instance of sem:triple return $item
     let $retvals := for $item in $retvals where not($item instance of sem:triple) return $item
     return if (exists($triples) and $rdf-output-format ne "") then
-        let $rdf-output := sem:rdf-serialize($triples, $rdf-output-format)
+        let $rdf-output := sem:rdf-serialize($triples, local:rdf-format($rdf-output-format))
         let $_ := xdmp:add-response-header("X-Content-Type-" || (count($retvals) + 1), $rdf-output-format)
         return (
             for $retval at $i in $retvals

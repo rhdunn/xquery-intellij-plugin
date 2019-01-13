@@ -48,6 +48,20 @@ val NTriples: Language by lazy {
     }()
 }
 
+val RdfXml: Language by lazy {
+    Language.findInstancesByMimeType("application/rdf+xml").firstOrNull() ?: {
+        val language = object : Language("RDFXML", "application/rdf+xml") {
+            override fun getDisplayName(): String = "RDF/XML"
+        }
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("rdf")
+            )
+        })
+        language
+    }()
+}
+
 val Turtle: Language by lazy {
     Language.findInstancesByMimeType("text/turtle").firstOrNull() ?: {
         val language = object : Language("Turtle", "text/turtle") {
@@ -63,5 +77,5 @@ val Turtle: Language by lazy {
 }
 
 val RDF_FORMATS: List<Language> by lazy {
-    listOf(NQuads, NTriples, Turtle)
+    listOf(NQuads, NTriples, RdfXml, Turtle)
 }
