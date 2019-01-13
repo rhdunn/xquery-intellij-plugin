@@ -20,6 +20,20 @@ import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
 
+val N3: Language by lazy {
+    Language.findInstancesByMimeType("text/n3").firstOrNull() ?: {
+        val language = object : Language("N3", "text/n3") {
+            override fun getDisplayName(): String = "N3"
+        }
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("n3")
+            )
+        })
+        language
+    }()
+}
+
 val NQuads: Language by lazy {
     Language.findInstancesByMimeType("application/n-quads").firstOrNull() ?: {
         val language = object : Language("NQuads", "application/n-quads") {
@@ -77,5 +91,5 @@ val Turtle: Language by lazy {
 }
 
 val RDF_FORMATS: List<Language> by lazy {
-    listOf(NQuads, NTriples, RdfXml, Turtle)
+    listOf(N3, NQuads, NTriples, RdfXml, Turtle)
 }
