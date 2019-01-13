@@ -48,6 +48,20 @@ val NTriples: Language by lazy {
     }()
 }
 
+val Turtle: Language by lazy {
+    Language.findInstancesByMimeType("text/turtle").firstOrNull() ?: {
+        val language = object : Language("Turtle", "text/turtle") {
+            override fun getDisplayName(): String = "Turtle"
+        }
+        language.putUserData(LanguageAssociations.KEY, object : LanguageAssociations {
+            override val associations: List<FileNameMatcher> = listOf(
+                ExtensionFileNameMatcher("ttl")
+            )
+        })
+        language
+    }()
+}
+
 val RDF_FORMATS: List<Language> by lazy {
-    listOf(NQuads, NTriples)
+    listOf(NQuads, NTriples, Turtle)
 }
