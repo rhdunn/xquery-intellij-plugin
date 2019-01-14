@@ -210,8 +210,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        val argumentPsi = argumentListPsi.children().filterIsInstance<XPathArgument>().first()
-        val argumentPlaceholderPsi = argumentPsi.descendants().filterIsInstance<XPathArgumentPlaceholder>().first()
+        val argumentPlaceholderPsi = argumentListPsi.children().filterIsInstance<XPathArgumentPlaceholder>().first()
         val versioned = argumentPlaceholderPsi as VersionConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

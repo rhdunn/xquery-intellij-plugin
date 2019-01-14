@@ -299,12 +299,12 @@ open class XPathParser : PsiParser {
 
     private fun parseArgument(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseExprSingle(builder) || parseArgumentPlaceholder(builder)) {
+        if (parseExprSingle(builder)) {
             marker.done(XPathElementType.ARGUMENT)
             return true
         }
         marker.drop()
-        return false
+        return parseArgumentPlaceholder(builder)
     }
 
     private fun parseArgumentPlaceholder(builder: PsiBuilder): Boolean {
