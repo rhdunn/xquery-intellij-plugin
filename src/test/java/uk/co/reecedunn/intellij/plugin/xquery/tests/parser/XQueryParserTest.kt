@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5446,7 +5446,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-
     // region XQuery 1.0 :: NCName
 
     @Test
@@ -6740,6 +6739,38 @@ private class XQueryParserTest : ParserTestCase() {
     // endregion
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (117) NodeTest ; XQuery 3.0 EBNF (172) KindTest")
+    internal inner class NodeTest_XQuery30 {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (177) NamespaceNodeTest")
+        internal inner class NamespaceNodeTest {
+            @Test
+            @DisplayName("namespace node test")
+            fun namespaceNodeTest() {
+                val expected = loadResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("namespace node test; compact whitespace")
+            fun namespaceNodeTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (118) NameTest")
     internal inner class NameTest_XQuery30 {
         @Nested
@@ -6842,16 +6873,18 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: ArgumentPlaceholder
 
-    @Test
-    fun testArgumentPlaceholder() {
-        val expected = loadResource("tests/parser/xquery-3.0/ArgumentPlaceholder.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (133) FunctionCall ; XQuery 3.0 EBNF (121) ArgumentList")
+    internal inner class FunctionCall_XQuery30 {
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (135) ArgumentPlaceholder")
+        fun argumentPlaceholder() {
+            val expected = loadResource("tests/parser/xquery-3.0/ArgumentPlaceholder.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
@@ -7057,38 +7090,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-
-    @Nested
-    @DisplayName("XQuery 3.0 EBNF (117) NodeTest ; XQuery 3.0 EBNF (172) KindTest")
-    internal inner class NodeTest_XQuery30 {
-        @Nested
-        @DisplayName("XQuery 3.0 EBNF (177) NamespaceNodeTest")
-        internal inner class NamespaceNodeTest {
-            @Test
-            @DisplayName("namespace node test")
-            fun namespaceNodeTest() {
-                val expected = loadResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest.txt")
-                val actual = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("namespace node test; compact whitespace")
-            fun namespaceNodeTest_CompactWhitespace() {
-                val expected = loadResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("error recovery: missing closing parenthesis")
-            fun missingClosingParenthesis() {
-                val expected = loadResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_MissingClosingParenthesis.txt")
-                val actual = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
-            }
-        }
-    }
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (170) ItemType ; XQuery 3.0 EBNF (172) KindTest")

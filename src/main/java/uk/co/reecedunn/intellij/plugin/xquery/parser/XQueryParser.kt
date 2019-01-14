@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -4190,25 +4190,6 @@ class XQueryParser : XPathParser() {
         }
 
         marker.drop()
-        return false
-    }
-
-    override fun parseArgument(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseExprSingle(builder) || parseArgumentPlaceholder(builder)) {
-            marker.done(XPathElementType.ARGUMENT)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseArgumentPlaceholder(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
-        if (marker != null) {
-            marker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
-            return true
-        }
         return false
     }
 

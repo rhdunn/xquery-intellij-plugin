@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1310,6 +1310,18 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-3.0/NameTest_Wildcard_BracedURILiteral.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (59) FunctionCall ; XPath 3.0 EBNF (49) ArgumentList")
+    internal inner class FunctionCall_XPath30 {
+        @Test
+        @DisplayName("XPath 3.0 EBNF (61) ArgumentPlaceholder")
+        fun argumentPlaceholder() {
+            val expected = loadResource("tests/parser/xpath-3.0/ArgumentPlaceholder.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/ArgumentPlaceholder.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
 }
