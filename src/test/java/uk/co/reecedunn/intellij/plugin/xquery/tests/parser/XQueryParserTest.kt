@@ -4151,53 +4151,60 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty_MissingClosingParenthesis.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (134) Argument")
+        internal inner class Argument {
+            @Test
+            @DisplayName("single argument")
+            fun singleParam() {
+                val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_SingleParam.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_SingleParam.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("single argument; compact whitespace")
+            fun singleParam_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_SingleParam_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_SingleParam_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple argument")
+            fun multipleParam() {
+                val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple argument; compact whitespace")
+            fun multipleParam_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: multiple argument; missing ExprSingle")
+            fun multipleParam_MissingExpr() {
+                val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple argument; space before next comma")
+            fun multipleParam_SpaceBeforeNextComma() {
+                val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    // region XQuery 1.0 :: FunctionCall
-
-    @Test
-    fun testFunctionCall_SingleParam() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_SingleParam.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_SingleParam.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_SingleParam_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_SingleParam_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_SingleParam_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_MultipleParam() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_MultipleParam_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_MultipleParam_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionCall_MultipleParam_SpaceBeforeNextComma() {
-        val expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: DirElemConstructor
 
     @Test

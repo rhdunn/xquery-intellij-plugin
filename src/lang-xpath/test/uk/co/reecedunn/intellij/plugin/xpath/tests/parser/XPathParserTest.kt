@@ -326,7 +326,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (93) FunctionCall ; XQuery 3.0 EBNF (121) ArgumentList")
+    @DisplayName("XPath 1.0 EBNF (35) FunctionCall ; XPath 3.0 EBNF (49) ArgumentList")
     internal inner class FunctionCall {
         @Test
         @DisplayName("keyword NCName")
@@ -366,6 +366,58 @@ private class XPathParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_ArgumentList_Empty_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_ArgumentList_Empty_MissingClosingParenthesis.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XPath 3.0 EBNF (60) Argument")
+        internal inner class Argument {
+            @Test
+            @DisplayName("single argument")
+            fun singleParam() {
+                val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_SingleParam.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_SingleParam.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("single argument; compact whitespace")
+            fun singleParam_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_SingleParam_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_SingleParam_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple argument")
+            fun multipleParam() {
+                val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple argument; compact whitespace")
+            fun multipleParam_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: multiple argument; missing ExprSingle")
+            fun multipleParam_MissingExpr() {
+                val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple argument; space before next comma")
+            fun multipleParam_SpaceBeforeNextComma() {
+                val expected = loadResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/FunctionCall_MultipleParam_SpaceBeforeNextComma.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

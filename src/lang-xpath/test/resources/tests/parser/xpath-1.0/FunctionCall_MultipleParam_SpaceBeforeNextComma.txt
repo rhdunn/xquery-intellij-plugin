@@ -1,0 +1,28 @@
+XPathImpl[FILE(0:23)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:23)]
+      XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:23)]
+         XPathQNameImpl[XPATH_QNAME(0:9)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:2)]('fn')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:9)]('concat')
+         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+         XPathArgumentListImpl[XPATH_ARGUMENT_LIST(10:23)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            XPathArgumentImpl[XPATH_ARGUMENT(12:14)]
+               XPathOrExprImpl[XPATH_OR_EXPR(12:14)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            LeafPsiElement[XPATH_COMMA_TOKEN(14:15)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+            XPathArgumentImpl[XPATH_ARGUMENT(16:18)]
+               XPathOrExprImpl[XPATH_OR_EXPR(16:18)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('4')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            LeafPsiElement[XPATH_COMMA_TOKEN(18:19)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            XPathArgumentImpl[XPATH_ARGUMENT(20:22)]
+               XPathOrExprImpl[XPATH_OR_EXPR(20:22)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(20:21)]('8')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(22:23)](')')

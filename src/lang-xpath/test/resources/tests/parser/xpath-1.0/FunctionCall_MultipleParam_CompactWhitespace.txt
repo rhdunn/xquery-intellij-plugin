@@ -1,0 +1,17 @@
+XPathImpl[FILE(0:13)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:13)]
+      XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:13)]
+         XPathQNameImpl[XPATH_QNAME(0:8)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:4)]('math')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(4:5)](':')
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:8)]('pow')
+         XPathArgumentListImpl[XPATH_ARGUMENT_LIST(8:13)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+            XPathArgumentImpl[XPATH_ARGUMENT(9:10)]
+               XPathOrExprImpl[XPATH_OR_EXPR(9:10)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')
+            LeafPsiElement[XPATH_COMMA_TOKEN(10:11)](',')
+            XPathArgumentImpl[XPATH_ARGUMENT(11:12)]
+               XPathOrExprImpl[XPATH_OR_EXPR(11:12)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(11:12)]('8')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(12:13)](')')

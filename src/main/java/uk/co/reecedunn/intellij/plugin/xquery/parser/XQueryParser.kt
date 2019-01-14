@@ -4193,37 +4193,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseArgumentList(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
-        if (marker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseArgument(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseArgument(builder) && !haveErrors) {
-                        builder.error(XQueryBundle.message("parser.error.expected-either", "ExprSingle", "?"))
-                        haveErrors = true
-                    }
-
-                    parseWhiteSpaceAndCommentTokens(builder)
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.ARGUMENT_LIST)
-            return true
-        }
-        return false
-    }
-
-    private fun parseArgument(builder: PsiBuilder): Boolean {
+    override fun parseArgument(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseExprSingle(builder) || parseArgumentPlaceholder(builder)) {
             marker.done(XPathElementType.ARGUMENT)
