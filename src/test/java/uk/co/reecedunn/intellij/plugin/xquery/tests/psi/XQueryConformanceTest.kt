@@ -960,7 +960,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_Attribute() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Attribute.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance
@@ -973,7 +973,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_Child() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Child.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance
@@ -986,7 +986,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_Descendant() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Descendant.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance
@@ -999,7 +999,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_DescendantOrSelf() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_DescendantOrSelf.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance
@@ -1012,7 +1012,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_Following() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Following.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance
@@ -1025,7 +1025,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_FollowingSibling() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_FollowingSibling.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance
@@ -1038,7 +1038,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testForwardAxis_Self() {
-        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq")
+        val file = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Self.xq")
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as VersionConformance

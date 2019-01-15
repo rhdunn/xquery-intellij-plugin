@@ -2829,34 +2829,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Test
-    fun testForwardStep_QName() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_QName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_QName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardStep_QName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_QName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_QName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardStep_Wildcard() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_Wildcard.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardStep_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
     fun testForwardStep_MissingNodeTest() {
         val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_MissingNodeTest.txt")
         val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_MissingNodeTest.xq")
@@ -2864,107 +2836,126 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: ForwardStep + ForwardAxis
 
-    @Test
-    fun testForwardAxis_Child() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Child.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (72) ForwardStep ; XQuery 1.0 EBNF (73) ForwardAxis")
+    internal inner class ForwardAxis {
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (79) NameTest")
+        internal inner class NameTest {
+            @Test
+            @DisplayName("child")
+            fun child() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Child.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Child.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("child; compact whitespace")
+            fun child_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Child_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Child_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant")
+            fun descendant() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Descendant.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Descendant.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant; compact whitespace")
+            fun descendant_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Descendant_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Descendant_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute")
+            fun attribute() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Attribute.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Attribute.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute; compact whitespace")
+            fun attribute_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Attribute_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Attribute_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self")
+            fun self() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Self.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Self.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self; compact whitespace")
+            fun self_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Self_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Self_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant-or-self")
+            fun descendantOrSelf() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_DescendantOrSelf.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_DescendantOrSelf.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant-or-self; compact whitespace")
+            fun descendantOrSelf_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_DescendantOrSelf_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_DescendantOrSelf_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following-sibling")
+            fun followingSibling() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_FollowingSibling.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_FollowingSibling.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following-sibling; compact whitespace")
+            fun followingSibling_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_FollowingSibling_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_FollowingSibling_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following")
+            fun following() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Following.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Following.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following; compact whitespace")
+            fun following_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Following_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Following_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
-
-    @Test
-    fun testForwardAxis_Child_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Child_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Descendant() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Descendant_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Descendant_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Attribute() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Attribute_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Attribute_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Self() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Self.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Self_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Self_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_DescendantOrSelf() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_DescendantOrSelf_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_FollowingSibling() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_FollowingSibling_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Following() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Following.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardAxis_Following_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Following_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (72) ForwardStep ; XQuery 1.0 EBNF (74) AbbrevForwardStep")
