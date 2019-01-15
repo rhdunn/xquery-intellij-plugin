@@ -2812,30 +2812,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: ForwardStep
-
-    @Test
-    fun testForwardStep_KindTest() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_KindTest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_KindTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardStep_KindTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_KindTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_KindTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testForwardStep_MissingNodeTest() {
-        val expected = loadResource("tests/parser/xquery-1.0/ForwardStep_MissingNodeTest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ForwardStep_MissingNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (72) ForwardStep ; XQuery 1.0 EBNF (73) ForwardAxis")
@@ -2954,6 +2930,34 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_NameTest_Following_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (123) KindTest")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("self")
+            fun self() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_KindTest_Self.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_KindTest_Self.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self; compact whitespace")
+            fun self_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_KindTest_Self_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_KindTest_Self_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("error recovery: missing NodeTest")
+        fun missingNodeTest() {
+            val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
 
@@ -3131,7 +3135,7 @@ private class XQueryParserTest : ParserTestCase() {
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (123) KindTest")
-    internal inner class NodeTest {
+    internal inner class KindTest {
         @Nested
         @DisplayName("XQuery 1.0 EBNF (124) AnyKindTest")
         internal inner class AnyKindTest {
@@ -3674,7 +3678,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (79) NameTest")
+    @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (79) NameTest")
     internal inner class NameTest {
         @Nested
         @DisplayName("XQuery 1.0 EBNF (154) QName")
@@ -6775,7 +6779,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.0 EBNF (118) NameTest")
+    @DisplayName("XQuery 3.0 EBNF (117) NodeTest ; XQuery 3.0 EBNF (118) NameTest")
     internal inner class NameTest_XQuery30 {
         @Nested
         @DisplayName("XQuery 3.0 EBNF (201) URIQualifiedName ; XQuery 3.0 EBNF (202) BracedURILiteral")

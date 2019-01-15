@@ -139,7 +139,42 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseAbbrevForwardStep(builder, type) || parsePostfixExpr(builder)
+        return parseForwardStep(builder, type) || parsePostfixExpr(builder)
+    }
+
+    fun parseForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseForwardAxis(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseNodeTest(builder, null)) {
+                builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+            }
+
+            marker.done(XPathElementType.FORWARD_STEP)
+            return true
+        } else if (parseAbbrevForwardStep(builder, type)) {
+            marker.drop()
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseForwardAxis(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.FORWARD_AXIS_TOKENS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            marker.done(XPathElementType.FORWARD_AXIS)
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     fun parseAbbrevForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {

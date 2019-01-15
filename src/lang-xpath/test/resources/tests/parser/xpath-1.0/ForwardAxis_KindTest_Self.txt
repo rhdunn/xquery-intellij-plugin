@@ -1,0 +1,15 @@
+XPathImpl[FILE(0:16)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:16)]
+      XPathForwardStepImpl[XPATH_FORWARD_STEP(0:16)]
+         XPathForwardAxisImpl[XPATH_FORWARD_AXIS(0:7)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+            LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+         XPathNodeTestImpl[XPATH_NODE_TEST(8:16)]
+            XPathAnyKindTestImpl[XPATH_ANY_KIND_TEST(8:16)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
+               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(15:16)](')')

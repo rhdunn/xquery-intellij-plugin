@@ -78,6 +78,154 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (16) ForwardStep ; XPath 1.0 EBNF (17) ForwardAxis")
+    internal inner class ForwardAxis {
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (23) NameTest")
+        internal inner class NameTest {
+            @Test
+            @DisplayName("child")
+            fun child() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Child.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Child.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("child; compact whitespace")
+            fun child_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Child_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Child_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant")
+            fun descendant() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Descendant.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Descendant.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant; compact whitespace")
+            fun descendant_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Descendant_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Descendant_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute")
+            fun attribute() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Attribute.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Attribute.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("attribute; compact whitespace")
+            fun attribute_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Attribute_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Attribute_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self")
+            fun self() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Self.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Self.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self; compact whitespace")
+            fun self_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Self_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Self_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant-or-self")
+            fun descendantOrSelf() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_DescendantOrSelf.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_DescendantOrSelf.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("descendant-or-self; compact whitespace")
+            fun descendantOrSelf_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_DescendantOrSelf_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_DescendantOrSelf_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following-sibling")
+            fun followingSibling() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_FollowingSibling.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_FollowingSibling.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following-sibling; compact whitespace")
+            fun followingSibling_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_FollowingSibling_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_FollowingSibling_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following")
+            fun following() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Following.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Following.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("following; compact whitespace")
+            fun following_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Following_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Following_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("self")
+            fun self() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_KindTest_Self.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_KindTest_Self.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self; compact whitespace")
+            fun self_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_KindTest_Self_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_KindTest_Self_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("error recovery: missing NodeTest")
+        fun missingNodeTest() {
+            val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (16) ForwardStep ; XPath 1.0 EBNF (18) AbbrevForwardStep")
     internal inner class AbbrevForwardStep {
         @Test
@@ -502,7 +650,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 1.0 EBNF (23) NameTest")
+    @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (23) NameTest")
     internal inner class NameTest {
         @Nested
         @DisplayName("XPath 1.0 EBNF (45) QName")
@@ -1138,7 +1286,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 2.0 EBNF (36) NameTest")
+    @DisplayName("XPath 2.0 EBNF (35) NodeTest ; XPath 2.0 EBNF (36) NameTest")
     internal inner class NameTest_XPath20 {
         @Nested
         @DisplayName("XPath 1.0 EBNF (37) Wildcard")
@@ -1298,7 +1446,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.0 EBNF (46) NameTest")
+    @DisplayName("XPath 3.0 EBNF (45) NodeTest ; XPath 3.0 EBNF (46) NameTest")
     internal inner class NameTest_XPath30 {
         @Nested
         @DisplayName("XPath 3.0 EBNF (99) URIQualifiedName ; XPath 3.0 EBNF (100) BracedURILiteral")
