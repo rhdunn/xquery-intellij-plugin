@@ -3947,15 +3947,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseAbbrevReverseStep(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
-        if (marker != null) {
-            marker.done(XPathElementType.ABBREV_REVERSE_STEP)
-            return true
-        }
-        return false
-    }
-
     private fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {

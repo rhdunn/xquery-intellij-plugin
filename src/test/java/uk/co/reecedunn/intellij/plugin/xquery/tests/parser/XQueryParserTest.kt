@@ -3122,16 +3122,14 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: ReverseStep + AbbrevReverseStep
 
     @Test
-    fun testAbbrevReverseStep() {
+    @DisplayName("XQuery 1.0 EBNF (75) ReverseStep ; XQuery 1.0 EBNF (77) AbbrevReverseStep")
+    fun abbrevReverseStep() {
         val expected = loadResource("tests/parser/xquery-1.0/AbbrevReverseStep.txt")
         val actual = parseResource("tests/parser/xquery-1.0/AbbrevReverseStep.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (123) KindTest")

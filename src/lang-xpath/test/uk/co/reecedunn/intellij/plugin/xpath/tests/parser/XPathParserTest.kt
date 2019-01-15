@@ -261,6 +261,14 @@ private class XPathParserTest : ParserTestCase() {
         }
     }
 
+    @Test
+    @DisplayName("XPath 1.0 EBNF (19) ReverseStep ; XPath 1.0 EBNF (21) AbbrevReverseStep")
+    fun abbrevReverseStep() {
+        val expected = loadResource("tests/parser/xpath-1.0/AbbrevReverseStep.txt")
+        val actual = parseResource("tests/parser/xpath-1.0/AbbrevReverseStep.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     @Nested
     @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
     internal inner class NodeTest {
