@@ -78,6 +78,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (16) ForwardStep ; XPath 1.0 EBNF (18) AbbrevForwardStep")
+    internal inner class AbbrevForwardStep {
+        @Test
+        @DisplayName("node test only")
+        fun nodeTest() {
+            val expected = loadResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/NodeTest_AnyKindTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("abbreviated attribute")
+        fun attribute() {
+            val expected = loadResource("tests/parser/xpath-1.0/AbbrevForwardStep.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AbbrevForwardStep.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("abbreviated attribute; compact whitespace")
+        fun attribute_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/AbbrevForwardStep_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AbbrevForwardStep_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: abbreviated attribute; missing NodeTest")
+        fun attribute_MissingNodeTest() {
+            val expected = loadResource("tests/parser/xpath-1.0/AbbrevForwardStep_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AbbrevForwardStep_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
     internal inner class NodeTest {
         @Nested

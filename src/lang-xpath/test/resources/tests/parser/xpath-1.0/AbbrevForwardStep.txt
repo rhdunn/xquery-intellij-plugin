@@ -1,0 +1,9 @@
+XPathImpl[FILE(0:4)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+      XPathAbbrevForwardStepImpl[XPATH_ABBREV_FORWARD_STEP(0:4)]
+         LeafPsiElement[XPATH_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XPathNodeTestImpl[XPATH_NODE_TEST(2:4)]
+            XPathNameTestImpl[XPATH_NAME_TEST(2:4)]
+               XPathNCNameImpl[XPATH_NCNAME(2:4)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:4)]('id')
