@@ -139,7 +139,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseForwardStep(builder, type) || parseAbbrevReverseStep(builder) || parsePostfixExpr(builder)
+        return parseReverseStep(builder) || parseForwardStep(builder, type) || parsePostfixExpr(builder)
     }
 
     fun parseForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {
@@ -192,6 +192,41 @@ open class XPathParser : PsiParser {
             builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
 
             marker.done(XPathElementType.ABBREV_FORWARD_STEP)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseReverseStep(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseReverseAxis(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseNodeTest(builder, null)) {
+                builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+            }
+
+            marker.done(XPathElementType.REVERSE_STEP)
+            return true
+        } else if (parseAbbrevReverseStep(builder)) {
+            marker.drop()
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseReverseAxis(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.REVERSE_AXIS_TOKENS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            marker.done(XPathElementType.REVERSE_AXIS)
             return true
         }
         marker.drop()

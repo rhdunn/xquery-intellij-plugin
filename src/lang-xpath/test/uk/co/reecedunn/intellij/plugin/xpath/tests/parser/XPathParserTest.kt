@@ -261,6 +261,122 @@ private class XPathParserTest : ParserTestCase() {
         }
     }
 
+    @Nested
+    @DisplayName("XPath 1.0 EBNF (19) ReverseStep ; XPath 1.0 EBNF (20) ReverseAxis")
+    internal inner class ReverseAxis {
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (23) NameTest")
+        internal inner class NameTest {
+            @Test
+            @DisplayName("parent")
+            fun parent() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Parent.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Parent.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("parent; compact whitespace")
+            fun parent_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Parent_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Parent_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor")
+            fun ancestor() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Ancestor.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Ancestor.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor; compact whitespace")
+            fun ancestor_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Ancestor_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Ancestor_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding-sibling")
+            fun precedingSibling() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_PrecedingSibling.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_PrecedingSibling.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding-sibling; compact whitespace")
+            fun precedingSibling_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_PrecedingSibling_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_PrecedingSibling_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding")
+            fun preceding() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Preceding.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Preceding.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding; compact whitespace")
+            fun preceding_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Preceding_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_Preceding_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor-or-self")
+            fun ancestorOrSelf() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_AncestorOrSelf.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_AncestorOrSelf.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor-or-self; compact whitespace")
+            fun ancestorOrSelf_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_AncestorOrSelf_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_NameTest_AncestorOrSelf_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 1.0 EBNF (22) NodeTest ; XPath 1.0 EBNF (36) KindTest")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("parent")
+            fun parent() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_KindTest_Parent.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_KindTest_Parent.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("parent; compact whitespace")
+            fun parent_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_KindTest_Parent_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_KindTest_Parent_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("error recovery: missing NodeTest")
+        fun missingNodeTest() {
+            val expected = loadResource("tests/parser/xpath-1.0/ReverseAxis_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/ReverseAxis_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
     @Test
     @DisplayName("XPath 1.0 EBNF (19) ReverseStep ; XPath 1.0 EBNF (21) AbbrevReverseStep")
     fun abbrevReverseStep() {

@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:12)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:12)]
+      XPathReverseStepImpl[XPATH_REVERSE_STEP(0:12)]
+         XPathReverseAxisImpl[XPATH_REVERSE_AXIS(0:8)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+            LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(6:8)]('::')
+         XPathNodeTestImpl[XPATH_NODE_TEST(8:12)]
+            XPathNameTestImpl[XPATH_NAME_TEST(8:12)]
+               XPathNCNameImpl[XPATH_NCNAME(8:12)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:12)]('para')

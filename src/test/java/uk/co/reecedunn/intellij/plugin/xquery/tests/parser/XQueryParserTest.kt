@@ -2997,59 +2997,6 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: ReverseStep
-
-    @Test
-    fun testReverseStep_KindTest() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_KindTest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_KindTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseStep_KindTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_KindTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_KindTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseStep_QName() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_QName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_QName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseStep_QName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_QName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_QName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseStep_Wildcard() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_Wildcard.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseStep_Wildcard_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_Wildcard_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_Wildcard_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseStep_MissingNodeTest() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseStep_MissingNodeTest.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseStep_MissingNodeTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
     @Nested
     @DisplayName("XQuery 1.0 EBNF (75) ReverseStep ; XQuery 1.0 EBNF (76) ReverseAxis")
     internal inner class ReverseAxis {
@@ -3135,6 +3082,34 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_AncestorOrSelf_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (123) KindTest")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("parent")
+            fun parent() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_KindTest_Parent.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_KindTest_Parent.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("parent; compact whitespace")
+            fun parent_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_KindTest_Parent_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_KindTest_Parent_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("error recovery: missing NodeTest")
+        fun missingNodeTest() {
+            val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_MissingNodeTest.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_MissingNodeTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
 

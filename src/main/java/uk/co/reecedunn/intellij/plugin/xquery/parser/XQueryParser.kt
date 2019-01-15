@@ -3912,41 +3912,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseReverseStep(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseReverseAxis(builder)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseNodeTest(builder, null)) {
-                builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
-            }
-
-            marker.done(XPathElementType.REVERSE_STEP)
-            return true
-        } else if (parseAbbrevReverseStep(builder)) {
-            marker.drop()
-            return true
-        }
-
-        marker.drop()
-        return false
-    }
-
-    private fun parseReverseAxis(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.REVERSE_AXIS_TOKENS)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            marker.done(XPathElementType.REVERSE_AXIS)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     private fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {

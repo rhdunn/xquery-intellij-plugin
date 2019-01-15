@@ -1,0 +1,8 @@
+XPathImpl[FILE(0:9)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:9)]
+      XPathReverseStepImpl[XPATH_REVERSE_STEP(0:9)]
+         XPathReverseAxisImpl[XPATH_REVERSE_AXIS(0:9)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+            LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(7:9)]('::')
+         PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'NodeTest'.')
