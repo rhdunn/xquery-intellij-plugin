@@ -3049,79 +3049,94 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: ReverseStep + ReverseAxis
 
-    @Test
-    fun testReverseAxis_Parent() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Parent.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Parent.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (75) ReverseStep ; XQuery 1.0 EBNF (76) ReverseAxis")
+    internal inner class ReverseAxis {
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (78) NodeTest ; XQuery 1.0 EBNF (79) NameTest")
+        internal inner class NameTest {
+            @Test
+            @DisplayName("parent")
+            fun parent() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Parent.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Parent.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("parent; compact whitespace")
+            fun parent_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Parent_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Parent_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor")
+            fun ancestor() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Ancestor.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Ancestor.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor; compact whitespace")
+            fun ancestor_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Ancestor_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Ancestor_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding-sibling")
+            fun precedingSibling() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_PrecedingSibling.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_PrecedingSibling.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding-sibling; compact whitespace")
+            fun precedingSibling_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_PrecedingSibling_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_PrecedingSibling_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding")
+            fun preceding() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Preceding.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Preceding.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("preceding; compact whitespace")
+            fun preceding_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Preceding_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_Preceding_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor-or-self")
+            fun ancestorOrSelf() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_AncestorOrSelf.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_AncestorOrSelf.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("ancestor-or-self; compact whitespace")
+            fun ancestorOrSelf_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_AncestorOrSelf_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_NameTest_AncestorOrSelf_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
-
-    @Test
-    fun testReverseAxis_Parent_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Parent_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Parent_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_Ancestor() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_Ancestor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_PrecedingSibling() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PrecedingSibling.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PrecedingSibling.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_PrecedingSibling_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PrecedingSibling_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PrecedingSibling_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_Preceding() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Preceding.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Preceding.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_Preceding_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Preceding_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Preceding_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_AncestorOrSelf() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testReverseAxis_AncestorOrSelf_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (75) ReverseStep ; XQuery 1.0 EBNF (77) AbbrevReverseStep")
