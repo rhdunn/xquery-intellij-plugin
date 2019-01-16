@@ -139,7 +139,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseReverseStep(builder) || parseForwardStep(builder, type) || parsePostfixExpr(builder)
+        return parseReverseStep(builder) || parseForwardStep(builder, type) || parsePostfixExpr(builder, type)
     }
 
     fun parseForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {
@@ -233,7 +233,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseAbbrevReverseStep(builder: PsiBuilder): Boolean {
+    private fun parseAbbrevReverseStep(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
         if (marker != null) {
             marker.done(XPathElementType.ABBREV_REVERSE_STEP)
@@ -242,7 +242,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseKindTest(builder) || parseNameTest(builder, type)) {
             marker.done(XPathElementType.NODE_TEST)
@@ -273,8 +273,8 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
-        return parsePrimaryExpr(builder, null)
+    open fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parsePrimaryExpr(builder, type)
     }
 
     // endregion

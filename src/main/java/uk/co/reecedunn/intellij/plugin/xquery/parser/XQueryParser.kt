@@ -3912,7 +3912,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
