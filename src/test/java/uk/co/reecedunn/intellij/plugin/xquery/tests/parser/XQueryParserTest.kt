@@ -2795,23 +2795,6 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: AxisStep
-
-    @Test
-    fun testAxisStep_PredicateList() {
-        val expected = loadResource("tests/parser/xquery-1.0/AxisStep_PredicateList.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AxisStep_PredicateList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAxisStep_PredicateList_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/AxisStep_PredicateList_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AxisStep_PredicateList_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (72) ForwardStep ; XQuery 1.0 EBNF (73) ForwardAxis")
@@ -2958,6 +2941,50 @@ private class XQueryParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_MissingNodeTest.txt")
             val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_MissingNodeTest.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (82) PredicateList ; XQuery 1.0 EBNF (83) Predicate")
+        internal inner class PredicateList {
+            @Test
+            @DisplayName("predicate list")
+            fun predicateList() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("predicate list; compact whitespace")
+            fun predicateList_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing brace")
+            fun missingClosingBrace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_MissingClosingBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing Expr")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_PredicateList_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 
@@ -3110,6 +3137,50 @@ private class XQueryParserTest : ParserTestCase() {
             val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_MissingNodeTest.txt")
             val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_MissingNodeTest.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (82) PredicateList ; XQuery 1.0 EBNF (83) Predicate")
+        internal inner class PredicateList {
+            @Test
+            @DisplayName("predicate list")
+            fun predicateList() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("predicate list; compact whitespace")
+            fun predicateList_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing brace")
+            fun missingClosingBrace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_MissingClosingBrace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing Expr")
+            fun missingExpr() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_MissingExpr.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_MissingExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PredicateList_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

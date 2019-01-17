@@ -3897,21 +3897,6 @@ class XQueryParser : XPathParser() {
         return parsePostfixExpr(builder, type) || parseAxisStep(builder, type)
     }
 
-    private fun parseAxisStep(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseReverseStep(builder) || parseForwardStep(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parsePredicateList(builder))
-                marker.done(XPathElementType.AXIS_STEP)
-            else
-                marker.drop()
-            return true
-        }
-
-        marker.drop()
-        return false
-    }
-
     override fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
@@ -3933,43 +3918,6 @@ class XQueryParser : XPathParser() {
             return true
         }
         marker.drop()
-        return false
-    }
-
-    private fun parsePredicateList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        var havePredicate = false
-        while (parsePredicate(builder)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            havePredicate = true
-        }
-        if (havePredicate)
-            marker.done(XPathElementType.PREDICATE_LIST)
-        else
-            marker.drop()
-        return havePredicate
-    }
-
-    private fun parsePredicate(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
-        if (marker != null) {
-            var haveErrors = false
-            parseWhiteSpaceAndCommentTokens(builder)
-
-            if (!parseExpr(builder, XQueryElementType.EXPR)) {
-                builder.error(XPathBundle.message("parser.error.expected-expression"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.SQUARE_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "]"))
-            }
-
-            marker.done(XPathElementType.PREDICATE)
-            return true
-        }
-
         return false
     }
 

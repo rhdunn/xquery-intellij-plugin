@@ -1,0 +1,22 @@
+XQueryModuleImpl[FILE(0:12)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:12)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:12)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:12)]
+               XPathAxisStepImpl[XPATH_AXIS_STEP(0:12)]
+                  XPathForwardStepImpl[XPATH_FORWARD_STEP(0:9)]
+                     XPathForwardAxisImpl[XPATH_FORWARD_AXIS(0:6)]
+                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                        LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(4:6)]('::')
+                     XPathNodeTestImpl[XPATH_NODE_TEST(6:9)]
+                        XPathNameTestImpl[XPATH_NAME_TEST(6:9)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(6:9)]
+                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('two')
+                  XPathPredicateListImpl[XPATH_PREDICATE_LIST(9:12)]
+                     XPathPredicateImpl[XPATH_PREDICATE(9:12)]
+                        LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(9:10)]('[')
+                        XQueryExprImpl[XQUERY_EXPR(10:11)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:11)]
+                              XPathOrExprImpl[XPATH_OR_EXPR(10:11)]
+                                 XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('3')
+                        LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(11:12)](']')
