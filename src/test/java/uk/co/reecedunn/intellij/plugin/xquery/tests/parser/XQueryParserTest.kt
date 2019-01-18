@@ -2515,58 +2515,107 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: UnaryExpr
 
-    @Test
-    fun testUnaryExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (58) UnaryExpr")
+    internal inner class UnaryExpr {
+        @Test
+        @DisplayName("plus; single")
+        fun plusSingle() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Plus.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Plus.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("plus; single; compact whitespace")
+        fun plusSingle_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Plus_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Plus_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("plus; multiple")
+        fun plusMultiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Plus_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Plus_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("plus; multiple; compact whitespace")
+        fun plusMultiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Plus_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Plus_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: plus; missing ValueExpr")
+        fun plus_missingValueExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Plus_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Plus_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; single")
+        fun minusSingle() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Minus.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Minus.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; single; compact whitespace")
+        fun minusSingle_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Minus_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Minus_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; multiple")
+        fun minusMultiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Minus_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Minus_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; multiple; compact whitespace")
+        fun minusMultiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Minus_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Minus_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: minus; missing ValueExpr")
+        fun minus_missingValueExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Minus_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Minus_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed")
+        fun mixed() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Mixed.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Mixed.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; compact whitespace")
+        fun mixed_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Mixed_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Mixed_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnaryExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnaryExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnaryExpr_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnaryExpr_Mixed() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Mixed.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Mixed.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnaryExpr_Mixed_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Mixed_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Mixed_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnaryExpr_MissingValueExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_MissingValueExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_MissingValueExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: ValidateExpr + ValidationMode
 
     @Test

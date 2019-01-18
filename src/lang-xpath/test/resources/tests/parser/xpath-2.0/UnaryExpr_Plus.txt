@@ -1,0 +1,6 @@
+XPathImpl[FILE(0:4)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+      XPathUnaryExprImpl[XPATH_UNARY_EXPR(0:4)]
+         LeafPsiElement[XPATH_PLUS_TOKEN(0:1)]('+')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:4)]('10')

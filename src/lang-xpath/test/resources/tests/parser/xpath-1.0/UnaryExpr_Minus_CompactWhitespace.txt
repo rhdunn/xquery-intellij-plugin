@@ -1,0 +1,5 @@
+XPathImpl[FILE(0:3)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:3)]
+      XPathUnaryExprImpl[XPATH_UNARY_EXPR(0:3)]
+         LeafPsiElement[XPATH_MINUS_TOKEN(0:1)]('-')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(1:3)]('10')

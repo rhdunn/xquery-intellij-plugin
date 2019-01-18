@@ -3682,30 +3682,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        var matched = false
-        while (builder.matchTokenType(XPathTokenType.UNARY_EXPR_TOKENS)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            matched = true
-        }
-        if (matched) {
-            if (parseValueExpr(builder, null)) {
-                marker.done(XPathElementType.UNARY_EXPR)
-                return true
-            } else if (matched) {
-                builder.error(XPathBundle.message("parser.error.expected", "ValueExpr"))
-                marker.done(XPathElementType.UNARY_EXPR)
-                return true
-            }
-        } else if (parseValueExpr(builder, type)) {
-            marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     private fun parseGeneralComp(builder: PsiBuilder): Boolean {
         return builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
     }
@@ -3735,7 +3711,7 @@ class XQueryParser : XPathParser() {
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             parseExtensionExpr(builder) ||
             parseValidateExpr(builder) ||

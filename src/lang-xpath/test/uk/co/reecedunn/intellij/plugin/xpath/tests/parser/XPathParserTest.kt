@@ -78,6 +78,50 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (10) UnaryExpr")
+    internal inner class UnaryExpr_XPath10 {
+        @Test
+        @DisplayName("minus; single")
+        fun minusSingle() {
+            val expected = loadResource("tests/parser/xpath-1.0/UnaryExpr_Minus.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/UnaryExpr_Minus.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; single; compact whitespace")
+        fun minusSingle_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/UnaryExpr_Minus_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/UnaryExpr_Minus_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; multiple")
+        fun minusMultiple() {
+            val expected = loadResource("tests/parser/xpath-1.0/UnaryExpr_Minus_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/UnaryExpr_Minus_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("minus; multiple; compact whitespace")
+        fun minusMultiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/UnaryExpr_Minus_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/UnaryExpr_Minus_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: minus; missing ValueExpr")
+        fun minus_missingValueExpr() {
+            val expected = loadResource("tests/parser/xpath-1.0/UnaryExpr_Minus_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/UnaryExpr_Minus_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (12) PathExpr")
     internal inner class PathExpr {
         @Test
@@ -1229,6 +1273,66 @@ private class XPathParserTest : ParserTestCase() {
         fun multiple_SpaceBeforeNextComma() {
             val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.txt")
             val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
+    internal inner class UnaryExpr {
+        @Test
+        @DisplayName("plus; single")
+        fun plusSingle() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Plus.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Plus.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("plus; single; compact whitespace")
+        fun plusSingle_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Plus_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Plus_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("plus; multiple")
+        fun plusMultiple() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Plus_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Plus_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("plus; multiple; compact whitespace")
+        fun plusMultiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Plus_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Plus_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: plus; missing ValueExpr")
+        fun plus_missingValueExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Plus_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Plus_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed")
+        fun mixed() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Mixed.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Mixed.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; compact whitespace")
+        fun mixed_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/UnaryExpr_Mixed_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/UnaryExpr_Mixed_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
