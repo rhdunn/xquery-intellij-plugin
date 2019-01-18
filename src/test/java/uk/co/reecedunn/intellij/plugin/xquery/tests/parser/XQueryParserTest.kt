@@ -3948,44 +3948,49 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: FilterExpr + PredicateList + Predicate
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (81) FilterExpr ; XQuery 1.0 EBNF (82) PredicateList ; XQuery 1.0 EBNF (83) Predicate")
+    internal inner class FilterExpr {
+        @Test
+        @DisplayName("predicate list")
+        fun predicateList() {
+            val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testFilterExpr_PredicateList() {
-        val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("predicate list; compact whitespace")
+        fun predicateList_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testFilterExpr_PredicateList_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFilterExpr_PredicateList_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFilterExpr_PredicateList_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFilterExpr_PredicateList_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (87) VarRef ; XQuery 1.0 EBNF (88) VarName")

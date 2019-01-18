@@ -289,7 +289,23 @@ open class XPathParser : PsiParser {
     }
 
     open fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parsePrimaryExpr(builder, type)
+        val marker = builder.mark()
+        if (parsePrimaryExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var havePostfixExpr = false
+            while (parsePredicate(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                havePostfixExpr = true
+            }
+
+            if (havePostfixExpr)
+                marker.done(XPathElementType.POSTFIX_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     fun parsePredicateList(builder: PsiBuilder): Boolean {

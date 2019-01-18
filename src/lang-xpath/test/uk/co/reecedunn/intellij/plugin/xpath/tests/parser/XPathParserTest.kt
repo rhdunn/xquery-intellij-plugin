@@ -610,6 +610,50 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (25) FilterExpr ; XPath 1.0 EBNF (26) PredicateList ; XPath 1.0 EBNF (27) Predicate")
+    internal inner class FilterExpr {
+        @Test
+        @DisplayName("predicate list")
+        fun predicateList() {
+            val expected = loadResource("tests/parser/xpath-1.0/FilterExpr_PredicateList.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/FilterExpr_PredicateList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("predicate list; compact whitespace")
+        fun predicateList_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing Expr")
+        fun missingExpr() {
+            val expected = loadResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/FilterExpr_PredicateList_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (31) VarRef ; XQuery 1.0 EBNF (32) VarName")
     internal inner class VarRef {
         @Test
