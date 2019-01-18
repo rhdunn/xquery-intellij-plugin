@@ -1,0 +1,5 @@
+XPathImpl[FILE(0:2)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:2)]
+      XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
+         LeafPsiElement[XPATH_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
+         PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'RelativePathExpr'.')

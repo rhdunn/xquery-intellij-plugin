@@ -78,6 +78,58 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (12) PathExpr")
+    internal inner class PathExpr {
+        @Test
+        @DisplayName("leading forward slash")
+        fun leadingForwardSlash() {
+            val expected = loadResource("tests/parser/xpath-1.0/PathExpr_LeadingForwardSlash.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/PathExpr_LeadingForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("leading forward slash; compact whitespace")
+        fun leadingForwardSlash_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("leading double forward slash")
+        fun leadingDoubleForwardSlash() {
+            val expected = loadResource("tests/parser/xpath-1.0/PathExpr_LeadingDoubleForwardSlash.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/PathExpr_LeadingDoubleForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("leading double forward slash; compact whitespace")
+        fun leadingDoubleForwardSlash_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("lone forward slash")
+        fun loneForwardSlash() {
+            val expected = loadResource("tests/parser/xpath-1.0/PathExpr_LoneForwardSlash.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/PathExpr_LoneForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("lone double forward slash")
+        fun loneDoubleForwardSlash() {
+            val expected = loadResource("tests/parser/xpath-1.0/PathExpr_LoneDoubleForwardSlash.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/PathExpr_LoneDoubleForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (13) RelativePathExpr")
     internal inner class RelativePathExpr {
         @Test

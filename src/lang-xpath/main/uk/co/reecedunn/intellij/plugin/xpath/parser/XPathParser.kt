@@ -126,7 +126,7 @@ open class XPathParser : PsiParser {
 
     private fun parseOrExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseRelativePathExpr(builder, null)) {
+        if (parsePathExpr(builder, null)) {
             parseWhiteSpaceAndCommentTokens(builder)
             marker.done(XPathElementType.OR_EXPR)
             return true
@@ -138,7 +138,31 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
-    fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseRelativePathExpr(builder, null)
+
+            marker.done(XPathElementType.PATH_EXPR)
+            return true
+        } else if (builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseRelativePathExpr(builder, null)) {
+                builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
+            }
+
+            marker.done(XPathElementType.PATH_EXPR)
+            return true
+        } else if (parseRelativePathExpr(builder, type)) {
+            marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseStepExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)

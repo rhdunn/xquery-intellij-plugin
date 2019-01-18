@@ -2705,54 +2705,61 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: PathExpr
-
-    @Test
-    fun testPathExpr_LeadingForwardSlash() {
-        val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPathExpr_LeadingForwardSlash_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPathExpr_LeadingDoubleForwardSlash() {
-        val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPathExpr_LeadingDoubleForwardSlash_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPathExpr_LoneForwardSlash() {
-        val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LoneForwardSlash.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LoneForwardSlash.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testPathExpr_LoneDoubleForwardSlash() {
-        val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LoneDoubleForwardSlash.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LoneDoubleForwardSlash.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (72) RelativePathExpr")
+    @DisplayName("XQuery 1.0 EBNF (68) PathExpr")
+    internal inner class PathExpr {
+        @Test
+        @DisplayName("leading forward slash")
+        fun leadingForwardSlash() {
+            val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("leading forward slash; compact whitespace")
+        fun leadingForwardSlash_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("leading double forward slash")
+        fun leadingDoubleForwardSlash() {
+            val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("leading double forward slash; compact whitespace")
+        fun leadingDoubleForwardSlash_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("lone forward slash")
+        fun loneForwardSlash() {
+            val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LoneForwardSlash.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LoneForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("lone double forward slash")
+        fun loneDoubleForwardSlash() {
+            val expected = loadResource("tests/parser/xquery-1.0/PathExpr_LoneDoubleForwardSlash.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/PathExpr_LoneDoubleForwardSlash.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (69) RelativePathExpr")
     internal inner class RelativePathExpr {
         @Test
         @DisplayName("direct descendants")

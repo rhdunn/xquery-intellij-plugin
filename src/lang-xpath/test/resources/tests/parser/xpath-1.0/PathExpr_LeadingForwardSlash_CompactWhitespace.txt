@@ -1,0 +1,16 @@
+XPathImpl[FILE(0:14)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:14)]
+      XPathPathExprImpl[XPATH_PATH_EXPR(0:14)]
+         LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')
+         XPathRelativePathExprImpl[XPATH_RELATIVE_PATH_EXPR(1:14)]
+            XPathNodeTestImpl[XPATH_NODE_TEST(1:5)]
+               XPathNameTestImpl[XPATH_NAME_TEST(1:5)]
+                  XPathNCNameImpl[XPATH_NCNAME(1:5)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:5)]('test')
+            LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(5:6)]('/')
+            XPathFunctionCallImpl[XPATH_FUNCTION_CALL(6:14)]
+               XPathNCNameImpl[XPATH_NCNAME(6:12)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:12)]('string')
+               XPathArgumentListImpl[XPATH_ARGUMENT_LIST(12:14)]
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
