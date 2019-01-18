@@ -2750,51 +2750,58 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: RelativePathExpr
 
-    @Test
-    fun testRelativePathExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (72) RelativePathExpr")
+    internal inner class RelativePathExpr {
+        @Test
+        @DisplayName("direct descendants")
+        fun directDescendants() {
+            val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("direct descendants; compact whitespace")
+        fun directDescendants_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all descendants")
+        fun allDescendants() {
+            val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("all descendants; compact whitespace")
+        fun allDescendants_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing StepExpr")
+        fun missingStepExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_MissingStepExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_MissingStepExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testRelativePathExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testRelativePathExpr_AllDescendants() {
-        val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testRelativePathExpr_AllDescendants_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testRelativePathExpr_MissingStepExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_MissingStepExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_MissingStepExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testRelativePathExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (72) ForwardStep ; XQuery 1.0 EBNF (73) ForwardAxis")

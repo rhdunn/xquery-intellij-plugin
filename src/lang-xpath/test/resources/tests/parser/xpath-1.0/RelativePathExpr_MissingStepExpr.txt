@@ -1,0 +1,12 @@
+XPathImpl[FILE(0:8)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:8)]
+      XPathRelativePathExprImpl[XPATH_RELATIVE_PATH_EXPR(0:8)]
+         XPathVarRefImpl[XPATH_VAR_REF(0:7)]
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            XPathVarNameImpl[XPATH_VAR_NAME(2:7)]
+               XPathNCNameImpl[XPATH_NCNAME(2:7)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+         LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(7:8)]('/')
+         PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected 'StepExpr'.')

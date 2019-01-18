@@ -3865,31 +3865,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseStepExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveRelativePathExpr = false
-            while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStepExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                haveRelativePathExpr = true
-            }
-
-            if (haveRelativePathExpr)
-                marker.done(XPathElementType.RELATIVE_PATH_EXPR)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
