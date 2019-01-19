@@ -2188,7 +2188,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (48) ComparisonExpr ; XQuery 1.0 EBNF (22) GeneralComp")
+    @DisplayName("XQuery 1.0 EBNF (48) ComparisonExpr ; XQuery 1.0 EBNF (60) GeneralComp")
     internal inner class GeneralComp {
         @Test
         @DisplayName("general comparison")
@@ -2215,23 +2215,26 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: ComparisonExpr + ValueComp
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (48) ComparisonExpr ; XQuery 1.0 EBNF (61) ValueComp")
+    internal inner class ValueComp {
+        @Test
+        @DisplayName("value comparison")
+        fun valueComp() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testComparisonExpr_ValueComp() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing RangeExpr")
+        fun missingRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testComparisonExpr_ValueComp_MissingRangeExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: ComparisonExpr + NodeComp
 
     @Test

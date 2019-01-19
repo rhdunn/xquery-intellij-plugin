@@ -3664,10 +3664,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseValueComp(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.VALUE_COMP_TOKENS)
-    }
-
     private fun parseNodeComp(builder: PsiBuilder): Boolean {
         return builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
     }
