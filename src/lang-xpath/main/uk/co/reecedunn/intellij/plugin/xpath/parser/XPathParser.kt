@@ -118,21 +118,32 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseExprSingle(builder: PsiBuilder): Boolean {
-        return parseOrExpr(builder)
+        return parseOrExpr(builder, null)
     }
 
     // endregion
     // region Grammar :: Expr :: OrExpr
 
-    private fun parseOrExpr(builder: PsiBuilder): Boolean {
+    fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseUnaryExpr(builder, null)) {
+        if (parseAndExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.OR_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseAndExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "AndExpr"))
+                }
+            }
+
             marker.done(XPathElementType.OR_EXPR)
             return true
         }
         marker.drop()
         return false
+    }
+
+    open fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseUnaryExpr(builder, type)
     }
 
     fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {

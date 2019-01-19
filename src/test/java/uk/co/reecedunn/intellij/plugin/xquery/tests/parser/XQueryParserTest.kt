@@ -2130,30 +2130,35 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: OrExpr
 
-    @Test
-    fun testOrExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/OrExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OrExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (46) OrExpr")
+    internal inner class OrExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-1.0/OrExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/OrExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing AndExpr")
+        fun missingAndExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/OrExpr_MissingAndExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/OrExpr_MissingAndExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/OrExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/OrExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testOrExpr_MissingAndExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/OrExpr_MissingAndExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OrExpr_MissingAndExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testOrExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/OrExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OrExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: AndExpr
 
     @Test

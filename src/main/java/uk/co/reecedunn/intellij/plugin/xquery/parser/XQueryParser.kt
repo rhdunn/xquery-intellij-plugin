@@ -3202,25 +3202,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseAndExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            while (builder.matchTokenType(XPathTokenType.OR_EXPR_TOKENS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseAndExpr(builder, type)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "AndExpr"))
-                }
-            }
-
-            marker.done(XPathElementType.OR_EXPR)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseUpdateExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
