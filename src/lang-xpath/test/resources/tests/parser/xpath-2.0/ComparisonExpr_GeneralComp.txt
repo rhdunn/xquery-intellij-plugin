@@ -1,0 +1,58 @@
+XPathImpl[FILE(0:48)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:6)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         LeafPsiElement[XPATH_EQUAL_TOKEN(2:3)]('=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('2')
+         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(6:7)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(8:15)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(8:15)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+         LeafPsiElement[XPATH_NOT_EQUAL_TOKEN(10:12)]('!=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('2')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(15:16)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(17:23)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(17:23)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(17:18)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+         LeafPsiElement[XPATH_LESS_THAN_TOKEN(19:20)]('<')
+         PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(21:22)]('2')
+         PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(23:24)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(25:32)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(25:32)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(25:26)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+         LeafPsiElement[XPATH_LESS_THAN_OR_EQUAL_TOKEN(27:29)]('<=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(30:31)]('2')
+         PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(32:33)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(34:40)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(34:40)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(34:35)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+         LeafPsiElement[XPATH_GREATER_THAN_TOKEN(36:37)]('>')
+         PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(38:39)]('2')
+         PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(40:41)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(42:48)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(42:48)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(42:43)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+         LeafPsiElement[XPATH_GREATER_THAN_OR_EQUAL_TOKEN(44:46)]('>=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(47:48)]('2')

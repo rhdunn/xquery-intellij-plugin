@@ -3331,7 +3331,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseRangeExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3662,10 +3662,6 @@ class XQueryParser : XPathParser() {
         }
         marker.drop()
         return false
-    }
-
-    private fun parseGeneralComp(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
     }
 
     private fun parseValueComp(builder: PsiBuilder): Boolean {

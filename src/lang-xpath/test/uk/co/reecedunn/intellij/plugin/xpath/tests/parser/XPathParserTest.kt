@@ -1350,6 +1350,34 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (10) ComparisonExpr ; XPath 2.0 EBNF (22) GeneralComp")
+    internal inner class GeneralComp {
+        @Test
+        @DisplayName("general comparison")
+        fun generalComp() {
+            val expected = loadResource("tests/parser/xpath-2.0/ComparisonExpr_GeneralComp.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/ComparisonExpr_GeneralComp.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("general comparison; compact whitespace")
+        fun generalComp_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/ComparisonExpr_GeneralComp_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/ComparisonExpr_GeneralComp_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing RangeExpr")
+        fun missingRangeExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/ComparisonExpr_GeneralComp_MissingRangeExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/ComparisonExpr_GeneralComp_MissingRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
     internal inner class UnaryExpr {
         @Test

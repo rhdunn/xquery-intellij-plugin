@@ -2187,30 +2187,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: ComparisonExpr + GeneralComp
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (48) ComparisonExpr ; XQuery 1.0 EBNF (22) GeneralComp")
+    internal inner class GeneralComp {
+        @Test
+        @DisplayName("general comparison")
+        fun generalComp() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testComparisonExpr_GeneralComp() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("general comparison; compact whitespace")
+        fun generalComp_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing RangeExpr")
+        fun missingRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testComparisonExpr_GeneralComp_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testComparisonExpr_GeneralComp_MissingRangeExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: ComparisonExpr + ValueComp
 
     @Test

@@ -166,6 +166,25 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseStringConcatExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseGeneralComp(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStringConcatExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
+                }
+                marker.done(XPathElementType.COMPARISON_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 
@@ -191,6 +210,10 @@ open class XPathParser : PsiParser {
         }
         marker.drop()
         return false
+    }
+
+    fun parseGeneralComp(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
     }
 
     // endregion
