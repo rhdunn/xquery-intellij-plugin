@@ -342,6 +342,22 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Following_CompactWhitespace.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
+
+            @Test
+            @DisplayName("namespace")
+            fun namespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Namespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Namespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("namespace; compact whitespace")
+            fun namespace_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Namespace_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-1.0/ForwardAxis_NameTest_Namespace_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
 
         @Nested
