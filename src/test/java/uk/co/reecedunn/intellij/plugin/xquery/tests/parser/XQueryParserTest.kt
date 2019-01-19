@@ -2159,30 +2159,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: AndExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (47) AndExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-1.0/AndExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/AndExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testAndExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/AndExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AndExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing ComparisonExpr")
+        fun missingComparisonExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/AndExpr_MissingComparisonExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/AndExpr_MissingComparisonExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/AndExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/AndExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testAndExpr_MissingComparisonExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/AndExpr_MissingComparisonExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AndExpr_MissingComparisonExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAndExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/AndExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/AndExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: ComparisonExpr + GeneralComp
 
     @Test

@@ -143,6 +143,29 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseComparisonExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveAndExpr = false
+            while (builder.matchTokenType(XPathTokenType.AND_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseComparisonExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
+                }
+                haveAndExpr = true
+            }
+
+            if (haveAndExpr)
+                marker.done(XPathElementType.AND_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 

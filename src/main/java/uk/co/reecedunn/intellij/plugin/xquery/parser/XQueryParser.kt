@@ -3251,7 +3251,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseFTContainsExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
