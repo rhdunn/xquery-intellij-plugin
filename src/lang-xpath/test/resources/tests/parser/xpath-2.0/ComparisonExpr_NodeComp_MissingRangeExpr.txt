@@ -1,0 +1,34 @@
+XPathImpl[FILE(0:18)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:5)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:5)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IS(2:4)]('is')
+         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(5:6)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(7:12)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(7:12)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(7:9)]
+            XPathNameTestImpl[XPATH_NAME_TEST(7:9)]
+               XPathNCNameImpl[XPATH_NCNAME(7:9)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+         LeafPsiElement[XPATH_NODE_BEFORE_TOKEN(9:11)]('<<')
+         PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(12:13)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(14:18)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(14:18)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(14:16)]
+            XPathNameTestImpl[XPATH_NAME_TEST(14:16)]
+               XPathNCNameImpl[XPATH_NCNAME(14:16)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+         LeafPsiElement[XPATH_NODE_AFTER_TOKEN(16:18)]('>>')
+         PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected 'StringConcatExpr'.')

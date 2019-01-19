@@ -2235,30 +2235,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: ComparisonExpr + NodeComp
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (48) ComparisonExpr ; XQuery 1.0 EBNF (62) NodeComp")
+    internal inner class NodeComp {
+        @Test
+        @DisplayName("node comparison")
+        fun nodeComp() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testComparisonExpr_NodeComp() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("node comparison; compact whitespace")
+        fun nodeComp_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing RangeExpr")
+        fun missingRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testComparisonExpr_NodeComp_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testComparisonExpr_NodeComp_MissingRangeExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: RangeExpr
 
     @Test

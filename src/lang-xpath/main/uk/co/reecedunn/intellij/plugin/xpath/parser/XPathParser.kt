@@ -169,7 +169,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseStringConcatExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseGeneralComp(builder) || parseValueComp(builder)) {
+            if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseStringConcatExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
@@ -218,6 +218,10 @@ open class XPathParser : PsiParser {
 
     fun parseValueComp(builder: PsiBuilder): Boolean {
         return builder.matchTokenType(XPathTokenType.VALUE_COMP_TOKENS)
+    }
+
+    fun parseNodeComp(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
     }
 
     // endregion

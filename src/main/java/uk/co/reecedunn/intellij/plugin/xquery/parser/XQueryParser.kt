@@ -3664,10 +3664,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseNodeComp(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
-    }
-
     private fun parseSingleType(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
