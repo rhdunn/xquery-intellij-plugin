@@ -2371,37 +2371,42 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: UnionExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (52) UnionExpr")
+    internal inner class UnionExpr {
+        @Test
+        @DisplayName("union expression")
+        fun unionExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnionExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testUnionExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnionExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnionExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("union expression; compact whitespace")
+        fun unionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing IntersectExceptExpr")
+        fun missingIntersectExceptExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnionExpr_MissingIntersectExceptExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnionExpr_MissingIntersectExceptExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/UnionExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/UnionExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testUnionExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnionExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnionExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionExpr_MissingIntersectExceptExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnionExpr_MissingIntersectExceptExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnionExpr_MissingIntersectExceptExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testUnionExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/UnionExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/UnionExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: IntersectExceptExpr
 
     @Test
