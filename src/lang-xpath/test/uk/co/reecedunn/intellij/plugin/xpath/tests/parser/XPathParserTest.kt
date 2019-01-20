@@ -134,6 +134,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (8) AdditiveExpr")
+    internal inner class AdditiveExpr {
+        @Test
+        @DisplayName("additive expression")
+        fun additiveExpr() {
+            val expected = loadResource("tests/parser/xpath-1.0/AdditiveExpr.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("additive expression; compact whitespace")
+        fun additiveExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/AdditiveExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AdditiveExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing MultiplicativeExpr")
+        fun missingMultiplicativeExpr() {
+            val expected = loadResource("tests/parser/xpath-1.0/AdditiveExpr_MissingMultiplicativeExpr.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AdditiveExpr_MissingMultiplicativeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-1.0/AdditiveExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/AdditiveExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (10) UnaryExpr")
     internal inner class UnaryExpr_XPath10 {
         @Test

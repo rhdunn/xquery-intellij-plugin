@@ -1,0 +1,22 @@
+XPathImpl[FILE(0:9)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+      XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(0:4)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         LeafPsiElement[XPATH_PLUS_TOKEN(2:3)]('+')
+         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'MultiplicativeExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(4:5)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(6:9)]
+      XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(6:9)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(6:8)]
+            XPathNameTestImpl[XPATH_NAME_TEST(6:8)]
+               XPathNCNameImpl[XPATH_NCNAME(6:8)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+         LeafPsiElement[XPATH_MINUS_TOKEN(8:9)]('-')
+         PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'MultiplicativeExpr'.')
