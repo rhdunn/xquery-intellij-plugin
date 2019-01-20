@@ -59,7 +59,7 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
 
     override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
         return when (language) {
-            XQuery -> {
+            XQuery, XSLT -> {
                 val builder = RequestBuilder.post("$baseUri/v1/eval")
                 builder.addParameter("xquery", MarkLogicQueries.Run)
                 MarkLogicProfileQuery(builder, buildParameters(query, language, "profile"), connection)

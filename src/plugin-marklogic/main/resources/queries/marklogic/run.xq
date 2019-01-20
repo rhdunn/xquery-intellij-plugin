@@ -287,10 +287,12 @@ declare function local:xslt() as item()* {
     return if (string-length($query) ne 0) then
         switch ($mode)
         case "run" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
+        case "profile" return prof:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
         default return ()
     else
         switch ($mode)
         case "run" return xdmp:xslt-invoke($module-path, $input, $variables, $options)
+        case "profile" return prof:xslt-invoke($module-path, $input, $variables, $options)
         default return ()
 };
 
