@@ -76,7 +76,7 @@ private class ProcessorTest : PlatformLiteFixture() {
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-        provider!!.close()
+        provider?.close()
     }
 
     private fun createVirtualFile(query: String): VirtualFile {
