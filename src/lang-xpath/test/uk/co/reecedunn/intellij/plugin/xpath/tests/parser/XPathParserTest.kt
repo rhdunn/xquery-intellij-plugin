@@ -170,6 +170,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (9) MultiplicativeExpr")
+    internal inner class MultiplicativeExpr_XPath10 {
+        @Test
+        @DisplayName("multiplicative expression")
+        fun multiplicativeExpr() {
+            val expected = loadResource("tests/parser/xpath-1.0/MultiplicativeExpr.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/MultiplicativeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiplicative expression; compact whitespace")
+        fun multiplicativeExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-1.0/MultiplicativeExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/MultiplicativeExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/xpath-1.0/MultiplicativeExpr_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/MultiplicativeExpr_MissingUnionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-1.0/MultiplicativeExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-1.0/MultiplicativeExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (10) UnaryExpr")
     internal inner class UnaryExpr_XPath10 {
         @Test
@@ -1493,6 +1529,26 @@ private class XPathParserTest : ParserTestCase() {
         fun missingAdditiveExpr() {
             val expected = loadResource("tests/parser/xpath-2.0/RangeExpr_MissingAdditiveExpr.txt")
             val actual = parseResource("tests/parser/xpath-2.0/RangeExpr_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (13) MultiplicativeExpr")
+    internal inner class MultiplicativeExpr_XPath20 {
+        @Test
+        @DisplayName("multiplicative expression")
+        fun multiplicativeExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/MultiplicativeExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/MultiplicativeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/MultiplicativeExpr_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/MultiplicativeExpr_MissingUnionExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

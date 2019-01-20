@@ -35,7 +35,7 @@ for precedence changes.
 | \[6\]   | `EqualityExpr`                    | ::= | `RelationalExpr ( ("=" \| "!=") RelationalExpr )*` | /* gn: comparison */ |
 | \[7\]   | `RelationalExpr`                  | ::= | `AdditiveExpr ( ("<" \| ">" \| "<=" \| ">=") AdditiveExpr )*` | /* gn: comparison */ |
 | \[8\]   | `AdditiveExpr`                    | ::= | `MultiplicativeExpr ( ("+" \| "-") MultiplicativeExpr )*` | |
-| \[9\]   | `MultiplicativeExpr`              | ::= | `UnaryExpr ( "*" \| "div" \| "mod") UnaryExpr )*` |        |
+| \[9\]   | `MultiplicativeExpr`              | ::= | `UnaryExpr ( ( "*" \| "div" \| "mod") UnaryExpr )*` |      |
 | \[10\]  | `UnaryExpr`                       | ::= | `"-"* UnionExpr`                    |                      |
 | \[11\]  | `UnionExpr`                       | ::= | `PathExpr ( "|" PathExpr )*`        |                      |
 | \[12\]  | `PathExpr`                        | ::= | `("/" RelativePathExpr?) \| ("//" RelativePathExpr) \| RelativePathExpr` | /* xgs: leading-lone-slash */ |

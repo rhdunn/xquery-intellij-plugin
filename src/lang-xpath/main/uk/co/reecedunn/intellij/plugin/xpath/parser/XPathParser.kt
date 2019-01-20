@@ -242,7 +242,30 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseUnionExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveMultiplicativeExpr = false
+            while (builder.matchTokenType(XPathTokenType.MULTIPLICATIVE_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseUnionExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
+                }
+                haveMultiplicativeExpr = true
+            }
+
+            if (haveMultiplicativeExpr)
+                marker.done(XPathElementType.MULTIPLICATIVE_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 

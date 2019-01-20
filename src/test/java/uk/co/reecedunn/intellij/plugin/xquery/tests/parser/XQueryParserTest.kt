@@ -2335,37 +2335,42 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: MultiplicativeExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (51) MultiplicativeExpr")
+    internal inner class MultiplicativeExpr {
+        @Test
+        @DisplayName("multiplicative expression")
+        fun multiplicativeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testMultiplicativeExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("multiplicative expression; compact whitespace")
+        fun multiplicativeExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr_MissingUnionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testMultiplicativeExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMultiplicativeExpr_MissingUnionExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr_MissingUnionExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr_MissingUnionExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testMultiplicativeExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/MultiplicativeExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/MultiplicativeExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: UnionExpr
 
     @Test
