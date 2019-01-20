@@ -179,6 +179,18 @@ open class XPathParser : PsiParser {
                 marker.drop()
             }
             return true
+        } else if (
+            builder.errorOnTokenType(
+                XPathTokenType.COMP_SYMBOL_TOKENS, XPathBundle.message("parser.error.comparison-no-lhs")
+            )
+        ) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringConcatExpr(builder, type)) {
+                builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
+            }
+
+            marker.done(XPathElementType.COMPARISON_EXPR)
+            return true
         }
         marker.drop()
         return false
@@ -233,26 +245,32 @@ open class XPathParser : PsiParser {
 
     fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseRelativePathExpr(builder, null)
+        when {
+            builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) -> {
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseRelativePathExpr(builder, null)
 
-            marker.done(XPathElementType.PATH_EXPR)
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseRelativePathExpr(builder, null)) {
-                builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
+                marker.done(XPathElementType.PATH_EXPR)
+                return true
             }
+            builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH) -> {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseRelativePathExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
+                }
 
-            marker.done(XPathElementType.PATH_EXPR)
-            return true
-        } else if (parseRelativePathExpr(builder, type)) {
-            marker.drop()
-            return true
+                marker.done(XPathElementType.PATH_EXPR)
+                return true
+            }
+            parseRelativePathExpr(builder, type) -> {
+                marker.drop()
+                return true
+            }
+            else -> {
+                marker.drop()
+                return false
+            }
         }
-        marker.drop()
-        return false
     }
 
     private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {

@@ -2207,10 +2207,18 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("error recovery: missing RangeExpr")
-        fun missingRangeExpr() {
-            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.xq")
+        @DisplayName("error recovery: missing rhs RangeExpr")
+        fun missingRhsRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRhsRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRhsRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing lhs RangeExpr")
+        fun missingLhsRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingLhsRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingLhsRangeExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -2227,10 +2235,10 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("error recovery: missing RangeExpr")
-        fun missingRangeExpr() {
-            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.xq")
+        @DisplayName("error recovery: missing rhs RangeExpr")
+        fun missingRhsRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRhsRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRhsRangeExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -2255,10 +2263,18 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("error recovery: missing RangeExpr")
-        fun missingRangeExpr() {
-            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.xq")
+        @DisplayName("error recovery: missing rhs RangeExpr")
+        fun missingRhsRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRhsRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRhsRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing lhs RangeExpr")
+        fun missingLhsRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingLhsRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingLhsRangeExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

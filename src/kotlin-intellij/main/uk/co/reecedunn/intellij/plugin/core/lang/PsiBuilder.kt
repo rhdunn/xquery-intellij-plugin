@@ -62,3 +62,13 @@ fun PsiBuilder.errorOnTokenType(type: IElementType, message: String): Boolean {
     }
     return false
 }
+
+fun PsiBuilder.errorOnTokenType(type: TokenSet, message: String): Boolean {
+    if (type.contains(tokenType)) {
+        val errorMarker = mark()
+        advanceLexer()
+        errorMarker.error(message)
+        return true
+    }
+    return false
+}

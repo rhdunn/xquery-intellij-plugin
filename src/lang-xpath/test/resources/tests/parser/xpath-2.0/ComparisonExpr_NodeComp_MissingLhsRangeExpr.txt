@@ -1,0 +1,22 @@
+XPathImpl[FILE(0:11)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:5)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:5)]
+         PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Comparison without left-hand expression.')
+            LeafPsiElement[XPATH_NODE_BEFORE_TOKEN(0:2)]('<<')
+         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+         XPathNodeTestImpl[XPATH_NODE_TEST(3:5)]
+            XPathNameTestImpl[XPATH_NAME_TEST(3:5)]
+               XPathNCNameImpl[XPATH_NCNAME(3:5)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:4)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(5:6)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(7:11)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(7:11)]
+         PsiErrorElementImpl[ERROR_ELEMENT(7:9)]('XPST0003: Comparison without left-hand expression.')
+            LeafPsiElement[XPATH_NODE_AFTER_TOKEN(7:9)]('>>')
+         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+         XPathNodeTestImpl[XPATH_NODE_TEST(10:11)]
+            XPathNameTestImpl[XPATH_NAME_TEST(10:11)]
+               XPathNCNameImpl[XPATH_NCNAME(10:11)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('a')

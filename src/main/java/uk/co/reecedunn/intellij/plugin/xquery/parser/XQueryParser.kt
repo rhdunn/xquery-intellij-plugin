@@ -3265,7 +3265,13 @@ class XQueryParser : XPathParser() {
                 marker.drop()
             }
             return true
-        } else if (builder.errorOnTokenType(XPathTokenType.LESS_THAN, XQueryBundle.message("parser.error.comparison-no-lhs-or-direlem"))) {
+        } else if (
+            builder.errorOnTokenType(
+                XPathTokenType.LESS_THAN, XQueryBundle.message("parser.error.comparison-no-lhs-or-direlem")
+            ) || builder.errorOnTokenType(
+                XPathTokenType.COMP_SYMBOL_TOKENS, XPathBundle.message("parser.error.comparison-no-lhs")
+            )
+        ) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTContainsExpr(builder, type)) {
                 builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))

@@ -168,6 +168,17 @@ object XPathTokenType {
 
     val AND_EXPR_TOKENS = TokenSet.create(K_AND, K_ANDALSO)
 
+    val COMP_SYMBOL_TOKENS = TokenSet.create(
+        EQUAL,
+        NOT_EQUAL,
+        LESS_THAN,
+        LESS_THAN_OR_EQUAL,
+        GREATER_THAN,
+        GREATER_THAN_OR_EQUAL,
+        NODE_BEFORE,
+        NODE_AFTER
+    )
+
     val FORWARD_AXIS_TOKENS = TokenSet.create(
         K_ATTRIBUTE,
         K_CHILD,
