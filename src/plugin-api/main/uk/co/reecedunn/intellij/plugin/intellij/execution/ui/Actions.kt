@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.ui
 
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserFactory
@@ -24,6 +23,7 @@ import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Consumer
+import uk.co.reecedunn.compat.actionSystem.AnAction
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import javax.swing.JComponent
 
@@ -37,7 +37,7 @@ class SaveAction(
     null,
     AllIcons.Actions.Menu_saveall
 ) {
-    override fun actionPerformed(e: AnActionEvent?) {
+    override fun doAction(e: AnActionEvent) {
         FileChooserFactory.getInstance().createSaveFileDialog(descriptor, null as Project?)
         FileChooser.chooseFile(descriptor, project, parent, null, consumer)
     }
