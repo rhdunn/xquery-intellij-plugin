@@ -1,0 +1,52 @@
+XPathImpl[FILE(0:36)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:4)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         LeafPsiElement[XPATH_EQUAL_TOKEN(2:3)]('=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(4:5)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(6:11)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(6:11)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+         LeafPsiElement[XPATH_NOT_EQUAL_TOKEN(8:10)]('!=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(11:12)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(13:17)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(13:17)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+         LeafPsiElement[XPATH_LESS_THAN_TOKEN(15:16)]('<')
+         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(17:18)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(19:24)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(19:24)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(19:20)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+         LeafPsiElement[XPATH_LESS_THAN_OR_EQUAL_TOKEN(21:23)]('<=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(24:25)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(26:30)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(26:30)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(26:27)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+         LeafPsiElement[XPATH_GREATER_THAN_TOKEN(28:29)]('>')
+         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected 'StringConcatExpr'.')
+   LeafPsiElement[XPATH_COMMA_TOKEN(30:31)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(32:36)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(32:36)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(32:33)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+         LeafPsiElement[XPATH_GREATER_THAN_OR_EQUAL_TOKEN(34:36)]('>=')
+         PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected 'StringConcatExpr'.')

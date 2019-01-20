@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:6)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:6)]
+      XPathMultiplicativeExprImpl[XPATH_MULTIPLICATIVE_EXPR(0:6)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IDIV(2:6)]('idiv')
+         PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected 'UnionExpr'.')

@@ -17,9 +17,18 @@ package uk.co.reecedunn.intellij.plugin.core.lang
 
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 
 fun PsiBuilder.matchTokenType(type: IElementType): Boolean {
     if (tokenType === type) {
+        advanceLexer()
+        return true
+    }
+    return false
+}
+
+fun PsiBuilder.matchTokenType(type: TokenSet): Boolean {
+    if (type.contains(tokenType)) {
         advanceLexer()
         return true
     }
@@ -35,8 +44,8 @@ fun PsiBuilder.matchTokenTypeWithMarker(type: IElementType): PsiBuilder.Marker? 
     return null
 }
 
-fun PsiBuilder.matchTokenTypeWithMarker(type1: IElementType, type2: IElementType): PsiBuilder.Marker? {
-    if (tokenType === type1 || tokenType === type2) {
+fun PsiBuilder.matchTokenTypeWithMarker(type: TokenSet): PsiBuilder.Marker? {
+    if (type.contains(tokenType)) {
         val marker = mark()
         advanceLexer()
         return marker
@@ -46,6 +55,16 @@ fun PsiBuilder.matchTokenTypeWithMarker(type1: IElementType, type2: IElementType
 
 fun PsiBuilder.errorOnTokenType(type: IElementType, message: String): Boolean {
     if (tokenType === type) {
+        val errorMarker = mark()
+        advanceLexer()
+        errorMarker.error(message)
+        return true
+    }
+    return false
+}
+
+fun PsiBuilder.errorOnTokenType(type: TokenSet, message: String): Boolean {
+    if (type.contains(tokenType)) {
         val errorMarker = mark()
         advanceLexer()
         errorMarker.error(message)

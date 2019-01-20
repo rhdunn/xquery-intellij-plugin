@@ -1,0 +1,3 @@
+XPathImpl[FILE(0:1)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:1)]
+      XPathContextItemExprImpl[XPATH_DOT_TOKEN(0:1)]('.')

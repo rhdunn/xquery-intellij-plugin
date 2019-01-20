@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:3)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:3)]
+      XPathUnionExprImpl[XPATH_UNION_EXPR(0:3)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         LeafPsiElement[XPATH_UNION_TOKEN(2:3)]('|')
+         PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected 'IntersectExceptExpr'.')

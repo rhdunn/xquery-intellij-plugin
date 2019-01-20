@@ -1,0 +1,11 @@
+XPathImpl[FILE(0:5)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:5)]
+      XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(0:5)]
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+         XPathExprImpl[XPATH_EXPR(1:4)]
+            XPathOrExprImpl[XPATH_OR_EXPR(1:2)]
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(1:2)]('1')
+            LeafPsiElement[XPATH_COMMA_TOKEN(2:3)](',')
+            XPathOrExprImpl[XPATH_OR_EXPR(3:4)]
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(4:5)](')')

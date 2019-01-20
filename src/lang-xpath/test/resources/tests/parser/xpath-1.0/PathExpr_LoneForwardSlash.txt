@@ -1,0 +1,4 @@
+XPathImpl[FILE(0:1)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:1)]
+      XPathPathExprImpl[XPATH_PATH_EXPR(0:1)]
+         LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')

@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 object XQueryTokenType {
     // region Multi-Token Symbols
@@ -251,6 +253,88 @@ object XQueryTokenType {
     val ENTITY_REFERENCE_NOT_IN_STRING = IElementType("XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN", XQuery)
     val INVALID = IElementType("XQUERY_INVALID_TOKEN", XQuery)
     val PARTIAL_ENTITY_REFERENCE = IElementType("XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN", XQuery)
+
+    // endregion
+    // region Token Sets
+
+    val BOUNDARY_SPACE_MODE_TOKENS = TokenSet.create(K_PRESERVE, K_STRIP)
+
+    val COMPATIBILITY_ANNOTATION_TOKENS = TokenSet.create(
+        K_ASSIGNABLE,
+        K_PRIVATE,
+        K_SEQUENTIAL,
+        K_SIMPLE,
+        K_UNASSIGNABLE,
+        K_UPDATING
+    )
+
+    val CONSTRUCTION_MODE_TOKENS = TokenSet.create(K_PRESERVE, K_STRIP)
+
+    val DEFAULT_ELEMENT_OR_FUNCTION_TOKENS = TokenSet.create(
+        XPathTokenType.K_ELEMENT,
+        XPathTokenType.K_FUNCTION
+    )
+
+    val DF_PROPERTY_NAME = TokenSet.create(
+        K_DECIMAL_SEPARATOR,
+        K_GROUPING_SEPARATOR,
+        K_INFINITY,
+        K_MINUS_SIGN,
+        K_NAN,
+        K_PERCENT,
+        K_PER_MILLE,
+        K_ZERO_DIGIT,
+        K_DIGIT,
+        K_PATTERN_SEPARATOR,
+        K_EXPONENT_SEPARATOR
+    )
+
+    val EMPTY_ORDERING_MODE_TOKENS = TokenSet.create(K_GREATEST, K_LEAST)
+
+    val FTCASE_SENSITIVITY_QUALIFIER_TOKENS = TokenSet.create(K_SENSITIVE, K_INSENSITIVE)
+
+    val FTCONTENT_AT_QUALIFIER_TOKENS = TokenSet.create(K_START, K_END)
+
+    val FTDIACRITICS_SENSITIVITY_QUALIFIER_TOKENS = FTCASE_SENSITIVITY_QUALIFIER_TOKENS
+
+    val FTMATCH_OPTION_START_TOKENS = TokenSet.create(
+        K_CASE,
+        K_DIACRITICS,
+        K_FUZZY,
+        K_LANGUAGE,
+        K_LOWERCASE,
+        K_NO,
+        K_OPTION,
+        K_STEMMING,
+        K_STOP,
+        K_THESAURUS,
+        K_UPPERCASE,
+        K_WILDCARDS
+    )
+
+    val FTRANGE_AT_QUALIFIER_TOKENS = TokenSet.create(K_LEAST, K_MOST)
+
+    val FTSCOPE_QUALIFIER_TOKENS = TokenSet.create(K_SAME, K_DIFFERENT)
+
+    val INHERIT_MODE_TOKENS = TokenSet.create(K_INHERIT, K_NO_INHERIT)
+
+    val INSERT_LOCATION_TOKENS = TokenSet.create(K_INTO, K_BEFORE, K_AFTER)
+
+    val INSERT_DELETE_NODE_TOKENS = TokenSet.create(XPathTokenType.K_NODE, K_NODES)
+
+    val INSERT_POSITION_TOKENS = TokenSet.create(K_FIRST, K_LAST)
+
+    val ORDERING_MODE_TOKENS = TokenSet.create(K_ORDERED, K_UNORDERED)
+
+    val ORDER_MODIFIER_TOKENS = TokenSet.create(K_ASCENDING, K_DESCENDING)
+
+    val PRESERVE_MODE_TOKENS = TokenSet.create(K_PRESERVE, K_NO_PRESERVE)
+
+    val REVALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_SKIP, K_STRICT)
+
+    val VALIDATE_EXPR_TOKENS = TokenSet.create(XPathTokenType.K_AS, K_TYPE)
+
+    val VALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_STRICT)
 
     // endregion
 }

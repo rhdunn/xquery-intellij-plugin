@@ -6,7 +6,7 @@
 
 ## XPath and XQuery Vendor Extensions
 
-1. [XQuery IntelliJ Plugin](XQuery%20IntelliJ%20Plugin.md)
+1. [XQuery IntelliJ Plugin 1.4](XQuery%20IntelliJ%20Plugin.md)
 
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions supported by the XQuery IntelliJ Plugin.

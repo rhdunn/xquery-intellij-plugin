@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr
 
-    fun parseExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): Boolean {
         val marker = builder.mark()
         if (parseExprSingle(builder)) {
             var haveErrors = false
@@ -118,17 +118,272 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseExprSingle(builder: PsiBuilder): Boolean {
-        return parseOrExpr(builder)
+        return parseOrExpr(builder, null)
     }
 
     // endregion
     // region Grammar :: Expr :: OrExpr
 
-    private fun parseOrExpr(builder: PsiBuilder): Boolean {
+    fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseStepExpr(builder)) {
+        if (parseAndExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.OR_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseAndExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "AndExpr"))
+                }
+            }
+
             marker.done(XPathElementType.OR_EXPR)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseComparisonExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveAndExpr = false
+            while (builder.matchTokenType(XPathTokenType.AND_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseComparisonExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
+                }
+                haveAndExpr = true
+            }
+
+            if (haveAndExpr)
+                marker.done(XPathElementType.AND_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseStringConcatExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStringConcatExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
+                }
+                marker.done(XPathElementType.COMPARISON_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        } else if (
+            builder.errorOnTokenType(
+                XPathTokenType.COMP_SYMBOL_TOKENS, XPathBundle.message("parser.error.comparison-no-lhs")
+            )
+        ) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringConcatExpr(builder, type)) {
+                builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
+            }
+
+            marker.done(XPathElementType.COMPARISON_EXPR)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseRangeExpr(builder, type)
+    }
+
+    fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseAdditiveExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_TO)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseAdditiveExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
+                }
+                marker.done(XPathElementType.RANGE_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseMultiplicativeExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveAdditativeExpr = false
+            while (builder.matchTokenType(XPathTokenType.ADDITIVE_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseMultiplicativeExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "MultiplicativeExpr"))
+                }
+                haveAdditativeExpr = true
+            }
+
+            if (haveAdditativeExpr)
+                marker.done(XPathElementType.ADDITIVE_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseUnionExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveMultiplicativeExpr = false
+            while (builder.matchTokenType(XPathTokenType.MULTIPLICATIVE_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseUnionExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
+                }
+                haveMultiplicativeExpr = true
+            }
+
+            if (haveMultiplicativeExpr)
+                marker.done(XPathElementType.MULTIPLICATIVE_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseIntersectExceptExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveUnionExpr = false
+            while (builder.matchTokenType(XPathTokenType.UNION_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseIntersectExceptExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "IntersectExceptExpr"))
+                }
+                haveUnionExpr = true
+            }
+
+            if (haveUnionExpr)
+                marker.done(XPathElementType.UNION_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseIntersectExceptExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseUnaryExpr(builder, type)
+    }
+
+    fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        var matched = false
+        while (builder.matchTokenType(XPathTokenType.UNARY_EXPR_TOKENS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            matched = true
+        }
+        if (matched) {
+            if (parseValueExpr(builder, null)) {
+                marker.done(XPathElementType.UNARY_EXPR)
+                return true
+            } else if (matched) {
+                builder.error(XPathBundle.message("parser.error.expected", "ValueExpr"))
+                marker.done(XPathElementType.UNARY_EXPR)
+                return true
+            }
+        } else if (parseValueExpr(builder, type)) {
+            marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseGeneralComp(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
+    }
+
+    fun parseValueComp(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.VALUE_COMP_TOKENS)
+    }
+
+    fun parseNodeComp(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: ValueExpr
+
+    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parsePathExpr(builder, type)
+    }
+
+    fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        when {
+            builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) -> {
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseRelativePathExpr(builder, null)
+
+                marker.done(XPathElementType.PATH_EXPR)
+                return true
+            }
+            builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH) -> {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseRelativePathExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
+                }
+
+                marker.done(XPathElementType.PATH_EXPR)
+                return true
+            }
+            parseRelativePathExpr(builder, type) -> {
+                marker.drop()
+                return true
+            }
+            else -> {
+                marker.drop()
+                return false
+            }
+        }
+    }
+
+    private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseStepExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveRelativePathExpr = false
+            while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStepExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                haveRelativePathExpr = true
+            }
+
+            if (haveRelativePathExpr)
+                marker.done(XPathElementType.RELATIVE_PATH_EXPR)
+            else
+                marker.drop()
             return true
         }
         marker.drop()
@@ -138,11 +393,126 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
-    private fun parseStepExpr(builder: PsiBuilder): Boolean {
-        return parsePostfixExpr(builder) || parseNodeTest(builder, null)
+    open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseAxisStep(builder, type) || parsePostfixExpr(builder, type)
     }
 
-    fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseAxisStep(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseReverseStep(builder) || parseForwardStep(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parsePredicateList(builder))
+                marker.done(XPathElementType.AXIS_STEP)
+            else
+                marker.drop()
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseForwardAxis(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseNodeTest(builder, null)) {
+                builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+            }
+
+            marker.done(XPathElementType.FORWARD_STEP)
+            return true
+        } else if (parseAbbrevForwardStep(builder, type)) {
+            marker.drop()
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseForwardAxis(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.FORWARD_AXIS_TOKENS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            marker.done(XPathElementType.FORWARD_AXIS)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseAbbrevForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        val matched = builder.matchTokenType(XPathTokenType.ATTRIBUTE_SELECTOR)
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (parseNodeTest(builder, type)) {
+            if (matched)
+                marker.done(XPathElementType.ABBREV_FORWARD_STEP)
+            else
+                marker.drop()
+            return true
+        } else if (matched) {
+            builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+
+            marker.done(XPathElementType.ABBREV_FORWARD_STEP)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseReverseStep(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseReverseAxis(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseNodeTest(builder, null)) {
+                builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+            }
+
+            marker.done(XPathElementType.REVERSE_STEP)
+            return true
+        } else if (parseAbbrevReverseStep(builder)) {
+            marker.drop()
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseReverseAxis(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.REVERSE_AXIS_TOKENS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.AXIS_SEPARATOR)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            marker.done(XPathElementType.REVERSE_AXIS)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseAbbrevReverseStep(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
+        if (marker != null) {
+            marker.done(XPathElementType.ABBREV_REVERSE_STEP)
+            return true
+        }
+        return false
+    }
+
+    private fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseKindTest(builder) || parseNameTest(builder, type)) {
             marker.done(XPathElementType.NODE_TEST)
@@ -157,6 +527,15 @@ open class XPathParser : PsiParser {
         if (
             parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY)
         ) {
+            val nonNameMarker = builder.mark()
+            parseWhiteSpaceAndCommentTokens(builder)
+            val nextTokenType = builder.tokenType
+            nonNameMarker.rollbackTo()
+
+            if (nextTokenType === XPathTokenType.PARENTHESIS_OPEN) {
+                marker.rollbackTo()
+                return false
+            }
             marker.done(XPathElementType.NAME_TEST)
             return true
         }
@@ -164,8 +543,61 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parsePostfixExpr(builder: PsiBuilder): Boolean {
-        return parsePrimaryExpr(builder, null)
+    open fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parsePrimaryExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var havePostfixExpr = false
+            while (parsePredicate(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                havePostfixExpr = true
+            }
+
+            if (havePostfixExpr)
+                marker.done(XPathElementType.POSTFIX_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parsePredicateList(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        var havePredicate = false
+        while (parsePredicate(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            havePredicate = true
+        }
+        if (havePredicate)
+            marker.done(XPathElementType.PREDICATE_LIST)
+        else
+            marker.drop()
+        return havePredicate
+    }
+
+    fun parsePredicate(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
+        if (marker != null) {
+            var haveErrors = false
+            parseWhiteSpaceAndCommentTokens(builder)
+
+            if (!parseExpr(builder, EXPR)) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.SQUARE_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", "]"))
+            }
+
+            marker.done(XPathElementType.PREDICATE)
+            return true
+        }
+
+        return false
     }
 
     // endregion
@@ -173,7 +605,13 @@ open class XPathParser : PsiParser {
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseLiteral(builder)
+        return (
+            parseLiteral(builder) ||
+            parseVarRef(builder, type) ||
+            parseParenthesizedExpr(builder) ||
+            parseContextItemExpr(builder) ||
+            parseFunctionCall(builder)
+        )
     }
 
     fun parseLiteral(builder: PsiBuilder): Boolean {
@@ -191,6 +629,111 @@ open class XPathParser : PsiParser {
                 XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
                 XPathBundle.message("parser.error.incomplete-double-exponent")
             )
+            return true
+        }
+        return false
+    }
+
+    fun parseVarRef(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (
+                !parseEQNameOrWildcard(
+                    builder, XPathElementType.VAR_NAME,
+                    type === XPathElementType.MAP_CONSTRUCTOR_ENTRY
+                )
+            ) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            }
+
+            marker.done(XPathElementType.VAR_REF)
+            return true
+        }
+        return false
+    }
+
+    fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseExpr(builder, EXPR)) {
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.PARENTHESIZED_EXPR)
+            return true
+        }
+        return false
+    }
+
+    private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.DOT)
+    }
+
+    open fun parseFunctionCall(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseEQNameOrWildcard(builder, QNAME, false)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseArgumentList(builder)) {
+                marker.rollbackTo()
+                return false
+            }
+            marker.done(XPathElementType.FUNCTION_CALL)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    fun parseArgumentList(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseArgument(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseArgument(builder) && !haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected-either", "ExprSingle", "?"))
+                        haveErrors = true
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ARGUMENT_LIST)
+            return true
+        }
+        return false
+    }
+
+    private fun parseArgument(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseExprSingle(builder)) {
+            marker.done(XPathElementType.ARGUMENT)
+            return true
+        }
+        marker.drop()
+        return parseArgumentPlaceholder(builder)
+    }
+
+    private fun parseArgumentPlaceholder(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
+        if (marker != null) {
+            marker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
             return true
         }
         return false

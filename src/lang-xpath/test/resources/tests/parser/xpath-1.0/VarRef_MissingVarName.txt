@@ -1,0 +1,5 @@
+XPathImpl[FILE(0:1)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:1)]
+      XPathVarRefImpl[XPATH_VAR_REF(0:1)]
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+         PsiErrorElementImpl[ERROR_ELEMENT(1:1)]('XPST0003: Missing qualified name or braced URI qualified name.')

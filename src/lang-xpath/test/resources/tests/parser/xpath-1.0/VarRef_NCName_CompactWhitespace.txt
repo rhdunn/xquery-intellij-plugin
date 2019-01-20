@@ -1,0 +1,7 @@
+XPathImpl[FILE(0:5)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:5)]
+      XPathVarRefImpl[XPATH_VAR_REF(0:5)]
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+         XPathVarNameImpl[XPATH_VAR_NAME(1:5)]
+            XPathNCNameImpl[XPATH_NCNAME(1:5)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:5)]('test')

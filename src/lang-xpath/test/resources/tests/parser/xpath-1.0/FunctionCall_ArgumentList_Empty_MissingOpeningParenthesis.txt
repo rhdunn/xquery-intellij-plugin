@@ -1,0 +1,11 @@
+XPathImpl[FILE(0:9)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:8)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:7)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:7)]
+            XPathQNameImpl[XPATH_QNAME(0:7)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:2)]('fn')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:7)]('true')
+      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected end of file.')
+   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')

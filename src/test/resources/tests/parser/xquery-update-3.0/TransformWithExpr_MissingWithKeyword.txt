@@ -25,8 +25,7 @@ XQueryModuleImpl[FILE(0:41)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                            UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(28:30)]
                               XPathOrExprImpl[XPATH_OR_EXPR(28:30)]
-                                 XPathContextItemExprImpl[XPATH_CONTEXT_ITEM_EXPR(28:29)]
-                                    LeafPsiElement[XPATH_DOT_TOKEN(28:29)]('.')
+                                 XPathContextItemExprImpl[XPATH_DOT_TOKEN(28:29)]('.')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(30:32)]('as')
                            PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')

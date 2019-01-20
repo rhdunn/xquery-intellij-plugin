@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 
 object XPathTokenType {
@@ -159,6 +160,79 @@ object XPathTokenType {
     val UNEXPECTED_END_OF_BLOCK = IElementType("XPATH_UNEXPECTED_END_OF_BLOCK_TOKEN", XPath)
 
     val BAD_CHARACTER: IElementType = TokenType.BAD_CHARACTER
+
+    // endregion
+    // region Token Sets
+
+    val ADDITIVE_EXPR_TOKENS = TokenSet.create(PLUS, MINUS)
+
+    val AND_EXPR_TOKENS = TokenSet.create(K_AND, K_ANDALSO)
+
+    val COMP_SYMBOL_TOKENS = TokenSet.create(
+        EQUAL,
+        NOT_EQUAL,
+        LESS_THAN,
+        LESS_THAN_OR_EQUAL,
+        GREATER_THAN,
+        GREATER_THAN_OR_EQUAL,
+        NODE_BEFORE,
+        NODE_AFTER
+    )
+
+    val FORWARD_AXIS_TOKENS = TokenSet.create(
+        K_ATTRIBUTE,
+        K_CHILD,
+        K_DESCENDANT,
+        K_DESCENDANT_OR_SELF,
+        K_FOLLOWING,
+        K_FOLLOWING_SIBLING,
+        K_NAMESPACE,
+        K_PROPERTY,
+        K_SELF
+    )
+
+    val FTSTOP_WORDS_INCL_EXCL_QUALIFIER_TOKENS = TokenSet.create(K_UNION, K_EXCEPT)
+
+    val GENERAL_COMP_TOKENS = TokenSet.create(
+        EQUAL,
+        NOT_EQUAL,
+        LESS_THAN,
+        LESS_THAN_OR_EQUAL,
+        GREATER_THAN,
+        GREATER_THAN_OR_EQUAL
+    )
+
+    val INTERSECT_EXCEPT_EXPR_TOKENS = TokenSet.create(K_INTERSECT, K_EXCEPT)
+
+    val MAP_ENTRY_SEPARATOR_TOKENS = TokenSet.create(QNAME_SEPARATOR, ASSIGN_EQUAL)
+
+    val MULTIPLICATIVE_EXPR_TOKENS = TokenSet.create(STAR, K_DIV, K_IDIV, K_MOD)
+
+    val NODE_COMP_TOKENS = TokenSet.create(K_IS, NODE_BEFORE, NODE_AFTER)
+
+    val OCCURRENCE_INDICATOR_TOKENS = TokenSet.create(OPTIONAL, STAR, PLUS)
+
+    val OR_EXPR_TOKENS = TokenSet.create(K_OR, K_ORELSE)
+
+    val QUANTIFIED_EXPR_QUALIFIER_TOKENS = TokenSet.create(K_SOME, K_EVERY)
+
+    val RELATIVE_PATH_EXPR_TOKENS = TokenSet.create(DIRECT_DESCENDANTS_PATH, ALL_DESCENDANTS_PATH)
+
+    val REVERSE_AXIS_TOKENS = TokenSet.create(
+        K_ANCESTOR,
+        K_ANCESTOR_OR_SELF,
+        K_PARENT,
+        K_PRECEDING,
+        K_PRECEDING_SIBLING
+    )
+
+    val SEQUENCE_TYPE_TOKENS = TokenSet.create(K_EMPTY_SEQUENCE, K_EMPTY)
+
+    val UNARY_EXPR_TOKENS = ADDITIVE_EXPR_TOKENS
+
+    val UNION_EXPR_TOKENS = TokenSet.create(UNION, K_UNION)
+
+    val VALUE_COMP_TOKENS = TokenSet.create(K_EQ, K_NE, K_LT, K_LE, K_GT, K_GE)
 
     // endregion
 }

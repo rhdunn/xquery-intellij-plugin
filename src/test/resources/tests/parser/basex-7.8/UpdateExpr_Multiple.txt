@@ -23,8 +23,7 @@ XQueryModuleImpl[FILE(0:48)]
                            UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(26:48)]
                               XPathOrExprImpl[XPATH_OR_EXPR(26:48)]
                                  PluginUpdateExprImpl[XQUERY_UPDATE_EXPR(26:48)]
-                                    XPathContextItemExprImpl[XPATH_CONTEXT_ITEM_EXPR(26:27)]
-                                       LeafPsiElement[XPATH_DOT_TOKEN(26:27)]('.')
+                                    XPathContextItemExprImpl[XPATH_DOT_TOKEN(26:27)]('.')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(28:34)]('update')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
@@ -37,5 +36,4 @@ XQueryModuleImpl[FILE(0:48)]
                                              PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                                              UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(47:48)]
                                                 XPathOrExprImpl[XPATH_OR_EXPR(47:48)]
-                                                   XPathContextItemExprImpl[XPATH_CONTEXT_ITEM_EXPR(47:48)]
-                                                      LeafPsiElement[XPATH_DOT_TOKEN(47:48)]('.')
+                                                   XPathContextItemExprImpl[XPATH_DOT_TOKEN(47:48)]('.')

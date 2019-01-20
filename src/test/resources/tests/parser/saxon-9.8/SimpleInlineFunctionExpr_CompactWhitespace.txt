@@ -11,8 +11,7 @@ XQueryModuleImpl[FILE(0:10)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(3:6)]
                            XPathOrExprImpl[XPATH_OR_EXPR(3:6)]
                               XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(3:6)]
-                                 XPathContextItemExprImpl[XPATH_CONTEXT_ITEM_EXPR(3:4)]
-                                    LeafPsiElement[XPATH_DOT_TOKEN(3:4)]('.')
+                                 XPathContextItemExprImpl[XPATH_DOT_TOKEN(3:4)]('.')
                                  LeafPsiElement[XPATH_PLUS_TOKEN(4:5)]('+')
                                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('1')
                      LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(6:7)]('}')
