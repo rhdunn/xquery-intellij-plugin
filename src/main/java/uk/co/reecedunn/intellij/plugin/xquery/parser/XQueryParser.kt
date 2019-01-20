@@ -3361,26 +3361,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseAdditiveExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_TO)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseAdditiveExpr(builder, type)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
-                }
-                marker.done(XPathElementType.RANGE_EXPR)
-            } else {
-                marker.drop()
-            }
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseMultiplicativeExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)

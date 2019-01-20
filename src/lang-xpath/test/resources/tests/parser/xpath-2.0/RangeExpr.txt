@@ -1,0 +1,8 @@
+XPathImpl[FILE(0:7)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:7)]
+      XPathRangeExprImpl[XPATH_RANGE_EXPR(0:7)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TO(2:4)]('to')
+         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:7)]('10')

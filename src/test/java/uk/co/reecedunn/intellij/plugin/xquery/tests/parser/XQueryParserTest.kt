@@ -2279,23 +2279,26 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: RangeExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (49) RangeExpr")
+    internal inner class RangeExpr {
+        @Test
+        @DisplayName("range expression")
+        fun rangeExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/RangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testRangeExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/RangeExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RangeExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing AdditiveExpr")
+        fun missingAdditiveExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/RangeExpr_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/RangeExpr_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testRangeExpr_MissingAdditiveExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/RangeExpr_MissingAdditiveExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/RangeExpr_MissingAdditiveExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: AdditiveExpr
 
     @Test

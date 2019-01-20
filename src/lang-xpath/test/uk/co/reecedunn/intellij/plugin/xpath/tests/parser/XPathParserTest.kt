@@ -1442,6 +1442,26 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (11) RangeExpr")
+    internal inner class RangeExpr {
+        @Test
+        @DisplayName("range expression")
+        fun rangeExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/RangeExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/RangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing AdditiveExpr")
+        fun missingAdditiveExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/RangeExpr_MissingAdditiveExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/RangeExpr_MissingAdditiveExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
     internal inner class UnaryExpr {
         @Test

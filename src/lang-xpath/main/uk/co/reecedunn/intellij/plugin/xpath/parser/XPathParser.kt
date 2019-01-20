@@ -197,6 +197,29 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseRangeExpr(builder, type)
+    }
+
+    fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseAdditiveExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_TO)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseAdditiveExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
+                }
+                marker.done(XPathElementType.RANGE_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 
