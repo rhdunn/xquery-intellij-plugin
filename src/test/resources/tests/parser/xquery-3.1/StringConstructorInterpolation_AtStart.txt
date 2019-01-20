@@ -1,0 +1,19 @@
+XQueryModuleImpl[FILE(0:17)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:17)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:17)]
+               XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:17)]
+                  LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
+                  XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:14)]
+                     XQueryStringConstructorInterpolationImpl[XQUERY_STRING_CONSTRUCTOR_INTERPOLATION(3:10)]
+                        LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(3:5)]('`{')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                        XQueryExprImpl[XQUERY_EXPR(6:8)]
+                           ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(6:8)]
+                              XPathOrExprImpl[XPATH_OR_EXPR(6:8)]
+                                 XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('1')
+                                 PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                        LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(8:10)]('}`')
+                     LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(10:14)](' Two')
+                  LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(14:17)](']``')

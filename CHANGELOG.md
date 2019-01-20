@@ -13,6 +13,8 @@ XQuery:
     `return`, or `some`.
 1.  Fix parsing NCNames in FunctionCalls and NameTests where the
     prefix is `some`, or `every`.
+1.  Fix parsing  ``` ``[`{...}`...`]`` ``` -- `StringConstructorInterpolation`
+    at the start of a `StringConstructor`.
 
 Static Context:
 

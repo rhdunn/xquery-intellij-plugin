@@ -4017,13 +4017,11 @@ class XQueryParser : XPathParser() {
 
     private fun parseStringConstructorContent(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
-            while (
-                builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS) ||
-                parseStringConstructorInterpolation(builder)
-            ) {
-                //
-            }
+        while (
+            builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS) ||
+            parseStringConstructorInterpolation(builder)
+        ) {
+            //
         }
         marker.done(XQueryElementType.STRING_CONSTRUCTOR_CONTENT)
         return true

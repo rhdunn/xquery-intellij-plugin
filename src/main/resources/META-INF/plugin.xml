@@ -29,6 +29,10 @@
         Fix parsing NCNames in FunctionCalls and NameTests where the name is
         <code>some</code>, or <code>every</code>.
       </li>
+      <li>
+        Fix parsing  <code>``[`{...}`...`]``</code> -- <code>StringConstructorInterpolation</code>
+        at the start of a <code>StringConstructor</code>.
+      </li>
     </ol>
     <p>Static Context:</p>
     <ol>

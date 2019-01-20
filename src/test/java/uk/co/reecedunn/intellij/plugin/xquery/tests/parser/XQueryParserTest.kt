@@ -8145,6 +8145,13 @@ private class XQueryParserTest : ParserTestCase() {
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
+    @Test
+    fun testStringConstructorInterpolation_AtStart() {
+        val expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_AtStart.txt")
+        val actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_AtStart.xq")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
     // endregion
     // region XQuery 3.1 :: UnaryLookup
 
