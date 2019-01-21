@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:11)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:11)]
+      XPathIntersectExceptExprImpl[XPATH_INTERSECT_EXCEPT_EXPR(0:11)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INTERSECT(2:11)]('intersect')
+         PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected 'InstanceofExpr'.')

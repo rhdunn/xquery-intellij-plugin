@@ -3361,31 +3361,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseIntersectExceptExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseInstanceofExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveIntersectExceptExpr = false
-            while (builder.matchTokenType(XPathTokenType.INTERSECT_EXCEPT_EXPR_TOKENS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseInstanceofExpr(builder, type)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "InstanceofExpr"))
-                }
-                parseWhiteSpaceAndCommentTokens(builder)
-                haveIntersectExceptExpr = true
-            }
-
-            if (haveIntersectExceptExpr)
-                marker.done(XPathElementType.INTERSECT_EXCEPT_EXPR)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseTreatExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)

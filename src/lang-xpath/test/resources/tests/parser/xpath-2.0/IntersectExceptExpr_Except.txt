@@ -1,0 +1,14 @@
+XPathImpl[FILE(0:10)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:10)]
+      XPathIntersectExceptExprImpl[XPATH_INTERSECT_EXCEPT_EXPR(0:10)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(2:8)]('except')
+         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+         XPathNodeTestImpl[XPATH_NODE_TEST(9:10)]
+            XPathNameTestImpl[XPATH_NAME_TEST(9:10)]
+               XPathNCNameImpl[XPATH_NCNAME(9:10)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('b')

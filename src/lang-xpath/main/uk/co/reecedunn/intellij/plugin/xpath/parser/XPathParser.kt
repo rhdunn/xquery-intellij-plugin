@@ -242,7 +242,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseUnionExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -288,7 +288,31 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseIntersectExceptExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseIntersectExceptExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseInstanceofExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveIntersectExceptExpr = false
+            while (builder.matchTokenType(XPathTokenType.INTERSECT_EXCEPT_EXPR_TOKENS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseInstanceofExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "InstanceofExpr"))
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+                haveIntersectExceptExpr = true
+            }
+
+            if (haveIntersectExceptExpr)
+                marker.done(XPathElementType.INTERSECT_EXCEPT_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 
@@ -563,7 +587,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parsePredicateList(builder: PsiBuilder): Boolean {
+    private fun parsePredicateList(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         var havePredicate = false
         while (parsePredicate(builder)) {

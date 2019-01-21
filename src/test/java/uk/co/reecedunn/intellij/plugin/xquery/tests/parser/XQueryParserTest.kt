@@ -2406,44 +2406,50 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: IntersectExceptExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (53) IntersectExceptExpr")
+    internal inner class IntersectExceptExpr {
+        @Test
+        @DisplayName("intersect")
+        fun intersect() {
+            val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testIntersectExceptExpr_Intersect() {
-        val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: intersect; missing InstanceofExpr")
+        fun intersect_MissingInstanceofExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect_MissingInstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect_MissingInstanceofExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("except")
+        fun except() {
+            val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: except; missing InstanceofExpr")
+        fun except_MissingInstanceofExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testIntersectExceptExpr_Intersect_MissingInstanceofExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect_MissingInstanceofExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect_MissingInstanceofExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIntersectExceptExpr_Except() {
-        val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIntersectExceptExpr_Except_MissingInstanceofExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIntersectExceptExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: InstanceofExpr
 
     @Test
