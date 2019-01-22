@@ -1,0 +1,1 @@
+25 castable as xs:double?

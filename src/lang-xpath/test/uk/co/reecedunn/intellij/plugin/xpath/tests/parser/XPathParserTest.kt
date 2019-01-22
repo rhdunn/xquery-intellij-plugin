@@ -1726,7 +1726,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 2.0 EBNF (18) CastableExpr")
+    @DisplayName("XPath 2.0 EBNF (18) CastableExpr ; XPath 2.0 EBNF (49) SingleType")
     internal inner class CastableExpr {
         @Test
         @DisplayName("castable expression")
@@ -1759,14 +1759,30 @@ private class XPathParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-2.0/CastableExpr_MissingSingleType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("optional AtomicType")
+        fun optionalAtomicType() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastableExpr_OptionalAtomicType.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastableExpr_OptionalAtomicType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional AtomicType; compact whitespace")
+        fun optionalAtomicType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastableExpr_OptionalAtomicType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastableExpr_OptionalAtomicType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
-    @DisplayName("XPath 2.0 EBNF (19) CastExpr")
+    @DisplayName("XPath 2.0 EBNF (19) CastExpr ; XPath 2.0 EBNF (49) SingleType")
     internal inner class CastExpr {
         @Test
         @DisplayName("cast expression")
-        fun testCastExpr() {
+        fun castExpr() {
             val expected = loadResource("tests/parser/xpath-2.0/CastExpr.txt")
             val actual = parseResource("tests/parser/xpath-2.0/CastExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
@@ -1774,7 +1790,7 @@ private class XPathParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("error recovery: missing 'cast' keyword")
-        fun testCastExpr_MissingCastKeyword() {
+        fun missingCastKeyword() {
             val expected = loadResource("tests/parser/xpath-2.0/CastExpr_MissingCastKeyword.txt")
             val actual = parseResource("tests/parser/xpath-2.0/CastExpr_MissingCastKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
@@ -1782,7 +1798,7 @@ private class XPathParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("error recovery: missing 'as' keyword")
-        fun testCastExpr_MissingAsKeyword() {
+        fun missingAsKeyword() {
             val expected = loadResource("tests/parser/xpath-2.0/CastExpr_MissingAsKeyword.txt")
             val actual = parseResource("tests/parser/xpath-2.0/CastExpr_MissingAsKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
@@ -1790,9 +1806,25 @@ private class XPathParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("error recovery: missing SingleType")
-        fun testCastExpr_MissingSingleType() {
+        fun missingSingleType() {
             val expected = loadResource("tests/parser/xpath-2.0/CastExpr_MissingSingleType.txt")
             val actual = parseResource("tests/parser/xpath-2.0/CastExpr_MissingSingleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional AtomicType")
+        fun optionalAtomicType() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastExpr_OptionalAtomicType.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastExpr_OptionalAtomicType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional AtomicType; compact whitespace")
+        fun optionalAtomicType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastExpr_OptionalAtomicType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastExpr_OptionalAtomicType_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

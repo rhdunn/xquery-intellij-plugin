@@ -2523,7 +2523,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (56) CastableExpr")
+    @DisplayName("XQuery 1.0 EBNF (56) CastableExpr ; XQuery 1.0 EBNF (117) SingleType")
     internal inner class CastableExpr {
         @Test
         @DisplayName("castable expression")
@@ -2556,14 +2556,30 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("optional AtomicType")
+        fun optionalAtomicType() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastableExpr_OptionalAtomicType.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_OptionalAtomicType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional AtomicType; compact whitespace")
+        fun optionalAtomicType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastableExpr_OptionalAtomicType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_OptionalAtomicType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (57) CastExpr")
+    @DisplayName("XQuery 1.0 EBNF (57) CastExpr ; XQuery 1.0 EBNF (117) SingleType")
     internal inner class CastExpr {
         @Test
         @DisplayName("cast expression")
-        fun testCastExpr() {
+        fun castExpr() {
             val expected = loadResource("tests/parser/xquery-1.0/CastExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CastExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
@@ -2571,7 +2587,7 @@ private class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("error recovery: missing 'cast' keyword")
-        fun testCastExpr_MissingCastKeyword() {
+        fun missingCastKeyword() {
             val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
@@ -2579,7 +2595,7 @@ private class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("error recovery: missing 'as' keyword")
-        fun testCastExpr_MissingAsKeyword() {
+        fun missingAsKeyword() {
             val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingAsKeyword.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingAsKeyword.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
@@ -2587,9 +2603,25 @@ private class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("error recovery: missing SingleType")
-        fun testCastExpr_MissingSingleType() {
+        fun missingSingleType() {
             val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingSingleType.txt")
             val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingSingleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional AtomicType")
+        fun optionalAtomicType() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastExpr_OptionalAtomicType.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastExpr_OptionalAtomicType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional AtomicType; compact whitespace")
+        fun optionalAtomicType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastExpr_OptionalAtomicType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastExpr_OptionalAtomicType_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -5245,30 +5277,6 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: SingleType
-
-    @Test
-    fun testSingleType() {
-        val expected = loadResource("tests/parser/xquery-1.0/CastExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CastExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSingleType_Optional() {
-        val expected = loadResource("tests/parser/xquery-1.0/SingleType_Optional.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SingleType_Optional.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSingleType_Optional_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/SingleType_Optional_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SingleType_Optional_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: TypeDeclaration + AtomicType
 
     @Test
