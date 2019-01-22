@@ -2486,37 +2486,42 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: TreatExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (55) TreatExpr")
+    internal inner class TreatExpr {
+        @Test
+        @DisplayName("treat expression")
+        fun treatExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/TreatExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/TreatExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testTreatExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/TreatExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/TreatExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing 'treat' keyword")
+        fun missingTreatKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'as' keyword")
+        fun missingAsKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/TreatExpr_MissingAsKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/TreatExpr_MissingAsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xquery-1.0/TreatExpr_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/TreatExpr_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testTreatExpr_MissingTreatKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTreatExpr_MissingAsKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/TreatExpr_MissingAsKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/TreatExpr_MissingAsKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTreatExpr_MissingSingleType() {
-        val expected = loadResource("tests/parser/xquery-1.0/TreatExpr_MissingSingleType.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/TreatExpr_MissingSingleType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: CastableExpr
 
     @Test

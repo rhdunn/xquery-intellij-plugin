@@ -1690,6 +1690,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (17) TreatExpr")
+    internal inner class TreatExpr {
+        @Test
+        @DisplayName("treat expression")
+        fun treatExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/TreatExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/TreatExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'treat' keyword")
+        fun missingTreatKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastExpr_MissingCastKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastExpr_MissingCastKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'as' keyword")
+        fun missingAsKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/TreatExpr_MissingAsKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/TreatExpr_MissingAsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xpath-2.0/TreatExpr_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/TreatExpr_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
     internal inner class UnaryExpr {
         @Test

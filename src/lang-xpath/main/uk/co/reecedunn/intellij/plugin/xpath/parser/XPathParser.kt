@@ -312,7 +312,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseTreatExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -347,6 +347,40 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseCastableExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_TREAT)) {
+                var haveErrors = false
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_AS)) {
+                    haveErrors = true
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseSequenceType(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                }
+                marker.done(XPathElementType.TREAT_EXPR)
+            } else if (builder.tokenType === XPathTokenType.K_AS) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
+                builder.advanceLexer()
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseSequenceType(builder)
+                marker.done(XPathElementType.TREAT_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 

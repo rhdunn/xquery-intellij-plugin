@@ -3388,7 +3388,7 @@ class XQueryParser : XPathParser() {
                 builder.advanceLexer()
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                parseSingleType(builder)
+                parseSequenceType(builder)
                 marker.done(XPathElementType.TREAT_EXPR)
             } else {
                 marker.drop()
@@ -3399,7 +3399,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseCastExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
