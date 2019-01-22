@@ -408,7 +408,30 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseUnaryExpr(builder, type)
+        val marker = builder.mark()
+        if (parseUnaryExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_CAST)) {
+                var haveErrors = false
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_AS)) {
+                    haveErrors = true
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseSingleType(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
+                }
+                marker.done(XPathElementType.CAST_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {

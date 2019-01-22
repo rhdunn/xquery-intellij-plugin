@@ -1,0 +1,14 @@
+XPathImpl[FILE(0:17)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:17)]
+      XPathCastExprImpl[XPATH_CAST_EXPR(0:17)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:2)]('25')
+         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')
+         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: as.')
+         XPathSingleTypeImpl[XPATH_SINGLE_TYPE(8:17)]
+            XPathSimpleTypeNameImpl[XPATH_SIMPLE_TYPE_NAME(8:17)]
+               XPathQNameImpl[XPATH_QNAME(8:17)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:10)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:17)]('double')
