@@ -160,7 +160,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
             } else {
                 if (!builder.matchTokenType(XQueryTokenType.K_VERSION)) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "version"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "version"))
                     haveErrors = true
                 }
 
@@ -226,7 +226,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_NAMESPACE)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "namespace"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "namespace"))
                 haveErrors = true
             }
 
@@ -359,7 +359,7 @@ class XQueryParser : XPathParser() {
             } else if (parseFTOptionDecl(builder)) {
                 marker.done(XQueryElementType.FT_OPTION_DECL)
             } else {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable"))
                 parseUnknownDecl(builder)
                 marker.done(XQueryElementType.UNKNOWN_DECL)
                 return PrologDeclState.UNKNOWN_STATEMENT
@@ -388,7 +388,7 @@ class XQueryParser : XPathParser() {
             } else if (parseDecimalFormatDecl(builder, state, true)) {
                 marker.done(XQueryElementType.DECIMAL_FORMAT_DECL)
             } else {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "collation, element, function, order"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "collation, element, function, order"))
                 parseUnknownDecl(builder)
                 marker.done(XQueryElementType.UNKNOWN_DECL)
             }
@@ -444,7 +444,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_NAMESPACE)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "namespace"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "namespace"))
                 haveErrors = true
             }
 
@@ -497,7 +497,7 @@ class XQueryParser : XPathParser() {
         if (builder.matchTokenType(XQueryTokenType.K_FT_OPTION)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTMatchOptions(builder)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "using"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "using"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -520,7 +520,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.BOUNDARY_SPACE_MODE_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "preserve, strip"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -573,7 +573,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.CONSTRUCTION_MODE_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "preserve, strip"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -593,7 +593,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.ORDERING_MODE_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "ordered, unordered"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "ordered, unordered"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -608,13 +608,13 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_EMPTY)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "empty"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "empty"))
                 haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.EMPTY_ORDERING_MODE_TOKENS) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "greatest, least"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "greatest, least"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -634,7 +634,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.REVALIDATION_MODE_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "lax, skip, strict"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "lax, skip, strict"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -656,7 +656,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.PRESERVE_MODE_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "preserve, no-preserve"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "preserve, no-preserve"))
                 haveErrors = true
             }
 
@@ -668,7 +668,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.INHERIT_MODE_TOKENS) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "inherit, no-inherit"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "inherit, no-inherit"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -748,7 +748,7 @@ class XQueryParser : XPathParser() {
             } else if (parseModuleImport(builder)) {
                 marker.done(XQueryElementType.MODULE_IMPORT)
             } else {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"))
                 marker.done(XQueryElementType.IMPORT)
                 return PrologDeclState.UNKNOWN_STATEMENT
             }
@@ -813,13 +813,13 @@ class XQueryParser : XPathParser() {
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_ELEMENT)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "element"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "element"))
                 haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_NAMESPACE) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "namespace"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "namespace"))
                 haveErrors = true
             }
 
@@ -836,7 +836,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_AT)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "at"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "at"))
                 haveErrors = true
             }
 
@@ -903,7 +903,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_ITEM)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "item"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "item"))
                 haveErrors = true
             }
 
@@ -969,7 +969,7 @@ class XQueryParser : XPathParser() {
         } else if (parseFunctionDecl(builder, marker, firstAnnotation)) {
             return true
         } else if (haveAnnotations) {
-            builder.error(XQueryBundle.message("parser.error.expected-keyword", "function, variable"))
+            builder.error(XPathBundle.message("parser.error.expected-keyword", "function, variable"))
             parseUnknownDecl(builder)
             marker.done(XQueryElementType.UNKNOWN_DECL)
             return true
@@ -1509,7 +1509,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseReturnClause(builder)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "count, for, group, let, order, return, sliding, stable, tumbling, where"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "count, for, group, let, order, return, sliding, stable, tumbling, where"))
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseExprSingle(builder)
             }
@@ -1636,15 +1636,15 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
                 if (haveScoreVar) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "in"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
                 } else if (havePositionalVar) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "in, score"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "in, score"))
                 } else if (haveAllowingEmpty) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "at, in, score"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "at, in, score"))
                 } else if (haveTypeDeclaration) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "allowing, at, in, score"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "allowing, at, in, score"))
                 } else {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "allowing, as, at, in, score"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "allowing, as, at, in, score"))
                 }
                 haveErrors = true
             }
@@ -1666,7 +1666,7 @@ class XQueryParser : XPathParser() {
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_EMPTY)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "empty"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "empty"))
             }
 
             marker.done(XQueryElementType.ALLOWING_EMPTY)
@@ -1803,7 +1803,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_WINDOW)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "window"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "window"))
                 haveErrors = true
             }
 
@@ -1824,7 +1824,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", if (haveTypeDeclaration) "in" else "as, in"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", if (haveTypeDeclaration) "in" else "as, in"))
                 haveErrors = true
             }
 
@@ -1855,7 +1855,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_WINDOW)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "window"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "window"))
                 haveErrors = true
             }
 
@@ -1876,7 +1876,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", if (haveTypeDeclaration) "in" else "as, in"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", if (haveTypeDeclaration) "in" else "as, in"))
                 haveErrors = true
             }
 
@@ -1913,7 +1913,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_WHEN)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "when"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "when"))
                 haveErrors = true
             }
 
@@ -1937,7 +1937,7 @@ class XQueryParser : XPathParser() {
             if (marker != null) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XQueryTokenType.K_END)) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "end"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "end"))
                     haveErrors = true
                 }
             }
@@ -1949,7 +1949,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_WHEN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "when"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "when"))
                 haveErrors = true
             }
 
@@ -2246,7 +2246,7 @@ class XQueryParser : XPathParser() {
         if (builder.matchTokenType(XPathTokenType.K_EMPTY)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.EMPTY_ORDERING_MODE_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "greatest, least"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "greatest, least"))
             }
         }
 
@@ -2288,7 +2288,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_SATISFIES)) {
                 if (hasBinding) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "satisfies"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "satisfies"))
                     haveErrors = true
                 } else { // NCName
                     marker.rollbackTo()
@@ -2329,7 +2329,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", if (haveTypeDeclaration) "in" else "as, in"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", if (haveTypeDeclaration) "in" else "as, in"))
                 haveErrors = true
             }
 
@@ -2383,13 +2383,13 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_DEFAULT) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "case, default"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "case, default"))
                 haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "return"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
 
@@ -2422,7 +2422,7 @@ class XQueryParser : XPathParser() {
         if (haveCase) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "return"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
 
@@ -2508,7 +2508,7 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_AS) && !haveErrors) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
                     haveErrors = true
                 }
             }
@@ -2521,7 +2521,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "return"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
 
@@ -2552,7 +2552,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "return"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
 
@@ -2595,7 +2595,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_THEN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "then"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "then"))
                 haveErrors = true
             }
 
@@ -2755,7 +2755,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseInsertExprTargetChoice(builder) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "after, as, before, into"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "after, as, before, into"))
                 haveErrors = true
             }
 
@@ -2787,13 +2787,13 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.INSERT_POSITION_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "first, last"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "first, last"))
                 haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_INTO) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "into"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "into"))
             }
 
             marker.done(XQueryElementType.INSERT_EXPR_TARGET_CHOICE)
@@ -2802,7 +2802,7 @@ class XQueryParser : XPathParser() {
             marker.done(XQueryElementType.INSERT_EXPR_TARGET_CHOICE)
             return true
         } else if (XQueryTokenType.INSERT_POSITION_TOKENS.contains(builder.tokenType)) {
-            builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
+            builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
             builder.advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2862,7 +2862,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XQueryTokenType.K_VALUE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_OF)) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "of"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "of"))
                     haveErrors = true
                 }
                 haveValueOf = true
@@ -2875,7 +2875,7 @@ class XQueryParser : XPathParser() {
                     return false
                 }
                 if (!haveErrors) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "node"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "node"))
                     haveErrors = true
                 }
             }
@@ -2888,7 +2888,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_WITH) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "with"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "with"))
                 haveErrors = true
             }
 
@@ -2925,7 +2925,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_AS) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
                 haveErrors = true
             }
 
@@ -2995,7 +2995,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_MODIFY)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "modify"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "modify"))
                 haveErrors = true
             }
 
@@ -3007,7 +3007,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_RETURN) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "return"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 haveErrors = true
             }
 
@@ -3091,7 +3091,7 @@ class XQueryParser : XPathParser() {
                     marker.rollbackTo()
                     return false
                 }
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "returning"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "returning"))
                 haveErrors = true
             }
 
@@ -3294,7 +3294,7 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_TEXT)) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "text"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "text"))
                     haveError = true
                 }
 
@@ -3322,7 +3322,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_CONTENT)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "content"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "content"))
                 haveError = true
             }
 
@@ -3371,7 +3371,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_OF)) {
                     haveErrors = true
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "of"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "of"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3380,7 +3380,7 @@ class XQueryParser : XPathParser() {
                 }
                 marker.done(XPathElementType.INSTANCEOF_EXPR)
             } else if (builder.tokenType === XPathTokenType.K_OF) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "instance"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "instance"))
                 builder.advanceLexer()
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3405,7 +3405,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_AS)) {
                     haveErrors = true
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3418,7 +3418,7 @@ class XQueryParser : XPathParser() {
                 type !== XQueryElementType.SOURCE_EXPR &&
                 type !== XQueryElementType.TARGET_EXPR
             ) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
                 builder.advanceLexer()
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3443,7 +3443,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_AS)) {
                     haveErrors = true
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3470,7 +3470,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_AS)) {
                     haveErrors = true
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "as"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3493,7 +3493,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XQueryTokenType.K_TRANSFORM)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XQueryTokenType.K_WITH)) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "with"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "with"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3916,7 +3916,7 @@ class XQueryParser : XPathParser() {
             marker.done(XPathElementType.INLINE_FUNCTION_EXPR)
             return true
         } else if (haveAnnotations) {
-            builder.error(XQueryBundle.message("parser.error.expected-keyword", "function"))
+            builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
 
             marker.done(XPathElementType.INLINE_FUNCTION_EXPR)
             return true
@@ -4715,7 +4715,7 @@ class XQueryParser : XPathParser() {
             while (builder.matchTokenType(XQueryTokenType.K_NOT)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "in"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
                     haveErrors = true
                 }
 
@@ -4906,7 +4906,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_TIMES) && !haveError) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "times"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "times"))
             }
 
             marker.done(XQueryElementType.FT_TIMES)
@@ -4941,7 +4941,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.FTRANGE_AT_QUALIFIER_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "least, most"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "least, most"))
                 haveError = true
             }
 
@@ -4979,7 +4979,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_TO) && !haveError) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "to"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "to"))
                 haveError = true
             }
 
@@ -5064,7 +5064,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTUnit(builder) && !haveError) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
             }
 
             marker.done(XQueryElementType.FT_WINDOW)
@@ -5080,13 +5080,13 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTRange(builder, XQueryElementType.FT_RANGE)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "at, exactly, from"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "at, exactly, from"))
                 haveError = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTUnit(builder) && !haveError) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"))
             }
 
             marker.done(XQueryElementType.FT_DISTANCE)
@@ -5100,7 +5100,7 @@ class XQueryParser : XPathParser() {
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFTBigUnit(builder)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "paragraph, sentence"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "paragraph, sentence"))
             }
 
             marker.done(XQueryElementType.FT_SCOPE)
@@ -5116,7 +5116,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.FTCONTENT_AT_QUALIFIER_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "end, start"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "end, start"))
             }
 
             marker.done(XQueryElementType.FT_CONTENT)
@@ -5127,7 +5127,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_CONTENT)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "content"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "content"))
             }
 
             marker.done(XQueryElementType.FT_CONTENT)
@@ -5174,7 +5174,7 @@ class XQueryParser : XPathParser() {
                 parseFTMatchOption(builder)
                 haveFTMatchOption = true
             } else if (XQueryTokenType.FTMATCH_OPTION_START_TOKENS.contains(builder.tokenType)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "using"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "using"))
                 parseFTMatchOption(builder)
                 haveFTMatchOption = true
             } else {
@@ -5214,7 +5214,7 @@ class XQueryParser : XPathParser() {
             } else if (builder.matchTokenType(XQueryTokenType.K_STOP)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XQueryTokenType.K_WORDS)) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "words"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
                 }
 
                 marker.done(XQueryElementType.FT_STOP_WORD_OPTION)
@@ -5223,7 +5223,7 @@ class XQueryParser : XPathParser() {
             } else if (builder.matchTokenType(XQueryTokenType.K_WILDCARDS)) {
                 marker.done(XQueryElementType.FT_WILDCARD_OPTION)
             } else {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"))
                 marker.drop()
                 return false
             }
@@ -5243,7 +5243,7 @@ class XQueryParser : XPathParser() {
         } else if (builder.matchTokenType(XQueryTokenType.K_CASE)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.FTCASE_SENSITIVITY_QUALIFIER_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
             }
 
             marker.done(XQueryElementType.FT_CASE_OPTION)
@@ -5256,7 +5256,7 @@ class XQueryParser : XPathParser() {
         if (builder.matchTokenType(XQueryTokenType.K_DIACRITICS)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.FTDIACRITICS_SENSITIVITY_QUALIFIER_TOKENS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "sensitive, insensitive"))
             }
 
             marker.done(XQueryElementType.FT_DIACRITICS_OPTION)
@@ -5283,7 +5283,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTThesaurusID(builder)) {
                 if (hasParenthesis) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "at, default"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "at, default"))
                 } else {
                     builder.error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"))
                 }
@@ -5302,7 +5302,7 @@ class XQueryParser : XPathParser() {
             while (haveComma) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseFTThesaurusID(builder) && !haveError) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "at"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "at"))
 
                     builder.matchTokenType(XQueryTokenType.K_DEFAULT)
                     parseWhiteSpaceAndCommentTokens(builder)
@@ -5354,7 +5354,7 @@ class XQueryParser : XPathParser() {
             if (parseFTRange(builder, XQueryElementType.FT_LITERAL_RANGE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XQueryTokenType.K_LEVELS) && !haveError) {
-                    builder.error(XQueryBundle.message("parser.error.expected-keyword", "levels"))
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "levels"))
                 }
             }
 
@@ -5368,7 +5368,7 @@ class XQueryParser : XPathParser() {
         if (builder.matchTokenType(XQueryTokenType.K_STOP)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_WORDS)) {
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "words"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "words"))
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -5511,7 +5511,7 @@ class XQueryParser : XPathParser() {
                     return false
                 }
 
-                builder.error(XQueryBundle.message("parser.error.expected-keyword", "updating"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "updating"))
                 haveErrors = true
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -5882,7 +5882,7 @@ class XQueryParser : XPathParser() {
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else if (haveAnnotations) {
-            builder.error(XQueryBundle.message("parser.error.expected-keyword", "function"))
+            builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
 
             marker.done(XQueryElementType.FUNCTION_TEST)
             return true
