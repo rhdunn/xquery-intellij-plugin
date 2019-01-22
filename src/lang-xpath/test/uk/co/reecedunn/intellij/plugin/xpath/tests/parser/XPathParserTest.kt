@@ -1726,6 +1726,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 1.0 EBNF (18) CastableExpr")
+    internal inner class CastableExpr {
+        @Test
+        @DisplayName("castable expression")
+        fun castableExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastableExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastableExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'castable' keyword")
+        fun missingCastableKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastExpr_MissingCastKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastExpr_MissingCastKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'as' keyword")
+        fun missingAsKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastableExpr_MissingAsKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastableExpr_MissingAsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SingleType")
+        fun missingSingleType() {
+            val expected = loadResource("tests/parser/xpath-2.0/CastableExpr_MissingSingleType.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/CastableExpr_MissingSingleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (20) UnaryExpr")
     internal inner class UnaryExpr {
         @Test

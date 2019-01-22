@@ -2522,37 +2522,42 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: CastableExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (56) CastableExpr")
+    internal inner class CastableExpr {
+        @Test
+        @DisplayName("castable expression")
+        fun castableExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastableExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastableExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testCastableExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/CastableExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CastableExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing 'castable' keyword")
+        fun missingCastableKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'as' keyword")
+        fun missingAsKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SingleType")
+        fun missingSingleType() {
+            val expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testCastableExpr_MissingCastableKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCastableExpr_MissingAsKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testCastableExpr_MissingSingleType() {
-        val expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: CastExpr
 
     @Test

@@ -380,7 +380,34 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseCastExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_CASTABLE)) {
+                var haveErrors = false
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_AS)) {
+                    haveErrors = true
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseSingleType(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
+                }
+                marker.done(XPathElementType.CASTABLE_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 
@@ -840,6 +867,19 @@ open class XPathParser : PsiParser {
 
     fun parseAtomicOrUnionType(builder: PsiBuilder): Boolean {
         return parseEQNameOrWildcard(builder, XPathElementType.ATOMIC_OR_UNION_TYPE, false)
+    }
+
+    fun parseSingleType(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            builder.matchTokenType(XPathTokenType.OPTIONAL)
+
+            marker.done(XPathElementType.SINGLE_TYPE)
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     // endregion

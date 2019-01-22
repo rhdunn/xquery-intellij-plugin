@@ -3399,34 +3399,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseCastExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_CASTABLE)) {
-                var haveErrors = false
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_AS)) {
-                    haveErrors = true
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSingleType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
-                }
-                marker.done(XPathElementType.CASTABLE_EXPR)
-            } else {
-                marker.drop()
-            }
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseTransformWithExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3518,19 +3491,6 @@ class XQueryParser : XPathParser() {
             parseParenthesizedExpr(builder)
         ) {
             marker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseSingleType(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            builder.matchTokenType(XPathTokenType.OPTIONAL)
-
-            marker.done(XPathElementType.SINGLE_TYPE)
             return true
         }
         marker.drop()

@@ -1,0 +1,9 @@
+XPathImpl[FILE(0:14)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:14)]
+      XPathCastableExprImpl[XPATH_CASTABLE_EXPR(0:14)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:2)]('25')
+         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
+         PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(12:14)]('as')
+         PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Expected 'SingleType'.')
