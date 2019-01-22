@@ -312,7 +312,41 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseTreatExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_INSTANCE)) {
+                var haveErrors = false
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.K_OF)) {
+                    haveErrors = true
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "of"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseSequenceType(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                }
+                marker.done(XPathElementType.INSTANCEOF_EXPR)
+            } else if (builder.tokenType === XPathTokenType.K_OF) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "instance"))
+                builder.advanceLexer()
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseSequenceType(builder)
+                marker.done(XPathElementType.INSTANCEOF_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return parseUnaryExpr(builder, type)
     }
 
@@ -761,6 +795,17 @@ open class XPathParser : PsiParser {
             return true
         }
         return false
+    }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: SequenceType
+
+    open fun parseSequenceType(builder: PsiBuilder): Boolean {
+        return parseAtomicOrUnionType(builder)
+    }
+
+    fun parseAtomicOrUnionType(builder: PsiBuilder): Boolean {
+        return parseEQNameOrWildcard(builder, XPathElementType.ATOMIC_OR_UNION_TYPE, false)
     }
 
     // endregion

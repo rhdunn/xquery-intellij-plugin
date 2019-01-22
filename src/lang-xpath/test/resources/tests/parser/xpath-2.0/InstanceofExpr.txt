@@ -1,0 +1,14 @@
+XPathImpl[FILE(0:24)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:24)]
+      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:24)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:2)]('25')
+         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(3:11)]('instance')
+         PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(12:14)]('of')
+         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+         XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(15:24)]
+            XPathQNameImpl[XPATH_QNAME(15:24)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:17)]('xs')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(17:18)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:24)]('double')

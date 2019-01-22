@@ -2450,37 +2450,42 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: InstanceofExpr
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (54) InstanceofExpr")
+    internal inner class InstanceofExpr {
+        @Test
+        @DisplayName("instance of expression")
+        fun instanceofExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testInstanceofExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("error recovery: missing 'instance' keyword")
+        fun missingInstanceKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingInstanceKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingInstanceKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'of' keyword")
+        fun missingOfKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingOfKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingOfKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testInstanceofExpr_MissingInstanceKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingInstanceKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingInstanceKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInstanceofExpr_MissingOfKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingOfKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingOfKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInstanceofExpr_MissingSingleType() {
-        val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingSingleType.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingSingleType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: TreatExpr
 
     @Test
