@@ -1,0 +1,10 @@
+XPathImpl[FILE(0:4)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:4)]
+      XPathStringConcatExprImpl[XPATH_STRING_CONCAT_EXPR(0:4)]
+         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         LeafPsiElement[XPATH_CONCATENATION(2:4)]('||')
+         PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'RangeExpr'.')

@@ -196,11 +196,31 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseRangeExpr(builder, type)
+    fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseRangeExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveStringConcatExpr = false
+            while (builder.matchTokenType(XPathTokenType.CONCATENATION)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseRangeExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "RangeExpr"))
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+                haveStringConcatExpr = true
+            }
+
+            if (haveStringConcatExpr)
+                marker.done(XPathElementType.STRING_CONCAT_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
     }
 
-    fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseAdditiveExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -316,29 +336,31 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseTreatExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_INSTANCE)) {
-                var haveErrors = false
+            when {
+                builder.matchTokenType(XPathTokenType.K_INSTANCE) -> {
+                    var haveErrors = false
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_OF)) {
-                    haveErrors = true
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "of"))
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!builder.matchTokenType(XPathTokenType.K_OF)) {
+                        haveErrors = true
+                        builder.error(XPathBundle.message("parser.error.expected-keyword", "of"))
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseSequenceType(builder) && !haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    }
+                    marker.done(XPathElementType.INSTANCEOF_EXPR)
                 }
+                builder.tokenType === XPathTokenType.K_OF -> {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "instance"))
+                    builder.advanceLexer()
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parseSequenceType(builder)
+                    marker.done(XPathElementType.INSTANCEOF_EXPR)
                 }
-                marker.done(XPathElementType.INSTANCEOF_EXPR)
-            } else if (builder.tokenType === XPathTokenType.K_OF) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "instance"))
-                builder.advanceLexer()
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseSequenceType(builder)
-                marker.done(XPathElementType.INSTANCEOF_EXPR)
-            } else {
-                marker.drop()
+                else -> marker.drop()
             }
             return true
         }
@@ -350,29 +372,31 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseCastableExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_TREAT)) {
-                var haveErrors = false
+            when {
+                builder.matchTokenType(XPathTokenType.K_TREAT) -> {
+                    var haveErrors = false
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_AS)) {
-                    haveErrors = true
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!builder.matchTokenType(XPathTokenType.K_AS)) {
+                        haveErrors = true
+                        builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseSequenceType(builder) && !haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    }
+                    marker.done(XPathElementType.TREAT_EXPR)
                 }
+                builder.tokenType === XPathTokenType.K_AS -> {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
+                    builder.advanceLexer()
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parseSequenceType(builder)
+                    marker.done(XPathElementType.TREAT_EXPR)
                 }
-                marker.done(XPathElementType.TREAT_EXPR)
-            } else if (builder.tokenType === XPathTokenType.K_AS) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
-                builder.advanceLexer()
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseSequenceType(builder)
-                marker.done(XPathElementType.TREAT_EXPR)
-            } else {
-                marker.drop()
+                else -> marker.drop()
             }
             return true
         }

@@ -3337,30 +3337,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseRangeExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveStringConcatExpr = false
-            while (builder.matchTokenType(XPathTokenType.CONCATENATION)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseRangeExpr(builder, type)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "RangeExpr"))
-                }
-                parseWhiteSpaceAndCommentTokens(builder)
-                haveStringConcatExpr = true
-            }
-
-            if (haveStringConcatExpr)
-                marker.done(XPathElementType.STRING_CONCAT_EXPR)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     override fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseCastableExpr(builder, type)) {

@@ -6823,44 +6823,51 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: StringConcatExpr
 
-    @Test
-    fun testStringConcatExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (86) StringConcatExpr")
+    internal inner class StringConcatExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing RangeExpr")
+        fun missingRangeExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_MissingRangeExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_MissingRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testStringConcatExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConcatExpr_MissingRangeExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_MissingRangeExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_MissingRangeExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConcatExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testStringConcatExpr_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/StringConcatExpr_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Test

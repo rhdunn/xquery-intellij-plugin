@@ -2398,6 +2398,50 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.0 EBNF (19) StringConcatExpr")
+    internal inner class StringConcatExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xpath-3.0/StringConcatExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/StringConcatExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/StringConcatExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/StringConcatExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing RangeExpr")
+        fun missingRangeExpr() {
+            val expected = loadResource("tests/parser/xpath-3.0/StringConcatExpr_MissingRangeExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/StringConcatExpr_MissingRangeExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-3.0/StringConcatExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/StringConcatExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/StringConcatExpr_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/StringConcatExpr_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.0 EBNF (45) NodeTest ; XPath 3.0 EBNF (71) KindTest")
     internal inner class NodeTest_XPath30 {
         @Nested
