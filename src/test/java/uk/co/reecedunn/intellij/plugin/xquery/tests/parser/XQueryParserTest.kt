@@ -5301,75 +5301,99 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: SequenceType
 
-    @Test
-    fun testSequenceType_Empty() {
-        val expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (119) SequenceType")
+    internal inner class SequenceType {
+        @Nested
+        @DisplayName("empty-sequence()")
+        internal inner class SequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun empty() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty sequence; compact whitespace")
+            fun empty_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun empty_MissingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (121) ItemType")
+        fun itemType() {
+            val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (121) ItemType ; XQuery 1.0 EBNF (120) OccurrenceIndicator")
+        internal inner class OccurrenceIndicator {
+            @Test
+            @DisplayName("zero or one")
+            fun zeroOrOne() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_ZeroOrOne.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrOne.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("zero or one; compact whitespace")
+            fun zeroOrOne_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_ZeroOrOne_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrOne_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("zero or more")
+            fun zeroOrMore() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_ZeroOrMore.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrMore.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("zero or more; compact whitespace")
+            fun zeroOrMore_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_ZeroOrMore_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrMore_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("one or more")
+            fun oneOrMore() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_OneOrMore.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_OneOrMore.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("one or more; compact whitespace")
+            fun oneOrMore_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/SequenceType_OneOrMore_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/SequenceType_OneOrMore_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    @Test
-    fun testSequenceType_Empty_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSequenceType_Empty_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 1.0 :: OccurrenceIndicator
-
-    @Test
-    fun testOccurrenceIndicator_Optional() {
-        val expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testOccurrenceIndicator_Optional_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testOccurrenceIndicator_ZeroOrMore() {
-        val expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testOccurrenceIndicator_ZeroOrMore_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testOccurrenceIndicator_OneOrMore() {
-        val expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testOccurrenceIndicator_OneOrMore_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: ItemType
 
     @Test

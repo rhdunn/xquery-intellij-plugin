@@ -2362,6 +2362,98 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (50) SequenceType")
+    internal inner class SequenceType {
+        @Nested
+        @DisplayName("empty-sequence()")
+        internal inner class SequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun empty() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_Empty.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_Empty.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty sequence; compact whitespace")
+            fun empty_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_Empty_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_Empty_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun empty_MissingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_Empty_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_Empty_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (52) ItemType")
+        fun itemType() {
+            val expected = loadResource("tests/parser/xpath-2.0/InstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/InstanceofExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (52) ItemType ; XPath 2.0 EBNF (51) OccurrenceIndicator")
+        internal inner class OccurrenceIndicator {
+            @Test
+            @DisplayName("zero or one")
+            fun zeroOrOne() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_ZeroOrOne.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_ZeroOrOne.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("zero or one; compact whitespace")
+            fun zeroOrOne_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_ZeroOrOne_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_ZeroOrOne_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("zero or more")
+            fun zeroOrMore() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_ZeroOrMore.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_ZeroOrMore.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("zero or more; compact whitespace")
+            fun zeroOrMore_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_ZeroOrMore_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_ZeroOrMore_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("one or more")
+            fun oneOrMore() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_OneOrMore.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_OneOrMore.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("one or more; compact whitespace")
+            fun oneOrMore_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/SequenceType_OneOrMore_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/SequenceType_OneOrMore_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 2.0 EBNF (73) DoubleLiteral")
     internal inner class DoubleLiteral {
         @Test

@@ -5562,10 +5562,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseOccurrenceIndicator(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.OCCURRENCE_INDICATOR_TOKENS)
-    }
-
     private fun parseParenthesizedSequenceType(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
             var haveErrors = false
@@ -5594,7 +5590,7 @@ class XQueryParser : XPathParser() {
     }
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseItemType(builder: PsiBuilder): Boolean {
+    override fun parseItemType(builder: PsiBuilder): Boolean {
         return (
             parseKindTest(builder) ||
             parseAnyItemType(builder) ||

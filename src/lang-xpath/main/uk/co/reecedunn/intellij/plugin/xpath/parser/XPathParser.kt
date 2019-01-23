@@ -909,6 +909,39 @@ open class XPathParser : PsiParser {
     // region Grammar :: TypeDeclaration :: SequenceType
 
     open fun parseSequenceType(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.SEQUENCE_TYPE_TOKENS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.SEQUENCE_TYPE)
+            return true
+        } else if (parseItemType(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseOccurrenceIndicator(builder))
+                marker.done(XPathElementType.SEQUENCE_TYPE)
+            else
+                marker.drop()
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
+    fun parseOccurrenceIndicator(builder: PsiBuilder): Boolean {
+        return builder.matchTokenType(XPathTokenType.OCCURRENCE_INDICATOR_TOKENS)
+    }
+
+    open fun parseItemType(builder: PsiBuilder): Boolean {
         return parseAtomicOrUnionType(builder)
     }
 

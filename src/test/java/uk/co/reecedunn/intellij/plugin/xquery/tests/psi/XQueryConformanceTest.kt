@@ -2109,7 +2109,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("occurrence indicator; one or more")
         fun occurrenceIndicator_oneOrMore() {
-            val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.xq")
+            val file = parseResource("tests/parser/xquery-1.0/SequenceType_OneOrMore.xq")
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
@@ -2124,7 +2124,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("occurrence indicator; optional")
         fun occurrenceIndicator_optional() {
-            val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.xq")
+            val file = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrOne.xq")
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
@@ -2139,7 +2139,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         @Test
         @DisplayName("occurrence indicator; zero or more")
         fun occurrenceIndicator_zeroOrMore() {
-            val file = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.xq")
+            val file = parseResource("tests/parser/xquery-1.0/SequenceType_ZeroOrMore.xq")
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
             assertThat(versioned.requiresConformance.size, `is`(0))
