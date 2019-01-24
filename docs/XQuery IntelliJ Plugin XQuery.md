@@ -1,8 +1,7 @@
 # XQuery IntelliJ Plugin 1.4 XQuery
 
-This document includes material copied from or derived from the XPath and
-XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,
-Beihang).
+This document includes material copied from or derived from the XQuery
+specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio, Beihang).
 
 ## Abstract
 This document defines the syntax and semantics for vendor and plugin specific
@@ -64,9 +63,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [4.4 Transactions](#44-transactions)
   - [4.5 Function Declaration](#45-function-declaration)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
-  - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
-  - [A.2 EBNF for XQuery 3.1 with Vendor Extensions](#a2-ebnf-for-xquery-31-with-vendor-extensions)
-  - [A.3 Reserved Function Names](#a3-reserved-function-names)
+  - [A.1 EBNF for XQuery 3.1 with Vendor Extensions](#a1-ebnf-for-xquery-31-with-vendor-extensions)
+  - [A.2 Reserved Function Names](#a2-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
   - [B.2 BaseX References](#b2-basex-references)
@@ -79,9 +77,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [C.3 Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
   - [C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions)
   - [C.5 eXist-db Extensions](#c5-exist-db-extensions)
-  - [C.6 XPath 2.0 Working Draft 02 May 2003](#c6-xpath-20-working-draft-02-may-2003)
-  - [C.7 XQuery 1.0 Working Draft 02 May 2003](#c7-xquery-10-working-draft-02-may-2003)
-  - [C.8 EXPath Syntax Extensions](#c8-expath-syntax-extensions)
+  - [C.6 XQuery 1.0 Working Draft 02 May 2003](#c6-xquery-10-working-draft-02-may-2003)
+  - [C.7 EXPath Syntax Extensions](#c7-expath-syntax-extensions)
 - [D Error and Warning Conditions](#d-error-and-warning-conditions)
   - [D.1 Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
@@ -880,43 +877,7 @@ variadic parameter is given a type, the elements in that array has that type.
 
 ## A XQuery IntelliJ Plugin Grammar
 
-### A.1 EBNF for XPath 3.1 with Vendor Extensions
-
-This EBNF grammar includes and modifies the EBNF grammar for the following
-specifications:
-1.  XPath 3.1 (W3C Recommendation 21 March 2017);
-1.  XQuery and XPath Full Text 3.0 (W3C Recommendation 24 November 2015).
-
-When an EBNF symbol is modified in an extension, that modified symbol is used
-in preference to the base symbol definition. When the symbol is modified below,
-that modified symbol is used in preference to the base or extension symbol
-definition. When the EBNF symbol is a list such as `PrimaryExpr`, the result
-used is the combination of the definitions of that symbol across all
-specifications, including this document.
-
-The EBNF symbols below only include new and modified symbols. Missing reference
-numbers are for symbols that only apply to XQuery.
-
-These changes include support for:
-1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
-1.  Saxon Vendor Extensions;
-1.  XQuery IntelliJ Plugin Vendor Extensions.
-
-__NOTE:__ This is an incomplete list of EBNF symbols, as the XQuery IntelliJ
-Plugin does not currently support XPath (it only supports XPath exprssions
-that are a part of XQuery).
-
-| Ref     | Symbol                  |     | Expression                          | Options              |
-|---------|-------------------------|-----|-------------------------------------|----------------------|
-| \[3\]   | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
-| \[4\]   | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |          |
-| \[11\]  | `AndExpr`               | ::= | `ComparisonExpr (("and" \| "andAlso") ComparionExpr)*` |  |
-| \[76\]  | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
-| \[77\]  | `WildcardIndicator`     | ::= | `"*"`                               |                     |
-| \[78\]  | `SequenceType`          | ::= | `(("empty-sequence" \| "empty") "(" ")") \| (ItemType OccurrenceIndicator?)` | |
-| \[79\]  | `OrExpr`                | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |               |
-
-### A.2 EBNF for XQuery 3.1 with Vendor Extensions
+### A.1 EBNF for XQuery 3.1 with Vendor Extensions
 
 This EBNF grammar includes and modifies the EBNF grammar for the following
 specifications:
@@ -1036,7 +997,7 @@ These changes include support for:
 | \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 | \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |
 
-### A.3 Reserved Function Names
+### A.2 Reserved Function Names
 
 | keyword                  | XQuery                          |
 |--------------------------|---------------------------------|
@@ -1077,8 +1038,6 @@ These changes include support for:
 
 ### B.1 W3C References
 __Core Specifications__
-*  W3C. *XML Path Language (XPath) 3.1*. W3C Recommendation 21 March 2017.
-   See [https://www.w3.org/TR/2017/REC-xpath-31-20170321/]().
 *  W3C. *XQuery 3.1: An XML Query Language*. W3C Recommendation 21 March 2017.
    See [https://www.w3.org/TR/2017/REC-xquery-31-20170321/]().
 *  W3C. *XQuery and XPath Data Model 3.1*. W3C Recommendation 21 March 2017.
@@ -1106,8 +1065,6 @@ __XML Schema__
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
 
 __Working Drafts__
-*  W3C. *XML Path Language (XPath) 2.0*. W3C Working Draft 02 May 2003.
-   See [https://www.w3.org/TR/2003/WD-xpath20-20030502/]().
 *  W3C. *XQuery 1.0: An XML Query Language*. W3C Working Draft 02 May 2003.
    See [https://www.w3.org/TR/2003/WD-xquery-20030502]().
 
@@ -1119,20 +1076,11 @@ __Working Drafts__
 *  BaseX. *Updates: update*. See [http://docs.basex.org/wiki/Updates#update]().
 
 ### B.3 MarkLogic References
-__XQuery__
 *  MarkLogic. *MarkLogic Server Enhanced XQuery Language*. See
    [https://docs.marklogic.com/guide/xquery/enhanced]().
 *  MarkLogic. *Schema Components*. See [https://docs.marklogic.com/sc]().
 *  MarkLogic. *Working With JSON (Application Developer's Guide)*. See
    [https://docs.marklogic.com/guide/app-dev/json]().
-
-__XPath__
-*  MarkLogic. *XPath Axes and Syntax*. See
-   [https://docs.marklogic.com/guide/xquery/xpath#id_39877]().
-*  MarkLogic. *Indexable Path Expression Grammar*. See
-   [https://docs.marklogic.com/guide/xquery/xpath#id_17642]().
-*  MarkLogic. *Patch and Extract Path Expression Grammar*. See
-   [https://docs.marklogic.com/guide/xquery/xpath#id_98286]().
 
 ### B.4 Saxon References
 *  Saxonica. *Union types*. See
@@ -1241,17 +1189,12 @@ Older versions of eXist-db support the following working draft syntax:
 1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty-sequence()` in 4.0 and
     later; `empty()` in older versions.
 
-### C.6 XPath 2.0 Working Draft 02 May 2003
-The XPath 2.0 Working Draft 02 May 2003 specification supports the following
-differences to the XPath 2.0 Recommendation, described in this document:
-1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
-
-### C.7 XQuery 1.0 Working Draft 02 May 2003
+### C.6 XQuery 1.0 Working Draft 02 May 2003
 The XQuery 1.0 Working Draft 02 May 2003 specification supports the following
 differences to the XQuery 1.0 Recommendation, described in this document:
 1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty()`
 
-### C.8 EXPath Syntax Extensions
+### C.7 EXPath Syntax Extensions
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
