@@ -941,10 +941,6 @@ open class XPathParser : PsiParser {
         return builder.matchTokenType(XPathTokenType.OCCURRENCE_INDICATOR_TOKENS)
     }
 
-    open fun parseItemType(builder: PsiBuilder): Boolean {
-        return parseAtomicOrUnionType(builder)
-    }
-
     fun parseAtomicOrUnionType(builder: PsiBuilder): Boolean {
         return parseEQNameOrWildcard(builder, XPathElementType.ATOMIC_OR_UNION_TYPE, false)
     }
@@ -959,6 +955,38 @@ open class XPathParser : PsiParser {
             return true
         }
         marker.drop()
+        return false
+    }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: ItemType
+
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+    open fun parseItemType(builder: PsiBuilder): Boolean {
+        return (
+            parseKindTest(builder) ||
+            parseAnyItemType(builder) ||
+            parseAtomicOrUnionType(builder)
+        )
+    }
+
+    fun parseAnyItemType(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ITEM)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ANY_ITEM_TYPE)
+            return true
+        }
         return false
     }
 

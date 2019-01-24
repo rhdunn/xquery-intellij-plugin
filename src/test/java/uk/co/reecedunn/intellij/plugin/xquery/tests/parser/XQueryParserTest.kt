@@ -5394,104 +5394,119 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: ItemType
-
-    @Test
-    fun testItemType() {
-        val expected = loadResource("tests/parser/xquery-1.0/ItemType.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ItemType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testItemType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/ItemType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ItemType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testItemType_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-1.0/ItemType_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/ItemType_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-
     @Nested
-    @DisplayName("XQuery 1.0 EBNF (121) ItemType ; XQuery 1.0 EBNF (123) KindTest")
+    @DisplayName("XQuery 1.0 EBNF (121) ItemType")
     internal inner class ItemType {
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (124) AnyKindTest")
-        fun anyKindTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_AnyKindTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_AnyKindTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Nested
+        @DisplayName("item()")
+        internal inner class Item {
+            @Test
+            @DisplayName("item")
+            fun itemType() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("item; compact whitespace")
+            fun itemType_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
 
         @Test
-        @DisplayName("XQuery 1.0 EBNF (125) DocumentTest")
-        fun documentTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_DocumentTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_DocumentTest.xq")
+        @DisplayName("XQuery 1.0 EBNF (123) AtomicType")
+        fun atomicType() {
+            val expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (126) TextTest")
-        fun textTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_TextTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_TextTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (123) KindTest")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (124) AnyKindTest")
+            fun anyKindTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_AnyKindTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_AnyKindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (127) CommentTest")
-        fun commentTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_CommentTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_CommentTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (125) DocumentTest")
+            fun documentTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_DocumentTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_DocumentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (128) PITest")
-        fun piTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_PITest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_PITest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (126) TextTest")
+            fun textTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_TextTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_TextTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (129) AttributeTest")
-        fun attributeTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_AttributeTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_AttributeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (127) CommentTest")
+            fun commentTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_CommentTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_CommentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (131) SchemaAttributeTest")
-        fun schemaAttributeTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_SchemaAttributeTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_SchemaAttributeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (128) PITest")
+            fun piTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_PITest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_PITest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (133) ElementTest")
-        fun elementTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_ElementTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_ElementTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (129) AttributeTest")
+            fun attributeTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_AttributeTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_AttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("XQuery 1.0 EBNF (135) SchemaElementTest")
-        fun schemaElementTest() {
-            val expected = loadResource("tests/parser/xquery-1.0/ItemType_SchemaElementTest.txt")
-            val actual = parseResource("tests/parser/xquery-1.0/ItemType_SchemaElementTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (131) SchemaAttributeTest")
+            fun schemaAttributeTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_SchemaAttributeTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_SchemaAttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (133) ElementTest")
+            fun elementTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_ElementTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_ElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XQuery 1.0 EBNF (135) SchemaElementTest")
+            fun schemaElementTest() {
+                val expected = loadResource("tests/parser/xquery-1.0/ItemType_SchemaElementTest.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/ItemType_SchemaElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
         }
     }
 

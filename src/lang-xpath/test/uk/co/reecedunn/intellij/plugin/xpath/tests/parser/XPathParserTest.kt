@@ -553,7 +553,7 @@ private class XPathParserTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 1.0 EBNF (26) PredicateList ; XQuery 1.0 EBNF (27) Predicate")
+        @DisplayName("XPath 2.0 EBNF (26) PredicateList ; XPath 2.0 EBNF (27) Predicate")
         internal inner class PredicateList {
             @Test
             @DisplayName("predicate list")
@@ -749,7 +749,7 @@ private class XPathParserTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 1.0 EBNF (26) PredicateList ; XQuery 1.0 EBNF (27) Predicate")
+        @DisplayName("XPath 2.0 EBNF (26) PredicateList ; XPath 2.0 EBNF (27) Predicate")
         internal inner class PredicateList {
             @Test
             @DisplayName("predicate list")
@@ -982,7 +982,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 1.0 EBNF (31) VarRef ; XQuery 1.0 EBNF (32) VarName")
+    @DisplayName("XPath 1.0 EBNF (31) VarRef ; XPath 2.0 EBNF (32) VarName")
     internal inner class VarRef {
         @Test
         @DisplayName("NCName")
@@ -2204,7 +2204,7 @@ private class XPathParserTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 1.0 EBNF (139) TypeName")
+            @DisplayName("XPath 2.0 EBNF (139) TypeName")
             internal inner class TypeName {
                 @Test
                 @DisplayName("type name")
@@ -2448,6 +2448,122 @@ private class XPathParserTest : ParserTestCase() {
             fun oneOrMore_CompactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-2.0/SequenceType_OneOrMore_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-2.0/SequenceType_OneOrMore_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (52) ItemType")
+    internal inner class ItemType {
+        @Nested
+        @DisplayName("item()")
+        internal inner class Item {
+            @Test
+            @DisplayName("item")
+            fun itemType() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("item; compact whitespace")
+            fun itemType_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (53) AtomicType")
+        fun atomicType() {
+            val expected = loadResource("tests/parser/xpath-2.0/InstanceofExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/InstanceofExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XPath 2.0 EBNF (54) KindTest")
+        internal inner class KindTest {
+            @Test
+            @DisplayName("XPath 2.0 EBNF (55) AnyKindTest")
+            fun anyKindTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_AnyKindTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_AnyKindTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (56) DocumentTest")
+            fun documentTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_DocumentTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_DocumentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (57) TextTest")
+            fun textTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_TextTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_TextTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (58) CommentTest")
+            fun commentTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_CommentTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_CommentTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (59) PITest")
+            fun piTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_PITest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_PITest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (60) AttributeTest")
+            fun attributeTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_AttributeTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_AttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (62) SchemaAttributeTest")
+            fun schemaAttributeTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_SchemaAttributeTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_SchemaAttributeTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (64) ElementTest")
+            fun elementTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_ElementTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_ElementTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("XPath 2.0 EBNF (66) SchemaElementTest")
+            fun schemaElementTest() {
+                val expected = loadResource("tests/parser/xpath-2.0/ItemType_SchemaElementTest.txt")
+                val actual = parseResource("tests/parser/xpath-2.0/ItemType_SchemaElementTest.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
         }

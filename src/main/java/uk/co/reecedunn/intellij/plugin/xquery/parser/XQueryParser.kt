@@ -5604,26 +5604,6 @@ class XQueryParser : XPathParser() {
         )
     }
 
-    private fun parseAnyItemType(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ITEM)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.ANY_ITEM_TYPE)
-            return true
-        }
-        return false
-    }
-
     private fun parseTupleType(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_TUPLE)
         if (marker != null) {
