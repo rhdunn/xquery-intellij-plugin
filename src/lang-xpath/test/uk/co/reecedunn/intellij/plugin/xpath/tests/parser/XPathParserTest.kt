@@ -134,6 +134,90 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 2.0 EBNF (6) QuantifiedExpr")
+    internal inner class QuantifiedExpr {
+        @Test
+        @DisplayName("some, every")
+        fun quantifiedExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("some, every; compact whitespace")
+        fun quantifiedExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing VarName")
+        fun missingVarName() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'in' keyword")
+        fun missingInKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'in' ExprSingle")
+        fun testQuantifiedExpr_MissingInExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'satisfies' keyword")
+        fun missingSatisfiesKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'satisfies' ExprSingle")
+        fun missingSatisfiesExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple VarName")
+        fun multipleVarName() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple VarName; compact whitespace")
+        fun multipleVarName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple VarName; missing variable indicator")
+        fun multipleVarName_MissingVarIndicator() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 1.0 EBNF (8) AdditiveExpr")
     internal inner class AdditiveExpr {
         @Test

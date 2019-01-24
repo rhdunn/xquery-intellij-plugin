@@ -1,0 +1,1 @@
+some $ x in $ y satisfies , every $ x in $ y satisfies

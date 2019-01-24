@@ -1,0 +1,70 @@
+XPathImpl[FILE(0:68)]
+   XPathQuantifiedExprImpl[XPATH_QUANTIFIED_EXPR(0:33)]
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SOME(0:4)]('some')
+      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(5:13)]
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
+         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+         XPathVarNameImpl[XPATH_VAR_NAME(7:9)]
+            XPathNCNameImpl[XPATH_NCNAME(7:9)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
+               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected keyword: in.')
+         XPathOrExprImpl[XPATH_OR_EXPR(9:13)]
+            XPathVarRefImpl[XPATH_VAR_REF(9:13)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(9:10)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+               XPathVarNameImpl[XPATH_VAR_NAME(11:13)]
+                  XPathNCNameImpl[XPATH_NCNAME(11:13)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('y')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SATISFIES(13:22)]('satisfies')
+      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+      XPathOrExprImpl[XPATH_OR_EXPR(23:33)]
+         XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(23:33)]
+            XPathVarRefImpl[XPATH_VAR_REF(23:27)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+               XPathVarNameImpl[XPATH_VAR_NAME(25:27)]
+                  XPathNCNameImpl[XPATH_NCNAME(25:27)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:26)]('x')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LE(27:29)]('le')
+            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(30:32)]('10')
+            PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+   LeafPsiElement[XPATH_COMMA_TOKEN(33:34)](',')
+   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+   XPathQuantifiedExprImpl[XPATH_QUANTIFIED_EXPR(35:68)]
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EVERY(35:40)]('every')
+      PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
+      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(41:49)]
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(41:42)]('$')
+         PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
+         XPathVarNameImpl[XPATH_VAR_NAME(43:45)]
+            XPathNCNameImpl[XPATH_NCNAME(43:45)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(43:44)]('x')
+               PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected keyword: in.')
+         XPathOrExprImpl[XPATH_OR_EXPR(45:49)]
+            XPathVarRefImpl[XPATH_VAR_REF(45:49)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(45:46)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+               XPathVarNameImpl[XPATH_VAR_NAME(47:49)]
+                  XPathNCNameImpl[XPATH_NCNAME(47:49)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(47:48)]('y')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SATISFIES(49:58)]('satisfies')
+      PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+      XPathOrExprImpl[XPATH_OR_EXPR(59:68)]
+         XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(59:68)]
+            XPathVarRefImpl[XPATH_VAR_REF(59:63)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(59:60)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
+               XPathVarNameImpl[XPATH_VAR_NAME(61:63)]
+                  XPathNCNameImpl[XPATH_NCNAME(61:63)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(61:62)]('x')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LE(63:65)]('le')
+            PsiWhiteSpaceImpl[WHITE_SPACE(65:66)](' ')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(66:68)]('10')

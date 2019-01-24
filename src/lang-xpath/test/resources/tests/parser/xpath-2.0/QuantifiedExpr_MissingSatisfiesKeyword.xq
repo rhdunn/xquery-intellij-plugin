@@ -1,0 +1,1 @@
+some $ x in $ y $ x le 10 , every $ x in $ y $ x le 10

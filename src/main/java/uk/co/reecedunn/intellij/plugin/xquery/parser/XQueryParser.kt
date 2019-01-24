@@ -2265,49 +2265,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: QuantifiedExpr
 
-    private fun parseQuantifiedExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.QUANTIFIED_EXPR_QUALIFIER_TOKENS)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameSeparator(builder, null)) { // QName
-                marker.rollbackTo()
-                return false
-            }
-
-            val hasBinding = parseQuantifiedExprBinding(builder, true)
-            if (hasBinding) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    parseQuantifiedExprBinding(builder, false)
-                    parseWhiteSpaceAndCommentTokens(builder)
-                }
-            }
-
-            var haveErrors = false
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.K_SATISFIES)) {
-                if (hasBinding) {
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "satisfies"))
-                    haveErrors = true
-                } else { // NCName
-                    marker.rollbackTo()
-                    return false
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected-expression"))
-            }
-
-            marker.done(XPathElementType.QUANTIFIED_EXPR)
-            return true
-        }
-        return false
-    }
-
-    private fun parseQuantifiedExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+    override fun parseQuantifiedExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
         var haveErrors = false

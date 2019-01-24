@@ -1,0 +1,1 @@
+some $ x in $ y , $ v in $ w satisfies $ x le 10 , every $ x in $ y , $ v in $ w satisfies $ x le 10

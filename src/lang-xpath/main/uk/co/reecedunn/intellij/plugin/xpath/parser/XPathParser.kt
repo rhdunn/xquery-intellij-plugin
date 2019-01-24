@@ -117,8 +117,92 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseExprSingle(builder: PsiBuilder): Boolean {
-        return parseOrExpr(builder, null)
+        return (
+            parseQuantifiedExpr(builder) ||
+            parseOrExpr(builder, null)
+        )
+    }
+
+    // endregion
+    // region Grammar :: Expr :: QuantifiedExpr
+
+    fun parseQuantifiedExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.QUANTIFIED_EXPR_QUALIFIER_TOKENS)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseQNameSeparator(builder, null)) { // QName
+                marker.rollbackTo()
+                return false
+            }
+
+            val hasBinding = parseQuantifiedExprBinding(builder, true)
+            if (hasBinding) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parseQuantifiedExprBinding(builder, false)
+                    parseWhiteSpaceAndCommentTokens(builder)
+                }
+            }
+
+            var haveErrors = false
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_SATISFIES)) {
+                if (hasBinding) {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "satisfies"))
+                    haveErrors = true
+                } else { // NCName
+                    marker.rollbackTo()
+                    return false
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XPathElementType.QUANTIFIED_EXPR)
+            return true
+        }
+        return false
+    }
+
+    open fun parseQuantifiedExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        val marker = builder.mark()
+
+        var haveErrors = false
+        val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
+        if (!matched && !isFirst) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+            haveErrors = true
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XPathElementType.QUANTIFIED_EXPR_BINDING)
+            return true
+        }
+        marker.drop()
+        return false
     }
 
     // endregion
