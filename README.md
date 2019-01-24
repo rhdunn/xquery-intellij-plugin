@@ -23,13 +23,13 @@ for the XML Query (XQuery) language. This covers support for:
 
 This plugin provides support for the following implementations of XQuery:
 
-1.  [BaseX](docs/XQuery%20IntelliJ%20Plugin.md#c1-basex-vendor-extensions)
+1.  [BaseX](docs/XQuery%20IntelliJ%20Plugin%20XQuery.md#c1-basex-vendor-extensions)
     7.0 &ndash; 9.1;
-1.  [eXist-db](docs/XQuery%20IntelliJ%20Plugin.md#c5-exist-db-extensions)
+1.  [eXist-db](docs/XQuery%20IntelliJ%20Plugin%20XQuery.md#c5-exist-db-extensions)
     4.4;
-1.  [MarkLogic](docs/XQuery%20IntelliJ%20Plugin.md#c2-marklogic-vendor-extensions)
+1.  [MarkLogic](docs/XQuery%20IntelliJ%20Plugin%20XQuery.md#c2-marklogic-vendor-extensions)
     8.0 &ndash; 9.0;
-1.  [Saxon](docs/XQuery%20IntelliJ%20Plugin.md#c3-saxon-vendor-extensions)
+1.  [Saxon](docs/XQuery%20IntelliJ%20Plugin%20XQuery.md#c3-saxon-vendor-extensions)
     9.2 &ndash; 9.9.
 
 The XQuery implementation, implementation version, XQuery version and dialect
