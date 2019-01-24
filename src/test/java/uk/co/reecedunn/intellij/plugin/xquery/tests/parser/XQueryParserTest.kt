@@ -2083,65 +2083,74 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 1.0 :: IfExpr
 
-    @Test
-    fun testIfExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (45) IfExpr")
+    internal inner class IfExpr {
+        @Test
+        @DisplayName("if expression")
+        fun ifExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("if expression; compact whitespace")
+        fun ifExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing condition Expr")
+        fun missingCondExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingCondExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingCondExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'then' keyword")
+        fun missingThenKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingThenKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingThenKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'then' ExprSingle")
+        fun missingThenExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingThenExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingThenExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'else' keyword")
+        fun missingElseKeyword() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingElseKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingElseKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'else' ExprSingle")
+        fun missingElseExpr() {
+            val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingElseExpr.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingElseExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
-
-    @Test
-    fun testIfExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIfExpr_MissingCondExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingCondExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingCondExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIfExpr_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIfExpr_MissingThenKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingThenKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingThenKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIfExpr_MissingThenExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingThenExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingThenExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIfExpr_MissingElseKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingElseKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingElseKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testIfExpr_MissingElseExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingElseExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingElseExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 1.0 EBNF (46) OrExpr")

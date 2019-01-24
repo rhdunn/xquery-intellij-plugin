@@ -134,90 +134,6 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 2.0 EBNF (6) QuantifiedExpr")
-    internal inner class QuantifiedExpr {
-        @Test
-        @DisplayName("some, every")
-        fun quantifiedExpr() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("some, every; compact whitespace")
-        fun quantifiedExpr_CompactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("error recovery: missing VarName")
-        fun missingVarName() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingVarName.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingVarName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("error recovery: missing 'in' keyword")
-        fun missingInKeyword() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInKeyword.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("error recovery: missing 'in' ExprSingle")
-        fun testQuantifiedExpr_MissingInExpr() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInExpr.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("error recovery: missing 'satisfies' keyword")
-        fun missingSatisfiesKeyword() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesKeyword.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("error recovery: missing 'satisfies' ExprSingle")
-        fun missingSatisfiesExpr() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesExpr.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple VarName")
-        fun multipleVarName() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple VarName; compact whitespace")
-        fun multipleVarName_CompactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple VarName; missing variable indicator")
-        fun multipleVarName_MissingVarIndicator() {
-            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.txt")
-            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
-        }
-    }
-
-    @Nested
     @DisplayName("XPath 1.0 EBNF (8) AdditiveExpr")
     internal inner class AdditiveExpr {
         @Test
@@ -1537,6 +1453,158 @@ private class XPathParserTest : ParserTestCase() {
         fun multiple_SpaceBeforeNextComma() {
             val expected = loadResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.txt")
             val actual = parseResource("tests/parser/xpath-2.0/XPath_Multiple_SpaceBeforeNextComma.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (6) QuantifiedExpr")
+    internal inner class QuantifiedExpr {
+        @Test
+        @DisplayName("some, every")
+        fun quantifiedExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("some, every; compact whitespace")
+        fun quantifiedExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing VarName")
+        fun missingVarName() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'in' keyword")
+        fun missingInKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'in' ExprSingle")
+        fun testQuantifiedExpr_MissingInExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingInExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'satisfies' keyword")
+        fun missingSatisfiesKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'satisfies' ExprSingle")
+        fun missingSatisfiesExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MissingSatisfiesExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple VarName")
+        fun multipleVarName() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple VarName; compact whitespace")
+        fun multipleVarName_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple VarName; missing variable indicator")
+        fun multipleVarName_MissingVarIndicator() {
+            val expected = loadResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (7) IfExpr")
+    internal inner class IfExpr {
+        @Test
+        @DisplayName("if expression")
+        fun ifExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("if expression; compact whitespace")
+        fun ifExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing condition Expr")
+        fun missingCondExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_MissingCondExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_MissingCondExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'then' keyword")
+        fun missingThenKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_MissingThenKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_MissingThenKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'then' ExprSingle")
+        fun missingThenExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_MissingThenExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_MissingThenExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'else' keyword")
+        fun missingElseKeyword() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_MissingElseKeyword.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_MissingElseKeyword.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'else' ExprSingle")
+        fun missingElseExpr() {
+            val expected = loadResource("tests/parser/xpath-2.0/IfExpr_MissingElseExpr.txt")
+            val actual = parseResource("tests/parser/xpath-2.0/IfExpr_MissingElseExpr.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
