@@ -1555,7 +1555,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseForOrWindowClause(builder: PsiBuilder): Boolean {
+    override fun parseForOrWindowClause(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1575,19 +1575,6 @@ class XQueryParser : XPathParser() {
 
     // endregion
     // region Grammar :: Expr :: FLWORExpr :: ForClause
-
-    private fun parseForClause(builder: PsiBuilder): Boolean {
-        if (parseForBinding(builder, true)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseForBinding(builder, false)
-                parseWhiteSpaceAndCommentTokens(builder)
-            }
-            return true
-        }
-        return false
-    }
 
     override fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()

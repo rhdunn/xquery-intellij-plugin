@@ -351,6 +351,12 @@ object XPathElementType {
         XPath
     )
 
+    val SIMPLE_FOR_CLAUSE: IElementType = ICompositeElementType(
+        "XPATH_SIMPLE_FOR_CLAUSE",
+        XPathSimpleForClausePsiImpl::class.java,
+        XPath
+    )
+
     val SIMPLE_FOR_BINDING: IElementType = ICompositeElementType(
         "XPATH_SIMPLE_FOR_BINDING",
         XPathSimpleForBindingPsiImpl::class.java,

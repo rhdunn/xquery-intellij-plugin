@@ -144,6 +144,34 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    open fun parseForOrWindowClause(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            return if (parseForClause(builder)) {
+                marker.done(XPathElementType.SIMPLE_FOR_CLAUSE)
+                true
+            } else {
+                marker.rollbackTo()
+                false
+            }
+        }
+        return false
+    }
+
+    fun parseForClause(builder: PsiBuilder): Boolean {
+        if (parseForBinding(builder, true)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseForBinding(builder, false)
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+            return true
+        }
+        return false
+    }
+
     open fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
