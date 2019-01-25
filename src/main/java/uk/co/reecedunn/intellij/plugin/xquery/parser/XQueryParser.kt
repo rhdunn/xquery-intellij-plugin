@@ -1589,7 +1589,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+    override fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
         var haveErrors = false

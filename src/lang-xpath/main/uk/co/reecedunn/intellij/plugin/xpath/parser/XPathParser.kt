@@ -144,6 +144,41 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    open fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        val marker = builder.mark()
+
+        var haveErrors = false
+        val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
+        if (!matched && !isFirst) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+            haveErrors = true
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_IN) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "in"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XPathElementType.SIMPLE_FOR_BINDING)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
     // endregion
     // region Grammar :: Expr :: QuantifiedExpr
 
