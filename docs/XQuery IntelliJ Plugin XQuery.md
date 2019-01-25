@@ -51,6 +51,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [3.8.5 Nulls](#385-nulls)
   - [3.9 Path Expressions](#39-path-expressions)
     - [3.9.1 Axes](#391-axes)
+    - [3.9.2 Node Tests](#392-node-tests)
   - [3.10 Validate Expressions](#310-validate-expressions)
   - [3.11 Try/Catch Expressions](#311-trycatch-expressions)
   - [3.12 Binary Constructors](#312-binary-constructors)
@@ -85,7 +86,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
 ## 1 Introduction
 This document defines the syntax and semantics for vendor and plugin specific
 functionality that extends XQuery 3.1, XQuery and XPath Full Text 3.0, XQuery
-Update Facility 3.0, and XQuery Scripting Extension 1.0.
+Update Facility 3.0, and XQuery Scripting Extension 1.0. The syntax described
+here is the syntax that is supported by the XQuery IntelliJ Plugin.
 
 The plugin supports BaseX, eXist-db, MarkLogic, and Saxon vendor extensions.
 These are listed in appendix [C Vendor Extensions](#c-vendor-extensions),
