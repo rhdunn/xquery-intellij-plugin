@@ -49,7 +49,7 @@ XQueryModuleImpl[FILE(0:67)]
                               XPathArgumentListImpl[XPATH_ARGUMENT_LIST(57:59)]
                                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(57:58)]('(')
                                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(58:59)](')')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(59:67)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(59:67)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(59:65)]('return')
                   XPathOrExprImpl[XPATH_OR_EXPR(65:67)]
                      XPathVarRefImpl[XPATH_VAR_REF(65:67)]

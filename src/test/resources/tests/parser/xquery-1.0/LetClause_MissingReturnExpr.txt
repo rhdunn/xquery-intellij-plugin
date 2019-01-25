@@ -23,6 +23,6 @@ XQueryModuleImpl[FILE(0:21)]
                               XQueryNCNameImpl[XQUERY_NCNAME(13:15)]
                                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('y')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(15:21)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(15:21)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(15:21)]('return')
                   PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Missing expression.')

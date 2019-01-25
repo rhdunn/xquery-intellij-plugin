@@ -30,7 +30,7 @@ XQueryModuleImpl[FILE(0:35)]
                               XQueryNCNameImpl[XQUERY_NCNAME(23:25)]
                                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:24)]('y')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(25:35)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(25:35)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(25:31)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                   XPathOrExprImpl[XPATH_OR_EXPR(32:35)]

@@ -1555,21 +1555,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseReturnClause(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.K_RETURN)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected-expression"))
-            }
-
-            marker.done(XQueryElementType.RETURN_CLAUSE)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     private fun parseForOrWindowClause(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {

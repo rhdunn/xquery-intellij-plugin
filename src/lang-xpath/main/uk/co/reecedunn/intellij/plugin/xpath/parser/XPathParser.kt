@@ -127,6 +127,24 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
+    // region Grammar :: Expr :: ForExpr
+
+    fun parseReturnClause(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.K_RETURN)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XPathElementType.RETURN_CLAUSE)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    // endregion
     // region Grammar :: Expr :: QuantifiedExpr
 
     fun parseQuantifiedExpr(builder: PsiBuilder): Boolean {

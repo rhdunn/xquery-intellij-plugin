@@ -16,7 +16,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
 - [3 Expressions](#3-expressions)
   - [3.1 Quantified Expressions](#31-quantified-expressions)
   - [3.2 Path Expressions](#32-path-expressions)
-    - [3.2.2 Node Tests](#322-node-tests)
+    - [3.2.1 Node Tests](#321-node-tests)
+  - [3.3 For Expressions](#33-for-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a3-reserved-function-names)
@@ -81,7 +82,7 @@ This follows the grammar production pattern used in other constructs like
 
 ### 3.2 Path Expressions
 
-#### 3.2.2 Node Tests
+#### 3.2.1 Node Tests
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
@@ -94,6 +95,16 @@ productions. This is such that `WildcardIndicator` is placed wherever an
 name (but not both) can be `WildcardIndicator`.
 
 A `WildcardIndicator` is an instance of `xdm:wildcard`.
+
+### 3.3 For Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[7\]  | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`            |         |
+| \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
+
+The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
+`FLWORExpr` grammar productions.
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -187,5 +198,6 @@ The following constructs have had their grammar modified to make it easier to
 implement features such as variable lookup. These changes do not modify the
 behaviour of those constructs:
 1.  [Quantified Expressions](#31-quantified-expressions)
-1.  [Node Tests](#322-node-tests)
+1.  [Node Tests](#321-node-tests)
+1.  [For Expressions](#33-for-expressions)
 1.  [Any Item Type](#21211-item-type)

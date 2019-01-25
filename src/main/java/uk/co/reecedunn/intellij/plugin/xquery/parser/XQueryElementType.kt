@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginReturnClausePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -460,11 +461,6 @@ object XQueryElementType {
     val COUNT_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_COUNT_CLAUSE",
         XQueryCountClausePsiImpl::class.java,
-        XQuery
-    )
-    val RETURN_CLAUSE: IElementType = ICompositeElementType(
-        "XQUERY_RETURN_CLAUSE",
-        XQueryReturnClausePsiImpl::class.java,
         XQuery
     )
 

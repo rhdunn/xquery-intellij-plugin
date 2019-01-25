@@ -19,10 +19,7 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyItemTypePsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAnyTextTestPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginQuantifiedExprBindingPsiImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 
 object XPathElementType {
@@ -555,6 +552,12 @@ object XPathElementType {
     val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
         "XPATH_ANY_ITEM_TYPE",
         PluginAnyItemTypePsiImpl::class.java,
+        XPath
+    )
+
+    val RETURN_CLAUSE: IElementType = ICompositeElementType(
+        "XPATH_RETURN_CLAUSE",
+        PluginReturnClausePsiImpl::class.java,
         XPath
     )
 

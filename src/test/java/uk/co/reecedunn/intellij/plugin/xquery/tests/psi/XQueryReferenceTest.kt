@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginReturnClause
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -190,7 +191,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
 
             val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
+            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
             val ref = varRefNamePsi.reference
@@ -228,7 +229,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
             val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
 
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
+            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
             val ref = varRefNamePsi.reference!!
@@ -265,7 +266,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
 
             val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
+            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
             val ref = varRefNamePsi.reference!!
@@ -303,7 +304,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
 
             val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
+            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
             val ref = varRefNamePsi.reference!!
@@ -341,7 +342,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
 
             val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
+            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
             val ref = varRefNamePsi.reference!!
@@ -379,7 +380,7 @@ private class XQueryReferenceTest : ParserTestCase() {
             val varQNamePsi = varNamePsi.children().filterIsInstance<XPathEQName>().first()
 
             val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-            val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
+            val returnClausePsi = flworExprPsi.children().filterIsInstance<PluginReturnClause>().first()
             val varRefNamePsi = returnClausePsi.walkTree().filterIsInstance<XPathEQName>().first()
 
             val ref = varRefNamePsi.reference!!

@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:33)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(22:24)]('10')
                            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(25:33)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(25:33)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(25:31)]('return')
                   XPathOrExprImpl[XPATH_OR_EXPR(31:33)]
                      XPathVarRefImpl[XPATH_VAR_REF(31:33)]

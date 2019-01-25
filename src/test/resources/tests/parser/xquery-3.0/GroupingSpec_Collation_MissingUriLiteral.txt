@@ -41,7 +41,7 @@ XQueryModuleImpl[FILE(0:48)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(28:37)]('collation')
                            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing expression.')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(38:48)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(38:48)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(38:44)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                   XPathOrExprImpl[XPATH_OR_EXPR(45:48)]

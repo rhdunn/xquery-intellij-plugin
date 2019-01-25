@@ -56,7 +56,7 @@ XQueryModuleImpl[FILE(0:65)]
                            XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(44:55)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DESCENDING(44:54)]('descending')
                               PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(55:65)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(55:65)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(55:61)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
                   XPathOrExprImpl[XPATH_OR_EXPR(62:65)]

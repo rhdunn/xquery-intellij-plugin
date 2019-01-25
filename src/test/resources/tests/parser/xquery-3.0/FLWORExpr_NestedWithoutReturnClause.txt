@@ -142,7 +142,7 @@ XQueryModuleImpl[FILE(0:113)]
                                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(102:103)]('b')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(103:104)]('\n')
                            XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(104:104)]
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(104:113)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(104:113)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(104:110)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(110:111)](' ')
                   XPathOrExprImpl[XPATH_OR_EXPR(111:113)]

@@ -44,7 +44,7 @@ XQueryModuleImpl[FILE(0:59)]
                                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(47:48)](')')
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-               XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(49:59)]
+               PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(49:59)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(49:55)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
                   XPathOrExprImpl[XPATH_OR_EXPR(56:59)]
