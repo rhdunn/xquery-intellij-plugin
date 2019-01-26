@@ -21,6 +21,8 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "marklogic/5.0";
 
+declare %a:since("marklogic", "9.0") function cts:after-query($timestamp as xs:unsignedLong) as cts:after-query external;
+declare %a:since("marklogic", "9.0") function cts:after-query-timestamp($query as cts:after-query) as xs:unsignedLong external;
 declare %a:since("marklogic", "8.0") function cts:aggregate($native-plugin as xs:string, $aggregate-name as xs:string, $range-indexes as cts:reference*) as item()* external;
 declare %a:since("marklogic", "6.0") function cts:aggregate($native-plugin as xs:string, $aggregate-name as xs:string, $range-indexes as cts:reference*, $argument as item()*) as item()* external;
 declare %a:since("marklogic", "6.0") function cts:aggregate($native-plugin as xs:string, $aggregate-name as xs:string, $range-indexes as cts:reference*, $argument as item()*, $options as xs:string*) as item()* external;
@@ -44,6 +46,8 @@ declare %a:since("marklogic", "6.0") function cts:avg-aggregate($range-index as 
 declare %a:since("marklogic", "6.0") function cts:avg-aggregate($range-index as cts:reference, $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:bearing#2") function cts:bearing($p1 as cts:point, $p2 as cts:point) as xs:double external;
 declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "8.0", "geo:bearing#3") function cts:bearing($p1 as cts:point, $p2 as cts:point, $options as xs:string*) as xs:double external;
+declare %a:since("marklogic", "9.0") function cts:before-query($timestamp as xs:unsignedLong) as cts:before-query external;
+declare %a:since("marklogic", "9.0") function cts:before-query-timestamp($query as cts:before-query) as xs:unsignedLong external;
 declare %a:since("marklogic", "7.0") function cts:boost-query($matching-query as cts:query, $boosting-query as cts:query) as cts:boost-query external;
 declare %a:since("marklogic", "7.0") function cts:boost-query-boosting-query($query as cts:boost-query) as cts:query external;
 declare %a:since("marklogic", "7.0") function cts:boost-query-matching-query($query as cts:boost-query) as cts:query external;
