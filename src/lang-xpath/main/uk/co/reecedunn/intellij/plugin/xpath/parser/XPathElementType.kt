@@ -216,6 +216,12 @@ object XPathElementType {
     // endregion
     // region XPath 2.0
 
+    val FOR_EXPR: IElementType = ICompositeElementType(
+        "XPATH_FOR_EXPR",
+        XPathForExprPsiImpl::class.java,
+        XPath
+    )
+
     val QUANTIFIED_EXPR: IElementType = ICompositeElementType(
         "XPATH_QUANTIFIED_EXPR",
         XPathQuantifiedExprPsiImpl::class.java,

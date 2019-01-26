@@ -1,0 +1,6 @@
+XPathImpl[FILE(0:8)]
+   PsiErrorElementImpl[ERROR_ELEMENT(0:6)]('XPST0003: 'return' keyword in non-for expression.')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(0:6)]('return')
+   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+   XPathOrExprImpl[XPATH_OR_EXPR(7:8)]
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('2')

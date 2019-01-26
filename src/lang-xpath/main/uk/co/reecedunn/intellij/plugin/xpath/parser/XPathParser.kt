@@ -120,6 +120,7 @@ open class XPathParser : PsiParser {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseExprSingle(builder: PsiBuilder): Boolean {
         return (
+            parseForExpr(builder) ||
             parseQuantifiedExpr(builder) ||
             parseIfExpr(builder) ||
             parseOrExpr(builder, null)
@@ -139,6 +140,39 @@ open class XPathParser : PsiParser {
 
             marker.done(XPathElementType.RETURN_CLAUSE)
             return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseForExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseForOrWindowClause(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseReturnClause(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseExprSingle(builder)
+            }
+
+            marker.done(XPathElementType.FOR_EXPR)
+            return true
+        } else if (
+            builder.errorOnTokenType(XPathTokenType.K_RETURN, XPathBundle.message("parser.error.return-without-flwor"))
+        ) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseQNameSeparator(builder, null)) { // QName
+                marker.rollbackTo()
+                return false
+            }
+
+            return if (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
+                marker.drop()
+                true
+            } else {
+                marker.rollbackTo()
+                false
+            }
         }
         marker.drop()
         return false
