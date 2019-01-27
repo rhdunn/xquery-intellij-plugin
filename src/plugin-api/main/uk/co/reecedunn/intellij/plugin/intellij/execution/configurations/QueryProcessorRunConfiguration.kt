@@ -41,6 +41,7 @@ import java.io.File
 data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
     var rdfOutputFormat: String? = null,
+    var updating: Boolean = false,
     var scriptFile: String? = null
 ) : RunConfigurationOptions()
 
@@ -71,6 +72,12 @@ class QueryProcessorRunConfiguration(
         get() = RDF_FORMATS.find { it.mimeTypes.contains(data.rdfOutputFormat) }
         set(value) {
             data.rdfOutputFormat = value?.mimeTypes?.get(0)
+        }
+
+    var updating: Boolean
+        get() = data.updating
+        set(value) {
+            data.updating = value
         }
 
     var scriptFilePath: String?

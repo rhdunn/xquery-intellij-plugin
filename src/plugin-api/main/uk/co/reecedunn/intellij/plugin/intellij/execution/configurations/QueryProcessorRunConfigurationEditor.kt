@@ -56,7 +56,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
 class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val language: Language) :
     SettingsUI<QueryProcessorRunConfiguration> {
-    // region Query Processor
+    // region Option :: Query Processor
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettings>>? = null
     private var queryDivider: JPanel? = null
@@ -110,7 +110,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
-    // region RDF Output Format
+    // region Option :: RDF Output Format
 
     private var rdfOutputFormat: JComboBox<Language>? = null
 
@@ -123,7 +123,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
-    // region Script File
+    // region Option :: Script File
 
     private var scriptFile: TextFieldWithBrowseButton? = null
 
@@ -138,7 +138,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Form
 
+    private var updating: JCheckBox? = null
+
     private fun createUIComponents() {
+        updating = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.updating.label"))
+
         createQueryProcessorUI()
         createRdfOutputFormatUI()
         createScriptFileUI()
@@ -148,6 +152,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private fun updateUI() {
         val processor = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings
         rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
+        updating!!.isEnabled = processor?.api?.canUpdate(language) == true
     }
 
     // endregion
