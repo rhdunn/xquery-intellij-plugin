@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
@@ -31,6 +32,10 @@ internal class BaseXClientQueryProcessor(val session: Any, val classes: BaseXCla
         createRunnableQuery(BaseXQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }
         }
+    }
+
+    override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
+        listOf<String>()
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {

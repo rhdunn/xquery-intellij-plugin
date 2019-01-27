@@ -42,6 +42,10 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
+    override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
+        listOf<String>()
+    }
+
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
         val queryText = query.decode()!!
         return when (language) {

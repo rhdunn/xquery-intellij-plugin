@@ -22,6 +22,7 @@ import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
@@ -34,6 +35,10 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         createRunnableQuery(MarkLogicQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }
         }
+    }
+
+    override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
+        listOf<String>()
     }
 
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {

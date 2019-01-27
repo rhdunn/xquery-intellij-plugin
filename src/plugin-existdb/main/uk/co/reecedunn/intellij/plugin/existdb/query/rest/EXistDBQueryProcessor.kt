@@ -22,6 +22,7 @@ import org.apache.http.entity.StringEntity
 import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.cached
 import uk.co.reecedunn.intellij.plugin.core.async.getValue
+import uk.co.reecedunn.intellij.plugin.core.async.local_thread
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.children
@@ -36,6 +37,10 @@ internal class EXistDBQueryProcessor(val baseUri: String, val connection: HttpCo
         createRunnableQuery(EXistDBQueries.Version, XQuery).use { query ->
             query.run().then { results -> results.first().value as String }
         }
+    }
+
+    override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
+        listOf<String>()
     }
 
     override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
