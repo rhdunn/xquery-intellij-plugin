@@ -21,10 +21,10 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.lang.Language
 import com.intellij.openapi.project.Project
 
-class QueryProcessorConfigurationFactory(type: ConfigurationType, private val language: Language) :
+class QueryProcessorConfigurationFactory(type: ConfigurationType, private vararg val language: Language) :
     ConfigurationFactory(type) {
 
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
-        return QueryProcessorRunConfiguration(project, this, language)
+        return QueryProcessorRunConfiguration(project, this, *language)
     }
 }

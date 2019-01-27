@@ -32,6 +32,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.compat.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessors
@@ -48,7 +49,7 @@ data class QueryProcessorRunConfigurationData(
 class QueryProcessorRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,
-    val language: Language
+    private vararg val languages: Language
 ) :
     RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, ""),
     PersistentStateComponent<QueryProcessorRunConfigurationData> {
@@ -78,6 +79,19 @@ class QueryProcessorRunConfiguration(
         get() = data.updating
         set(value) {
             data.updating = value
+        }
+
+    val language: Language
+        get() {
+            return if (languages.size == 1) {
+                languages[0]
+            } else {
+                languages.find { language ->
+                    language.getAssociations().find { association ->
+                        association.accept(scriptFilePath ?: "")
+                    } != null
+                } ?: languages[0]
+            }
         }
 
     var scriptFilePath: String?
