@@ -55,6 +55,7 @@ internal class MarkLogicRunQuery(
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
         params.addProperty("rdf-output-format", rdfOutputFormat?.mimeTypes?.get(0) ?: "")
+        params.addProperty("updating", updating.toString())
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()

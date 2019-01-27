@@ -30,6 +30,7 @@ declare option o:implementation "marklogic/6.0";
  : @param $types A map of the variable types by the variable name.
  : @param $context The context item for XSLT queries.
  : @param $rdf-output-format The mimetype to format sem:triple results as, or "" to leave them as is.
+ : @param $updating An updating query if "true", or a non-updating query if "false".
  :
  : This script has additional logic to map the semantics of the REST/XCC API to
  : the semantics of the API implemented in the xquery-intellij-plugin to support
@@ -53,6 +54,7 @@ declare variable $vars as xs:string external;
 declare variable $types as xs:string external;
 declare variable $context as xs:string external := "";
 declare variable $rdf-output-format as xs:string external;
+declare variable $updating as xs:string external;
 
 declare function local:cast-as($value, $type) {
     switch ($type)
@@ -161,6 +163,12 @@ declare function local:rdf-format($mimetype) {
     default return fn:error("UNSUPPORTED-RDF-FORMAT", "Unsupported RDF format: " || $mimetype)
 };
 
+declare function local:eval-options() {
+    <options xmlns="xdmp:eval">
+        <update>{$updating}</update>
+    </options>
+};
+
 declare function local:error(
     $err:code as xs:QName,
     $err:description as xs:string?,
@@ -196,7 +204,7 @@ declare function local:function($ref as xs:string) {
 
 declare function local:javascript() as item()* {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
-    let $options := ()
+    let $options := local:eval-options()
     return if (local:version() < 8.0) then
         fn:error(
             xs:QName("UNSUPPORTED-VERSION"),
@@ -263,7 +271,7 @@ declare function local:sql() as item()* {
 
 declare function local:xquery() as item()* {
     let $variables := local:parse-vars(xdmp:unquote($vars), xdmp:unquote($types))
-    let $options := ()
+    let $options := local:eval-options()
     return if (string-length($query) ne 0) then
         switch ($mode)
         case "run" return xdmp:eval($query, $variables, $options)
@@ -283,7 +291,7 @@ declare function local:xslt() as item()* {
             xdmp:unquote($context)
         else
             ()
-    let $options := ()
+    let $options := local:eval-options()
     return if (string-length($query) ne 0) then
         switch ($mode)
         case "run" return xdmp:xslt-eval(xdmp:unquote($query), $input, $variables, $options)
