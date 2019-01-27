@@ -43,6 +43,8 @@ internal class MarkLogicProfileQuery(
 
     override var updating: Boolean = false
 
+    override var server: String = ""
+
     override var database: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?) {

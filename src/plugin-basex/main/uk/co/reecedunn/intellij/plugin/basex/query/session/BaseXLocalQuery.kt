@@ -36,6 +36,8 @@ internal class BaseXLocalQuery(val session: Any, val queryString: String, val cl
 
     override var updating: Boolean = false
 
+    override var server: String = ""
+
     override var database: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {

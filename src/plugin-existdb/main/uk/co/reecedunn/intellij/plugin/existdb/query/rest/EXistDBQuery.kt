@@ -34,6 +34,8 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
 
     override var updating: Boolean = false
 
+    override var server: String = ""
+
     override var database: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?) {

@@ -23,6 +23,8 @@ interface Query : Closeable {
 
     var updating: Boolean
 
+    var server: String
+
     var database: String
 
     fun bindVariable(name: String, value: Any?, type: String?)

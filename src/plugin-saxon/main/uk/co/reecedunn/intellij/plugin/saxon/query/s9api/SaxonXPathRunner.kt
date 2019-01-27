@@ -38,6 +38,8 @@ internal class SaxonXPathRunner(val processor: Any, val query: String, val class
 
     override var updating: Boolean = false
 
+    override var server: String = ""
+
     override var database: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
