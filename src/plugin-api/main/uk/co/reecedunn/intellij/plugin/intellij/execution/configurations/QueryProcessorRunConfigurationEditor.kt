@@ -35,13 +35,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import java.awt.Dimension
 import javax.swing.*
 
-class QueryProcessorRunConfigurationEditor(private val project: Project, private val language: Language) :
+class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
     SettingsEditor<QueryProcessorRunConfiguration>() {
 
     private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
     override fun createEditor(): JComponent {
-        editor = QueryProcessorRunConfigurationEditorUI(project, language)
+        editor = QueryProcessorRunConfigurationEditorUI(project, *languages)
         return editor?.panel!!
     }
 
@@ -54,7 +54,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     }
 }
 
-class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val language: Language) :
+class QueryProcessorRunConfigurationEditorUI(private val project: Project, private vararg val languages: Language) :
     SettingsUI<QueryProcessorRunConfiguration> {
     // region Option :: Query Processor
 
@@ -128,7 +128,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var scriptFile: TextFieldWithBrowseButton? = null
 
     private fun createScriptFileUI() {
-        val descriptor = FileNameMatcherDescriptor(language.getAssociations())
+        val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
         descriptor.title = PluginApiBundle.message("browser.choose.script-file")
 
         scriptFile = TextFieldWithBrowseButton()
@@ -152,7 +152,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private fun updateUI() {
         val processor = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings
         rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
-        updating!!.isEnabled = processor?.api?.canUpdate(language) == true
+        updating!!.isEnabled = processor?.api?.canUpdate(languages[0]) == true
     }
 
     // endregion

@@ -35,3 +35,7 @@ fun Language.getAssociations(): List<FileNameMatcher> {
     else
         associations
 }
+
+fun Array<out Language>.getAssociations(): List<FileNameMatcher> {
+    return asSequence().flatMap { language -> language.getAssociations().asSequence() }.toList()
+}
