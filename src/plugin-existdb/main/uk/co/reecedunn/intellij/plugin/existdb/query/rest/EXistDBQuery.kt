@@ -30,8 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 private val EXIST_NS = "http://exist.sourceforge.net/NS/exist"
 
 internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
-    override fun setRdfOutputFormat(language: Language?) {
-    }
+    override var rdfOutputFormat: Language? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()

@@ -40,8 +40,7 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
         classes.xqueryExecutableClass.getMethod("load").invoke(executable)
     }
 
-    override fun setRdfOutputFormat(language: Language?) {
-    }
+    override var rdfOutputFormat: Language? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         classes.xqueryEvaluatorClass

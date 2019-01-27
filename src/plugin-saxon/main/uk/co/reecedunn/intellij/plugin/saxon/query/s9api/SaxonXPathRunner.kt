@@ -34,8 +34,7 @@ internal class SaxonXPathRunner(val processor: Any, val query: String, val class
         classes.xpathExecutableClass.getMethod("load").invoke(executable)
     }
 
-    override fun setRdfOutputFormat(language: Language?) {
-    }
+    override var rdfOutputFormat: Language? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         throw UnsupportedOperationException()

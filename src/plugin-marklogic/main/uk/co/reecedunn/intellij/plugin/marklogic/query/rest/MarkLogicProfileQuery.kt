@@ -38,11 +38,8 @@ internal class MarkLogicProfileQuery(
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
-    private var rdfOutputFormat: String = ""
 
-    override fun setRdfOutputFormat(language: Language?) {
-        rdfOutputFormat = language?.mimeTypes?.get(0) ?: ""
-    }
+    override var rdfOutputFormat: Language? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
@@ -58,7 +55,7 @@ internal class MarkLogicProfileQuery(
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
         params.addProperty("types", types.toString())
-        params.addProperty("rdf-output-format", rdfOutputFormat.toString())
+        params.addProperty("rdf-output-format", rdfOutputFormat?.mimeTypes?.get(0) ?: "")
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()

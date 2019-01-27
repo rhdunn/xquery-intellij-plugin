@@ -19,7 +19,7 @@ import com.intellij.lang.Language
 import java.io.Closeable
 
 interface Query : Closeable {
-    fun setRdfOutputFormat(language: Language?)
+    var rdfOutputFormat: Language?
 
     fun bindVariable(name: String, value: Any?, type: String?)
 

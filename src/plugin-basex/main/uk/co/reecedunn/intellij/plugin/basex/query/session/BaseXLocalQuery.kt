@@ -32,8 +32,7 @@ internal class BaseXLocalQuery(val session: Any, val queryString: String, val cl
             return basexQuery!!
         }
 
-    override fun setRdfOutputFormat(language: Language?) {
-    }
+    override var rdfOutputFormat: Language? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
