@@ -22,6 +22,7 @@ import com.intellij.openapi.ui.*
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageCellRenderer
+import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
@@ -104,7 +105,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
-        queryProcessor!!.childComponent.addActionListener { updateUI() }
+        queryProcessor!!.childComponent.addActionListener { updateUI(false) }
 
         queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
     }
@@ -133,6 +134,11 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         scriptFile = TextFieldWithBrowseButton()
         scriptFile!!.addBrowseFolderListener(null, null, project, descriptor)
+        scriptFile!!.textField.addActionListener {
+            if (languages[0].mimeTypes[0] == "application/sparql-query") {
+                updateUI(true)
+            }
+        }
     }
 
     // endregion
@@ -146,13 +152,18 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         createQueryProcessorUI()
         createRdfOutputFormatUI()
         createScriptFileUI()
-        updateUI()
     }
 
-    private fun updateUI() {
+    private fun updateUI(isSparql: Boolean) {
         val processor = queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings
         rdfOutputFormat!!.isEnabled = processor?.api?.canOutputRdf(null) == true
         updating!!.isEnabled = processor?.api?.canUpdate(languages[0]) == true
+
+        if (isSparql) {
+            val path = scriptFile!!.textField.text
+            val lang = languages.findByAssociations(path) ?: languages[0]
+            updating!!.isSelected = lang.mimeTypes[0] != "application/sparql-query"
+        }
     }
 
     // endregion
@@ -174,6 +185,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
         scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
+        updateUI(languages[0].mimeTypes[0] == "application/sparql-query")
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
