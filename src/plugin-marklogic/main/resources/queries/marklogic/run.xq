@@ -31,6 +31,7 @@ declare option o:implementation "marklogic/6.0";
  : @param $context The context item for XSLT queries.
  : @param $rdf-output-format The mimetype to format sem:triple results as, or "" to leave them as is.
  : @param $updating An updating query if "true", or a non-updating query if "false".
+ : @param $database The name of the database to use, or "" to not use a database.
  :
  : This script has additional logic to map the semantics of the REST/XCC API to
  : the semantics of the API implemented in the xquery-intellij-plugin to support
@@ -55,6 +56,7 @@ declare variable $types as xs:string external;
 declare variable $context as xs:string external := "";
 declare variable $rdf-output-format as xs:string external;
 declare variable $updating as xs:string external;
+declare variable $database as xs:string external;
 
 declare function local:cast-as($value, $type) {
     switch ($type)
@@ -164,9 +166,11 @@ declare function local:rdf-format($mimetype) {
 };
 
 declare function local:eval-options() {
-    <options xmlns="xdmp:eval">
+    let $database := if (string-length($database) = 0) then () else xdmp:database($database)
+    return <options xmlns="xdmp:eval">{
+        if (exists($database)) then <database>{$database}</database> else (),
         <update>{$updating}</update>
-    </options>
+    }</options>
 };
 
 declare function local:error(
