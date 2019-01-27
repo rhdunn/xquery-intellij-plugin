@@ -42,7 +42,17 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
 
     override var rdfOutputFormat: Language? = null
 
-    override var updating: Boolean = false
+    override var updating: Boolean
+        get() {
+            return classes.xqueryCompilerClass
+                .getMethod("isUpdatingEnabled")
+                .invoke(compiler) as Boolean
+        }
+        set(value) {
+            classes.xqueryCompilerClass
+                .getMethod("setUpdatingEnabled", Boolean::class.java)
+                .invoke(compiler, value)
+        }
 
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         classes.xqueryEvaluatorClass
