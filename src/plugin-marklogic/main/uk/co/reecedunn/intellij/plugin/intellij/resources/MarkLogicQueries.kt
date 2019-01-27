@@ -28,5 +28,7 @@ object MarkLogicQueries {
     }
 
     val Run = resourceFile("queries/marklogic/run.xq").decode()!!
+
     val Version = resourceFile("queries/marklogic/version.xq")
+    val Databases = resourceFile("queries/marklogic/databases.xq")
 }

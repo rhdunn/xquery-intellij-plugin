@@ -19,10 +19,7 @@ import com.google.gson.JsonObject
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
-import uk.co.reecedunn.intellij.plugin.core.async.ExecutableOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.cached
-import uk.co.reecedunn.intellij.plugin.core.async.getValue
-import uk.co.reecedunn.intellij.plugin.core.async.local_thread
+import uk.co.reecedunn.intellij.plugin.core.async.*
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.resources.MarkLogicQueries
@@ -37,9 +34,12 @@ internal class MarkLogicQueryProcessor(val baseUri: String, val connection: Http
         }
     }
 
-    override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
-        listOf<String>()
-    }
+    override val databases: ExecutableOnPooledThread<List<String>>
+        get() {
+            return createRunnableQuery(MarkLogicQueries.Databases, XQuery).use { query ->
+                query.run().then { results -> results.map { it.value as String }.toList() }
+            }
+        }
 
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()
