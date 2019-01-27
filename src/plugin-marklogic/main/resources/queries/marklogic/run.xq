@@ -31,6 +31,7 @@ declare option o:implementation "marklogic/6.0";
  : @param $context The context item for XSLT queries.
  : @param $rdf-output-format The mimetype to format sem:triple results as, or "" to leave them as is.
  : @param $updating An updating query if "true", or a non-updating query if "false".
+ : @param $server The name of the server to use, or "" to not use a server.
  : @param $database The name of the database to use, or "" to not use a database.
  :
  : This script has additional logic to map the semantics of the REST/XCC API to
@@ -56,6 +57,7 @@ declare variable $types as xs:string external;
 declare variable $context as xs:string external := "";
 declare variable $rdf-output-format as xs:string external;
 declare variable $updating as xs:string external;
+declare variable $server as xs:string external;
 declare variable $database as xs:string external;
 
 declare function local:cast-as($value, $type) {
@@ -166,9 +168,33 @@ declare function local:rdf-format($mimetype) {
 };
 
 declare function local:eval-options() {
+    let $server := if (string-length($server) = 0) then () else xdmp:server($server)
     let $database := if (string-length($database) = 0) then () else xdmp:database($database)
     return <options xmlns="xdmp:eval">{
-        if (exists($database)) then <database>{$database}</database> else (),
+        if (exists($database)) then
+            <database>{$database}</database>
+        else
+            (),
+        if (exists($server)) then
+            <default-collation>{xdmp:server-collation($server)}</default-collation>
+        else
+            (),
+        if (exists($server)) then
+            <default-coordinate-system>{xdmp:server-coordinate-system($server)}</default-coordinate-system>
+        else
+            (),
+        if (exists($server)) then
+            <default-xquery-version>{xdmp:server-default-xquery-version($server)}</default-xquery-version>
+        else
+            (),
+        if (exists($server)) then
+            <modules>{xdmp:server-modules-database($server)}</modules>
+        else
+            (),
+        if (exists($server)) then
+            <root>{xdmp:server-root($server)}</root>
+        else
+            (),
         <update>{$updating}</update>
     }</options>
 };

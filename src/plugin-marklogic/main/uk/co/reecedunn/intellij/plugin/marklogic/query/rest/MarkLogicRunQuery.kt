@@ -60,6 +60,7 @@ internal class MarkLogicRunQuery(
         params.addProperty("types", types.toString())
         params.addProperty("rdf-output-format", rdfOutputFormat?.mimeTypes?.get(0) ?: "")
         params.addProperty("updating", updating.toString())
+        params.addProperty("server", server)
         params.addProperty("database", database)
 
         builder.addParameter("vars", params.toString())
