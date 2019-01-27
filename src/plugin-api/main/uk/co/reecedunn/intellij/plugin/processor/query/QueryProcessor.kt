@@ -24,6 +24,8 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val version: ExecutableOnPooledThread<String>
 
+    val servers: ExecutableOnPooledThread<List<String>>
+
     val databases: ExecutableOnPooledThread<List<String>>
 
     fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery

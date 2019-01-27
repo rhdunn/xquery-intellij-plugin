@@ -42,6 +42,10 @@ internal class SaxonQueryProcessor(val classes: SaxonClasses, val source: Source
         edition?.let { "$it $version" } ?: version
     }
 
+    override val servers: ExecutableOnPooledThread<List<String>> = local_thread {
+        listOf<String>()
+    }
+
     override val databases: ExecutableOnPooledThread<List<String>> = local_thread {
         listOf<String>()
     }
