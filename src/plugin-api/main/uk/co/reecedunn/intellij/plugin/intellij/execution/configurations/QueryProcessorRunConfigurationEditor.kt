@@ -19,13 +19,13 @@ import com.intellij.lang.Language
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageCellRenderer
 import uk.co.reecedunn.intellij.plugin.core.lang.getAssociations
 import uk.co.reecedunn.intellij.plugin.core.ui.EditableListPanel
 import uk.co.reecedunn.intellij.plugin.core.ui.LabelledDivider
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI
-import uk.co.reecedunn.intellij.plugin.intellij.lang.NTriples
 import uk.co.reecedunn.intellij.plugin.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.QueryProcessorSettingsCellRenderer
@@ -41,11 +41,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private var editor: QueryProcessorRunConfigurationEditorUI? = null
 
     override fun createEditor(): JComponent {
-        editor =
-                QueryProcessorRunConfigurationEditorUI(
-                    project,
-                    language
-                )
+        editor = QueryProcessorRunConfigurationEditorUI(project, language)
         return editor?.panel!!
     }
 
@@ -56,10 +52,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
         editor!!.apply(configuration)
     }
-}
-
-private fun JTextField.textOrNull(): String? {
-    return text?.let { if (it.isEmpty()) null else it }
 }
 
 class QueryProcessorRunConfigurationEditorUI(private val project: Project, private val language: Language) :
@@ -182,7 +174,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
-        configuration.scriptFilePath = scriptFile!!.textField.textOrNull()
+        configuration.scriptFilePath = scriptFile!!.textField.text.nullize()
     }
 
     // endregion
