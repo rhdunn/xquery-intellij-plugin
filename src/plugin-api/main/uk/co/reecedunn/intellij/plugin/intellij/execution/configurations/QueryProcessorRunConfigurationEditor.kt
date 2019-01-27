@@ -60,7 +60,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // region Option :: Query Processor
 
     private var queryProcessor: ComponentWithBrowseButton<JComboBox<QueryProcessorSettings>>? = null
-    private var queryDivider: JPanel? = null
 
     private fun createQueryProcessorUI() {
         val model = DefaultComboBoxModel<QueryProcessorSettings>()
@@ -105,9 +104,10 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         }
 
         queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
-        queryProcessor!!.childComponent.addActionListener { updateUI(false) }
-
-        queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
+        queryProcessor!!.childComponent.addActionListener {
+            updateUI(false)
+            populateDatabaseUI()
+        }
     }
 
     // endregion
@@ -121,6 +121,30 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         rdfOutputFormat!!.addItem(null)
         RDF_FORMATS.forEach { rdfOutputFormat!!.addItem(it) }
+    }
+
+    // endregion
+    // region Option :: Database
+
+    private var database: JComboBox<String>? = null
+
+    private fun createDatabaseUI() {
+        database = ComboBox()
+        database!!.isEditable = true
+
+        database!!.addItem(null)
+    }
+
+    private fun populateDatabaseUI() {
+        val session = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
+        session?.databases?.execute { databases ->
+            val database = database!!
+            val current = database.selectedItem
+            database.removeAllItems()
+            database.addItem(null)
+            databases.forEach { name -> database.addItem(name) }
+            database.selectedItem = current
+        }
     }
 
     // endregion
@@ -144,13 +168,19 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     // endregion
     // region Form
 
+    private var queryDivider: JPanel? = null
+    private var databaseDivider: JPanel? = null
     private var updating: JCheckBox? = null
 
     private fun createUIComponents() {
+        queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
+        databaseDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.database-group.label"))
+
         updating = JCheckBox(PluginApiBundle.message("xquery.configurations.processor.updating.label"))
 
         createQueryProcessorUI()
         createRdfOutputFormatUI()
+        createDatabaseUI()
         createScriptFileUI()
     }
 
@@ -176,6 +206,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
+        if ((database!!.selectedItem as? String) != configuration.database)
+            return true
         if (scriptFile!!.textField.text != configuration.scriptFilePath)
             return true
         return false
@@ -184,13 +216,16 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun reset(configuration: QueryProcessorRunConfiguration) {
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
+        database!!.selectedItem = configuration.database
         scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
+
         updateUI(languages[0].mimeTypes[0] == "application/sparql-query")
     }
 
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
+        configuration.database = database!!.selectedItem as? String
         configuration.scriptFilePath = scriptFile!!.textField.text.nullize()
     }
 

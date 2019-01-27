@@ -39,12 +39,14 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
                 val query = configuration.processor!!.session.createRunnableQuery(source, configuration.language)
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
+                query.database = configuration.database ?: ""
                 RunnableQueryProcessHandler(query)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 val query = configuration.processor!!.session.createProfileableQuery(source, configuration.language)
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
+                query.database = configuration.database ?: ""
                 ProfileableQueryProcessHandler(query)
             }
             else -> throw UnsupportedOperationException()
