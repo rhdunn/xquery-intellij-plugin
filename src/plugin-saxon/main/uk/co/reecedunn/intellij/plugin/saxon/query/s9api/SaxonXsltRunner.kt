@@ -44,6 +44,8 @@ internal class SaxonXsltRunner(val processor: Any, val query: String, val classe
 
     override var updating: Boolean = false
 
+    override var database: String = ""
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         throw UnsupportedOperationException()
     }

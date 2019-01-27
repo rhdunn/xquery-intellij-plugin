@@ -36,6 +36,8 @@ internal class BaseXLocalQuery(val session: Any, val queryString: String, val cl
 
     override var updating: Boolean = false
 
+    override var database: String = ""
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.localQueryClass

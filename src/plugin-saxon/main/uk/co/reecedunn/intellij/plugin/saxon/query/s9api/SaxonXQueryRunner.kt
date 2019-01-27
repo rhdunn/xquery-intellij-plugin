@@ -54,6 +54,8 @@ internal class SaxonXQueryRunner(val processor: Any, val query: String, val clas
                 .invoke(compiler, value)
         }
 
+    override var database: String = ""
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         classes.xqueryEvaluatorClass
             .getMethod("setExternalVariable", classes.qnameClass, classes.xdmValueClass)
