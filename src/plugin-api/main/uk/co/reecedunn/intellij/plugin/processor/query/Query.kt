@@ -21,6 +21,8 @@ import java.io.Closeable
 interface Query : Closeable {
     var rdfOutputFormat: Language?
 
+    var updating: Boolean
+
     fun bindVariable(name: String, value: Any?, type: String?)
 
     fun bindContextItem(value: Any?, type: String?)

@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 internal class EXistDBHttpRequest(val builder: RequestBuilder, val connection: HttpConnection) : RunnableQuery {
     override var rdfOutputFormat: Language? = null
 
+    override var updating: Boolean = false
+
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()
     }

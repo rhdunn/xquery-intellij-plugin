@@ -40,6 +40,8 @@ object MarkLogicRest : QueryProcessorApi {
         return language == null || language.mimeTypes.any { RDF_MIMETYPES.contains(it) }
     }
 
+    override fun canUpdate(language: Language?): Boolean = false
+
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         val profile = executorId == DefaultProfileExecutor.EXECUTOR_ID

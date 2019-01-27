@@ -34,6 +34,8 @@ object BaseXSession : QueryProcessorApi {
 
     override fun canOutputRdf(language: Language?): Boolean = false
 
+    override fun canUpdate(language: Language?): Boolean = false
+
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID
         return when (language) {

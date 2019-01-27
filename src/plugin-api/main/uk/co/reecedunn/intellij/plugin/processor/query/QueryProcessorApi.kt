@@ -35,6 +35,7 @@ interface QueryProcessorApi {
     val canConnect: Boolean
 
     fun canOutputRdf(language: Language?): Boolean
+    fun canUpdate(language: Language?): Boolean
 
     fun canExecute(language: Language, executorId: String): Boolean
 

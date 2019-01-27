@@ -36,6 +36,8 @@ internal class SaxonXPathRunner(val processor: Any, val query: String, val class
 
     override var rdfOutputFormat: Language? = null
 
+    override var updating: Boolean = false
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         throw UnsupportedOperationException()
     }

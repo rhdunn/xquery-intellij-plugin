@@ -33,6 +33,8 @@ internal class BaseXClientQuery(val session: Any, val queryString: String, val c
 
     override var rdfOutputFormat: Language? = null
 
+    override var updating: Boolean = false
+
     override fun bindVariable(name: String, value: Any?, type: String?): Unit = classes.check {
         // BaseX cannot bind to namespaced variables, so only pass the NCName.
         classes.clientQueryClass

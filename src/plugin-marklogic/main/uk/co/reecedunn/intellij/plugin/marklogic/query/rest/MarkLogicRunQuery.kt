@@ -38,6 +38,8 @@ internal class MarkLogicRunQuery(
 
     override var rdfOutputFormat: Language? = null
 
+    override var updating: Boolean = false
+
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
         types.addProperty(name, type)
