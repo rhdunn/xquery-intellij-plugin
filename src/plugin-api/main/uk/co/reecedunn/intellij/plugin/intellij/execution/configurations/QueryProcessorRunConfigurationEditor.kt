@@ -106,6 +106,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         queryProcessor!!.childComponent.renderer = QueryProcessorSettingsCellRenderer()
         queryProcessor!!.childComponent.addActionListener {
             updateUI(false)
+            populateServerUI()
             populateDatabaseUI()
         }
     }
@@ -121,6 +122,30 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         rdfOutputFormat!!.addItem(null)
         RDF_FORMATS.forEach { rdfOutputFormat!!.addItem(it) }
+    }
+
+    // endregion
+    // region Option :: Server
+
+    private var server: JComboBox<String>? = null
+
+    private fun createServerUI() {
+        server = ComboBox()
+        server!!.isEditable = true
+
+        server!!.addItem(null)
+    }
+
+    private fun populateServerUI() {
+        val session = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.session
+        session?.servers?.execute { servers ->
+            val server = server!!
+            val current = server.selectedItem
+            server.removeAllItems()
+            server.addItem(null)
+            servers.forEach { name -> server.addItem(name) }
+            server.selectedItem = current
+        }
     }
 
     // endregion
@@ -180,6 +205,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
 
         createQueryProcessorUI()
         createRdfOutputFormatUI()
+        createServerUI()
         createDatabaseUI()
         createScriptFileUI()
     }
@@ -206,6 +232,8 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if ((rdfOutputFormat!!.selectedItem as? Language)?.id != configuration.rdfOutputFormat?.id)
             return true
+        if ((server!!.selectedItem as? String) != configuration.server)
+            return true
         if ((database!!.selectedItem as? String) != configuration.database)
             return true
         if (scriptFile!!.textField.text != configuration.scriptFilePath)
@@ -216,6 +244,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun reset(configuration: QueryProcessorRunConfiguration) {
         queryProcessor!!.childComponent.selectedItem = configuration.processor
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
+        server!!.selectedItem = configuration.server
         database!!.selectedItem = configuration.database
         scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
 
@@ -225,6 +254,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     override fun apply(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = (queryProcessor!!.childComponent.selectedItem as? QueryProcessorSettings?)?.id
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
+        configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String
         configuration.scriptFilePath = scriptFile!!.textField.text.nullize()
     }

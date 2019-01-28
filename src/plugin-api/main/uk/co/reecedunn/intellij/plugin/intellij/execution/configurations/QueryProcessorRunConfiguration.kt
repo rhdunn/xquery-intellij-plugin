@@ -44,6 +44,7 @@ data class QueryProcessorRunConfigurationData(
     var processorId: Int? = null,
     var rdfOutputFormat: String? = null,
     var updating: Boolean = false,
+    var server: String? = null,
     var database: String? = null,
     var scriptFile: String? = null
 ) : RunConfigurationOptions()
@@ -90,6 +91,12 @@ class QueryProcessorRunConfiguration(
             } else {
                 languages.findByAssociations(scriptFilePath ?: "") ?: languages[0]
             }
+        }
+
+    var server: String?
+        get() = data.server
+        set(value) {
+            data.server = value
         }
 
     var database: String?
