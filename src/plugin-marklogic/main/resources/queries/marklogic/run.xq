@@ -66,6 +66,14 @@ declare function local:nullize($value) {
     if (string-length($value) eq 0) then () else $value
 };
 
+declare function local:version() {
+    substring-before(xdmp:version(), "-") cast as xs:double
+};
+
+declare function local:function($ref as xs:string) {
+    try { xdmp:eval($ref) } catch * { () }
+};
+
 declare function local:cast-as($value, $type) {
     switch ($type)
     case "xs:anyURI" return $value cast as xs:anyURI
@@ -185,8 +193,9 @@ declare function local:eval-options() {
             <default-collation>{xdmp:server-collation($server)}</default-collation>
         else
             (),
-        if (exists($server)) then
-            <default-coordinate-system>{xdmp:server-coordinate-system($server)}</default-coordinate-system>
+        let $server-coordinate-system := local:function("xdmp:server-coordinate-system#1")
+        return if (exists($server) and exists($server-coordinate-system)) then
+            <default-coordinate-system>{$server-coordinate-system($server)}</default-coordinate-system>
         else
             (),
         if (exists($server)) then
@@ -228,14 +237,6 @@ declare function local:error(
             return <dbg:frame><dbg:module line="{$line}" column="{$column + 1}">{$module}</dbg:module></dbg:frame>
         }</dbg:stack>
     </err:error>
-};
-
-declare function local:version() {
-    substring-before(xdmp:version(), "-") cast as xs:double
-};
-
-declare function local:function($ref as xs:string) {
-    try { xdmp:eval($ref) } catch * { () }
 };
 
 declare function local:javascript() as item()* {
