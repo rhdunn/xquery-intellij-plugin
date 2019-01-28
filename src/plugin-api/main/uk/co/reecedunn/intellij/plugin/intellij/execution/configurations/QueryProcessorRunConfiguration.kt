@@ -46,6 +46,7 @@ data class QueryProcessorRunConfigurationData(
     var updating: Boolean = false,
     var server: String? = null,
     var database: String? = null,
+    var modulePath: String? = null,
     var scriptFile: String? = null
 ) : RunConfigurationOptions()
 
@@ -103,6 +104,12 @@ class QueryProcessorRunConfiguration(
         get() = data.database
         set(value) {
             data.database = value
+        }
+
+    var modulePath: String?
+        get() = data.modulePath
+        set(value) {
+            data.modulePath = value
         }
 
     var scriptFilePath: String?
