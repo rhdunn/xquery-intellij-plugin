@@ -33,6 +33,7 @@ declare option o:implementation "marklogic/6.0";
  : @param $updating An updating query if "true", or a non-updating query if "false".
  : @param $server The name of the server to use, or "" to not use a server.
  : @param $database The name of the database to use, or "" to not use a database.
+ : @param $module-root The path to the server modules, or "" to use the default server value.
  :
  : This script has additional logic to map the semantics of the REST/XCC API to
  : the semantics of the API implemented in the xquery-intellij-plugin to support
@@ -59,6 +60,11 @@ declare variable $rdf-output-format as xs:string external;
 declare variable $updating as xs:string external;
 declare variable $server as xs:string external;
 declare variable $database as xs:string external;
+declare variable $module-root as xs:string external;
+
+declare function local:nullize($value) {
+    if (string-length($value) eq 0) then () else $value
+};
 
 declare function local:cast-as($value, $type) {
     switch ($type)
@@ -168,8 +174,8 @@ declare function local:rdf-format($mimetype) {
 };
 
 declare function local:eval-options() {
-    let $server := if (string-length($server) = 0) then () else xdmp:server($server)
-    let $database := if (string-length($database) = 0) then () else xdmp:database($database)
+    let $server := local:nullize($server)
+    let $database := local:nullize($database)
     return <options xmlns="xdmp:eval">{
         if (exists($database)) then
             <database>{$database}</database>
@@ -190,9 +196,9 @@ declare function local:eval-options() {
         if (exists($server)) then
             <modules>{xdmp:server-modules-database($server)}</modules>
         else
-            (),
-        if (exists($server)) then
-            <root>{xdmp:server-root($server)}</root>
+            <modules>0</modules> (: file system :),
+        if (exists($server) or string-length($module-root) ne 0) then
+            <root>{(local:nullize($module-root), xdmp:server-root($server))[1]}</root>
         else
             (),
         <update>{$updating}</update>

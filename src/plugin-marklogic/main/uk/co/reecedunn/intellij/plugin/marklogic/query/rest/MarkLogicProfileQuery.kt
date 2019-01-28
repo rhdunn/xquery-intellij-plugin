@@ -67,6 +67,7 @@ internal class MarkLogicProfileQuery(
         params.addProperty("updating", updating.toString())
         params.addProperty("server", server)
         params.addProperty("database", database)
+        params.addProperty("module-root", moduleRoot)
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()
