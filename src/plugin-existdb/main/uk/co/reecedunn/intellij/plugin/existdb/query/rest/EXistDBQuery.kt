@@ -38,7 +38,7 @@ internal class EXistDBQuery(val builder: RequestBuilder, val connection: HttpCon
 
     override var database: String = ""
 
-    override var moduleRoot: String = ""
+    override var modulePath: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         throw UnsupportedOperationException()

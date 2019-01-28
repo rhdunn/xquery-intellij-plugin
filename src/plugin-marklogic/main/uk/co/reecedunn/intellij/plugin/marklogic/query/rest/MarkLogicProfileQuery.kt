@@ -24,9 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.pooled_thread
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResult
-import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
 internal class MarkLogicProfileQuery(
@@ -47,7 +45,7 @@ internal class MarkLogicProfileQuery(
 
     override var database: String = ""
 
-    override var moduleRoot: String = ""
+    override var modulePath: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
@@ -67,7 +65,7 @@ internal class MarkLogicProfileQuery(
         params.addProperty("updating", updating.toString())
         params.addProperty("server", server)
         params.addProperty("database", database)
-        params.addProperty("module-root", moduleRoot)
+        params.addProperty("module-root", modulePath)
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()

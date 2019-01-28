@@ -44,7 +44,7 @@ internal class MarkLogicRunQuery(
 
     override var database: String = ""
 
-    override var moduleRoot: String = ""
+    override var modulePath: String = ""
 
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
@@ -64,7 +64,7 @@ internal class MarkLogicRunQuery(
         params.addProperty("updating", updating.toString())
         params.addProperty("server", server)
         params.addProperty("database", database)
-        params.addProperty("module-root", moduleRoot)
+        params.addProperty("module-root", modulePath)
 
         builder.addParameter("vars", params.toString())
         val request = builder.build()
