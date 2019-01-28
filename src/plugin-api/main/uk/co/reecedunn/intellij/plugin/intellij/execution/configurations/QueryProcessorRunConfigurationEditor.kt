@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.intellij.execution.configurations
 
 import com.intellij.lang.Language
+import com.intellij.openapi.fileChooser.FileChooserDescriptor
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
@@ -149,6 +151,19 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     }
 
     // endregion
+    // region Option :: Module Path
+
+    private var modulePath: TextFieldWithBrowseButton? = null
+
+    private fun createModulePathUI() {
+        val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+        descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+
+        modulePath = TextFieldWithBrowseButton()
+        modulePath!!.addBrowseFolderListener(null, null, project, descriptor)
+    }
+
+    // endregion
     // region Option :: Database
 
     private var database: JComboBox<String>? = null
@@ -197,7 +212,6 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
     private var databaseDivider: JPanel? = null
 
     private var updating: JCheckBox? = null
-    private var modulePath: JTextField? = null
 
     private fun createUIComponents() {
         queryDivider = LabelledDivider(PluginApiBundle.message("xquery.configurations.processor.query-group.label"))
@@ -208,6 +222,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         createQueryProcessorUI()
         createRdfOutputFormatUI()
         createServerUI()
+        createModulePathUI()
         createDatabaseUI()
         createScriptFileUI()
     }
@@ -238,7 +253,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
             return true
         if ((database!!.selectedItem as? String) != configuration.database)
             return true
-        if (modulePath!!.text.nullize() != configuration.modulePath)
+        if (modulePath!!.textField.text.nullize() != configuration.modulePath)
             return true
         if (scriptFile!!.textField.text != configuration.scriptFilePath)
             return true
@@ -250,7 +265,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         rdfOutputFormat!!.selectedItem = configuration.rdfOutputFormat
         server!!.selectedItem = configuration.server
         database!!.selectedItem = configuration.database
-        modulePath!!.text = configuration.modulePath
+        modulePath!!.textField.text = configuration.modulePath ?: ""
         scriptFile!!.textField.text = configuration.scriptFilePath ?: ""
 
         updateUI(languages[0].mimeTypes[0] == "application/sparql-query")
@@ -261,7 +276,7 @@ class QueryProcessorRunConfigurationEditorUI(private val project: Project, priva
         configuration.rdfOutputFormat = rdfOutputFormat!!.selectedItem as? Language
         configuration.server = server!!.selectedItem as? String
         configuration.database = database!!.selectedItem as? String
-        configuration.modulePath = modulePath!!.text.nullize()
+        configuration.modulePath = modulePath!!.textField.text.nullize()
         configuration.scriptFilePath = scriptFile!!.textField.text.nullize()
     }
 
