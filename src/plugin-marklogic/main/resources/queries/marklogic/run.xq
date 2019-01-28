@@ -182,8 +182,8 @@ declare function local:rdf-format($mimetype) {
 };
 
 declare function local:eval-options() {
-    let $server := local:nullize($server)
-    let $database := local:nullize($database)
+    let $server := local:nullize($server) ! xdmp:server(.)
+    let $database := local:nullize($database) ! xdmp:database(.)
     return <options xmlns="xdmp:eval">{
         if (exists($database)) then
             <database>{$database}</database>
