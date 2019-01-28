@@ -40,6 +40,8 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
                 query.database = configuration.database ?: ""
+                query.server = configuration.server ?: ""
+                query.moduleRoot = configuration.modulePath ?: ""
                 RunnableQueryProcessHandler(query)
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
@@ -47,6 +49,8 @@ class QueryProcessorRunState(environment: ExecutionEnvironment?) : CommandLineSt
                 query.rdfOutputFormat = configuration.rdfOutputFormat
                 query.updating = configuration.updating
                 query.database = configuration.database ?: ""
+                query.server = configuration.server ?: ""
+                query.moduleRoot = configuration.modulePath ?: ""
                 ProfileableQueryProcessHandler(query)
             }
             else -> throw UnsupportedOperationException()
