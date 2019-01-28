@@ -27,6 +27,8 @@ interface Query : Closeable {
 
     var database: String
 
+    var moduleRoot: String
+
     fun bindVariable(name: String, value: Any?, type: String?)
 
     fun bindContextItem(value: Any?, type: String?)

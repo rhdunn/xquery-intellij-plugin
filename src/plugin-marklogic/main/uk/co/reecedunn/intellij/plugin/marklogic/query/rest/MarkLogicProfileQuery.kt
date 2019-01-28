@@ -47,6 +47,8 @@ internal class MarkLogicProfileQuery(
 
     override var database: String = ""
 
+    override var moduleRoot: String = ""
+
     override fun bindVariable(name: String, value: Any?, type: String?) {
         variables.addProperty(name, value as String? ?: "")
         types.addProperty(name, type)
