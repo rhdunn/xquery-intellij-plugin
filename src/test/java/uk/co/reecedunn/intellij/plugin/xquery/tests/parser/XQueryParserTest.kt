@@ -7049,37 +7049,43 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: SimpleMapExpr
 
-    @Test
-    fun testSimpleMapExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (106) SimpleMapExpr")
+    internal inner class SimpleMapExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing PathExpr")
+        fun missingPathExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr_MissingPathExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr_MissingPathExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testSimpleMapExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSimpleMapExpr_MissingPathExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr_MissingPathExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr_MissingPathExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSimpleMapExpr_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/SimpleMapExpr_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/SimpleMapExpr_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: ForwardStep
 
     @Test

@@ -3042,6 +3042,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.0 EBNF (34) SimpleMapExpr")
+    internal inner class SimpleMapExpr {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xpath-3.0/SimpleMapExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/SimpleMapExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/SimpleMapExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/SimpleMapExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing PathExpr")
+        fun missingPathExpr() {
+            val expected = loadResource("tests/parser/xpath-3.0/SimpleMapExpr_MissingPathExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/SimpleMapExpr_MissingPathExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-3.0/SimpleMapExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/SimpleMapExpr_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.0 EBNF (45) NodeTest ; XPath 3.0 EBNF (71) KindTest")
     internal inner class NodeTest_XPath30 {
         @Nested

@@ -3414,33 +3414,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parsePathExpr(builder, type)) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveSimpleMapExpr = false
-            while (builder.matchTokenType(XPathTokenType.MAP_OPERATOR)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parsePathExpr(builder, null) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "PathExpr"))
-                    haveErrors = true
-                }
-                parseWhiteSpaceAndCommentTokens(builder)
-                haveSimpleMapExpr = true
-            }
-
-            if (haveSimpleMapExpr)
-                marker.done(XPathElementType.SIMPLE_MAP_EXPR)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 

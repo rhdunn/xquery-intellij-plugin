@@ -834,10 +834,37 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
     open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parsePathExpr(builder, type)
+        return parseSimpleMapExpr(builder, type)
     }
 
-    fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parsePathExpr(builder, type)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            var haveSimpleMapExpr = false
+            while (builder.matchTokenType(XPathTokenType.MAP_OPERATOR)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parsePathExpr(builder, null) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "PathExpr"))
+                    haveErrors = true
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+                haveSimpleMapExpr = true
+            }
+
+            if (haveSimpleMapExpr)
+                marker.done(XPathElementType.SIMPLE_MAP_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         when {
             builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) -> {

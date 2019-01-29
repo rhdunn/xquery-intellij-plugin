@@ -1,0 +1,6 @@
+XPathImpl[FILE(0:3)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:3)]
+      XPathSimpleMapExprImpl[XPATH_SIMPLE_MAP_EXPR(0:3)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+         LeafPsiElement[XPATH_MAP_OPERATOR_TOKEN(1:2)]('!')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('2')
