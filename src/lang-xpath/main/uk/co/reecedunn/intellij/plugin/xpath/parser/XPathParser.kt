@@ -242,6 +242,48 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
+    // region Grammar :: Expr :: LetExpr
+
+    open fun parseLetBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        val marker = builder.mark()
+
+        var haveErrors = false
+        val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
+        if (!matched) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+            haveErrors = true
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.errorOnTokenType(XPathTokenType.EQUAL, XPathBundle.message("parser.error.expected", ":="))) {
+                haveErrors = true
+            } else if (!builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ":="))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XPathElementType.SIMPLE_LET_BINDING)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    // endregion
     // region Grammar :: Expr :: QuantifiedExpr
 
     fun parseQuantifiedExpr(builder: PsiBuilder): Boolean {
