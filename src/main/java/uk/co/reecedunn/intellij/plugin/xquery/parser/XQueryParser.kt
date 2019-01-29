@@ -1694,27 +1694,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: FLWORExpr :: LetClause
 
-    private fun parseLetClause(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.K_LET)) {
-            var isFirst = true
-            do {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseLetBinding(builder, isFirst) && isFirst) {
-                    marker.rollbackTo()
-                    return false
-                }
-
-                isFirst = false
-                parseWhiteSpaceAndCommentTokens(builder)
-            } while (builder.matchTokenType(XPathTokenType.COMMA))
-
-            marker.done(XQueryElementType.LET_CLAUSE)
-            return true
-        }
-        marker.drop()
-        return false
-    }
+    override val LET_CLAUSE: IElementType = XQueryElementType.LET_CLAUSE
 
     override fun parseLetBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()

@@ -244,6 +244,30 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: LetExpr
 
+    open val LET_CLAUSE: IElementType = XPathElementType.SIMPLE_LET_CLAUSE
+
+    fun parseLetClause(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.K_LET)) {
+            var isFirst = true
+            do {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseLetBinding(builder, isFirst) && isFirst) {
+                    marker.rollbackTo()
+                    return false
+                }
+
+                isFirst = false
+                parseWhiteSpaceAndCommentTokens(builder)
+            } while (builder.matchTokenType(XPathTokenType.COMMA))
+
+            marker.done(LET_CLAUSE)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
     open fun parseLetBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
