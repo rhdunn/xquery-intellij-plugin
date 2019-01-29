@@ -1448,6 +1448,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("multiple LetClause")
+        fun letClause_multiple() {
+            val expected = loadResource("tests/parser/xquery-1.0/LetClause_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
@@ -1614,107 +1622,126 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 1.0 :: LetClause
+    @Nested
+    @DisplayName("XQuery 1.0 EBNF (33) FLWORExpr ; XQuery 1.0 EBNF (36) LetClause")
+    internal inner class LetClause {
+        @Nested
+        @DisplayName("single LetBinding")
+        internal inner class SingleLetBinding {
+            @Test
+            @DisplayName("single binding")
+            fun single() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
 
-    @Test
-    fun testLetClause() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+            @Test
+            @DisplayName("single binding; compact whitespace")
+            fun single_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing VarName")
+            fun missingVarName() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarName.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: '=' instead of ':='")
+            fun equal() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_Equal.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_Equal.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable assignment operator")
+            fun missingVarAssignOperator() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable assignment ExprSingle")
+            fun missingVarAssignExpr() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignExpr.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'return' keyword")
+            fun missingReturnKeyword() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingReturnKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingReturnKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'return' ExprSingle")
+            fun missingReturnExpr() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingReturnExpr.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingReturnExpr.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("multiple LetBindings")
+        internal inner class MultipleLetBindings {
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple; compact whitespace")
+            fun multiple_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable indicator")
+            fun missingVarIndicator() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (118) TypeDeclaration")
+        internal inner class TypeDeclaration {
+            @Test
+            @DisplayName("type declaration")
+            fun typeDeclaration() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing variable indicator")
+            fun missingVarIndicator() {
+                val expected = loadResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration_MissingVarIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration_MissingVarIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    @Test
-    fun testLetClause_MissingVarName() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_Equal() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_Equal.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_Equal.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MissingVarAssignOperator() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MissingVarAssignExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MissingReturnKeyword() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingReturnKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingReturnKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MissingReturnExpr() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingReturnExpr.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingReturnExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_TypeDeclaration() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_TypeDeclaration_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MultipleVarName() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MultipleVarName_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_MultipleVarName_MissingVarIndicator() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLetClause_Multiple() {
-        val expected = loadResource("tests/parser/xquery-1.0/LetClause_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 1.0 :: WhereClause
 
     @Test

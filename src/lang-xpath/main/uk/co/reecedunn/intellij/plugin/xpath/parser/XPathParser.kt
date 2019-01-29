@@ -121,6 +121,7 @@ open class XPathParser : PsiParser {
     open fun parseExprSingle(builder: PsiBuilder): Boolean {
         return (
             parseForExpr(builder) ||
+            parseLetExpr(builder) ||
             parseQuantifiedExpr(builder) ||
             parseIfExpr(builder) ||
             parseOrExpr(builder, null)
@@ -245,6 +246,23 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: LetExpr
 
     open val LET_CLAUSE: IElementType = XPathElementType.SIMPLE_LET_CLAUSE
+
+    private fun parseLetExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseLetClause(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseReturnClause(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
+                parseWhiteSpaceAndCommentTokens(builder)
+                parseExprSingle(builder)
+            }
+
+            marker.done(XPathElementType.LET_EXPR)
+            return true
+        }
+        marker.drop()
+        return false
+    }
 
     fun parseLetClause(builder: PsiBuilder): Boolean {
         val marker = builder.mark()

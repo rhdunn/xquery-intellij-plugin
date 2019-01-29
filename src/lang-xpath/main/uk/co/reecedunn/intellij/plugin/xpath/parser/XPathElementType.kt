@@ -369,6 +369,12 @@ object XPathElementType {
         XPath
     )
 
+    val LET_EXPR: IElementType = ICompositeElementType(
+        "XPATH_LET_EXPR",
+        XPathLetExprPsiImpl::class.java,
+        XPath
+    )
+
     val SIMPLE_LET_CLAUSE: IElementType = ICompositeElementType(
         "XPATH_SIMPLE_LET_CLAUSE",
         XPathSimpleLetClausePsiImpl::class.java,
