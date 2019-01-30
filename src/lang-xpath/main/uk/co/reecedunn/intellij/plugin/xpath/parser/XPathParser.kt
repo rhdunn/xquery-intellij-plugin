@@ -1299,6 +1299,20 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
+    // region Grammar :: TypeDeclaration
+
+    fun parseTypeDeclaration(builder: PsiBuilder): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_AS)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseSequenceType(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+            }
+            return true
+        }
+        return false
+    }
+
+    // endregion
     // region Grammar :: TypeDeclaration :: SequenceType
 
     open fun parseSequenceType(builder: PsiBuilder): Boolean {
