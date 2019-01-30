@@ -3162,6 +3162,42 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.0 EBNF (48) PostfixExpr; XPath 3.0 EBNF (49) ArgumentList")
+    internal inner class PostfixExpr_ArgumentList {
+        @Test
+        @DisplayName("argument list")
+        fun argumentList() {
+            val expected = loadResource("tests/parser/xpath-3.0/PostfixExpr_ArgumentList.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/PostfixExpr_ArgumentList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("argument list; compact whitespace")
+        fun argumentList_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/PostfixExpr_ArgumentList_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/PostfixExpr_ArgumentList_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed")
+        fun mixed() {
+            val expected = loadResource("tests/parser/xpath-3.0/PostfixExpr_Mixed.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/PostfixExpr_Mixed.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed; compact whitespace")
+        fun mixed_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/PostfixExpr_Mixed_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/PostfixExpr_Mixed_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.0 EBNF (59) FunctionCall ; XPath 3.0 EBNF (49) ArgumentList")
     internal inner class FunctionCall_XPath30 {
         @Test
@@ -3200,7 +3236,6 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
-
 
     @Nested
     @DisplayName("XPath 3.0 EBNF (64) InlineFunctionExpr")

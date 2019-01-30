@@ -1188,7 +1188,7 @@ open class XPathParser : PsiParser {
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var havePostfixExpr = false
-            while (parsePredicate(builder)) {
+            while (parsePredicate(builder) || parseArgumentList(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 havePostfixExpr = true
             }

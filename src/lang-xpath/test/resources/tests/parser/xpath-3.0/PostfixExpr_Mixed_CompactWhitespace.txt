@@ -1,0 +1,24 @@
+XPathImpl[FILE(0:10)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:10)]
+      XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:10)]
+         XPathVarRefImpl[XPATH_VAR_REF(0:2)]
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+            XPathVarNameImpl[XPATH_VAR_NAME(1:2)]
+               XPathNCNameImpl[XPATH_NCNAME(1:2)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('f')
+         XPathPredicateImpl[XPATH_PREDICATE(2:5)]
+            LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(2:3)]('[')
+            XPathExprImpl[XPATH_EXPR(3:4)]
+               XPathOrExprImpl[XPATH_OR_EXPR(3:4)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
+            LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(4:5)](']')
+         XPathArgumentListImpl[XPATH_ARGUMENT_LIST(5:10)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
+            XPathArgumentImpl[XPATH_ARGUMENT(6:7)]
+               XPathOrExprImpl[XPATH_OR_EXPR(6:7)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('1')
+            LeafPsiElement[XPATH_COMMA_TOKEN(7:8)](',')
+            XPathArgumentImpl[XPATH_ARGUMENT(8:9)]
+               XPathOrExprImpl[XPATH_OR_EXPR(8:9)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('2')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(9:10)](')')
