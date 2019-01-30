@@ -93,7 +93,28 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: ParamList
 
-    fun parseParam(builder: PsiBuilder): Boolean {
+    fun parseParamList(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+
+        while (parseParam(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.tokenType === XPathTokenType.VARIABLE_INDICATOR) {
+                builder.error(XPathBundle.message("parser.error.expected", ","))
+            } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
+                builder.matchTokenType(XPathTokenType.ELLIPSIS)
+
+                marker.done(XPathElementType.PARAM_LIST)
+                return true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseParam(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens(builder)
