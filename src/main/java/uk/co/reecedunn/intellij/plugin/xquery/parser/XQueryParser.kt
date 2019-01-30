@@ -1151,34 +1151,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseParam(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseTypeDeclaration(builder)
-
-            marker.done(XPathElementType.PARAM)
-            return true
-        } else if (builder.tokenType === XPathTokenType.NCNAME || builder.tokenType is IKeywordOrNCNameType || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
-            builder.error(XPathBundle.message("parser.error.expected", "$"))
-            parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseTypeDeclaration(builder)
-
-            marker.done(XPathElementType.PARAM)
-            return true
-        }
-
-        marker.drop()
-        return false
-    }
-
     private fun parseOptionDecl(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XQueryTokenType.K_OPTION)) {
             var haveErrors = false

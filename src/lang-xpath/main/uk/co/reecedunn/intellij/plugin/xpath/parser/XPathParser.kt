@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
@@ -86,6 +87,37 @@ open class XPathParser : PsiParser {
         if (isFirst) {
             builder.error(XPathBundle.message("parser.error.expected-expression"))
         }
+        return false
+    }
+
+    // endregion
+    // region Grammar :: ParamList
+
+    fun parseParam(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEQNameOrWildcard(builder, QNAME, false)) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseTypeDeclaration(builder)
+
+            marker.done(XPathElementType.PARAM)
+            return true
+        } else if (builder.tokenType === XPathTokenType.NCNAME || builder.tokenType is IKeywordOrNCNameType || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+            parseEQNameOrWildcard(builder, QNAME, false)
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseTypeDeclaration(builder)
+
+            marker.done(XPathElementType.PARAM)
+            return true
+        }
+
+        marker.drop()
         return false
     }
 
