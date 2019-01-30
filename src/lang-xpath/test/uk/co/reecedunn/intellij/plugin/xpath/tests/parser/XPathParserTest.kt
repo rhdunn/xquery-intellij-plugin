@@ -3304,4 +3304,121 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (90) FunctionTest")
+    internal inner class FunctionTest {
+        @Nested
+        @DisplayName("XPath 3.0 EBNF (91) AnyFunctionTest")
+        internal inner class AnyFunctionTest {
+            @Test
+            @DisplayName("any function test")
+            fun anyFunctionTest() {
+                val expected = loadResource("tests/parser/xpath-3.0/AnyFunctionTest.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/AnyFunctionTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any function test; compact whitespace")
+            fun anyFunctionTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-3.0/AnyFunctionTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/AnyFunctionTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-3.0/AnyFunctionTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/AnyFunctionTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: unexpected return type")
+            fun unexpectedReturnType() {
+                val expected = loadResource("tests/parser/xpath-3.0/AnyFunctionTest_UnexpectedReturnType.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/AnyFunctionTest_UnexpectedReturnType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.0 EBNF (92) TypedFunctionTest")
+        internal inner class TypedFunctionTest {
+            @Test
+            @DisplayName("single parameter")
+            fun singleParameter() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("single parameter; compact whitespace")
+            fun singleParameter_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple parameters")
+            fun multipleParameters() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_Multiple.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple parameters; compact whitespace")
+            fun multipleParameters_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_Multiple_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_Multiple_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: multiple parameters; missing SequenceType")
+            fun multipleParameters_MissingSequenceType() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_Multiple_MissingSequenceType.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_Multiple_MissingSequenceType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple parameters with OccurrenceIndicator")
+            fun multipleParametersWithOccurenceIndicator() {
+                // This is testing handling of whitespace before parsing the next comma.
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing return type")
+            fun missingReturnType() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_MissingReturnType.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_MissingReturnType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing SequnceType from the return type")
+            fun returnType_MissingSequenceType() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_MissingReturnType_MissingSequenceType.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_MissingReturnType_MissingSequenceType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty parameter list")
+            fun emptyParameterList() {
+                val expected = loadResource("tests/parser/xpath-3.0/TypedFunctionTest_EmptyTypeList.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/TypedFunctionTest_EmptyTypeList.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
 }

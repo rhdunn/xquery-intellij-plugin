@@ -5319,11 +5319,6 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: TypeDeclaration :: ItemType
 
-    private enum class KindTest {
-        ANY_TEST,
-        TYPED_TEST,
-    }
-
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseItemType(builder: PsiBuilder): Boolean {
         return (
@@ -5468,7 +5463,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseAnnotatedFunctionOrSequence(builder: PsiBuilder): Boolean {
+    override fun parseAnnotatedFunctionOrSequence(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
         var haveAnnotations = false
@@ -5498,68 +5493,6 @@ class XQueryParser : XPathParser() {
         }
 
         marker.drop()
-        return false
-    }
-
-    private fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
-        if (marker != null) {
-            var type: KindTest = KindTest.ANY_TEST
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.STAR)) {
-                //
-            } else if (parseSequenceType(builder)) {
-                type = KindTest.TYPED_TEST
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseSequenceType(builder) && !haveErrors) {
-                        builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                        haveErrors = true
-                    }
-                    parseWhiteSpaceAndCommentTokens(builder)
-                }
-            } else {
-                type = KindTest.TYPED_TEST
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.tokenType === XPathTokenType.K_AS) {
-                if (type === KindTest.ANY_TEST && !haveErrors) {
-                    val errorMarker = builder.mark()
-                    builder.advanceLexer()
-                    errorMarker.error(XQueryBundle.message("parser.error.as-not-supported-in-test", "AnyFunctionTest"))
-                    haveErrors = true
-                } else {
-                    builder.advanceLexer()
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                }
-            } else if (type === KindTest.TYPED_TEST) {
-                builder.error(XPathBundle.message("parser.error.expected", "as"))
-            }
-
-            marker.drop()
-            return true
-        }
         return false
     }
 

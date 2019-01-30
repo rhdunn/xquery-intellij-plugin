@@ -1,16 +1,16 @@
-XQueryModuleImpl[FILE(0:47)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:47)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:47)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:47)]
-            XPathOrExprImpl[XPATH_OR_EXPR(0:47)]
-               XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:47)]
+XQueryModuleImpl[FILE(0:35)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:35)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:35)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:35)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:35)]
+               XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:35)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('5')
                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
                   PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(14:47)]
+                  XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(14:35)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(14:22)]('function')
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(23:24)]('(')
@@ -23,12 +23,4 @@ XQueryModuleImpl[FILE(0:47)]
                         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(34:35)](')')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(36:38)]('as')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                     PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(39:47)]
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(39:43)]('item')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                        LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                        LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(46:47)](')')
+                     PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Expected 'as'.')

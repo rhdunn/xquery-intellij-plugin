@@ -1,0 +1,27 @@
+XPathImpl[FILE(0:40)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:40)]
+      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:40)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('5')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         XPathFunctionTestImpl[XPATH_FUNCTION_TEST(14:40)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(14:22)]('function')
+            PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(23:24)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+            PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(25:26)]('*')
+            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(29:31)]('XPST0003: Return type specifiers not supported in 'AnyFunctionTest'.')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(29:31)]('as')
+            PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+            PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(32:40)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(32:36)]('item')
+               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(39:40)](')')

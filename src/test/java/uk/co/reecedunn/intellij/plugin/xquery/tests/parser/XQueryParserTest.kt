@@ -7528,156 +7528,175 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.0 :: FunctionTest
 
-    @Test
-    fun testFunctionTest() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (191) FunctionTest")
+    internal inner class FunctionTest {
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (27) Annotation")
+        internal inner class Annotation {
+            @Test
+            @DisplayName("single annotation")
+            fun singleAnnotation() {
+                val expected = loadResource("tests/parser/xquery-3.0/FunctionTest.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FunctionTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("single annotation; compact whitespace")
+            fun singleAnnotation_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple annotations")
+            fun multipleAnnotations() {
+                val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple annotations; compact whitespace")
+            fun multipleAnnotations_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("typed function with annotations")
+            fun typedFunctionWithAnnotations() {
+                val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'function' keyword")
+            fun missingFunctionKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MissingFunctionKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MissingFunctionKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (192) AnyFunctionTest")
+        internal inner class AnyFunctionTest {
+            @Test
+            @DisplayName("any function test")
+            fun anyFunctionTest() {
+                val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("any function test; compact whitespace")
+            fun anyFunctionTest_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: unexpected return type")
+            fun unexpectedReturnType() {
+                val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_UnexpectedReturnType.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_UnexpectedReturnType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (193) TypedFunctionTest")
+        internal inner class TypedFunctionTest {
+            @Test
+            @DisplayName("single parameter")
+            fun singleParameter() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("single parameter; compact whitespace")
+            fun singleParameter_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple parameters")
+            fun multipleParameters() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple parameters; compact whitespace")
+            fun multipleParameters_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_CompactWhitespace.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: multiple parameters; missing SequenceType")
+            fun multipleParameters_MissingSequenceType() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_MissingSequenceType.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_MissingSequenceType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple parameters with OccurrenceIndicator")
+            fun multipleParametersWithOccurenceIndicator() {
+                // This is testing handling of whitespace before parsing the next comma.
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing return type")
+            fun missingReturnType() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_MissingReturnType.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_MissingReturnType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing SequnceType from the return type")
+            fun returnType_MissingSequenceType() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_MissingReturnType_MissingSequenceType.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_MissingReturnType_MissingSequenceType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("empty parameter list")
+            fun emptyParameterList() {
+                val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_EmptyTypeList.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_EmptyTypeList.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
-
-    @Test
-    fun testFunctionTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionTest_MultipleAnnotations() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionTest_MultipleAnnotations_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionTest_TypedFunctionWithAnnotations() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_TypedFunctionWithAnnotations.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testFunctionTest_MissingFunctionKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MissingFunctionKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MissingFunctionKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: AnyFunctionTest
-
-    @Test
-    fun testAnyFunctionTest() {
-        val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyFunctionTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyFunctionTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyFunctionTest_UnexpectedReturnType() {
-        val expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_UnexpectedReturnType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_UnexpectedReturnType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TypedFunctionTest
-
-    @Test
-    fun testTypedFunctionTest() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_Multiple_MissingSequenceType() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_MissingSequenceType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_MissingSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_MultipleWithOccurenceIndicator() {
-        // This is testing handling of whitespace before parsing the next comma.
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_ReturnType() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_ReturnType_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_ReturnType_MissingSequenceType() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_MissingSequenceType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_MissingSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedFunctionTest_EmptyTypeList() {
-        val expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_EmptyTypeList.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_EmptyTypeList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
