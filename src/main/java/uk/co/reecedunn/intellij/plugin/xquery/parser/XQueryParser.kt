@@ -3514,7 +3514,7 @@ class XQueryParser : XPathParser() {
         )
     }
 
-    private fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
+    override fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
         var haveAnnotations = false

@@ -1,0 +1,16 @@
+XPathImpl[FILE(0:16)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:16)]
+      XPathInlineFunctionExprImpl[XPATH_INLINE_FUNCTION_EXPR(0:16)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
+         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected ')'.')
+         XPathFunctionBodyImpl[XPATH_FUNCTION_BODY(11:16)]
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(11:12)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+            XPathExprImpl[XPATH_EXPR(13:15)]
+               XPathOrExprImpl[XPATH_OR_EXPR(13:15)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(15:16)]('}')

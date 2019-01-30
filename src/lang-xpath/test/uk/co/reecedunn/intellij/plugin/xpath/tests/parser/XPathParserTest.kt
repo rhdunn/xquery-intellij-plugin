@@ -3174,7 +3174,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.0 EBNF (64) NamedFunctionRef")
+    @DisplayName("XPath 3.0 EBNF (63) NamedFunctionRef")
     internal inner class NamedFunctionRef {
         @Test
         @DisplayName("named function reference")
@@ -3197,6 +3197,75 @@ private class XPathParserTest : ParserTestCase() {
         fun missingArity() {
             val expected = loadResource("tests/parser/xpath-3.0/NamedFunctionRef_MissingArity.txt")
             val actual = parseResource("tests/parser/xpath-3.0/NamedFunctionRef_MissingArity.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (64) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr {
+        @Test
+        @DisplayName("inline function expression")
+        fun inlineFunctionExpr() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("inline function expression; compact whitespace")
+        fun inlineFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing opening brace")
+        fun missingOpeningBrace() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_MissingOpeningBrace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_MissingOpeningBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing function body")
+        fun missingFunctionBody() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_MissingFunctionBody.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_MissingFunctionBody.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter list")
+        fun paramList() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_ParamList.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_ParamList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("return type")
+        fun returnType() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_ReturnType.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_ReturnType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("return type; missing SequenceType")
+        fun returnType_MissingSequenceType() {
+            val expected = loadResource("tests/parser/xpath-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

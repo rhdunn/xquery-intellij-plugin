@@ -7319,7 +7319,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.0 EBNF (106) NamedFunctionRef")
+    @DisplayName("XQuery 3.0 EBNF (164) NamedFunctionRef")
     internal inner class NamedFunctionRef {
         @Test
         @DisplayName("named function reference")
@@ -7346,93 +7346,110 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.0 :: InlineFunctionExpr
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (165) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr {
+        @Test
+        @DisplayName("inline function expression")
+        fun inlineFunctionExpr() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testInlineFunctionExpr() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("inline function expression; compact whitespace")
+        fun inlineFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing opening brace")
+        fun missingOpeningBrace() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingOpeningBrace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingOpeningBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing function body")
+        fun missingFunctionBody() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingFunctionBody.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingFunctionBody.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter list")
+        fun paramList() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ParamList.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ParamList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("return type")
+        fun returnType() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("return type; missing SequenceType")
+        fun returnType_MissingSequenceType() {
+            val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.0 EBNF (27) Annotation")
+        internal inner class Annotation {
+            @Test
+            @DisplayName("single")
+            fun single() {
+                val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_Multiple.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing 'function' keyword")
+            fun missingFunctionKeyword() {
+                val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: missing opening parenthesis")
+            fun missingOpeningParenthesis() {
+                val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingOpeningParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingOpeningParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
     }
 
-    @Test
-    fun testInlineFunctionExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_MissingOpeningBrace() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingOpeningBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingOpeningBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_MissingFunctionBody() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingFunctionBody.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingFunctionBody.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_Annotation() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_Annotation_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_Annotation_MissingFunctionKeyword() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_Annotation_MissingOpeningParenthesis() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingOpeningParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingOpeningParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_ParamList() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ParamList.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ParamList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_ReturnType() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testInlineFunctionExpr_ReturnType_MissingSequenceType() {
-        val expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: SingleType
 
     @Test

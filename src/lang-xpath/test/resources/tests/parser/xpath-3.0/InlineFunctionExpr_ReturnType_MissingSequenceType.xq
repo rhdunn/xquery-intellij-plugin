@@ -1,0 +1,1 @@
+function ( ) as { 2 }

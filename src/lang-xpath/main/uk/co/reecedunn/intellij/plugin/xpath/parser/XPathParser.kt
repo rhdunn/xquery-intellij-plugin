@@ -1250,8 +1250,8 @@ open class XPathParser : PsiParser {
             parseVarRef(builder, type) ||
             parseParenthesizedExpr(builder) ||
             parseContextItemExpr(builder) ||
-            parseFunctionCall(builder) ||
-            parseFunctionItemExpr(builder)
+            parseFunctionItemExpr(builder) ||
+            parseFunctionCall(builder)
         )
     }
 
@@ -1380,8 +1380,12 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
-        return parseNamedFunctionRef(builder)
+        return (
+            parseNamedFunctionRef(builder) ||
+            parseInlineFunctionExpr(builder)
+        )
     }
 
     fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
@@ -1402,6 +1406,51 @@ open class XPathParser : PsiParser {
             return true
         }
 
+        marker.drop()
+        return false
+    }
+
+    open fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.K_FUNCTION)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseParamList(builder)
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_AS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseSequenceType(builder)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    haveErrors = true
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEnclosedExprOrBlock(builder, FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", "{"))
+                parseExpr(builder, EXPR)
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)
+            }
+
+            marker.done(XPathElementType.INLINE_FUNCTION_EXPR)
+            return true
+        }
         marker.drop()
         return false
     }
