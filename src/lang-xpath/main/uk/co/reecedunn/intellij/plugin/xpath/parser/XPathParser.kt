@@ -143,6 +143,61 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
+    // region Grammar :: EnclosedExpr|Block
+
+    enum class BlockOpen {
+        REQUIRED,
+        OPTIONAL
+    }
+
+    enum class BlockExpr {
+        REQUIRED,
+        OPTIONAL
+    }
+
+    open fun parseEnclosedExprOrBlock(
+        builder: PsiBuilder,
+        type: IElementType?,
+        blockOpen: BlockOpen,
+        blockExpr: BlockExpr
+    ): Boolean {
+        var haveErrors = false
+        val marker = if (type == null) null else builder.mark()
+        if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
+            if (blockOpen == BlockOpen.OPTIONAL) {
+                builder.error(XPathBundle.message("parser.error.expected", "{"))
+                haveErrors = true
+            } else {
+                marker?.drop()
+                return false
+            }
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        var haveExpr = parseExpr(builder, EXPR)
+        if (!haveExpr && blockExpr == BlockExpr.REQUIRED) {
+            builder.error(XPathBundle.message("parser.error.expected-expression"))
+            haveErrors = true
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)) {
+            haveExpr = true
+        } else if (!haveErrors) {
+            builder.error(XPathBundle.message("parser.error.expected", "}"))
+        }
+
+        if (marker != null) {
+            if (haveExpr) {
+                marker.done(type!!)
+                return true
+            }
+            marker.drop()
+        }
+        return haveExpr
+    }
+
+    // endregion
     // region Grammar :: Expr
 
     open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): Boolean {

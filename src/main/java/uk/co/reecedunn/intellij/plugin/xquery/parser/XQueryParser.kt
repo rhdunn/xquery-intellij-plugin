@@ -1181,17 +1181,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: EnclosedExpr|Block
 
-    private enum class BlockOpen {
-        REQUIRED,
-        OPTIONAL
-    }
-
-    private enum class BlockExpr {
-        REQUIRED,
-        OPTIONAL
-    }
-
-    private fun parseEnclosedExprOrBlock(
+    override fun parseEnclosedExprOrBlock(
         builder: PsiBuilder,
         type: IElementType?,
         blockOpen: BlockOpen,
