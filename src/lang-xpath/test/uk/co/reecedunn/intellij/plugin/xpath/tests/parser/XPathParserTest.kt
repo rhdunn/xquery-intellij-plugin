@@ -3172,4 +3172,32 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (64) NamedFunctionRef")
+    internal inner class NamedFunctionRef {
+        @Test
+        @DisplayName("named function reference")
+        fun namedFunctionRef() {
+            val expected = loadResource("tests/parser/xpath-3.0/NamedFunctionRef.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/NamedFunctionRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("named function reference; compact whitespace")
+        fun namedFunctionRef_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/NamedFunctionRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/NamedFunctionRef_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing arity")
+        fun missingArity() {
+            val expected = loadResource("tests/parser/xpath-3.0/NamedFunctionRef_MissingArity.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/NamedFunctionRef_MissingArity.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

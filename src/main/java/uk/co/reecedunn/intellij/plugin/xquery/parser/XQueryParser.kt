@@ -3455,7 +3455,6 @@ class XQueryParser : XPathParser() {
             parseNonDeterministicFunctionCall(builder) ||
             parseOrderedExpr(builder) ||
             parseUnorderedExpr(builder) ||
-            parseFunctionItemExpr(builder) ||
             parseArrayConstructor(builder) ||
             parseBinaryConstructor(builder) ||
             parseBooleanConstructor(builder) ||
@@ -3566,34 +3565,12 @@ class XQueryParser : XPathParser() {
     }
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
+    override fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
         return (
             parseNamedFunctionRef(builder) ||
             parseInlineFunctionExpr(builder) ||
             parseSimpleInlineFunctionExpr(builder)
         )
-    }
-
-    private fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
-                builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
-            }
-
-            marker.done(XPathElementType.NAMED_FUNCTION_REF)
-            return true
-        }
-
-        marker.drop()
-        return false
     }
 
     private fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {

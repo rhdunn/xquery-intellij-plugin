@@ -1061,7 +1061,10 @@ open class XPathParser : PsiParser {
             val nextTokenType = builder.tokenType
             nonNameMarker.rollbackTo()
 
-            if (nextTokenType === XPathTokenType.PARENTHESIS_OPEN) {
+            if (
+                nextTokenType === XPathTokenType.PARENTHESIS_OPEN ||
+                nextTokenType === XPathTokenType.FUNCTION_REF_OPERATOR
+            ) {
                 marker.rollbackTo()
                 return false
             }
@@ -1139,7 +1142,8 @@ open class XPathParser : PsiParser {
             parseVarRef(builder, type) ||
             parseParenthesizedExpr(builder) ||
             parseContextItemExpr(builder) ||
-            parseFunctionCall(builder)
+            parseFunctionCall(builder) ||
+            parseFunctionItemExpr(builder)
         )
     }
 
@@ -1265,6 +1269,32 @@ open class XPathParser : PsiParser {
             marker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
             return true
         }
+        return false
+    }
+
+    open fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
+        return parseNamedFunctionRef(builder)
+    }
+
+    fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseEQNameOrWildcard(builder, QNAME, false)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.INTEGER_LITERAL)) {
+                builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
+            }
+
+            marker.done(XPathElementType.NAMED_FUNCTION_REF)
+            return true
+        }
+
+        marker.drop()
         return false
     }
 

@@ -7318,30 +7318,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.0 :: NamedFunctionRef
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (106) NamedFunctionRef")
+    internal inner class NamedFunctionRef {
+        @Test
+        @DisplayName("named function reference")
+        fun namedFunctionRef() {
+            val expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testNamedFunctionRef() {
-        val expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("named function reference; compact whitespace")
+        fun namedFunctionRef_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing arity")
+        fun missingArity() {
+            val expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.txt")
+            val actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testNamedFunctionRef_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testNamedFunctionRef_MissingArity() {
-        val expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.txt")
-        val actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.0 :: InlineFunctionExpr
 
     @Test
