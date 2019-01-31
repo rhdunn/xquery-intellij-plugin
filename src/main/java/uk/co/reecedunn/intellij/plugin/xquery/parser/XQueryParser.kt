@@ -3563,21 +3563,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseKeySpecifier(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (
-            builder.matchTokenType(XPathTokenType.STAR) ||
-            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-            parseEQNameOrWildcard(builder, XQueryElementType.NCNAME, false) ||
-            parseParenthesizedExpr(builder)
-        ) {
-            marker.done(XPathElementType.KEY_SPECIFIER)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     private fun parseStringConstructor(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START)
         if (marker != null) {

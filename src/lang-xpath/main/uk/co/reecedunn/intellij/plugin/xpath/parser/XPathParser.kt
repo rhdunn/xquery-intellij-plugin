@@ -1507,6 +1507,21 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    fun parseKeySpecifier(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (
+            builder.matchTokenType(XPathTokenType.STAR) ||
+            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
+            parseEQNameOrWildcard(builder, NCNAME, false) ||
+            parseParenthesizedExpr(builder)
+        ) {
+            marker.done(XPathElementType.KEY_SPECIFIER)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
     // endregion
     // region Grammar :: TypeDeclaration
 
