@@ -3421,4 +3421,64 @@ private class XPathParserTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.0 EBNF (93) ParenthesizedItemType")
+    internal inner class ParenthesizedItemType {
+        @Test
+        @DisplayName("parenthesized item type")
+        fun parenthesizedItemType() {
+            val expected = loadResource("tests/parser/xpath-3.0/ParenthesizedItemType.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/ParenthesizedItemType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parenthesized item type; compact whitespace")
+        fun parenthesizedItemType_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.0/ParenthesizedItemType_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/ParenthesizedItemType_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Nested
+        @DisplayName("error recovery; missing token")
+        internal inner class MissingToken {
+            @Test
+            @DisplayName("missing item type")
+            fun missingItemType() {
+                val expected = loadResource("tests/parser/xpath-3.0/ParenthesizedItemType_MissingItemType.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/ParenthesizedItemType_MissingItemType.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-3.0/ParenthesizedItemType_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/ParenthesizedItemType_MissingClosingParenthesis.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+
+        @Nested
+        @DisplayName("error recovery; item type as sequence type")
+        internal inner class SequenceType {
+            @Test
+            @DisplayName("empty sequence")
+            fun emptySequence() {
+                val expected = loadResource("tests/parser/xpath-3.0/ParenthesizedItemType_EmptySequence.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/ParenthesizedItemType_EmptySequence.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("occurrence indicator")
+            fun occurrenceIndicator() {
+                val expected = loadResource("tests/parser/xpath-3.0/ParenthesizedItemType_OccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xpath-3.0/ParenthesizedItemType_OccurrenceIndicator.xq")
+                assertThat(prettyPrintASTNode(actual), `is`(expected))
+            }
+        }
+    }
 }

@@ -1,0 +1,14 @@
+XPathImpl[FILE(0:17)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:17)]
+      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:17)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('5')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         XPathParenthesizedItemTypeImpl[XPATH_PARENTHESIZED_ITEM_TYPE(14:17)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected 'ItemType'.')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')

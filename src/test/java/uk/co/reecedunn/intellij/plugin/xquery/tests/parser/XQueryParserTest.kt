@@ -7251,7 +7251,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+    @DisplayName("XQuery 3.0 EBNF (156) CompNamespaceConstructor")
     internal inner class CompNamespaceConstructor {
         @Test
         @DisplayName("tag name: NCName")
@@ -7699,7 +7699,7 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
+    @DisplayName("XQuery 3.0 EBNF (194) ParenthesizedItemType")
     internal inner class ParenthesizedItemType {
         @Test
         @DisplayName("parenthesized item type")
@@ -7731,8 +7731,7 @@ private class XQueryParserTest : ParserTestCase() {
             @Test
             @DisplayName("missing closing parenthesis")
             fun missingClosingParenthesis() {
-                val expected =
-                    loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.txt")
+                val expected = loadResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType_MissingClosingParenthesis.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }

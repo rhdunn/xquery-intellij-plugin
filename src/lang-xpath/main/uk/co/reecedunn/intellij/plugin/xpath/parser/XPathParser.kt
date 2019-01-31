@@ -1536,7 +1536,8 @@ open class XPathParser : PsiParser {
             parseKindTest(builder) ||
             parseAnyItemType(builder) ||
             parseAnnotatedFunctionOrSequence(builder) ||
-            parseAtomicOrUnionType(builder)
+            parseAtomicOrUnionType(builder) ||
+            parseParenthesizedItemType(builder)
         )
     }
 
@@ -1627,6 +1628,35 @@ open class XPathParser : PsiParser {
             }
 
             marker.drop()
+            return true
+        }
+        return false
+    }
+
+    fun parseParenthesizedItemType(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseSequenceType(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "ItemType"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                if (
+                    builder.tokenType === XPathTokenType.UNION ||
+                    builder.tokenType === XPathTokenType.COMMA
+                ) {
+                    marker.rollbackTo() // parenthesized sequence type (XQuery Formal Semantics)
+                    return false
+                }
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.PARENTHESIZED_ITEM_TYPE)
             return true
         }
         return false
