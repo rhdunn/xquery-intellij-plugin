@@ -1922,7 +1922,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testUnaryLookup() {
-        val file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq")
+        val file = parseResource("tests/parser/xquery-3.1/UnaryLookup_NCName.xq")
 
         val unaryLookupPsi = file.walkTree().filterIsInstance<XPathUnaryLookup>().first()
         val versioned = unaryLookupPsi as VersionConformance

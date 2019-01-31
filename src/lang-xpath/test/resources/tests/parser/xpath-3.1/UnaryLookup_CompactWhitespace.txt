@@ -1,0 +1,20 @@
+XPathImpl[FILE(0:14)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:14)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:14)]
+         XPathSimpleMapExprImpl[XPATH_SIMPLE_MAP_EXPR(0:7)]
+            XPathVarRefImpl[XPATH_VAR_REF(0:2)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+               XPathVarNameImpl[XPATH_VAR_NAME(1:2)]
+                  XPathNCNameImpl[XPATH_NCNAME(1:2)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('m')
+            LeafPsiElement[XPATH_MAP_OPERATOR_TOKEN(2:3)]('!')
+            XPathUnaryLookupImpl[XPATH_UNARY_LOOKUP(3:7)]
+               LeafPsiElement[XPATH_OPTIONAL_TOKEN(3:4)]('?')
+               XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(4:7)]
+                  XPathNCNameImpl[XPATH_NCNAME(4:7)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:7)]('key')
+         LeafPsiElement[XPATH_EQUAL_TOKEN(7:8)]('=')
+         XPathStringLiteralImpl[XPATH_STRING_LITERAL(8:14)]
+            LeafPsiElement[XPATH_DOUBLE_LITERAL_START_TOKEN(8:9)]('"')
+            LeafPsiElement[XPATH_DOUBLE_LITERAL_CONTENTS_TOKEN(9:13)]('test')
+            LeafPsiElement[XPATH_DOUBLE_LITERAL_END_TOKEN(13:14)]('"')

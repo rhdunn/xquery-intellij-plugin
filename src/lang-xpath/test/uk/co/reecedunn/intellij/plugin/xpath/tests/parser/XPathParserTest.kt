@@ -3543,7 +3543,7 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 EBNF (49) PostfixExpr; XPath 3.1 EBNF (53) Lookup")
+    @DisplayName("XPath 3.1 EBNF (49) PostfixExpr ; XPath 3.1 EBNF (53) Lookup ; XPath 3.1 EBNF (54) KeySpecifier")
     internal inner class PostfixExpr_Lookup {
         @Test
         @DisplayName("key specifier; NCName")
@@ -3590,6 +3590,58 @@ private class XPathParserTest : ParserTestCase() {
         fun missingKeySpecifier() {
             val expected = loadResource("tests/parser/xpath-3.1/Lookup_MissingKeySpecifier.txt")
             val actual = parseResource("tests/parser/xpath-3.1/Lookup_MissingKeySpecifier.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (76) UnaryLookup ; XPath 3.1 EBNF (54) KeySpecifier")
+    internal inner class UnaryLookup {
+        @Test
+        @DisplayName("key specifier; NCName")
+        fun keySpecifier_ncname() {
+            val expected = loadResource("tests/parser/xpath-3.1/UnaryLookup_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/UnaryLookup_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; IntegerLiteral")
+        fun keySpecifier_IntegerLiteral() {
+            val expected = loadResource("tests/parser/xpath-3.1/UnaryLookup_IntegerLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/UnaryLookup_IntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; ParenthesizedExpr")
+        fun keySpecifier_ParenthesizedExpr() {
+            val expected = loadResource("tests/parser/xpath-3.1/UnaryLookup_ParenthesizedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/UnaryLookup_ParenthesizedExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; wildcard")
+        fun keySpecifier_Wildcard() {
+            val expected = loadResource("tests/parser/xpath-3.1/UnaryLookup_Wildcard.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/UnaryLookup_Wildcard.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/UnaryLookup_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/UnaryLookup_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing KeySpecifier")
+        fun missingKeySpecifier() {
+            val expected = loadResource("tests/parser/xpath-3.1/UnaryLookup_MissingKeySpecifier.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/UnaryLookup_MissingKeySpecifier.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

@@ -1304,7 +1304,8 @@ open class XPathParser : PsiParser {
             parseParenthesizedExpr(builder) ||
             parseContextItemExpr(builder) ||
             parseFunctionItemExpr(builder) ||
-            parseFunctionCall(builder)
+            parseFunctionCall(builder) ||
+            parseLookup(builder, XPathElementType.UNARY_LOOKUP)
         )
     }
 

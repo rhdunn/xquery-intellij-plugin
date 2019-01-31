@@ -3330,8 +3330,7 @@ class XQueryParser : XPathParser() {
             parseNodeConstructor(builder) ||
             parseNullConstructor(builder) ||
             parseNumberConstructor(builder) ||
-            parseStringConstructor(builder) ||
-            parseLookup(builder, XPathElementType.UNARY_LOOKUP)
+            parseStringConstructor(builder)
         )
     }
 
