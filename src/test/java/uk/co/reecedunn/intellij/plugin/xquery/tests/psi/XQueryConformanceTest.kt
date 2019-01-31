@@ -1581,7 +1581,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testLookup() {
-        val file = parseResource("tests/parser/xquery-3.1/Lookup.xq")
+        val file = parseResource("tests/parser/xquery-3.1/Lookup_NCName.xq")
 
         val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
         val lookupPsi = postfixExprPsi.children().filterIsInstance<XPathLookup>().first()

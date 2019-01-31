@@ -7934,31 +7934,60 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.1 :: Lookup
 
-    @Test
-    fun testLookup() {
-        val expected = loadResource("tests/parser/xquery-3.1/Lookup.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/Lookup.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (121) PostfixExpr; XQuery 3.1 EBNF (125) Lookup")
+    internal inner class PostfixExpr_Lookup {
+        @Test
+        @DisplayName("key specifier; NCName")
+        fun keySpecifier_ncname() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_NCName.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; IntegerLiteral")
+        fun keySpecifier_IntegerLiteral() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_IntegerLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_IntegerLiteral.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; ParenthesizedExpr")
+        fun keySpecifier_ParenthesizedExpr() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; wildcard")
+        fun keySpecifier_Wildcard() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_Wildcard.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_Wildcard.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing KeySpecifier")
+        fun missingKeySpecifier() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_MissingKeySpecifier.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_MissingKeySpecifier.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testLookup_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/Lookup_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/Lookup_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testLookup_MissingKeySpecifier() {
-        val expected = loadResource("tests/parser/xquery-3.1/Lookup_MissingKeySpecifier.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/Lookup_MissingKeySpecifier.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: KeySpecifier
+    // region XQuery 3.1 :: UnaryLookup; KeySpecifier
 
     @Test
     fun testKeySpecifier_NCName() {

@@ -1232,12 +1232,16 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             var havePostfixExpr = false
-            while (parsePredicate(builder) || parseArgumentList(builder)) {
+            while (
+                parsePredicate(builder) ||
+                parseArgumentList(builder) ||
+                parseLookup(builder, XPathElementType.LOOKUP)
+            ) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 havePostfixExpr = true
             }
@@ -1266,7 +1270,7 @@ open class XPathParser : PsiParser {
         return havePredicate
     }
 
-    fun parsePredicate(builder: PsiBuilder): Boolean {
+    private fun parsePredicate(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
         if (marker != null) {
             var haveErrors = false
@@ -1343,7 +1347,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
+    private fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1507,7 +1511,27 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseKeySpecifier(builder: PsiBuilder): Boolean {
+    fun parseLookup(builder: PsiBuilder, type: IElementType): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseKeySpecifier(builder)) {
+                if (type === XPathElementType.UNARY_LOOKUP) {
+                    // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
+                    marker.rollbackTo()
+                    return false
+                } else {
+                    builder.error(XPathBundle.message("parser.error.expected", "KeySpecifier"))
+                }
+            }
+
+            marker.done(type)
+            return true
+        }
+        return false
+    }
+
+    private fun parseKeySpecifier(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (
             builder.matchTokenType(XPathTokenType.STAR) ||
