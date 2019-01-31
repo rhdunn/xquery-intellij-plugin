@@ -877,7 +877,7 @@ open class XPathParser : PsiParser {
 
     open fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseUnaryExpr(builder, type)) {
+        if (parseArrowExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_CAST)) {
                 var haveErrors = false
@@ -902,7 +902,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         var matched = false
         while (builder.matchTokenType(XPathTokenType.UNARY_EXPR_TOKENS)) {
@@ -938,7 +938,42 @@ open class XPathParser : PsiParser {
         return builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
     }
 
-    fun parseArrowFunctionSpecifier(builder: PsiBuilder): Boolean {
+    fun parseArrowExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseUnaryExpr(builder, type)) {
+            var haveErrors = false
+            var haveArrowExpr = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.ARROW)) {
+                haveArrowExpr = true
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseArrowFunctionSpecifier(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "ArrowFunctionSpecifier"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseArgumentList(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "ArgumentList"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+
+            if (haveArrowExpr)
+                marker.done(XPathElementType.ARROW_EXPR)
+            else
+                marker.drop()
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseArrowFunctionSpecifier(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (
             parseEQNameOrWildcard(builder, QNAME, false) ||
@@ -1454,7 +1489,10 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) && !haveErrors) {
+            if (
+                !parseEnclosedExprOrBlock(builder, FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) &&
+                !haveErrors
+            ) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 parseExpr(builder, EXPR)
 
@@ -1598,22 +1636,23 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.STAR)) {
-                //
-            } else if (parseSequenceType(builder)) {
-                type = KindTest.TYPED_TEST
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseSequenceType(builder) && !haveErrors) {
-                        builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                        haveErrors = true
-                    }
-                    parseWhiteSpaceAndCommentTokens(builder)
+            when {
+                builder.matchTokenType(XPathTokenType.STAR) -> {
                 }
-            } else {
-                type = KindTest.TYPED_TEST
+                parseSequenceType(builder) -> {
+                    type = KindTest.TYPED_TEST
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                        parseWhiteSpaceAndCommentTokens(builder)
+                        if (!parseSequenceType(builder) && !haveErrors) {
+                            builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                            haveErrors = true
+                        }
+                        parseWhiteSpaceAndCommentTokens(builder)
+                    }
+                }
+                else -> type = KindTest.TYPED_TEST
             }
 
             parseWhiteSpaceAndCommentTokens(builder)

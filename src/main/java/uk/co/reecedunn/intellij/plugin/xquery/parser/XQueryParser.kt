@@ -3223,41 +3223,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseArrowExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseUnaryExpr(builder, type)) {
-            var haveErrors = false
-            var haveArrowExpr = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            while (builder.matchTokenType(XPathTokenType.ARROW)) {
-                haveArrowExpr = true
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseArrowFunctionSpecifier(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ArrowFunctionSpecifier"))
-                    haveErrors = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseArgumentList(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ArgumentList"))
-                    haveErrors = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-            }
-
-            if (haveArrowExpr)
-                marker.done(XPathElementType.ARROW_EXPR)
-            else
-                marker.drop()
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 

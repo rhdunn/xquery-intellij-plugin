@@ -226,7 +226,7 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     @Test
     fun testArrowExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
+        val file = parseResource("tests/parser/xquery-3.1/ArrowExpr_EQName.xq")
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
         val versioned = arrowExprPsi as VersionConformance

@@ -7863,44 +7863,67 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuery 3.1 :: ArrowExpr
 
-    @Test
-    fun testArrowExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+    internal inner class ArrowExpr {
+        @Test
+        @DisplayName("arrow function specifier: EQName")
+        fun arrowFunctionSpecifier_EQName() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_EQName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("arrow function specifier: VarRef")
+        fun arrowFunctionSpecifier_VarRef() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_VarRef.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_VarRef.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("arrow function specifier: ParenthesizedExpr")
+        fun arrowFunctionSpecifier_ParenthesizedExpr() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_ParenthesizedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_ParenthesizedExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ArgumentList")
+        fun missingArgumentList() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing function specifier")
+        fun missingFunctionSpecifier() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple arrows")
+        fun multipleArrows() {
+            val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testArrowExpr_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrowExpr_MissingArgumentList() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrowExpr_MissingFunctionSpecifier() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrowExpr_MultipleArrows() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.1 :: ValidateExpr + ValidationMode
 
     @Test
@@ -7962,30 +7985,6 @@ private class XQueryParserTest : ParserTestCase() {
     fun testKeySpecifier_Wildcard() {
         val expected = loadResource("tests/parser/xquery-3.1/KeySpecifier_Wildcard.txt")
         val actual = parseResource("tests/parser/xquery-3.1/KeySpecifier_Wildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
-    // region XQuery 3.1 :: ArrowFunctionSpecifier
-
-    @Test
-    fun testArrowFunctionSpecifier_EQName() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrowFunctionSpecifier_VarRef() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_VarRef.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_VarRef.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testArrowFunctionSpecifier_ParenthesizedExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.xq")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
