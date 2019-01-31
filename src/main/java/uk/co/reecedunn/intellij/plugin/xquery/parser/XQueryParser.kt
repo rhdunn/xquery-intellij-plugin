@@ -3258,20 +3258,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseArrowFunctionSpecifier(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (
-            parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) ||
-            parseVarRef(builder, null) ||
-            parseParenthesizedExpr(builder)
-        ) {
-            marker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     // endregion
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
