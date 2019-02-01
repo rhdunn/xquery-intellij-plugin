@@ -1770,6 +1770,7 @@ open class XPathParser : PsiParser {
             parseKindTest(builder) ||
             parseAnyItemType(builder) ||
             parseAnnotatedFunctionOrSequence(builder) ||
+            parseMapTest(builder) ||
             parseAtomicOrUnionType(builder) ||
             parseParenthesizedItemType(builder)
         )
@@ -1892,6 +1893,39 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.PARENTHESIZED_ITEM_TYPE)
+            return true
+        }
+        return false
+    }
+
+    open fun parseMapTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            val type: IElementType
+            parseWhiteSpaceAndCommentTokens(builder)
+            when {
+                builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_MAP_TEST
+                else -> {
+                    builder.error(XPathBundle.message("parser.error.expected-eqname-or-token", "*"))
+                    type = XPathElementType.ANY_MAP_TEST
+                    haveError = true
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(type)
             return true
         }
         return false

@@ -5252,7 +5252,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseMapTest(builder: PsiBuilder): Boolean {
+    override fun parseMapTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
         if (marker != null) {
             var haveError = false
@@ -5292,7 +5292,7 @@ class XQueryParser : XPathParser() {
 
                 type = XPathElementType.TYPED_MAP_TEST
             } else {
-                builder.error(XQueryBundle.message("parser.error.expected-eqname-or-token", "*"))
+                builder.error(XPathBundle.message("parser.error.expected-eqname-or-token", "*"))
                 type = XPathElementType.ANY_MAP_TEST
                 haveError = true
             }
