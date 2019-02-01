@@ -8215,58 +8215,66 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.1 :: SquareArrayConstructor
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
+    internal inner class SquareArrayConstructor {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testSquareArrayConstructor() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; missing expression after comma")
+        fun multiple_MissingExpr() {
+            val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testSquareArrayConstructor_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSquareArrayConstructor_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSquareArrayConstructor_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSquareArrayConstructor_Multiple() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSquareArrayConstructor_Multiple_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testSquareArrayConstructor_Multiple_MissingExpr() {
-        val expected = loadResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_MissingExpr.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor_Multiple_MissingExpr.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.1 :: CurlyArrayConstructor
 
     @Test

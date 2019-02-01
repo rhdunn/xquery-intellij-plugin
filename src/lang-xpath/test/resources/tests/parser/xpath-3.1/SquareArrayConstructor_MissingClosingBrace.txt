@@ -1,0 +1,8 @@
+XPathImpl[FILE(0:3)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:3)]
+      XPathSquareArrayConstructorImpl[XPATH_SQUARE_ARRAY_CONSTRUCTOR(0:3)]
+         LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(0:1)]('[')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XPathOrExprImpl[XPATH_OR_EXPR(2:3)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('1')
+         PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected ']'.')

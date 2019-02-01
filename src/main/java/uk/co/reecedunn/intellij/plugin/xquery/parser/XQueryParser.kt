@@ -3304,7 +3304,6 @@ class XQueryParser : XPathParser() {
             parseNonDeterministicFunctionCall(builder) ||
             parseOrderedExpr(builder) ||
             parseUnorderedExpr(builder) ||
-            parseArrayConstructor(builder) ||
             parseBinaryConstructor(builder) ||
             parseBooleanConstructor(builder) ||
             parseNodeConstructor(builder) ||
@@ -3545,38 +3544,8 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: Constructors
 
-    private fun parseArrayConstructor(builder: PsiBuilder): Boolean {
+    override fun parseArrayConstructor(builder: PsiBuilder): Boolean {
         return parseSquareArrayConstructor(builder) || parseCurlyArrayConstructor(builder)
-    }
-
-    private fun parseSquareArrayConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
-        if (marker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseExprSingle(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseExprSingle(builder) && !haveErrors) {
-                        builder.error(XPathBundle.message("parser.error.expected-expression"))
-                        haveErrors = true
-                    }
-
-                    parseWhiteSpaceAndCommentTokens(builder)
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.SQUARE_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "]"))
-            }
-
-            marker.done(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR)
-            return true
-        }
-        return false
     }
 
     private fun parseCurlyArrayConstructor(builder: PsiBuilder): Boolean {

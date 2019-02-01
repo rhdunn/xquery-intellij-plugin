@@ -1,0 +1,13 @@
+XPathImpl[FILE(0:7)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:7)]
+      XPathSquareArrayConstructorImpl[XPATH_SQUARE_ARRAY_CONSTRUCTOR(0:7)]
+         LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(0:1)]('[')
+         XPathOrExprImpl[XPATH_OR_EXPR(1:2)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(1:2)]('1')
+         LeafPsiElement[XPATH_COMMA_TOKEN(2:3)](',')
+         XPathOrExprImpl[XPATH_OR_EXPR(3:4)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
+         LeafPsiElement[XPATH_COMMA_TOKEN(4:5)](',')
+         XPathOrExprImpl[XPATH_OR_EXPR(5:6)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('3')
+         LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(6:7)](']')

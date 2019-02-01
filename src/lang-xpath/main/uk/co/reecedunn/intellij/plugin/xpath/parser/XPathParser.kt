@@ -1326,6 +1326,7 @@ open class XPathParser : PsiParser {
             parseFunctionItemExpr(builder) ||
             parseFunctionCall(builder) ||
             parseMapConstructor(builder) ||
+            parseArrayConstructor(builder) ||
             parseLookup(builder, XPathElementType.UNARY_LOOKUP)
         )
     }
@@ -1533,7 +1534,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseLookup(builder: PsiBuilder, type: IElementType): Boolean {
+    private fun parseLookup(builder: PsiBuilder, type: IElementType): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1571,7 +1572,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: MapConstructor
 
-    fun parseMapConstructor(builder: PsiBuilder): Boolean {
+    private fun parseMapConstructor(builder: PsiBuilder): Boolean {
         var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
         if (marker == null) {
             marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OBJECT_NODE)
@@ -1630,6 +1631,43 @@ open class XPathParser : PsiParser {
             return true
         }
         marker.drop()
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: ArrayConstructor
+
+    open fun parseArrayConstructor(builder: PsiBuilder): Boolean {
+        return parseSquareArrayConstructor(builder)
+    }
+
+    fun parseSquareArrayConstructor(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseExprSingle(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseExprSingle(builder) && !haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected-expression"))
+                        haveErrors = true
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.SQUARE_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", "]"))
+            }
+
+            marker.done(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR)
+            return true
+        }
         return false
     }
 

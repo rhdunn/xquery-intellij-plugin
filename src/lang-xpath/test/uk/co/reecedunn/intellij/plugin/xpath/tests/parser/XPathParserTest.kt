@@ -3735,6 +3735,66 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 EBNF (73) SquareArrayConstructor")
+    internal inner class SquareArrayConstructor {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; missing expression after comma")
+        fun multiple_MissingExpr() {
+            val expected = loadResource("tests/parser/xpath-3.1/SquareArrayConstructor_Multiple_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/SquareArrayConstructor_Multiple_MissingExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 EBNF (76) UnaryLookup ; XPath 3.1 EBNF (54) KeySpecifier")
     internal inner class UnaryLookup {
         @Test
