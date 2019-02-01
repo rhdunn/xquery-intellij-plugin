@@ -1,0 +1,27 @@
+XPathImpl[FILE(0:19)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:19)]
+      XPathMapConstructorImpl[XPATH_MAP_CONSTRUCTOR(0:19)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
+         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(6:18)]
+            XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(6:8)]
+               XPathOrExprImpl[XPATH_OR_EXPR(6:8)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(6:8)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(6:8)]
+                        XPathNCNameImpl[XPATH_NCNAME(6:8)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('a')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(8:9)](':')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(10:18)]
+               XPathOrExprImpl[XPATH_OR_EXPR(10:18)]
+                  XPathNodeTestImpl[XPATH_NODE_TEST(10:17)]
+                     XPathNameTestImpl[XPATH_NAME_TEST(10:17)]
+                        XPathQNameImpl[XPATH_QNAME(10:17)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('one')
+                           LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:17)]('two')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+         LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(18:19)]('}')

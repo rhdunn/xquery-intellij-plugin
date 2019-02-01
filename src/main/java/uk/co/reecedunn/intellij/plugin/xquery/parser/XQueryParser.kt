@@ -3307,7 +3307,6 @@ class XQueryParser : XPathParser() {
             parseArrayConstructor(builder) ||
             parseBinaryConstructor(builder) ||
             parseBooleanConstructor(builder) ||
-            parseMapConstructor(builder) ||
             parseNodeConstructor(builder) ||
             parseNullConstructor(builder) ||
             parseNumberConstructor(builder) ||
@@ -3621,45 +3620,6 @@ class XQueryParser : XPathParser() {
                 return false
             }
             marker.done(XQueryElementType.BOOLEAN_CONSTRUCTOR)
-            return true
-        }
-        return false
-    }
-
-    private fun parseMapConstructor(builder: PsiBuilder): Boolean {
-        var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
-        if (marker == null) {
-            marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OBJECT_NODE)
-        }
-
-        if (marker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseMapConstructorEntry(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseMapConstructorEntry(builder) && !haveErrors) {
-                        builder.error(XPathBundle.message("parser.error.expected", "MapConstructor"))
-                        haveErrors = true
-                    }
-                    parseWhiteSpaceAndCommentTokens(builder)
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.BLOCK_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "}"))
-            }
-
-            marker.done(XPathElementType.MAP_CONSTRUCTOR)
             return true
         }
         return false

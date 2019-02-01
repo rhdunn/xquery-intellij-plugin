@@ -1,0 +1,7 @@
+XPathImpl[FILE(0:5)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:5)]
+      XPathMapConstructorImpl[XPATH_MAP_CONSTRUCTOR(0:5)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
+         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
+         PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected '}'.')

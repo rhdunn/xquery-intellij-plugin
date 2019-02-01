@@ -3595,6 +3595,146 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 EBNF (69) MapConstructor ; XPath 3.1 EBNF (70) MapConstructorEntry")
+    internal inner class MapConstructor {
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructor.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructor.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("empty; compact whitespace")
+        fun empty_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructor_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructor_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructor_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructor_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("StringLiteral map key expression")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("StringLiteral map key expression; compact whitespace")
+        fun stringLiteral_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing key-value separator (colon)")
+        fun missingSeparator() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_MissingSeparator.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_MissingSeparator.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing map value expression")
+        fun missingValueExpr() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_MissingValueExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_MissingValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_Multiple.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_Multiple_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing map constructor entry after comma")
+        fun missingEntry() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_Multiple_MissingEntry.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_Multiple_MissingEntry.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName map key expression")
+        fun ncname() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName map key expression; whitespace after colon")
+        fun ncname_WhitespaceAfterColon() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_NCName_WhitespaceAfterColon.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_NCName_WhitespaceAfterColon.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("NCName map key expression; compact whitespace")
+        fun ncname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_NCName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_NCName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName map key expression")
+        fun qname_KeyExpr() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_QName_KeyExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_QName_KeyExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName map value expression")
+        fun qname_ValueExpr() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_QName_ValueExpr.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_QName_ValueExpr.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName map key expression; compact whitespace")
+        fun qname_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_QName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_QName_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("VarRef map key expression")
+        fun varRef_NCName() {
+            val expected = loadResource("tests/parser/xpath-3.1/MapConstructorEntry_VarRef_NCName.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/MapConstructorEntry_VarRef_NCName.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 EBNF (76) UnaryLookup ; XPath 3.1 EBNF (54) KeySpecifier")
     internal inner class UnaryLookup {
         @Test

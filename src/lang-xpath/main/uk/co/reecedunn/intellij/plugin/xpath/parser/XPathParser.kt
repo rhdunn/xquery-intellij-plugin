@@ -1325,6 +1325,7 @@ open class XPathParser : PsiParser {
             parseContextItemExpr(builder) ||
             parseFunctionItemExpr(builder) ||
             parseFunctionCall(builder) ||
+            parseMapConstructor(builder) ||
             parseLookup(builder, XPathElementType.UNARY_LOOKUP)
         )
     }
@@ -1570,7 +1571,46 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: MapConstructor
 
-    fun parseMapConstructorEntry(builder: PsiBuilder): Boolean {
+    fun parseMapConstructor(builder: PsiBuilder): Boolean {
+        var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
+        if (marker == null) {
+            marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OBJECT_NODE)
+        }
+
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseMapConstructorEntry(builder)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseMapConstructorEntry(builder) && !haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected", "MapConstructor"))
+                        haveErrors = true
+                    }
+                    parseWhiteSpaceAndCommentTokens(builder)
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.BLOCK_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", "}"))
+            }
+
+            marker.done(XPathElementType.MAP_CONSTRUCTOR)
+            return true
+        }
+        return false
+    }
+
+    private fun parseMapConstructorEntry(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseExprSingle(builder, XPathElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
             var haveError = false
