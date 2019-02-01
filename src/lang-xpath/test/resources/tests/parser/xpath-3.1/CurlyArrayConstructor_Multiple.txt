@@ -1,0 +1,23 @@
+XPathImpl[FILE(0:19)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:19)]
+      XPathCurlyArrayConstructorImpl[XPATH_CURLY_ARRAY_CONSTRUCTOR(0:19)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
+         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         XPathEnclosedExprImpl[XPATH_ENCLOSED_EXPR(6:19)]
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            XPathExprImpl[XPATH_EXPR(8:18)]
+               XPathOrExprImpl[XPATH_OR_EXPR(8:10)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+               LeafPsiElement[XPATH_COMMA_TOKEN(10:11)](',')
+               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+               XPathOrExprImpl[XPATH_OR_EXPR(12:14)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+               LeafPsiElement[XPATH_COMMA_TOKEN(14:15)](',')
+               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+               XPathOrExprImpl[XPATH_OR_EXPR(16:18)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('3')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(18:19)]('}')

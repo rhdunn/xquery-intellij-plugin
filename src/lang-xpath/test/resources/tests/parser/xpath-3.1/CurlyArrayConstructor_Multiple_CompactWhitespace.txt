@@ -1,0 +1,16 @@
+XPathImpl[FILE(0:12)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:12)]
+      XPathCurlyArrayConstructorImpl[XPATH_CURLY_ARRAY_CONSTRUCTOR(0:12)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
+         XPathEnclosedExprImpl[XPATH_ENCLOSED_EXPR(5:12)]
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(5:6)]('{')
+            XPathExprImpl[XPATH_EXPR(6:11)]
+               XPathOrExprImpl[XPATH_OR_EXPR(6:7)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('1')
+               LeafPsiElement[XPATH_COMMA_TOKEN(7:8)](',')
+               XPathOrExprImpl[XPATH_OR_EXPR(8:9)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('2')
+               LeafPsiElement[XPATH_COMMA_TOKEN(9:10)](',')
+               XPathOrExprImpl[XPATH_OR_EXPR(10:11)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('3')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(11:12)]('}')

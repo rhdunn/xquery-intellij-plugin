@@ -1637,11 +1637,11 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: ArrayConstructor
 
-    open fun parseArrayConstructor(builder: PsiBuilder): Boolean {
-        return parseSquareArrayConstructor(builder)
+    private fun parseArrayConstructor(builder: PsiBuilder): Boolean {
+        return parseSquareArrayConstructor(builder) || parseCurlyArrayConstructor(builder)
     }
 
-    fun parseSquareArrayConstructor(builder: PsiBuilder): Boolean {
+    private fun parseSquareArrayConstructor(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
         if (marker != null) {
             var haveErrors = false
@@ -1666,6 +1666,24 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR)
+            return true
+        }
+        return false
+    }
+
+    private fun parseCurlyArrayConstructor(builder: PsiBuilder): Boolean {
+        var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY)
+        if (marker == null) {
+            marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY_NODE)
+        }
+
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+                marker.rollbackTo()
+                return false
+            }
+            marker.done(XPathElementType.CURLY_ARRAY_CONSTRUCTOR)
             return true
         }
         return false
