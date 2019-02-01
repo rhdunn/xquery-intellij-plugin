@@ -225,14 +225,33 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    fun parseExprSingle(builder: PsiBuilder): Boolean {
+        return parseExprSingleImpl(builder, null)
+    }
+
+    fun parseExprSingle(builder: PsiBuilder, type: IElementType?, parentType: IElementType? = null): Boolean {
+        if (type == null) {
+            return parseExprSingleImpl(builder, parentType)
+        }
+
+        val marker = builder.mark()
+        if (parseExprSingleImpl(builder, parentType)) {
+            marker.done(type)
+            return true
+        }
+
+        marker.drop()
+        return false
+    }
+
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    open fun parseExprSingle(builder: PsiBuilder): Boolean {
+    open fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): Boolean {
         return (
             parseForExpr(builder) ||
             parseLetExpr(builder) ||
             parseQuantifiedExpr(builder) ||
             parseIfExpr(builder) ||
-            parseOrExpr(builder, null)
+            parseOrExpr(builder, parentType)
         )
     }
 
@@ -1541,6 +1560,32 @@ open class XPathParser : PsiParser {
             parseParenthesizedExpr(builder)
         ) {
             marker.done(XPathElementType.KEY_SPECIFIER)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: MapConstructor
+
+    fun parseMapConstructorEntry(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseExprSingle(builder, XPathElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.MAP_ENTRY_SEPARATOR_TOKENS)) {
+                builder.error(XPathBundle.message("parser.error.expected-map-entry-assign"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder, XPathElementType.MAP_VALUE_EXPR) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XPathElementType.MAP_CONSTRUCTOR_ENTRY)
             return true
         }
         marker.drop()
