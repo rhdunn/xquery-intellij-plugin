@@ -8538,37 +8538,42 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.1 :: AnyArrayTest
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (211) AnyArrayTest")
+    internal inner class AnyArrayTest {
+        @Test
+        @DisplayName("any array test")
+        fun anyArrayTest() {
+            val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testAnyArrayTest() {
-        val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("any array test; compact whitespace")
+        fun anyArrayTest_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing wildcard")
+        fun missingWildcard() {
+            val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_MissingWildcard.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_MissingWildcard.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testAnyArrayTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyArrayTest_MissingWildcard() {
-        val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_MissingWildcard.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_MissingWildcard.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testAnyArrayTest_MissingClosingParenthesis() {
-        val expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_MissingClosingParenthesis.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_MissingClosingParenthesis.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.1 :: TypedArrayTest
 
     @Test

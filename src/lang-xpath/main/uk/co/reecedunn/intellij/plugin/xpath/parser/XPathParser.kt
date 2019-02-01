@@ -1771,6 +1771,7 @@ open class XPathParser : PsiParser {
             parseAnyItemType(builder) ||
             parseAnnotatedFunctionOrSequence(builder) ||
             parseMapTest(builder) ||
+            parseArrayTest(builder) ||
             parseAtomicOrUnionType(builder) ||
             parseParenthesizedItemType(builder)
         )
@@ -1942,6 +1943,39 @@ open class XPathParser : PsiParser {
                 else -> {
                     builder.error(XPathBundle.message("parser.error.expected-eqname-or-token", "*"))
                     type = XPathElementType.ANY_MAP_TEST
+                    haveError = true
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(type)
+            return true
+        }
+        return false
+    }
+
+    open fun parseArrayTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            val type: IElementType
+            parseWhiteSpaceAndCommentTokens(builder)
+            when {
+                builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_ARRAY_TEST
+                else -> {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "*", "SequenceType"))
+                    type = XPathElementType.ANY_ARRAY_TEST
                     haveError = true
                 }
             }

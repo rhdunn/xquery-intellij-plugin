@@ -3993,4 +3993,40 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
+    internal inner class AnyArrayTest {
+        @Test
+        @DisplayName("any array test")
+        fun anyArrayTest() {
+            val expected = loadResource("tests/parser/xpath-3.1/AnyArrayTest.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/AnyArrayTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("any array test; compact whitespace")
+        fun anyArrayTest_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/AnyArrayTest_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/AnyArrayTest_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing wildcard")
+        fun missingWildcard() {
+            val expected = loadResource("tests/parser/xpath-3.1/AnyArrayTest_MissingWildcard.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/AnyArrayTest_MissingWildcard.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xpath-3.1/AnyArrayTest_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/AnyArrayTest_MissingClosingParenthesis.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

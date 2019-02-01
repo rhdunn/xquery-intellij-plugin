@@ -5308,7 +5308,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseArrayTest(builder: PsiBuilder): Boolean {
+    override fun parseArrayTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY)
         if (marker != null) {
             var haveError = false

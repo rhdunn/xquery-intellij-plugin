@@ -1,23 +1,17 @@
-XQueryModuleImpl[FILE(0:39)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:39)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:38)]
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
-            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:38)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-               XPathVarNameImpl[XPATH_VAR_NAME(17:19)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(17:19)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:18)]('x')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(19:21)]('as')
-               PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-               XPathAnyArrayTestImpl[XPATH_ANY_ARRAY_TEST(22:30)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(22:27)]('array')
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                  PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(28:29)]('*')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(29:30)](')')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(30:38)]('external')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Missing query body.')
+XQueryModuleImpl[FILE(0:22)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:22)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:22)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:22)]
+            XPathOrExprImpl[XPATH_OR_EXPR(0:22)]
+               XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:22)]
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('5')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                  XPathAnyArrayTestImpl[XPATH_ANY_ARRAY_TEST(14:22)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(14:19)]('array')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
+                     PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(20:21)]('*')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(21:22)](')')
