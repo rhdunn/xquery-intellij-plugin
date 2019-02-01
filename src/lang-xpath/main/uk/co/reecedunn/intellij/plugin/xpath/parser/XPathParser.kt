@@ -1913,6 +1913,32 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_MAP_TEST
+                parseAtomicOrUnionType(builder) -> {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!builder.matchTokenType(XPathTokenType.COMMA)) {
+                        builder.error(XPathBundle.message("parser.error.expected", ","))
+                        haveError = true
+                    }
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseSequenceType(builder) && !haveError) {
+                        builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                        haveError = true
+                    }
+
+                    type = XPathElementType.TYPED_MAP_TEST
+                }
+                builder.tokenType === XPathTokenType.COMMA -> {
+                    builder.error(XPathBundle.message("parser.error.expected", "AtomicOrUnionType"))
+                    haveError = true
+
+                    builder.matchTokenType(XPathTokenType.COMMA)
+
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parseSequenceType(builder)
+
+                    type = XPathElementType.TYPED_MAP_TEST
+                }
                 else -> {
                     builder.error(XPathBundle.message("parser.error.expected-eqname-or-token", "*"))
                     type = XPathElementType.ANY_MAP_TEST

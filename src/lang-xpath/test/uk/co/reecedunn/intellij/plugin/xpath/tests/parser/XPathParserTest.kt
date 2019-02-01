@@ -3941,4 +3941,56 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (107) TypedMapTest")
+    internal inner class TypedMapTest {
+        @Test
+        @DisplayName("typed map test")
+        fun typedMapTest() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedMapTest.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedMapTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("typed map test; compact whitespace")
+        fun typedMapTest_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedMapTest_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedMapTest_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing AtomicOrUnionType")
+        fun missingAtomicOrUnionType() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedMapTest_MissingAtomicOrUnionType.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedMapTest_MissingAtomicOrUnionType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing comma")
+        fun missingComma() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedMapTest_MissingComma.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedMapTest_MissingComma.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedMapTest_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedMapTest_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedMapTest_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedMapTest_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

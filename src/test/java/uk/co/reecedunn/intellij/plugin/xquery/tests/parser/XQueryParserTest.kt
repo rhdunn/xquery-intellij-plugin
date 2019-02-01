@@ -8486,51 +8486,58 @@ private class XQueryParserTest : ParserTestCase() {
         }
     }
 
-    // region XQuery 3.1 :: TypedMapTest
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (212) TypedMapTest")
+    internal inner class TypedMapTest {
+        @Test
+        @DisplayName("typed map test")
+        fun typedMapTest() {
+            val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    fun testTypedMapTest() {
-        val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("typed map test; compact whitespace")
+        fun typedMapTest_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing AtomicOrUnionType")
+        fun missingAtomicOrUnionType() {
+            val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingAtomicOrUnionType.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingAtomicOrUnionType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing comma")
+        fun missingComma() {
+            val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingComma.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingComma.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
-    @Test
-    fun testTypedMapTest_CompactWhitespace() {
-        val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_CompactWhitespace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_CompactWhitespace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedMapTest_MissingAtomicOrUnionType() {
-        val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingAtomicOrUnionType.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingAtomicOrUnionType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedMapTest_MissingComma() {
-        val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingComma.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingComma.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedMapTest_MissingSequenceType() {
-        val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingSequenceType.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingSequenceType.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    @Test
-    fun testTypedMapTest_MissingClosingBrace() {
-        val expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingClosingBrace.txt")
-        val actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingClosingBrace.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
-
-    // endregion
     // region XQuery 3.1 :: AnyArrayTest
 
     @Test
