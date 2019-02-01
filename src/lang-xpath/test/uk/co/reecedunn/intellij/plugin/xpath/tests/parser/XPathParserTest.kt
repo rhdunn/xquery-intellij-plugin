@@ -4029,4 +4029,40 @@ private class XPathParserTest : ParserTestCase() {
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XPath 3.1 EBNF (110) TypedArrayTest")
+    internal inner class TypedArrayTest {
+        @Test
+        @DisplayName("typed array test")
+        fun typedArrayTest() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedArrayTest.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedArrayTest.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("typed array test; compact whitespace")
+        fun typedArrayTest_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedArrayTest_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedArrayTest_CompactWhitespace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing SequenceType")
+        fun missingSequenceType() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedArrayTest_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedArrayTest_MissingSequenceType.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing brace")
+        fun missingClosingBrace() {
+            val expected = loadResource("tests/parser/xpath-3.1/TypedArrayTest_MissingClosingBrace.txt")
+            val actual = parseResource("tests/parser/xpath-3.1/TypedArrayTest_MissingClosingBrace.xq")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

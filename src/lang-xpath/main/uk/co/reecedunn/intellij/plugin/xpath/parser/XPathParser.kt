@@ -1958,7 +1958,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseArrayTest(builder: PsiBuilder): Boolean {
+    fun parseArrayTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY)
         if (marker != null) {
             var haveError = false
@@ -1973,6 +1973,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_ARRAY_TEST
+                parseSequenceType(builder) -> type = XPathElementType.TYPED_ARRAY_TEST
                 else -> {
                     builder.error(XPathBundle.message("parser.error.expected-either", "*", "SequenceType"))
                     type = XPathElementType.ANY_ARRAY_TEST

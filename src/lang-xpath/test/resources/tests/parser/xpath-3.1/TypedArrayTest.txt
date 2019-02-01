@@ -1,0 +1,21 @@
+XPathImpl[FILE(0:33)]
+   XPathOrExprImpl[XPATH_OR_EXPR(0:33)]
+      XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:33)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('5')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         XPathTypedArrayTestImpl[XPATH_TYPED_ARRAY_TEST(14:33)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ARRAY(14:19)]('array')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+            XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(22:31)]
+               XPathQNameImpl[XPATH_QNAME(22:31)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:24)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(24:25)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:31)]('string')
+            PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(32:33)](')')

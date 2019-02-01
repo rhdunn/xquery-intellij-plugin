@@ -5308,40 +5308,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseArrayTest(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            val type: IElementType
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.STAR)) {
-                type = XPathElementType.ANY_ARRAY_TEST
-            } else if (parseSequenceType(builder)) {
-                type = XPathElementType.TYPED_ARRAY_TEST
-            } else {
-                builder.error(XQueryBundle.message("parser.error.expected-either", "*", "SequenceType"))
-                type = XPathElementType.ANY_ARRAY_TEST
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(type)
-            return true
-        }
-        return false
-    }
-
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
