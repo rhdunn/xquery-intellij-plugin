@@ -1238,6 +1238,7 @@ open class XPathParser : PsiParser {
             nonNameMarker.rollbackTo()
 
             if (
+                (type !== XPathElementType.NAME_TEST && nextTokenType === XPathTokenType.BLOCK_OPEN) ||
                 nextTokenType === XPathTokenType.PARENTHESIS_OPEN ||
                 nextTokenType === XPathTokenType.FUNCTION_REF_OPERATOR
             ) {

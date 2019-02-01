@@ -2497,11 +2497,11 @@ class XQueryParser : XPathParser() {
 
     private fun parseCatchErrorList(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseNameTest(builder, null)) {
+        if (parseNameTest(builder, XPathElementType.NAME_TEST)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.UNION)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseNameTest(builder, null)) {
+                if (!parseNameTest(builder, XPathElementType.NAME_TEST)) {
                     builder.error(XPathBundle.message("parser.error.expected", "NameTest"))
                 }
                 parseWhiteSpaceAndCommentTokens(builder)

@@ -17,10 +17,10 @@ XQueryModuleImpl[FILE(0:130)]
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(53:54)](';')
       PsiWhiteSpaceImpl[WHITE_SPACE(54:55)]('\n')
       XQueryPrologImpl[XQUERY_PROLOG(55:130)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(55:96)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(55:78)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(55:62)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
-            XQueryVarDeclImpl[XQUERY_VAR_DECL(63:96)]
+            XQueryVarDeclImpl[XQUERY_VAR_DECL(63:78)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(63:71)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(72:73)]('$')
@@ -30,14 +30,10 @@ XQueryModuleImpl[FILE(0:130)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(75:77)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
-               XQueryVarValueImpl[XQUERY_VAR_VALUE(78:96)]
-                  XPathOrExprImpl[XPATH_OR_EXPR(78:96)]
-                     XPathNodeTestImpl[XPATH_NODE_TEST(78:96)]
-                        XPathNameTestImpl[XPATH_NAME_TEST(78:96)]
-                           XQueryNCNameImpl[XQUERY_NCNAME(78:96)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(78:95)]('unknown_construct')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
-         PsiErrorElementImpl[ERROR_ELEMENT(96:96)]('XPST0003: Expected ';'.')
+               PsiErrorElementImpl[ERROR_ELEMENT(78:78)]('XPST0003: Missing expression.')
+         XmlNCNameImpl[XPATH_NCNAME_TOKEN(78:95)]('unknown_construct')
+         PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(96:96)]('XPST0003: Unexpected token.')
          LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(96:97)]('{')
          PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(98:98)]('XPST0003: Unexpected token.')
