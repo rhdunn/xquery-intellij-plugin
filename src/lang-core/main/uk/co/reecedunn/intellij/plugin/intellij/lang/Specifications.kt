@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 Reece H. Dunn
+ * Copyright (C) 2017-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -151,6 +151,30 @@ object XQuerySpec : Versioned {
 
     fun versionForXQuery(product: Product, version: Version, xquery: String): Specification? =
         versionsForXQuery(xquery).firstOrNull { spec -> product.conformsTo(version, spec) }
+}
+
+object XsltSpec : Versioned {
+    val REC_1_0_19991116 = Specification(
+        "1.0-19991116", 1.0, 19991116, "1.0", "http://www.w3.org/TR/1999/REC-xslt-19991116/", this
+    )
+
+    val REC_2_0_20070123 = Specification(
+        "2.0-20070123", 2.0, 20070123, "2.0", "http://www.w3.org/TR/2007/REC-xslt20-20070123/", this
+    )
+
+    val REC_3_0_20170608 = Specification(
+        "3.0-20170608", 3.0, 20170608, "3.0", "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", this
+    )
+
+    override val id get(): String = "xslt"
+
+    override val name get(): String = "XSLT"
+
+    override val versions: List<Version> = listOf(
+        REC_1_0_19991116,
+        REC_2_0_20070123,
+        REC_3_0_20170608
+    )
 }
 
 object FunctionsAndOperatorsSpec : Versioned {
