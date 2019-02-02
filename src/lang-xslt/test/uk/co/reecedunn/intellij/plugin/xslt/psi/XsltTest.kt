@@ -273,4 +273,36 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslPattern(), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("xsl:accumulator-rule")
+    internal inner class AccumulatorRule {
+        @Test
+        @DisplayName("@match = pattern")
+        fun match() {
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-role"), qname("match"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(ss.isXslPattern(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-role"), qname("match"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(tf.isXslPattern(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@phase = 'start' | 'end'")
+        fun phase() {
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-role"), qname("phase"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(ss.isXslPattern(), `is`(false))
+
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-role"), qname("phase"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(tf.isXslPattern(), `is`(false))
+        }
+    }
 }
