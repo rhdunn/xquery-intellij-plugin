@@ -177,4 +177,36 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslPattern(), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("xsl:key")
+    internal inner class Key {
+        @Test
+        @DisplayName("@match = pattern")
+        fun match() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:key"), qname("match"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("match"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@name = qname")
+        fun name() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:key"), qname("name"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("name"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
+        }
+    }
 }
