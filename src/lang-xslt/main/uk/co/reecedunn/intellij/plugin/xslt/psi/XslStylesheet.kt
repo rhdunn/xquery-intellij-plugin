@@ -17,15 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xslt.psi
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
+import uk.co.reecedunn.intellij.plugin.core.xml.qname
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
+import javax.xml.namespace.QName
 
-private const val XSLT_NAMESPACE = "http://www.w3.org/1999/XSL/Transform"
+private const val XSL_NAMESPACE = "http://www.w3.org/1999/XSL/Transform"
+
+private val XSL_ROOT_ELEMENTS = listOf(
+    QName(XSL_NAMESPACE, "stylesheet"),
+    QName(XSL_NAMESPACE, "transform")
+)
 
 fun PsiElement.isXslStylesheet(): Boolean {
     val file = containingFile as? XmlFile ?: return false
-    if (file.rootTag?.namespace != XSLT_NAMESPACE) return false
-    return file.rootTag?.localName == "stylesheet" || file.rootTag?.localName == "transform"
+    return file.rootTag?.let { XSL_ROOT_ELEMENTS.contains(it.qname()) } ?: false
 }
 
 fun PsiElement.getXslVersion(): Version? {
