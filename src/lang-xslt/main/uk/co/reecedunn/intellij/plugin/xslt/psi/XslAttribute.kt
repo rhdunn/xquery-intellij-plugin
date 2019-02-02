@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.qname
 private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:apply-templates") to qname("select"), // XSLT 1.0 [node-set; sequence]
     qname("xsl:for-each") to qname("select"), // XSLT 1.0 [node-set; sequence]
+    qname("xsl:if") to qname("test"), // XSLT 1.0 [boolean]
     qname("xsl:number") to qname("value"), // XSLT 1.0 [number]
     qname("xsl:sort") to qname("select"), // XSLT 1.0 [string]
     qname("xsl:value-of") to qname("select") // XSLT 1.0 [string]

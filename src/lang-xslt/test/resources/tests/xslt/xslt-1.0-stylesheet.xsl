@@ -3,6 +3,8 @@
     <xsl:key name="keys" match="one/two" use="@test"/>
 
     <xsl:template match="lorem/ipsum" name="test" mode="test">
+        <xsl:if test="position() = 1">
+        </xsl:if>
         <xsl:number value="position()" count="dolor" from="chapter" format="1. "/>
         <xsl:for-each select="value">
             <xsl:apply-templates select="dolor" mode="test">
