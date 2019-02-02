@@ -6,6 +6,7 @@
         <xsl:number count="position()" from="chapter" format="1. "/>
         <xsl:for-each select="value">
             <xsl:apply-templates select="dolor" mode="test"/>
+            <xsl:value-of select="position()"/>
         </xsl:for-each>
     </xsl:template>
 
