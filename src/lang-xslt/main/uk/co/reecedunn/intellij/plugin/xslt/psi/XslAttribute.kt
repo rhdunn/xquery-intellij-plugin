@@ -20,6 +20,7 @@ import com.intellij.psi.xml.XmlAttribute
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
 
 private val XSL_PATTERN_ATTRIBUTES = listOf(
+    qname("xsl:for-each-group") to qname("group-starting-with"), // XSLT 2.0
     qname("xsl:key") to qname("match"), // XSLT 1.0
     qname("xsl:number") to qname("count"), // XSLT 1.0
     qname("xsl:number") to qname("from"), // XSLT 1.0

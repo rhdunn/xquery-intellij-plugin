@@ -209,4 +209,48 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslPattern(), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("xsl:for-each-group")
+    internal inner class ForEachGroup {
+        @Test
+        @DisplayName("@group-starting-with = pattern")
+        fun groupStartingWith() {
+            val ss = attribute(
+                "tests/xslt/xslt-2.0-stylesheet.xsl",
+                qname("xsl:for-each-group"), qname("group-starting-with")
+            )
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(ss.isXslPattern(), `is`(true))
+
+            val tf = attribute(
+                "tests/xslt/xslt-2.0-transform.xsl",
+                qname("xsl:for-each-group"), qname("group-starting-with")
+            )
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(tf.isXslPattern(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@collation = { uri }")
+        fun collation() {
+            val ss = attribute(
+                "tests/xslt/xslt-2.0-stylesheet.xsl",
+                qname("xsl:for-each-group"), qname("collation")
+            )
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(ss.isXslPattern(), `is`(false))
+
+            val tf = attribute(
+                "tests/xslt/xslt-2.0-transform.xsl",
+                qname("xsl:for-each-group"), qname("collation")
+            )
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(tf.isXslPattern(), `is`(false))
+        }
+    }
 }
