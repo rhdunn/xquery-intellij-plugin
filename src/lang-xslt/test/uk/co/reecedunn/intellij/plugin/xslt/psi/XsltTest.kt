@@ -15,21 +15,33 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.psi
 
+import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlFile
+import com.intellij.psi.xml.XmlTag
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
+import javax.xml.namespace.QName
 
 @DisplayName("XSLT 3.0 - Platform Structure Interface")
 private class XsltTest : ParserTestCase() {
     fun parseResource(resource: String): XmlFile {
         val file = ResourceVirtualFile(XsltTest::class.java.classLoader, resource)
         return file.toPsiFile(myProject)!!
+    }
+
+    fun attribute(resource: String, element: QName, attribute: QName): XmlAttribute {
+        return parseResource(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
+            e.namespace == element.namespaceURI && e.localName == element.localPart
+        }.map { e ->
+            e.getAttribute(attribute.localPart, attribute.namespaceURI)
+        }.filterNotNull().first()
     }
 
     @Nested
@@ -85,6 +97,38 @@ private class XsltTest : ParserTestCase() {
             val xsl = parseResource("tests/xslt/xslt-3.0-transform.xsl")
             assertThat(xsl.isXslStylesheet(), `is`(true))
             assertThat(xsl.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+        }
+    }
+
+    @Nested
+    @DisplayName("xsl:template")
+    internal inner class Template {
+        @Test
+        @DisplayName("@match")
+        fun match() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("match"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("match"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@name")
+        fun name() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("name"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("name"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
         }
     }
 }

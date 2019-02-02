@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.xml
+package uk.co.reecedunn.intellij.plugin.xslt.psi
 
+import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlTag
-import javax.xml.namespace.QName
+import uk.co.reecedunn.intellij.plugin.core.xml.qname
 
-fun Map<String, String>.qname(name: String): QName {
-    return when {
-        name.contains(':') -> name.split(":").let { QName(get(it[0]), it[1]) }
-        else -> QName("", name)
-    }
+private val XSL_PATTERN_ATTRIBUTES = listOf(
+    qname("xsl:template") to qname("match") // XSLT 1.0
+)
+
+fun PsiElement.isXslPattern(): Boolean {
+    return (this as? XmlAttribute)?.let {
+        XSL_PATTERN_ATTRIBUTES.contains(it.parent.qname() to it.qname())
+    } ?: false
 }
-
-fun XmlTag.qname(): QName = QName(namespace, localName)
-
-fun XmlAttribute.qname(): QName = QName(namespace, localName)
