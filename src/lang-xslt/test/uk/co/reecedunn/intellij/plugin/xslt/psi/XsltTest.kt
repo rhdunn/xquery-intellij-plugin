@@ -104,7 +104,7 @@ private class XsltTest : ParserTestCase() {
     @DisplayName("xsl:template")
     internal inner class Template {
         @Test
-        @DisplayName("@match")
+        @DisplayName("@match = pattern")
         fun match() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("match"))
             assertThat(ss.isXslStylesheet(), `is`(true))
@@ -118,7 +118,7 @@ private class XsltTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("@name")
+        @DisplayName("@name = qname")
         fun name() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:template"), qname("name"))
             assertThat(ss.isXslStylesheet(), `is`(true))
@@ -126,6 +126,38 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslPattern(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("name"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("xsl:number")
+    internal inner class Number {
+        @Test
+        @DisplayName("@count = pattern")
+        fun match() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("count"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("count"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@format = { string }")
+        fun name() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("format"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("format"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(false))
