@@ -176,6 +176,22 @@ private class XsltTest : ParserTestCase() {
     @DisplayName("xsl:number")
     internal inner class Number {
         @Test
+        @DisplayName("@value = expression")
+        fun value() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("value"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("value"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
+
+        @Test
         @DisplayName("@count = pattern")
         fun count() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("count"))
