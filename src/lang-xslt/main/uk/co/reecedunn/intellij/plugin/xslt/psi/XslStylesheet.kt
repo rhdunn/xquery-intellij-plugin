@@ -22,11 +22,15 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import javax.xml.namespace.QName
 
-private const val XSL_NAMESPACE = "http://www.w3.org/1999/XSL/Transform"
+private val NAMESPACES = mapOf(
+    "xsl" to "http://www.w3.org/1999/XSL/Transform"
+)
+
+fun qname(name: String): QName = NAMESPACES.qname(name)
 
 private val XSL_ROOT_ELEMENTS = listOf(
-    QName(XSL_NAMESPACE, "stylesheet"),
-    QName(XSL_NAMESPACE, "transform")
+    qname("xsl:stylesheet"),
+    qname("xsl:transform")
 )
 
 fun PsiElement.isXslStylesheet(): Boolean {
