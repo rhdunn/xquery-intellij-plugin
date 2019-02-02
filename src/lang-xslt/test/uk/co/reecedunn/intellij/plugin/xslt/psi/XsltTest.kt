@@ -101,6 +101,42 @@ private class XsltTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("xsl:apply-templates")
+    internal inner class ApplyTemplates {
+        @Test
+        @DisplayName("@select = expression")
+        fun select() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:apply-templates"), qname("select"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:apply-templates"), qname("select"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@mode = qname")
+        fun mode() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:apply-templates"), qname("mode"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:apply-templates"), qname("mode"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:template")
     internal inner class Template {
         @Test
@@ -110,11 +146,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("match"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -124,11 +162,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:template"), qname("name"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
     }
 
@@ -142,11 +182,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("count"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -156,11 +198,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("from"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -170,11 +214,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("format"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
     }
 
@@ -188,11 +234,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("match"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -202,11 +250,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("name"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
             assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
     }
 
@@ -223,6 +273,7 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute(
                 "tests/xslt/xslt-2.0-transform.xsl",
@@ -231,6 +282,7 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -243,6 +295,7 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute(
                 "tests/xslt/xslt-2.0-transform.xsl",
@@ -251,6 +304,7 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -263,6 +317,7 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute(
                 "tests/xslt/xslt-2.0-transform.xsl",
@@ -271,6 +326,7 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
             assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
     }
 
@@ -284,11 +340,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(ss.isXslPattern(), `is`(true))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-role"), qname("match"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(tf.isXslPattern(), `is`(true))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
 
         @Test
@@ -298,11 +356,13 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
 
             val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-role"), qname("phase"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(false))
         }
     }
 }
