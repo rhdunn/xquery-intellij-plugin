@@ -5,7 +5,9 @@
     <xsl:template match="lorem/ipsum" name="test" mode="test">
         <xsl:number count="position()" from="chapter" format="1. "/>
         <xsl:for-each select="value">
-            <xsl:apply-templates select="dolor" mode="test"/>
+            <xsl:apply-templates select="dolor" mode="test">
+                <xsl:sort select="value"/>
+            </xsl:apply-templates>
             <xsl:value-of select="position()"/>
         </xsl:for-each>
     </xsl:template>
