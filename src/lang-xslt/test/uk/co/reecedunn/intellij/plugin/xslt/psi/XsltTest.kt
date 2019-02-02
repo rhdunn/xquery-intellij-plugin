@@ -137,7 +137,7 @@ private class XsltTest : ParserTestCase() {
     internal inner class Number {
         @Test
         @DisplayName("@count = pattern")
-        fun match() {
+        fun count() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("count"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
@@ -150,8 +150,22 @@ private class XsltTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("@from = pattern")
+        fun from() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("from"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:number"), qname("from"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(true))
+        }
+
+        @Test
         @DisplayName("@format = { string }")
-        fun name() {
+        fun format() {
             val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:number"), qname("format"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))

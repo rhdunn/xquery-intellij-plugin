@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.qname
 
 private val XSL_PATTERN_ATTRIBUTES = listOf(
     qname("xsl:number") to qname("count"), // XSLT 1.0
+    qname("xsl:number") to qname("from"), // XSLT 1.0
     qname("xsl:template") to qname("match") // XSLT 1.0
 )
 
