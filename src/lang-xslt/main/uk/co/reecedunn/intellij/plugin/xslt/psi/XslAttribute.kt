@@ -20,7 +20,8 @@ import com.intellij.psi.xml.XmlAttribute
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
 
 private val XSL_EXPRESSION_ATTRIBUTES = listOf(
-    qname("xsl:apply-templates") to qname("select") // XSLT 1.0 [node-set; sequence]
+    qname("xsl:apply-templates") to qname("select"), // XSLT 1.0 [node-set; sequence]
+    qname("xsl:for-each") to qname("select") // XSLT 1.0 [node-set; sequence]
 )
 
 private val XSL_PATTERN_ATTRIBUTES = listOf(
