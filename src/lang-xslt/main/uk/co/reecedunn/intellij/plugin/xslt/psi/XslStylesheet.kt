@@ -29,8 +29,9 @@ private val NAMESPACES = mapOf(
 fun qname(name: String): QName = NAMESPACES.qname(name)
 
 private val XSL_ROOT_ELEMENTS = listOf(
-    qname("xsl:stylesheet"),
-    qname("xsl:transform")
+    qname("xsl:package"), // XSLT 3.0
+    qname("xsl:stylesheet"), // XSLT 1.0
+    qname("xsl:transform") // XSLT 1.0
 )
 
 fun PsiElement.isXslStylesheet(): Boolean {

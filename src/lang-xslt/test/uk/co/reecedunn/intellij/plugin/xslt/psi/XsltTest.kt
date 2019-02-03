@@ -449,6 +449,30 @@ private class XsltTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("xsl:package")
+    internal inner class Package {
+        @Test
+        @DisplayName("3.0")
+        fun package30() {
+            val xsl = parseResource("tests/xslt/xslt-3.0-package.xsl")
+            assertThat(xsl.isXslStylesheet(), `is`(true))
+            assertThat(xsl.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(xsl.isXslPattern(), `is`(false))
+            assertThat(xsl.isXslExpression(), `is`(false))
+        }
+
+        @Test
+        @DisplayName("@version = number")
+        fun version() {
+            val ss = attribute("tests/xslt/xslt-3.0-package.xsl", qname("xsl:package"), qname("version"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:param")
     internal inner class Param {
         @Test
