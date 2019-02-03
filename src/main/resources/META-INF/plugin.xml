@@ -90,7 +90,7 @@
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage"/>
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
 
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryPairedBraceMatcher"/>

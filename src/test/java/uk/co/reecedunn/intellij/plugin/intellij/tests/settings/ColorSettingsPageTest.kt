@@ -22,7 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.intellij.settings.ColorSettingsPage
+import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage
 import java.util.*
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - Color Settings Page")
@@ -30,14 +30,14 @@ class ColorSettingsPageTest {
     @Test
     @DisplayName("icon")
     fun testIcon() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         assertThat(settings.icon, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("highlighter")
     fun testHighlighter() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         val highlighter = settings.highlighter
         assertThat(highlighter.javaClass.name, `is`(SyntaxHighlighter::class.java.name))
     }
@@ -45,7 +45,7 @@ class ColorSettingsPageTest {
     @Test
     @DisplayName("demo text contains all syntax highlighter highlight types")
     fun testDemoText() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         val highlighter = settings.highlighter
         val lexer = highlighter.highlightingLexer
         lexer.start(settings.demoText)
@@ -85,14 +85,14 @@ class ColorSettingsPageTest {
     @Test
     @DisplayName("additional highlighting tag to descriptor map")
     fun testAdditionalHighlightingTagToDescriptorMap() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         assertThat(settings.additionalHighlightingTagToDescriptorMap, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("attribute descriptors")
     fun testAttributeDescriptors() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         assertThat(settings.attributeDescriptors.size, `is`(18))
         assertThat(settings.attributeDescriptors[0].displayName, `is`("Invalid Character"))
         assertThat(settings.attributeDescriptors[0].key, `is`(SyntaxHighlighter.BAD_CHARACTER))
@@ -135,14 +135,14 @@ class ColorSettingsPageTest {
     @Test
     @DisplayName("color descriptors")
     fun testColorDescriptors() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         assertThat(settings.colorDescriptors.size, `is`(0))
     }
 
     @Test
     @DisplayName("display name")
     fun testDisplayName() {
-        val settings = ColorSettingsPage()
+        val settings = XQueryColorSettingsPage()
         assertThat(settings.displayName, `is`("XQuery"))
     }
 }

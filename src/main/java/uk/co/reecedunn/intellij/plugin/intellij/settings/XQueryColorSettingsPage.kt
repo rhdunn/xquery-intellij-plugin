@@ -42,7 +42,7 @@ private val DESCRIPTORS = arrayOf(
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag-value"), SyntaxHighlighter.XQDOC_TAG_VALUE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.markup"), SyntaxHighlighter.XQDOC_MARKUP))
 
-class ColorSettingsPage : com.intellij.openapi.options.colors.ColorSettingsPage {
+class XQueryColorSettingsPage : com.intellij.openapi.options.colors.ColorSettingsPage {
     override fun getIcon(): Icon? = null
 
     override fun getHighlighter(): com.intellij.openapi.fileTypes.SyntaxHighlighter {
