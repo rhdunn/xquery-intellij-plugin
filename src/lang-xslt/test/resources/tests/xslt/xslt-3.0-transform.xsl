@@ -21,7 +21,8 @@
         </xsl:sequence>
 
         <xsl:evaluate xpath="@query"
-                      with-params="map{}"/>
+                      with-params="map{}"
+                      context-item="@ctx"/>
     </xsl:template>
 
 </xsl:transform>
