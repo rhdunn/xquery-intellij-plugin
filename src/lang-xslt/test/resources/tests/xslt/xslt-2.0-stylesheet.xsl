@@ -9,7 +9,9 @@
         <xsl:for-each-group select="test"
                             group-starting-with="@start"
                             group-ending-with="@end"
-                            collation="http://example.com"/>
+                            collation="http://example.com">
+            <xsl:sequence select="(1, 2)"/>
+        </xsl:for-each-group>
     </xsl:template>
 
 </xsl:stylesheet>
