@@ -17,6 +17,7 @@
 
         <xsl:sequence>
             <xsl:on-empty select="0"/>
+            <xsl:on-non-empty select="1"/>
         </xsl:sequence>
     </xsl:template>
 
