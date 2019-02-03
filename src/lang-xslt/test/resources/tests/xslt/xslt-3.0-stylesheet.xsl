@@ -34,7 +34,7 @@
         </xsl:merge-source>
 
         <xsl:map>
-            <xsl:map-entry key="@name"/>
+            <xsl:map-entry key="@name" select="@value"/>
         </xsl:map>
     </xsl:template>
 
