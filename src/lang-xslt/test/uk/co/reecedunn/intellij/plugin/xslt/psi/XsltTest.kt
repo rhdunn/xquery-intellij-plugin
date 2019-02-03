@@ -377,6 +377,26 @@ private class XsltTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("xsl:perform-sort")
+    internal inner class PerformSort {
+        @Test
+        @DisplayName("@select = expression")
+        fun select() {
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:perform-sort"), qname("select"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:perform-sort"), qname("select"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:processing-instruction")
     internal inner class ProcessingInstruction {
         @Test

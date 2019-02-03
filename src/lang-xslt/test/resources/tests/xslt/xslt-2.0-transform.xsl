@@ -13,6 +13,10 @@
             <xsl:number select="@count"/>
             <xsl:sequence select="(1, 2)"/>
         </xsl:for-each-group>
+
+        <xsl:perform-sort select="dolor">
+            <xsl:sort select="."/>
+        </xsl:perform-sort>
     </xsl:template>
 
 </xsl:transform>
