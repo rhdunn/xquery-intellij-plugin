@@ -4,6 +4,9 @@
         <xsl:accumulator name="lorem-ipsum">
             <xsl:accumulator-role match="test" phase="start"/>
         </xsl:accumulator>
+
+        <xsl:iterate select="lorem">
+        </xsl:iterate>
     </xsl:template>
 
 </xsl:stylesheet>
