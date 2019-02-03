@@ -26,6 +26,9 @@
                       namespace-context=".."/>
 
         <xsl:copy select="@*"/>
+
+        <xsl:merge-source for-each-item="@value">
+        </xsl:merge-source>
     </xsl:template>
 
 </xsl:stylesheet>
