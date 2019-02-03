@@ -28,7 +28,8 @@
         <xsl:copy select="@*"/>
 
         <xsl:merge-source for-each-source="'test.xml'"
-                          for-each-item="@value">
+                          for-each-item="@value"
+                          select="item">
         </xsl:merge-source>
     </xsl:template>
 
