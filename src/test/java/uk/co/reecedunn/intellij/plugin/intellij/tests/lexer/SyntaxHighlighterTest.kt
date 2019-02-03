@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighterFactory
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterFactory
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -30,7 +30,7 @@ class SyntaxHighlighterTest {
     @Test
     @DisplayName("syntax highlighter factory")
     fun testFactory() {
-        val factory = SyntaxHighlighterFactory()
+        val factory = XQuerySyntaxHighlighterFactory()
         val highlighter = factory.getSyntaxHighlighter(null, null)
         assertThat(highlighter.javaClass.name, `is`(XQuerySyntaxHighlighter::class.java.name))
     }
