@@ -30,6 +30,7 @@
         <xsl:merge-source for-each-source="'test.xml'"
                           for-each-item="@value"
                           select="item">
+            <xsl:merge-key select="@key"/>
         </xsl:merge-source>
     </xsl:template>
 
