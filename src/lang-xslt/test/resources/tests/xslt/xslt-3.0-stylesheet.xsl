@@ -36,6 +36,8 @@
         <xsl:map>
             <xsl:map-entry key="@name" select="@value"/>
         </xsl:map>
+
+        <xsl:assert test="@name"/>
     </xsl:template>
 
 </xsl:stylesheet>

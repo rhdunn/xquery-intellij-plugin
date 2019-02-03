@@ -22,8 +22,9 @@ import uk.co.reecedunn.intellij.plugin.core.xml.qname
 private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:accumulator") to qname("initial-value"), // XSLT 3.0
     qname("xsl:accumulator-rule") to qname("select"), // XSLT 3.0
-    qname("xsl:apply-templates") to qname("select"), // XSLT 1.0 [node-set; sequence]
     qname("xsl:analyze-string") to qname("select"), // XSLT 2.0
+    qname("xsl:apply-templates") to qname("select"), // XSLT 1.0 [node-set; sequence]
+    qname("xsl:assert") to qname("test"), // XSLT 3.0
     qname("xsl:attribute") to qname("select"), // XSLT 2.0
     qname("xsl:break") to qname("select"), // XSLT 3.0
     qname("xsl:catch") to qname("select"), // XSLT 3.0
