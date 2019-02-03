@@ -8,6 +8,7 @@
 
     <xsl:template match="lorem/ipsum" name="test" mode="test">
         <xsl:if test="position() = 1">
+            <xsl:copy-of select="@*"/>
         </xsl:if>
         <xsl:choose>
             <xsl:when test="position() = 1">
