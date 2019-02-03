@@ -45,6 +45,26 @@ private class XsltTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("generic-element-type")
+    internal inner class GenericElementType {
+        @Test
+        @DisplayName("@use-when = expression")
+        fun useWhen() {
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:comment"), qname("use-when"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:comment"), qname("use-when"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:accumulator-rule")
     internal inner class AccumulatorRule {
         @Test

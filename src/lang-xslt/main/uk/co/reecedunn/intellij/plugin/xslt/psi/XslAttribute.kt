@@ -56,9 +56,13 @@ private val XSL_PATTERN_ATTRIBUTES = listOf(
     qname("xsl:template") to qname("match") // XSLT 1.0
 )
 
+private fun XmlAttribute.isUseWhen(): Boolean {
+    return parent.namespace == "http://www.w3.org/1999/XSL/Transform" && localName == "use-when"
+}
+
 fun PsiElement.isXslExpression(): Boolean {
     return (this as? XmlAttribute)?.let {
-        XSL_EXPRESSION_ATTRIBUTES.contains(it.parent.qname() to it.qname())
+        XSL_EXPRESSION_ATTRIBUTES.contains(it.parent.qname() to it.qname()) || it.isUseWhen()
     } ?: false
 }
 

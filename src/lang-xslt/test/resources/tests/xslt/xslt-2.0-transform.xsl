@@ -4,7 +4,8 @@
         <xsl:attribute name="test" select="@value"/>
         <xsl:namespace name="test" select="@value"/>
         <xsl:processing-instruction name="test" select="@value"/>
-        <xsl:comment select="@value"/>
+        <xsl:comment select="@value"
+                     use-when="system-property('xsl:is-schema-aware')='yes'"/>
 
         <xsl:message select="@value"/>
 
