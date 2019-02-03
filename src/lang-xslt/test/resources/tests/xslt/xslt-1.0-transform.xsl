@@ -2,6 +2,8 @@
 
     <xsl:param name="lorem" select="one"/>
 
+    <xsl:variable name="ipsum" select="two"/>
+
     <xsl:key name="keys" match="one/two" use="@test"/>
 
     <xsl:template match="lorem/ipsum" name="test" mode="test">
