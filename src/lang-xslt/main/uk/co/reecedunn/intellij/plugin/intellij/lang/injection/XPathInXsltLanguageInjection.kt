@@ -18,12 +18,30 @@ package uk.co.reecedunn.intellij.plugin.intellij.lang.injection
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiLanguageInjectionHost
+import com.intellij.psi.xml.XmlAttributeValue
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslExpression
+import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslPattern
+import uk.co.reecedunn.intellij.plugin.xslt.psi.isXslStylesheet
 
 class XPathInXsltLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf()
+        return mutableListOf(XmlAttributeValue::class.java)
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
+        if (!context.isXslStylesheet()) return
+        val attribute = context.parent
+        when {
+            attribute.isXslExpression() || attribute.isXslPattern() -> {
+                val host = context as PsiLanguageInjectionHost
+                val range = context.textRange
+
+                registrar.startInjecting(XPath)
+                registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
+                registrar.doneInjecting()
+            }
+        }
     }
 }
