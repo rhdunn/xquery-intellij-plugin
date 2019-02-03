@@ -55,6 +55,10 @@ open class XPathQNamePsiImpl(node: ASTNode) :
         return if (references.isEmpty()) null else references[0]
     }
 
+    override fun getReferences(): Array<PsiReference> {
+        return PsiReference.EMPTY_ARRAY
+    }
+
     override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
 
     // endregion
