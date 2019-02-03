@@ -22,7 +22,8 @@
 
         <xsl:evaluate xpath="@query"
                       with-params="map{}"
-                      context-item="@ctx"/>
+                      context-item="@ctx"
+                      namespace-context=".."/>
     </xsl:template>
 
 </xsl:stylesheet>
