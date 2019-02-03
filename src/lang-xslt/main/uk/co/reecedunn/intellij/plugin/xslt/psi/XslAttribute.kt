@@ -26,6 +26,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:break") to qname("select"), // XSLT 3.0
     qname("xsl:catch") to qname("select"), // XSLT 3.0
     qname("xsl:comment") to qname("select"), // XSLT 2.0
+    qname("xsl:copy") to qname("select"), // XSLT 3.0
     qname("xsl:copy-of") to qname("select"), // XSLT 1.0
     qname("xsl:evaluate") to qname("context-item"), // XSLT 3.0
     qname("xsl:evaluate") to qname("namespace-context"), // XSLT 3.0

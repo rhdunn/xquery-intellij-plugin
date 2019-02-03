@@ -24,6 +24,8 @@
                       with-params="map{}"
                       context-item="@ctx"
                       namespace-context=".."/>
+
+        <xsl:copy select="@*"/>
     </xsl:template>
 
 </xsl:stylesheet>
