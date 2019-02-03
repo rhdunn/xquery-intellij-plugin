@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -68,7 +68,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(4))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.IDENTIFIER))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.IDENTIFIER))
         }
     }
 
@@ -94,7 +94,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
 
         @Test
@@ -116,7 +116,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(4))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
 
         @Test
@@ -146,7 +146,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
 
             assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[2].startOffset, `is`(6))
@@ -160,7 +160,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[3].endOffset, `is`(10))
             assertThat(annotations[3].message, `is`(nullValue()))
             assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[3].textAttributes, `is`(XQuerySyntaxHighlighter.IDENTIFIER))
+            assertThat(annotations[3].textAttributes, `is`(XQuerySyntaxHighlighterColors.IDENTIFIER))
         }
 
         @Test
@@ -182,7 +182,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
 
         @Test
@@ -204,7 +204,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
 
         @Test
@@ -226,7 +226,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
 
         @Test
@@ -248,7 +248,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(5))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
     }
 
@@ -282,7 +282,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(34))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.IDENTIFIER))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.IDENTIFIER))
         }
     }
 
@@ -308,14 +308,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(2))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.XML_TAG))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.XML_TAG))
 
             assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[2].startOffset, `is`(1))
             assertThat(annotations[2].endOffset, `is`(2))
             assertThat(annotations[2].message, `is`(nullValue()))
             assertThat(annotations[2].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[2].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[2].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
 
             assertThat(annotations[3].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[3].startOffset, `is`(11))
@@ -329,14 +329,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[4].endOffset, `is`(12))
             assertThat(annotations[4].message, `is`(nullValue()))
             assertThat(annotations[4].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[4].textAttributes, `is`(XQuerySyntaxHighlighter.XML_TAG))
+            assertThat(annotations[4].textAttributes, `is`(XQuerySyntaxHighlighterColors.XML_TAG))
 
             assertThat(annotations[5].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[5].startOffset, `is`(11))
             assertThat(annotations[5].endOffset, `is`(12))
             assertThat(annotations[5].message, `is`(nullValue()))
             assertThat(annotations[5].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[5].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[5].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
     }
 
@@ -362,7 +362,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(17))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.ANNOTATION))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
         }
 
         @Test
@@ -384,7 +384,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].endOffset, `is`(12))
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighter.NS_PREFIX))
+            assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
 
             assertThat(annotations[2].severity, `is`(HighlightSeverity.INFORMATION))
             assertThat(annotations[2].startOffset, `is`(13))
@@ -398,7 +398,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[3].endOffset, `is`(19))
             assertThat(annotations[3].message, `is`(nullValue()))
             assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
-            assertThat(annotations[3].textAttributes, `is`(XQuerySyntaxHighlighter.ANNOTATION))
+            assertThat(annotations[3].textAttributes, `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
         }
     }
 }

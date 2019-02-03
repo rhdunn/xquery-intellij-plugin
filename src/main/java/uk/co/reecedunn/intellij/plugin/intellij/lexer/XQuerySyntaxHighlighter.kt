@@ -168,71 +168,49 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
     }
 
     companion object {
-        val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
-        val COMMENT = TextAttributesKey.createTextAttributesKey("XPATH_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT)
-        val ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey("XQUERY_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE)
-        val ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE)
-        val IDENTIFIER = TextAttributesKey.createTextAttributesKey("XQUERY_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER)
-        val KEYWORD = TextAttributesKey.createTextAttributesKey("XQUERY_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD)
-        val ANNOTATION = TextAttributesKey.createTextAttributesKey("XQUERY_ANNOTATION", DefaultLanguageHighlighterColors.METADATA)
-        val NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER)
-        val STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING)
-        val NS_PREFIX = TextAttributesKey.createTextAttributesKey("XQUERY_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
+        private val BAD_CHARACTER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.BAD_CHARACTER)
+        private val ENTITY_REFERENCE_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.ENTITY_REFERENCE)
+        private val ESCAPED_CHARACTER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.ESCAPED_CHARACTER)
+        private val IDENTIFIER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.IDENTIFIER)
+        private val KEYWORD_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.KEYWORD)
+        private val ANNOTATION_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.ANNOTATION)
+        private val NUMBER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.NUMBER)
+        private val STRING_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.STRING)
 
-        val XQDOC_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_TAG", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG)
-        val XQDOC_TAG_VALUE = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_TAG_VALUE", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG_VALUE)
-        val XQDOC_MARKUP = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_MARKUP", DefaultLanguageHighlighterColors.DOC_COMMENT_MARKUP)
-
-        val XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG)
-        val XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME)
-        val XML_ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME)
-        val XML_ATTRIBUTE_VALUE = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_VALUE", XmlHighlighterColors.XML_ATTRIBUTE_VALUE)
-        val XML_ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.MARKUP_ENTITY)
-        val XML_ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE)
-
-        private val BAD_CHARACTER_KEYS = SyntaxHighlighterBase.pack(BAD_CHARACTER)
-        private val ENTITY_REFERENCE_KEYS = SyntaxHighlighterBase.pack(ENTITY_REFERENCE)
-        private val ESCAPED_CHARACTER_KEYS = SyntaxHighlighterBase.pack(ESCAPED_CHARACTER)
-        private val IDENTIFIER_KEYS = SyntaxHighlighterBase.pack(IDENTIFIER)
-        private val KEYWORD_KEYS = SyntaxHighlighterBase.pack(KEYWORD)
-        private val ANNOTATION_KEYS = SyntaxHighlighterBase.pack(ANNOTATION)
-        private val NUMBER_KEYS = SyntaxHighlighterBase.pack(NUMBER)
-        private val STRING_KEYS = SyntaxHighlighterBase.pack(STRING)
-
-        private val COMMENT_KEYS = SyntaxHighlighterBase.pack(COMMENT)
+        private val COMMENT_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.COMMENT)
         private val XQDOC_TAG_KEYS = SyntaxHighlighterBase.pack(
-            COMMENT,
-            XQDOC_TAG
+            XQuerySyntaxHighlighterColors.COMMENT,
+            XQuerySyntaxHighlighterColors.XQDOC_TAG
         )
         private val XQDOC_TAG_VALUE_KEYS = SyntaxHighlighterBase.pack(
-            COMMENT,
-            XQDOC_TAG_VALUE
+            XQuerySyntaxHighlighterColors.COMMENT,
+            XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE
         )
         private val XQDOC_MARKUP_KEYS = SyntaxHighlighterBase.pack(
-            COMMENT,
-            XQDOC_MARKUP
+            XQuerySyntaxHighlighterColors.COMMENT,
+            XQuerySyntaxHighlighterColors.XQDOC_MARKUP
         )
 
-        private val XML_TAG_KEYS = SyntaxHighlighterBase.pack(XML_TAG)
+        private val XML_TAG_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.XML_TAG)
         private val XML_TAG_NAME_KEYS = SyntaxHighlighterBase.pack(
-            XML_TAG,
-            XML_TAG_NAME
+            XQuerySyntaxHighlighterColors.XML_TAG,
+            XQuerySyntaxHighlighterColors.XML_TAG_NAME
         )
         private val XML_ATTRIBUTE_NAME_KEYS = SyntaxHighlighterBase.pack(
-            XML_TAG,
-            XML_ATTRIBUTE_NAME
+            XQuerySyntaxHighlighterColors.XML_TAG,
+            XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME
         )
         private val XML_ATTRIBUTE_VALUE_KEYS = SyntaxHighlighterBase.pack(
-            XML_TAG,
-            XML_ATTRIBUTE_VALUE
+            XQuerySyntaxHighlighterColors.XML_TAG,
+            XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE
         )
         private val XML_ENTITY_REFERENCE_KEYS = SyntaxHighlighterBase.pack(
-            XML_TAG,
-            XML_ENTITY_REFERENCE
+            XQuerySyntaxHighlighterColors.XML_TAG,
+            XQuerySyntaxHighlighterColors.XML_ENTITY_REFERENCE
         )
         private val XML_ESCAPED_CHARACTER_KEYS = SyntaxHighlighterBase.pack(
-            XML_TAG,
-            XML_ESCAPED_CHARACTER
+            XQuerySyntaxHighlighterColors.XML_TAG,
+            XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER
         )
     }
 }
