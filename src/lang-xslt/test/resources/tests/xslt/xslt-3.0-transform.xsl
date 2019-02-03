@@ -20,7 +20,8 @@
             <xsl:on-non-empty select="1"/>
         </xsl:sequence>
 
-        <xsl:evaluate xpath="@query"/>
+        <xsl:evaluate xpath="@query"
+                      with-params="map{}"/>
     </xsl:template>
 
 </xsl:transform>
