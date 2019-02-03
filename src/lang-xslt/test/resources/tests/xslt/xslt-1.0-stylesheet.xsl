@@ -18,6 +18,7 @@
         <xsl:for-each select="value">
             <xsl:apply-templates select="dolor" mode="test">
                 <xsl:sort select="value"/>
+                <xsl:with-param name="test" select="sed-emit"/>
             </xsl:apply-templates>
             <xsl:value-of select="position()"/>
         </xsl:for-each>

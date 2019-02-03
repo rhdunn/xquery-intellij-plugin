@@ -29,7 +29,8 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:sort") to qname("select"), // XSLT 1.0 [string]
     qname("xsl:value-of") to qname("select"), // XSLT 1.0 [string]
     qname("xsl:variable") to qname("select"), // XSLT 1.0
-    qname("xsl:when") to qname("test") // XSLT 1.0 [boolean]
+    qname("xsl:when") to qname("test"), // XSLT 1.0 [boolean]
+    qname("xsl:with-param") to qname("select") // XSLT 1.0
 )
 
 private val XSL_PATTERN_ATTRIBUTES = listOf(
