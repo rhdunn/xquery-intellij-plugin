@@ -52,7 +52,7 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XPathTokenType.DOUBLE_LITERAL ||
             type === XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
         )
-            return NUMBER_KEYS
+            return XQuerySyntaxHighlighterKeys.NUMBER_KEYS
         else if (
             type === XPathTokenType.STRING_LITERAL_START ||
             type === XPathTokenType.STRING_LITERAL_CONTENTS ||
@@ -63,20 +63,20 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XPathTokenType.BRACED_URI_LITERAL_START ||
             type === XPathTokenType.BRACED_URI_LITERAL_END
         )
-            return STRING_KEYS
+            return XQuerySyntaxHighlighterKeys.STRING_KEYS
         else if (type === XPathTokenType.ESCAPED_CHARACTER)
-            return ESCAPED_CHARACTER_KEYS
+            return XQuerySyntaxHighlighterKeys.ESCAPED_CHARACTER_KEYS
         else if (
             type === XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
             type === XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
             type === XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
             type === XQueryTokenType.CHARACTER_REFERENCE
         )
-            return ENTITY_REFERENCE_KEYS
+            return XQuerySyntaxHighlighterKeys.ENTITY_REFERENCE_KEYS
         else if (type === XPathTokenType.BAD_CHARACTER)
-            return BAD_CHARACTER_KEYS
+            return XQuerySyntaxHighlighterKeys.BAD_CHARACTER_KEYS
         else if (type === XPathTokenType.NCNAME)
-            return IDENTIFIER_KEYS
+            return XQuerySyntaxHighlighterKeys.IDENTIFIER_KEYS
         else if (
             type === XPathTokenType.COMMENT_START_TAG ||
             type === XPathTokenType.COMMENT ||
@@ -89,7 +89,7 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQDocTokenType.TRIM ||
             type === XQDocTokenType.XML_ELEMENT_CONTENTS
         )
-            return COMMENT_KEYS
+            return XQuerySyntaxHighlighterKeys.COMMENT_KEYS
         else if (
             type === XQueryTokenType.K_PRIVATE ||
             type === XQueryTokenType.K_PUBLIC ||
@@ -98,9 +98,9 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.K_UPDATING ||
             type === XQueryTokenType.ANNOTATION_INDICATOR
         )
-            return ANNOTATION_KEYS
+            return XQuerySyntaxHighlighterKeys.ANNOTATION_KEYS
         else if (type is IKeywordOrNCNameType)
-            return KEYWORD_KEYS
+            return XQuerySyntaxHighlighterKeys.KEYWORD_KEYS
         else if (
             type === XQueryTokenType.OPEN_XML_TAG ||
             type === XQueryTokenType.END_XML_TAG ||
@@ -108,15 +108,15 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.SELF_CLOSING_XML_TAG ||
             type === XQueryTokenType.XML_WHITE_SPACE
         )
-            return XML_TAG_KEYS
+            return XQuerySyntaxHighlighterKeys.XML_TAG_KEYS
         else if (type === XQueryTokenType.XML_TAG_NCNAME || type === XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            return XML_TAG_NAME_KEYS
+            return XQuerySyntaxHighlighterKeys.XML_TAG_NAME_KEYS
         else if (
             type === XQueryTokenType.XML_EQUAL ||
             type === XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
             type === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
         )
-            return XML_ATTRIBUTE_NAME_KEYS
+            return XQuerySyntaxHighlighterKeys.XML_ATTRIBUTE_NAME_KEYS
         else if (
             type === XQueryTokenType.XML_ATTRIBUTE_VALUE_START ||
             type === XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
@@ -124,14 +124,14 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE ||
             type === XQueryTokenType.XML_ATTRIBUTE_VALUE_END
         )
-            return XML_ATTRIBUTE_VALUE_KEYS
+            return XQuerySyntaxHighlighterKeys.XML_ATTRIBUTE_VALUE_KEYS
         else if (type === XQueryTokenType.XML_ESCAPED_CHARACTER)
-            return XML_ESCAPED_CHARACTER_KEYS
+            return XQuerySyntaxHighlighterKeys.XML_ESCAPED_CHARACTER_KEYS
         else if (
             type === XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ||
             type === XQueryTokenType.XML_CHARACTER_REFERENCE
         )
-            return XML_ENTITY_REFERENCE_KEYS
+            return XQuerySyntaxHighlighterKeys.XML_ENTITY_REFERENCE_KEYS
         else if (
             type === XQDocTokenType.TAG_MARKER ||
             type === XQDocTokenType.TAG ||
@@ -144,9 +144,9 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQDocTokenType.T_SINCE ||
             type === XQDocTokenType.T_VERSION
         )
-            return XQDOC_TAG_KEYS
+            return XQuerySyntaxHighlighterKeys.XQDOC_TAG_KEYS
         else if (type === XQDocTokenType.VARIABLE_INDICATOR || type === XQDocTokenType.NCNAME)
-            return XQDOC_TAG_VALUE_KEYS
+            return XQuerySyntaxHighlighterKeys.XQDOC_TAG_VALUE_KEYS
         else if (
             type === XQDocTokenType.OPEN_XML_TAG ||
             type === XQDocTokenType.END_XML_TAG ||
@@ -163,54 +163,7 @@ class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             type === XQDocTokenType.CHARACTER_REFERENCE ||
             type === XQDocTokenType.INVALID
         )
-            return XQDOC_MARKUP_KEYS
+            return XQuerySyntaxHighlighterKeys.XQDOC_MARKUP_KEYS
         return SyntaxHighlighterBase.EMPTY
-    }
-
-    companion object {
-        private val BAD_CHARACTER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.BAD_CHARACTER)
-        private val ENTITY_REFERENCE_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.ENTITY_REFERENCE)
-        private val ESCAPED_CHARACTER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.ESCAPED_CHARACTER)
-        private val IDENTIFIER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.IDENTIFIER)
-        private val KEYWORD_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.KEYWORD)
-        private val ANNOTATION_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.ANNOTATION)
-        private val NUMBER_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.NUMBER)
-        private val STRING_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.STRING)
-
-        private val COMMENT_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.COMMENT)
-        private val XQDOC_TAG_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.COMMENT,
-            XQuerySyntaxHighlighterColors.XQDOC_TAG
-        )
-        private val XQDOC_TAG_VALUE_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.COMMENT,
-            XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE
-        )
-        private val XQDOC_MARKUP_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.COMMENT,
-            XQuerySyntaxHighlighterColors.XQDOC_MARKUP
-        )
-
-        private val XML_TAG_KEYS = SyntaxHighlighterBase.pack(XQuerySyntaxHighlighterColors.XML_TAG)
-        private val XML_TAG_NAME_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.XML_TAG,
-            XQuerySyntaxHighlighterColors.XML_TAG_NAME
-        )
-        private val XML_ATTRIBUTE_NAME_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.XML_TAG,
-            XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME
-        )
-        private val XML_ATTRIBUTE_VALUE_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.XML_TAG,
-            XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE
-        )
-        private val XML_ENTITY_REFERENCE_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.XML_TAG,
-            XQuerySyntaxHighlighterColors.XML_ENTITY_REFERENCE
-        )
-        private val XML_ESCAPED_CHARACTER_KEYS = SyntaxHighlighterBase.pack(
-            XQuerySyntaxHighlighterColors.XML_TAG,
-            XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER
-        )
     }
 }
