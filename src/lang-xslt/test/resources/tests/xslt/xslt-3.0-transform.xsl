@@ -6,6 +6,7 @@
         </xsl:accumulator>
 
         <xsl:iterate select="lorem">
+            <xsl:break select="ipsum"/>
         </xsl:iterate>
     </xsl:template>
 
