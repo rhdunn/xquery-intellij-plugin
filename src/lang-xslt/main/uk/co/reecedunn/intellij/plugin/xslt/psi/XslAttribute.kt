@@ -31,6 +31,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:for-each-group") to qname("select"), // XSLT 2.0
     qname("xsl:if") to qname("test"), // XSLT 1.0 [boolean]
     qname("xsl:key") to qname("use"), // XSLT 1.0
+    qname("xsl:message") to qname("select"), // XSLT 2.0
     qname("xsl:namespace") to qname("select"), // XSLT 2.0
     qname("xsl:number") to qname("select"), // XSLT 2.0
     qname("xsl:number") to qname("value"), // XSLT 1.0 [number]

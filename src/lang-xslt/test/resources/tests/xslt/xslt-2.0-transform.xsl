@@ -6,6 +6,8 @@
         <xsl:processing-instruction name="test" select="@value"/>
         <xsl:comment select="@value"/>
 
+        <xsl:message select="@value"/>
+
         <xsl:for-each-group select="test"
                             group-by="type"
                             group-adjacent="self::index"

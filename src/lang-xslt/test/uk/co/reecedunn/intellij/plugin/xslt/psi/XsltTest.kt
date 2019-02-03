@@ -341,6 +341,26 @@ private class XsltTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("xsl:message")
+    internal inner class Message {
+        @Test
+        @DisplayName("@select = expression")
+        fun select() {
+            val ss = attribute("tests/xslt/xslt-2.0-stylesheet.xsl", qname("xsl:message"), qname("select"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-2.0-transform.xsl", qname("xsl:message"), qname("select"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_2_0_20070123))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:namespace")
     internal inner class Namespace {
         @Test
