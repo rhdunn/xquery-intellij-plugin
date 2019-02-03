@@ -210,6 +210,22 @@ private class XsltTest : ParserTestCase() {
             assertThat(tf.isXslPattern(), `is`(true))
             assertThat(tf.isXslExpression(), `is`(false))
         }
+
+        @Test
+        @DisplayName("@use = expression")
+        fun use() {
+            val ss = attribute("tests/xslt/xslt-1.0-stylesheet.xsl", qname("xsl:key"), qname("use"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-1.0-transform.xsl", qname("xsl:key"), qname("use"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_1_0_19991116))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
     }
 
     @Nested
