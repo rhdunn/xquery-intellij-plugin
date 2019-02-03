@@ -28,6 +28,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:key") to qname("use"), // XSLT 1.0
     qname("xsl:number") to qname("value"), // XSLT 1.0 [number]
     qname("xsl:param") to qname("select"), // XSLT 1.0
+    qname("xsl:processing-instruction") to qname("select"), // XSLT 2.0
     qname("xsl:sort") to qname("select"), // XSLT 1.0 [string]
     qname("xsl:value-of") to qname("select"), // XSLT 1.0 [string]
     qname("xsl:variable") to qname("select"), // XSLT 1.0
