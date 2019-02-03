@@ -19,6 +19,8 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.options.colors.AttributesDescriptor
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 object XQuerySyntaxHighlighterColors {
     val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
@@ -94,5 +96,28 @@ object XQuerySyntaxHighlighterColors {
 
     val XML_ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+    )
+
+    val DESCRIPTORS = arrayOf(
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.bad.character"), BAD_CHARACTER),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.comment"), COMMENT),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.entity.reference"), ENTITY_REFERENCE),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), ESCAPED_CHARACTER),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), IDENTIFIER),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.keyword"), KEYWORD),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.annotation"), ANNOTATION),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), NUMBER),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), STRING),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), XML_TAG),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag.name"), XML_TAG_NAME),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.name"), XML_ATTRIBUTE_NAME),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), XML_ATTRIBUTE_VALUE),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.entity.reference"), XML_ENTITY_REFERENCE),
+        AttributesDescriptor(
+            XQueryBundle.message("xquery.settings.colors.xml.escaped.character"), XML_ESCAPED_CHARACTER
+        ),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag"), XQDOC_TAG),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag-value"), XQDOC_TAG_VALUE),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.markup"), XQDOC_MARKUP)
     )
 }

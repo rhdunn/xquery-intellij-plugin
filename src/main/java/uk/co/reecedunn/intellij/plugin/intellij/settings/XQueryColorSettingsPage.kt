@@ -16,37 +16,18 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
+import com.intellij.openapi.options.colors.ColorSettingsPage
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import javax.swing.Icon
 
-private val DESCRIPTORS = arrayOf(
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.bad.character"), XQuerySyntaxHighlighterColors.BAD_CHARACTER),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.comment"), XQuerySyntaxHighlighterColors.COMMENT),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.entity.reference"), XQuerySyntaxHighlighterColors.ENTITY_REFERENCE),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), XQuerySyntaxHighlighterColors.ESCAPED_CHARACTER),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), XQuerySyntaxHighlighterColors.IDENTIFIER),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.keyword"), XQuerySyntaxHighlighterColors.KEYWORD),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.annotation"), XQuerySyntaxHighlighterColors.ANNOTATION),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), XQuerySyntaxHighlighterColors.NUMBER),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), XQuerySyntaxHighlighterColors.STRING),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), XQuerySyntaxHighlighterColors.XML_TAG),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag.name"), XQuerySyntaxHighlighterColors.XML_TAG_NAME),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.name"), XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.entity.reference"), XQuerySyntaxHighlighterColors.XML_ENTITY_REFERENCE),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.escaped.character"), XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag"), XQuerySyntaxHighlighterColors.XQDOC_TAG),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag-value"), XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.markup"), XQuerySyntaxHighlighterColors.XQDOC_MARKUP))
-
-class XQueryColorSettingsPage : com.intellij.openapi.options.colors.ColorSettingsPage {
+class XQueryColorSettingsPage : ColorSettingsPage {
     override fun getIcon(): Icon? = null
 
-    override fun getHighlighter(): com.intellij.openapi.fileTypes.SyntaxHighlighter {
+    override fun getHighlighter(): SyntaxHighlighter {
         return XQuerySyntaxHighlighter()
     }
 
@@ -67,7 +48,7 @@ class XQueryColorSettingsPage : com.intellij.openapi.options.colors.ColorSetting
         return null
     }
 
-    override fun getAttributeDescriptors(): Array<AttributesDescriptor> = DESCRIPTORS
+    override fun getAttributeDescriptors(): Array<AttributesDescriptor> = XQuerySyntaxHighlighterColors.DESCRIPTORS
 
     override fun getColorDescriptors(): Array<ColorDescriptor> = ColorDescriptor.EMPTY_ARRAY
 
