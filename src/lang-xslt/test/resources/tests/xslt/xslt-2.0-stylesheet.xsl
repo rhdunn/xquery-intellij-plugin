@@ -10,6 +10,7 @@
                             group-starting-with="@start"
                             group-ending-with="@end"
                             collation="http://example.com">
+            <xsl:number select="@count"/>
             <xsl:sequence select="(1, 2)"/>
         </xsl:for-each-group>
     </xsl:template>
