@@ -14,6 +14,10 @@
             <xsl:catch select="ipsum">
             </xsl:catch>
         </xsl:try>
+
+        <xsl:sequence>
+            <xsl:on-empty select="0"/>
+        </xsl:sequence>
     </xsl:template>
 
 </xsl:stylesheet>
