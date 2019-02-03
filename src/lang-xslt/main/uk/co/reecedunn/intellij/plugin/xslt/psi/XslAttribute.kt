@@ -43,6 +43,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:processing-instruction") to qname("select"), // XSLT 2.0
     qname("xsl:sequence") to qname("select"), // XSLT 2.0
     qname("xsl:sort") to qname("select"), // XSLT 1.0 [string]
+    qname("xsl:try") to qname("select"), // XSLT 3.0
     qname("xsl:value-of") to qname("select"), // XSLT 1.0 [string]
     qname("xsl:variable") to qname("select"), // XSLT 1.0
     qname("xsl:when") to qname("test"), // XSLT 1.0 [boolean]

@@ -9,6 +9,9 @@
             <xsl:break select="ipsum"/>
             <xsl:on-completion select="dolor"/>
         </xsl:iterate>
+
+        <xsl:try select="lorem">
+        </xsl:try>
     </xsl:template>
 
 </xsl:stylesheet>
