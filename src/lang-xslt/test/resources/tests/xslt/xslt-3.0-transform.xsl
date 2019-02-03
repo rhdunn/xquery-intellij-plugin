@@ -19,6 +19,8 @@
             <xsl:on-empty select="0"/>
             <xsl:on-non-empty select="1"/>
         </xsl:sequence>
+
+        <xsl:evaluate xpath="@query"/>
     </xsl:template>
 
 </xsl:transform>
