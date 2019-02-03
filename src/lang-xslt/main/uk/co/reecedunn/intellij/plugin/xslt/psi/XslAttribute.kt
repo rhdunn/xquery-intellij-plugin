@@ -25,6 +25,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:comment") to qname("select"), // XSLT 2.0
     qname("xsl:copy-of") to qname("select"), // XSLT 1.0
     qname("xsl:for-each") to qname("select"), // XSLT 1.0 [node-set; sequence]
+    qname("xsl:for-each-group") to qname("group-by"), // XSLT 2.0
     qname("xsl:for-each-group") to qname("select"), // XSLT 2.0
     qname("xsl:if") to qname("test"), // XSLT 1.0 [boolean]
     qname("xsl:key") to qname("use"), // XSLT 1.0

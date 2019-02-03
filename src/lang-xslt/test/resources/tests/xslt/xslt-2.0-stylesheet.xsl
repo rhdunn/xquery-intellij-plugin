@@ -7,6 +7,7 @@
         <xsl:comment select="@value"/>
 
         <xsl:for-each-group select="test"
+                            group-by="type"
                             group-starting-with="@start"
                             group-ending-with="@end"
                             collation="http://example.com">
