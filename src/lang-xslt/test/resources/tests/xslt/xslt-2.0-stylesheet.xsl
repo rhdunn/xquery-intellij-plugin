@@ -19,6 +19,8 @@
         <xsl:perform-sort select="dolor">
             <xsl:sort select="."/>
         </xsl:perform-sort>
+
+        <xsl:analyze-string select="." regex="[a-z]"/>
     </xsl:template>
 
 </xsl:stylesheet>
