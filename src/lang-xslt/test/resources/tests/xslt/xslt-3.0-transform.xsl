@@ -7,6 +7,7 @@
 
         <xsl:iterate select="lorem">
             <xsl:break select="ipsum"/>
+            <xsl:on-completion select="dolor"/>
         </xsl:iterate>
     </xsl:template>
 
