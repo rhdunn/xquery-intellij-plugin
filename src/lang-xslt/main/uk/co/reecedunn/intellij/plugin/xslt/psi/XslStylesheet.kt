@@ -19,11 +19,12 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import javax.xml.namespace.QName
 
 private val NAMESPACES = mapOf(
-    "xsl" to "http://www.w3.org/1999/XSL/Transform"
+    "xsl" to XSLT.NAMESPACE
 )
 
 fun qname(name: String): QName = NAMESPACES.qname(name)

@@ -16,6 +16,10 @@ XQuery:
 1.  Fix parsing  ``` ``[`{...}`...`]`` ``` -- `StringConstructorInterpolation`
     at the start of a `StringConstructor`.
 
+XSLT:
+
+1.  Register the XSLT 3.0 schema with IntelliJ.
+
 Static Context:
 
 1.  Add support for the eXist-db built-in functions and static context. Thanks

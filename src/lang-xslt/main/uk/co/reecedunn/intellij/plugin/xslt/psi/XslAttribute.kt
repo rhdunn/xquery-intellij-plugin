@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.psi
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XSLT
 
 private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:accumulator") to qname("initial-value"), // XSLT 3.0
@@ -79,7 +80,7 @@ private val XSL_PATTERN_ATTRIBUTES = listOf(
 )
 
 private fun XmlAttribute.isUseWhen(): Boolean {
-    return parent.namespace == "http://www.w3.org/1999/XSL/Transform" && localName == "use-when"
+    return parent.namespace == XSLT.NAMESPACE && localName == "use-when"
 }
 
 fun PsiElement.isXslExpression(): Boolean {

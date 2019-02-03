@@ -34,6 +34,10 @@
         at the start of a <code>StringConstructor</code>.
       </li>
     </ol>
+    <p>XSLT:</p>
+    <ol>
+      <li>Register the XSLT 3.0 schema with IntelliJ.</li>
+    </ol>
     <p>Static Context:</p>
     <ol>
       <li>
@@ -90,6 +94,10 @@
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryPairedBraceMatcher"/>
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryCommenter"/>
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
+
+    <!-- XSLT Language Support -->
+
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.intellij.javaee.XsltResourceProvider"/>
 
     <!-- References and Resolve -->
 

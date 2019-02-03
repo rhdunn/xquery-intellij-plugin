@@ -25,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.lang.LanguageAssociations
  * XML Stylesheet Language: Transform
  */
 object XSLT : Language("XSLT", "application/xslt+xml") {
+    const val NAMESPACE = "http://www.w3.org/1999/XSL/Transform"
+
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = "XSLT"
