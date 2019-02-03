@@ -8,6 +8,7 @@
 
         <xsl:for-each-group select="test"
                             group-by="type"
+                            group-adjacent="self::index"
                             group-starting-with="@start"
                             group-ending-with="@end"
                             collation="http://example.com">
