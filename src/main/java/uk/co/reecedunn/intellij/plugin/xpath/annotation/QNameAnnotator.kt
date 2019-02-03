@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
 
 class QNameAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
@@ -42,9 +42,9 @@ class QNameAnnotator : Annotator {
                 val prefix = qname.prefix?.element!!
                 holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 if (element.getParent() is PluginDirAttribute || element.getParent() is XQueryDirElemConstructor) {
-                    holder.createInfoAnnotation(prefix, null).textAttributes = SyntaxHighlighter.XML_TAG
+                    holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighter.XML_TAG
                 }
-                holder.createInfoAnnotation(prefix, null).textAttributes = SyntaxHighlighter.NS_PREFIX
+                holder.createInfoAnnotation(prefix, null).textAttributes = XQuerySyntaxHighlighter.NS_PREFIX
             }
         } else {
             xmlns = false
@@ -55,19 +55,19 @@ class QNameAnnotator : Annotator {
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 if (element.getParent() is PluginDirAttribute) {
-                    holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.XML_TAG
+                    holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighter.XML_TAG
                 }
-                holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.NS_PREFIX
+                holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighter.NS_PREFIX
             } else if (element.parent is XQueryAnnotation) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.ANNOTATION
+                holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighter.ANNOTATION
             } else if (localName.node.elementType is IKeywordOrNCNameType) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.IDENTIFIER
+                holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighter.IDENTIFIER
             } else if (localName is XPathNCName) {
                 if (localName.node.elementType is IKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                    holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.IDENTIFIER
+                    holder.createInfoAnnotation(localName, null).textAttributes = XQuerySyntaxHighlighter.IDENTIFIER
                 }
             }
         }

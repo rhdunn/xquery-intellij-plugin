@@ -19,14 +19,14 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
-import uk.co.reecedunn.intellij.plugin.intellij.lexer.SyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - Highlighting Lexer")
 class HighlightingLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = SyntaxHighlighter().highlightingLexer
+    private fun createLexer(): Lexer = XQuerySyntaxHighlighter().highlightingLexer
 
     @Test
     @DisplayName("xquery tokens")

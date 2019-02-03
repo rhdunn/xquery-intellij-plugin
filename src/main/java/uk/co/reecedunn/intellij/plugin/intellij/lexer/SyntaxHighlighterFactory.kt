@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lexer
 
+import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 
 class SyntaxHighlighterFactory : com.intellij.openapi.fileTypes.SyntaxHighlighterFactory() {
     override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
-        return SyntaxHighlighter()
+        return XQuerySyntaxHighlighter()
     }
 }

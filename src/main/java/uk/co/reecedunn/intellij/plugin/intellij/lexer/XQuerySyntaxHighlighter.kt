@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
-class SyntaxHighlighter : SyntaxHighlighterBase() {
+class XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getHighlightingLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
