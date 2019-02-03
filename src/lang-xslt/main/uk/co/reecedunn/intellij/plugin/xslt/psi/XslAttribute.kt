@@ -40,6 +40,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:iterate") to qname("select"), // XSLT 3.0
     qname("xsl:key") to qname("use"), // XSLT 1.0
     qname("xsl:merge-source") to qname("for-each-item"), // XSLT 3.0
+    qname("xsl:merge-source") to qname("for-each-source"), // XSLT 3.0
     qname("xsl:message") to qname("select"), // XSLT 2.0
     qname("xsl:namespace") to qname("select"), // XSLT 2.0
     qname("xsl:number") to qname("select"), // XSLT 2.0

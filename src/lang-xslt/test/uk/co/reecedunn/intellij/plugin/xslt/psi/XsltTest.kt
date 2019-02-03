@@ -513,7 +513,7 @@ private class XsltTest : ParserTestCase() {
     internal inner class MergeSource {
         @Test
         @DisplayName("@for-each-item = expression")
-        fun select() {
+        fun forEachItem() {
             val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:merge-source"), qname("for-each-item"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
@@ -521,6 +521,26 @@ private class XsltTest : ParserTestCase() {
             assertThat(ss.isXslExpression(), `is`(true))
 
             val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:merge-source"), qname("for-each-item"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
+        }
+
+        @Test
+        @DisplayName("@for-each-source = expression")
+        fun forEachSource() {
+            val ss = attribute(
+                "tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:merge-source"), qname("for-each-source")
+            )
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute(
+                "tests/xslt/xslt-3.0-transform.xsl", qname("xsl:merge-source"), qname("for-each-source")
+            )
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(tf.isXslPattern(), `is`(false))
