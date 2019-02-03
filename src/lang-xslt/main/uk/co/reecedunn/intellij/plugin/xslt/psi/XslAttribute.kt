@@ -20,6 +20,7 @@ import com.intellij.psi.xml.XmlAttribute
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
 
 private val XSL_EXPRESSION_ATTRIBUTES = listOf(
+    qname("xsl:accumulator") to qname("initial-value"), // XSLT 3.0
     qname("xsl:apply-templates") to qname("select"), // XSLT 1.0 [node-set; sequence]
     qname("xsl:analyze-string") to qname("select"), // XSLT 2.0
     qname("xsl:attribute") to qname("select"), // XSLT 2.0
