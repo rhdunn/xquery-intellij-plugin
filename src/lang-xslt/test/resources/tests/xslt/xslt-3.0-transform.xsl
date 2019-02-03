@@ -2,7 +2,7 @@
 
     <xsl:template match="lorem/ipsum" name="test">
         <xsl:accumulator name="lorem-ipsum" initial-value="2 cast as xs:long">
-            <xsl:accumulator-role match="test" phase="start"/>
+            <xsl:accumulator-rule match="test" phase="start" select="@value"/>
         </xsl:accumulator>
 
         <xsl:iterate select="lorem">

@@ -90,17 +90,33 @@ private class XsltTest : ParserTestCase() {
         @Test
         @DisplayName("@match = pattern")
         fun match() {
-            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-role"), qname("match"))
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-rule"), qname("match"))
             assertThat(ss.isXslStylesheet(), `is`(true))
             assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(ss.isXslPattern(), `is`(true))
             assertThat(ss.isXslExpression(), `is`(false))
 
-            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-role"), qname("match"))
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-rule"), qname("match"))
             assertThat(tf.isXslStylesheet(), `is`(true))
             assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
             assertThat(tf.isXslPattern(), `is`(true))
             assertThat(tf.isXslExpression(), `is`(false))
+        }
+
+        @Test
+        @DisplayName("@select = expression")
+        fun select() {
+            val ss = attribute("tests/xslt/xslt-3.0-stylesheet.xsl", qname("xsl:accumulator-rule"), qname("select"))
+            assertThat(ss.isXslStylesheet(), `is`(true))
+            assertThat(ss.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(ss.isXslPattern(), `is`(false))
+            assertThat(ss.isXslExpression(), `is`(true))
+
+            val tf = attribute("tests/xslt/xslt-3.0-transform.xsl", qname("xsl:accumulator-rule"), qname("select"))
+            assertThat(tf.isXslStylesheet(), `is`(true))
+            assertThat(tf.getXslVersion(), `is`(XsltSpec.REC_3_0_20170608))
+            assertThat(tf.isXslPattern(), `is`(false))
+            assertThat(tf.isXslExpression(), `is`(true))
         }
     }
 
