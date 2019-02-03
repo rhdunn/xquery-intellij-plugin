@@ -41,6 +41,7 @@ private val XSL_EXPRESSION_ATTRIBUTES = listOf(
     qname("xsl:if") to qname("test"), // XSLT 1.0 [boolean]
     qname("xsl:iterate") to qname("select"), // XSLT 3.0
     qname("xsl:key") to qname("use"), // XSLT 1.0
+    qname("xsl:map-entry") to qname("key"), // XSLT 3.0
     qname("xsl:merge-key") to qname("select"), // XSLT 3.0
     qname("xsl:merge-source") to qname("for-each-item"), // XSLT 3.0
     qname("xsl:merge-source") to qname("for-each-source"), // XSLT 3.0

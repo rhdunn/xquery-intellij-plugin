@@ -32,6 +32,10 @@
                           select="item">
             <xsl:merge-key select="@key"/>
         </xsl:merge-source>
+
+        <xsl:map>
+            <xsl:map-entry key="@name"/>
+        </xsl:map>
     </xsl:template>
 
 </xsl:transform>
