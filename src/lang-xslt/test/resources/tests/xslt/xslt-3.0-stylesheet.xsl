@@ -11,6 +11,8 @@
         </xsl:iterate>
 
         <xsl:try select="lorem">
+            <xsl:catch select="ipsum">
+            </xsl:catch>
         </xsl:try>
     </xsl:template>
 
