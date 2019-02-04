@@ -50,7 +50,7 @@ private val TAG_NAMES = mapOf(
 
 // endregion
 
-class XQDocLexer : LexerImpl(STATE_CONTENTS) {
+class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRange()) {
     // region States
 
     private fun matchEntityReference() {
