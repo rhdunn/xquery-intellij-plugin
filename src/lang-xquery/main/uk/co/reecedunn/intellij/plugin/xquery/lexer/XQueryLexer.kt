@@ -207,7 +207,7 @@ private val KEYWORDS = mapOf(
         "xquery" to XQueryTokenType.K_XQUERY,
         "zero-digit" to XQueryTokenType.K_ZERO_DIGIT) // XQuery 3.0
 
-class XQueryLexer : XPathLexer() {
+class XQueryLexer : XPathLexer(CodePointRange()) {
     // region States
 
     override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {

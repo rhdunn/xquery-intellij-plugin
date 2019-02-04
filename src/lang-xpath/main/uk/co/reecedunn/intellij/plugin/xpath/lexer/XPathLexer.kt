@@ -102,7 +102,7 @@ private val KEYWORDS = mapOf(
     "union" to XPathTokenType.K_UNION // XPath 2.0
 )
 
-open class XPathLexer : LexerImpl(STATE_DEFAULT, CodePointRange()) {
+open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tokenRange) {
     // region States
 
     protected open fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {
