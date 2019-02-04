@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 
 class XPST0017 : Inspection("xpst/XPST0017.md", Resources) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
@@ -43,14 +43,14 @@ class XPST0017 : Inspection("xpst/XPST0017.md", Resources) {
                 // Missing local name -- do nothing.
             } else if (declarations.isEmpty()) {
                 // 1. The expanded QName does not match the name of a function signature in the static context.
-                val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
+                val description = XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-qname")
                 val decl = ref.functionName?.element!!
                 descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             } else {
                 // 2. The number of arguments does not match the arity of a function signature in the static context.
                 val arity = (qname.parent as? XPathFunctionReference)?.arity ?: -1
                 if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
-                    val description = XQueryBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
+                    val description = XQueryPluginBundle.message("inspection.XPST0017.undefined-function.unresolved-arity")
                     val decl = ref.functionName?.element!!
                     descriptors.add(manager.createProblemDescriptor(decl, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }

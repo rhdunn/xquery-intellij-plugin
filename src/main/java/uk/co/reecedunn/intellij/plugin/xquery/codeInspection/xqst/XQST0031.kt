@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 class XQST0031 : Inspection("xqst/XQST0031.md", Resources) {
@@ -47,7 +47,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", Resources) {
 
             if (version.version == null) {
                 // Unrecognised XQuery version string.
-                val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
+                val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 return
             }
@@ -55,13 +55,13 @@ class XQST0031 : Inspection("xqst/XQST0031.md", Resources) {
             val xqueryVersion = XQuerySpec.versionForXQuery(settings.product, settings.productVersion, version.version.versionId)
             if (xqueryVersion == null) {
                 // The XQuery version is not supported by the implementation.
-                val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
+                val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 return
             }
 
             if (!isFirstVersion && mainVersion != xqueryVersion) {
-                val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
+                val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
                 descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }
 

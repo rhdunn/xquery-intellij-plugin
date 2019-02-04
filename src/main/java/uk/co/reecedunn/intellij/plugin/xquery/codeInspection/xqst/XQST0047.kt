@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 
 class XQST0047 : Inspection("xqst/XQST0047.md", Resources) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
@@ -48,7 +48,7 @@ class XQST0047 : Inspection("xqst/XQST0047.md", Resources) {
 
                 val duplicate: XPathNamespaceDeclaration? = uris[uri]
                 if (duplicate != null) {
-                    val description = XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
+                    val description = XQueryPluginBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
                     descriptors.add(manager.createProblemDescriptor(ns.namespaceUri?.element!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 

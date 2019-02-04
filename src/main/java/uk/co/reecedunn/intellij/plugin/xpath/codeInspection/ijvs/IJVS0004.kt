@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
@@ -53,7 +53,7 @@ class IJVS0004 : Inspection("ijvs/IJVS0004.md", Resources) {
         file.walkTree().filterIsInstance<XPathMapConstructorEntry>().forEach { element ->
             if (!conformsTo(element, productVersion)) {
                 val context = element.separator
-                val description = XQueryBundle.message("inspection.XPST0003.map-constructor-entry.message")
+                val description = XQueryPluginBundle.message("inspection.XPST0003.map-constructor-entry.message")
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
             }
         }

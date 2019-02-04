@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
@@ -42,7 +42,7 @@ object XQueryFileType : LanguageFileType(XQuery) {
 
     override fun getName(): String = "XQuery"
 
-    override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")
+    override fun getDescription(): String = XQueryPluginBundle.message("xquery.files.filetype.description")
 
     override fun getDefaultExtension(): String = "xqy"
 

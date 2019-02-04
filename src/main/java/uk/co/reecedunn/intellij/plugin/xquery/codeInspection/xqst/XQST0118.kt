@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructo
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 
 class XQST0118 : Inspection("xqst/XQST0118.md", Resources) {
     private fun displayName(eqname: XsQNameValue): String {
@@ -46,7 +46,7 @@ class XQST0118 : Inspection("xqst/XQST0118.md", Resources) {
             if (openTag?.localName == null || closeTag?.localName == null) return@forEach
 
             if (openTag.prefix?.data != closeTag.prefix?.data || openTag.localName?.data != closeTag.localName?.data) {
-                val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", displayName(closeTag), displayName(openTag))
+                val description = XQueryPluginBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", displayName(closeTag), displayName(openTag))
                 val context = closeTag.element!!
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }

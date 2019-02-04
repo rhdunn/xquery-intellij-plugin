@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 
 class XQST0033 : Inspection("xqst/XQST0033.md", Resources) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
@@ -58,7 +58,7 @@ class XQST0033 : Inspection("xqst/XQST0033.md", Resources) {
 
                 val duplicate = prefices[prefix]
                 if (duplicate != null) {
-                    val description = XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
+                    val description = XQueryPluginBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
                     descriptors.add(manager.createProblemDescriptor(ns.namespacePrefix?.element!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 

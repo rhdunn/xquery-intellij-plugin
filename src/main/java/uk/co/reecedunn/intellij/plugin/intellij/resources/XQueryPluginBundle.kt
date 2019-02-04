@@ -21,9 +21,9 @@ import org.jetbrains.annotations.PropertyKey
 import java.lang.ref.SoftReference
 import java.util.*
 
-object XQueryBundle {
+object XQueryPluginBundle {
     @NonNls
-    private const val PATH_TO_BUNDLE = "messages.XQueryBundle"
+    private const val PATH_TO_BUNDLE = "messages.XQueryPluginBundle"
 
     private var sBundle: SoftReference<ResourceBundle>? = null
     private val bundle: ResourceBundle

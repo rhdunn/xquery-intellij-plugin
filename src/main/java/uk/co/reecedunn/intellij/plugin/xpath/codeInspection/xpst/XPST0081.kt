@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 
 class XPST0081 : Inspection("xpst/XPST0081.md", Resources) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
@@ -38,7 +38,7 @@ class XPST0081 : Inspection("xpst/XPST0081.md", Resources) {
         file.walkTree().filterIsInstance<XPathEQName>().forEach { eqname ->
             val qname = eqname as XsQNameValue
             if (qname.prefix != null && qname.prefix!!.data != "xmlns" && !eqname.expand().any()) {
-                val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
+                val description = XQueryPluginBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 val context = qname.prefix?.element!!
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }

@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
 class IJVS0005 : Inspection("ijvs/IJVS0005.md", Resources) {
@@ -53,7 +53,7 @@ class IJVS0005 : Inspection("ijvs/IJVS0005.md", Resources) {
             val haveSemicolon = element.firstChild !== null
             if (haveSemicolon != requiresSemicolon && requiresSemicolon) {
                 val context = if (element.firstChild === null) file.findElementAt(element.textOffset - 1)!! else element
-                val description = XQueryBundle.message("inspection.XPST0003.final-statement-semicolon.required", ScriptingSpec.NOTE_1_0_20140918)
+                val description = XQueryPluginBundle.message("inspection.XPST0003.final-statement-semicolon.required", ScriptingSpec.NOTE_1_0_20140918)
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
             }
         })
