@@ -28,6 +28,10 @@ object XPathSyntaxHighlighterColors {
         "XPATH_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
     )
 
+    val ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey(
+        "XPATH_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+    )
+
     val NUMBER = TextAttributesKey.createTextAttributesKey(
         "XPATH_NUMBER", DefaultLanguageHighlighterColors.NUMBER
     )

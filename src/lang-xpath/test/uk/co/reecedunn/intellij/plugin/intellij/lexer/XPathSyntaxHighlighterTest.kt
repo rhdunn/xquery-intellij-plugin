@@ -96,6 +96,15 @@ class XPathSyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("escaped character")
+    fun testTokenHighlights_EscapedCharacter() {
+        val highlighter = XPathSyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ESCAPED_CHARACTER).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ESCAPED_CHARACTER)[0], `is`(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER))
+    }
+
+    @Test
     @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
         val highlighter = XPathSyntaxHighlighter()

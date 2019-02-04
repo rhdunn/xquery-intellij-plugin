@@ -115,7 +115,7 @@ internal object XQuerySyntaxHighlighterKeys {
         XQueryTokenType.STRING_CONSTRUCTOR_END to STRING_KEYS,
         XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
         XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
-        XPathTokenType.ESCAPED_CHARACTER to XQuerySyntaxHighlighterKeys.ESCAPED_CHARACTER_KEYS,
+        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
         XQueryTokenType.PREDEFINED_ENTITY_REFERENCE to XQuerySyntaxHighlighterKeys.ENTITY_REFERENCE_KEYS,
         XQueryTokenType.PARTIAL_ENTITY_REFERENCE to XQuerySyntaxHighlighterKeys.ENTITY_REFERENCE_KEYS,
         XQueryTokenType.EMPTY_ENTITY_REFERENCE to XQuerySyntaxHighlighterKeys.ENTITY_REFERENCE_KEYS,

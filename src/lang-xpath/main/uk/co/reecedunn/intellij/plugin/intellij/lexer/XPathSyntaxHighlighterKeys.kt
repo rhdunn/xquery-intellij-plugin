@@ -36,6 +36,10 @@ internal object XPathSyntaxHighlighterKeys {
         XPathSyntaxHighlighterColors.STRING
     )
 
+    val ESCAPED_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.ESCAPED_CHARACTER
+    )
+
     val KEYS = mapOf(
         XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
         XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
@@ -46,6 +50,7 @@ internal object XPathSyntaxHighlighterKeys {
         XPathTokenType.STRING_LITERAL_END to STRING_KEYS,
         XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
         XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
+        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
         XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
         XPathTokenType.COMMENT to COMMENT_KEYS,
         XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
