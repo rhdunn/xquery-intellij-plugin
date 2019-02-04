@@ -32,14 +32,23 @@ internal object XPathSyntaxHighlighterKeys {
         XPathSyntaxHighlighterColors.NUMBER
     )
 
+    val STRING_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.STRING
+    )
+
     val KEYS = mapOf(
         XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
         XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
         XPathTokenType.DOUBLE_LITERAL to NUMBER_KEYS,
         XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT to NUMBER_KEYS,
-        XPathTokenType.COMMENT_START_TAG to XPathSyntaxHighlighterKeys.COMMENT_KEYS,
-        XPathTokenType.COMMENT to XPathSyntaxHighlighterKeys.COMMENT_KEYS,
-        XPathTokenType.COMMENT_END_TAG to XPathSyntaxHighlighterKeys.COMMENT_KEYS,
-        XPathTokenType.BAD_CHARACTER to XPathSyntaxHighlighterKeys.BAD_CHARACTER_KEYS
+        XPathTokenType.STRING_LITERAL_START to STRING_KEYS,
+        XPathTokenType.STRING_LITERAL_CONTENTS to STRING_KEYS,
+        XPathTokenType.STRING_LITERAL_END to STRING_KEYS,
+        XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
+        XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
+        XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
+        XPathTokenType.COMMENT to COMMENT_KEYS,
+        XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
+        XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS
     )
 }

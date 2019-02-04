@@ -75,6 +75,27 @@ class XPathSyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("string")
+    fun testTokenHighlights_String() {
+        val highlighter = XPathSyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_START).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_START)[0], `is`(XPathSyntaxHighlighterColors.STRING))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_CONTENTS).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_CONTENTS)[0], `is`(XPathSyntaxHighlighterColors.STRING))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_END).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.STRING_LITERAL_END)[0], `is`(XPathSyntaxHighlighterColors.STRING))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_START).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_START)[0], `is`(XPathSyntaxHighlighterColors.STRING))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_END).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BRACED_URI_LITERAL_END)[0], `is`(XPathSyntaxHighlighterColors.STRING))
+    }
+
+    @Test
     @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
         val highlighter = XPathSyntaxHighlighter()
