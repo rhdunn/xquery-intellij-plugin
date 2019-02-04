@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,69 +15,28 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
-class CodePointRange {
-    var bufferSequence: CharSequence = ""
-        private set
+interface CodePointRange {
+    val bufferSequence: CharSequence
 
-    var start: Int = 0
-        private set
+    val start: Int
 
-    var end: Int = 0
-        private set
+    val end: Int
 
-    private var mSaved: Int = 0
+    val bufferEnd: Int
 
-    var bufferEnd: Int = 0
-        private set
+    val codePoint: Int
 
-    val codePoint
-        get(): Int {
-            if (end == bufferEnd)
-                return END_OF_BUFFER
-            val high = bufferSequence[end]
-            if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
-                val low = bufferSequence[end + 1]
-                if (Character.isLowSurrogate(low)) {
-                    return Character.toCodePoint(high, low)
-                }
-            }
-            return high.toInt()
-        }
+    fun start(buffer: CharSequence, startOffset: Int, endOffset: Int)
 
-    fun start(buffer: CharSequence, startOffset: Int, endOffset: Int) {
-        bufferSequence = buffer
-        end = startOffset
-        start = end
-        bufferEnd = endOffset
-    }
+    fun flush()
 
-    fun flush() {
-        start = end
-    }
+    fun match()
 
-    fun match() {
-        if (end != bufferEnd) {
-            if (Character.isHighSurrogate(bufferSequence[end])) {
-                end += 1
-                if (end != bufferEnd && Character.isLowSurrogate(bufferSequence[end]))
-                    end += 1
-            } else {
-                end += 1
-            }
-        }
-    }
+    fun seek(position: Int)
 
-    fun seek(position: Int) {
-        end = position
-    }
+    fun save()
 
-    fun save() {
-        mSaved = end
-    }
-
-    fun restore() {
-        end = mSaved
-    }
+    fun restore()
 
     companion object {
         const val END_OF_BUFFER = -1

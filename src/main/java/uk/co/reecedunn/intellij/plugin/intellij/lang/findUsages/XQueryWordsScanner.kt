@@ -19,7 +19,7 @@ import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition.Companion.COMMENT_TOKENS
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition.Companion.LITERAL_TOKENS
@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition.Comp
 class XQueryWordsScanner : WordsScanner {
     private val mLexer = XQueryLexer()
     private val mOccurrence = WordOccurrence(null, 0, 0, null)
-    private val mRange = CodePointRange()
+    private val mRange = CodePointRangeImpl()
 
     override fun processWords(fileText: CharSequence, processor: Processor<WordOccurrence>) {
         mLexer.start(fileText)

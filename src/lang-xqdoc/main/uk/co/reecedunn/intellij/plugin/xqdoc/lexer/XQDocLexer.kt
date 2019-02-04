@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
-import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import uk.co.reecedunn.intellij.plugin.core.lexer.*
 
 // region State Constants
 
@@ -50,7 +47,7 @@ private val TAG_NAMES = mapOf(
 
 // endregion
 
-class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRange()) {
+class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
     // region States
 
     private fun matchEntityReference() {

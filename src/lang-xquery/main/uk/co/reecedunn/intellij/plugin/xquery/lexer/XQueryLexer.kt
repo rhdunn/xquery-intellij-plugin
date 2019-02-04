@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
@@ -207,7 +208,7 @@ private val KEYWORDS = mapOf(
         "xquery" to XQueryTokenType.K_XQUERY,
         "zero-digit" to XQueryTokenType.K_ZERO_DIGIT) // XQuery 3.0
 
-class XQueryLexer : XPathLexer(CodePointRange()) {
+class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
     // region States
 
     override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {

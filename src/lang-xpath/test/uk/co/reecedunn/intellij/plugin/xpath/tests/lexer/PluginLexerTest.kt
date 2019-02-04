@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.lexer
 import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XQuery IntelliJ Plugin - Lexer")
 class PluginLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = XPathLexer(CodePointRange())
+    private fun createLexer(): Lexer = XPathLexer(CodePointRangeImpl())
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
