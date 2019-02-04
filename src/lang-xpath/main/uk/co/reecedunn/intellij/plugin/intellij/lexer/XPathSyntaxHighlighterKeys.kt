@@ -36,6 +36,10 @@ internal object XPathSyntaxHighlighterKeys {
         XPathSyntaxHighlighterColors.IDENTIFIER
     )
 
+    val KEYWORD_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.KEYWORD
+    )
+
     val NUMBER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XPathSyntaxHighlighterColors.NUMBER
     )

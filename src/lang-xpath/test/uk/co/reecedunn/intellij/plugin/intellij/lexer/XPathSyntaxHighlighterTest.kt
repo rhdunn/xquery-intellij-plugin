@@ -114,6 +114,210 @@ class XPathSyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("keywords")
+    fun testTokenHighlights_Keywords() {
+        val highlighter = XPathSyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ANCESTOR).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ANCESTOR)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ANCESTOR_OR_SELF).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ANCESTOR_OR_SELF)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_AND).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_AND)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ANDALSO).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ANDALSO)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ARRAY).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ARRAY)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ARRAY_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ARRAY_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_AS).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_AS)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ATTRIBUTE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ATTRIBUTE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_BOOLEAN_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_BOOLEAN_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_CAST).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_CAST)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_CASTABLE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_CASTABLE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_CHILD).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_CHILD)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_COMMENT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_COMMENT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DESCENDANT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DESCENDANT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DESCENDANT_OR_SELF).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DESCENDANT_OR_SELF)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DIV).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DIV)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DOCUMENT_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_DOCUMENT_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ELEMENT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ELEMENT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EMPTY).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EMPTY)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EMPTY_SEQUENCE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EMPTY_SEQUENCE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EQ).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EQ)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EVERY).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EVERY)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EXCEPT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_EXCEPT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FOLLOWING).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FOLLOWING)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FOLLOWING_SIBLING).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FOLLOWING_SIBLING)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FOR).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FOR)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FUNCTION).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_FUNCTION)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_GT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IDIV).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IDIV)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IN).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IN)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_INSTANCE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_INSTANCE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_INTERSECT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_INTERSECT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IS).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_IS)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ITEM).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ITEM)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LET).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LET)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MAP).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MAP)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MOD).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_MOD)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NAMESPACE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NAMESPACE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NAMESPACE_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NAMESPACE_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NULL_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NULL_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NUMBER_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_NUMBER_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_OBJECT_NODE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_OBJECT_NODE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_OF).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_OF)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_OR).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_OR)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ORELSE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ORELSE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PARENT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PARENT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PRECEDING).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PRECEDING)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PRECEDING_SIBLING).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PRECEDING_SIBLING)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROCESSING_INSTRUCTION).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROCESSING_INSTRUCTION)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROPERTY).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROPERTY)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RETURN).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RETURN)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SATISFIES).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SATISFIES)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SCHEMA_ATTRIBUTE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SCHEMA_ATTRIBUTE)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SCHEMA_ELEMENT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SCHEMA_ELEMENT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SELF).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SELF)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SOME).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_SOME)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_TEXT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_TEXT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_THEN).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_THEN)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_TO).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_TO)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_TREAT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_TREAT)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_UNION).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_UNION)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+    }
+
+    @Test
     @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
         val highlighter = XPathSyntaxHighlighter()
