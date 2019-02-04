@@ -32,6 +32,10 @@ object XPathSyntaxHighlighterColors {
         "XPATH_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
     )
 
+    val IDENTIFIER = TextAttributesKey.createTextAttributesKey(
+        "XPATH_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER
+    )
+
     val NUMBER = TextAttributesKey.createTextAttributesKey(
         "XPATH_NUMBER", DefaultLanguageHighlighterColors.NUMBER
     )

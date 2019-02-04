@@ -28,16 +28,20 @@ internal object XPathSyntaxHighlighterKeys {
         XPathSyntaxHighlighterColors.COMMENT
     )
 
+    val ESCAPED_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.ESCAPED_CHARACTER
+    )
+
+    val IDENTIFIER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.IDENTIFIER
+    )
+
     val NUMBER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XPathSyntaxHighlighterColors.NUMBER
     )
 
     val STRING_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
         XPathSyntaxHighlighterColors.STRING
-    )
-
-    val ESCAPED_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XPathSyntaxHighlighterColors.ESCAPED_CHARACTER
     )
 
     val KEYS = mapOf(
@@ -54,6 +58,7 @@ internal object XPathSyntaxHighlighterKeys {
         XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
         XPathTokenType.COMMENT to COMMENT_KEYS,
         XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
+        XPathTokenType.NCNAME to IDENTIFIER_KEYS,
         XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS
     )
 }
