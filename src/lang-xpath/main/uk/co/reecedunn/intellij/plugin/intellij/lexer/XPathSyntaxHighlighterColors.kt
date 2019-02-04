@@ -27,4 +27,8 @@ object XPathSyntaxHighlighterColors {
     val COMMENT = TextAttributesKey.createTextAttributesKey(
         "XPATH_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
     )
+
+    val NUMBER = TextAttributesKey.createTextAttributesKey(
+        "XPATH_NUMBER", DefaultLanguageHighlighterColors.NUMBER
+    )
 }
