@@ -28,7 +28,7 @@ object XQuerySyntaxHighlighterColors {
     )
 
     val COMMENT = TextAttributesKey.createTextAttributesKey(
-        "XPATH_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
+        "XQUERY_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
     )
 
     val ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey(

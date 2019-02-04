@@ -24,7 +24,14 @@ internal object XPathSyntaxHighlighterKeys {
         XPathSyntaxHighlighterColors.BAD_CHARACTER
     )
 
+    val COMMENT_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
+        XPathSyntaxHighlighterColors.COMMENT
+    )
+
     val KEYS = mapOf(
+        XPathTokenType.COMMENT_START_TAG to XPathSyntaxHighlighterKeys.COMMENT_KEYS,
+        XPathTokenType.COMMENT to XPathSyntaxHighlighterKeys.COMMENT_KEYS,
+        XPathTokenType.COMMENT_END_TAG to XPathSyntaxHighlighterKeys.COMMENT_KEYS,
         XPathTokenType.BAD_CHARACTER to XPathSyntaxHighlighterKeys.BAD_CHARACTER_KEYS
     )
 }

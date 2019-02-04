@@ -15,11 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lexer
 
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 
 object XPathSyntaxHighlighterColors {
     val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
         "XPATH_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER
+    )
+
+    val COMMENT = TextAttributesKey.createTextAttributesKey(
+        "XPATH_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
     )
 }

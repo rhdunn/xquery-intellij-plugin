@@ -41,6 +41,21 @@ class XPathSyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("comment")
+    fun testTokenHighlights_Comment() {
+        val highlighter = XPathSyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_START_TAG).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_START_TAG)[0], `is`(XPathSyntaxHighlighterColors.COMMENT))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT)[0], `is`(XPathSyntaxHighlighterColors.COMMENT))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_END_TAG).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.COMMENT_END_TAG)[0], `is`(XPathSyntaxHighlighterColors.COMMENT))
+    }
+
+    @Test
     @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
         val highlighter = XPathSyntaxHighlighter()
