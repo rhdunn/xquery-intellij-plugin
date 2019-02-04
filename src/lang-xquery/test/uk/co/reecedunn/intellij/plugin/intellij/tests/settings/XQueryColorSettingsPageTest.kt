@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterCol
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage
 import java.util.*
 
-@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - Color Settings Page")
-class ColorSettingsPageTest {
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Color Settings Page")
+class XQueryColorSettingsPageTest {
     @Test
     @DisplayName("icon")
     fun testIcon() {

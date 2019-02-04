@@ -27,9 +27,7 @@ import javax.swing.Icon
 class XQueryColorSettingsPage : ColorSettingsPage {
     override fun getIcon(): Icon? = null
 
-    override fun getHighlighter(): SyntaxHighlighter {
-        return XQuerySyntaxHighlighter()
-    }
+    override fun getHighlighter(): SyntaxHighlighter = XQuerySyntaxHighlighter()
 
     override fun getDemoText(): String {
         return "(: Comment :)\n" +
@@ -44,9 +42,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
                 "~~~"
     }
 
-    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? {
-        return null
-    }
+    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? = null
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = XQuerySyntaxHighlighterColors.DESCRIPTORS
 
