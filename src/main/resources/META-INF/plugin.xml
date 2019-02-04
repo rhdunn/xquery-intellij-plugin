@@ -79,6 +79,8 @@
     <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
     <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
 
+    <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterFactory"/>
+
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.intellij.lang.injection.XPathInXsltLanguageInjection"/>
