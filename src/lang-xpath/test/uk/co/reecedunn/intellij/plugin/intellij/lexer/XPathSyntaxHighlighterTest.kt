@@ -32,6 +32,15 @@ class XPathSyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("bad character")
+    fun testTokenHighlights_BadCharacter() {
+        val highlighter = XPathSyntaxHighlighter()
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BAD_CHARACTER).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.BAD_CHARACTER)[0], `is`(XPathSyntaxHighlighterColors.BAD_CHARACTER))
+    }
+
+    @Test
     @DisplayName("other token")
     fun testTokenHighlights_OtherToken() {
         val highlighter = XPathSyntaxHighlighter()

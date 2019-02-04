@@ -15,16 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.lexer
 
+import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
-import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-internal object XPathSyntaxHighlighterKeys {
-    val BAD_CHARACTER_KEYS: Array<out TextAttributesKey> = SyntaxHighlighterBase.pack(
-        XPathSyntaxHighlighterColors.BAD_CHARACTER
-    )
-
-    val KEYS = mapOf(
-        XPathTokenType.BAD_CHARACTER to XPathSyntaxHighlighterKeys.BAD_CHARACTER_KEYS
+object XPathSyntaxHighlighterColors {
+    val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
+        "XPATH_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER
     )
 }
