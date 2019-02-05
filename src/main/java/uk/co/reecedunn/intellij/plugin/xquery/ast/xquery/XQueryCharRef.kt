@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.model.XmlChar
+import uk.co.reecedunn.intellij.plugin.core.lexer.XmlChar
 
 /**
  * An XQuery 1.0 `CharRef` node in the XQuery AST.
