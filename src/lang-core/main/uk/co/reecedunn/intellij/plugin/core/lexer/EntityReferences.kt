@@ -104,6 +104,15 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
     }
 }
 
+enum class EntityRefType {
+    XML,
+    HTML4,
+    HTML5,
+    Unknown
+}
+
+data class EntityRef(val name: CharSequence, val value: CharSequence, val type: EntityRefType)
+
 fun String.entityReferenceChar(): XmlChar {
     return when {
         startsWith("&#x") -> { // `&#x...;` hexadecimal character reference

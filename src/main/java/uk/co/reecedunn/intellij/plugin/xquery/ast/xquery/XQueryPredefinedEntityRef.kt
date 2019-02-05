@@ -16,19 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-
-enum class XQueryEntityRefType {
-    XML,
-    HTML4,
-    HTML5,
-    Unknown
-}
-
-data class XQueryEntityRef(val name: CharSequence, val value: CharSequence, val type: XQueryEntityRefType)
+import uk.co.reecedunn.intellij.plugin.core.lexer.EntityRef
 
 /**
  * An XQuery 1.0 `PredefinedEntityRef` node in the XQuery AST.
  */
 interface XQueryPredefinedEntityRef : PsiElement {
-    val entityRef: XQueryEntityRef
+    val entityRef: EntityRef
 }
