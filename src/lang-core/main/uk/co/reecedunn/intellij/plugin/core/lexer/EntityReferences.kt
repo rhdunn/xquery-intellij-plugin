@@ -103,3 +103,15 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
         else -> EntityReferenceType.PartialEntityReference
     }
 }
+
+fun String.entityReferenceChar(): XmlChar {
+    return when {
+        startsWith("&#x") -> { // `&#x...;` hexadecimal character reference
+            XmlChar(subSequence(3, length - 1).toString().toInt(radix = 16))
+        }
+        startsWith("&#") -> { // `&#...;` decimal character reference
+            XmlChar(subSequence(2, length - 1).toString().toInt(radix = 10))
+        }
+        else -> XmlChar(0xFFFE)
+    }
+}
