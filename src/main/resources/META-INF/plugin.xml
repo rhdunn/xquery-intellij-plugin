@@ -93,7 +93,7 @@
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryColorSettingsPage"/>
-    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
 
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryPairedBraceMatcher"/>
     <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryCommenter"/>

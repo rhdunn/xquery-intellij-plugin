@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - QNameAnnotator")
+@DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(QNameAnnotatorTest::class.java.classLoader, resource)
