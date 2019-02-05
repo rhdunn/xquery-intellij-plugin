@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
+import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
@@ -30,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XPath 3.1 - Lexer")
 class XPathLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = XPathLexer(CodePointRangeImpl())
+    private fun createLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     @Nested
     @DisplayName("Lexer")

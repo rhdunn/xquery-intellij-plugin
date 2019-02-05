@@ -19,12 +19,12 @@ import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
+import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 
 class XPathSyntaxHighlighter : SyntaxHighlighterBase() {
-    override fun getHighlightingLexer(): Lexer = XPathLexer(CodePointRangeImpl())
+    override fun getHighlightingLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
         val default =
