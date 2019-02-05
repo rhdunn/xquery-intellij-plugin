@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
 // region State Constants
@@ -1334,68 +1331,20 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
     }
 
     private fun matchEntityReference(state: Int) {
-        val isAttributeValue = state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE || state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE
-        mTokenRange.match()
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        if (cc == CharacterClass.NAME_START_CHAR) {
-            mTokenRange.match()
-            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        mType = if (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE || state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE) {
+            when (mTokenRange.matchEntityReference()) {
+                EntityReferenceType.CharacterReference -> XQueryTokenType.XML_CHARACTER_REFERENCE
+                EntityReferenceType.EmptyEntityReference -> XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE
+                EntityReferenceType.PartialEntityReference -> XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE
+                EntityReferenceType.PredefinedEntityReference -> XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE
             }
-            mType = if (cc == CharacterClass.SEMICOLON) {
-                mTokenRange.match()
-                if (isAttributeValue) XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE else XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
-            } else {
-                if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-            }
-        } else if (cc == CharacterClass.HASH) {
-            mTokenRange.match()
-            var c = mTokenRange.codePoint
-            if (c == 'x'.toInt()) {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                if (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
-                    while (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                    mType = if (c == ';'.toInt()) {
-                        mTokenRange.match()
-                        if (isAttributeValue) XQueryTokenType.XML_CHARACTER_REFERENCE else XQueryTokenType.CHARACTER_REFERENCE
-                    } else {
-                        if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-                    }
-                } else if (c == ';'.toInt()) {
-                    mTokenRange.match()
-                    mType = if (isAttributeValue) XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE else XQueryTokenType.EMPTY_ENTITY_REFERENCE
-                } else {
-                    mType = if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-                }
-            } else if (c >= '0'.toInt() && c <= '9'.toInt()) {
-                mTokenRange.match()
-                while (c >= '0'.toInt() && c <= '9'.toInt()) {
-                    mTokenRange.match()
-                    c = mTokenRange.codePoint
-                }
-                mType = if (c == ';'.toInt()) {
-                    mTokenRange.match()
-                    if (isAttributeValue) XQueryTokenType.XML_CHARACTER_REFERENCE else XQueryTokenType.CHARACTER_REFERENCE
-                } else {
-                    if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-                }
-            } else if (c == ';'.toInt()) {
-                mTokenRange.match()
-                mType = if (isAttributeValue) XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE else XQueryTokenType.EMPTY_ENTITY_REFERENCE
-            } else {
-                mType = if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-            }
-        } else if (cc == CharacterClass.SEMICOLON) {
-            mTokenRange.match()
-            mType = if (isAttributeValue) XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE else XQueryTokenType.EMPTY_ENTITY_REFERENCE
         } else {
-            mType = if (isAttributeValue) XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE else XQueryTokenType.PARTIAL_ENTITY_REFERENCE
+            when (mTokenRange.matchEntityReference()) {
+                EntityReferenceType.CharacterReference -> XQueryTokenType.CHARACTER_REFERENCE
+                EntityReferenceType.EmptyEntityReference -> XQueryTokenType.EMPTY_ENTITY_REFERENCE
+                EntityReferenceType.PartialEntityReference -> XQueryTokenType.PARTIAL_ENTITY_REFERENCE
+                EntityReferenceType.PredefinedEntityReference -> XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
+            }
         }
     }
 
