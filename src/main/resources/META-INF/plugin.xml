@@ -80,6 +80,7 @@
     <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
 
     <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lexer.XPathSyntaxHighlighterFactory"/>
+    <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl"/>
 
