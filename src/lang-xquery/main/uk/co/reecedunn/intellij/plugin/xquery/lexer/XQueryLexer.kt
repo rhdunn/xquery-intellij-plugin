@@ -1336,14 +1336,14 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                 EntityReferenceType.CharacterReference -> XQueryTokenType.XML_CHARACTER_REFERENCE
                 EntityReferenceType.EmptyEntityReference -> XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE
                 EntityReferenceType.PartialEntityReference -> XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE
-                EntityReferenceType.PredefinedEntityReference -> XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE
+                else -> XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE
             }
         } else {
             when (mTokenRange.matchEntityReference()) {
                 EntityReferenceType.CharacterReference -> XQueryTokenType.CHARACTER_REFERENCE
                 EntityReferenceType.EmptyEntityReference -> XQueryTokenType.EMPTY_ENTITY_REFERENCE
                 EntityReferenceType.PartialEntityReference -> XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-                EntityReferenceType.PredefinedEntityReference -> XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
+                else -> XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
             }
         }
     }

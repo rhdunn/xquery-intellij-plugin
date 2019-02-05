@@ -39,7 +39,7 @@ buildscript {
             "1.2.71"
     }
 
-    ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.1'
+    ext.idea_version = System.getenv("IDEA_VERSION") ?: '2018.3'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_version(ext.idea_since_build.toInteger())

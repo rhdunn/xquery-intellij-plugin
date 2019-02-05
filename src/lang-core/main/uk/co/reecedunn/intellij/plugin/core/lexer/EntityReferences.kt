@@ -16,10 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
 enum class EntityReferenceType {
-    CharacterReference,
     EmptyEntityReference,
     PartialEntityReference,
-    PredefinedEntityReference
+    CharacterReference,
+    PredefinedEntityReference,
+    XmlEntityReference,
+    Html4EntityReference,
+    Html5EntityReference
 }
 
 @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
@@ -104,14 +107,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
     }
 }
 
-enum class EntityRefType {
-    XML,
-    HTML4,
-    HTML5,
-    Unknown
-}
-
-data class EntityRef(val name: CharSequence, val value: CharSequence, val type: EntityRefType)
+data class EntityRef(val name: CharSequence, val value: CharSequence, val type: EntityReferenceType)
 
 fun String.entityReferenceChar(): XmlChar {
     return when {
