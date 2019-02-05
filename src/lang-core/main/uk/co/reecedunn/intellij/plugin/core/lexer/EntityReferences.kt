@@ -109,14 +109,14 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
 
 data class EntityRef(val name: CharSequence, val value: CharSequence, val type: EntityReferenceType)
 
-fun String.entityReferenceChar(): XmlChar {
+fun CharSequence.entityReferenceCodePoint(): Int {
     return when {
         startsWith("&#x") -> { // `&#x...;` hexadecimal character reference
-            XmlChar(subSequence(3, length - 1).toString().toInt(radix = 16))
+            subSequence(3, length - 1).toString().toInt(radix = 16)
         }
         startsWith("&#") -> { // `&#...;` decimal character reference
-            XmlChar(subSequence(2, length - 1).toString().toInt(radix = 10))
+            subSequence(2, length - 1).toString().toInt(radix = 10)
         }
-        else -> XmlChar(0xFFFE)
+        else -> 0xFFFE
     }
 }

@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlChar
-import uk.co.reecedunn.intellij.plugin.core.lexer.entityReferenceChar
+import uk.co.reecedunn.intellij.plugin.core.lexer.entityReferenceCodePoint
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 
 class XQueryCharRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryCharRef {
-    override val codepoint get(): XmlChar = text.entityReferenceChar()
+    override val codepoint get(): XmlChar = XmlChar(node.chars.entityReferenceCodePoint())
 }
