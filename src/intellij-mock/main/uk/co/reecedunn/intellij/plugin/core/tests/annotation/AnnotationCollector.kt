@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator
+package uk.co.reecedunn.intellij.plugin.core.tests.annotation
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.Annotation
@@ -24,7 +24,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import java.util.*
 
-internal class AnnotationCollector : AnnotationHolder {
+class AnnotationCollector : AnnotationHolder {
     val annotations: MutableList<Annotation> = ArrayList()
 
     override fun createErrorAnnotation(element: PsiElement, message: String?): Annotation {

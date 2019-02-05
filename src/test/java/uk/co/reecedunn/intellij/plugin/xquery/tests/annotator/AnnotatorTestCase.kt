@@ -25,6 +25,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.tests.annotation.AnnotationCollector
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
