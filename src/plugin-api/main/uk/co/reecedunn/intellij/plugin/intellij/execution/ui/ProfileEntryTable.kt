@@ -138,5 +138,14 @@ class ProfileEntryTable : TableView<ProfileEntry>() {
         emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
     }
 
+    var isRunning: Boolean = false
+        set(value) {
+            field = value
+            if (value)
+                emptyText.text = PluginApiBundle.message("profile.entry.table.results-pending")
+            else
+                emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
+        }
+
     fun addRow(entry: ProfileEntry) = listTableModel.addRow(entry)
 }

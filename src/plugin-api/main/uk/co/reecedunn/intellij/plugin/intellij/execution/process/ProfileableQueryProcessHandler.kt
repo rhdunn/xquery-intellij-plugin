@@ -39,23 +39,25 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
     override fun startNotify() {
         super.startNotify()
         try {
+            notifyBeginResults()
             query.profile().execute { results ->
                 try {
                     notifyProfileReport(results.report)
-                    notifyBeginResults()
                     results.results.forEach { result -> notifyResult(result) }
-                    notifyEndResults()
                 } catch (e: Throwable) {
                     notifyException(e)
                 } finally {
+                    notifyEndResults()
                     notifyProcessDetached()
                 }
             }.onException { e ->
                 notifyException(e)
+                notifyEndResults()
                 notifyProcessDetached()
             }
         } catch(e: Throwable) {
             notifyException(e)
+            notifyEndResults()
             notifyProcessDetached()
         }
     }

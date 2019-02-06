@@ -28,8 +28,11 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.intellij.execution.process.ProfileableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileReport
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xpath.model.XsDurationValue
 import java.awt.Color
 import java.text.DateFormat
@@ -58,7 +61,7 @@ private fun formatDate(date: String, dateFormat: DateFormat = SimpleDateFormat.g
 
 private val PANEL_BORDER = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
 
-class ProfileConsoleView(val project: Project) : ConsoleView, ProfileReportListener {
+class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListener, ProfileReportListener {
     // region UI
 
     private var report: ProfileReport? = null
@@ -117,7 +120,10 @@ class ProfileConsoleView(val project: Project) : ConsoleView, ProfileReportListe
     }
 
     override fun attachToProcess(processHandler: ProcessHandler?) {
-        (processHandler as? ProfileableQueryProcessHandler)?.profileReportListener = this
+        (processHandler as? ProfileableQueryProcessHandler)?.let {
+            it.queryResultListener = this
+            it.profileReportListener = this
+        }
     }
 
     override fun getPreferredFocusableComponent(): JComponent = component
@@ -139,6 +145,23 @@ class ProfileConsoleView(val project: Project) : ConsoleView, ProfileReportListe
     }
 
     override fun scrollTo(offset: Int) {
+    }
+
+    // endregion
+    // region QueryResultListener
+
+    override fun onBeginResults() {
+        (results as ProfileEntryTable).isRunning = true
+    }
+
+    override fun onEndResults() {
+        (results as ProfileEntryTable).isRunning = false
+    }
+
+    override fun onQueryResult(result: QueryResult) {
+    }
+
+    override fun onException(e: Throwable) {
     }
 
     // endregion
