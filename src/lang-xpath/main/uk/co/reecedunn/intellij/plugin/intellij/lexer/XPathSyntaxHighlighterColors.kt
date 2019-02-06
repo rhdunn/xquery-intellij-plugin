@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.intellij.lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.options.colors.AttributesDescriptor
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 
 object XPathSyntaxHighlighterColors {
     val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
@@ -50,5 +52,15 @@ object XPathSyntaxHighlighterColors {
 
     val STRING = TextAttributesKey.createTextAttributesKey(
         "XPATH_STRING", DefaultLanguageHighlighterColors.STRING
+    )
+
+    val DESCRIPTORS = arrayOf(
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.bad.character"), BAD_CHARACTER),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.comment"), COMMENT),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.escaped.character"), ESCAPED_CHARACTER),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.identifier"), IDENTIFIER),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.keyword"), KEYWORD),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.number"), NUMBER),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.string"), STRING)
     )
 }
