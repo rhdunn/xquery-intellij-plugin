@@ -151,7 +151,10 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
     // region QueryResultListener
 
     override fun onBeginResults() {
-        (results as ProfileEntryTable).isRunning = true
+        (results as ProfileEntryTable).let {
+            it.isRunning = true
+            it.hasException = false
+        }
     }
 
     override fun onEndResults() {
@@ -162,6 +165,7 @@ class ProfileConsoleView(val project: Project) : ConsoleView, QueryResultListene
     }
 
     override fun onException(e: Throwable) {
+        (results as ProfileEntryTable).hasException = true
     }
 
     // endregion

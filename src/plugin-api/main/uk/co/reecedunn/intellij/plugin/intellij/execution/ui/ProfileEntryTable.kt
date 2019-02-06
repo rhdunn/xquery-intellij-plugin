@@ -135,16 +135,28 @@ class ProfileEntryTable : TableView<ProfileEntry>() {
         setModelAndUpdateColumns(ListTableModel<ProfileEntry>(*COLUMNS))
         setEnableAntialiasing(true)
 
-        emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
+        updateEmptyText(false, false)
+    }
+
+    private fun updateEmptyText(running: Boolean, exception: Boolean) {
+        if (exception)
+            emptyText.text = PluginApiBundle.message("profile.entry.table.has-exception")
+        else if (running)
+            emptyText.text = PluginApiBundle.message("profile.entry.table.results-pending")
+        else
+            emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
     }
 
     var isRunning: Boolean = false
         set(value) {
             field = value
-            if (value)
-                emptyText.text = PluginApiBundle.message("profile.entry.table.results-pending")
-            else
-                emptyText.text = PluginApiBundle.message("profile.entry.table.no-results")
+            updateEmptyText(isRunning, hasException)
+        }
+
+    var hasException: Boolean = false
+        set(value) {
+            field = value
+            updateEmptyText(isRunning, hasException)
         }
 
     fun addRow(entry: ProfileEntry) = listTableModel.addRow(entry)
