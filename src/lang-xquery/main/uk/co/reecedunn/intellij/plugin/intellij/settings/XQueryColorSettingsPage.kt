@@ -22,6 +22,7 @@ import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryQueries
 import javax.swing.Icon
 
 class XQueryColorSettingsPage : ColorSettingsPage {
@@ -29,18 +30,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
 
     override fun getHighlighter(): SyntaxHighlighter = XQuerySyntaxHighlighter()
 
-    override fun getDemoText(): String {
-        return "(: Comment :)\n" +
-                "xquery version \"1.0\";\n" +
-                "(:~ Documentation <code>Markup</code>\n" +
-                " : @param \$a parameter A.\n" +
-                " : @return A value.\n" +
-                " :)\n" +
-                "declare updating function update(\$a as xs:integer) external;\n" +
-                "let \$_ := (1234, \"One \"\" Two &quot; Three\", value)\n" +
-                "return <test comment=\"One \"\" Two &quot; Three\">Lorem ipsum dolor.</test>\n" +
-                "~~~"
-    }
+    override fun getDemoText(): String = XQueryQueries.ColorSettingsDemo
 
     override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? = null
 
