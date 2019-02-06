@@ -28,16 +28,19 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
     // region PsiElement
 
     override fun getReferences(): Array<PsiReference> {
-        val eqnameStart = node.startOffset
-        val localName = localName as PsiElement
-        return when (parent) {
-            is XPathFunctionReference ->
-                arrayOf(XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart)))
-            is XPathVariableName ->
-                arrayOf(XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart)))
-            else ->
-                PsiReference.EMPTY_ARRAY
-        }
+        return (localName as? PsiElement)?.let{
+            when (parent) {
+                is XPathFunctionReference -> {
+                    val ref = XQueryFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    arrayOf(ref as PsiReference)
+                }
+                is XPathVariableName -> {
+                    val ref = XQueryVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    arrayOf(ref as PsiReference)
+                }
+                else -> null
+            }
+        } ?: PsiReference.EMPTY_ARRAY
     }
 
     // endregion
