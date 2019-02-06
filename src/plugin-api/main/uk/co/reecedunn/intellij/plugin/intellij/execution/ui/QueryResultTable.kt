@@ -82,5 +82,14 @@ class QueryResultTable : TableView<QueryResult>() {
         emptyText.text = PluginApiBundle.message("query.result.table.no-results")
     }
 
+    var isRunning: Boolean = false
+        set(value) {
+            field = value
+            if (value)
+                emptyText.text = PluginApiBundle.message("query.result.table.results-pending")
+            else
+                emptyText.text = PluginApiBundle.message("query.result.table.no-results")
+        }
+
     fun addRow(entry: QueryResult) = listTableModel.addRow(entry)
 }

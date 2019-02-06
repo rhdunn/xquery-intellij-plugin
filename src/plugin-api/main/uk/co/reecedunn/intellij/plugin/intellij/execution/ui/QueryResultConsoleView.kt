@@ -97,10 +97,14 @@ class QueryResultConsoleView : ConsoleView, QueryResultListener {
     // region QueryResultListener
 
     override fun onBeginResults() {
-        results!!.removeAll()
+        (results as QueryResultTable).let {
+            it.removeAll()
+            it.isRunning = true
+        }
     }
 
     override fun onEndResults() {
+        (results as QueryResultTable).isRunning = false
     }
 
     override fun onQueryResult(result: QueryResult) {

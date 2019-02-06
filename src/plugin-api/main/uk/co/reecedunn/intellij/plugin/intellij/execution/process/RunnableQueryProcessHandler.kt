@@ -21,22 +21,24 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
     override fun startNotify() {
         super.startNotify()
         try {
+            notifyBeginResults()
             query.run().execute { results ->
                 try {
-                    notifyBeginResults()
                     results.forEach { result -> notifyResult(result) }
-                    notifyEndResults()
                 } catch (e: Throwable) {
                     notifyException(e)
                 } finally {
+                    notifyEndResults()
                     notifyProcessDetached()
                 }
             }.onException { e ->
                 notifyException(e)
+                notifyEndResults()
                 notifyProcessDetached()
             }
         } catch(e: Throwable) {
             notifyException(e)
+            notifyEndResults()
             notifyProcessDetached()
         }
     }
