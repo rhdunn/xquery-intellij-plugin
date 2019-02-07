@@ -24,11 +24,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 object XQuerySyntaxHighlighterColors {
     val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER
+        "XQUERY_BAD_CHARACTER", XPathSyntaxHighlighterColors.BAD_CHARACTER
     )
 
     val COMMENT = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
+        "XQUERY_COMMENT", XPathSyntaxHighlighterColors.COMMENT
     )
 
     val ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey(
@@ -36,15 +36,15 @@ object XQuerySyntaxHighlighterColors {
     )
 
     val ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+        "XQUERY_ESCAPED_CHARACTER", XPathSyntaxHighlighterColors.ESCAPED_CHARACTER
     )
 
     val IDENTIFIER = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER
+        "XQUERY_IDENTIFIER", XPathSyntaxHighlighterColors.IDENTIFIER
     )
 
     val KEYWORD = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD
+        "XQUERY_KEYWORD", XPathSyntaxHighlighterColors.KEYWORD
     )
 
     val ANNOTATION = TextAttributesKey.createTextAttributesKey(
@@ -52,15 +52,15 @@ object XQuerySyntaxHighlighterColors {
     )
 
     val NUMBER = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER
+        "XQUERY_NUMBER", XPathSyntaxHighlighterColors.NUMBER
     )
 
     val STRING = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_STRING", DefaultLanguageHighlighterColors.STRING
+        "XQUERY_STRING", XPathSyntaxHighlighterColors.STRING
     )
 
     val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
+        "XQUERY_NS_PREFIX", XPathSyntaxHighlighterColors.NS_PREFIX
     )
 
     val XQDOC_TAG = TextAttributesKey.createTextAttributesKey(
