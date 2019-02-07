@@ -83,14 +83,15 @@ class XPathColorSettingsPageTest {
     @DisplayName("additional highlighting tag to descriptor map")
     fun testAdditionalHighlightingTagToDescriptorMap() {
         val settings = XPathColorSettingsPage()
-        assertThat(settings.additionalHighlightingTagToDescriptorMap, `is`(nullValue()))
+        assertThat(settings.additionalHighlightingTagToDescriptorMap?.size, `is`(1))
+        assertThat(settings.additionalHighlightingTagToDescriptorMap?.get("nsprefix"), `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
     }
 
     @Test
     @DisplayName("attribute descriptors")
     fun testAttributeDescriptors() {
         val settings = XPathColorSettingsPage()
-        assertThat(settings.attributeDescriptors.size, `is`(7))
+        assertThat(settings.attributeDescriptors.size, `is`(8))
         assertThat(settings.attributeDescriptors[0].displayName, `is`("Invalid Character"))
         assertThat(settings.attributeDescriptors[0].key, `is`(XPathSyntaxHighlighterColors.BAD_CHARACTER))
         assertThat(settings.attributeDescriptors[1].displayName, `is`("Comment"))
@@ -101,10 +102,12 @@ class XPathColorSettingsPageTest {
         assertThat(settings.attributeDescriptors[3].key, `is`(XPathSyntaxHighlighterColors.IDENTIFIER))
         assertThat(settings.attributeDescriptors[4].displayName, `is`("Keyword"))
         assertThat(settings.attributeDescriptors[4].key, `is`(XPathSyntaxHighlighterColors.KEYWORD))
-        assertThat(settings.attributeDescriptors[5].displayName, `is`("Number"))
-        assertThat(settings.attributeDescriptors[5].key, `is`(XPathSyntaxHighlighterColors.NUMBER))
-        assertThat(settings.attributeDescriptors[6].displayName, `is`("String"))
-        assertThat(settings.attributeDescriptors[6].key, `is`(XPathSyntaxHighlighterColors.STRING))
+        assertThat(settings.attributeDescriptors[5].displayName, `is`("Namespace Prefix"))
+        assertThat(settings.attributeDescriptors[5].key, `is`(XPathSyntaxHighlighterColors.NS_PREFIX))
+        assertThat(settings.attributeDescriptors[6].displayName, `is`("Number"))
+        assertThat(settings.attributeDescriptors[6].key, `is`(XPathSyntaxHighlighterColors.NUMBER))
+        assertThat(settings.attributeDescriptors[7].displayName, `is`("String"))
+        assertThat(settings.attributeDescriptors[7].key, `is`(XPathSyntaxHighlighterColors.STRING))
     }
 
     @Test

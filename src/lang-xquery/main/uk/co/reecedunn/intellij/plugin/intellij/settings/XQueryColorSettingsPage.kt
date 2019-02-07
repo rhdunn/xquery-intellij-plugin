@@ -32,7 +32,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
 
     override fun getDemoText(): String = XQueryQueries.ColorSettingsDemo
 
-    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? = null
+    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? = XQuerySyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = XQuerySyntaxHighlighterColors.DESCRIPTORS
 

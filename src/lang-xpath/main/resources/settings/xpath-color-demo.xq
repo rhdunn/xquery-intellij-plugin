@@ -1,3 +1,3 @@
 (: Comment :)
-lorem[fn:position() = 2 and fn:true()]//self::ipsum[@value = "a""b"]
+lorem[<nsprefix>fn</nsprefix>:position() = 2 and <nsprefix>fn</nsprefix>:true()]//self::ipsum[@value = "a""b"]
 ~~~

@@ -60,7 +60,12 @@ object XPathSyntaxHighlighterColors {
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.escaped.character"), ESCAPED_CHARACTER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.identifier"), IDENTIFIER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.keyword"), KEYWORD),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.ns-prefix"), NS_PREFIX),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.number"), NUMBER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.string"), STRING)
+    )
+
+    val ADDITIONAL_DESCRIPTORS = mapOf(
+        "nsprefix" to NS_PREFIX
     )
 }

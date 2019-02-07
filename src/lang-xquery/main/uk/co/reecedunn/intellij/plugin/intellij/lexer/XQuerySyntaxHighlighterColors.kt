@@ -20,6 +20,7 @@ import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 
 object XQuerySyntaxHighlighterColors {
@@ -106,6 +107,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), IDENTIFIER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.keyword"), KEYWORD),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.annotation"), ANNOTATION),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.ns-prefix"), NS_PREFIX),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), NUMBER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), STRING),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), XML_TAG),
@@ -119,5 +121,9 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag"), XQDOC_TAG),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag-value"), XQDOC_TAG_VALUE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.markup"), XQDOC_MARKUP)
+    )
+
+    val ADDITIONAL_DESCRIPTORS = mapOf(
+        "nsprefix" to NS_PREFIX
     )
 }

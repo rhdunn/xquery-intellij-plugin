@@ -54,6 +54,7 @@
     <ol>
       <li>Display the first comment line when the comment is folded.</li>
       <li>Support profiling MarkLogic queries.</li>
+      <li>Support configuring the namespace prefix colour.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
