@@ -16,10 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.util.text.StringUtil
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.platform.commons.util.StringUtils
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
@@ -41,6 +43,13 @@ class XQueryColorSettingsPageTest {
         val settings = XQueryColorSettingsPage()
         val highlighter = settings.highlighter
         assertThat(highlighter.javaClass.name, `is`(XQuerySyntaxHighlighter::class.java.name))
+    }
+
+    @Test
+    @DisplayName("demo text contains valid separators")
+    fun testDemoTextSeparators() {
+        val settings = XQueryColorSettingsPage()
+        StringUtil.assertValidSeparators(settings.demoText)
     }
 
     @Test

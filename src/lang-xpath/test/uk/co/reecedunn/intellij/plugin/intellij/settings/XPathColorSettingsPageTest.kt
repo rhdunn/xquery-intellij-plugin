@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.intellij.settings
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.util.text.StringUtil
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
@@ -40,6 +41,13 @@ class XPathColorSettingsPageTest {
         val settings = XPathColorSettingsPage()
         val highlighter = settings.highlighter
         assertThat(highlighter.javaClass.name, `is`(XPathSyntaxHighlighter::class.java.name))
+    }
+
+    @Test
+    @DisplayName("demo text contains valid separators")
+    fun testDemoTextSeparators() {
+        val settings = XPathColorSettingsPage()
+        StringUtil.assertValidSeparators(settings.demoText)
     }
 
     @Test

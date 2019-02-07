@@ -1,3 +1,5 @@
+src/lang-xpath/main/resources/settings/xpath-color-demo.xq text eof=lf
+src/lang-xquery/main/resources/settings/xquery-color-demo.xq text eof=lf
 src/lang-xpath/test/resources/tests/parser/xpath-1.0/*.txt text eol=lf
 src/lang-xpath/test/resources/tests/parser/xpath-1.0/*.xq text eol=lf
 src/lang-xpath/test/resources/tests/parser/xpath-2.0/*.txt text eol=lf
