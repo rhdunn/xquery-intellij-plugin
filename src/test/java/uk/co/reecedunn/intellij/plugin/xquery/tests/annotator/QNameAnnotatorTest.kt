@@ -26,8 +26,9 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.intellij.lexer.XQuerySyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator as XPathQNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -69,6 +70,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.IDENTIFIER))
+        }
+
+        @Test
+        @DisplayName("xpath annotator")
+        fun xpathAnnotator() {
+            val file = parse<XQueryModule>("cast")[0]
+            val annotations = annotateTree(file, XPathQNameAnnotator())
+            assertThat(annotations.size, `is`(0))
         }
     }
 
@@ -250,6 +259,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
         }
+
+        @Test
+        @DisplayName("xpath annotator")
+        fun xpathAnnotator() {
+            val file = parse<XQueryModule>("cast:as")[0]
+            val annotations = annotateTree(file, XPathQNameAnnotator())
+            assertThat(annotations.size, `is`(0))
+        }
     }
 
     @Nested
@@ -283,6 +300,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[1].message, `is`(nullValue()))
             assertThat(annotations[1].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[1].textAttributes, `is`(XQuerySyntaxHighlighterColors.IDENTIFIER))
+        }
+
+        @Test
+        @DisplayName("xpath annotator")
+        fun xpathAnnotator() {
+            val file = parse<XQueryModule>("Q{http://www.example.com/test#}let")[0]
+            val annotations = annotateTree(file, XPathQNameAnnotator())
+            assertThat(annotations.size, `is`(0))
         }
     }
 
@@ -337,6 +362,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[5].message, `is`(nullValue()))
             assertThat(annotations[5].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[5].textAttributes, `is`(XQuerySyntaxHighlighterColors.NS_PREFIX))
+        }
+
+        @Test
+        @DisplayName("xpath annotator")
+        fun xpathAnnotator() {
+            val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")
+            val annotations = annotateTree(file, XPathQNameAnnotator())
+            assertThat(annotations.size, `is`(0))
         }
     }
 
@@ -399,6 +432,14 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(annotations[3].message, `is`(nullValue()))
             assertThat(annotations[3].enforcedTextAttributes, `is`(nullValue()))
             assertThat(annotations[3].textAttributes, `is`(XQuerySyntaxHighlighterColors.ANNOTATION))
+        }
+
+        @Test
+        @DisplayName("xpath annotator")
+        fun xpathAnnotator() {
+            val file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq")
+            val annotations = annotateTree(file, XPathQNameAnnotator())
+            assertThat(annotations.size, `is`(0))
         }
     }
 }
