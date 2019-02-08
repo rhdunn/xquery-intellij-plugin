@@ -28,6 +28,6 @@ class UpdateFacilityRevalidationDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElemen
     VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.K_REVALIDATION) ?: firstChild
+    override val conformanceElement
+        get(): PsiElement = findChildByType(XQueryTokenType.K_REVALIDATION) ?: firstChild
 }

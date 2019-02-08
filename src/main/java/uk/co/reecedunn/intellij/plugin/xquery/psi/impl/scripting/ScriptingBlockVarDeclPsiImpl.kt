@@ -27,6 +27,5 @@ class ScriptingBlockVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
     VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

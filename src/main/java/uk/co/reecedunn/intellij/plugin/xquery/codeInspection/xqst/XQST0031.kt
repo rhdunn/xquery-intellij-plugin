@@ -52,7 +52,7 @@ class XQST0031 : Inspection("xqst/XQST0031.md", Resources) {
                 return
             }
 
-            val xqueryVersion = XQuerySpec.versionForXQuery(settings.product, settings.productVersion, version.version.versionId)
+            val xqueryVersion = XQuerySpec.versionForXQuery(settings.product, settings.productVersion, version.version!!.versionId)
             if (xqueryVersion == null) {
                 // The XQuery version is not supported by the implementation.
                 val description = XQueryPluginBundle.message("inspection.XQST0031.unsupported-version.message")

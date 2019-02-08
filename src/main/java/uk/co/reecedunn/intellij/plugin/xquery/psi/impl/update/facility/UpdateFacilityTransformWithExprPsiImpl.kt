@@ -25,12 +25,13 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityTransformWithExpr,
+class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    UpdateFacilityTransformWithExpr,
     VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(
-        UpdateFacilitySpec.NOTE_3_0_20170124,
-        BaseX.VERSION_8_5)
+    override val requiresConformance
+        get(): List<Version> = listOf(UpdateFacilitySpec.NOTE_3_0_20170124, BaseX.VERSION_8_5)
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.K_TRANSFORM) ?: firstChild
+    override val conformanceElement
+        get(): PsiElement = findChildByType(XQueryTokenType.K_TRANSFORM) ?: firstChild
 }

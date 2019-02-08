@@ -19,4 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExprTargetChoice
 
-class UpdateFacilityInsertExprTargetChoicePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityInsertExprTargetChoice
+class UpdateFacilityInsertExprTargetChoicePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    UpdateFacilityInsertExprTargetChoice

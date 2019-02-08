@@ -27,15 +27,15 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 private val FULL_TEXT: List<Version> = listOf(FullTextSpec.REC_1_0_20110317)
 private val XQUERY: List<Version> = listOf()
 
-class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> {
-        return if (conformanceElement.node.elementType == XQueryTokenType.K_CONTAINS)
-            FULL_TEXT
-        else
-            XQUERY
-    }
+class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr, VersionConformance {
+    override val requiresConformance
+        get(): List<Version> {
+            return if (conformanceElement.node.elementType == XQueryTokenType.K_CONTAINS)
+                FULL_TEXT
+            else
+                XQUERY
+        }
 
-    override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.K_CONTAINS) ?: firstChild
+    override val conformanceElement
+        get(): PsiElement = findChildByType(XQueryTokenType.K_CONTAINS) ?: firstChild
 }

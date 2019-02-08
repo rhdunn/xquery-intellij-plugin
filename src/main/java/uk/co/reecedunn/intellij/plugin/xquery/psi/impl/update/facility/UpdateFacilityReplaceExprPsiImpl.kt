@@ -27,6 +27,5 @@ class UpdateFacilityReplaceExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
     VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }

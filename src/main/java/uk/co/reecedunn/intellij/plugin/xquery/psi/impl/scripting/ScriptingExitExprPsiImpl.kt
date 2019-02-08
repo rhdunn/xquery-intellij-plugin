@@ -23,10 +23,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class ScriptingExitExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingExitExpr,
-    VersionConformance {
+class ScriptingExitExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingExitExpr, VersionConformance {
     override val requiresConformance get(): List<Version> = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
-    override val conformanceElement get(): PsiElement =
-        firstChild
+    override val conformanceElement get(): PsiElement = firstChild
 }
