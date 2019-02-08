@@ -16,14 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.core.codeInspection
 
 import com.intellij.codeInspection.LocalInspectionTool
-import uk.co.reecedunn.intellij.plugin.core.file.FileLoader
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 
 abstract class Inspection(
     private val descriptionPath: String,
-    private val loader: FileLoader
+    private val loader: ClassLoader
 ) : LocalInspectionTool() {
     override fun getStaticDescription(): String? {
-        return loader.load("inspections/en/$descriptionPath")?.let { Markdown.parse(it) }
+        val description = ResourceVirtualFile(loader, "inspections/en/$descriptionPath")
+        return description.inputStream?.let { Markdown.parse(it) }
     }
 }

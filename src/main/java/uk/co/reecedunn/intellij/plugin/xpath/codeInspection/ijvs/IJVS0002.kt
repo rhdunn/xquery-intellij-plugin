@@ -32,12 +32,11 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 
-class IJVS0002 : Inspection("ijvs/IJVS0002.md", Resources) {
+class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader) {
     private fun getLocalName(name: XsQNameValue?): Pair<PsiElement, IKeywordOrNCNameType.KeywordType>? {
         if (name != null && name.isLexicalQName && name.prefix == null) {
             val localname = name.localName?.element!!
