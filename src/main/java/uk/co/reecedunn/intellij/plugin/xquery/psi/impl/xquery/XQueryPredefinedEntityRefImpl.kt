@@ -20,12 +20,13 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityRef
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityReferenceType
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import uk.co.reecedunn.intellij.plugin.intellij.resources.Resources
 import java.io.InputStreamReader
 
 private fun loadPredefinedEntities(entities: HashMap<String, EntityRef>, path: String, type: EntityReferenceType) {
-    val data = JsonParser().parse(InputStreamReader(Resources.load(path))).asJsonObject
+    val file = ResourceVirtualFile(XQueryPredefinedEntityRefImpl::class.java.classLoader, path)
+    val data = JsonParser().parse(InputStreamReader(file.inputStream!!)).asJsonObject
     data.entrySet().forEach { entity ->
         val chars = entity.value.asJsonObject.get("characters").asString
         entities.putIfAbsent(entity.key, EntityRef(entity.key, chars, type))
