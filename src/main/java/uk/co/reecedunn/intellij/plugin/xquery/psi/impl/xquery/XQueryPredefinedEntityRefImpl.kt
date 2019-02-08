@@ -15,37 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.google.gson.JsonParser
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lexer.ENTITIES
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityRef
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityReferenceType
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import java.io.InputStreamReader
-
-private fun loadPredefinedEntities(entities: HashMap<String, EntityRef>, path: String, type: EntityReferenceType) {
-    val file = ResourceVirtualFile(XQueryPredefinedEntityRefImpl::class.java.classLoader, path)
-    val data = JsonParser().parse(InputStreamReader(file.inputStream!!)).asJsonObject
-    data.entrySet().forEach { entity ->
-        val chars = entity.value.asJsonObject.get("characters").asString
-        entities.putIfAbsent(entity.key, EntityRef(entity.key, chars, type))
-    }
-}
-
-private var ENTITIES: HashMap<String, EntityRef>? = null
-    get() {
-        if (field == null) {
-            field = HashMap()
-            // Dynamically load the predefined entities on their first use. This loads the entities:
-            //     XML ⊂ HTML 4 ⊂ HTML 5
-            // ensuring that the subset type is reported correctly.
-            loadPredefinedEntities(field!!, "predefined-entities/xml.json", EntityReferenceType.XmlEntityReference)
-            loadPredefinedEntities(field!!, "predefined-entities/html4.json", EntityReferenceType.Html4EntityReference)
-            loadPredefinedEntities(field!!, "predefined-entities/html5.json", EntityReferenceType.Html5EntityReference)
-        }
-        return field
-    }
 
 class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryPredefinedEntityRef {
     override val entityRef

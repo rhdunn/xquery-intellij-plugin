@@ -15,6 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
+import com.google.gson.JsonParser
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import java.io.InputStreamReader
+
 enum class EntityReferenceType {
     EmptyEntityReference,
     PartialEntityReference,
@@ -120,3 +124,26 @@ fun CharSequence.entityReferenceCodePoint(): Int {
         else -> 0xFFFE
     }
 }
+
+private fun loadPredefinedEntities(entities: HashMap<String, EntityRef>, path: String, type: EntityReferenceType) {
+    val file = ResourceVirtualFile(EntityRef::class.java.classLoader, path)
+    val data = JsonParser().parse(InputStreamReader(file.inputStream!!)).asJsonObject
+    data.entrySet().forEach { entity ->
+        val chars = entity.value.asJsonObject.get("characters").asString
+        entities.putIfAbsent(entity.key, EntityRef(entity.key, chars, type))
+    }
+}
+
+var ENTITIES: HashMap<String, EntityRef>? = null
+    get() {
+        if (field == null) {
+            field = HashMap()
+            // Dynamically load the predefined entities on their first use. This loads the entities:
+            //     XML ⊂ HTML 4 ⊂ HTML 5
+            // ensuring that the subset type is reported correctly.
+            loadPredefinedEntities(field!!, "predefined-entities/xml.json", EntityReferenceType.XmlEntityReference)
+            loadPredefinedEntities(field!!, "predefined-entities/html4.json", EntityReferenceType.Html4EntityReference)
+            loadPredefinedEntities(field!!, "predefined-entities/html5.json", EntityReferenceType.Html5EntityReference)
+        }
+        return field
+    }

@@ -1,4 +1,6 @@
 sourceSets.main.java.srcDirs += 'main'
+sourceSets.main.resources.srcDirs += 'main/resources'
+
 sourceSets.test.java.srcDirs += 'test'
 sourceSets.test.resources.srcDirs += 'test/resources'
 
