@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="596" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <labelFor value="375db"/>
-          <text resource-bundle="messages/XQueryPluginBundle" key="xquery.settings.project.default.version.label"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.default.version.label"/>
         </properties>
       </component>
       <vspacer id="fda1a">
@@ -34,7 +34,7 @@
         </constraints>
         <properties>
           <labelFor value="35508"/>
-          <text resource-bundle="messages/XQueryPluginBundle" key="xquery.settings.project.implementation.label"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.implementation.label"/>
         </properties>
       </component>
       <component id="fb1a7" class="javax.swing.JLabel">
@@ -43,7 +43,7 @@
         </constraints>
         <properties>
           <labelFor value="4b327"/>
-          <text resource-bundle="messages/XQueryPluginBundle" key="xquery.settings.project.implementation.version.label"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.implementation.version.label"/>
         </properties>
       </component>
       <component id="4b327" class="javax.swing.JComboBox" binding="mImplementationVersions" custom-create="true">
@@ -58,7 +58,7 @@
         </constraints>
         <properties>
           <labelFor value="99593"/>
-          <text resource-bundle="messages/XQueryPluginBundle" key="xquery.settings.project.dialect.1.0.label"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.dialect.1.0.label"/>
         </properties>
       </component>
       <component id="99593" class="javax.swing.JComboBox" binding="mDialectForXQuery1_0" custom-create="true">
@@ -79,7 +79,7 @@
         </constraints>
         <properties>
           <labelFor value="c2350"/>
-          <text resource-bundle="messages/XQueryPluginBundle" key="xquery.settings.project.dialect.3.0.label"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.dialect.3.0.label"/>
         </properties>
       </component>
       <component id="f1a5f" class="javax.swing.JComboBox" binding="mDialectForXQuery3_1" custom-create="true">
@@ -94,7 +94,7 @@
         </constraints>
         <properties>
           <labelFor value="f1a5f"/>
-          <text resource-bundle="messages/XQueryPluginBundle" key="xquery.settings.project.dialect.3.1.label"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.dialect.3.1.label"/>
         </properties>
       </component>
       <component id="35508" class="javax.swing.JComboBox" binding="mImplementations" custom-create="true">

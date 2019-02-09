@@ -16,34 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.intellij.tests.settings
 
 import com.intellij.ide.ui.UISettings
-import com.intellij.lang.LanguageASTFactory
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettingsConfigurable
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Settings - Languages and Frameworks - ProjectSettingsConfigurable")
-private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition()) {
+private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModule>(null) {
     @BeforeAll
     override fun setUp() {
         super.setUp()
 
         registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         registerApplicationService(UISettings::class.java, UISettings())
-
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
     }
 
     @AfterAll
@@ -54,14 +45,16 @@ private class XQueryProjectSettingsConfigurableTest : ParsingTestCase<XQueryModu
     @Test
     @DisplayName("display name")
     fun testDisplayName() {
-        val configurable = XQueryProjectSettingsConfigurable(myProject)
+        val configurable =
+            XQueryProjectSettingsConfigurable(myProject)
         assertThat(configurable.displayName, `is`("XQuery"))
     }
 
     @Test
     @DisplayName("help topic")
     fun testHelpTopic() {
-        val configurable = XQueryProjectSettingsConfigurable(myProject)
+        val configurable =
+            XQueryProjectSettingsConfigurable(myProject)
         assertThat(configurable.helpTopic, `is`(nullValue()))
     }
 }

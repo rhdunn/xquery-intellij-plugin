@@ -27,14 +27,19 @@ import javax.swing.JList
 import javax.swing.JPanel
 
 class XQueryProjectSettingsConfigurable(project: Project) :
-    ConfigurableImpl<XQueryProjectSettings>(XQueryProjectSettings.getInstance(project)) {
+    ConfigurableImpl<XQueryProjectSettings>(
+        XQueryProjectSettings.getInstance(
+            project
+        )
+    ) {
 
     @Nls
     override fun getDisplayName(): String = "XQuery"
 
     override fun getHelpTopic(): String? = null
 
-    override fun createSettingsUI(): SettingsUI<XQueryProjectSettings> = XQueryProjectSettingsConfigurableUI()
+    override fun createSettingsUI(): SettingsUI<XQueryProjectSettings> =
+        XQueryProjectSettingsConfigurableUI()
 }
 
 @Suppress("PrivatePropertyName")
