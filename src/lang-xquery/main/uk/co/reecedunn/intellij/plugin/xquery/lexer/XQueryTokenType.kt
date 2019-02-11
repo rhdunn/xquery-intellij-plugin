@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 object XQueryTokenType {
     // region Multi-Token Symbols
@@ -335,6 +336,26 @@ object XQueryTokenType {
     val VALIDATE_EXPR_TOKENS = TokenSet.create(XPathTokenType.K_AS, K_TYPE)
 
     val VALIDATION_MODE_TOKENS = TokenSet.create(K_LAX, K_STRICT)
+
+    val STRING_LITERAL_TOKENS = TokenSet.create(
+        XPathTokenType.STRING_LITERAL_CONTENTS,
+        XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS,
+        XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS,
+        XQueryTokenType.XML_ELEMENT_CONTENTS
+    )
+
+    val COMMENT_TOKENS = TokenSet.create(
+        XQDocTokenType.CONTENTS,
+        XPathTokenType.COMMENT,
+        XQueryTokenType.XML_COMMENT
+    )
+
+    val LITERAL_TOKENS = TokenSet.create(
+        XPathTokenType.INTEGER_LITERAL,
+        XPathTokenType.DECIMAL_LITERAL,
+        XPathTokenType.DOUBLE_LITERAL,
+        XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
+    )
 
     // endregion
 }
