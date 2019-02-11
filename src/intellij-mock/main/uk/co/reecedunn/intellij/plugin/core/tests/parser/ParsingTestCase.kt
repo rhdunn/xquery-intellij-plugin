@@ -67,6 +67,10 @@ abstract class ParsingTestCase<File : PsiFile>(
     private var mFileExt: String?,
     vararg definitions: ParserDefinition
 ) : PlatformLiteFixture() {
+    constructor(fileExt: String?, language: Language) : this(fileExt) {
+        this.language = language
+    }
+
     private var mFileFactory: PsiFileFactory? = null
 
     var language: Language? = null
@@ -130,8 +134,18 @@ abstract class ParsingTestCase<File : PsiFile>(
         for (definition in mDefinitions) {
             addExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.fileNodeType.language, definition)
         }
+
         if (mDefinitions.isNotEmpty()) {
-            configureFromParserDefinition(mDefinitions[0], mFileExt)
+            language = mDefinitions[0].fileNodeType.language
+            addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, mDefinitions[0])
+        }
+
+        if (language != null) {
+            PlatformLiteFixture.registerComponentInstance(
+                PlatformLiteFixture.getApplication().picoContainer,
+                FileTypeManager::class.java,
+                MockFileTypeManager(MockLanguageFileType(language!!, mFileExt))
+            )
         }
 
         // That's for reparse routines
@@ -141,17 +155,6 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     // region IntelliJ ParsingTestCase Methods
-
-    private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
-        language = definition.fileNodeType.language
-        mFileExt = extension
-        addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
-        PlatformLiteFixture.registerComponentInstance(
-            PlatformLiteFixture.getApplication().picoContainer,
-            FileTypeManager::class.java,
-            MockFileTypeManager(MockLanguageFileType(language!!, mFileExt))
-        )
-    }
 
     protected fun <T> addExplicitExtension(instance: LanguageExtension<T>, language: Language, `object`: T) {
         instance.addExplicitExtension(language, `object`)
