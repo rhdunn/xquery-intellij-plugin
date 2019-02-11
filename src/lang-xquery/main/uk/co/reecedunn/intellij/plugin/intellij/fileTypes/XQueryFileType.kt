@@ -22,9 +22,9 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
@@ -42,7 +42,7 @@ object XQueryFileType : LanguageFileType(XQuery) {
 
     override fun getName(): String = "XQuery"
 
-    override fun getDescription(): String = XQueryPluginBundle.message("xquery.files.filetype.description")
+    override fun getDescription(): String = XQueryBundle.message("xquery.files.filetype.description")
 
     override fun getDefaultExtension(): String = "xqy"
 
@@ -57,20 +57,22 @@ object XQueryFileType : LanguageFileType(XQuery) {
     private fun matchWhiteSpaceOrComment(lexer: Lexer, required: Boolean): Boolean {
         var matched = false
         while (true) {
-            matched = if (lexer.tokenType === XPathTokenType.WHITE_SPACE) {
-                lexer.advance()
-                true
-            } else if (lexer.tokenType === XPathTokenType.COMMENT_START_TAG) {
-                lexer.advance()
-                if (lexer.tokenType === XPathTokenType.COMMENT) {
+            matched = when {
+                lexer.tokenType === XPathTokenType.WHITE_SPACE -> {
                     lexer.advance()
+                    true
                 }
-                if (lexer.tokenType === XPathTokenType.COMMENT_END_TAG) {
+                lexer.tokenType === XPathTokenType.COMMENT_START_TAG -> {
                     lexer.advance()
+                    if (lexer.tokenType === XPathTokenType.COMMENT) {
+                        lexer.advance()
+                    }
+                    if (lexer.tokenType === XPathTokenType.COMMENT_END_TAG) {
+                        lexer.advance()
+                    }
+                    true
                 }
-                true
-            } else {
-                return matched && required
+                else -> return matched && required
             }
         }
     }

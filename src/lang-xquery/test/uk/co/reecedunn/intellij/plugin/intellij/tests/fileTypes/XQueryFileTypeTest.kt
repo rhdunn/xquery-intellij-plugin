@@ -15,18 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.tests.fileTypes
 
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.fileTypes.XQueryFileType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
-import uk.co.reecedunn.intellij.plugin.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -35,9 +30,6 @@ private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        registerApplicationService(XQueryProjectSettings::class.java, XQueryProjectSettings())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
     }
 
     @AfterAll
