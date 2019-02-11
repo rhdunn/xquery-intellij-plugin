@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.intellij.tests.lang.findUsages
+package uk.co.reecedunn.intellij.plugin.core.tests.lang.cacheBuilder
 
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
@@ -27,8 +27,9 @@ class WordOccurrences : Processor<WordOccurrence> {
 
     override fun process(occurrence: WordOccurrence): Boolean {
         val value = Pair<WordOccurrence.Kind, CharSequence>(
-                occurrence.kind,
-                occurrence.baseText.subSequence(occurrence.start, occurrence.end))
+            occurrence.kind,
+            occurrence.baseText.subSequence(occurrence.start, occurrence.end)
+        )
         mWordOccurrences.add(value)
         return true
     }

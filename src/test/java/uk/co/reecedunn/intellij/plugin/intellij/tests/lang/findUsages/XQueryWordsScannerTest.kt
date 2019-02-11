@@ -22,6 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.cacheBuilder.WordOccurrences
 import uk.co.reecedunn.intellij.plugin.intellij.lang.findUsages.XQueryWordsScanner
 
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - WordsScanner")
