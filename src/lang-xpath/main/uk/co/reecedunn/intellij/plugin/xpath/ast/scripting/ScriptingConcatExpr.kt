@@ -18,6 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.scripting
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery ScriptingSpec Extension 1.0 `ConcatExpr` node in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 `ConcatExpr` node in the XQuery AST.
  */
 interface ScriptingConcatExpr : PsiElement

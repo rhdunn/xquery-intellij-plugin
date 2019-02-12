@@ -90,13 +90,13 @@ object XQueryTokenType {
     val K_ALLOWING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALLOWING", XQuery) // XQuery 3.0
     val K_ANY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANY", XQuery) // Full Text 1.0
     val K_ASCENDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASCENDING", XQuery) // XQuery 1.0
-    val K_ASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE", XQuery) // ScriptingSpec Extension 1.0
+    val K_ASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE", XQuery) // Scripting Extension 1.0
     val K_AT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT", XQuery) // XQuery 1.0
     val K_ATTRIBUTE_DECL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_BASE_URI = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI", XQuery) // XQuery 1.0
     val K_BEFORE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE", XQuery) // Update Facility 1.0
     val K_BINARY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY", XQuery) // MarkLogic 6.0
-    val K_BLOCK = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BLOCK", XQuery) // ScriptingSpec Extension 1.0
+    val K_BLOCK = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BLOCK", XQuery) // Scripting Extension 1.0
     val K_BOUNDARY_SPACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE", XQuery) // XQuery 1.0
     val K_BY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY", XQuery) // XQuery 1.0
     val K_CASE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE", XQuery) // XQuery 1.0
@@ -126,7 +126,7 @@ object XQueryTokenType {
     val K_END = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_END", XQuery) // XQuery 3.0
     val K_ENTIRE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENTIRE", XQuery) // Full Text 1.0
     val K_EXACTLY = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXACTLY", XQuery) // Full Text 1.0
-    val K_EXIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXIT", XQuery) // ScriptingSpec Extension 1.0
+    val K_EXIT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXIT", XQuery) // Scripting Extension 1.0
     val K_EXPONENT_SEPARATOR = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR", XQuery) // XQuery 3.1
     val K_EXTERNAL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXTERNAL", XQuery) // XQuery 1.0
     val K_FIRST = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FIRST", XQuery) // Update Facility 1.0
@@ -184,7 +184,7 @@ object XQueryTokenType {
     val K_RELATIONSHIP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP", XQuery) // Full Text 1.0
     val K_RENAME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RENAME", XQuery) // Update Facility 1.0
     val K_REPLACE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REPLACE", XQuery) // Update Facility 1.0
-    val K_RETURNING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURNING", XQuery) // ScriptingSpec Extension 1.0
+    val K_RETURNING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURNING", XQuery) // Scripting Extension 1.0
     val K_REVALIDATION = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REVALIDATION", XQuery) // Update Facility 1.0
     val K_SAME = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SAME", XQuery) // Full Text 1.0
     val K_SCHEMA = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA", XQuery) // XQuery 1.0
@@ -197,8 +197,8 @@ object XQueryTokenType {
     val K_SENSITIVE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENSITIVE", XQuery) // Full Text 1.0
     val K_SENTENCE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCE", XQuery) // Full Text 1.0
     val K_SENTENCES = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCES", XQuery) // Full Text 1.0
-    val K_SEQUENTIAL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL", XQuery) // ScriptingSpec Extension 1.0
-    val K_SIMPLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE", XQuery) // ScriptingSpec Extension 1.0
+    val K_SEQUENTIAL = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL", XQuery) // Scripting Extension 1.0
+    val K_SIMPLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE", XQuery) // Scripting Extension 1.0
     val K_SIMPLE_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE_TYPE_NODE", XQuery, IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME) // MarkLogic 7.0
     val K_SKIP = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SKIP", XQuery) // Update Facility 1.0
     val K_SLIDING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SLIDING", XQuery) // XQuery 3.0
@@ -218,7 +218,7 @@ object XQueryTokenType {
     val K_TUPLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUPLE", XQuery) // Saxon 9.8
     val K_TYPE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPE", XQuery) // XQuery 3.0
     val K_TYPESWITCH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH", XQuery, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XQuery 1.0
-    val K_UNASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE", XQuery) // ScriptingSpec Extension 1.0
+    val K_UNASSIGNABLE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE", XQuery) // Scripting Extension 1.0
     val K_UNORDERED = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED", XQuery) // XQuery 1.0
     val K_UPDATE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATE", XQuery) // BaseX 7.8
     val K_UPDATING = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATING", XQuery) // Update Facility 1.0
@@ -231,7 +231,7 @@ object XQueryTokenType {
     val K_WEIGHT = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WEIGHT", XQuery) // Full Text 1.0
     val K_WHEN = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHEN", XQuery) // XQuery 3.0
     val K_WHERE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHERE", XQuery) // XQuery 1.0
-    val K_WHILE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHILE", XQuery, IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME) // ScriptingSpec Extension 1.0
+    val K_WHILE = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHILE", XQuery, IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME) // Scripting Extension 1.0
     val K_WILDCARDS = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WILDCARDS", XQuery) // Full Text 1.0
     val K_WINDOW = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WINDOW", XQuery) // XQuery 3.0; Full Text 1.0
     val K_WITH = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WITH", XQuery) // Update Facility 1.0

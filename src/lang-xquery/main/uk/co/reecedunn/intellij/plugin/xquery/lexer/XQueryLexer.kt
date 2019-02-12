@@ -54,13 +54,13 @@ private val KEYWORDS = mapOf(
         "allowing" to XQueryTokenType.K_ALLOWING, // XQuery 3.0
         "any" to XQueryTokenType.K_ANY, // Full Text 1.0
         "ascending" to XQueryTokenType.K_ASCENDING,
-        "assignable" to XQueryTokenType.K_ASSIGNABLE, // ScriptingSpec Extension 1.0
+        "assignable" to XQueryTokenType.K_ASSIGNABLE, // Scripting Extension 1.0
         "at" to XQueryTokenType.K_AT,
         "attribute-decl" to XQueryTokenType.K_ATTRIBUTE_DECL, // MarkLogic 7.0
         "base-uri" to XQueryTokenType.K_BASE_URI,
         "before" to XQueryTokenType.K_BEFORE, // Update Facility 1.0
         "binary" to XQueryTokenType.K_BINARY, // MarkLogic 6.0
-        "block" to XQueryTokenType.K_BLOCK, // ScriptingSpec Extension 1.0
+        "block" to XQueryTokenType.K_BLOCK, // Scripting Extension 1.0
         "boundary-space" to XQueryTokenType.K_BOUNDARY_SPACE,
         "by" to XQueryTokenType.K_BY,
         "case" to XQueryTokenType.K_CASE,
@@ -90,7 +90,7 @@ private val KEYWORDS = mapOf(
         "end" to XQueryTokenType.K_END, // XQuery 3.0
         "entire" to XQueryTokenType.K_ENTIRE, // Full Text 1.0
         "exactly" to XQueryTokenType.K_EXACTLY, // Full Text 1.0
-        "exit" to XQueryTokenType.K_EXIT, // ScriptingSpec Extension 1.0
+        "exit" to XQueryTokenType.K_EXIT, // Scripting Extension 1.0
         "exponent-separator" to XQueryTokenType.K_EXPONENT_SEPARATOR, // XQuery 3.1
         "external" to XQueryTokenType.K_EXTERNAL,
         "first" to XQueryTokenType.K_FIRST, // Update Facility 1.0
@@ -148,7 +148,7 @@ private val KEYWORDS = mapOf(
         "relationship" to XQueryTokenType.K_RELATIONSHIP, // Full Text 1.0
         "rename" to XQueryTokenType.K_RENAME, // Update Facility 1.0
         "replace" to XQueryTokenType.K_REPLACE, // Update Facility 1.0
-        "returning" to XQueryTokenType.K_RETURNING, // ScriptingSpec Extension 1.0
+        "returning" to XQueryTokenType.K_RETURNING, // Scripting Extension 1.0
         "revalidation" to XQueryTokenType.K_REVALIDATION, // Update Facility 1.0
         "same" to XQueryTokenType.K_SAME, // Full Text 1.0
         "schema" to XQueryTokenType.K_SCHEMA,
@@ -161,8 +161,8 @@ private val KEYWORDS = mapOf(
         "sensitive" to XQueryTokenType.K_SENSITIVE, // Full Text 1.0
         "sentence" to XQueryTokenType.K_SENTENCE, // Full Text 1.0
         "sentences" to XQueryTokenType.K_SENTENCES, // Full Text 1.0
-        "sequential" to XQueryTokenType.K_SEQUENTIAL, // ScriptingSpec Extension 1.0
-        "simple" to XQueryTokenType.K_SIMPLE, // ScriptingSpec Extension 1.0
+        "sequential" to XQueryTokenType.K_SEQUENTIAL, // Scripting Extension 1.0
+        "simple" to XQueryTokenType.K_SIMPLE, // Scripting Extension 1.0
         "simple-type" to XQueryTokenType.K_SIMPLE_TYPE, // MarkLogic 7.0
         "skip" to XQueryTokenType.K_SKIP, // Update Facility 1.0
         "sliding" to XQueryTokenType.K_SLIDING, // XQuery 3.0
@@ -182,7 +182,7 @@ private val KEYWORDS = mapOf(
         "tuple" to XQueryTokenType.K_TUPLE, // Saxon 9.8
         "type" to XQueryTokenType.K_TYPE, // XQuery 3.0
         "typeswitch" to XQueryTokenType.K_TYPESWITCH,
-        "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // ScriptingSpec Extension 1.0
+        "unassignable" to XQueryTokenType.K_UNASSIGNABLE, // Scripting Extension 1.0
         "unordered" to XQueryTokenType.K_UNORDERED,
         "update" to XQueryTokenType.K_UPDATE, // BaseX 7.8
         "updating" to XQueryTokenType.K_UPDATING, // Update Facility 1.0
@@ -195,7 +195,7 @@ private val KEYWORDS = mapOf(
         "weight" to XQueryTokenType.K_WEIGHT, // Full Text 1.0
         "when" to XQueryTokenType.K_WHEN, // XQuery 3.0
         "where" to XQueryTokenType.K_WHERE,
-        "while" to XQueryTokenType.K_WHILE, // ScriptingSpec Extension 1.0
+        "while" to XQueryTokenType.K_WHILE, // Scripting Extension 1.0
         "wildcards" to XQueryTokenType.K_WILDCARDS, // Full Text 1.0
         "window" to XQueryTokenType.K_WINDOW, // XQuery 3.0; Full Text 1.0
         "with" to XQueryTokenType.K_WITH, // Update Facility 1.0

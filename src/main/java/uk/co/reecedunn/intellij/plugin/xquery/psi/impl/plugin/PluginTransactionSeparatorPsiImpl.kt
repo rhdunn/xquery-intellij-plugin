@@ -37,7 +37,7 @@ class PluginTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
                 MARKLOGIC60
             } else if (siblings().filterIsInstance<ScriptingConcatExpr>().firstOrNull() === null) {
                 // The last TransactionSeparator in a QueryBody.
-                // NOTE: The behaviour differs from MarkLogic and ScriptingSpec Extension, so is checked in an inspection.
+                // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
                 XQUERY
             } else {
                 MARKLOGIC60_SCRIPTING

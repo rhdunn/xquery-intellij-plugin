@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@DisplayName("XQuery ScriptingSpec Extensions 1.0 - Implementation Conformance Checks")
+@DisplayName("XQuery Scripting Extensions 1.0 - Implementation Conformance Checks")
 private class ScriptingConformanceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile(ScriptingConformanceTest::class.java.classLoader, resource)
@@ -48,7 +48,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class ApplyExpr {
         @Test
         @DisplayName("single expression; no semicolon at end")
@@ -127,7 +127,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (158) AssignmentExpr")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (158) AssignmentExpr")
     fun testAssignmentExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
 
@@ -145,7 +145,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (153) BlockExpr")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (153) BlockExpr")
     fun testBlockExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
 
@@ -161,7 +161,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (156) BlockVarDecl")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
     fun testBlockVarDecl() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
 
@@ -181,7 +181,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (159) ExitExpr")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (159) ExitExpr")
     fun testExitExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
 
@@ -197,7 +197,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (26) FunctionDecl")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (26) FunctionDecl")
     internal inner class FunctionDecl {
         @Test
         @DisplayName("simple annotation")
@@ -241,7 +241,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (30) QueryBody ; XQuery ScriptingSpec Extensions 1.0 EBNF (32) ApplyExpr")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (30) QueryBody ; XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
     internal inner class QueryBody {
         @Test
         @DisplayName("single expression; no semicolon at end")
@@ -313,7 +313,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (24) VarDecl")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (24) VarDecl")
     internal inner class VarDecl {
         @Test
         @DisplayName("assignable annotation")
@@ -357,7 +357,7 @@ private class ScriptingConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery ScriptingSpec Extensions 1.0 EBNF (160) WhileExpr")
+    @DisplayName("XQuery Scripting Extensions 1.0 EBNF (160) WhileExpr")
     fun testWhileExpr() {
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
 

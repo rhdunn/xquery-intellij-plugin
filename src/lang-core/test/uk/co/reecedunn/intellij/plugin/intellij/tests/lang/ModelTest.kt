@@ -48,7 +48,7 @@ class ModelTest {
                 `is`("XQuery and XPath Functions and Operators 1.0")
             )
 
-            assertThat(ScriptingSpec.NOTE_1_0_20140918.toString(), `is`("XQuery ScriptingSpec Extension 1.0"))
+            assertThat(ScriptingSpec.NOTE_1_0_20140918.toString(), `is`("XQuery Scripting Extension 1.0"))
 
             assertThat(UpdateFacilitySpec.REC_1_0_20110317.toString(), `is`("XQuery Update Facility 1.0"))
         }
@@ -166,7 +166,7 @@ class ModelTest {
         }
 
         @Test
-        @DisplayName("XQuery ScriptingSpec Extension specification")
+        @DisplayName("XQuery Scripting Extension specification")
         fun testScripting_SupportsDialect() {
             val versioned = ScriptingSpec
             assertThat(versioned.supportsDialect(XmlSchemaSpec), `is`(false))
@@ -595,7 +595,7 @@ class ModelTest {
                     )
 
                     // endregion
-                    // region Specification: XQuery ScriptingSpec Extension
+                    // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
 
@@ -693,7 +693,7 @@ class ModelTest {
                     )
 
                     // endregion
-                    // region Specification: XQuery ScriptingSpec Extension
+                    // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
 
@@ -788,7 +788,7 @@ class ModelTest {
                     assertThat(product.conformsTo(version, FunctionsAndOperatorsSpec.REC_3_1_20170321), `is`(false))
 
                     // endregion
-                    // region Specification: XQuery ScriptingSpec Extension
+                    // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
 
@@ -894,7 +894,7 @@ class ModelTest {
                     )
 
                     // endregion
-                    // region Specification: XQuery ScriptingSpec Extension
+                    // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(false))
 
@@ -999,7 +999,7 @@ class ModelTest {
                     )
 
                     // endregion
-                    // region Specification: XQuery ScriptingSpec Extension
+                    // region Specification: XQuery Scripting Extension
 
                     assertThat(product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918), `is`(version.value == 1.0))
 

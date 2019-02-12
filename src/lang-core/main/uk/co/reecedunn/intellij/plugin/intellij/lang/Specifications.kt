@@ -278,7 +278,7 @@ object ScriptingSpec : Versioned {
 
     override val id: String = "xquery-sx"
 
-    override val name: String = "XQuery ScriptingSpec Extension"
+    override val name: String = "XQuery Scripting Extension"
 
     override val versions: List<Version> = listOf(
         NOTE_1_0_20140918

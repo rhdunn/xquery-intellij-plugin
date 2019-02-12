@@ -42,7 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
  * -  Full Text 3.0 (W3C Recommendation 24 November 2015)
  * -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
  * -  Update Facility 3.0 (W3C Working Group Note 24 January 2017)
- * -  ScriptingSpec Extension 1.0 (W3C Working Group Note 18 September 2014)
+ * -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014)
  *
  * Supported vendor extensions:
  * -  BaseX
@@ -1362,11 +1362,11 @@ class XQueryParser : XPathParser() {
                 }
                 TransactionType.WITHOUT_PROLOG -> {
                     if (type !== XQueryElementType.QUERY_BODY) {
-                        // ScriptingSpec Extension: Use a Separator as part of the ApplyExpr.
+                        // Scripting Extension: Use a Separator as part of the ApplyExpr.
                         marker.rollbackTo()
                         builder.matchTokenType(XQueryTokenType.SEPARATOR)
                     } else {
-                        // ScriptingSpec Extension, or MarkLogic Transaction: Keep the MarkLogic TransactionSeparator.
+                        // Scripting Extension, or MarkLogic Transaction: Keep the MarkLogic TransactionSeparator.
                         marker.drop()
                     }
                     parseWhiteSpaceAndCommentTokens(builder)
@@ -1375,10 +1375,10 @@ class XQueryParser : XPathParser() {
                     marker.rollbackTo()
                     if (haveConcatExpr) {
                         if (type !== XQueryElementType.QUERY_BODY) {
-                            // ScriptingSpec Extension: The semicolon is required to end a ConcatExpr.
+                            // Scripting Extension: The semicolon is required to end a ConcatExpr.
                             builder.error(XPathBundle.message("parser.error.expected", ";"))
                         } else {
-                            // ScriptingSpec Extension: The semicolon is required to end a ConcatExpr.
+                            // Scripting Extension: The semicolon is required to end a ConcatExpr.
                             // MarkLogic Transactions: The last expression must not end with a semicolon.
                             val marker2 = builder.mark()
                             marker2.done(XQueryElementType.TRANSACTION_SEPARATOR)

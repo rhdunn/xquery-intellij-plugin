@@ -16,6 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
 /**
- * An XQuery ScriptingSpec Extension 1.0 `WhileBody` node in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 `WhileBody` node in the XQuery AST.
  */
 interface ScriptingWhileBody : ScriptingBlock

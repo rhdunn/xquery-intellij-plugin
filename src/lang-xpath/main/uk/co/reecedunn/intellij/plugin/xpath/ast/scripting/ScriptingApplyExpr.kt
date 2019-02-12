@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.scripting
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery ScriptingSpec Extension 1.0 `ApplyExpr` node in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 `ApplyExpr` node in the XQuery AST.
  *
  * The `ApplyExpr` node is not stored directly in the AST. Instead, it
  * is exposed as an instance of the `Expr` node.
