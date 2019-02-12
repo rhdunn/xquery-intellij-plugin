@@ -10,7 +10,7 @@ XPathImpl[FILE(0:14)]
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
       LeafPsiElement[XPATH_TERNARY_IF_TOKEN(7:9)]('??')
       PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-      PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'OrExpr'.')
+      PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'ElvisExpr'.')
       LeafPsiElement[XPATH_TERNARY_ELSE_TOKEN(10:12)]('!!')
       PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
       XPathOrExprImpl[XPATH_OR_EXPR(13:14)]

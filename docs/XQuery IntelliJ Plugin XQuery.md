@@ -772,9 +772,9 @@ When the else branch of an `IfExpr` is not present, an empty sequence is
 returned if the effective boolean value of the`IfExpr` condition evaluates
 to false.
 
-The `TernaryIfExpr` and `ElvisExpr` are new expressions supported by BaseX 9.1.
-They are defined in proposal 2 of the EXPath syntax extensions for XPath and
-XQuery.
+The `TernaryIfExpr` and `ElvisExpr` expressions are new expressions supported
+by BaseX 9.1. They are defined in proposal 2 of the EXPath syntax extensions
+for XPath and XQuery.
 
 Given the `TernaryIfExpr`:
 

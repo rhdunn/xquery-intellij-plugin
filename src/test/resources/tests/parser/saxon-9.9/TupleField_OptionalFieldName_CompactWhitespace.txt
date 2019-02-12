@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:45)]
                   PluginTupleFieldImpl[XQUERY_TUPLE_FIELD(28:40)]
                      XQueryNCNameImpl[XQUERY_NCNAME(28:29)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('a')
-                     LeafPsiElement[XQUERY_ELVIS_TOKEN(29:31)]('?:')
+                     LeafPsiElement[XPATH_ELVIS_TOKEN(29:31)]('?:')
                      XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(31:40)]
                         XQueryQNameImpl[XQUERY_QNAME(31:40)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(31:33)]('xs')

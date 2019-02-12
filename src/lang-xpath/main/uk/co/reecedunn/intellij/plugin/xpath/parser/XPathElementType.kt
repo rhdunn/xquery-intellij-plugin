@@ -579,6 +579,12 @@ object XPathElementType {
         XPath
     )
 
+    val ELVIS_EXPR: IElementType = ICompositeElementType(
+        "XPATH_ELVIS_EXPR",
+        PluginElvisExprPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region XQuery IntelliJ Plugin
 

@@ -594,7 +594,7 @@ open class XPathParser : PsiParser {
             if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseElvisExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                    builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -604,7 +604,7 @@ open class XPathParser : PsiParser {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseElvisExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                    builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
                 }
 
                 marker.done(XPathElementType.TERNARY_IF_EXPR)
@@ -617,11 +617,27 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseOrExpr(builder, type)
+    private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseOrExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.ELVIS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseOrExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                }
+
+                marker.done(XPathElementType.ELVIS_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
     }
 
-    fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseAndExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)

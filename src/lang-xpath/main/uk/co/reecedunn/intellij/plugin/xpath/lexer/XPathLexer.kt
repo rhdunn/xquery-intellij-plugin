@@ -356,6 +356,9 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
                 mType = if (c == '?'.toInt()) {
                     mTokenRange.match()
                     XPathTokenType.TERNARY_IF
+                } else if (c == ':'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
                 } else {
                     XPathTokenType.OPTIONAL
                 }

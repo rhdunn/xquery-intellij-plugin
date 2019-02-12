@@ -40,6 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -889,7 +890,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
 
             assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryTokenType.ELVIS)) // ?: with compact whitespace
+                `is`(XPathTokenType.ELVIS)) // ?: with compact whitespace
         }
     }
 
@@ -1225,7 +1226,7 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.requiresConformance[0], `is`(BaseX.VERSION_9_1))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType, `is`(XQueryTokenType.ELVIS))
+        assertThat(conformance.conformanceElement.node.elementType, `is`(XPathTokenType.ELVIS))
     }
 
     @Test

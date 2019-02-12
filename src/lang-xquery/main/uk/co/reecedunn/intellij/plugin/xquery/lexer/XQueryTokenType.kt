@@ -77,7 +77,6 @@ object XQueryTokenType {
     // region Symbols
 
     val ANNOTATION_INDICATOR = IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery) // XQuery 3.0
-    val ELVIS = IElementType("XQUERY_ELVIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery) // XQuery 1.0
 
     // endregion

@@ -1012,7 +1012,7 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ELLIPSIS).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_IF).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_ELSE).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ELVIS).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.ELVIS).size, `is`(0))
     }
 
     @Test

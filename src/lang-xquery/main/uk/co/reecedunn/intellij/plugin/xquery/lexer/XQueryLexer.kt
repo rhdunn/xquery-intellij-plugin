@@ -601,7 +601,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     XPathTokenType.TERNARY_IF
                 } else if (c == ':'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
+                    XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
                 } else {
                     XPathTokenType.OPTIONAL
                 }

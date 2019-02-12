@@ -183,6 +183,14 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery IntelliJ Plugin EBNF (93) ElvisExpr")
+    fun elvis() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?:", XPathTokenType.ELVIS)
+    }
+
+    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
     fun paramList() {
         val lexer = createLexer()

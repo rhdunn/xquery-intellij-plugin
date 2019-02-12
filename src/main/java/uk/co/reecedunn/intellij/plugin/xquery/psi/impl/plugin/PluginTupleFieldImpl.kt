@@ -31,7 +31,7 @@ private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
 
 private val OPTIONAL_TOKENS = TokenSet.create(
     XPathTokenType.OPTIONAL,
-    XQueryTokenType.ELVIS // ?: for compact whitespace
+    XPathTokenType.ELVIS // ?: for compact whitespace
 )
 
 class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node),

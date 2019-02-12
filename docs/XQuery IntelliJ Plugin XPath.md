@@ -116,10 +116,11 @@ The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
 
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[10\] | `TernaryIfExpr`                | ::= | `OrExpr "??" OrExpr "!!" OrExpr`          |         |
+| \[10\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
+| \[11\] | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
 
-The `TernaryIfExpr` is a new expression defined in proposal 2 of the EXPath
-syntax extensions for XPath and XQuery.
+The `TernaryIfExpr` and `ElvisExpr` expressions are new expressions defined in
+proposal 2 of the EXPath syntax extensions for XPath and XQuery.
 
 Given the `TernaryIfExpr`:
 
@@ -128,6 +129,15 @@ Given the `TernaryIfExpr`:
 the equivalent `IfExpr` is:
 
     if (C) then A else B
+
+Given the `ElvisExpr`:
+
+    A ?: B
+
+the equivalent `IfExpr` is:
+
+    let $a := A
+    return if (exists($a)) then $a else B
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -160,7 +170,8 @@ These changes include support for:
 | \[7\]   | `ForExpr`               | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`          | ::= | `"return" ExprSingle`               |                      |
 | \[9\]   | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
-| \[10\]  | `TernaryIfExpr`         | ::= | `OrExpr "??" OrExpr "!!" OrExpr`    |                      |
+| \[10\]  | `TernaryIfExpr`         | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
+| \[11\]  | `ElvisExpr`             | ::= | `OrExpr "?!" OrExpr`                |                      |
 
 ### A.2 Reserved Function Names
 

@@ -2932,26 +2932,6 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
 
-    override fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseOrExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XQueryTokenType.ELVIS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseOrExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
-                }
-
-                marker.done(XQueryElementType.ELVIS_EXPR)
-            } else {
-                marker.drop()
-            }
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
     override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseUpdateExpr(builder, type)) {
@@ -5122,7 +5102,7 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             val haveSeparator =
-                if (builder.matchTokenType(XQueryTokenType.ELVIS)) // ?: without whitespace
+                if (builder.matchTokenType(XPathTokenType.ELVIS)) // ?: without whitespace
                     true
                 else {
                     builder.matchTokenType(XPathTokenType.OPTIONAL)

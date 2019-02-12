@@ -35,6 +35,7 @@ object XPathTokenType {
     val DIRECT_DESCENDANTS_PATH = IElementType("XPATH_DIRECT_DESCENDANTS_PATH_TOKEN", XPath) // XPath 1.0
     val DOT = IElementType("XPATH_DOT_TOKEN", XPath) // XPath 1.0
     val ELLIPSIS = IElementType("XQUERY_ELLIPSIS_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 1
+    val ELVIS = IElementType("XPATH_ELVIS_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 2
     val EQUAL = IElementType("XPATH_EQUAL_TOKEN", XPath) // XPath 1.0
     val FUNCTION_REF_OPERATOR = IElementType("XPATH_FUNCTION_REF_OPERATOR_TOKEN", XPath) // XPath 3.0
     val GREATER_THAN = IElementType("XPATH_GREATER_THAN_TOKEN", XPath) // XPath 1.0
