@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTernaryIfExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class PluginTernaryIfExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -31,5 +31,5 @@ class PluginTernaryIfExprPsiImpl(node: ASTNode) :
 
     override val requiresConformance get(): List<Version> = listOf(BaseX.VERSION_9_1)
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.TERNARY_IF)!!
+    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.TERNARY_IF)!!
 }

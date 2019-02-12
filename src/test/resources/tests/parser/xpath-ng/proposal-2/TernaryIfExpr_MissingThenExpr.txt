@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:14)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:14)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:14)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:14)]
-            PluginTernaryIfExprImpl[XQUERY_TERNARY_IF_EXPR(0:14)]
+            PluginTernaryIfExprImpl[XPATH_TERNARY_IF_EXPR(0:14)]
                XPathOrExprImpl[XPATH_OR_EXPR(0:7)]
                   XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:7)]
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
@@ -11,10 +11,10 @@ XQueryModuleImpl[FILE(0:14)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               LeafPsiElement[XQUERY_TERNARY_IF_TOKEN(7:9)]('??')
+               LeafPsiElement[XPATH_TERNARY_IF_TOKEN(7:9)]('??')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'ElvisExpr'.')
-               LeafPsiElement[XQUERY_TERNARY_ELSE_TOKEN(10:12)]('!!')
+               PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'OrExpr'.')
+               LeafPsiElement[XPATH_TERNARY_ELSE_TOKEN(10:12)]('!!')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                XPathOrExprImpl[XPATH_OR_EXPR(13:14)]
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('4')

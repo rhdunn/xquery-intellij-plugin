@@ -249,11 +249,17 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '='.toInt()) {
-                    mTokenRange.match()
-                    XPathTokenType.NOT_EQUAL
-                } else {
-                    XPathTokenType.MAP_OPERATOR
+                c = mTokenRange.codePoint
+                mType = when {
+                    c == '='.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.NOT_EQUAL
+                    }
+                    c == '!'.toInt() -> {
+                        mTokenRange.match()
+                        XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
+                    }
+                    else -> XPathTokenType.MAP_OPERATOR
                 }
             }
             CharacterClass.FORWARD_SLASH -> {
@@ -346,7 +352,13 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
-                mType = XPathTokenType.OPTIONAL
+                c = mTokenRange.codePoint
+                mType = if (c == '?'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.TERNARY_IF
+                } else {
+                    XPathTokenType.OPTIONAL
+                }
             }
             CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
                 mTokenRange.match()

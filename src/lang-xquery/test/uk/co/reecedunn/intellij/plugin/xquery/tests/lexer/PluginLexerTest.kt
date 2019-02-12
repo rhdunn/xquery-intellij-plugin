@@ -690,8 +690,8 @@ class PluginLexerTest : LexerTestCase() {
     fun ternaryIfExpr() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "??", XQueryTokenType.TERNARY_IF)
-        matchSingleToken(lexer, "!!", XQueryTokenType.TERNARY_ELSE)
+        matchSingleToken(lexer, "??", XPathTokenType.TERNARY_IF)
+        matchSingleToken(lexer, "!!", XPathTokenType.TERNARY_ELSE)
     }
 
     @Test

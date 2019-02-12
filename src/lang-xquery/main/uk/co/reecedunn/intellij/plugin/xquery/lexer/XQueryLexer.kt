@@ -373,7 +373,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     XPathTokenType.NOT_EQUAL
                 } else if (mTokenRange.codePoint == '!'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
+                    XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
                 } else {
                     XPathTokenType.MAP_OPERATOR // XQuery 3.0
                 }
@@ -598,7 +598,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                     XQueryTokenType.PROCESSING_INSTRUCTION_END
                 } else if (c == '?'.toInt()) {
                     mTokenRange.match()
-                    XQueryTokenType.TERNARY_IF
+                    XPathTokenType.TERNARY_IF
                 } else if (c == ':'.toInt()) {
                     mTokenRange.match()
                     XQueryTokenType.ELVIS // EXPath XPath/XQuery NG Proposal

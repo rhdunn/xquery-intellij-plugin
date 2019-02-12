@@ -2932,37 +2932,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
 
-    private fun parseTernaryIfExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseElvisExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XQueryTokenType.TERNARY_IF)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseElvisExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XQueryTokenType.TERNARY_ELSE)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "!!"))
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseElvisExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
-                }
-
-                marker.done(XQueryElementType.TERNARY_IF_EXPR)
-            } else {
-                marker.drop()
-            }
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseOrExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)

@@ -571,6 +571,15 @@ object XPathElementType {
     )
 
     // endregion
+    // region EXPath XPath/XQuery NG
+
+    val TERNARY_IF_EXPR: IElementType = ICompositeElementType(
+        "XPATH_TERNARY_IF_EXPR",
+        PluginTernaryIfExprPsiImpl::class.java,
+        XPath
+    )
+
+    // endregion
     // region XQuery IntelliJ Plugin
 
     val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType(

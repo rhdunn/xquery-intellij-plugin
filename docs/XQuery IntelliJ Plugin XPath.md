@@ -18,12 +18,14 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [3.2 Path Expressions](#32-path-expressions)
     - [3.2.1 Node Tests](#321-node-tests)
   - [3.3 For Expressions](#33-for-expressions)
+  - [3.4 Conditional Expressions](#34-conditional-expressions)
 - [A XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [A.1 EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [A.2 Reserved Function Names](#a3-reserved-function-names)
 - [B References](#b-references)
   - [B.1 W3C References](#b1-w3c-references)
   - [B.2 MarkLogic References](#b2-marklogic-references)
+  - [B.3 EXPath References](#b3-expath-references)
 - [C Vendor Extensions](#c-vendor-extensions)
   - [C.1 IntelliJ Plugin Extensions](#c1-intellij-plugin-extensions)
 
@@ -70,6 +72,10 @@ not normative.
 
 ## 3 Expressions
 
+| Ref    | Symbol                  |     | Expression                          | Options   |
+|--------|-------------------------|-----|-------------------------------------|-----------|
+| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+
 ### 3.1 Quantified Expressions
 
 | Ref   | Symbol                  |     | Expression                          | Options              |
@@ -106,6 +112,23 @@ A `WildcardIndicator` is an instance of `xdm:wildcard`.
 The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
 `FLWORExpr` grammar productions.
 
+### 3.4 Conditional Expressions
+
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[10\] | `TernaryIfExpr`                | ::= | `OrExpr "??" OrExpr "!!" OrExpr`          |         |
+
+The `TernaryIfExpr` is a new expression defined in proposal 2 of the EXPath
+syntax extensions for XPath and XQuery.
+
+Given the `TernaryIfExpr`:
+
+    C ?? A !! B
+
+the equivalent `IfExpr` is:
+
+    if (C) then A else B
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1 with Vendor Extensions
@@ -132,8 +155,12 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding` | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`              | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`     | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicType` |     |
-| \[6\]   | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+| \[5\]   | `ItemType`              | ::= | `KindTest \| AnyItemType \| AtomicType` |                  |
+| \[6\]   | `AnyItemType`           | ::= | `"item" "(" ")"`                    |                      |
+| \[7\]   | `ForExpr`               | ::= | `SimpleForClause ReturnClause`      |                      |
+| \[8\]   | `ReturnClause`          | ::= | `"return" ExprSingle`               |                      |
+| \[9\]   | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[10\]  | `TernaryIfExpr`         | ::= | `OrExpr "??" OrExpr "!!" OrExpr`    |                      |
 
 ### A.2 Reserved Function Names
 
@@ -190,6 +217,12 @@ __Working Drafts__
    [https://docs.marklogic.com/guide/xquery/xpath#id_17642]().
 *  MarkLogic. *Patch and Extract Path Expression Grammar*. See
    [https://docs.marklogic.com/guide/xquery/xpath#id_98286]().
+
+### B.3 EXPath References
+__XPath NG__
+*  EXPath. *Conditional Expressions*. Proposal 2, version 1. See
+   [https://github.com/expath/xpath-ng/blob/d2421975caacba75f0c9bd7fe017cc605e56b00f/conditional-expressions.md]().
+   Michael Kay, Saxonica.
 
 ## C Vendor Extensions
 

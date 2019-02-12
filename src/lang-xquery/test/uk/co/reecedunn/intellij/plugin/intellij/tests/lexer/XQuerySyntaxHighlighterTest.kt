@@ -1010,8 +1010,8 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_CLOSE).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ELLIPSIS).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.TERNARY_IF).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.TERNARY_ELSE).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_IF).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.TERNARY_ELSE).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ELVIS).size, `is`(0))
     }
 

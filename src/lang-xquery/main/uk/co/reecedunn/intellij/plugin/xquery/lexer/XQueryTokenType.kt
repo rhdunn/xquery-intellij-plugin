@@ -79,8 +79,6 @@ object XQueryTokenType {
     val ANNOTATION_INDICATOR = IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery) // XQuery 3.0
     val ELVIS = IElementType("XQUERY_ELVIS_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
     val SEPARATOR = IElementType("XQUERY_SEPARATOR_TOKEN", XQuery) // XQuery 1.0
-    val TERNARY_ELSE = IElementType("XQUERY_TERNARY_ELSE_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
-    val TERNARY_IF = IElementType("XQUERY_TERNARY_IF_TOKEN", XQuery) // EXPath XPath/XQuery NG Proposal 2
 
     // endregion
     // region Keywords

@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginReturnClausePsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginTernaryIfExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -1126,11 +1126,6 @@ object XQueryElementType {
     // endregion
     // region EXPath XPath/XQuery NG
 
-    val TERNARY_IF_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_TERNARY_IF_EXPR",
-        PluginTernaryIfExprPsiImpl::class.java,
-        XQuery
-    )
     val ELVIS_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ELVIS_EXPR",
         PluginElvisExprPsiImpl::class.java,

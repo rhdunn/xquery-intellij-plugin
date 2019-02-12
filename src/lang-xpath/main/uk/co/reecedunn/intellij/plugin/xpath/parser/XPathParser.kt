@@ -251,7 +251,7 @@ open class XPathParser : PsiParser {
             parseLetExpr(builder) ||
             parseQuantifiedExpr(builder) ||
             parseIfExpr(builder) ||
-            parseOrExpr(builder, parentType)
+            parseTernaryIfExpr(builder, parentType)
         )
     }
 
@@ -585,7 +585,41 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr
+    // region Grammar :: Expr :: TernaryIfExpr (OrExpr)
+
+    fun parseTernaryIfExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseElvisExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseElvisExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.TERNARY_ELSE)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "!!"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseElvisExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                }
+
+                marker.done(XPathElementType.TERNARY_IF_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    open fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseOrExpr(builder, type)
+    }
 
     fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
