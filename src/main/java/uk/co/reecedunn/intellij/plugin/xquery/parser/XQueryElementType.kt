@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 
-object XQueryElementType : XQueryElementTypeBase() {
+object XQueryElementType2 {
     // region XQuery 1.0
 
     val NCNAME: IElementType = ICompositeElementType(

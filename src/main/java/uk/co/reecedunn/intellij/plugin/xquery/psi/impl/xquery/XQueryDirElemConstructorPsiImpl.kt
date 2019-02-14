@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -54,7 +55,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             if (contents != null) {
                 val first = contents.firstChildNode
                 val last = contents.lastChildNode
-                if (first === last && first.elementType === XQueryElementType.ENCLOSED_EXPR) {
+                if (first === last && first.elementType === XQueryElementType2.ENCLOSED_EXPR) {
                     hasEnclosedExprOnlyContent = true
                 }
             }
@@ -65,8 +66,8 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             if (start!!.node.elementType === XQueryTokenType.XML_WHITE_SPACE)
                 start = start!!.nextSibling
             if (
-                start!!.node.elementType === XQueryElementType.NCNAME ||
-                start!!.node.elementType === XQueryElementType.QNAME
+                start!!.node.elementType === XQueryElementType2.NCNAME ||
+                start!!.node.elementType === XQueryElementType2.QNAME
             )
                 start = start!!.nextSibling
             if (start?.node?.elementType === XQueryTokenType.XML_WHITE_SPACE)

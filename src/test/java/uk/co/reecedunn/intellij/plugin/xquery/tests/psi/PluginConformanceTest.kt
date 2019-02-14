@@ -43,6 +43,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -265,7 +266,7 @@ private class PluginConformanceTest : ParserTestCase() {
 
             assertThat(versioned.conformanceElement, `is`(notNullValue()))
             assertThat(versioned.conformanceElement.node.elementType,
-                `is`(XQueryElementType.EXPR))
+                `is`(XQueryElementType2.EXPR))
         }
 
         @Test
@@ -794,7 +795,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
             assertThat(
                 conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.TRANSACTION_SEPARATOR)
+                `is`(XQueryElementType2.TRANSACTION_SEPARATOR)
             )
         }
 
@@ -865,7 +866,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement.node.elementType,
-                `is`(XQueryElementType.NCNAME))
+                `is`(XQueryElementType2.NCNAME))
         }
 
         @Test

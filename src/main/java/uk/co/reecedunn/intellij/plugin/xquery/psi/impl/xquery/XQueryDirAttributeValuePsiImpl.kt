@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 
 class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -51,7 +52,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
         }
 
     private val cachedContent = CacheableProperty {
-        if (contains(XQueryElementType.ENCLOSED_EXPR))
+        if (contains(XQueryElementType2.ENCLOSED_EXPR))
             null `is` Cacheable // Cannot evaluate enclosed content expressions statically.
         else
             children().map { child ->

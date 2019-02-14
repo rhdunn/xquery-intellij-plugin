@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Error Conditions")
@@ -409,7 +410,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'b' does not match the open tag 'a'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.NCNAME))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType2.NCNAME))
                     assertThat(problems[0].psiElement.text, `is`("b"))
                 }
 
@@ -501,7 +502,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'c:b' does not match the open tag 'a:b'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType2.QNAME))
                     assertThat(problems[0].psiElement.text, `is`("c:b"))
                 }
 
@@ -519,7 +520,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'a:c' does not match the open tag 'a:b'.")
                     )
-                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.node.elementType, `is`(XQueryElementType2.QNAME))
                     assertThat(problems[0].psiElement.text, `is`("a:c"))
                 }
             }

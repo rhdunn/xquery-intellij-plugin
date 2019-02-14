@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.foldable.FoldingBuilderImpl
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -78,7 +79,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.FUNCTION_BODY))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.FUNCTION_BODY))
             assertThat(descriptors[0].range.startOffset, `is`(27))
             assertThat(descriptors[0].range.endOffset, `is`(39))
 
@@ -100,7 +101,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.ENCLOSED_EXPR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.ENCLOSED_EXPR))
             assertThat(descriptors[0].range.startOffset, `is`(3))
             assertThat(descriptors[0].range.endOffset, `is`(10))
 
@@ -122,7 +123,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(3))
             assertThat(descriptors[0].range.endOffset, `is`(32))
 
@@ -133,7 +134,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[1].dependencies, `is`(notNullValue()))
             assertThat(descriptors[1].dependencies.size, `is`(0))
             assertThat(descriptors[1].group, `is`(nullValue()))
-            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.ENCLOSED_EXPR))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType2.ENCLOSED_EXPR))
             assertThat(descriptors[1].range.startOffset, `is`(22))
             assertThat(descriptors[1].range.endOffset, `is`(29))
 
@@ -203,7 +204,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(2))
             assertThat(descriptors[0].range.endOffset, `is`(9))
 
@@ -225,7 +226,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(4))
             assertThat(descriptors[0].range.endOffset, `is`(21))
 
@@ -258,7 +259,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType2.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(20))
             assertThat(descriptors[0].range.endOffset, `is`(37))
 

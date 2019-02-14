@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 private val EMPTY_NAMESPACE = XsAnyUri("", null as PsiElement?)
@@ -37,8 +38,8 @@ private val NAMESPACE_TYPE = mapOf(
     XQueryElementType.COMP_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
     XQueryElementType.CURRENT_ITEM to XPathNamespaceType.None,
     XQueryElementType.DECIMAL_FORMAT_DECL to XPathNamespaceType.None,
-    XQueryElementType.DIR_ATTRIBUTE to XPathNamespaceType.None,
-    XQueryElementType.DIR_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
+    XQueryElementType2.DIR_ATTRIBUTE to XPathNamespaceType.None,
+    XQueryElementType2.DIR_ELEM_CONSTRUCTOR to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.ELEMENT_TEST to XPathNamespaceType.DefaultElementOrType,
     XPathElementType.FUNCTION_CALL to XPathNamespaceType.DefaultFunction,
     XQueryElementType.FUNCTION_DECL to XPathNamespaceType.DefaultFunction,

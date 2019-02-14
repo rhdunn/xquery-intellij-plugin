@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 
-open class XQueryElementTypeBase {
+object XQueryElementType {
     // region XQuery 1.0
 
     val BASE_URI_DECL: IElementType = ICompositeElementType(
