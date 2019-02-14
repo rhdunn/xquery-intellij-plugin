@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
 
 private val SCRIPTING10 = listOf(ScriptingSpec.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
