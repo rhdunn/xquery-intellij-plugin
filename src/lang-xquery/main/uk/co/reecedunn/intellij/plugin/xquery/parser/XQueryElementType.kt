@@ -375,6 +375,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val FUNCTION_TEST: IElementType = ICompositeElementType(
+        "XQUERY_FUNCTION_TEST",
+        XQueryFunctionTestPsiImpl::class.java,
+        XQuery
+    )
+
     val GROUP_BY_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_GROUP_BY_CLAUSE",
         XQueryGroupByClausePsiImpl::class.java,

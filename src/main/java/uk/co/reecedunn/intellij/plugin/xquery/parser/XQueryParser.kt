@@ -61,7 +61,7 @@ class XQueryParser : XPathParser() {
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
-    override val FUNCTION_TEST: IElementType = XQueryElementType2.FUNCTION_TEST
+    override val FUNCTION_TEST: IElementType = XQueryElementType.FUNCTION_TEST
 
     // endregion
     // region Grammar
@@ -5189,12 +5189,12 @@ class XQueryParser : XPathParser() {
             marker.done(XQueryElementType.ANNOTATED_SEQUENCE_TYPE)
             return true
         } else if (parseAnyOrTypedFunctionTest(builder)) {
-            marker.done(XQueryElementType2.FUNCTION_TEST)
+            marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         } else if (haveAnnotations) {
             builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
 
-            marker.done(XQueryElementType2.FUNCTION_TEST)
+            marker.done(XQueryElementType.FUNCTION_TEST)
             return true
         }
 

@@ -109,12 +109,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val FUNCTION_TEST: IElementType = ICompositeElementType(
-        "XQUERY_FUNCTION_TEST",
-        XQueryFunctionTestPsiImpl::class.java,
-        XQuery
-    )
-
     val INTERMEDIATE_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_INTERMEDIATE_CLAUSE",
         XQueryIntermediateClausePsiImpl::class.java,
