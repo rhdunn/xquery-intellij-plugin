@@ -58,7 +58,7 @@ class XQueryParser : XPathParser() {
     //
     // These element types have different PSI implementations in XPath and XQuery.
 
-    override val ENCLOSED_EXPR: IElementType = XQueryElementType2.ENCLOSED_EXPR
+    override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType2.FUNCTION_BODY
     override val FUNCTION_TEST: IElementType = XQueryElementType2.FUNCTION_TEST
@@ -2487,7 +2487,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
+            parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
 
             marker.done(XQueryElementType.CATCH_CLAUSE)
             return nextType
@@ -3267,7 +3267,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_ORDERED)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
@@ -3282,7 +3282,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
@@ -3686,7 +3686,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryPluginBundle.message("parser.error.incomplete-entity"))
             } else if (builder.errorOnTokenType(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE, XQueryPluginBundle.message("parser.error.empty-entity")) || builder.matchTokenType(XPathTokenType.BAD_CHARACTER)) {
                 //
-            } else if (parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) || builder.errorOnTokenType(XPathTokenType.BLOCK_CLOSE, XQueryPluginBundle.message("parser.error.mismatched-exclosed-expr"))) {
+            } else if (parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) || builder.errorOnTokenType(XPathTokenType.BLOCK_CLOSE, XQueryPluginBundle.message("parser.error.mismatched-exclosed-expr"))) {
                 //
             } else {
                 marker.done(XQueryElementType2.DIR_ATTRIBUTE_VALUE)
@@ -3772,7 +3772,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryPluginBundle.message("parser.error.incomplete-entity"))
                 matched = true
             } else if (
-                parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
+                parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
                 parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONTENT) ||
                 parseDirectConstructor(builder, depth)
             ) {
@@ -3835,7 +3835,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_DOCUMENT)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
@@ -3902,7 +3902,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+            parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
 
             marker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR)
             return true
@@ -3946,7 +3946,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
@@ -3961,7 +3961,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_COMMENT)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
@@ -3996,7 +3996,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+            parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
 
             marker.done(XQueryElementType.COMP_PI_CONSTRUCTOR)
             return true

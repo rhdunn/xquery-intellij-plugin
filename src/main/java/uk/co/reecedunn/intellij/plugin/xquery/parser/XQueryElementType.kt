@@ -19,7 +19,6 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 
 object XQueryElementType2 {
@@ -44,11 +43,6 @@ object XQueryElementType2 {
     val QUERY_BODY: IElementType = ICompositeElementType(
         "XQUERY_QUERY_BODY",
         XQueryQueryBodyPsiImpl::class.java,
-        XQuery
-    )
-    val ENCLOSED_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ENCLOSED_EXPR",
-        XQueryEnclosedExprPsiImpl::class.java,
         XQuery
     )
 

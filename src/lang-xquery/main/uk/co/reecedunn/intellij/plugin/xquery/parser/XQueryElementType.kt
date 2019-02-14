@@ -136,6 +136,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val ENCLOSED_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ENCLOSED_EXPR",
+        XQueryEnclosedExprPsiImpl::class.java,
+        XQuery
+    )
+
     val EXPR: IElementType = ICompositeElementType(
         "XQUERY_EXPR",
         XQueryExprPsiImpl::class.java,

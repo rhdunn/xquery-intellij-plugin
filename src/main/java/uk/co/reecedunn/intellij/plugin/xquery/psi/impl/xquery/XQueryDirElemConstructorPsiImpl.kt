@@ -55,7 +55,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             if (contents != null) {
                 val first = contents.firstChildNode
                 val last = contents.lastChildNode
-                if (first === last && first.elementType === XQueryElementType2.ENCLOSED_EXPR) {
+                if (first === last && first.elementType === XQueryElementType.ENCLOSED_EXPR) {
                     hasEnclosedExprOnlyContent = true
                 }
             }

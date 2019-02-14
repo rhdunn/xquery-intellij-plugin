@@ -52,7 +52,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
         }
 
     private val cachedContent = CacheableProperty {
-        if (contains(XQueryElementType2.ENCLOSED_EXPR))
+        if (contains(XQueryElementType.ENCLOSED_EXPR))
             null `is` Cacheable // Cannot evaluate enclosed content expressions statically.
         else
             children().map { child ->
