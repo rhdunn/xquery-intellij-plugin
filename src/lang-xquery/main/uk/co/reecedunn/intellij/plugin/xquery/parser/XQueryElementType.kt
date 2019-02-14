@@ -935,6 +935,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType(
+        "XQUERY_COMPATIBILITY_ANNOTATION",
+        PluginCompatibilityAnnotationPsiImpl::class.java,
+        XQuery
+    )
+
     val COMPLEX_TYPE_TEST: IElementType = ICompositeElementType(
         "XQUERY_COMPLEX_TYPE_TEST",
         PluginComplexTypeTestPsiImpl::class.java,

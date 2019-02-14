@@ -1014,7 +1014,7 @@ class XQueryParser : XPathParser() {
     private fun parseCompatibilityAnnotation(builder: PsiBuilder): IElementType? {
         val type = builder.tokenType
         return builder.matchTokenTypeWithMarker(XQueryTokenType.COMPATIBILITY_ANNOTATION_TOKENS)?.let {
-            it.done(XQueryElementType2.COMPATIBILITY_ANNOTATION)
+            it.done(XQueryElementType.COMPATIBILITY_ANNOTATION)
             type
         }
     }

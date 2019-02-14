@@ -197,12 +197,6 @@ object XQueryElementType2 {
     // endregion
     // region XQuery IntelliJ Plugin
 
-    val COMPATIBILITY_ANNOTATION: IElementType = ICompositeElementType(
-        "XQUERY_COMPATIBILITY_ANNOTATION",
-        PluginCompatibilityAnnotationPsiImpl::class.java,
-        XQuery
-    )
-
     val DIR_ATTRIBUTE: IElementType = ICompositeElementType(
         "XQUERY_DIR_ATTRIBUTE",
         PluginDirAttributePsiImpl::class.java,
