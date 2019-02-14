@@ -5283,7 +5283,7 @@ class XQueryParser : XPathParser() {
             val type: IElementType
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseStringLiteral(builder)) { // MarkLogic 8.0
-                type = XQueryElementType2.NAMED_KIND_TEST
+                type = XQueryElementType.NAMED_KIND_TEST
             } else {
                 builder.matchTokenType(XPathTokenType.STAR) // MarkLogic 8.0
                 type = XPathElementType.ANY_KIND_TEST

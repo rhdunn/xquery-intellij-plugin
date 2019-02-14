@@ -977,6 +977,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val NAMED_KIND_TEST: IElementType = ICompositeElementType(
+        "XQUERY_NAMED_KIND_TEST",
+        PluginNamedKindTestPsiImpl::class.java,
+        XQuery
+    )
+
     val NAMED_MAP_NODE_TEST: IElementType = ICompositeElementType(
         "XQUERY_NAMED_MAP_NODE_TEST",
         PluginNamedMapNodeTestPsiImpl::class.java,

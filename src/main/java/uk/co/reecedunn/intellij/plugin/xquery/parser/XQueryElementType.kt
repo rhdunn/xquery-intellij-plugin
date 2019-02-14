@@ -203,12 +203,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val NAMED_KIND_TEST: IElementType = ICompositeElementType(
-        "XQUERY_NAMED_KIND_TEST",
-        PluginNamedKindTestPsiImpl::class.java,
-        XQuery
-    )
-
     val NAMED_TEXT_TEST: IElementType = ICompositeElementType(
         "XQUERY_NAMED_TEXT_TEST",
         PluginNamedTextTestPsiImpl::class.java,
