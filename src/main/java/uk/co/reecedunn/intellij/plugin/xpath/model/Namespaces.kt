@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType2
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 private val EMPTY_NAMESPACE = XsAnyUri("", null as PsiElement?)
 private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", null as PsiElement?)

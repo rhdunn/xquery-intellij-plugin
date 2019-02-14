@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclarations
 import uk.co.reecedunn.intellij.plugin.xpath.model.XPathVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryMainModulePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

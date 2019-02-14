@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryLibraryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryLibraryModule, XQueryPrologResolver {
     override val prolog get(): Sequence<XQueryProlog> = children().filterIsInstance<XQueryProlog>()

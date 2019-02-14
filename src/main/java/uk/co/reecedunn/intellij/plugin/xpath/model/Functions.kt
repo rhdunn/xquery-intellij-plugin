@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 private fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XQueryFunctionDecl?> {
     return children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->

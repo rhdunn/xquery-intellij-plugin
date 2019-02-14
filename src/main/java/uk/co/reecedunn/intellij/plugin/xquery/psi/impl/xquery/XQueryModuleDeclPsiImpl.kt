@@ -26,13 +26,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
-class XQueryModuleDeclPsiImpl(node: ASTNode):
-        ASTWrapperPsiElement(node),
-        XQueryModuleDecl,
-        XQueryPrologResolver,
-        XPathNamespaceDeclaration {
+class XQueryModuleDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryModuleDecl,
+    XQueryPrologResolver,
+    XPathNamespaceDeclaration {
     // region XPathNamespaceDeclaration
 
     override val namespacePrefix get(): XsNCNameValue? {
