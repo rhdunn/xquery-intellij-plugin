@@ -18,11 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.ScriptingConcatExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*
 
 object XQueryElementType : XQueryElementTypeBase() {
@@ -590,58 +588,15 @@ object XQueryElementType : XQueryElementTypeBase() {
     // endregion
     // region Scripting Extension 1.0
 
-    val CONCAT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_CONCAT_EXPR",
-        ScriptingConcatExprPsiImpl::class.java,
-        XQuery
-    )
-
-    val BLOCK: IElementType = ICompositeElementType(
-        "XQUERY_BLOCK",
-        ScriptingBlockPsiImpl::class.java,
-        XQuery
-    )
     val BLOCK_BODY: IElementType = ICompositeElementType(
         "XQUERY_BLOCK_BODY",
         ScriptingBlockBodyPsiImpl::class.java,
         XQuery
     )
 
-    val BLOCK_DECLS: IElementType = ICompositeElementType(
-        "XQUERY_BLOCK_DECLS",
-        ScriptingBlockDeclsPsiImpl::class.java,
-        XQuery
-    )
     val BLOCK_VAR_DECL: IElementType = ICompositeElementType(
         "XQUERY_BLOCK_VAR_DECL",
         ScriptingBlockVarDeclPsiImpl::class.java,
-        XQuery
-    )
-
-    val BLOCK_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_BLOCK_EXPR",
-        ScriptingBlockExprPsiImpl::class.java,
-        XQuery
-    )
-    val ASSIGNMENT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ASSIGNMENT_EXPR",
-        ScriptingAssignmentExprPsiImpl::class.java,
-        XQuery
-    )
-    val EXIT_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_EXIT_EXPR",
-        ScriptingExitExprPsiImpl::class.java,
-        XQuery
-    )
-
-    val WHILE_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_WHILE_EXPR",
-        ScriptingWhileExprPsiImpl::class.java,
-        XQuery
-    )
-    val WHILE_BODY: IElementType = ICompositeElementType(
-        "XQUERY_WHILE_BODY",
-        ScriptingWhileBodyPsiImpl::class.java,
         XQuery
     )
 

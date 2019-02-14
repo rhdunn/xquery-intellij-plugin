@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*
 
 open class XQueryElementTypeBase {
@@ -250,6 +251,57 @@ open class XQueryElementTypeBase {
     val FT_IGNORE_OPTION: IElementType = ICompositeElementType(
         "XQUERY_FT_IGNORE_OPTION",
         FTIgnoreOptionPsiImpl::class.java,
+        XQuery
+    )
+
+    // endregion
+    // region Scripting Extension 1.0
+
+    val ASSIGNMENT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ASSIGNMENT_EXPR",
+        ScriptingAssignmentExprPsiImpl::class.java,
+        XQuery
+    )
+
+    val BLOCK: IElementType = ICompositeElementType(
+        "XQUERY_BLOCK",
+        ScriptingBlockPsiImpl::class.java,
+        XQuery
+    )
+
+    val BLOCK_DECLS: IElementType = ICompositeElementType(
+        "XQUERY_BLOCK_DECLS",
+        ScriptingBlockDeclsPsiImpl::class.java,
+        XQuery
+    )
+
+    val BLOCK_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_BLOCK_EXPR",
+        ScriptingBlockExprPsiImpl::class.java,
+        XQuery
+    )
+
+    val CONCAT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_CONCAT_EXPR",
+        ScriptingConcatExprPsiImpl::class.java,
+        XQuery
+    )
+
+    val EXIT_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_EXIT_EXPR",
+        ScriptingExitExprPsiImpl::class.java,
+        XQuery
+    )
+
+    val WHILE_BODY: IElementType = ICompositeElementType(
+        "XQUERY_WHILE_BODY",
+        ScriptingWhileBodyPsiImpl::class.java,
+        XQuery
+    )
+
+    val WHILE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_WHILE_EXPR",
+        ScriptingWhileExprPsiImpl::class.java,
         XQuery
     )
 
