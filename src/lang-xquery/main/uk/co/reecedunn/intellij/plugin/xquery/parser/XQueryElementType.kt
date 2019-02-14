@@ -516,6 +516,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val ENCLOSED_TRY_TARGET_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ENCLOSED_TRY_TARGET_EXPR",
+        XQueryEnclosedTryTargetExprPsiImpl::class.java,
+        XQuery
+    )
+
     val NODE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_NODE_CONSTRUCTOR",
         XQueryNodeConstructorPsiImpl::class.java,

@@ -2438,7 +2438,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_TRY)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_TRY_TARGET_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_TRY_TARGET_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
