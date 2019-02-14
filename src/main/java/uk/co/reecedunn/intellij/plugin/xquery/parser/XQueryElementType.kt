@@ -166,12 +166,6 @@ object XQueryElementType2 {
     // endregion
     // region Scripting Extension 1.0
 
-    val BLOCK_BODY: IElementType = ICompositeElementType(
-        "XQUERY_BLOCK_BODY",
-        ScriptingBlockBodyPsiImpl::class.java,
-        XQuery
-    )
-
     val BLOCK_VAR_DECL: IElementType = ICompositeElementType(
         "XQUERY_BLOCK_VAR_DECL",
         ScriptingBlockVarDeclPsiImpl::class.java,

@@ -768,6 +768,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val BLOCK_BODY: IElementType = ICompositeElementType(
+        "XQUERY_BLOCK_BODY",
+        ScriptingBlockBodyPsiImpl::class.java,
+        XQuery
+    )
+
     val BLOCK_DECLS: IElementType = ICompositeElementType(
         "XQUERY_BLOCK_DECLS",
         ScriptingBlockDeclsPsiImpl::class.java,

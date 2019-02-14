@@ -1203,7 +1203,7 @@ class XQueryParser : XPathParser() {
         if (type === XQueryElementType.BLOCK || type === XQueryElementType.WHILE_BODY) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseBlockDecls(builder)
-            exprType = XQueryElementType2.BLOCK_BODY
+            exprType = XQueryElementType.BLOCK_BODY
         }
 
         parseWhiteSpaceAndCommentTokens(builder)
