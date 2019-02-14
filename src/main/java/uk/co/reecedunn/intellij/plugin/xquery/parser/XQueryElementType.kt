@@ -146,11 +146,6 @@ object XQueryElementType2 {
         XQueryEnclosedUriExprPsiImpl::class.java,
         XQuery
     )
-    val ENCLOSED_PREFIX_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ENCLOSED_PREFIX_EXPR",
-        XQueryEnclosedPrefixExprPsiImpl::class.java,
-        XQuery
-    )
 
     // endregion
     // region XQuery IntelliJ Plugin

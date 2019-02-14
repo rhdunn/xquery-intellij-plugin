@@ -510,6 +510,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val ENCLOSED_PREFIX_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ENCLOSED_PREFIX_EXPR",
+        XQueryEnclosedPrefixExprPsiImpl::class.java,
+        XQuery
+    )
+
     val NODE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_NODE_CONSTRUCTOR",
         XQueryNodeConstructorPsiImpl::class.java,

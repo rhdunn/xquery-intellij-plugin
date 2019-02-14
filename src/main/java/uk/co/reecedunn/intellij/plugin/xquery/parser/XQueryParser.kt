@@ -3921,7 +3921,7 @@ class XQueryParser : XPathParser() {
 
             if (
                 !parseEQNameOrWildcard(builder, XQueryElementType2.PREFIX, false) &&
-                !parseEnclosedExprOrBlock(builder, XQueryElementType2.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+                !parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
             ) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
