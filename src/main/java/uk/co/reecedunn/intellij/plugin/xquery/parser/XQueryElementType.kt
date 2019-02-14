@@ -109,12 +109,6 @@ object XQueryElementType2 {
         XQuery
     )
 
-    val FUNCTION_BODY: IElementType = ICompositeElementType(
-        "XQUERY_FUNCTION_BODY",
-        XQueryFunctionBodyPsiImpl::class.java,
-        XQuery
-    )
-
     val FUNCTION_TEST: IElementType = ICompositeElementType(
         "XQUERY_FUNCTION_TEST",
         XQueryFunctionTestPsiImpl::class.java,

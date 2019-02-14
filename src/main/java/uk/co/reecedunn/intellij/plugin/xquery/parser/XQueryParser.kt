@@ -60,7 +60,7 @@ class XQueryParser : XPathParser() {
 
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
-    override val FUNCTION_BODY: IElementType = XQueryElementType2.FUNCTION_BODY
+    override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
     override val FUNCTION_TEST: IElementType = XQueryElementType2.FUNCTION_TEST
 
     // endregion
@@ -1107,7 +1107,7 @@ class XQueryParser : XPathParser() {
             val bodyType = if (firstAnnotation === XQueryTokenType.K_SEQUENTIAL)
                 XQueryElementType.BLOCK
             else
-                XQueryElementType2.FUNCTION_BODY
+                XQueryElementType.FUNCTION_BODY
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (
@@ -3411,7 +3411,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, XQueryElementType2.FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) && !haveErrors) {
+            if (!parseEnclosedExprOrBlock(builder, XQueryElementType.FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 parseExpr(builder, XQueryElementType.EXPR)
 

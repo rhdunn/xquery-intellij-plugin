@@ -369,6 +369,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val FUNCTION_BODY: IElementType = ICompositeElementType(
+        "XQUERY_FUNCTION_BODY",
+        XQueryFunctionBodyPsiImpl::class.java,
+        XQuery
+    )
+
     val GROUP_BY_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_GROUP_BY_CLAUSE",
         XQueryGroupByClausePsiImpl::class.java,
